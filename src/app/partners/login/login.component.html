@@ -1,0 +1,31 @@
+<div class="mainContent col-6">
+  <form action="" method="post" #adminLog=ngForm>
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="emailFormControl"
+               [errorStateMatcher]="matcher" name="email"   [(ngModel)]="partnerLoginInf.email">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password"  [formControl]="passFormControl"
+               [errorStateMatcher]="matcher" name="pass"  [(ngModel)]="partnerLoginInf.pass">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="passFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <button [disabled]="passFormControl.hasError('required') || (emailFormControl.hasError('email') || emailFormControl.hasError('required'))" mat-raised-button (click)="checkLogin(partnerLoginInf)" color="primary">Login</button>
+  </form>
+
+</div>
