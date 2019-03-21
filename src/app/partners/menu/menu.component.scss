@@ -1,0 +1,95 @@
+$container: 1920px;
+$main: 1721px;
+$main_color: #65cbef;
+$btn_nav_color: #36454f;
+$white_color: white;
+$black_color: black;
+$nav_item_size: 18px;
+$main_family: 'Roboto_Bold';
+$par_family: 'Roboto_Light';
+$nav_item_family: 'Roboto_Regular';
+
+%nav_links {
+  color: $black_color !important;
+  font-size: $nav_item_size;
+  font-family: $nav_item_family;
+}
+
+header {
+  background-color: $white_color;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  transition: 1500ms;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+
+      li {
+        padding-right: 71px;
+
+        a {
+          @extend %nav_links;
+          padding: unset !important;
+
+          &.active {
+            border-bottom: 1px solid black;
+          }
+
+        }
+
+        .resources_menu{
+          padding: 15px;
+          a{
+            color: black !important;
+          }
+        }
+
+        &.sign_up {
+          border-radius: 5px;
+          box-shadow: 2.9px 2.7px 8px 0 rgba(0, 0, 0, 0.3);
+          background-color: $main_color;
+          text-align: center;
+          padding: 5px 10px;
+
+          a {
+            color: white !important;
+          }
+        }
+
+        &.login, &.or {
+          padding-right: 11px;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.dark_bg {
+  background-color: $btn_nav_color;
+  transition: 1500ms;
+  z-index: 99999;
+
+  nav {
+    ul {
+      li {
+        a, span {
+          color: $white_color !important;
+
+          &.active {
+            border-bottom: 1px solid $white_color;
+          }
+        }
+      }
+    }
+  }
+}
+
+

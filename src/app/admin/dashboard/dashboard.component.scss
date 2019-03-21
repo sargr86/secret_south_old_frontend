@@ -1,0 +1,42 @@
+.example-tree-progress-bar {
+  margin-left: 30px;
+}
+
+.example-container  {
+  width: 25%;
+  min-height: 600px;
+  float: left;
+  margin-right: 1%;
+  background: #55dada;
+}
+
+.example-container .mat-tree{
+  background: #55dada;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-drawer-container.example-container.no_width {
+  width: 0;
+}
+
+.example-sidenav {
+  width: 90%;
+  padding: 20px;
+}
+
+.mat-drawer-container{
+  background-color: #ffffff!important;
+}
+
+.show_menu{
+  padding: 20px 0;
+  width: 71%;
+  float: right;
+  margin-right: 3%;
+}
