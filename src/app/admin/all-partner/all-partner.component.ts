@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {ToursService} from "../services/tours.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {PartnerService} from "../services/partner.service";
+import {SPINNER_DIAMETER} from "../../shared/constants/settings";
 
 export interface UserData {
     firstName: string;
@@ -21,6 +22,8 @@ export class AllPartnerComponent implements OnInit {
     displayedColumns: string[] = ['first_name', 'last_name', 'email'];
     dataSource: MatTableDataSource<UserData>;
     partners: any = [];
+    spinnerDiameter = SPINNER_DIAMETER;
+    dataLoading = false;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -47,8 +50,9 @@ export class AllPartnerComponent implements OnInit {
     }
 
     getPartner() {
+        this.dataLoading = true;
         this.partner.getAllpartner().subscribe((r: any) => {
-
+            this.dataLoading = false;
             if (r.status == 0) {
                 alert(r['message']);
                 return false;
