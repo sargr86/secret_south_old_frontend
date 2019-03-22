@@ -65,6 +65,7 @@ export class AllToursComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.users);
             this.dataLoading = false;
             this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
 
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
                 if (typeof data[sortHeaderId] === 'string') {
