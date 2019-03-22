@@ -5,77 +5,93 @@ import {ToursService} from "../services/tours.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 export interface UserData {
-  name: string;
+    name: string;
 }
 
 @Component({
-  selector: 'app-all-tours-type',
-  templateUrl: './all-tours-type.component.html',
-  styleUrls: ['./all-tours-type.component.scss']
+    selector: 'app-all-tours-type',
+    templateUrl: './all-tours-type.component.html',
+    styleUrls: ['./all-tours-type.component.scss']
 })
 export class AllToursTypeComponent implements OnInit {
 
-  displayedColumns: string[] = ['name'];
-  dataSource: MatTableDataSource<UserData>;
+    displayedColumns: string[] = ['name'];
+    dataSource: MatTableDataSource<UserData>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
-  toursType: any = [];
+    toursType: any = [];
 
-  constructor(private http: HttpClient, private router: Router, private tours: ToursService) {
-    this.getToursType();
-    this.dataSource = new MatTableDataSource(this.toursType);
-  }
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
-    if (!this.checkAdmin()) {
-      this.router.navigate(['admin-panel']);
-    }
-  }
-
-  getToursType() {
-    this.tours.getAllTourType().subscribe((r: any) => {
-
-      if (r.status == 0) {
-        alert(r['message']);
-        return false;
-      }
-
-      this.toursType = r['result'].map(k => this.createNewTourType(k));
-
-      this.dataSource = new MatTableDataSource(this.toursType);
-    });
-
-  }
-
-  checkAdmin() {
-    let jsAdminInf = localStorage.getItem('adminInf');
-    if (typeof jsAdminInf == 'undefined') {
-      return false;
+    constructor(private http: HttpClient, private router: Router, private tours: ToursService) {
+        this.getToursType();
+        // this.dataSource = new MatTableDataSource(this.toursType);
     }
 
-    let adminInf = JSON.parse(jsAdminInf);
+    ngOnInit() {
 
-    if (adminInf == null) {
-      return false;
+        // this.dataSource.sort = this.sort;
+
+        if (!this.checkAdmin()) {
+            this.router.navigate(['admin-panel']);
+        }
     }
 
-    if (adminInf['admin_session_inf'] == '') {
-      return false;
+    getToursType() {
+        this.tours.getAllTourType().subscribe((r: any) => {
+
+            if (r.status == 0) {
+                alert(r['message']);
+                return false;
+            }
+
+            this.toursType = r['result'].map(k => this.createNewTourType(k));
+            this.dataSource = new MatTableDataSource(this.toursType);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+
+            this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+                if (typeof data[sortHeaderId] === 'string') {
+                    return data[sortHeaderId].toLocaleLowerCase();
+                }
+
+                return data[sortHeaderId];
+            };
+        });
+
     }
 
-    return true;
-  }
+    applyFilter(filterValue: string) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  createNewTourType(k): UserData {
-console.log(k)
-    return {
-      name: k.tour_name,
-    };
-  }
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
+
+    checkAdmin() {
+        let jsAdminInf = localStorage.getItem('adminInf');
+        if (typeof jsAdminInf == 'undefined') {
+            return false;
+        }
+
+        let adminInf = JSON.parse(jsAdminInf);
+
+        if (adminInf == null) {
+            return false;
+        }
+
+        if (adminInf['admin_session_inf'] == '') {
+            return false;
+        }
+
+        return true;
+    }
+
+    createNewTourType(k): UserData {
+        return {
+            name: k.tour_name,
+        };
+    }
 
 }

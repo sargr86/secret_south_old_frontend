@@ -11,41 +11,42 @@ import {StorageServiceModule} from "angular-webstorage-service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import {
-  MatIconModule,
-  MatTreeModule,
-  MatProgressBarModule,
-  MatButtonModule,
-  MatInputModule,
-  MatSidenavModule
+    MatIconModule,
+    MatTreeModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatSortModule
 } from '@angular/material';
 import {NotFoundComponent} from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
-      libraries: ['places'],
-    }),
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    StorageServiceModule,
-    MatTreeModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    MatSidenavModule
-
-  ],
-  providers: [AdminService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NotFoundComponent,
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
+            libraries: ['places'],
+        }),
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        StorageServiceModule,
+        MatTreeModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        MatSidenavModule,
+        MatSortModule
+    ],
+    providers: [AdminService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
