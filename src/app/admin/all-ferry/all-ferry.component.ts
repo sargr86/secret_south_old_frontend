@@ -22,11 +22,12 @@ export interface UserData {
 })
 export class AllFerryComponent implements OnInit {
 
-    displayedColumns: string[] = ['name', 'email', 'max_people', 'min_people', 'phone', 'address','actions'];
+    displayedColumns: string[] = ['name', 'email', 'max_people', 'min_people', 'phone', 'address', 'actions'];
     dataSource: MatTableDataSource<UserData>;
     users: any = [];
     dataLoading = false;
-    spinnerDiameter = SPINNER_DIAMETER;
+    spinnerDiameter: number = SPINNER_DIAMETER;
+    filteredData;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -87,6 +88,7 @@ export class AllFerryComponent implements OnInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+        this.filteredData = this.dataSource.filteredData;
     }
 
     checkAdmin() {
@@ -121,6 +123,6 @@ export class AllFerryComponent implements OnInit {
         };
     }
 
-    remove(row){
+    remove(row) {
     }
 }

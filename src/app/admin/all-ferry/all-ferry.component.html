@@ -5,8 +5,9 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" *ngIf="dataSource">
         <table mat-table [dataSource]="dataSource" matSort>
+
 
             &lt;!&ndash; Name &ndash;&gt;
             <ng-container matColumnDef="name">
@@ -60,6 +61,9 @@
             </tr>
         </table>
 
+        <div class="no_table_items_found">
+            <small *ngIf="(filteredData && filteredData.length ===0) && !dataLoading">No ferries found</small>
+        </div>
         <mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="!dataLoading && dataSource"></mat-paginator>
     </div>

@@ -18,6 +18,10 @@
   color: $yellow;
 }
 
-table {
+table.mat-table {
   @include matTable;
+}
+.no_table_items_found{
+  color:$silver;
+  text-align: center;
 }

@@ -20,12 +20,13 @@ export class AllToursTypeComponent implements OnInit {
     dataSource: MatTableDataSource<UserData>;
 
     dataLoading = false;
-    spinnerDiameter = SPINNER_DIAMETER;
+    spinnerDiameter: number = SPINNER_DIAMETER;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
     toursType: any = [];
+    filteredData;
 
     constructor(private http: HttpClient, private router: Router, private tours: ToursService) {
         this.getToursType();
@@ -73,6 +74,7 @@ export class AllToursTypeComponent implements OnInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+        this.filteredData = this.dataSource.filteredData;
     }
 
     checkAdmin() {
