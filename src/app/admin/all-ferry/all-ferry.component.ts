@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {FerryService} from "../ferry.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {SPINNER_DIAMETER} from "../../shared/constants/settings";
 
 export interface UserData {
     name: string;
@@ -24,6 +25,8 @@ export class AllFerryComponent implements OnInit {
     displayedColumns: string[] = ['name', 'email', 'max_people', 'min_people', 'phone', 'address'];
     dataSource: MatTableDataSource<UserData>;
     users: any = [];
+    dataLoading = false;
+    spinnerDiameter = SPINNER_DIAMETER;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -44,6 +47,7 @@ export class AllFerryComponent implements OnInit {
     }
 
     getUser() {
+        this.dataLoading = true;
         this.ferry.getFerry().subscribe((r: any) => {
 
             if (r.status == 0) {
@@ -56,6 +60,7 @@ export class AllFerryComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.users);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+            this.dataLoading = false;
 
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
 
