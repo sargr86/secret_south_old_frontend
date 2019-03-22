@@ -24,7 +24,7 @@ export class AllPartnerComponent implements OnInit {
     partners: any = [];
     spinnerDiameter: number = SPINNER_DIAMETER;
     dataLoading = false;
-    filteredData: UserData;
+    filteredData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
