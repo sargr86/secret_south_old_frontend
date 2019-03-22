@@ -1,0 +1,26 @@
+@import "./variables";
+@mixin noBgBtn{
+  display: block;
+  float: left;
+  background:none;
+  border:none;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  mat-icon{
+    margin-top: 3px;
+  }
+}
+
+@mixin matTable{
+    width: 100%;
+    td.mat-column-actions {
+      width: 82px;
+      padding: 0 10px;
+      padding-right: 0!important;
+    }
+}
