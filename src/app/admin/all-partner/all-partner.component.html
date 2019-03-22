@@ -2,7 +2,6 @@
 <div class="mainContent allFerryContent">
 
 
-
     <mat-form-field *ngIf="!dataLoading">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
@@ -27,8 +26,11 @@
             </tr>
         </table>
 
+        <div class="no_table_items_found">
+            <small *ngIf="(filteredData && filteredData.length ===0) && !dataLoading">No partners found</small>
+        </div>
         <mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"  *ngIf="!dataLoading && dataSource"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="!dataLoading && dataSource"></mat-paginator>
     </div>
 
 </div>
