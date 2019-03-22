@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StorageServiceModule} from "angular-webstorage-service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
+import 'hammerjs';
+
 import {
     MatIconModule,
     MatTreeModule,
@@ -20,6 +22,7 @@ import {
     MatSortModule
 } from '@angular/material';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {MaterialModule} from "./shared/modules/material.module";
 
 @NgModule({
     declarations: [
@@ -37,13 +40,14 @@ import {NotFoundComponent} from './not-found/not-found.component';
         FormsModule,
         ReactiveFormsModule,
         StorageServiceModule,
-        MatTreeModule,
-        MatProgressBarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        MatSidenavModule,
-        MatSortModule
+        MaterialModule
+        // MatTreeModule,
+        // MatProgressBarModule,
+        // MatButtonModule,
+        // MatIconModule,
+        // MatInputModule,
+        // MatSidenavModule,
+        // MatSortModule
     ],
     providers: [AdminService],
     bootstrap: [AppComponent]

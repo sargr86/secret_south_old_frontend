@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
-  MatIconModule,
-  MatButtonModule,
-  MatTreeModule,
-  MatProgressBarModule,
-  MatSidenavModule,
-  MatInputModule,
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatSelectModule
+    MatIconModule,
+    MatButtonModule,
+    MatTreeModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatSelectModule
 } from '@angular/material';
 
 import {AdminRoutingModule} from './admin-routing.module';
@@ -27,27 +27,30 @@ import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
 import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {AddPartnerComponent} from './add-partner/add-partner.component';
 import {AllPartnerComponent} from './all-partner/all-partner.component';
-import { GpsLocationComponent } from './gps-location/gps-location.component';
+import {GpsLocationComponent} from './gps-location/gps-location.component';
+import {MaterialModule} from "../shared/modules/material.module";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
-  declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent],
-  imports: [
-    CommonModule,
+    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent],
+    imports: [
+        CommonModule,
 
-    AdminRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTreeModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatSelectModule
-  ]
+        AdminRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        // MatTreeModule,
+        // MatIconModule,
+        // MatProgressBarModule,
+        // MatButtonModule,
+        // MatSidenavModule,
+        // MatInputModule,
+        // MatTableModule,
+        // MatSortModule,
+        // MatPaginatorModule,
+        // MatSelectModule,
+        SharedModule
+    ]
 })
 export class AdminModule {
 }

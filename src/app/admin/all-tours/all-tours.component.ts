@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {ToursService} from "../services/tours.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {SPINNER_DIAMETER} from "../../shared/constants/settings";
 
 export interface UserData {
     name: string;
@@ -20,6 +21,8 @@ export class AllToursComponent implements OnInit {
 
     displayedColumns: string[] = ['name', 'address', 'tours_type_id'];
     dataSource: MatTableDataSource<UserData>;
+    dataLoading = false;
+    spinnerDiameter = SPINNER_DIAMETER;
     users: any = [];
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -45,6 +48,7 @@ export class AllToursComponent implements OnInit {
     }
 
     getTours() {
+        this.dataLoading = true;
         this.tours.getAllTours().subscribe((r: any) => {
 
             if (r.status == 0) {
@@ -56,7 +60,7 @@ export class AllToursComponent implements OnInit {
             r['result'].map(k => this.users.push(k));
 
             this.dataSource = new MatTableDataSource(this.users);
-
+            this.dataLoading = false;
             this.dataSource.sort = this.sort;
 
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
