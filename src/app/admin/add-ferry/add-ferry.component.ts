@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {FerryService} from "../ferry.service";
+import {FerryService} from '../services/ferry.service';
 import {MapsAPILoader} from '@agm/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {

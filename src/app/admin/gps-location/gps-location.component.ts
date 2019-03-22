@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MapLoaderService} from '../../maps/map.loader';
-import {FerryService} from '../ferry.service';
+import {FerryService} from '../services/ferry.service';
 import {Router} from '@angular/router';
 import {GpsLocationService} from '../services/gps-location.service';
 

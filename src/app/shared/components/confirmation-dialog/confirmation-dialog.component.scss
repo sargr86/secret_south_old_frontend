@@ -1,0 +1,20 @@
+
+@import '../../../../variables';
+@import '../../../../mixins';
+
+.mat-dialog-content,.mat-dialog-actions{
+  display: flex;
+  justify-content: center;
+}
+
+.confirm,.cancel{
+  @include namedBtn;
+}
+
+.cancel{
+  background-color: $red;
+}
+
+.confirm{
+  margin-left: 20px;
+}

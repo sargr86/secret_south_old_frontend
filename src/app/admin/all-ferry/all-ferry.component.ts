@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Router} from "@angular/router";
-import {FerryService} from "../ferry.service";
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Router} from '@angular/router';
+import {FerryService} from '../services/ferry.service';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SPINNER_DIAMETER} from "../../shared/constants/settings";
+import {ConfirmationDialogComponent} from "../../shared/components/confirmation-dialog/confirmation-dialog.component";
 
 export interface UserData {
     name: string;
@@ -32,7 +33,12 @@ export class AllFerryComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private http: HttpClient, private router: Router, private ferry: FerryService) {
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private ferry: FerryService,
+        private dialog: MatDialog
+    ) {
         this.getUser();
         // this.dataSource = new MatTableDataSource(this.users);
     }
@@ -124,5 +130,19 @@ export class AllFerryComponent implements OnInit {
     }
 
     remove(row) {
+        // Setting dialog properties
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            autoFocus: true,
+            width: '300px'
+        });
+
+        // Post-confirming actions
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+
+                }
+            }
+        );
     }
 }
