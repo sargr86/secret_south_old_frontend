@@ -30,7 +30,7 @@
             <small *ngIf="(filteredData && filteredData.length ===0) && !dataLoading">No partners found</small>
         </div>
         <mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="!dataLoading && dataSource"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="dataLoading || !dataSource"></mat-paginator>
     </div>
 
 </div>

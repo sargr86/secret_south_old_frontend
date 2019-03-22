@@ -57,7 +57,7 @@ export class AllFerryComponent implements OnInit {
         this.dataLoading = true;
         this.ferry.getFerry().subscribe((r: any) => {
 
-            if (r.status == 0) {
+            if (r.status === 0) {
                 alert(r['message']);
                 return false;
             }
@@ -71,10 +71,9 @@ export class AllFerryComponent implements OnInit {
 
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
 
-                if (sortHeaderId! == 'max_people' || sortHeaderId == 'min_people') {
+                if (sortHeaderId! === 'max_people' || sortHeaderId === 'min_people') {
                     data[sortHeaderId] = +data[sortHeaderId];
-                }
-                else {
+                } else {
                     if (typeof data[sortHeaderId] === 'string') {
                         return data[sortHeaderId].toLocaleLowerCase();
                     }
