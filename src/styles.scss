@@ -1,8 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import './mixins';
+@import 'variables';
 
-.mat-spinner{
-  text-align: center!important;
+.mat-spinner {
+  text-align: center !important;
   margin: 20px auto;
 }
 
+.removeBtn {
+  @include noBgBtn;
+  color: $red;
+}
+
+.editBtn {
+  @include noBgBtn;
+  color: $yellow;
+}
+
+table {
+  @include matTable;
+}

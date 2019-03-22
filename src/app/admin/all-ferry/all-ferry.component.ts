@@ -22,7 +22,7 @@ export interface UserData {
 })
 export class AllFerryComponent implements OnInit {
 
-    displayedColumns: string[] = ['name', 'email', 'max_people', 'min_people', 'phone', 'address'];
+    displayedColumns: string[] = ['name', 'email', 'max_people', 'min_people', 'phone', 'address','actions'];
     dataSource: MatTableDataSource<UserData>;
     users: any = [];
     dataLoading = false;
@@ -119,5 +119,8 @@ export class AllFerryComponent implements OnInit {
             phone: k.phone,
             address: k.address
         };
+    }
+
+    remove(row){
     }
 }
