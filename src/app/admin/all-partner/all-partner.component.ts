@@ -22,8 +22,9 @@ export class AllPartnerComponent implements OnInit {
     displayedColumns: string[] = ['first_name', 'last_name', 'email'];
     dataSource: MatTableDataSource<UserData>;
     partners: any = [];
-    spinnerDiameter = SPINNER_DIAMETER;
+    spinnerDiameter: number = SPINNER_DIAMETER;
     dataLoading = false;
+    filteredData: UserData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -47,6 +48,7 @@ export class AllPartnerComponent implements OnInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+        this.filteredData = this.dataSource.filteredData;
     }
 
     getPartner() {

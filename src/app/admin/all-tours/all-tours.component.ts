@@ -22,7 +22,8 @@ export class AllToursComponent implements OnInit {
     displayedColumns: string[] = ['name', 'address', 'tours_type_id'];
     dataSource: MatTableDataSource<UserData>;
     dataLoading = false;
-    spinnerDiameter = SPINNER_DIAMETER;
+    spinnerDiameter: number = SPINNER_DIAMETER;
+    filteredData;
     users: any = [];
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -45,6 +46,8 @@ export class AllToursComponent implements OnInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+
+        this.filteredData = this.dataSource.filteredData;
     }
 
     getTours() {
