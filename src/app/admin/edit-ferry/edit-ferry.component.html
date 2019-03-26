@@ -1,0 +1,37 @@
+<mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
+<form [formGroup]="editFerryForm" class="editFerryForm" *ngIf="!dataLoading">
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="email" placeholder="E-mail">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="max_people" type="number" placeholder="Max people">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="min_people" type="number" placeholder="Min people">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="phone" placeholder="Phone">
+    </mat-form-field>
+    <textarea formControlName="address" placeholder="Address">
+
+    </textarea>
+    <mat-select>
+        <mat-option>Please choose</mat-option>
+        <mat-option value="1">Ferry</mat-option>
+        <mat-option value="2">Boos</mat-option>
+    </mat-select>
+    <mat-select>
+        <mat-option>Please choose</mat-option>
+        <mat-option *ngFor="let pType of partnersTypeName">
+            {{pType.first_name+' '+ pType.last_name}}
+        </mat-option>
+    </mat-select>
+
+    <mat-spinner *ngIf="formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    <button mat-raised-button color="primary" (click)="updateFerry()">
+        Save
+    </button>
+</form>
