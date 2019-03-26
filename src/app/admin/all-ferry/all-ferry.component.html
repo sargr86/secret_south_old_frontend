@@ -18,7 +18,7 @@
             &lt;!&ndash; Email &ndash;&gt;
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
-                <td mat-cell *matCellDef="let row"> {{row.email}}%</td>
+                <td mat-cell *matCellDef="let row"> {{row.email}}</td>
             </ng-container>
 
             &lt;!&ndash; Max People &ndash;&gt;
@@ -47,7 +47,7 @@
             <ng-container matColumnDef="actions" class="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions</th>
                 <td mat-cell *matCellDef="let row">
-                    <button class="editBtn" [matTooltip]="'Edit'">
+                    <button class="editBtn" [matTooltip]="'Edit'" (click)="router.navigate(['admin/ferry/'+row.name],{state:{name:row.name}})">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)">

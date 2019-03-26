@@ -71,7 +71,7 @@ export class AllFerryComponent implements OnInit {
 
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
 
-                if (sortHeaderId! === 'max_people' || sortHeaderId === 'min_people') {
+                if (sortHeaderId === 'max_people' || sortHeaderId === 'min_people') {
                     data[sortHeaderId] = +data[sortHeaderId];
                 } else {
                     if (typeof data[sortHeaderId] === 'string') {
@@ -129,6 +129,7 @@ export class AllFerryComponent implements OnInit {
     }
 
     remove(row) {
+
         // Setting dialog properties
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             autoFocus: true,
@@ -139,7 +140,11 @@ export class AllFerryComponent implements OnInit {
         dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-
+                    this.dataLoading = true;
+                    this.ferry.remove({name: row.name}).subscribe((dt: any) => {
+                        this.dataLoading = false;
+                        this.dataSource = new MatTableDataSource(dt);
+                    });
                 }
             }
         );
