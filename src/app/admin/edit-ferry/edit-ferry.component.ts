@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {FerryService} from '../services/ferry.service';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {PartnerService} from '../services/partner.service';
 
 @Component({
     selector: 'app-edit-ferry',
@@ -15,10 +16,13 @@ export class EditFerryComponent implements OnInit {
     dataLoading = false;
     formProcessing = false;
     spinnerDiameter = SPINNER_DIAMETER;
+    partnersTypeName = [];
+    partners;
 
     constructor(
         private _fb: FormBuilder,
         private _ferry: FerryService,
+        private _partner: PartnerService,
         private router: Router,
         private route: ActivatedRoute
     ) {
@@ -40,9 +44,14 @@ export class EditFerryComponent implements OnInit {
         this.dataLoading = true;
         this._ferry.getOneFerry({name: this.route.snapshot.paramMap.get('name')}).subscribe((dt: any) => {
             if (dt && dt.length > 0) {
-
                 this.ferryData = dt[0];
                 this.editFerryForm.patchValue(dt[0]);
+                this._partner.getAllpartner().subscribe((d: any) => {
+                    this.partners = d['result'];
+                    this.dataLoading = false;
+                });
+            }
+            else {
                 this.dataLoading = false;
             }
         });

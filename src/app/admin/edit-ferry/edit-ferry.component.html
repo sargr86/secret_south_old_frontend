@@ -1,5 +1,5 @@
 <mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="editFerryForm" class="editFerryForm" *ngIf="!dataLoading">
+<form [formGroup]="editFerryForm" class="editFerryForm" *ngIf="!dataLoading && ferryData">
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
     </mat-form-field>
@@ -15,23 +15,27 @@
     <mat-form-field>
         <input matInput formControlName="phone" placeholder="Phone">
     </mat-form-field>
-    <textarea formControlName="address" placeholder="Address">
+    <mat-form-field>
+        <textarea matInput formControlName="address" placeholder="Address"></textarea>
+    </mat-form-field>
 
-    </textarea>
-    <mat-select>
-        <mat-option>Please choose</mat-option>
-        <mat-option value="1">Ferry</mat-option>
-        <mat-option value="2">Boos</mat-option>
-    </mat-select>
-    <mat-select>
-        <mat-option>Please choose</mat-option>
-        <mat-option *ngFor="let pType of partnersTypeName">
-            {{pType.first_name+' '+ pType.last_name}}
-        </mat-option>
-    </mat-select>
+    <mat-form-field>
+
+        <mat-select formControlName="partner_id">
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of partners" [value]="p.id">
+                {{p.first_name+' '+ p.last_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
     <mat-spinner *ngIf="formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    <button mat-button (click)="this.router.navigate(['admin/AllFerry']);">
+        Back
+    </button>
     <button mat-raised-button color="primary" (click)="updateFerry()">
         Save
     </button>
 </form>
+
+<small *ngIf="!ferryData && !dataLoading" class="notFound">The selected ferry is not found</small>
