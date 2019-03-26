@@ -42,4 +42,17 @@ export class FerryService {
 
         return this.http.get(Base.url + '/all_ferry', httpOptions);
     }
+
+    getOneFerry(params) {
+        return this.http.get(Base.url + '/getOneFerry', {params: params});
+    }
+
+    update(params) {
+        return this.http.post(Base.url + '/updateFerry', params);
+    }
+
+    remove(params) {
+
+        return this.http.post(Base.url + '/removeFerry', params);
+    }
 }
