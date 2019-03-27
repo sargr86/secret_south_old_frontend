@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'ferry/:name', component: EditFerryComponent},
   {path: 'AllFerry', component: AllFerryComponent},
   {path: 'AddTours', component: AddToursComponent},
+  {path: 'tour/:name', component: AddToursComponent},
   {path: 'AllTours', component: AllToursComponent},
   {path: 'AddToursType', component: AddToursTypeComponent},
   {path: 'AllToursType', component: AllToursTypeComponent},
