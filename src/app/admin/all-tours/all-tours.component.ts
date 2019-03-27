@@ -2,8 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {ToursService} from "../services/tours.service";
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SPINNER_DIAMETER} from "../../shared/constants/settings";
+import {ConfirmationDialogComponent} from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 export interface UserData {
     name: string;
@@ -19,7 +20,7 @@ export interface UserData {
 })
 export class AllToursComponent implements OnInit {
 
-    displayedColumns: string[] = ['name', 'address', 'tours_type_id'];
+    displayedColumns: string[] = ['name', 'address', 'tours_type_id', 'actions'];
     dataSource: MatTableDataSource<UserData>;
     dataLoading = false;
     spinnerDiameter: number = SPINNER_DIAMETER;
@@ -28,7 +29,10 @@ export class AllToursComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private http: HttpClient, private router: Router, private tours: ToursService) {
+    constructor(
+        private http: HttpClient, private router: Router, private tours: ToursService,
+        private dialog: MatDialog
+    ) {
 
     }
 
@@ -104,5 +108,27 @@ export class AllToursComponent implements OnInit {
             address: k.address,
             tours_type_id: k.type_name,
         };
+    }
+
+    remove(row) {
+
+        // Setting dialog properties
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            autoFocus: true,
+            width: '300px'
+        });
+
+        // Post-confirming actions
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+                    this.dataLoading = true;
+                    this.tours.remove({name: row.name}).subscribe((dt: any) => {
+                        this.dataLoading = false;
+                        this.dataSource = new MatTableDataSource(dt);
+                    });
+                }
+            }
+        );
     }
 }

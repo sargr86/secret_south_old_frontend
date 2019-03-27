@@ -3,59 +3,71 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as Base from "../../config.js";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ToursService {
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public getAllpartner() {
+    public getAllpartner() {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.get(Base.url + '/allPartner');
-  }
+        return this.http.get(Base.url + '/allPartner');
+    }
 
-  public insertToursType(data) {
+    public insertToursType(data) {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.post(Base.url + '/addTourType', data, httpOptions);
-  }
+        return this.http.post(Base.url + '/addTourType', data, httpOptions);
+    }
 
-  public getAllTourType() {
+    public getAllTourType() {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.get(Base.url + '/allTourType', httpOptions);
-  }
+        return this.http.get(Base.url + '/allTourType', httpOptions);
+    }
 
-  public getAllTours() {
+    public getAllTours() {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.get(Base.url + '/allTours', httpOptions);
-  }
+        return this.http.get(Base.url + '/allTours', httpOptions);
+    }
 
-  public insertTours(data) {
+    public insertTours(data) {
 
-    return this.http.post(Base.url + '/addTours', data);
-  }
+        return this.http.post(Base.url + '/addTours', data);
+    }
+
+    updateTour(params) {
+        return this.http.post(Base.url + '/updateTour', params);
+    }
+
+    public remove(params) {
+        return this.http.post(Base.url + '/removeTour', params);
+    }
+
+    getOneTour(params) {
+        return this.http.get(Base.url + '/getOneTour', {params: params});
+    }
 }
