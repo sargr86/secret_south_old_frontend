@@ -1,16 +1,20 @@
 <app-dashboard></app-dashboard>
-<div class="ToursTypeContent ">
-  <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [formControl]="nameFormControl"
-               [errorStateMatcher]="matcher" name="Ferryname"   [(ngModel)]="addToursType.name">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="nameFormControl.hasError('required')">
-          Tours name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <button [disabled]="nameFormControl.hasError('required')" (click)="saveToursType(addToursType)" mat-raised-button color="primary">Save Tours Type</button>
-  </form>
+<mat-spinner [diameter]="spinnerDiameter" *ngIf="dataLoading"></mat-spinner>
+<div class="ToursTypeContent" *ngIf="!dataLoading">
+    <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" [formControl]="nameFormControl"
+                       [errorStateMatcher]="matcher" name="Ferryname" [(ngModel)]="addToursType.name">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="nameFormControl.hasError('required')">
+                    Tours name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-spinner [diameter]="spinnerDiameter" *ngIf="formProcessing"></mat-spinner>
+        <button [disabled]="nameFormControl.hasError('required')" (click)="saveToursType(addToursType)"
+                mat-raised-button color="primary">Save Tours Type
+        </button>
+    </form>
 </div>

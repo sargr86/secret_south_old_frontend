@@ -16,7 +16,7 @@ export interface UserData {
 })
 export class AllToursTypeComponent implements OnInit {
 
-    displayedColumns: string[] = ['name'];
+    displayedColumns: string[] = ['name','actions'];
     dataSource: MatTableDataSource<UserData>;
 
     dataLoading = false;
