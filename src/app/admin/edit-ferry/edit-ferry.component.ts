@@ -35,6 +35,8 @@ export class EditFerryComponent implements OnInit {
             'email': '',
             'max_people': '',
             'min_people': '',
+            'lat': '',
+            'lng': '',
             'phone': '',
             'address': '',
             'type': '',
@@ -50,8 +52,7 @@ export class EditFerryComponent implements OnInit {
                     this.partners = d['result'];
                     this.dataLoading = false;
                 });
-            }
-            else {
+            } else {
                 this.dataLoading = false;
             }
         });
