@@ -43,6 +43,25 @@ export class ToursService {
         return this.http.get(Base.url + '/allTourType', httpOptions);
     }
 
+
+    updateToursType(params) {
+        return this.http.post(Base.url + '/updateTourType', params);
+    }
+
+    removeToursType(params) {
+        return this.http.post(Base.url + '/removeTourType', params);
+    }
+
+    getOneTourType(params) {
+        return this.http.get(Base.url + '/getOneTourType', {params: params});
+    }
+
+
+
+    //// TOURS
+
+
+
     public getAllTours() {
 
         const httpOptions = {
@@ -54,7 +73,7 @@ export class ToursService {
         return this.http.get(Base.url + '/allTours', httpOptions);
     }
 
-    public insertTours(data) {
+    insertTours(data) {
 
         return this.http.post(Base.url + '/addTours', data);
     }
@@ -63,7 +82,7 @@ export class ToursService {
         return this.http.post(Base.url + '/updateTour', params);
     }
 
-    public remove(params) {
+    remove(params) {
         return this.http.post(Base.url + '/removeTour', params);
     }
 

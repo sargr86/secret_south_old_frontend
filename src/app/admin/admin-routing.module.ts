@@ -21,6 +21,7 @@ const routes: Routes = [
   {path: 'AllFerry', component: AllFerryComponent},
   {path: 'AddTours', component: AddToursComponent},
   {path: 'tour/:name', component: AddToursComponent},
+  {path: 'tour_type/:name', component: AddToursTypeComponent},
   {path: 'AllTours', component: AllToursComponent},
   {path: 'AddToursType', component: AddToursTypeComponent},
   {path: 'AllToursType', component: AllToursTypeComponent},
