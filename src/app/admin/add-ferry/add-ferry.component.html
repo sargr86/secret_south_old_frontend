@@ -1,82 +1,110 @@
 <app-dashboard></app-dashboard>
 <div class="mainContent ">
-  <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [formControl]="nameFormControl"
-               [errorStateMatcher]="matcher" name="Ferryname"   [(ngModel)]="addFerry.name">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="nameFormControl.hasError('required')">
-          Ferry name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" [formControl]="nameFormControl"
+                       [errorStateMatcher]="matcher" name="Ferryname" [(ngModel)]="addFerry.name">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="nameFormControl.hasError('required')">
+                    Ferry name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Email" [formControl]="emailFormControl"
-               [errorStateMatcher]="matcher" name="Ferryemail" [(ngModel)]="addFerry.email">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Ferry Email is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" [formControl]="emailFormControl"
+                       [errorStateMatcher]="matcher" name="Ferryemail" [(ngModel)]="addFerry.email">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Ferry Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Max People" type="number" [formControl]="maxPeopleFormControl"
-               [errorStateMatcher]="matcher" name="FerrymaxPeople"  [(ngModel)]="addFerry.maxPeople">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="maxPeopleFormControl.hasError('required')">
-          Max People is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Max People" type="number" [formControl]="maxPeopleFormControl"
+                       [errorStateMatcher]="matcher" name="FerrymaxPeople" [(ngModel)]="addFerry.maxPeople">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="maxPeopleFormControl.hasError('required')">
+                    Max People is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-    </div>
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Min People"  [formControl]="minPeopleFormControl"
-               [errorStateMatcher]="matcher" type="number" name="FerryminPeople"  [(ngModel)]="addFerry.minPeople">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="minPeopleFormControl.hasError('required')">
-          Min People is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="phone" type="number" name="Ferryphone"  [(ngModel)]="addFerry.phone">
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <textarea  matInput placeholder="Address" #addSearch [formControl]="searchcontrol" class="google-place-input" name="Ferryaddress" [(ngModel)]="addFerry.address"></textarea>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field class="example-full-width" >
-        <mat-select placeholder="Type(Boos or Ferry)" name="searchBy" [formControl]="typeFormControl"  [(value)]="addFerry.type">
-          <mat-option value="1">Ferry</mat-option>
-          <mat-option value="2">Boos</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field class="example-full-width">
-        <mat-select placeholder="Partners" name="tours_type_id" [formControl]="partnersTypeControl" required [(ngModel)]="addFerry.partner_id">
-          <mat-option>Please choose</mat-option>
-          <mat-option *ngFor="let single of partnersTypeName" [value]="single.id">
-            {{single.first_name+' '+ single.last_name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="partnersTypeControl.hasError('required')">Please choose an partners</mat-error>
-      </mat-form-field>
-    </div>
-    <button [disabled]="partnersTypeControl.hasError('required') || typeFormControl.hasError('required') || nameFormControl.hasError('required') || maxPeopleFormControl.hasError('required') ||  minPeopleFormControl.hasError('required') || (emailFormControl.hasError('email') || emailFormControl.hasError('required'))" (click)="saveFerry(addFerry)" mat-raised-button color="primary">Save Ferry</button>
-  </form>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Min People" [formControl]="minPeopleFormControl"
+                       [errorStateMatcher]="matcher" type="number" name="FerryminPeople"
+                       [(ngModel)]="addFerry.minPeople">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="minPeopleFormControl.hasError('required')">
+                    Min People is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Latitude" [formControl]="latitudeFormControl"
+                       [errorStateMatcher]="matcher" name="latitude" [(ngModel)]="addFerry.lat">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="latitudeFormControl.hasError('required')">
+                    Latitude is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Longitude" [formControl]="longitudeFormControl"
+                       [errorStateMatcher]="matcher" name="longitude" [(ngModel)]="addFerry.lng">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="longitudeFormControl.hasError('required')">
+                    Longitude is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="phone" type="number" name="Ferryphone" [(ngModel)]="addFerry.phone">
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Address" #addSearch [formControl]="searchcontrol"
+                          class="google-place-input" name="Ferryaddress" [(ngModel)]="addFerry.address"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Type(Boos or Ferry)" name="searchBy" [formControl]="typeFormControl"
+                            [(value)]="addFerry.type">
+                    <mat-option value="1">Ferry</mat-option>
+                    <mat-option value="2">Boos</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Partners" name="tours_type_id" [formControl]="partnersTypeControl" required
+                            [(ngModel)]="addFerry.partner_id">
+                    <mat-option>Please choose</mat-option>
+                    <mat-option *ngFor="let single of partnersTypeName" [value]="single.id">
+                        {{single.first_name+' '+ single.last_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="partnersTypeControl.hasError('required')">Please choose an partners</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-spinner [diameter]="spinnerDiameter" *ngIf="formProcessing"></mat-spinner>
+        <button [disabled]="partnersTypeControl.hasError('required') || typeFormControl.hasError('required') || nameFormControl.hasError('required') || maxPeopleFormControl.hasError('required') ||  minPeopleFormControl.hasError('required') || (emailFormControl.hasError('email') || emailFormControl.hasError('required'))"
+                (click)="saveFerry(addFerry)" mat-raised-button color="primary">Save Ferry
+        </button>
+    </form>
 
 </div>
