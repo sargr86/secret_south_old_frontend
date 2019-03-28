@@ -28,6 +28,7 @@ const routes: Routes = [
   {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
   {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
   {path: 'AddPartner', component: AddPartnerComponent},
+  {path: 'partner/:id', component: AddPartnerComponent},
   {path: 'AllPartner', component: AllPartnerComponent},
   {path: 'Addlocation', component: GpsLocationComponent},
 ];

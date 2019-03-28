@@ -3,32 +3,45 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as Base from "../../config.js";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PartnerService {
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public insertPartner(data) {
+    public insertPartner(data) {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.post(Base.url + '/addPartner', data, httpOptions);
-  }
+        return this.http.post(Base.url + '/addPartner', data, httpOptions);
+    }
 
-  public getAllpartner() {
+    public getAllpartner() {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.get(Base.url + '/allPartner', httpOptions);
-  }
+        return this.http.get(Base.url + '/allPartner', httpOptions);
+    }
+
+    getOnePartner(params) {
+        return this.http.get(Base.url + '/getOnePartner', {params: params});
+    }
+
+    updatePartnerInfo(params) {
+        console.log(params)
+        return this.http.post(Base.url + '/updatePartnerInfo', params);
+    }
+
+    remove(params) {
+        return this.http.post(Base.url + '/removePartnerInfo', params);
+    }
 }
