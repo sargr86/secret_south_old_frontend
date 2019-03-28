@@ -37,7 +37,6 @@ export class PartnerService {
     }
 
     updatePartnerInfo(params) {
-        console.log(params)
         return this.http.post(Base.url + '/updatePartnerInfo', params);
     }
 
