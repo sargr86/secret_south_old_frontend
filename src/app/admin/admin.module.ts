@@ -31,9 +31,10 @@ import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {MaterialModule} from "../shared/modules/material.module";
 import {SharedModule} from "../shared/shared.module";
 import { EditFerryComponent } from './edit-ferry/edit-ferry.component';
+import { ShowFerriesComponent } from './ferry/show-ferries/show-ferries.component';
 
 @NgModule({
-    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent, EditFerryComponent],
+    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent, EditFerryComponent, ShowFerriesComponent],
     imports: [
         CommonModule,
 
