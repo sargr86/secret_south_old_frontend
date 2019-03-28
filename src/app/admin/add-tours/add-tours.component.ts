@@ -114,7 +114,7 @@ export class AddToursComponent implements OnInit {
     }
 
     saveTours(data) {
-console.log(data)
+
         const fd = new FormData();
         fd.append('lat', data.lat);
         fd.append('lng', data.lng);
