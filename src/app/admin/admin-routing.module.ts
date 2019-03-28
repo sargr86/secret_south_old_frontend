@@ -13,12 +13,14 @@ import {AddPartnerComponent} from './add-partner/add-partner.component';
 import {AllPartnerComponent} from './all-partner/all-partner.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
+import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'AddFerry', component: AddFerryComponent},
   {path: 'ferry/:name', component: EditFerryComponent},
-  {path: 'AllFerry', component: AllFerryComponent},
+  // {path: 'AllFerry', component: AllFerryComponent},
+  {path: 'AllFerry', component: ShowFerriesComponent},
   {path: 'AddTours', component: AddToursComponent},
   {path: 'tour/:name', component: AddToursComponent},
   {path: 'tour_type/:name', component: AddToursTypeComponent},
