@@ -2,9 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {ToursService} from "../services/tours.service";
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {PartnerService} from "../services/partner.service";
 import {SPINNER_DIAMETER} from "../../shared/constants/settings";
+import {ConfirmationDialogComponent} from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 export interface UserData {
     firstName: string;
@@ -19,7 +20,7 @@ export interface UserData {
 })
 export class AllPartnerComponent implements OnInit {
 
-    displayedColumns: string[] = ['first_name', 'last_name', 'email'];
+    displayedColumns: string[] = ['first_name', 'last_name', 'email', 'actions'];
     dataSource: MatTableDataSource<UserData>;
     partners: any = [];
     spinnerDiameter: number = SPINNER_DIAMETER;
@@ -29,7 +30,12 @@ export class AllPartnerComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
 
-    constructor(private http: HttpClient, private router: Router, private partner: PartnerService) {
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private partner: PartnerService,
+        private dialog: MatDialog
+    ) {
     }
 
     ngOnInit() {
@@ -103,5 +109,27 @@ export class AllPartnerComponent implements OnInit {
         }
 
         return true;
+    }
+
+    remove(row) {
+
+        // Setting dialog properties
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            autoFocus: true,
+            width: '300px'
+        });
+
+        // Post-confirming actions
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+                    this.dataLoading = true;
+                    this.partner.remove({id: row.id}).subscribe((dt: any) => {
+                        this.dataLoading = false;
+                        this.dataSource = new MatTableDataSource(dt);
+                    });
+                }
+            }
+        );
     }
 }
