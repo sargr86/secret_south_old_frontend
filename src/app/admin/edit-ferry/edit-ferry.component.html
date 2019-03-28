@@ -36,7 +36,7 @@
     </mat-form-field>
 
     <mat-spinner *ngIf="formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
-    <button mat-button (click)="this.router.navigate(['admin/AllFerry']);">
+    <button type="button" mat-button (click)="this.router.navigate(['admin/AllFerry']);">
         Back
     </button>
     <button mat-raised-button color="primary" (click)="updateFerry()">
