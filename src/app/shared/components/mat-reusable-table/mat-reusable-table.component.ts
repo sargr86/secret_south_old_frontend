@@ -1,42 +1,83 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {SPINNER_DIAMETER} from '../../constants/settings';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '../../constants/settings';
 import {FerryService} from '../../../admin/services/ferry.service';
 import {GetTableDataSourcePipe} from '../../pipes/get-table-data-source.pipe';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {PartnerService} from '../../../admin/services/partner.service';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
     selector: 'app-mat-table',
     templateUrl: './mat-reusable-table.component.html',
     styleUrls: ['./mat-reusable-table.component.scss']
 })
-export class MatReusableTableComponent implements OnInit {
+export class MatReusableTableComponent implements OnInit, OnDestroy {
 
     @Input() dataObs;
     @Input() cols;
+    @Input() item;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     displayedColumns;
     spinnerDiameter = SPINNER_DIAMETER;
+    paginationValues = MAT_TABLE_PAGINATION_VALUES;
     dataSource;
     filteredData;
     dataLoading = false;
 
+
+    dataSubscription: Subscription;
+    dialogClosed: Subscription;
+
     constructor(
         private _ferry: FerryService,
-        private dataSrc: GetTableDataSourcePipe
+        private _partner: PartnerService,
+        private dataSrc: GetTableDataSourcePipe,
+        private dialog: MatDialog,
+        public router: Router
     ) {
     }
 
     ngOnInit() {
         this.displayedColumns = this.cols;
         this.dataLoading = true;
-        this.dataObs.subscribe(dt => {
+        this.dataSubscription = this.dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
             }
             this.dataSource = this.dataSrc.transform(dt);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
             this.dataLoading = false;
+
+            // Adjusting sort setting here
+            this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+
+                // Numeric values sorting
+                if (sortHeaderId === 'max_people' || sortHeaderId === 'min_people') {
+                    data[sortHeaderId] = +data[sortHeaderId];
+                    // Non case-sensitive sorting
+                } else {
+                    if (typeof data[sortHeaderId] === 'string') {
+                        return data[sortHeaderId].toLocaleLowerCase();
+                    }
+                }
+
+                return data[sortHeaderId];
+            };
+
+
         });
     }
 
+    /**
+     * Handles searching
+     * @param filterValue search term for filtering table values
+     */
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -44,6 +85,45 @@ export class MatReusableTableComponent implements OnInit {
             this.dataSource.paginator.firstPage();
         }
         this.filteredData = this.dataSource.filteredData;
+    }
+
+
+    /**
+     * Handles column names normal appearance
+     * @param col current column name
+     * @returns column normalized name
+     */
+    normalizeColName(col): string {
+        col = `${col[0].toUpperCase()}${col.slice(1)}`;
+        return col.replace(/_/g, ' ');
+    }
+
+    remove(row) {
+
+        // Setting dialog properties
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
+
+        // Post-confirming actions
+        this.dialogClosed = dialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+                    this.dataLoading = true;
+                    this[`_${this.item}`].remove({id: row.id}).subscribe((dt: any) => {
+                        this.dataLoading = false;
+                        this.dataSource = new MatTableDataSource(dt);
+                    });
+                }
+            }
+        );
+    }
+
+    ngOnDestroy() {
+        if (this.dataSubscription) {
+            this.dataSubscription.unsubscribe();
+        }
+        if (this.dialogClosed) {
+            this.dialogClosed.unsubscribe();
+        }
     }
 
 }
