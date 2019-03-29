@@ -1,16 +1,35 @@
-<form [formGroup]="saveTourForm" class="saveTourForm">
+<mat-spinner [diameter]="spinnerDiameter" *ngIf="dataLoading"></mat-spinner>
+<form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!dataLoading">
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="nameCtrl.hasError('required')">
+            Tour name is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput placeholder="Latitude" formControlName="lat">
+        <mat-error *ngIf="latCtrl.hasError('required')">
+            Latitude is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput placeholder="Longitude" formControlName="lng">
+        <mat-error *ngIf="lngCtrl.hasError('required')">
+            Longitude is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
-    <mat-form-field>
-        <textarea matInput formControlName="address" placeholder="Address"></textarea>
-    </mat-form-field>
+    <div class="addressContainer">
+        <mat-form-field>
+            <textarea matInput formControlName="address" placeholder="Address" #searchAddress></textarea>
+            <mat-error *ngIf="addressCtrl.hasError('required')">
+                Tour address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button (click)="resetAddress()" class="resetAddress">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+
     <mat-form-field>
         <mat-select placeholder="Tours Type" formControlName="tours_type_id">
             <mat-option>Please choose</mat-option>
@@ -30,7 +49,8 @@
 
     <input type="file" *ngIf="!editCase" (change)="getFiles($event.target.files)">
 
-    <button mat-raised-button color="primary" (click)="saveTour()">
+    <mat-spinner [diameter]="spinnerDiameter" *ngIf="formProcessing"></mat-spinner>
+    <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
         Save Tour
     </button>
 </form>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FerryService} from '../../services/ferry.service';
 import {PartnerService} from '../../services/partner.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-save-ferry',
@@ -17,7 +18,6 @@ export class SaveFerryComponent implements OnInit {
     dataLoading = false;
     formProcessing = false;
     spinnerDiameter = SPINNER_DIAMETER;
-    partners = [];
     partners;
     editCase = false;
 
@@ -26,23 +26,24 @@ export class SaveFerryComponent implements OnInit {
         private _ferry: FerryService,
         private _partner: PartnerService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private toastr: ToastrService
     ) {
     }
 
     ngOnInit() {
         this.editFerryForm = this._fb.group({
             'id': '',
-            'name': '',
-            'email': '',
-            'max_people': '',
-            'min_people': '',
-            'lat': '',
-            'lng': '',
-            'phone': '',
-            'address': '',
+            'name': ['', Validators.required],
+            'email': ['', Validators.required],
+            'max_people': ['', Validators.required],
+            'min_people': ['', Validators.required],
+            'lat': ['', Validators.required],
+            'lng': ['', Validators.required],
+            'phone': ['', Validators.required],
+            'address': ['', Validators.required],
             'type': 'ferry',
-            'partner_id': ''
+            'partner_id': ['', Validators.required]
         });
 
         this.getPartners();
@@ -75,11 +76,13 @@ export class SaveFerryComponent implements OnInit {
             if (this.editCase) {
                 this._ferry.update(formValue).subscribe(dt => {
                     this.router.navigate(['admin/AllFerry']);
+                    this.toastr.success('The ferry info has been updated successfully', 'Updated!');
                     this.formProcessing = false;
                 });
             } else {
                 this._ferry.insertFerry(formValue).subscribe((r: any) => {
                     this.router.navigate(['admin/AllFerry']);
+                    this.toastr.success('The ferry info has been added successfully', 'Added!');
                     this.formProcessing = false;
                 });
             }
@@ -92,6 +95,42 @@ export class SaveFerryComponent implements OnInit {
         this._ferry.getAllpartner().subscribe((d: any) => {
             this.partners = d['result'];
         });
+    }
+
+    get ferryForm() {
+        return this.editFerryForm;
+    }
+
+    get nameCtrl() {
+        return this.ferryForm.get('name');
+    }
+
+    get emailCtrl() {
+        return this.ferryForm.get('email');
+    }
+
+    get latCtrl() {
+        return this.ferryForm.get('lat');
+    }
+
+    get lngCtrl() {
+        return this.ferryForm.get('lng');
+    }
+
+    get addressCtrl() {
+        return this.ferryForm.get('address');
+    }
+
+    get phoneCtrl() {
+        return this.ferryForm.get('phone');
+    }
+
+    get maxCtrl() {
+        return this.ferryForm.get('max_people');
+    }
+
+    get minCtrl() {
+        return this.ferryForm.get('min_people');
     }
 
 }

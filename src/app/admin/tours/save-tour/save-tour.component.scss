@@ -1,4 +1,21 @@
-.saveTourForm{
-  width:40%;
-  padding:20px;
+@import '../../../../variables';
+@import '../../../../mixins';
+
+.saveTourForm {
+  width: 40%;
+  padding: 20px;
+  .addressContainer {
+    display: flex;
+    .mat-form-field {
+      width: 100%;
+    }
+    .resetAddress {
+      @include noBgBtn;
+      color: $red;
+      margin-top:20px;
+    }
+
+  }
+
 }
+
