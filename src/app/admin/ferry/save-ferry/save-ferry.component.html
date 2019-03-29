@@ -2,27 +2,51 @@
 <form [formGroup]="editFerryForm" class="editFerryForm" *ngIf="!dataLoading">
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
+        <mat-error *ngIf="nameCtrl.hasError('required')">
+            Ferry name is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="email" placeholder="E-mail">
+        <mat-error *ngIf="emailCtrl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="max_people" type="number" placeholder="Max people">
+        <mat-error *ngIf="maxCtrl.hasError('required')">
+            Maximum people count <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="min_people" type="number" placeholder="Min people">
+        <mat-error *ngIf="minCtrl.hasError('required')">
+            Minimum people count <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="lat" type="number" placeholder="Latitude">
+        <mat-error *ngIf="latCtrl.hasError('required')">
+            Latitude is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="lng" type="number" placeholder="Longitude">
+        <mat-error *ngIf="lngCtrl.hasError('required')">
+            Longitude is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="phone" placeholder="Phone">
+        <mat-error *ngIf="phoneCtrl.hasError('required')">
+            Ferry address is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <textarea matInput formControlName="address" placeholder="Address"></textarea>
+        <mat-error *ngIf="addressCtrl.hasError('required')">
+            Ferry address is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field>

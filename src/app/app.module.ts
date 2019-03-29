@@ -12,17 +12,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import 'hammerjs';
 
-import {
-    MatIconModule,
-    MatTreeModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatSortModule
-} from '@angular/material';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {MaterialModule} from "./shared/modules/material.module";
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -40,7 +32,8 @@ import {MaterialModule} from "./shared/modules/material.module";
         FormsModule,
         ReactiveFormsModule,
         StorageServiceModule,
-        MaterialModule
+        MaterialModule,
+        ToastrModule.forRoot(),
         // MatTreeModule,
         // MatProgressBarModule,
         // MatButtonModule,

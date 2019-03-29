@@ -8,6 +8,7 @@ import {PartnerService} from '../../../admin/services/partner.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ToursService} from '../../../admin/services/tours.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-mat-table',
@@ -40,7 +41,8 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private _tour: ToursService,
         private dataSrc: GetTableDataSourcePipe,
         private dialog: MatDialog,
-        public router: Router
+        public router: Router,
+        private  toastr: ToastrService
     ) {
     }
 
@@ -50,16 +52,22 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
 
     }
 
-    getData(dataObs) {
+    getData(dataObs, remove = false) {
         this.dataLoading = true;
         this.dataSubscription = dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
             }
+
+            // Saving data with sorting and pagination
             this.dataSource = this.dataSrc.transform(dt);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
             this.dataLoading = false;
+
+            if (remove) {
+                this.toastr.success(`The  ${this.item} info has been removed successfully.`, 'Removed!');
+            }
 
             // Adjusting sort setting here
             this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
@@ -118,7 +126,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         this.dialogClosed = dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-                    this.getData(this[`_${this.item}`].remove({id: row.id}));
+                    this.getData(this[`_${this.item}`].remove({id: row.id}), true);
                 }
             }
         );
