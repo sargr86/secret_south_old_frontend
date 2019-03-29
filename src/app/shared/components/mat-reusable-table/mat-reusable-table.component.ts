@@ -7,6 +7,7 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 import {PartnerService} from '../../../admin/services/partner.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/internal/Subscription';
+import {ToursService} from '../../../admin/services/tours.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -36,6 +37,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     constructor(
         private _ferry: FerryService,
         private _partner: PartnerService,
+        private _tour: ToursService,
         private dataSrc: GetTableDataSourcePipe,
         private dialog: MatDialog,
         public router: Router
@@ -44,8 +46,13 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.displayedColumns = this.cols;
+        this.getData(this.dataObs);
+
+    }
+
+    getData(dataObs) {
         this.dataLoading = true;
-        this.dataSubscription = this.dataObs.subscribe(dt => {
+        this.dataSubscription = dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
             }
@@ -98,6 +105,10 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         return col.replace(/_/g, ' ');
     }
 
+    /**
+     * Removes a data row
+     * @param row current row data object
+     */
     remove(row) {
 
         // Setting dialog properties
@@ -107,11 +118,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         this.dialogClosed = dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-                    this.dataLoading = true;
-                    this[`_${this.item}`].remove({id: row.id}).subscribe((dt: any) => {
-                        this.dataLoading = false;
-                        this.dataSource = new MatTableDataSource(dt);
-                    });
+                    this.getData(this[`_${this.item}`].remove({id: row.id}));
                 }
             }
         );

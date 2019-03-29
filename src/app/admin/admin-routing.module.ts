@@ -15,16 +15,20 @@ import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
 import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
 import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
+import {SaveTourComponent} from './tours/save-tour/save-tour.component';
+import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
     {path: 'AddFerry', component: SaveFerryComponent},
     {path: 'ferry/:id', component: SaveFerryComponent},
     {path: 'AllFerry', component: ShowFerriesComponent},
-    {path: 'AddTours', component: AddToursComponent},
-    {path: 'tour/:name', component: AddToursComponent},
+    // {path: 'AddTours', component: AddToursComponent},
+    {path: 'AddTours', component: SaveTourComponent},
+    {path: 'tour/:id', component: SaveTourComponent},
     {path: 'tour_type/:name', component: AddToursTypeComponent},
-    {path: 'AllTours', component: AllToursComponent},
+    // {path: 'AllTours', component: AllToursComponent},
+    {path: 'AllTours', component: ShowToursComponent},
     {path: 'AddToursType', component: AddToursTypeComponent},
     {path: 'AllToursType', component: AllToursTypeComponent},
     {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
