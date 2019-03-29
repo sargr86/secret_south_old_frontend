@@ -1,0 +1,36 @@
+<form [formGroup]="saveTourForm" class="saveTourForm">
+    <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Latitude" formControlName="lat">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Longitude" formControlName="lng">
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput formControlName="address" placeholder="Address"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Tours Type" formControlName="tours_type_id">
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let t of tourType" [value]="t.id">
+                {{t.tour_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Partners" formControlName="partner_id">
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of partners" [value]="p.id">
+                {{p.first_name+' '+ p.last_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <input type="file" *ngIf="!editCase" (change)="getFiles($event.target.files)">
+
+    <button mat-raised-button color="primary" (click)="saveTour()">
+        Save Tour
+    </button>
+</form>

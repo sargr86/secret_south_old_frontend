@@ -1,18 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {
-    MatIconModule,
-    MatButtonModule,
-    MatTreeModule,
-    MatProgressBarModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatSelectModule
-} from '@angular/material';
-
 import {AdminRoutingModule} from './admin-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AddFerryComponent} from './add-ferry/add-ferry.component';
@@ -28,30 +15,38 @@ import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {AddPartnerComponent} from './add-partner/add-partner.component';
 import {AllPartnerComponent} from './all-partner/all-partner.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
-import {MaterialModule} from "../shared/modules/material.module";
-import {SharedModule} from "../shared/shared.module";
-import { EditFerryComponent } from './edit-ferry/edit-ferry.component';
-import { ShowFerriesComponent } from './ferry/show-ferries/show-ferries.component';
-import { SaveFerryComponent } from './ferry/save-ferry/save-ferry.component';
+import {SharedModule} from '../shared/shared.module';
+import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
+import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
+import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
+import {ShowToursComponent} from './tours/show-tours/show-tours.component';
+import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 
 @NgModule({
-    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent, EditFerryComponent, ShowFerriesComponent, SaveFerryComponent],
+    declarations: [
+        DashboardComponent,
+        AddFerryComponent,
+        AllFerryComponent,
+        AddToursComponent,
+        AllToursComponent,
+        AddToursTypeComponent,
+        AllToursTypeComponent,
+        AddFoodDrinkComponent,
+        AllFoodDrinkComponent,
+        AddPartnerComponent,
+        AllPartnerComponent,
+        GpsLocationComponent,
+        EditFerryComponent,
+        ShowFerriesComponent,
+        SaveFerryComponent,
+        ShowToursComponent,
+        SaveTourComponent
+    ],
     imports: [
         CommonModule,
-
         AdminRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        // MatTreeModule,
-        // MatIconModule,
-        // MatProgressBarModule,
-        // MatButtonModule,
-        // MatSidenavModule,
-        // MatInputModule,
-        // MatTableModule,
-        // MatSortModule,
-        // MatPaginatorModule,
-        // MatSelectModule,
         SharedModule
     ]
 })
