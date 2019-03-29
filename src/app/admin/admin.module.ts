@@ -32,9 +32,10 @@ import {MaterialModule} from "../shared/modules/material.module";
 import {SharedModule} from "../shared/shared.module";
 import { EditFerryComponent } from './edit-ferry/edit-ferry.component';
 import { ShowFerriesComponent } from './ferry/show-ferries/show-ferries.component';
+import { SaveFerryComponent } from './ferry/save-ferry/save-ferry.component';
 
 @NgModule({
-    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent, EditFerryComponent, ShowFerriesComponent],
+    declarations: [DashboardComponent, AddFerryComponent, AllFerryComponent, AddToursComponent, AllToursComponent, AddToursTypeComponent, AllToursTypeComponent, AddFoodDrinkComponent, AllFoodDrinkComponent, AddPartnerComponent, AllPartnerComponent, GpsLocationComponent, EditFerryComponent, ShowFerriesComponent, SaveFerryComponent],
     imports: [
         CommonModule,
 

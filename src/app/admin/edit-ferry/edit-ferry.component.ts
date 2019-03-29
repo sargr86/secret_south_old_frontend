@@ -44,7 +44,7 @@ export class EditFerryComponent implements OnInit {
         });
 
         this.dataLoading = true;
-        this._ferry.getOneFerry({name: this.route.snapshot.paramMap.get('name')}).subscribe((dt: any) => {
+        this._ferry.getOneFerry({id: this.route.snapshot.paramMap.get('id')}).subscribe((dt: any) => {
             if (dt && dt.length > 0) {
                 this.ferryData = dt[0];
                 this.editFerryForm.patchValue(dt[0]);

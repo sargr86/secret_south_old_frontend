@@ -14,30 +14,30 @@ import {AllPartnerComponent} from './all-partner/all-partner.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
 import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
+import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 
 const routes: Routes = [
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'AddFerry', component: AddFerryComponent},
-  {path: 'ferry/:name', component: EditFerryComponent},
-  // {path: 'AllFerry', component: AllFerryComponent},
-  {path: 'AllFerry', component: ShowFerriesComponent},
-  {path: 'AddTours', component: AddToursComponent},
-  {path: 'tour/:name', component: AddToursComponent},
-  {path: 'tour_type/:name', component: AddToursTypeComponent},
-  {path: 'AllTours', component: AllToursComponent},
-  {path: 'AddToursType', component: AddToursTypeComponent},
-  {path: 'AllToursType', component: AllToursTypeComponent},
-  {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
-  {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
-  {path: 'AddPartner', component: AddPartnerComponent},
-  {path: 'partner/:id', component: AddPartnerComponent},
-  {path: 'AllPartner', component: AllPartnerComponent},
-  {path: 'Addlocation', component: GpsLocationComponent},
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'AddFerry', component: SaveFerryComponent},
+    {path: 'ferry/:id', component: SaveFerryComponent},
+    {path: 'AllFerry', component: ShowFerriesComponent},
+    {path: 'AddTours', component: AddToursComponent},
+    {path: 'tour/:name', component: AddToursComponent},
+    {path: 'tour_type/:name', component: AddToursTypeComponent},
+    {path: 'AllTours', component: AllToursComponent},
+    {path: 'AddToursType', component: AddToursTypeComponent},
+    {path: 'AllToursType', component: AllToursTypeComponent},
+    {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
+    {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
+    {path: 'AddPartner', component: AddPartnerComponent},
+    {path: 'partner/:id', component: AddPartnerComponent},
+    {path: 'AllPartner', component: AllPartnerComponent},
+    {path: 'Addlocation', component: GpsLocationComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class AdminRoutingModule {
 }
