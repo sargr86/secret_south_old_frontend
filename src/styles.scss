@@ -3,6 +3,9 @@
 @import './mixins';
 @import 'variables';
 
+// regular style toast
+@import '~ngx-toastr/toastr.css';
+
 .mat-spinner {
   text-align: center !important;
   margin: 20px auto;
@@ -28,4 +31,8 @@ table.mat-table {
 
 .mat-form-field{
   display:block!important;
+}
+
+#toast-container > div {
+  opacity:1;
 }
