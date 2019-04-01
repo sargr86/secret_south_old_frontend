@@ -1,3 +1,7 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+
 .example-tree-progress-bar {
   margin-left: 30px;
 }
@@ -27,16 +31,23 @@ mat-drawer-container.example-container.no_width {
 
 .example-sidenav {
   width: 90%;
-  padding: 20px;
 }
 
 .mat-drawer-container{
   background-color: #ffffff!important;
 }
+.logoutBtn{
+  @include noBgBtn;
+  display: block;
+  float: right;
+}
 
 .show_menu{
   padding: 20px 0;
-  width: 71%;
+  //width: 71%;
   float: right;
   margin-right: 3%;
+  .menuBtn{
+    outline:none!important;
+  }
 }
