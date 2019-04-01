@@ -37,9 +37,7 @@ mat-drawer-container.example-container.no_width {
   background-color: #ffffff!important;
 }
 .logoutBtn{
-  @include noBgBtn;
   display: block;
-  float: right;
 }
 
 .show_menu{
@@ -50,4 +48,8 @@ mat-drawer-container.example-container.no_width {
   .menuBtn{
     outline:none!important;
   }
+}
+
+.mat-toolbar{
+  justify-content:space-between;
 }

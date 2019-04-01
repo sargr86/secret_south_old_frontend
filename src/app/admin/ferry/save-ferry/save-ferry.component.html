@@ -1,5 +1,6 @@
+<app-dashboard></app-dashboard>
 <mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="editFerryForm" class="editFerryForm" *ngIf="!dataLoading">
+<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!dataLoading">
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
         <mat-error *ngIf="nameCtrl.hasError('required')">
