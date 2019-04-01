@@ -3,18 +3,20 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AdminService} from './admin.service';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AgmCoreModule} from '@agm/core';
+
 // Form
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StorageServiceModule} from "angular-webstorage-service";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {StorageServiceModule} from 'angular-webstorage-service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import 'hammerjs';
 
 import {NotFoundComponent} from './not-found/not-found.component';
-import {MaterialModule} from "./shared/modules/material.module";
+import {MaterialModule} from './shared/modules/material.module';
 import {ToastrModule} from 'ngx-toastr';
+import {RequestInterceptor} from './shared/helpers/http.interceptor';
 
 @NgModule({
     declarations: [
@@ -34,15 +36,15 @@ import {ToastrModule} from 'ngx-toastr';
         StorageServiceModule,
         MaterialModule,
         ToastrModule.forRoot(),
-        // MatTreeModule,
-        // MatProgressBarModule,
-        // MatButtonModule,
-        // MatIconModule,
-        // MatInputModule,
-        // MatSidenavModule,
-        // MatSortModule
     ],
-    providers: [AdminService],
+    providers: [
+        AdminService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
+        },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

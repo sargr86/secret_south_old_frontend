@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../../shared/services/common.service';
 
 @Component({
     selector: 'app-save-ferry',
@@ -15,8 +16,6 @@ export class SaveFerryComponent implements OnInit {
 
     editFerryForm: FormGroup;
     ferryData;
-    dataLoading = false;
-    formProcessing = false;
     spinnerDiameter = SPINNER_DIAMETER;
     partners;
     editCase = false;
@@ -27,7 +26,8 @@ export class SaveFerryComponent implements OnInit {
         private _partner: PartnerService,
         private router: Router,
         private route: ActivatedRoute,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        public common: CommonService
     ) {
     }
 
@@ -50,7 +50,7 @@ export class SaveFerryComponent implements OnInit {
 
         const ferry_id = this.route.snapshot.paramMap.get('id');
         if (ferry_id) {
-            this.dataLoading = true;
+            this.common.dataLoading = true;
             this.editCase = true;
             this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
                 if (dt && dt.length > 0) {
@@ -58,10 +58,10 @@ export class SaveFerryComponent implements OnInit {
                     this.editFerryForm.patchValue(dt[0]);
                     this._partner.getAllpartner().subscribe((d: any) => {
                         this.partners = d['result'];
-                        this.dataLoading = false;
+                        this.common.dataLoading = false;
                     });
                 } else {
-                    this.dataLoading = false;
+                    this.common.dataLoading = false;
                 }
             });
         }
@@ -72,18 +72,18 @@ export class SaveFerryComponent implements OnInit {
     saveFerry() {
         const formValue = this.editFerryForm.value;
         if (this.editFerryForm.valid) {
-            this.formProcessing = true;
+            this.common.formProcessing = true;
             if (this.editCase) {
                 this._ferry.update(formValue).subscribe(dt => {
                     this.router.navigate(['admin/AllFerry']);
                     this.toastr.success('The ferry info has been updated successfully', 'Updated!');
-                    this.formProcessing = false;
+                    this.common.formProcessing = false;
                 });
             } else {
                 this._ferry.insertFerry(formValue).subscribe((r: any) => {
                     this.router.navigate(['admin/AllFerry']);
                     this.toastr.success('The ferry info has been added successfully', 'Added!');
-                    this.formProcessing = false;
+                    this.common.formProcessing = false;
                 });
             }
 
