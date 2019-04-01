@@ -1,6 +1,6 @@
 <app-dashboard></app-dashboard>
-<mat-spinner *ngIf="dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!dataLoading">
+<mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
+<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading">
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
         <mat-error *ngIf="nameCtrl.hasError('required')">
@@ -60,8 +60,8 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-spinner *ngIf="formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
-    <button type="button" mat-button (click)="this.router.navigate(['admin/AllFerry'])">
+    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
         Back
     </button>
     <button mat-raised-button color="primary" (click)="saveFerry()">
@@ -69,4 +69,4 @@
     </button>
 </form>
 
-<small *ngIf="!ferryData && !dataLoading && editCase" class="notFound">The selected ferry is not found</small>
+<small *ngIf="!ferryData && !common.dataLoading && editCase" class="notFound">The selected ferry is not found</small>
