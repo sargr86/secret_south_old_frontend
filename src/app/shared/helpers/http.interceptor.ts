@@ -31,7 +31,9 @@ export class RequestInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
                 this.common.formProcessing = false;
                 const message = err.error.message;
-                this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
+                if (message) {
+                    this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
+                }
             }
         }));
     }

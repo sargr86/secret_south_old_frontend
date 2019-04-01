@@ -71,7 +71,7 @@ export class SaveFerryComponent implements OnInit {
 
     saveFerry() {
         const formValue = this.editFerryForm.value;
-        if (this.editFerryForm.valid) {
+        // if (this.editFerryForm.valid) {
             this.common.formProcessing = true;
             if (this.editCase) {
                 this._ferry.update(formValue).subscribe(dt => {
@@ -88,7 +88,7 @@ export class SaveFerryComponent implements OnInit {
             }
 
 
-        }
+        // }
     }
 
     getPartners() {
