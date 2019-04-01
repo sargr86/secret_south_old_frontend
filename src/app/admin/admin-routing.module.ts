@@ -17,6 +17,7 @@ import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component'
 import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
+import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
@@ -35,7 +36,8 @@ const routes: Routes = [
     {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
     {path: 'AddPartner', component: AddPartnerComponent},
     {path: 'partner/:id', component: AddPartnerComponent},
-    {path: 'AllPartner', component: AllPartnerComponent},
+    // {path: 'AllPartner', component: AllPartnerComponent},
+    {path: 'AllPartner', component: ShowPartnersComponent},
     {path: 'Addlocation', component: GpsLocationComponent},
 ];
 
