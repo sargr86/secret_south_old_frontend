@@ -117,11 +117,11 @@ export class SaveTourComponent implements OnInit {
      */
     saveTour(searchAddress) {
 
-        if (this.saveTourForm.valid) {
-
-            if (!this.uploadImages && !this.editCase) {
-                this.toastr.error('Please select an image to upload', 'No files');
-            } else {
+        // if (this.saveTourForm.valid) {
+        //
+        //     if (!this.uploadImages && !this.editCase) {
+        //         this.toastr.error('Please select an image to upload', 'No files');
+        //     } else {
                 this.common.formProcessing = true;
                 const data = this.saveTourForm.value;
                 const fd = new FormData();
@@ -147,10 +147,10 @@ export class SaveTourComponent implements OnInit {
                         this.toastr.success('The tour info has been added successfully', 'Added!');
                     });
                 }
-            }
-
-
-        }
+        //     }
+        //
+        //
+        // }
 
 
     }
