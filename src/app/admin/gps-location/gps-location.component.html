@@ -1,25 +1,29 @@
 <app-dashboard></app-dashboard>
-<div class="form-group col-12">
-  <mat-form-field class="example-full-width">
-    <mat-select placeholder="Ferry or Bus" (selectionChange)="filterferryBus($event)" >
-      <mat-option>Please choose</mat-option>
-      <mat-option [value]="1">Ferry</mat-option>
-      <mat-option [value]="2">Bus</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div class="form-group">
-  <mat-form-field class="example-full-width">
-    <mat-select placeholder="Ferry/Bus" name="tours_type_id" [(ngModel)]="partner.partner_id" (selectionChange)="setPartner()">
-      <mat-option>Please choose</mat-option>
-      <mat-option *ngFor="let single of ferryName" [value]="single.id">
-        {{single.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div id="map"></div>
+<div class="rightGroup">
 
-<div class="form-group">
-  <button mat-raised-button color="primary" (click)="saveRoad()">Save</button>
+    <div class="form-group col-5">
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Ferry or Bus" (selectionChange)="filterferryBus($event)">
+                <mat-option>Please choose</mat-option>
+                <mat-option [value]="1">Ferry</mat-option>
+                <mat-option [value]="2">Bus</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="form-group col-5">
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Ferry/Bus" name="tours_type_id" [(ngModel)]="partner.partner_id"
+                        (selectionChange)="setPartner()">
+                <mat-option>Please choose</mat-option>
+                <mat-option *ngFor="let single of ferryName" [value]="single.id">
+                    {{single.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div id="map"></div>
+
+    <div class="form-group">
+        <button mat-raised-button color="primary" (click)="saveRoad()">Save</button>
+    </div>
 </div>

@@ -118,31 +118,38 @@ export class SaveTourComponent implements OnInit {
     saveTour(searchAddress) {
 
         if (this.saveTourForm.valid) {
-            this.formProcessing = true;
-            const data = this.saveTourForm.value;
-            const fd = new FormData();
-            fd.append('lat', data.lat);
-            fd.append('lng', data.lng);
-            fd.append('name', data.name);
-            fd.append('tours_type_id', data.tours_type_id);
-            fd.append('partner_id', data.partner_id);
-            fd.append('address', searchAddress.value);
-            fd.append('upload_image', this.uploadImages);
 
-            if (this.editCase) {
-                fd.append('id', data['id'])
-                this._tours.updateTour(fd).subscribe(dt => {
-                    this.formProcessing = false;
-                    this.router.navigate(['/admin/AllTours']);
-                    this.toastr.success('The tour info has been updated successfully', 'Updated!');
-                });
+            if (!this.uploadImages) {
+                this.toastr.error( 'Please select an image to upload','No files');
             } else {
-                this._tours.insertTours(fd).subscribe((r: any) => {
-                    this.formProcessing = false;
-                    this.router.navigate(['/admin/AllTours']);
-                    this.toastr.success('The tour info has been added successfully', 'Added!');
-                });
+                this.formProcessing = true;
+                const data = this.saveTourForm.value;
+                const fd = new FormData();
+                fd.append('lat', data.lat);
+                fd.append('lng', data.lng);
+                fd.append('name', data.name);
+                fd.append('tours_type_id', data.tours_type_id);
+                fd.append('partner_id', data.partner_id);
+                fd.append('address', searchAddress.value);
+                fd.append('upload_image', this.uploadImages);
+
+                if (this.editCase) {
+                    fd.append('id', data['id'])
+                    this._tours.updateTour(fd).subscribe(dt => {
+                        this.formProcessing = false;
+                        this.router.navigate(['/admin/AllTours']);
+                        this.toastr.success('The tour info has been updated successfully', 'Updated!');
+                    });
+                } else {
+                    this._tours.insertTours(fd).subscribe((r: any) => {
+                        this.formProcessing = false;
+                        this.router.navigate(['/admin/AllTours']);
+                        this.toastr.success('The tour info has been added successfully', 'Added!');
+                    });
+                }
             }
+
+
         }
 
 
