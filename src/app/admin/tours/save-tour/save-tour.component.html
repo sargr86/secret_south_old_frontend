@@ -1,6 +1,6 @@
 <app-dashboard></app-dashboard>
-<mat-spinner [diameter]="spinnerDiameter" *ngIf="dataLoading"></mat-spinner>
-<form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!dataLoading">
+<mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
+<form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!common.dataLoading">
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name">
         <mat-error *ngIf="nameCtrl.hasError('required')">
@@ -50,7 +50,7 @@
 
     <input type="file" *ngIf="!editCase" (change)="getFiles($event.target.files)">
 
-    <mat-spinner [diameter]="spinnerDiameter" *ngIf="formProcessing"></mat-spinner>
+    <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
     <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
         Save Tour
     </button>

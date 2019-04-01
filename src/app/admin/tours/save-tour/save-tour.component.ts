@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MapsAPILoader} from '@agm/core';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../../shared/services/common.service';
 
 @Component({
     selector: 'app-save-tour',
@@ -30,8 +31,6 @@ export class SaveTourComponent implements OnInit {
         'partner_id': ['', Validators.required]
     };
     editCase = false;
-    dataLoading = false;
-    formProcessing = false;
     spinnerDiameter = SPINNER_DIAMETER;
 
     constructor(
@@ -40,7 +39,8 @@ export class SaveTourComponent implements OnInit {
         public router: Router,
         private route: ActivatedRoute,
         private mapsAPILoader: MapsAPILoader,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private common: CommonService
     ) {
         this.getPartners();
         this.getToursType();
@@ -56,7 +56,7 @@ export class SaveTourComponent implements OnInit {
                 const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
                 const id = this.route.snapshot.paramMap.get('id');
                 if (id) {
-                    this.dataLoading = true;
+                    this.common.dataLoading = true;
                     this._tours.getOneTour({id: id}).subscribe((dt: any) => {
                         if (dt && dt.length > 0) {
 
@@ -65,7 +65,7 @@ export class SaveTourComponent implements OnInit {
                             this.saveTourForm.patchValue(dt[0]);
                             this.editCase = true;
                         }
-                        this.dataLoading = false;
+                        this.common.dataLoading = false;
                     });
                 }
             }
@@ -117,13 +117,12 @@ export class SaveTourComponent implements OnInit {
      */
     saveTour(searchAddress) {
 
-        // if (this.saveTourForm.valid) {
+        if (this.saveTourForm.valid) {
 
-            // if (!this.uploadImages && !this.editCase) {
-            //     this.toastr.error( 'Please select an image to upload', 'No files');
-            // }
-            // else {
-                this.formProcessing = true;
+            if (!this.uploadImages && !this.editCase) {
+                this.toastr.error('Please select an image to upload', 'No files');
+            } else {
+                this.common.formProcessing = true;
                 const data = this.saveTourForm.value;
                 const fd = new FormData();
                 fd.append('lat', data.lat);
@@ -137,21 +136,21 @@ export class SaveTourComponent implements OnInit {
                 if (this.editCase) {
                     fd.append('id', data['id'])
                     this._tours.updateTour(fd).subscribe(dt => {
-                        this.formProcessing = false;
+                        this.common.formProcessing = false;
                         this.router.navigate(['/admin/AllTours']);
                         this.toastr.success('The tour info has been updated successfully', 'Updated!');
                     });
                 } else {
                     this._tours.insertTours(fd).subscribe((r: any) => {
-                        this.formProcessing = false;
+                        this.common.formProcessing = false;
                         this.router.navigate(['/admin/AllTours']);
                         this.toastr.success('The tour info has been added successfully', 'Added!');
                     });
                 }
-            // }
+            }
 
 
-        // }
+        }
 
 
     }
