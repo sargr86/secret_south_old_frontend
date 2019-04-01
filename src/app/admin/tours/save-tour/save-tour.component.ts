@@ -119,8 +119,8 @@ export class SaveTourComponent implements OnInit {
 
         if (this.saveTourForm.valid) {
 
-            if (!this.uploadImages) {
-                this.toastr.error( 'Please select an image to upload','No files');
+            if (!this.uploadImages && !this.editCase) {
+                this.toastr.error( 'Please select an image to upload', 'No files');
             } else {
                 this.formProcessing = true;
                 const data = this.saveTourForm.value;
