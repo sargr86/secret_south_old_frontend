@@ -18,6 +18,7 @@ import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
+import {SavePartnerComponent} from './partners/save-partner/save-partner.component';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
@@ -34,9 +35,11 @@ const routes: Routes = [
     {path: 'AllToursType', component: AllToursTypeComponent},
     {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
     {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
-    {path: 'AddPartner', component: AddPartnerComponent},
-    {path: 'partner/:id', component: AddPartnerComponent},
-    // {path: 'AllPartner', component: AllPartnerComponent},
+    // {path: 'AddPartner', component: AddPartnerComponent},
+    {path: 'AddPartner', component: SavePartnerComponent},
+    // {path: 'partner/:id', component: AddPartnerComponent},
+    {path: 'partner/:id', component: SavePartnerComponent},
+    {path: 'AllPartner', component: AllPartnerComponent},
     {path: 'AllPartner', component: ShowPartnersComponent},
     {path: 'Addlocation', component: GpsLocationComponent},
 ];

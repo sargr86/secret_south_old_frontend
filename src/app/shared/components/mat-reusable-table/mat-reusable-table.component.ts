@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ToursService} from '../../../admin/services/tours.service';
 import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../services/common.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -29,7 +30,6 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     paginationValues = MAT_TABLE_PAGINATION_VALUES;
     dataSource;
     filteredData;
-    dataLoading = false;
 
 
     dataSubscription: Subscription;
@@ -42,18 +42,18 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private dataSrc: GetTableDataSourcePipe,
         private dialog: MatDialog,
         public router: Router,
-        private  toastr: ToastrService
+        private  toastr: ToastrService,
+        private common: CommonService
     ) {
     }
 
     ngOnInit() {
         this.displayedColumns = this.cols;
         this.getData(this.dataObs);
-
     }
 
     getData(dataObs, remove = false) {
-        this.dataLoading = true;
+        this.common.dataLoading = true;
         this.dataSubscription = dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
@@ -63,7 +63,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
             this.dataSource = this.dataSrc.transform(dt);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-            this.dataLoading = false;
+            this.common.dataLoading = false;
 
             if (remove) {
                 this.toastr.success(`The  ${this.item} info has been removed successfully.`, 'Removed!');
