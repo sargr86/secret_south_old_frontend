@@ -24,34 +24,35 @@
 table.mat-table {
   @include matTable;
 }
-.no_table_items_found{
-  color:$silver;
+
+.no_table_items_found {
+  color: $silver;
   text-align: center;
 }
 
-.mat-form-field{
-  display:block!important;
+.mat-form-field {
+  display: block !important;
 }
 
 #toast-container > div {
-  opacity:1;
+  opacity: 1;
 }
 
-.mat-icon-button,.mat-button{
-  outline:none!important;
+.mat-icon-button, .mat-button, .mat-raised-button {
+  outline: none !important;
 }
 
-.no_data{
+.no_data {
   text-align: center;
   display: block;
   padding: 20px;
-  .item{
+  .item {
     text-transform: capitalize;
   }
 }
 
-.underConstruction{
-  color:$yellow;
-  font-weight:bold;
+.underConstruction {
+  color: $yellow;
+  font-weight: bold;
   text-transform: uppercase;
 }
