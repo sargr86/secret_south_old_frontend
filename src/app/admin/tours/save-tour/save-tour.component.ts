@@ -42,9 +42,9 @@ export class SaveTourComponent implements OnInit {
         private toastr: ToastrService,
         private common: CommonService
     ) {
+
         this.getPartners();
         this.getToursType();
-
 
     }
 
