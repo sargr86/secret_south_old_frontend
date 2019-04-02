@@ -22,6 +22,7 @@ import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import { ShowPartnersComponent } from './partners/show-partners/show-partners.component';
+import { SavePartnerComponent } from './partners/save-partner/save-partner.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { ShowPartnersComponent } from './partners/show-partners/show-partners.co
         SaveFerryComponent,
         ShowToursComponent,
         SaveTourComponent,
-        ShowPartnersComponent
+        ShowPartnersComponent,
+        SavePartnerComponent,
     ],
     imports: [
         CommonModule,
