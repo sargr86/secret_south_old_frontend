@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" *ngIf="!editCase">
                 <input matInput type="password" placeholder="Password" [formControl]="passFormControl"
                        [errorStateMatcher]="matcher" name="pass" [(ngModel)]="partnerInf.pass">
                 <mat-hint>Errors appear instantly!</mat-hint>

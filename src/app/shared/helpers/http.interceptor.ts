@@ -30,10 +30,18 @@ export class RequestInterceptor implements HttpInterceptor {
         }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
                 this.common.formProcessing = false;
+                this.common.dataLoading = false;
                 const message = err.error.message;
-                if (message) {
-                    this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
+
+                if (err.status === 200 || err.status === 0) {
+                    this.toastr.error('Please check server connection.', 'Unknown error');
+                } else {
+                    if (message) {
+                        this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
+                    }
                 }
+
+
             }
         }));
     }
