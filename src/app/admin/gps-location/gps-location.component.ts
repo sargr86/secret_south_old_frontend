@@ -88,7 +88,6 @@ export class GpsLocationComponent implements OnInit {
                 strokeColor: '#FF0000',
             }
         });
-        console.log(this.drawingManager)
         this.drawingManager.setMap(this.map);
         google.maps.event.addListener(this.drawingManager, 'polylinecomplete', (event) => {
             // if (event.type === google.maps.drawing.OverlayType.POLYLINE) {

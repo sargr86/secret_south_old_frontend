@@ -1,57 +1,87 @@
 <app-dashboard></app-dashboard>
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading">
+
+    <!-- Ferry name field-->
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
         <mat-error *ngIf="nameCtrl.hasError('required')">
             Ferry name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
+
+    <!-- E-mail field-->
     <mat-form-field>
         <input matInput formControlName="email" placeholder="E-mail">
-        <mat-error *ngIf="emailCtrl.hasError('required')">
-            Email is <strong>required</strong>
-        </mat-error>
+        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
+        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
+
+    <!-- Max people for ferry field -->
     <mat-form-field>
         <input matInput formControlName="max_people" type="number" placeholder="Max people">
         <mat-error *ngIf="maxCtrl.hasError('required')">
-            Maximum people count <strong>required</strong>
+            Maximum people count is <strong>required</strong>
         </mat-error>
+        <mat-error [hidden]="!maxCtrl.hasError('pattern')"> Maximum people is <strong>invalid</strong></mat-error>
     </mat-form-field>
+
+    <!-- Min people for ferry field -->
     <mat-form-field>
         <input matInput formControlName="min_people" type="number" placeholder="Min people">
         <mat-error *ngIf="minCtrl.hasError('required')">
             Minimum people count <strong>required</strong>
         </mat-error>
     </mat-form-field>
+
+    <!-- Ferry latitude field -->
     <mat-form-field>
-        <input matInput formControlName="lat" type="number" placeholder="Latitude">
+        <input matInput formControlName="lat" placeholder="Latitude">
         <mat-error *ngIf="latCtrl.hasError('required')">
             Latitude is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+            Latitude is <strong>invalid</strong>
+        </mat-error>
     </mat-form-field>
+
+    <!-- Ferry longitude field -->
     <mat-form-field>
-        <input matInput formControlName="lng" type="number" placeholder="Longitude">
+        <input matInput formControlName="lng" placeholder="Longitude">
         <mat-error *ngIf="lngCtrl.hasError('required')">
             Longitude is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+            Longitude is <strong>invalid</strong>
+        </mat-error>
     </mat-form-field>
-    <mat-form-field>
-        <input matInput formControlName="phone" placeholder="Phone">
+
+
+    <!-- Phone number field -->
+    <mat-label>Phone</mat-label>
+    <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20"
+                                [defaultCountry]="'gb'" [required]="true"
+                                [allowedCountries]="['in', 'ca', 'us','am','gb']"></international-phone-number>
+
+    <ng-container *ngIf="!phoneCtrl.pristine">
         <mat-error *ngIf="phoneCtrl.hasError('required')">
             Phone is <strong>required</strong>
         </mat-error>
-    </mat-form-field>
+        <mat-error *ngIf="phoneCtrl.hasError('patternInvalid')">
+            Phone number is <strong>invalid</strong>
+        </mat-error>
+    </ng-container>
+
+    <!-- Address field -->
     <mat-form-field>
-        <textarea matInput formControlName="address" placeholder="Address"></textarea>
+        <textarea matInput formControlName="address" placeholder="Address" #addressSearch></textarea>
         <mat-error *ngIf="addressCtrl.hasError('required')">
             Ferry address is <strong>required</strong>
         </mat-error>
     </mat-form-field>
 
+    <!-- Partner field-->
     <mat-form-field>
-
         <mat-select formControlName="partner_id">
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partners" [value]="p.id">
@@ -61,12 +91,17 @@
     </mat-form-field>
 
     <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
-    <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
-        Back
-    </button>
-    <button mat-raised-button color="primary" (click)="saveFerry()">
-        Save
-    </button>
+
+    <!-- Action buttons -->
+    <ng-container>
+
+        <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
+            Back
+        </button>
+        <button mat-raised-button color="primary" (click)="saveFerry(addressSearch)">
+            Save
+        </button>
+    </ng-container>
 </form>
 
 <small *ngIf="!ferryData && !common.dataLoading && editCase" class="notFound">The selected ferry is not found</small>

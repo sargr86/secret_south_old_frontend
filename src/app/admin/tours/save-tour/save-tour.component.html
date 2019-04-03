@@ -49,7 +49,7 @@
     </mat-form-field>
 
     <input type="file" *ngIf="!editCase" (change)="getFiles($event.target.files)">
-
+    <button mat-button type="button" (click)="router.navigate(['/admin/AllTours'])">Back</button>
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
     <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
         Save Tour
