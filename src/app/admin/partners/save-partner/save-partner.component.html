@@ -3,12 +3,20 @@
 <form [formGroup]="savePartnerForm" class="savePartnerForm" *ngIf="showForm">
     <mat-form-field>
         <input matInput formControlName="first_name" placeholder="First name">
+        <mat-error *ngIf="firstNameCtrl.hasError('required')">
+            First name is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="last_name" placeholder="Last name">
+        <mat-error *ngIf="lastNameCtrl.hasError('required')">
+            Last name is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
         <input matInput formControlName="email" placeholder="E-mail">
+        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
+        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="!editCase">
         <input type="password" matInput formControlName="pass" placeholder="Password">
@@ -22,6 +30,7 @@
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
+    <button mat-button type="button" (click)="router.navigate(['/admin/AllPartner'])">Back</button>
     <button mat-raised-button color="primary" (click)="savePartner()">
         Save
     </button>

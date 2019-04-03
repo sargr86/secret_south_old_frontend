@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartnerService} from '../../services/partner.service';
 import {ToastrService} from 'ngx-toastr';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {CommonService} from '../../../shared/services/common.service';
+import {patternValidator} from '../../../shared/helpers/pattern-validator';
+import {EMAIL_PATTERN} from '../../../shared/constants/patterns';
 
 @Component({
     selector: 'app-save-partner',
@@ -13,7 +15,14 @@ import {CommonService} from '../../../shared/services/common.service';
 })
 export class SavePartnerComponent implements OnInit {
 
-    partnersFields = {first_name: '', last_name: '', email: '', pass: '', type: '', id: ''};
+    partnersFields = {
+        first_name: ['', Validators.required],
+        last_name: ['', Validators.required],
+        email: ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
+        pass: ['', Validators.required],
+        type: ['', Validators.required],
+        id: ''
+    };
     savePartnerForm: FormGroup;
     editCase = false;
     partnerInfo;
@@ -71,6 +80,18 @@ export class SavePartnerComponent implements OnInit {
 
     get showForm() {
         return !this.common.dataLoading && (!this.editCase || (this.partnerInfo && this.editCase));
+    }
+
+    get firstNameCtrl() {
+        return this.savePartnerForm.get('first_name');
+    }
+
+    get lastNameCtrl() {
+        return this.savePartnerForm.get('last_name');
+    }
+
+    get emailCtrl() {
+        return this.savePartnerForm.get('email');
     }
 
 
