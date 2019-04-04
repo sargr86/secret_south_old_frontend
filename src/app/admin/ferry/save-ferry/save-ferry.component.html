@@ -93,12 +93,15 @@
                 {{p['first_name'] + ' ' + p['last_name']}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="editFerryForm.get('partner_id').hasError('required')">
+            Partner is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
 
     <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
 
     <!-- Action buttons -->
-    <ng-container>
+    <div class="actions">
 
         <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
             Back
@@ -106,7 +109,7 @@
         <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
             Save
         </button>
-    </ng-container>
+    </div>
 </form>
 
 <small *ngIf="!ferryData && !common.dataLoading && editCase" class="notFound">The selected ferry is not found</small>

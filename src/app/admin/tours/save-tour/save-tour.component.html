@@ -1,24 +1,38 @@
 <app-dashboard></app-dashboard>
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!common.dataLoading">
+
+    <!-- Name field -->
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name">
         <mat-error *ngIf="nameCtrl.hasError('required')">
             Tour name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
+
+    <!-- Latitude field -->
     <mat-form-field>
         <input matInput placeholder="Latitude" formControlName="lat">
         <mat-error *ngIf="latCtrl.hasError('required')">
             Latitude is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+            Latitude is <strong>invalid</strong>
+        </mat-error>
     </mat-form-field>
+
+    <!-- Longitude field -->
     <mat-form-field>
         <input matInput placeholder="Longitude" formControlName="lng">
         <mat-error *ngIf="lngCtrl.hasError('required')">
             Longitude is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+            Longitude is <strong>invalid</strong>
+        </mat-error>
     </mat-form-field>
+
+    <!-- Tour address field -->
     <div class="addressContainer">
         <mat-form-field>
             <textarea matInput formControlName="address" placeholder="Address" #searchAddress></textarea>
@@ -31,27 +45,43 @@
         </button>
     </div>
 
+    <!-- Tours type field -->
     <mat-form-field>
         <mat-select placeholder="Tours Type" formControlName="tours_type_id">
             <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let t of tourType" [value]="t.id">
-                {{t.tour_name}}
+            <mat-option *ngFor="let t of tourType" [value]="t['id']">
+                {{t['tour_name']}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="saveTourForm.get('tours_type_id').hasError('required')">
+            Tour type is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
+
+    <!-- Partner field -->
     <mat-form-field>
         <mat-select placeholder="Partners" formControlName="partner_id">
             <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of partners" [value]="p.id">
-                {{p.first_name+' '+ p.last_name}}
+            <mat-option *ngFor="let p of partners" [value]="p['id']">
+                {{p['first_name'] + ' ' + p['last_name']}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="saveTourForm.get('partner_id').hasError('required')">
+            Partner is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
 
-    <input type="file" *ngIf="!editCase" (change)="getFiles($event.target.files)">
-    <button mat-button type="button" (click)="router.navigate(['/admin/AllTours'])">Back</button>
-    <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-    <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
-        Save Tour
-    </button>
+    <!-- Image field -->
+    <div class="fileContainer">
+        <input type="file" *ngIf="!editCase" (change)="getFiles($event.target['files'])">
+        <mat-spinner [diameter]="spinnerDiameter" [hidden]="!common.formProcessing"></mat-spinner>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+        <button mat-button type="button" (click)="router.navigate(['/admin/AllTours'])">Back</button>
+        <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
+            Save Tour
+        </button>
+    </div>
 </form>
