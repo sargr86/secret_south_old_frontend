@@ -29,6 +29,19 @@ export class SaveFerryComponent implements OnInit {
     partners: Partner;
     editCase = false;
 
+    ferryFields = {
+        'name': ['', Validators.required],
+        'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
+        'max_people': ['', Validators.required],
+        'min_people': ['', Validators.required],
+        'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+        'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
+        'phone': ['', [Validators.required]],
+        'address': ['', Validators.required],
+        'type': 'ferry',
+        'partner_id': ['', Validators.required]
+    };
+
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
@@ -45,19 +58,7 @@ export class SaveFerryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.editFerryForm = this._fb.group({
-            'id': '',
-            'name': ['', Validators.required],
-            'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
-            'max_people': ['', Validators.required],
-            'min_people': ['', Validators.required],
-            'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
-            'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
-            'phone': ['', [Validators.required]],
-            'address': ['', Validators.required],
-            'type': 'ferry',
-            'partner_id': ['', Validators.required]
-        });
+        this.editFerryForm = this._fb.group(this.ferryFields);
 
         this.mapsAPILoader.load().then(() => {
             if (this.searchElementRef) {
@@ -69,6 +70,7 @@ export class SaveFerryComponent implements OnInit {
                     this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
                         if (dt && dt.length > 0) {
                             this.ferryData = dt[0];
+                            this.ferryFields['id'] = '';
                             this.editFerryForm.patchValue(dt[0]);
                             this._partner.getAllpartner().subscribe((d: any) => {
                                 this.partners = d['result'];
@@ -102,7 +104,9 @@ export class SaveFerryComponent implements OnInit {
     saveFerry(searchAddress) {
         const formValue = this.editFerryForm.value;
         formValue.address = searchAddress.value.replace(/\r?\n|\r/g, '');
-        if (this.editFerryForm.valid) {
+
+
+        // if (this.editFerryForm.valid) {
             this.common.formProcessing = true;
             if (this.editCase) {
                 this._ferry.update(formValue).subscribe(() => {
@@ -119,7 +123,7 @@ export class SaveFerryComponent implements OnInit {
             }
 
 
-        }
+        // }
     }
 
     /**
@@ -164,5 +168,10 @@ export class SaveFerryComponent implements OnInit {
         return this.editFerryForm.get('min_people');
     }
 
+
+    changed(e) {
+        console.log(e.target.value)
+        this.editFerryForm.patchValue({'phone': e.target.value})
+    }
 
 }
