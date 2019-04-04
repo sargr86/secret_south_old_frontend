@@ -27,7 +27,7 @@ export class SaveFerryComponent implements OnInit {
     partners;
     editCase = false;
 
-    @ViewChild('addressSearch')
+    @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
     constructor(
@@ -81,16 +81,21 @@ export class SaveFerryComponent implements OnInit {
         });
 
         this.getPartners();
+    }
 
-
-
-
+    /**
+     * Resets address and reloads maps api to allow user to select from drop down again
+     */
+    resetAddress() {
+        this.editFerryForm.patchValue({'address': ''});
+        this.mapsAPILoader.load().then(() => {
+            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+        });
     }
 
     saveFerry(searchAddress) {
         const formValue = this.editFerryForm.value;
-        formValue.address = searchAddress.value;
-        console.log(formValue)
+        formValue.address = searchAddress.value.replace(/\r?\n|\r/g, '');
         // if (this.editFerryForm.valid) {
         this.common.formProcessing = true;
         if (this.editCase) {

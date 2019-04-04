@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <!-- E-mail field-->
-    <mat-form-field>
+    <mat-form-field *ngIf="!editCase">
         <input matInput formControlName="email" placeholder="E-mail">
         <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
@@ -65,7 +65,7 @@
 
     <ng-container *ngIf="!phoneCtrl.pristine">
         <mat-error *ngIf="phoneCtrl.hasError('required')">
-            Phone is <strong>required</strong>
+            Phone number is <strong>required</strong>
         </mat-error>
         <mat-error *ngIf="phoneCtrl.hasError('patternInvalid')">
             Phone number is <strong>invalid</strong>
@@ -73,19 +73,24 @@
     </ng-container>
 
     <!-- Address field -->
-    <mat-form-field>
-        <textarea matInput formControlName="address" placeholder="Address" #addressSearch></textarea>
-        <mat-error *ngIf="addressCtrl.hasError('required')">
-            Ferry address is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
+    <div class="addressContainer">
+        <mat-form-field>
+            <textarea matInput formControlName="address" placeholder="Address" #searchAddress></textarea>
+            <mat-error *ngIf="addressCtrl.hasError('required')">
+                Tour address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button (click)="resetAddress()" class="resetAddress">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
 
     <!-- Partner field-->
     <mat-form-field>
         <mat-select formControlName="partner_id">
             <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of partners" [value]="p.id">
-                {{p.first_name+' '+ p.last_name}}
+            <mat-option *ngFor="let p of partners" [value]="p['id']">
+                {{p['first_name'] + ' ' + p['last_name']}}
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -98,7 +103,7 @@
         <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
             Back
         </button>
-        <button mat-raised-button color="primary" (click)="saveFerry(addressSearch)">
+        <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
             Save
         </button>
     </ng-container>
