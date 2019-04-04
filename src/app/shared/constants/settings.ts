@@ -6,3 +6,13 @@ export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'acti
 export const TOURS_TABLE_COLUMNS = ['name', 'address', 'type_name', 'actions'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
+
+
+// Menu icons
+export const MENU_ITEM_ICONS = [
+    {item: 'ferries', icon: 'waves'},
+    {item: 'tours', icon: 'departure_board'},
+    {item: 'tour types', icon: 'directions_bus'},
+    {item: 'food', icon: 'waves'},
+    {item: 'partners', icon: 'person'}
+];
