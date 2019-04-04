@@ -1,7 +1,23 @@
+@import '../../../../variables';
+@import '../../../../mixins';
+
+
 .saveFerryForm{
   width:40%;
   padding:20px;
   float: left;
+  .addressContainer {
+    display: flex;
+    .mat-form-field {
+      width: 100%;
+    }
+    .resetAddress {
+      @include noBgBtn;
+      color: $red;
+      margin-top:20px;
+    }
+
+  }
 }
 
 .notFound{
