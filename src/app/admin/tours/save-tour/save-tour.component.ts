@@ -6,6 +6,8 @@ import {MapsAPILoader} from '@agm/core';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../shared/services/common.service';
+import {patternValidator} from '../../../shared/helpers/pattern-validator';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
 
 @Component({
     selector: 'app-save-tour',
@@ -24,8 +26,8 @@ export class SaveTourComponent implements OnInit {
     uploadImages;
     tourFields = {
         'name': ['', Validators.required],
-        'lat': ['', Validators.required],
-        'lng': ['', Validators.required],
+        'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+        'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'address': ['', Validators.required],
         'tours_type_id': ['', Validators.required],
         'partner_id': ['', Validators.required]
@@ -117,19 +119,19 @@ export class SaveTourComponent implements OnInit {
      */
     saveTour(searchAddress) {
 
-        // if (this.saveTourForm.valid) {
-        //
-        //     if (!this.uploadImages && !this.editCase) {
-        //         this.toastr.error('Please select an image to upload', 'No files');
-        //     } else {
+        if (this.saveTourForm.valid) {
+
+            if (!this.uploadImages && !this.editCase) {
+                this.toastr.error('Please select an image to upload', 'No files');
+            } else {
                 this.common.formProcessing = true;
                 const data = this.saveTourForm.value;
                 const fd = new FormData();
                 fd.append('lat', data.lat);
                 fd.append('lng', data.lng);
                 fd.append('name', data.name);
-                fd.append('tours_type_id', data.tours_type_id);
-                fd.append('partner_id', data.partner_id);
+                fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
+                fd.append('partner_id', data.partner_id ? data.partner_id : '');
                 fd.append('address', searchAddress.value);
                 fd.append('upload_image', this.uploadImages);
 
@@ -147,10 +149,10 @@ export class SaveTourComponent implements OnInit {
                         this.toastr.success('The tour info has been added successfully', 'Added!');
                     });
                 }
-        //     }
-        //
-        //
-        // }
+            }
+
+
+        }
 
 
     }
