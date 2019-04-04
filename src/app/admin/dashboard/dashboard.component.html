@@ -1,21 +1,23 @@
 <mat-toolbar>
     <div class="show_menu">
-        <button mat-raised-button (click)="drawer.toggle();changeWidth(showFiller)" [matTooltip]="'Show menu'"
+        <button (click)="drawer.toggle();changeWidth(showFiller)" [matTooltip]="'Show menu'"
                 class="menuBtn">
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-        <button (click)="logout()" mat-raised-button class="logoutBtn" [matTooltip]="'Logout'">
+        <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'">
             <mat-icon>exit_to_app</mat-icon>
         </button>
 </mat-toolbar>
 <mat-drawer-container [className]="!showFiller ? 'example-container no_width' : 'example-container'" autosize>
     <mat-drawer #drawer [className]="!showFiller ? 'example-sidenav no_width' : 'example-sidenav'" mode="side">
 
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" #tree>
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
                 <button mat-icon-button disabled></button>
-                <button mat-button color="primary" (click)="routing(node.item)">{{node.item}}</button>
+<!--                <button mat-button color="primary" (click)="routing(node.item)">{{node.item}}</button>-->
+                <mat-icon class="menu-icon">{{getIcon(node.item)}}</mat-icon>
+                <p (click)="routing(node.item)" class="nodeItem">{{node.item}}</p>
             </mat-tree-node>
             <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
                 <button mat-icon-button
