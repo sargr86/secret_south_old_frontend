@@ -19,7 +19,6 @@ export class SavePartnerComponent implements OnInit {
         first_name: ['', Validators.required],
         last_name: ['', Validators.required],
         email: ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
-        pass: ['', Validators.required],
         type: ['', Validators.required],
         id: ''
     };
@@ -36,6 +35,9 @@ export class SavePartnerComponent implements OnInit {
         private toastr: ToastrService,
         private common: CommonService
     ) {
+        if (!this.editCase) {
+            this.partnersFields['pass'] = ['', Validators.required];
+        }
         this.savePartnerForm = this._fb.group(this.partnersFields);
         const partner_id = this.route.snapshot.paramMap.get('id');
         if (partner_id) {
@@ -43,34 +45,39 @@ export class SavePartnerComponent implements OnInit {
             this.editCase = true;
             this._partner.getOnePartner({id: partner_id}).subscribe(dt => {
                 this.partnerInfo = dt['result'][0];
+                delete this.partnersFields['pass'];
+                this.savePartnerForm = this._fb.group(this.partnersFields);
                 this.savePartnerForm.patchValue(this.partnerInfo);
                 this.common.dataLoading = false;
             });
         }
+
     }
 
     ngOnInit() {
     }
 
-
+    /**
+     * Adds or updates a partner info
+     */
     savePartner() {
         const data = this.savePartnerForm.value;
         this.common.formProcessing = true;
         if (this.editCase) {
 
-            this._partner.updatePartnerInfo(data).subscribe(dt => {
+            this._partner.updatePartnerInfo(data).subscribe(() => {
                 this.toastr.success('Partner info has been updated successfully');
                 this.router.navigate(['/admin/AllPartner']);
                 this.common.formProcessing = false;
             });
 
         } else {
-            let localStorages = JSON.parse(localStorage.getItem('adminInf'));
+            const localStorages = JSON.parse(localStorage.getItem('adminInf'));
 
-            let mixInf = localStorages['admin_session_inf'];
+            const mixInf = localStorages['admin_session_inf'];
             data['mixinf'] = mixInf;
 
-            this._partner.insertPartner(data).subscribe((r: any) => {
+            this._partner.insertPartner(data).subscribe(() => {
                 this.toastr.success('Partner info has been added successfully');
                 this.router.navigate(['/admin/AllPartner']);
                 this.common.formProcessing = false;

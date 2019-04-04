@@ -71,6 +71,7 @@ export class SaveFerryComponent implements OnInit {
                         if (dt && dt.length > 0) {
                             this.ferryData = dt[0];
                             this.ferryFields['id'] = '';
+                            this.editFerryForm = this._fb.group(this.ferryFields);
                             this.editFerryForm.patchValue(dt[0]);
                             this._partner.getAllpartner().subscribe((d: any) => {
                                 this.partners = d['result'];
