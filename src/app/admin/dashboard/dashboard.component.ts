@@ -86,9 +86,9 @@ export class DynamicDataSource {
       return;
     }
 
-    node.isLoading = true;
+    // node.isLoading = true;
 
-    setTimeout(() => {
+    // setTimeout(() => {
       if (expand) {
         const nodes = children.map(name =>
           new DynamicFlatNode(name, node.level + 1, this.database.isExpandable(name)));
@@ -103,8 +103,8 @@ export class DynamicDataSource {
 
       // notify the change
       this.dataChange.next(this.data);
-      node.isLoading = false;
-    }, 1000);
+      // node.isLoading = false;
+    // }, 1000);
   }
 }
 

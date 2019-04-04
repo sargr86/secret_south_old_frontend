@@ -7,15 +7,17 @@
 }
 
 .example-container  {
-  width: 25%;
+  width: 14%;
   min-height: 600px;
   float: left;
   margin-right: 1%;
-  background: #55dada;
+  //background: #55dada;
+  background-color:#f5f5f5;
 }
 
 .example-container .mat-tree{
-  background: #55dada;
+  //background: #55dada;
+  background-color:#f5f5f5;
 }
 
 .example-sidenav-content {
@@ -52,4 +54,5 @@ mat-drawer-container.example-container.no_width {
 
 .mat-toolbar{
   justify-content:space-between;
+  background-color: #55dadabf;
 }
