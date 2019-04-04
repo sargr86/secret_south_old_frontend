@@ -13,6 +13,8 @@ import {
     LONGITUDE_PATTERN,
 } from '../../../shared/constants/patterns';
 import {MapsAPILoader} from '@agm/core';
+import {Ferry} from '../../../shared/models/Ferry';
+import {Partner} from '../../../shared/models/Partner';
 
 @Component({
     selector: 'app-save-ferry',
@@ -22,9 +24,9 @@ import {MapsAPILoader} from '@agm/core';
 export class SaveFerryComponent implements OnInit {
 
     editFerryForm: FormGroup;
-    ferryData;
+    ferryData: Ferry;
     spinnerDiameter = SPINNER_DIAMETER;
-    partners;
+    partners: Partner;
     editCase = false;
 
     @ViewChild('searchAddress')
@@ -93,69 +95,73 @@ export class SaveFerryComponent implements OnInit {
         });
     }
 
+    /**
+     * Adds or updates a ferry info
+     * @param searchAddress ferry address
+     */
     saveFerry(searchAddress) {
         const formValue = this.editFerryForm.value;
         formValue.address = searchAddress.value.replace(/\r?\n|\r/g, '');
-        // if (this.editFerryForm.valid) {
-        this.common.formProcessing = true;
-        if (this.editCase) {
-            this._ferry.update(formValue).subscribe(() => {
-                this.router.navigate(['admin/AllFerry']);
-                this.toastr.success('The ferry info has been updated successfully', 'Updated!');
-                this.common.formProcessing = false;
-            });
-        } else {
-            this._ferry.insertFerry(formValue).subscribe(() => {
-                this.router.navigate(['admin/AllFerry']);
-                this.toastr.success('The ferry info has been added successfully', 'Added!');
-                this.common.formProcessing = false;
-            });
+        if (this.editFerryForm.valid) {
+            this.common.formProcessing = true;
+            if (this.editCase) {
+                this._ferry.update(formValue).subscribe(() => {
+                    this.router.navigate(['admin/AllFerry']);
+                    this.toastr.success('The ferry info has been updated successfully', 'Updated!');
+                    this.common.formProcessing = false;
+                });
+            } else {
+                this._ferry.insertFerry(formValue).subscribe(() => {
+                    this.router.navigate(['admin/AllFerry']);
+                    this.toastr.success('The ferry info has been added successfully', 'Added!');
+                    this.common.formProcessing = false;
+                });
+            }
+
+
         }
-
-
-        // }
     }
 
+    /**
+     * Gets partners list
+     */
     getPartners() {
         this._ferry.getAllpartner().subscribe((d: any) => {
             this.partners = d['result'];
         });
     }
 
-    get ferryForm() {
-        return this.editFerryForm;
-    }
 
     get nameCtrl() {
-        return this.ferryForm.get('name');
+        return this.editFerryForm.get('name');
     }
 
     get emailCtrl() {
-        return this.ferryForm.get('email');
+        return this.editFerryForm.get('email');
     }
 
     get latCtrl() {
-        return this.ferryForm.get('lat');
+        return this.editFerryForm.get('lat');
     }
 
     get lngCtrl() {
-        return this.ferryForm.get('lng');
+        return this.editFerryForm.get('lng');
     }
 
     get addressCtrl() {
-        return this.ferryForm.get('address');
+        return this.editFerryForm.get('address');
     }
 
     get phoneCtrl() {
-        return this.ferryForm.get('phone');
+        return this.editFerryForm.get('phone');
     }
 
     get maxCtrl() {
-        return this.ferryForm.get('max_people');
+        return this.editFerryForm.get('max_people');
     }
 
     get minCtrl() {
-        return this.ferryForm.get('min_people');
+        return this.editFerryForm.get('min_people');
     }
 
 
