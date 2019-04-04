@@ -87,7 +87,7 @@
 
     <!-- Partner field-->
     <mat-form-field>
-        <mat-select formControlName="partner_id">
+        <mat-select formControlName="partner_id" placeholder="Partner">
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partners" [value]="p['id']">
                 {{p['first_name'] + ' ' + p['last_name']}}
