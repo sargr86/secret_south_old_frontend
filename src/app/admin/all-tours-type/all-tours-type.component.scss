@@ -14,3 +14,11 @@
 .mat-table{
   width: 100%!important;
 }
+
+@media screen and (max-width: 1200px){
+  .allToursContent{
+    width: 90%;
+    float: inherit;
+    margin-left: 3%;
+  }
+}

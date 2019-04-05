@@ -3,3 +3,11 @@
   padding: 20px;
   float: left;
 }
+
+@media screen and (max-width: 1200px) {
+  .savePartnerForm{
+    width: 90%;
+    float: inherit;
+    margin: 0 3%;
+  }
+}
