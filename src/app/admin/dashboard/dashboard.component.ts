@@ -2,7 +2,7 @@ import {Router} from "@angular/router";
 
 import {CollectionViewer, SelectionChange} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, OnInit, Injectable, ViewChild} from '@angular/core';
+import {Component, OnInit, Injectable, ViewChild, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {BehaviorSubject, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MENU_ITEM_ICONS} from '../../shared/constants/settings';
@@ -15,11 +15,11 @@ export class DynamicFlatNode {
 
 export class DynamicDatabase {
     dataMap = new Map<string, string[]>([
-        ['Ferries', ['Add Ferry', 'All Ferries']],
-        ['Tours', ['Add Tour', 'All Tours', 'Add Tours Type', 'All Tour Types']],
+        ['Ferries', ['Add Ferries', 'All Ferries']],
+        ['Tours', ['Add Tours', 'All Tours', 'Add Tours Types', 'All Tours Types']],
         ['Food-Drink', ['Add Food-Drink', 'All Food-Drink']],
-        ['Partners', ['Add Partner', 'All Partners']],
-        ['Gps Location', ['Add Location']],
+        ['Partners', ['Add Partners', 'All Partners']],
+        ['Gps Location', ['Add Locations']],
     ]);
 
     rootLevelNodes: string[] = ['Ferries', 'Tours', 'Food-Drink', 'Partners', 'Gps Location'];
@@ -116,11 +116,11 @@ export class DynamicDataSource {
     providers: [DynamicDatabase]
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
     @ViewChild('drawer') drawer;
 
-    constructor(private router: Router, database: DynamicDatabase) {
+    constructor(private router: Router, database: DynamicDatabase, private cdr: ChangeDetectorRef) {
         this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
         this.dataSource = new DynamicDataSource(this.treeControl, database);
 
@@ -139,6 +139,8 @@ export class DashboardComponent implements OnInit {
 
     hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
+    activeItem;
+
     ngOnInit() {
 
         if (!this.checkAdmin()) {
@@ -149,13 +151,16 @@ export class DashboardComponent implements OnInit {
     }
 
     ngAfterViewInit() {
+
+        const routerUrl = this.router.url.replace('_', ' ');
         for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-            if (this.treeControl.dataNodes[i].item == 'Tours') {
-                this.treeControl.expand(this.treeControl.dataNodes[i])
+            const node = this.treeControl.dataNodes[i];
+            const treeItem = node.item.toLowerCase();
+            if (routerUrl.includes(treeItem)) {
+                // console.log(treeItem, routerUrl)
+                this.treeControl.expand(node);
+                this.cdr.detectChanges();
             }
-            // if (this.treeControl.dataNodes[i].item == 'Groceries') {
-            //     this.treeControl.expand(this.treeControl.dataNodes[i])
-            // }
         }
     }
 
@@ -201,15 +206,30 @@ export class DashboardComponent implements OnInit {
 
     getIcon(item) {
         let icon = '';
+        // console.log(item)
         item = item.toLowerCase();
         MENU_ITEM_ICONS.map(mi => {
-            if (item.includes(mi['item'])) {
+
+            if (item.includes('add')) {
+                icon = 'fa-plus';
+            } else if (item.includes(mi['item'])) {
                 icon = mi['icon'];
-            } else if (item.includes('add')) {
-                icon = 'add';
+            } else if (item.includes('type')) {
+                icon = 'fa-street-view';
             }
         });
         return icon;
+    }
+
+    checkActiveItem(item) {
+        const routerUrl = this.router.url.replace('_', ' ');
+        const itemStr = item.replace('All ', '').toLowerCase();
+        // console.log(routerUrl)
+        // console.log(itemStr)
+        if (routerUrl.includes(itemStr.toLowerCase())) {
+            this.activeItem = item;
+        }
+        return item;
     }
 
 }

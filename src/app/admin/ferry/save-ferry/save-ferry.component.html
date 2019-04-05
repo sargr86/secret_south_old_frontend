@@ -2,6 +2,14 @@
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading">
 
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <i class="fa fa-plus title-sign"></i>
+            <span>Add a new ferry</span>
+        </ng-container>
+    </h4>
+
+
     <!-- Ferry name field-->
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name">
@@ -103,7 +111,7 @@
     <!-- Action buttons -->
     <div class="actions">
 
-        <button type="button" mat-button (click)="router.navigate(['admin/AllFerry'])">
+        <button type="button" mat-button (click)="router.navigate([redirectUrl])">
             Back
         </button>
         <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
