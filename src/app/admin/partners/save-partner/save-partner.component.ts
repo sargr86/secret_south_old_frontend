@@ -26,6 +26,7 @@ export class SavePartnerComponent implements OnInit {
     editCase = false;
     partnerInfo;
     spinnerDiameter = SPINNER_DIAMETER;
+    redirectUrl = 'admin/partners';
 
     constructor(
         private _fb: FormBuilder,
@@ -67,7 +68,7 @@ export class SavePartnerComponent implements OnInit {
 
             this._partner.updatePartnerInfo(data).subscribe(() => {
                 this.toastr.success('Partner info has been updated successfully');
-                this.router.navigate(['/admin/AllPartner']);
+                this.router.navigate([this.redirectUrl]);
                 this.common.formProcessing = false;
             });
 
@@ -79,7 +80,7 @@ export class SavePartnerComponent implements OnInit {
 
             this._partner.insertPartner(data).subscribe(() => {
                 this.toastr.success('Partner info has been added successfully');
-                this.router.navigate(['/admin/AllPartner']);
+                this.router.navigate([this.redirectUrl]);
                 this.common.formProcessing = false;
             });
         }

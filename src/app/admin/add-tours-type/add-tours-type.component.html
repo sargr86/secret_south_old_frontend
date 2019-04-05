@@ -1,5 +1,12 @@
 <app-dashboard></app-dashboard>
+<h4 class="formTitle">
+    <ng-container *ngIf="!editCase">
+        <i class="fa fa-plus title-sign"></i>
+        <span>Add a new tour type</span>
+    </ng-container>
+</h4>
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="dataLoading"></mat-spinner>
+
 <div class="ToursTypeContent" *ngIf="!dataLoading">
     <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
         <div class="form-group">

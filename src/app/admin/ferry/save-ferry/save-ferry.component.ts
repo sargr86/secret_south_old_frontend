@@ -28,6 +28,7 @@ export class SaveFerryComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner;
     editCase = false;
+    redirectUrl = 'admin/ferries';
 
     ferryFields = {
         'name': ['', Validators.required],
@@ -111,13 +112,13 @@ export class SaveFerryComponent implements OnInit {
             this.common.formProcessing = true;
             if (this.editCase) {
                 this._ferry.update(formValue).subscribe(() => {
-                    this.router.navigate(['admin/AllFerry']);
+                    this.router.navigate([this.redirectUrl]);
                     this.toastr.success('The ferry info has been updated successfully', 'Updated!');
                     this.common.formProcessing = false;
                 });
             } else {
                 this._ferry.insertFerry(formValue).subscribe(() => {
-                    this.router.navigate(['admin/AllFerry']);
+                    this.router.navigate([this.redirectUrl]);
                     this.toastr.success('The ferry info has been added successfully', 'Added!');
                     this.common.formProcessing = false;
                 });
@@ -172,7 +173,7 @@ export class SaveFerryComponent implements OnInit {
 
     changed(e) {
         console.log(e.target.value)
-        this.editFerryForm.patchValue({'phone': e.target.value})
+        this.editFerryForm.patchValue({'phone': e.target.value});
     }
 
 }

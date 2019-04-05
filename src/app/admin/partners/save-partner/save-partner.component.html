@@ -30,7 +30,7 @@
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-    <button mat-button type="button" (click)="router.navigate(['/admin/AllPartner'])">Back</button>
+    <button mat-button type="button" (click)="router.navigate([redirectUrl])">Back</button>
     <button mat-raised-button color="primary" (click)="savePartner()" [disabled]="savePartnerForm.invalid">
         Save
     </button>

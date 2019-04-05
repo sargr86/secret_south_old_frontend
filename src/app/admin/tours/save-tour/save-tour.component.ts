@@ -34,6 +34,7 @@ export class SaveTourComponent implements OnInit {
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
+    redirectUrl = 'admin/tours';
 
     constructor(
         private _tours: ToursService,
@@ -139,13 +140,13 @@ export class SaveTourComponent implements OnInit {
                     fd.append('id', data['id'])
                     this._tours.updateTour(fd).subscribe(dt => {
                         this.common.formProcessing = false;
-                        this.router.navigate(['/admin/AllTours']);
+                        this.router.navigate([this.redirectUrl]);
                         this.toastr.success('The tour info has been updated successfully', 'Updated!');
                     });
                 } else {
                     this._tours.insertTours(fd).subscribe((r: any) => {
                         this.common.formProcessing = false;
-                        this.router.navigate(['/admin/AllTours']);
+                        this.router.navigate([this.redirectUrl]);
                         this.toastr.success('The tour info has been added successfully', 'Added!');
                     });
                 }
