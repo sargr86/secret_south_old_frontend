@@ -10,9 +10,14 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 // Menu icons
 export const MENU_ITEM_ICONS = [
-    {item: 'ferries', icon: 'waves'},
-    {item: 'tours', icon: 'departure_board'},
-    {item: 'tour types', icon: 'directions_bus'},
-    {item: 'food', icon: 'waves'},
-    {item: 'partners', icon: 'person'}
+    // {item: 'ferries', icon: 'waves'},
+    // {item: 'tours', icon: 'departure_board'},
+    // {item: 'tour types', icon: 'directions_bus'},
+    // {item: 'food', icon: 'waves'},
+    // {item: 'partners', icon: 'person'},
+    {item: 'ferries', icon: 'fa-anchor'},
+    {item: 'tours', icon: 'fa-directions'},
+    {item: 'tour types', icon: 'fa-street-view'},
+    {item: 'food', icon: 'fa-utensils'},
+    {item: 'partners', icon: 'fa-users'}
 ];

@@ -19,29 +19,31 @@ import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
 import {SavePartnerComponent} from './partners/save-partner/save-partner.component';
+import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.component';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
-    {path: 'add_ferry', component: SaveFerryComponent},
+    {path: 'add_ferries', component: SaveFerryComponent},
     {path: 'ferry/:id', component: SaveFerryComponent},
     {path: 'ferries', component: ShowFerriesComponent},
     // {path: 'AddTours', component: AddToursComponent},
-    {path: 'add_tour', component: SaveTourComponent},
+    {path: 'add_tours', component: SaveTourComponent},
     {path: 'tour/:id', component: SaveTourComponent},
-    {path: 'tour_type/:name', component: AddToursTypeComponent},
+    {path: 'tour_type/:id', component: AddToursTypeComponent},
     // {path: 'AllTours', component: AllToursComponent},
     {path: 'tours', component: ShowToursComponent},
-    {path: 'add_tours_type', component: AddToursTypeComponent},
-    {path: 'tour_types', component: AllToursTypeComponent},
+    {path: 'add_tours_types', component: AddToursTypeComponent},
+    // {path: 'tours_types', component: AllToursTypeComponent},
+    {path: 'tours_types', component: ShowTourTypesComponent},
     {path: 'AddFood-Drink', component: AddFoodDrinkComponent},
     {path: 'AllFood-Drink', component: AllFoodDrinkComponent},
     // {path: 'AddPartner', component: AddPartnerComponent},
-    {path: 'add_partner', component: SavePartnerComponent},
+    {path: 'add_partners', component: SavePartnerComponent},
     // {path: 'partner/:id', component: AddPartnerComponent},
     {path: 'partner/:id', component: SavePartnerComponent},
     // {path: 'AllPartner', component: AllPartnerComponent},
     {path: 'partners', component: ShowPartnersComponent},
-    {path: 'add_location', component: GpsLocationComponent},
+    {path: 'add_locations', component: GpsLocationComponent},
 ];
 
 @NgModule({

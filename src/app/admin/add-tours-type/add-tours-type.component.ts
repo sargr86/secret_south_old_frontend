@@ -42,10 +42,10 @@ export class AddToursTypeComponent implements OnInit {
             this.router.navigate(['admin-panel']);
         }
 
-        const name = this.route.snapshot.paramMap.get('name');
-        if (name) {
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
             this.dataLoading = true;
-            this.tours.getOneTourType({name: name}).subscribe((dt: any) => {
+            this.tours.getOneTourType({id: id}).subscribe((dt: any) => {
                 if (dt && dt.length > 0) {
                     dt[0]['name'] = dt[0]['tour_name'];
                     this.addToursType = dt[0];

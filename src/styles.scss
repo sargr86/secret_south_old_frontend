@@ -2,9 +2,16 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import './mixins';
 @import 'variables';
-
 // regular style toast
 @import '~ngx-toastr/toastr.css';
+
+
+$fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/v4-shims";
 
 .mat-spinner {
   text-align: center !important;
@@ -46,6 +53,7 @@ table.mat-table {
   text-align: center;
   display: block;
   padding: 20px;
+
   .item {
     text-transform: capitalize;
   }
@@ -57,12 +65,27 @@ table.mat-table {
   text-transform: uppercase;
 }
 
-mat-label{
-  color:#807d7dc9;
+mat-label {
+  color: #807d7dc9;
 }
-.phone_error{
-  font-size:75%;
+
+.phone_error {
+  font-size: 75%;
   font-weight: 400;
   line-height: 1.125;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.title-sign {
+  background-color: $dark_gray;
+  color: $white;
+}
+
+.formTitle {
+  color: $dark_gray;
+  text-align: center;
+  margin:20px;
+  span{
+    margin-left:10px;
+  }
 }
