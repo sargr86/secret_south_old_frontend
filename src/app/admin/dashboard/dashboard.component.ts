@@ -224,9 +224,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     checkActiveItem(item) {
         const routerUrl = this.router.url.replace('_', ' ');
         const itemStr = item.replace('All ', '').toLowerCase();
-        // console.log(routerUrl)
-        // console.log(itemStr)
-        if (routerUrl.includes(itemStr.toLowerCase())) {
+        console.log(routerUrl)
+        console.log(itemStr)
+        if (routerUrl.includes(itemStr)) {
             this.activeItem = item;
         }
         return item;

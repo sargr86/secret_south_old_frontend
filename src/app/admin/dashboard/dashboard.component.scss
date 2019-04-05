@@ -7,11 +7,13 @@
 }
 
 .example-container {
-  width: 14%;
-  min-height: 600px;
+  min-width: 14%;
+  width: auto;
+  //min-height: 600px;
   float: left;
   margin-right: 1%;
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
   //background: #55dada;
   background-color: #989898;
 }
@@ -30,6 +32,8 @@
 
 mat-drawer-container.example-container.no_width {
   width: 0;
+  min-width: 0;
+  padding: 0;
 }
 
 .example-sidenav {
@@ -67,19 +71,46 @@ mat-drawer-container.example-container.no_width {
   color: white;
   font-weight: bold;
 }
-.nodeItem{
+
+.nodeItem {
   cursor: pointer;
 }
-.menu-icon{
-  font-size:14px;
+
+.menu-icon {
   font-size: 14px;
-  margin-top: -16px;
-  margin-right: 4px;
+  margin-top: -10px;
 }
 
-.activeItem{
-  color: #673ab7;
-  i{
-    color:#673ab7;
+.overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: red;
+  top: 0;
+  z-index: 999
+}
+
+@media screen and (max-width: 1200px) {
+  .example-container {
+    width: auto;
+    height: auto;
+    padding-right: 20px;
+    position: absolute;
+    left: 0;
+    opacity: 1;
+    z-index: 999;
+  }
+
+  .mat-nested-tree-node, .mat-tree-node {
+    padding-left: 0 !important;
+  }
+
+
+}
+
+@media screen and (max-width: 1600px) {
+  .example-container {
+    padding-right: 20px;
   }
 }
