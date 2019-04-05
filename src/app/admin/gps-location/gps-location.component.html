@@ -1,7 +1,7 @@
 <app-dashboard></app-dashboard>
 <div class="rightGroup">
 
-    <div class="form-group col-5">
+    <div>
         <mat-form-field class="example-full-width">
             <mat-select placeholder="Ferry or Bus" (selectionChange)="filterferryBus($event)">
                 <mat-option>Please choose</mat-option>
@@ -10,7 +10,7 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="form-group col-5">
+    <div>
         <mat-form-field class="example-full-width">
             <mat-select placeholder="Ferry/Bus" name="tours_type_id" [(ngModel)]="partner.partner_id"
                         (selectionChange)="setPartner()">

@@ -23,6 +23,13 @@
   .mat-spinner{
     float: right;
   }
+}
 
+@media screen and (max-width: 1200px) {
+  .saveTourForm{
+    width: 90%;
+    float: inherit;
+    margin: 0 3%;
+  }
 }
 
