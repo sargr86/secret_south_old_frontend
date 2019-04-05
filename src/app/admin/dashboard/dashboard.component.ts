@@ -146,8 +146,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         if (!this.checkAdmin()) {
             this.router.navigate(['admin-panel']);
         }
-        this.drawer.toggle();
-        this.showFiller = true;
+        if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+            this.drawer.toggle();
+            this.showFiller = true;
+        }
+
     }
 
     ngAfterViewInit() {
@@ -193,7 +196,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     routing(name) {
-        name = name.replace('All ', '');
         const route = name.replace(/ /g, '_').toLowerCase();
 
         this.router.navigate(['/admin/' + route]);
@@ -222,11 +224,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     checkActiveItem(item) {
-        const routerUrl = this.router.url.replace('_', ' ');
-        const itemStr = item.replace('All ', '').toLowerCase();
-        console.log(routerUrl)
-        console.log(itemStr)
-        if (routerUrl.includes(itemStr)) {
+        const routerItem = this.router.url.replace('admin', '').replace(/[_\/]/g, '').trim();
+        const itemStr = item.toLowerCase().replace(/ /g, '');
+
+        if (routerItem === itemStr) {
             this.activeItem = item;
         }
         return item;

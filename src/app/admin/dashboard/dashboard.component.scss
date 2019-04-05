@@ -73,12 +73,13 @@ mat-drawer-container.example-container.no_width {
 }
 
 .nodeItem {
-  cursor: pointer;
+  cursor: pointer!important;
 }
 
 .menu-icon {
   font-size: 14px;
-  margin-top: -10px;
+  margin-top: -16px;
+  margin-right: 4px;
 }
 
 .overlay {
@@ -89,6 +90,13 @@ mat-drawer-container.example-container.no_width {
   background: red;
   top: 0;
   z-index: 999
+}
+
+.activeItem{
+  color: #673ab7;
+  i{
+    color:#673ab7;
+  }
 }
 
 @media screen and (max-width: 1200px) {

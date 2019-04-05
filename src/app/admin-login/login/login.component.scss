@@ -8,27 +8,29 @@
   width: 100%;
 }
 
-.mainContent{
+.mainContent {
   width: 100%;
   margin: 0 auto;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  form{
+
+  form {
     width: 30%;
   }
 }
 
-@media screen and (max-width: 1200px){
-  .mainContent{
+@media screen and (max-width: 1200px) {
+  .mainContent {
     width: 100%;
     margin: 0 auto;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    form{
+
+    form {
       width: 80%;
     }
   }
