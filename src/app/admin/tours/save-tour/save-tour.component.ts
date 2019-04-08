@@ -34,7 +34,7 @@ export class SaveTourComponent implements OnInit {
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = 'admin/tours';
+    redirectUrl = 'admin/all_tours';
 
     constructor(
         private _tours: ToursService,

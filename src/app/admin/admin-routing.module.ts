@@ -20,6 +20,7 @@ import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
 import {SavePartnerComponent} from './partners/save-partner/save-partner.component';
 import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.component';
+import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
@@ -29,10 +30,11 @@ const routes: Routes = [
     // {path: 'AddTours', component: AddToursComponent},
     {path: 'add_tours', component: SaveTourComponent},
     {path: 'tour/:id', component: SaveTourComponent},
-    {path: 'tour_type/:id', component: AddToursTypeComponent},
+    // {path: 'tour_type/:id', component: AddToursTypeComponent},
+    {path: 'tour_type/:id', component: SaveTourTypeComponent},
     // {path: 'AllTours', component: AllToursComponent},
     {path: 'all_tours', component: ShowToursComponent},
-    {path: 'add_tours_types', component: AddToursTypeComponent},
+    {path: 'add_tours_types', component: SaveTourTypeComponent},
     // {path: 'tours_types', component: AllToursTypeComponent},
     {path: 'all_tours_types', component: ShowTourTypesComponent},
     {path: 'add_food-drink', component: AddFoodDrinkComponent},

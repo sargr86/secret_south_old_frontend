@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs/internal/Subscription';
 import {ToursService} from '../../../admin/services/tours.service';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../services/common.service';
+import {TourTypeService} from '../../../admin/services/tour-type.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -39,6 +40,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private _ferry: FerryService,
         private _partner: PartnerService,
         private _tour: ToursService,
+        private _tour_type: TourTypeService,
         private dataSrc: GetTableDataSourcePipe,
         private dialog: MatDialog,
         public router: Router,
@@ -48,12 +50,15 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         this.displayedColumns = this.cols;
         this.getData(this.dataObs);
     }
 
     getData(dataObs, remove = false) {
         this.common.dataLoading = true;
+
+
         this.dataSubscription = dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
@@ -66,7 +71,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
             this.common.dataLoading = false;
 
             if (remove) {
-                this.toastr.success(`The  ${this.item} info has been removed successfully.`, 'Removed!');
+                this.toastr.success(`The  ${this.item.replace(/_/g, ' ')} info has been removed successfully.`, 'Removed!');
             }
 
             // Adjusting sort setting here

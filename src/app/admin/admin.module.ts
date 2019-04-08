@@ -24,6 +24,7 @@ import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import { ShowPartnersComponent } from './partners/show-partners/show-partners.component';
 import { SavePartnerComponent } from './partners/save-partner/save-partner.component';
 import { ShowTourTypesComponent } from './tours/show-tour-types/show-tour-types.component';
+import { SaveTourTypeComponent } from './tours/save-tour-type/save-tour-type.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { ShowTourTypesComponent } from './tours/show-tour-types/show-tour-types.
         ShowPartnersComponent,
         SavePartnerComponent,
         ShowTourTypesComponent,
+        SaveTourTypeComponent,
     ],
     imports: [
         CommonModule,
