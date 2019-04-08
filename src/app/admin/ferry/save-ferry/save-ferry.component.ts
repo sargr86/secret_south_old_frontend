@@ -28,7 +28,7 @@ export class SaveFerryComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner;
     editCase = false;
-    redirectUrl = 'admin/ferries';
+    redirectUrl = 'admin/all_ferries';
 
     ferryFields = {
         'name': ['', Validators.required],
