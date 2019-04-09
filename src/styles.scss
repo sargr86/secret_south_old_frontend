@@ -84,8 +84,35 @@ mat-label {
 .formTitle {
   color: $dark_gray;
   text-align: center;
-  margin:20px;
-  span{
-    margin-left:10px;
+  margin: 20px;
+
+  span {
+    margin-left: 10px;
+  }
+}
+
+dropzone {
+  height: 410px !important;
+
+  .dz-wrapper {
+    height: 100%;
+    overflow: hidden !important;
+
+    .dz-message {
+      height: 400px !important;
+    }
+
+    .dz-progress {
+      display: none;
+    }
+
+    .dz-remove {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $white;
+      z-index: 44444;
+    }
   }
 }

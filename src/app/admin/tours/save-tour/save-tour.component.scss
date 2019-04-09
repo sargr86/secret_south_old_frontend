@@ -4,29 +4,61 @@
 .saveTourForm {
   width: 40%;
   padding: 20px;
-  float:left;
+  float: left;
+
   .addressContainer {
     display: flex;
+
     .mat-form-field {
       width: 100%;
     }
+
     .resetAddress {
       @include noBgBtn;
       color: $red;
-      margin-top:20px;
+      margin-top: 20px;
     }
 
   }
-  .actions{
-    margin-top:40px;
+
+  .actions {
+    margin-top: 40px;
   }
-  .mat-spinner{
+
+  .mat-spinner {
     float: right;
   }
 }
 
+.dropzoneContainer {
+  width: 25%;
+  float: right;
+  margin-top: 39px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  height: 452px;
+  position: relative;
+
+  .removeSavedImg {
+    @include noBgBtn;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+  }
+
+  ngx-dropzone {
+    align-self: center;
+    width: 100%;
+  }
+}
+
+.savedImg {
+  width: 400px;
+}
+
 @media screen and (max-width: 1200px) {
-  .saveTourForm{
+  .saveTourForm {
     width: 90%;
     float: inherit;
     margin: 0 3%;
