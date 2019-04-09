@@ -23,28 +23,73 @@ import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.co
 import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
 
 const routes: Routes = [
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'add_ferries', component: SaveFerryComponent},
-    {path: 'ferry/:id', component: SaveFerryComponent},
-    {path: 'all_ferries', component: ShowFerriesComponent},
-    // {path: 'AddTours', component: AddToursComponent},
-    {path: 'add_tours', component: SaveTourComponent},
-    {path: 'tour/:id', component: SaveTourComponent},
-    // {path: 'tour_type/:id', component: AddToursTypeComponent},
-    {path: 'tour_type/:id', component: SaveTourTypeComponent},
-    // {path: 'AllTours', component: AllToursComponent},
-    {path: 'all_tours', component: ShowToursComponent},
-    {path: 'add_tours_types', component: SaveTourTypeComponent},
-    // {path: 'tours_types', component: AllToursTypeComponent},
-    {path: 'all_tours_types', component: ShowTourTypesComponent},
+    {
+        path: 'dashboard', component: DashboardComponent, data: {
+            title: 'Dashboard'
+        }
+    },
+    {
+        path: 'all_ferries', component: ShowFerriesComponent, data: {
+            title: 'All ferries'
+        }
+    },
+    {
+        path: 'add_ferries', component: SaveFerryComponent, data: {
+            title: 'Add a new ferry'
+        }
+    },
+    {
+        path: 'ferry/:id', component: SaveFerryComponent, data: {
+            title: 'Edit a ferry info'
+        }
+    },
+    {
+        path: 'all_tours', component: ShowToursComponent, data: {
+            title: 'All tours'
+        }
+    },
+    {
+        path: 'add_tours', component: SaveTourComponent, data: {
+            title: 'Add a new tour'
+        }
+    },
+    {
+        path: 'tour/:id', component: SaveTourComponent, data: {
+            title: 'Edit a tour info'
+        }
+    },
+    {
+        path: 'all_tours_types', component: ShowTourTypesComponent, data: {
+            title: 'All tour types'
+        }
+    },
+    {
+        path: 'tour_type/:id', component: SaveTourTypeComponent, data: {
+            title: 'Edit a tour type info'
+        }
+    },
+    {
+        path: 'add_tours_types', component: SaveTourTypeComponent, data: {
+            title: 'Add a new tour type'
+        }
+    },
     {path: 'add_food-drink', component: AddFoodDrinkComponent},
     {path: 'all_food-drink', component: AllFoodDrinkComponent},
-    // {path: 'AddPartner', component: AddPartnerComponent},
-    {path: 'add_partners', component: SavePartnerComponent},
-    // {path: 'partner/:id', component: AddPartnerComponent},
-    {path: 'partner/:id', component: SavePartnerComponent},
-    // {path: 'AllPartner', component: AllPartnerComponent},
-    {path: 'all_partners', component: ShowPartnersComponent},
+    {
+        path: 'all_partners', component: ShowPartnersComponent, data: {
+            title: 'All partners'
+        }
+    },
+    {
+        path: 'add_partners', component: SavePartnerComponent, data: {
+            title: 'Add a new partner'
+        }
+    },
+    {
+        path: 'partner/:id', component: SavePartnerComponent, data: {
+            title: 'Edit a partner'
+        }
+    },
     {path: 'add_locations', component: GpsLocationComponent},
 ];
 
