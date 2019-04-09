@@ -2,27 +2,27 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="savePartnerForm" class="savePartnerForm" *ngIf="showForm">
     <mat-form-field>
-        <input matInput formControlName="first_name" placeholder="First name">
+        <input matInput formControlName="first_name" placeholder="First name" required>
         <mat-error *ngIf="firstNameCtrl.hasError('required')">
             First name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input matInput formControlName="last_name" placeholder="Last name">
+        <input matInput formControlName="last_name" placeholder="Last name" required>
         <mat-error *ngIf="lastNameCtrl.hasError('required')">
             Last name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="!editCase">
-        <input matInput formControlName="email" placeholder="E-mail">
+        <input matInput formControlName="email" placeholder="E-mail" required>
         <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="!editCase">
-        <input type="password" matInput formControlName="pass" placeholder="Password">
+        <input type="password" matInput formControlName="pass" placeholder="Password" required>
     </mat-form-field>
     <mat-form-field>
-        <mat-select placeholder="Type" formControlName="type">
+        <mat-select placeholder="Type" formControlName="type" required>
             <mat-option value="1">Ferry</mat-option>
             <mat-option value="2">Food/Drink</mat-option>
             <mat-option value="3">Tours</mat-option>
