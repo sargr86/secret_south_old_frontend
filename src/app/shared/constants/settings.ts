@@ -1,3 +1,7 @@
+import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
+
+export const LIVE_URL = 'http://myworks.site/dev/secret_south';
+
 export const SPINNER_DIAMETER = 30;
 
 // Tables columns
@@ -10,14 +14,21 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 // Menu icons
 export const MENU_ITEM_ICONS = [
-    // {item: 'ferries', icon: 'waves'},
-    // {item: 'tours', icon: 'departure_board'},
-    // {item: 'tour types', icon: 'directions_bus'},
-    // {item: 'food', icon: 'waves'},
-    // {item: 'partners', icon: 'person'},
     {item: 'ferries', icon: 'fa-anchor'},
     {item: 'tours', icon: 'fa-directions'},
     {item: 'tour types', icon: 'fa-street-view'},
     {item: 'food', icon: 'fa-utensils'},
     {item: 'partners', icon: 'fa-users'}
 ];
+
+
+// Drop zone config
+export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+    // Change this to your upload POST address:
+    url: '{no_url}',
+    maxFilesize: 50,
+    maxFiles: 1,
+    acceptedFiles: 'image/*',
+    autoProcessQueue: false,
+    addRemoveLinks: true
+};

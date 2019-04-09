@@ -3,11 +3,12 @@ import {ToursService} from '../../services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MapsAPILoader} from '@agm/core';
-import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {LIVE_URL, SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
+import * as Base from '../../../config.js';
 
 @Component({
     selector: 'app-save-tour',
@@ -35,6 +36,10 @@ export class SaveTourComponent implements OnInit {
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
     redirectUrl = 'admin/all_tours';
+
+    dropZoneFile;
+    tourData;
+    imgPath;
 
     constructor(
         private _tours: ToursService,
@@ -65,8 +70,13 @@ export class SaveTourComponent implements OnInit {
 
                             this.tourFields['id'] = '';
                             this.saveTourForm = this._fb.group(this.tourFields);
+                            this.tourData = dt[0];
                             this.saveTourForm.patchValue(dt[0]);
+                            this.saveTourForm.controls['address'].disable();
                             this.editCase = true;
+                            if (this.tourData['img']) {
+                                this.imgPath = LIVE_URL + '/uploads/tour/' + this.tourData['img'];
+                            }
                         }
                         this.common.dataLoading = false;
                     });
@@ -82,6 +92,7 @@ export class SaveTourComponent implements OnInit {
      */
     resetAddress() {
         this.saveTourForm.patchValue({'address': ''});
+        this.saveTourForm.controls['address'].enable();
         this.mapsAPILoader.load().then(() => {
             const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
         });
@@ -122,7 +133,7 @@ export class SaveTourComponent implements OnInit {
 
         if (this.saveTourForm.valid) {
 
-            if (!this.uploadImages && !this.editCase) {
+            if (!this.dropZoneFile && !this.editCase) {
                 this.toastr.error('Please select an image to upload', 'No files');
             } else {
                 this.common.formProcessing = true;
@@ -134,7 +145,8 @@ export class SaveTourComponent implements OnInit {
                 fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
                 fd.append('partner_id', data.partner_id ? data.partner_id : '');
                 fd.append('address', searchAddress.value);
-                fd.append('upload_image', this.uploadImages);
+                fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
+                fd.append('img_path', this.imgPath ? this.imgPath : '');
 
                 if (this.editCase) {
                     fd.append('id', data['id'])
@@ -157,6 +169,16 @@ export class SaveTourComponent implements OnInit {
 
 
     }
+
+
+    getFile(e) {
+        this.dropZoneFile = e;
+    }
+
+    removeSavedImg() {
+        this.imgPath = '';
+    }
+
 
     get tourForm() {
         return this.saveTourForm;
