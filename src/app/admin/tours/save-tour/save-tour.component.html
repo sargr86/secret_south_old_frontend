@@ -11,7 +11,7 @@
 
     <!-- Name field -->
     <mat-form-field>
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name" required>
         <mat-error *ngIf="nameCtrl.hasError('required')">
             Tour name is <strong>required</strong>
         </mat-error>
@@ -19,7 +19,7 @@
 
     <!-- Latitude field -->
     <mat-form-field>
-        <input matInput placeholder="Latitude" formControlName="lat">
+        <input matInput placeholder="Latitude" formControlName="lat" required>
         <mat-error *ngIf="latCtrl.hasError('required')">
             Latitude is <strong>required</strong>
         </mat-error>
@@ -30,7 +30,7 @@
 
     <!-- Longitude field -->
     <mat-form-field>
-        <input matInput placeholder="Longitude" formControlName="lng">
+        <input matInput placeholder="Longitude" formControlName="lng" required>
         <mat-error *ngIf="lngCtrl.hasError('required')">
             Longitude is <strong>required</strong>
         </mat-error>
@@ -42,7 +42,7 @@
     <!-- Tour address field -->
     <div class="addressContainer">
         <mat-form-field>
-            <textarea matInput formControlName="address" placeholder="Address" #searchAddress></textarea>
+            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
@@ -54,7 +54,7 @@
 
     <!-- Tours type field -->
     <mat-form-field>
-        <mat-select placeholder="Tours Type" formControlName="tours_type_id">
+        <mat-select placeholder="Tours Type" formControlName="tours_type_id" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let t of tourType" [value]="t['id']">
                 {{t['tour_name']}}
@@ -67,7 +67,7 @@
 
     <!-- Partner field -->
     <mat-form-field>
-        <mat-select placeholder="Partners" formControlName="partner_id">
+        <mat-select placeholder="Partners" formControlName="partner_id" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partners" [value]="p['id']">
                 {{p['first_name'] + ' ' + p['last_name']}}
@@ -80,7 +80,7 @@
 
     <!-- Image field -->
     <div class="fileContainer" [hidden]="true">
-        <input type="file" *ngIf="!editCase" (change)="getFiles($event.target['files'])">
+        <input type="file" *ngIf="!editCase" (change)="getFiles($event.target['files'])" required>
         <mat-spinner [diameter]="spinnerDiameter" [hidden]="!common.formProcessing"></mat-spinner>
     </div>
 
