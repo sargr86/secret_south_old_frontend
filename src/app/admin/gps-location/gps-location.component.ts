@@ -71,7 +71,8 @@ export class GpsLocationComponent implements OnInit {
     drawPolygon() {
         this.map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 52.8757843, lng: -7.3217572},
-            zoom: 8
+            zoom: 8,
+            icon: 'your-icon.png'
         });
 
 

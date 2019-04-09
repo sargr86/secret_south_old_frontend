@@ -12,7 +12,7 @@
 
     <!-- Ferry name field-->
     <mat-form-field>
-        <input matInput formControlName="name" placeholder="Name">
+        <input matInput formControlName="name" placeholder="Name" required>
         <mat-error *ngIf="nameCtrl.hasError('required')">
             Ferry name is <strong>required</strong>
         </mat-error>
@@ -20,14 +20,14 @@
 
     <!-- E-mail field-->
     <mat-form-field *ngIf="!editCase">
-        <input matInput formControlName="email" placeholder="E-mail">
+        <input matInput formControlName="email" placeholder="E-mail" required>
         <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
 
     <!-- Max people for ferry field -->
     <mat-form-field>
-        <input matInput formControlName="max_people" type="number" placeholder="Max people">
+        <input matInput formControlName="max_people" type="number" placeholder="Max people" required>
         <mat-error *ngIf="maxCtrl.hasError('required')">
             Maximum people count is <strong>required</strong>
         </mat-error>
@@ -36,7 +36,7 @@
 
     <!-- Min people for ferry field -->
     <mat-form-field>
-        <input matInput formControlName="min_people" type="number" placeholder="Min people">
+        <input matInput formControlName="min_people" type="number" placeholder="Min people" required>
         <mat-error *ngIf="minCtrl.hasError('required')">
             Minimum people count <strong>required</strong>
         </mat-error>
@@ -44,7 +44,7 @@
 
     <!-- Ferry latitude field -->
     <mat-form-field>
-        <input matInput formControlName="lat" placeholder="Latitude">
+        <input matInput formControlName="lat" placeholder="Latitude" required>
         <mat-error *ngIf="latCtrl.hasError('required')">
             Latitude is <strong>required</strong>
         </mat-error>
@@ -55,7 +55,7 @@
 
     <!-- Ferry longitude field -->
     <mat-form-field>
-        <input matInput formControlName="lng" placeholder="Longitude">
+        <input matInput formControlName="lng" placeholder="Longitude" required>
         <mat-error *ngIf="lngCtrl.hasError('required')">
             Longitude is <strong>required</strong>
         </mat-error>
@@ -66,7 +66,7 @@
 
 
     <!-- Phone number field -->
-    <mat-label>Phone</mat-label>
+    <mat-label>Phone*</mat-label>
     <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20"
                                 [defaultCountry]="'gb'" [required]="true" (change)="changed($event)"
                                 [allowedCountries]="['in', 'ca', 'us','am','gb']"></international-phone-number>
@@ -83,7 +83,7 @@
     <!-- Address field -->
     <div class="addressContainer">
         <mat-form-field>
-            <textarea matInput formControlName="address" placeholder="Address" #searchAddress></textarea>
+            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
@@ -95,7 +95,7 @@
 
     <!-- Partner field-->
     <mat-form-field>
-        <mat-select formControlName="partner_id" placeholder="Partner">
+        <mat-select formControlName="partner_id" placeholder="Partner" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partners" [value]="p['id']">
                 {{p['first_name'] + ' ' + p['last_name']}}
