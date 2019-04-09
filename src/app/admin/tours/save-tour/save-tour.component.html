@@ -79,16 +79,23 @@
     </mat-form-field>
 
     <!-- Image field -->
-    <div class="fileContainer">
+    <div class="fileContainer" [hidden]="true">
         <input type="file" *ngIf="!editCase" (change)="getFiles($event.target['files'])">
         <mat-spinner [diameter]="spinnerDiameter" [hidden]="!common.formProcessing"></mat-spinner>
     </div>
 
     <!-- Action buttons -->
     <div class="actions">
+        <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
         <button mat-button type="button" (click)="router.navigate([redirectUrl])">Back</button>
         <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
             Save Tour
         </button>
     </div>
 </form>
+<div class="dropzoneContainer" *ngIf="!common.dataLoading">
+    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg">
+    <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
+    <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
+              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+</div>

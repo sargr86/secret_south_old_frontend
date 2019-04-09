@@ -5,6 +5,8 @@ import {ConfirmationDialogComponent} from './components/confirmation-dialog/conf
 import {GetTableDataSourcePipe} from './pipes/get-table-data-source.pipe';
 import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reusable-table.component';
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
+import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
+import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
 
 
 @NgModule({
@@ -16,14 +18,20 @@ import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
     imports: [
         CommonModule,
         MaterialModule,
-        InternationalPhoneNumberModule
+        InternationalPhoneNumberModule,
+        DropzoneModule
     ],
     providers: [
-        GetTableDataSourcePipe
+        GetTableDataSourcePipe,
+        {
+            provide: DROPZONE_CONFIG,
+            useValue: DEFAULT_DROPZONE_CONFIG
+        }
     ],
     exports: [
         MaterialModule,
         InternationalPhoneNumberModule,
+        DropzoneModule,
         GetTableDataSourcePipe,
         MatReusableTableComponent
     ],

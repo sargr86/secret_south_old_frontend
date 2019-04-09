@@ -127,6 +127,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.dataSource.data = database.initialData();
     }
 
+    activeItem;
     showFiller = false;
 
     treeControl: FlatTreeControl<DynamicFlatNode>;
@@ -139,7 +140,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
-    activeItem;
 
     ngOnInit() {
 

@@ -26,7 +26,7 @@ export class SavePartnerComponent implements OnInit {
     editCase = false;
     partnerInfo;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = 'admin/partners';
+    redirectUrl = 'admin/all_partners';
 
     constructor(
         private _fb: FormBuilder,
