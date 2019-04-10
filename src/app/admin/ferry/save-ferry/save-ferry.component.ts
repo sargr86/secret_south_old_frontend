@@ -69,14 +69,16 @@ export class SaveFerryComponent implements OnInit {
                     this.common.dataLoading = true;
                     this.editCase = true;
                     this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
-                        if (dt && dt.length > 0) {
-                            this.ferryData = dt[0];
+                        if (dt) {
+                            this.ferryData = dt;
+                            console.log(dt)
                             this.ferryFields['id'] = '';
                             this.editFerryForm = this._fb.group(this.ferryFields);
-                            this.editFerryForm.patchValue(dt[0]);
+                            this.editFerryForm.patchValue(dt);
                             this._partner.getAllpartner().subscribe((d: any) => {
-                                this.partners = d['result'];
+                                this.partners = d;
                                 this.common.dataLoading = false;
+
                             });
                         } else {
                             this.common.dataLoading = false;
@@ -109,20 +111,20 @@ export class SaveFerryComponent implements OnInit {
 
 
         // if (this.editFerryForm.valid) {
-            this.common.formProcessing = true;
-            if (this.editCase) {
-                this._ferry.update(formValue).subscribe(() => {
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The ferry info has been updated successfully', 'Updated!');
-                    this.common.formProcessing = false;
-                });
-            } else {
-                this._ferry.insertFerry(formValue).subscribe(() => {
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The ferry info has been added successfully', 'Added!');
-                    this.common.formProcessing = false;
-                });
-            }
+        this.common.formProcessing = true;
+        if (this.editCase) {
+            this._ferry.update(formValue).subscribe(() => {
+                this.router.navigate([this.redirectUrl]);
+                this.toastr.success('The ferry info has been updated successfully', 'Updated!');
+                this.common.formProcessing = false;
+            });
+        } else {
+            this._ferry.insertFerry(formValue).subscribe(() => {
+                this.router.navigate([this.redirectUrl]);
+                this.toastr.success('The ferry info has been added successfully', 'Added!');
+                this.common.formProcessing = false;
+            });
+        }
 
 
         // }
@@ -133,7 +135,7 @@ export class SaveFerryComponent implements OnInit {
      */
     getPartners() {
         this._ferry.getAllpartner().subscribe((d: any) => {
-            this.partners = d['result'];
+            this.partners = d;
         });
     }
 

@@ -30,7 +30,7 @@ export class FerryService {
             })
         };
 
-        return this.http.post(Base.url + 'ferry/add', data, httpOptions);
+        return this.http.post(`${API_URL}ferries/add`, data, httpOptions);
     }
 
     public getFerry() {
@@ -41,19 +41,19 @@ export class FerryService {
             })
         };
 
-        return this.http.get(API_URL + 'ferries/get', httpOptions);
+        return this.http.get(`${API_URL}ferries/get`, httpOptions);
     }
 
     getOneFerry(params) {
-        return this.http.get(Base.url + '/getOneFerry', {params: params});
+        return this.http.get(`${API_URL}ferries/getOne`, {params: params});
     }
 
     update(params) {
-        return this.http.post(Base.url + '/updateFerry', params);
+        return this.http.put(`${API_URL}ferries/update`, params);
     }
 
     remove(params) {
 
-        return this.http.post(Base.url + '/removeFerry', params);
+        return this.http.delete(`${API_URL}ferries/remove`, {params: params});
     }
 }
