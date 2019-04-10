@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as Base from '../../config.js';
+import {API_URL} from '../../shared/constants/settings';
 
 @Injectable({
     providedIn: 'root'
@@ -40,7 +41,7 @@ export class FerryService {
             })
         };
 
-        return this.http.get(Base.url + '/all_ferry', httpOptions);
+        return this.http.get(API_URL + 'ferries/get', httpOptions);
     }
 
     getOneFerry(params) {

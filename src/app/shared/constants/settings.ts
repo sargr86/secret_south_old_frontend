@@ -1,6 +1,7 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
+export const API_URL = 'http://localhost:3000/';
 
 export const SPINNER_DIAMETER = 30;
 
