@@ -19,7 +19,7 @@ export class PartnerService {
             })
         };
 
-        return this.http.post(Base.url + '/addPartner', data, httpOptions);
+        return this.http.post(API_URL + 'partners/add', data, httpOptions);
     }
 
     public getAllpartner() {
@@ -34,14 +34,18 @@ export class PartnerService {
     }
 
     getOnePartner(params) {
-        return this.http.get(Base.url + '/getOnePartner', {params: params});
+        return this.http.get(`${API_URL}partners/getOne`, {params: params});
     }
 
     updatePartnerInfo(params) {
-        return this.http.post(Base.url + '/updatePartnerInfo', params);
+        return this.http.put(`${API_URL}partners/update`, params);
     }
 
     remove(params) {
-        return this.http.post(Base.url + '/removePartnerInfo', params);
+        return this.http.delete(`${API_URL}partners/remove`, {params: params});
+    }
+
+    getTypes() {
+        return this.http.get(`${API_URL}partners/getTypes`);
     }
 }

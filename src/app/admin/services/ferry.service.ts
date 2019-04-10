@@ -19,7 +19,7 @@ export class FerryService {
             })
         };
 
-        return this.http.get(Base.url + '/allPartner');
+        return this.http.get(API_URL + 'partners/get');
     }
 
     public insertFerry(data) {
@@ -30,7 +30,7 @@ export class FerryService {
             })
         };
 
-        return this.http.post(Base.url + '/insert_ferry', data, httpOptions);
+        return this.http.post(Base.url + 'ferry/add', data, httpOptions);
     }
 
     public getFerry() {

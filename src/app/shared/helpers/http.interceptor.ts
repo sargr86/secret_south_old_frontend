@@ -33,10 +33,14 @@ export class RequestInterceptor implements HttpInterceptor {
                 this.common.dataLoading = false;
                 const message = err.error.message;
 
+
                 if (err.status === 200 || err.status === 0) {
                     this.toastr.error('Please check server connection.', 'Unknown error');
                 } else {
-                    if (message) {
+
+                    if (err.error.hasOwnProperty('msg')) {
+                        this.toastr.error(err.error.msg);
+                    } else if (message) {
                         this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
                     }
                 }
