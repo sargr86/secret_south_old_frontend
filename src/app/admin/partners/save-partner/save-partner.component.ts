@@ -7,6 +7,8 @@ import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {EMAIL_PATTERN} from '../../../shared/constants/patterns';
+import {PartnerType} from '../../../shared/models/PartnerType';
+import {Partner} from '../../../shared/models/Partner';
 
 @Component({
     selector: 'app-save-partner',
@@ -24,9 +26,10 @@ export class SavePartnerComponent implements OnInit {
     };
     savePartnerForm: FormGroup;
     editCase = false;
-    partnerInfo;
+    partnerInfo: Partner;
     spinnerDiameter = SPINNER_DIAMETER;
     redirectUrl = 'admin/all_partners';
+    partnerType: PartnerType;
 
     constructor(
         private _fb: FormBuilder,
@@ -40,17 +43,26 @@ export class SavePartnerComponent implements OnInit {
             this.partnersFields['pass'] = ['', Validators.required];
         }
         this.savePartnerForm = this._fb.group(this.partnersFields);
+
+        this._partner.getTypes().subscribe(d => {
+            this.partnerType = d;
+        });
+
         const partner_id = this.route.snapshot.paramMap.get('id');
         if (partner_id) {
             this.common.dataLoading = true;
             this.editCase = true;
+
             this._partner.getOnePartner({id: partner_id}).subscribe(dt => {
-                this.partnerInfo = dt['result'][0];
+
+                this.partnerInfo = dt;
                 delete this.partnersFields['pass'];
                 this.savePartnerForm = this._fb.group(this.partnersFields);
                 this.savePartnerForm.patchValue(this.partnerInfo);
                 this.common.dataLoading = false;
             });
+
+
         }
 
     }
