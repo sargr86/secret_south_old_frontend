@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as Base from "../../config.js";
+import {API_URL} from '../../shared/constants/settings';
 
 @Injectable({
     providedIn: 'root'
@@ -70,7 +71,7 @@ export class ToursService {
             })
         };
 
-        return this.http.get(Base.url + '/allTours', httpOptions);
+        return this.http.get(API_URL + 'tours/get', httpOptions);
     }
 
     insertTours(data) {
