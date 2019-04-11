@@ -1,6 +1,6 @@
 <div class="mainContent allFerryContent">
 
-    <mat-form-field *ngIf="!dataLoading && dataSource">
+    <mat-form-field *ngIf="!common.dataLoading && dataSource">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
 
@@ -20,16 +20,6 @@
                                 <span>{{row[col]['tour_name']}}</span>
                             </ng-container>
                         </td>
-
-<!--                        <td mat-cell *matCellDef="let row">-->
-<!--                            <button class="editBtn" [matTooltip]="'Edit'"-->
-<!--                                    (click)="router.navigate(['admin/partner/'+row.id],{state:{name:row.id}})">-->
-<!--                                <mat-icon>edit</mat-icon>-->
-<!--                            </button>-->
-<!--                            <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)">-->
-<!--                                <mat-icon>clear</mat-icon>-->
-<!--                            </button>-->
-<!--                        </td>-->
                     </ng-container>
 
                     <!-- Action column -->

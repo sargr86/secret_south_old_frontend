@@ -145,7 +145,10 @@ export class SaveTourComponent implements OnInit {
                 fd.append('partner_id', data.partner_id ? data.partner_id : '');
                 fd.append('address', searchAddress.value);
                 fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-                fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+                if (!this.imgPath) {
+
+                    fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+                }
                 fd.append('img_path', this.imgPath ? this.imgPath : '');
 
                 if (this.editCase) {
