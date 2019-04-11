@@ -36,9 +36,9 @@ export class SaveTourTypeComponent implements OnInit {
         if (id) {
             this.common.dataLoading = true;
             this._tours.getOneTourType({id: id}).subscribe((dt: any) => {
-                if (dt && dt.length > 0) {
-                    dt[0]['name'] = dt[0]['tour_name'];
-                    this.saveTourTypeForm.patchValue(dt[0]);
+                if (dt) {
+                    dt['name'] = dt['tour_name'];
+                    this.saveTourTypeForm.patchValue(dt);
                     this.editCase = true;
                     this.common.dataLoading = false;
                 }
