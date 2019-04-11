@@ -68,8 +68,8 @@
     <!-- Phone number field -->
     <mat-label>Phone*</mat-label>
     <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20"
-                                [defaultCountry]="'gb'" [required]="true" (change)="changed($event)"
-                                [allowedCountries]="['in', 'ca', 'us','am','gb']"></international-phone-number>
+                                [defaultCountry]="'ie'" [required]="true" (change)="changed($event)"
+                                [allowedCountries]="['ie','in', 'ca', 'us','am','gb']"></international-phone-number>
 
     <ng-container *ngIf="!phoneCtrl.pristine">
         <mat-error *ngIf="phoneCtrl.hasError('required')">
