@@ -15,17 +15,21 @@
                     <ng-container [matColumnDef]="col" *ngIf="col!='actions'">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{normalizeColName(col)}}</th>
                         <td mat-cell *matCellDef="let row">
-                            {{row[col]}}
+                            <span *ngIf="col!='tours_type'">{{row[col]}}</span>
+                            <ng-container *ngIf="col=='tours_type'">
+                                <span>{{row[col]['tour_name']}}</span>
+                            </ng-container>
                         </td>
-                        <td mat-cell *matCellDef="let row">
-                            <button class="editBtn" [matTooltip]="'Edit'"
-                                    (click)="router.navigate(['admin/partner/'+row.id],{state:{name:row.id}})">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)">
-                                <mat-icon>clear</mat-icon>
-                            </button>
-                        </td>
+
+<!--                        <td mat-cell *matCellDef="let row">-->
+<!--                            <button class="editBtn" [matTooltip]="'Edit'"-->
+<!--                                    (click)="router.navigate(['admin/partner/'+row.id],{state:{name:row.id}})">-->
+<!--                                <mat-icon>edit</mat-icon>-->
+<!--                            </button>-->
+<!--                            <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)">-->
+<!--                                <mat-icon>clear</mat-icon>-->
+<!--                            </button>-->
+<!--                        </td>-->
                     </ng-container>
 
                     <!-- Action column -->

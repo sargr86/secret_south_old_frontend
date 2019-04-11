@@ -3,12 +3,11 @@ import {ToursService} from '../../services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MapsAPILoader} from '@agm/core';
-import {LIVE_URL, SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {API_URL, SPINNER_DIAMETER, TOURS_FOLDER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
-import * as Base from '../../../config.js';
 
 @Component({
     selector: 'app-save-tour',
@@ -66,16 +65,16 @@ export class SaveTourComponent implements OnInit {
                 if (id) {
                     this.common.dataLoading = true;
                     this._tours.getOneTour({id: id}).subscribe((dt: any) => {
-                        if (dt && dt.length > 0) {
+                        if (dt) {
 
                             this.tourFields['id'] = '';
                             this.saveTourForm = this._fb.group(this.tourFields);
-                            this.tourData = dt[0];
-                            this.saveTourForm.patchValue(dt[0]);
+                            this.tourData = dt;
+                            this.saveTourForm.patchValue(dt);
                             this.saveTourForm.controls['address'].disable();
                             this.editCase = true;
                             if (this.tourData['img']) {
-                                this.imgPath = LIVE_URL + '/uploads/tour/' + this.tourData['img'];
+                                this.imgPath = TOURS_FOLDER + this.tourData['img'];
                             }
                         }
                         this.common.dataLoading = false;
@@ -104,7 +103,7 @@ export class SaveTourComponent implements OnInit {
      */
     getPartners() {
         this._tours.getAllpartner().subscribe((r: any) => {
-            this.partners = r['result'];
+            this.partners = r;
         });
     }
 
@@ -113,7 +112,7 @@ export class SaveTourComponent implements OnInit {
      */
     getToursType() {
         this._tours.getAllTourType().subscribe((r: any) => {
-            this.tourType = r['result'];
+            this.tourType = r;
         });
     }
 
@@ -146,6 +145,7 @@ export class SaveTourComponent implements OnInit {
                 fd.append('partner_id', data.partner_id ? data.partner_id : '');
                 fd.append('address', searchAddress.value);
                 fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
+                fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
                 fd.append('img_path', this.imgPath ? this.imgPath : '');
 
                 if (this.editCase) {
