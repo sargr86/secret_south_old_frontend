@@ -33,3 +33,7 @@ export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     autoProcessQueue: false,
     addRemoveLinks: true
 };
+
+// ngx-phone-number countries
+export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
+export const DEFAULT_COUNTRY = 'ie';
