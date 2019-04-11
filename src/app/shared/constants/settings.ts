@@ -2,13 +2,14 @@ import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = 'http://localhost:3000/';
+export const TOURS_FOLDER = API_URL + 'uploads/others/tours/';
 
 export const SPINNER_DIAMETER = 30;
 
 // Tables columns
 export const FERRIES_TABLE_COLUMNS = ['name', 'email', 'max_people', 'min_people', 'phone', 'address', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'actions'];
-export const TOURS_TABLE_COLUMNS = ['name', 'address', 'type_name', 'actions'];
+export const TOURS_TABLE_COLUMNS = ['name', 'address', 'tours_type', 'actions'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
