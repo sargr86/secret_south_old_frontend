@@ -10,7 +10,7 @@
     </mat-form-field>
   </div>
 
-  <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="8" [fullscreenControl]="true" [mapTypeControl]="true">
+  <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="12" [fullscreenControl]="true" [mapTypeId]= "'hybrid'">
     <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng">
       <agm-info-window *ngIf="searchBy.type==1 || searchBy.type==0">
         <h4>{{single.name}}</h4>
