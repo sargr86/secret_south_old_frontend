@@ -3,7 +3,7 @@ import {FerryService} from '../../services/ferry.service';
 import {PartnerService} from '../../services/partner.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
@@ -29,12 +29,14 @@ export class SaveFerryComponent implements OnInit {
     partners: Partner;
     editCase = false;
     redirectUrl = 'admin/all_ferries';
+    allowedCountries = ALLOWED_COUNTRIES;
+    defaultCountry = DEFAULT_COUNTRY;
 
     ferryFields = {
         'name': ['', Validators.required],
         'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
         'max_people': ['', Validators.required],
-        'min_people': ['', Validators.required],
+        'min_people': [5, Validators.required],
         'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'phone': ['', [Validators.required]],
@@ -71,7 +73,6 @@ export class SaveFerryComponent implements OnInit {
                     this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
                         if (dt) {
                             this.ferryData = dt;
-                            console.log(dt)
                             this.ferryFields['id'] = '';
                             this.editFerryForm = this._fb.group(this.ferryFields);
                             this.editFerryForm.patchValue(dt);
