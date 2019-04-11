@@ -130,7 +130,7 @@ export class SaveTourComponent implements OnInit {
      */
     saveTour(searchAddress) {
 
-        if (this.saveTourForm.valid) {
+        // if (this.saveTourForm.valid) {
 
             if (!this.dropZoneFile && !this.editCase) {
                 this.toastr.error('Please select an image to upload', 'No files');
@@ -168,7 +168,7 @@ export class SaveTourComponent implements OnInit {
             }
 
 
-        }
+        // }
 
 
     }
