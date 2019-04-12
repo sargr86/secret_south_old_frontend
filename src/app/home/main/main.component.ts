@@ -2,6 +2,7 @@ import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
 import {MainService} from "../services/main.service";
 import * as Base from "../../config.js";
+import * as mapStylesData from '../../maps/map_styles.json';
 
 @Component({
   selector: 'app-main',
@@ -19,8 +20,10 @@ export class MainComponent implements OnInit {
   imgPath: String = '';
   public successData: boolean = false;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private main: MainService) {
+  mapStyles;
 
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private main: MainService) {
+    this.mapStyles = mapStylesData['default'];
   }
 
   ngOnInit() {
