@@ -64,39 +64,38 @@ export class SaveFerryComponent implements OnInit {
     ngOnInit() {
         this.editFerryForm = this._fb.group(this.ferryFields);
 
-        this.mapsAPILoader.load().then(() => {
-            if (this.searchElementRef) {
-                const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-                const ferry_id = this.route.snapshot.paramMap.get('id');
-                if (ferry_id) {
-                    this.common.dataLoading = true;
-                    this.editCase = true;
-                    this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
-                        if (dt) {
-                            this.ferryData = dt;
-                            this.ferryFields['id'] = '';
-                            this.editFerryForm = this._fb.group(this.ferryFields);
-                            this.editFerryForm.patchValue(dt);
-                            this._partner.getAllpartner().subscribe((d: any) => {
-                                this.partners = d;
+        this._partner.getTypes().subscribe(types => {
+            this.partnerTypes = types;
+            this.mapsAPILoader.load().then(() => {
+                if (this.searchElementRef) {
+                    const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+                    const ferry_id = this.route.snapshot.paramMap.get('id');
+                    if (ferry_id) {
+                        this.common.dataLoading = true;
+                        this.editCase = true;
+                        this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
+                            if (dt) {
+                                this.ferryData = dt;
+                                this.ferryFields['id'] = '';
+                                this.editFerryForm = this._fb.group(this.ferryFields);
+                                this.editFerryForm.patchValue(dt);
+                                this._partner.getAllpartner().subscribe((d: any) => {
+                                    this.partners = d;
+                                    this.common.dataLoading = false;
+
+                                });
+                            } else {
+                                this.common.dataLoading = false;
+                            }
+                        });
 
 
-                            });
-                        } else {
-                            this.common.dataLoading = false;
-                        }
-                    });
+                    }
 
 
                 }
-                this._partner.getTypes().subscribe(types => {
-                    this.partnerTypes = types;
-                    this.common.dataLoading = false;
-                });
-
-            }
+            });
         });
-
         this.getPartners();
     }
 
