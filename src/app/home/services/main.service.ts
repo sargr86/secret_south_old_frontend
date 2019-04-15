@@ -1,34 +1,35 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as Base from "../../config.js";
+import {API_URL} from '../../shared/constants/settings';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class MainService {
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public getFerryLocation() {
+    public getFerryLocation() {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.get(Base.url + '/home/get_places', httpOptions);
-  }
+        return this.http.get(`${API_URL}home/get_places`, httpOptions);
+    }
 
-  public changePlace(data) {
+    public changePlace(data) {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-      })
-    };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'content-type': 'application/json',
+            })
+        };
 
-    return this.http.post(Base.url + '/home/check_place',data, httpOptions);
-  }
+        return this.http.post(Base.url + '/home/check_place', data, httpOptions);
+    }
 }
