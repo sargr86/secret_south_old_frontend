@@ -31,6 +31,7 @@ export class SaveFerryComponent implements OnInit {
     redirectUrl = 'admin/all_ferries';
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
+    partnerTypes;
 
     ferryFields = {
         'name': ['', Validators.required],
@@ -41,7 +42,7 @@ export class SaveFerryComponent implements OnInit {
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'phone': ['', [Validators.required]],
         'address': ['', Validators.required],
-        'type': 'ferry',
+        'type': '',
         'partner_id': ['', Validators.required]
     };
 
@@ -78,14 +79,21 @@ export class SaveFerryComponent implements OnInit {
                             this.editFerryForm.patchValue(dt);
                             this._partner.getAllpartner().subscribe((d: any) => {
                                 this.partners = d;
-                                this.common.dataLoading = false;
+
 
                             });
                         } else {
                             this.common.dataLoading = false;
                         }
                     });
+
+
                 }
+                this._partner.getTypes().subscribe(types => {
+                    this.partnerTypes = types;
+                    this.common.dataLoading = false;
+                });
+
             }
         });
 
