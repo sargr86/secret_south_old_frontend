@@ -1,7 +1,8 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
+import {environment} from '../../../environments/environment';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
-export const API_URL = 'http://localhost:3000/';
+export const API_URL = environment.apiUrl;
 export const TOURS_FOLDER = API_URL + 'uploads/others/tours/';
 
 export const SPINNER_DIAMETER = 30;
