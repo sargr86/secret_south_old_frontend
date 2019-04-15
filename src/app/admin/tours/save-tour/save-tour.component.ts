@@ -47,7 +47,7 @@ export class SaveTourComponent implements OnInit {
         private route: ActivatedRoute,
         private mapsAPILoader: MapsAPILoader,
         private toastr: ToastrService,
-        private common: CommonService
+        public common: CommonService
     ) {
 
         this.getPartners();
