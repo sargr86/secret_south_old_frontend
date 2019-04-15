@@ -93,6 +93,20 @@
         </button>
     </div>
 
+
+    <mat-form-field>
+        <mat-select formControlName="type" placeholder="Partner" required>
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
+                {{p['name']}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="editFerryForm.get('type').hasError('required')">
+            Partner is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+
     <!-- Partner field-->
     <mat-form-field>
         <mat-select formControlName="partner_id" placeholder="Partner" required>
