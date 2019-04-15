@@ -45,7 +45,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public router: Router,
         private  toastr: ToastrService,
-        private common: CommonService
+        public common: CommonService
     ) {
     }
 
