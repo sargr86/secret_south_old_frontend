@@ -26,7 +26,7 @@ export class SaveFerryComponent implements OnInit {
     editFerryForm: FormGroup;
     ferryData: Ferry;
     spinnerDiameter = SPINNER_DIAMETER;
-    partners: Partner;
+    partners: Partner[] = [];
     editCase = false;
     redirectUrl = 'admin/all_ferries';
     allowedCountries = ALLOWED_COUNTRIES;

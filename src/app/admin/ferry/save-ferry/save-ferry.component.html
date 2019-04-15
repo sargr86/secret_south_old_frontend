@@ -1,6 +1,6 @@
 <app-dashboard></app-dashboard>
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading">
+<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading && partners.length > 0">
 
     <h4 class="formTitle">
         <ng-container *ngIf="!editCase">
@@ -93,9 +93,9 @@
         </button>
     </div>
 
-
+    <!-- Partner type field-->
     <mat-form-field>
-        <mat-select formControlName="type" placeholder="Partner" required>
+        <mat-select formControlName="type" placeholder="Partner type" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
                 {{p['name']}}
@@ -134,4 +134,5 @@
     </div>
 </form>
 
+<small class="notFound" *ngIf="partners.length===0">No partners found. Please add some partners first.</small>
 <small *ngIf="!ferryData && !common.dataLoading && editCase" class="notFound">The selected ferry is not found</small>

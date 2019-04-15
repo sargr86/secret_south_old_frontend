@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
+import {Partner} from '../../../shared/models/Partner';
 
 @Component({
     selector: 'app-save-tour',
@@ -20,7 +21,7 @@ export class SaveTourComponent implements OnInit {
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
-    partners;
+    partners: Partner[] = [];
     tourType;
     saveTourForm: FormGroup;
     uploadImages;
