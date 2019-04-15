@@ -37,7 +37,7 @@ export class SavePartnerComponent implements OnInit {
         private _partner: PartnerService,
         private router: Router,
         private toastr: ToastrService,
-        private common: CommonService
+        public common: CommonService
     ) {
         if (!this.editCase) {
             this.partnersFields['pass'] = ['', Validators.required];
