@@ -40,7 +40,7 @@ export class FerryService {
                 // 'content-type': 'application/json',
             })
         };
-
+console.log(`${API_URL}ferries/get`)
         return this.http.get(`${API_URL}ferries/get`, httpOptions);
     }
 
