@@ -31,7 +31,7 @@ export class SaveFerryComponent implements OnInit {
     redirectUrl = 'admin/all_ferries';
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
-    partnerTypes;
+    partnerTypes: any = [];
 
     ferryFields = {
         'name': ['', Validators.required],
