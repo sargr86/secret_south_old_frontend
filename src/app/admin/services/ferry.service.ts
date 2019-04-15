@@ -34,14 +34,7 @@ export class FerryService {
     }
 
     public getFerry() {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                // 'content-type': 'application/json',
-            })
-        };
-console.log(`${API_URL}ferries/get`)
-        return this.http.get(`${API_URL}ferries/get`, httpOptions);
+        return this.http.get(`${API_URL}ferries/get`);
     }
 
     getOneFerry(params) {
