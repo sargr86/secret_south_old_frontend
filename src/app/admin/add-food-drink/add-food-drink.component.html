@@ -4,11 +4,11 @@
 <!--  <span>Under construction</span>-->
 <!--</div>-->
 <div class="mainContent ">
-  <form action="" method="post" #adminLog=ngForm (autocomplete)="off" autocomplete="off">
+  <form action="" method="post" #adminLog=ngForm autocomplete="off">
     <div class="form-group">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Name" [formControl]="nameFormControl"
-               [errorStateMatcher]="matcher" name="firstName"   [(ngModel)]="foodDrink.name">
+               name="firstName"   [(ngModel)]="foodDrink.name">
         <mat-hint>Errors appear instantly!</mat-hint>
         <mat-error *ngIf="nameFormControl.hasError('required')">
           First name is <strong>required</strong>
@@ -18,7 +18,7 @@
     <div class="form-group">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Latitude" [formControl]="latFormControl"
-               [errorStateMatcher]="matcher" name="firstName"   [(ngModel)]="foodDrink.lat">
+                name="firstName"   [(ngModel)]="foodDrink.lat">
         <mat-hint>Errors appear instantly!</mat-hint>
         <mat-error *ngIf="latFormControl.hasError('required')">
           Lattitude is <strong>required</strong>
@@ -28,7 +28,7 @@
     <div class="form-group">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Latitude" [formControl]="lngFormControl"
-               [errorStateMatcher]="matcher" name="firstName"   [(ngModel)]="foodDrink.lng">
+                name="firstName"   [(ngModel)]="foodDrink.lng">
         <mat-hint>Errors appear instantly!</mat-hint>
         <mat-error *ngIf="lngFormControl.hasError('required')">
           Longitude is <strong>required</strong>

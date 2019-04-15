@@ -18,6 +18,7 @@ export class EditFerryComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     partnersTypeName = [];
     partners;
+    editCase = false;
 
     constructor(
         private _fb: FormBuilder,
