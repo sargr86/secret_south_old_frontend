@@ -41,8 +41,8 @@ export class MainComponent implements OnInit {
             }
 
             let arr = [];
-            if (r['result']) {
-                r['result'].map((latlngs) => {
+            if (r) {
+                r.map((latlngs) => {
                     latlngs.lat = parseFloat(latlngs.lat);
                     latlngs.lng = parseFloat(latlngs.lng);
                     arr.push(latlngs);
