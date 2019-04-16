@@ -63,13 +63,16 @@ export class SaveFerryComponent implements OnInit {
 
     ngOnInit() {
         this.editFerryForm = this._fb.group(this.ferryFields);
-
+        this.common.dataLoading = true;
         this.route.data.subscribe(dt => {
+            this.getPartners();
             if (this.route.snapshot.paramMap.get('id')) {
                 this.ferryData = dt['oneFerry'];
                 this.ferryFields['id'] = '';
                 this.editFerryForm = this._fb.group(this.ferryFields);
                 this.editFerryForm.patchValue(this.ferryData);
+                this.editCase = true;
+                this.common.dataLoading = false;
             }
         });
 
@@ -78,34 +81,11 @@ export class SaveFerryComponent implements OnInit {
             this.mapsAPILoader.load().then(() => {
                 if (this.searchElementRef) {
                     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-                    const ferry_id = this.route.snapshot.paramMap.get('id');
-                    if (ferry_id) {
-                        this.common.dataLoading = true;
-                        this.editCase = true;
-                        // this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
-                        //     if (dt) {
-                        //         this.ferryData = dt;
-                        //         this.ferryFields['id'] = '';
-                        //         this.editFerryForm = this._fb.group(this.ferryFields);
-                        //         this.editFerryForm.patchValue(dt);
-                                this._partner.getAllpartner().subscribe((d: any) => {
-                                    this.partners = d;
-                                    this.common.dataLoading = false;
-
-                                });
-                            // } else {
-                            //     this.common.dataLoading = false;
-                            // }
-                        // });
-
-
-                    }
-
 
                 }
             });
         });
-        this.getPartners();
+
     }
 
     /**
@@ -153,6 +133,7 @@ export class SaveFerryComponent implements OnInit {
     getPartners() {
         this._ferry.getAllpartner().subscribe((d: any) => {
             this.partners = d;
+            this.common.dataLoading = false;
         });
     }
 
