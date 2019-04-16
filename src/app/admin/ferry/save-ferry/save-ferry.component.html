@@ -84,12 +84,13 @@
     <div class="addressContainer">
         <mat-form-field>
             <input matInput formControlName="address" placeholder="Address" #searchAddress required>
+            <mat-hint align="end">If locations drop down doesn't appear, please click on reload icon below</mat-hint>
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <button (click)="resetAddress()" class="resetAddress">
-            <mat-icon>clear</mat-icon>
+            <mat-icon>replay</mat-icon>
         </button>
     </div>
 
