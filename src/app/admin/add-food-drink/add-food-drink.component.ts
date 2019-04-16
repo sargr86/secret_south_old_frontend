@@ -77,8 +77,10 @@ export class AddFoodDrinkComponent implements OnInit {
                 alert(r['message']);
                 return false;
             }
+            if (r['result']) {
 
-            r['result'].map(k => this.partnersTypeName.push(k));
+                r['result'].map(k => this.partnersTypeName.push(k));
+            }
         });
     }
 
