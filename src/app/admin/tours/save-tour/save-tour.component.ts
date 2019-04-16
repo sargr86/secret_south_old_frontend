@@ -74,6 +74,10 @@ export class SaveTourComponent implements OnInit {
             this.common.dataLoading = false;
         });
 
+        if (!this.editCase) {
+            this.saveTourForm = this._fb.group(this.tourFields);
+        }
+
         this.mapsAPILoader.load().then(() => {
             if (this.searchElementRef) {
                 const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
