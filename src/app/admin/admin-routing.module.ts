@@ -21,6 +21,7 @@ import {ShowPartnersComponent} from './partners/show-partners/show-partners.comp
 import {SavePartnerComponent} from './partners/save-partner/save-partner.component';
 import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
+import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
 
 const routes: Routes = [
     {
@@ -40,7 +41,11 @@ const routes: Routes = [
     },
     {
         path: 'ferry/:id', component: SaveFerryComponent, data: {
-            title: 'Edit a ferry info'
+            title: 'Edit a ferry info',
+
+        },
+        resolve: {
+            oneFerry: OneFerryResolverService
         }
     },
     {

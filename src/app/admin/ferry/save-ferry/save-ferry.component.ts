@@ -64,6 +64,15 @@ export class SaveFerryComponent implements OnInit {
     ngOnInit() {
         this.editFerryForm = this._fb.group(this.ferryFields);
 
+        this.route.data.subscribe(dt => {
+            if (this.route.snapshot.paramMap.get('id')) {
+                this.ferryData = dt['oneFerry'];
+                this.ferryFields['id'] = '';
+                this.editFerryForm = this._fb.group(this.ferryFields);
+                this.editFerryForm.patchValue(this.ferryData);
+            }
+        });
+
         this._partner.getTypes().subscribe(types => {
             this.partnerTypes = types;
             this.mapsAPILoader.load().then(() => {
@@ -73,21 +82,21 @@ export class SaveFerryComponent implements OnInit {
                     if (ferry_id) {
                         this.common.dataLoading = true;
                         this.editCase = true;
-                        this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
-                            if (dt) {
-                                this.ferryData = dt;
-                                this.ferryFields['id'] = '';
-                                this.editFerryForm = this._fb.group(this.ferryFields);
-                                this.editFerryForm.patchValue(dt);
+                        // this._ferry.getOneFerry({id: ferry_id}).subscribe((dt: any) => {
+                        //     if (dt) {
+                        //         this.ferryData = dt;
+                        //         this.ferryFields['id'] = '';
+                        //         this.editFerryForm = this._fb.group(this.ferryFields);
+                        //         this.editFerryForm.patchValue(dt);
                                 this._partner.getAllpartner().subscribe((d: any) => {
                                     this.partners = d;
                                     this.common.dataLoading = false;
 
                                 });
-                            } else {
-                                this.common.dataLoading = false;
-                            }
-                        });
+                            // } else {
+                            //     this.common.dataLoading = false;
+                            // }
+                        // });
 
 
                     }
