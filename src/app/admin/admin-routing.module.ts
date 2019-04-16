@@ -22,6 +22,7 @@ import {SavePartnerComponent} from './partners/save-partner/save-partner.compone
 import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
 import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
+import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
 
 const routes: Routes = [
     {
@@ -61,6 +62,9 @@ const routes: Routes = [
     {
         path: 'tour/:id', component: SaveTourComponent, data: {
             title: 'Edit a tour info'
+        },
+        resolve: {
+            oneTour: OneTourResolverService
         }
     },
     {

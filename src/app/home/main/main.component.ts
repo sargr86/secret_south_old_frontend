@@ -1,7 +1,7 @@
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
-import {MainService} from "../services/main.service";
-import * as Base from "../../config.js";
+import {MainService} from '../services/main.service';
+import * as Base from '../../config.js';
 import * as mapStylesData from '../../maps/map_styles2.json';
 
 @Component({
@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
     latlng: any = [];
     searchBy = {'type': ''};
     imgPath: String = '';
-    public successData: boolean = false;
+    public successData = false;
 
     mapStyles;
 
