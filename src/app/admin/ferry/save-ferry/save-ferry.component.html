@@ -1,6 +1,7 @@
 <app-dashboard></app-dashboard>
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading && partners.length > 0 && partnerTypes.length > 0">
+<form [formGroup]="editFerryForm" class="saveFerryForm"
+      *ngIf="!common.dataLoading && partners.length > 0 && partnerTypes.length > 0">
 
     <h4 class="formTitle">
         <ng-container *ngIf="!editCase">
@@ -135,6 +136,10 @@
     </div>
 </form>
 
-<small class="notFound" *ngIf="partners.length===0">No partners found. Please add some partners first.</small>
-<small class="notFound" *ngIf="partnerTypes.length===0">Partner types aren't loaded. Please try again</small>
+<small class="notFound" *ngIf="partners.length===0 && !common.dataLoading">No partners found. Please add some partners
+    first.
+</small>
+<small class="notFound" *ngIf="partnerTypes.length===0&& !common.dataLoading">Partner types aren't loaded. Please try
+    again
+</small>
 <small *ngIf="!ferryData && !common.dataLoading && editCase" class="notFound">The selected ferry is not found</small>
