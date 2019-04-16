@@ -83,7 +83,7 @@
     <!-- Address field -->
     <div class="addressContainer">
         <mat-form-field>
-            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
+            <input matInput formControlName="address" placeholder="Address" #searchAddress required>
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
@@ -102,7 +102,7 @@
             </mat-option>
         </mat-select>
         <mat-error *ngIf="editFerryForm.get('type').hasError('required')">
-            Partner is <strong>required</strong>
+            Partner type is <strong>required</strong>
         </mat-error>
     </mat-form-field>
 
