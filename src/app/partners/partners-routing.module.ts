@@ -5,7 +5,7 @@ import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.c
 
 
 const routes: Routes = [
-  {path: 'partnerLogin', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'dashboardPage', component: PartnerDashboardComponent},
 ];
 
