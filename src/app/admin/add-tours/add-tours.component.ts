@@ -38,9 +38,9 @@ export class AddToursComponent implements OnInit {
     editCase = false;
 
     ngOnInit() {
-        if (!this.checkAdmin()) {
-            this.router.navigate(['admin-panel']);
-        }
+        // if (!this.checkAdmin()) {
+        //     this.router.navigate(['admin-panel']);
+        // }
         this.getToursType();
         this.getPartners();
         this.mapsAPILoader.load().then(() => {

@@ -39,7 +39,7 @@ export class RequestInterceptor implements HttpInterceptor {
                 } else {
 
                     if (err.error.hasOwnProperty('msg')) {
-                        this.toastr.error(err.error.msg);
+                        this.toastr.error('', err.error.msg);
                     } else if (message) {
                         this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));
                     }

@@ -1,0 +1,25 @@
+@import '../../../../_variables';
+@import '../../../../_mixins';
+
+.formContainer {
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    text-align: center;
+    text-transform:capitalize;
+  }
+
+  form {
+    width: 30%;
+
+    .actions {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

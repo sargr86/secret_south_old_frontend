@@ -85,12 +85,7 @@ export class SavePartnerComponent implements OnInit {
             });
 
         } else {
-            const localStorages = JSON.parse(localStorage.getItem('adminInf'));
-
-            const mixInf = localStorages['admin_session_inf'];
-            data['mixinf'] = mixInf;
-
-            this._partner.insertPartner(data).subscribe(() => {
+             this._partner.insertPartner(data).subscribe(() => {
                 this.toastr.success('Partner info has been added successfully');
                 this.router.navigate([this.redirectUrl]);
                 this.common.formProcessing = false;

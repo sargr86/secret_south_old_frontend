@@ -15,6 +15,7 @@ export class DynamicFlatNode {
 
 export class DynamicDatabase {
     dataMap = new Map<string, string[]>([
+        ['Admin', ['Dashboard']],
         ['Ferries', ['Add Ferries', 'All Ferries']],
         ['Tours', ['Add Tours', 'All Tours', 'Add Tours Types', 'All Tours Types']],
         ['Food-Drink', ['Add Food-Drink', 'All Food-Drink']],
@@ -22,7 +23,7 @@ export class DynamicDatabase {
         ['Gps Location', ['Add Locations']],
     ]);
 
-    rootLevelNodes: string[] = ['Ferries', 'Tours', 'Food-Drink', 'Partners', 'Gps Location'];
+    rootLevelNodes: string[] = ['Admin', 'Ferries', 'Tours', 'Food-Drink', 'Partners', 'Gps Location'];
 
     /** Initial data from database */
     initialData(): DynamicFlatNode[] {
@@ -143,9 +144,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
 
-        if (!this.checkAdmin()) {
-            this.router.navigate(['admin-panel']);
-        }
         if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
             this.drawer.toggle();
             this.showFiller = true;
@@ -202,8 +200,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     logout() {
-        localStorage.removeItem('adminInf');
-        this.router.navigate(['admin-panel']);
+        localStorage.removeItem('token');
+        this.router.navigate(['admin/login']);
     }
 
     getIcon(item) {

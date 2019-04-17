@@ -17,6 +17,13 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {MaterialModule} from './shared/modules/material.module';
 import {ToastrModule} from 'ngx-toastr';
 import {RequestInterceptor} from './shared/helpers/http.interceptor';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {JwtModule} from '@auth0/angular-jwt';
+
+// Token getter for JWT module
+export function tokenGetter() {
+    return localStorage.getItem('token');
+}
 
 @NgModule({
     declarations: [
@@ -36,9 +43,17 @@ import {RequestInterceptor} from './shared/helpers/http.interceptor';
         StorageServiceModule,
         MaterialModule,
         ToastrModule.forRoot(),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ['localhost:3000'],
+                blacklistedRoutes: ['localhost:3000/auth/']
+            }
+        }),
     ],
     providers: [
         AdminService,
+        JwtHelperService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
