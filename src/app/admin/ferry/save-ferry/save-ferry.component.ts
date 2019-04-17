@@ -73,7 +73,7 @@ export class SaveFerryComponent implements OnInit {
                 this.editFerryForm = this._fb.group(this.ferryFields);
                 this.editFerryForm.patchValue(this.ferryData);
                 this.editCase = true;
-
+                this.addressCtrl.disable();
             }
         });
 
@@ -94,6 +94,7 @@ export class SaveFerryComponent implements OnInit {
      */
     resetAddress() {
         this.editFerryForm.patchValue({'address': ''});
+        this.addressCtrl.enable();
         this.mapsAPILoader.load().then(() => {
             const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
         });
@@ -173,7 +174,6 @@ export class SaveFerryComponent implements OnInit {
 
 
     changed(e) {
-        console.log(e.target.value)
         this.editFerryForm.patchValue({'phone': e.target.value});
     }
 

@@ -60,9 +60,9 @@ export class AddFoodDrinkComponent implements OnInit {
     upload_images = null;
 
     ngOnInit() {
-        if (!this.checkAdmin()) {
-            this.router.navigate(['admin-panel']);
-        }
+        // if (!this.checkAdmin()) {
+        //     this.router.navigate(['admin-panel']);
+        // }
         this.getPartners();
         this.mapsAPILoader.load().then(() => {
             const autocomplete = new google.maps.places.Autocomplete(this.searchelementRef.nativeElement, {types: ['geocode']});

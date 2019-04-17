@@ -17,6 +17,7 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 // Menu icons
 export const MENU_ITEM_ICONS = [
+    {item: 'dashboard', icon: 'fa-user'},
     {item: 'ferries', icon: 'fa-anchor'},
     {item: 'tours', icon: 'fa-directions'},
     {item: 'tour types', icon: 'fa-street-view'},

@@ -16,84 +16,124 @@ import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.compo
 import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
 import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
 import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
+import {LoginComponent} from '../shared/components/login/login.component';
+import {AuthGuard} from '../shared/guards/auth.guard';
+import {RoleGuard} from '../shared/guards/role.guard';
+import {NonAuthGuard} from '../shared/guards/non-auth.guard';
 
 
 const routes: Routes = [
     {
         path: 'dashboard', component: DashboardComponent, data: {
-            title: 'Dashboard'
-        }
+            title: 'Dashboard',
+            expectedRole: 'admin'
+        }, canActivate: [AuthGuard, RoleGuard]
+    },
+    {
+        path: 'login', component: LoginComponent, data: {
+            user: 'admin'
+        },
+        canActivate: [NonAuthGuard]
     },
     {
         path: 'all_ferries', component: ShowFerriesComponent, data: {
-            title: 'All ferries'
-        }
+            title: 'All ferries',
+            expectedRole: 'admin'
+        }, canActivate: [AuthGuard, RoleGuard]
     },
     {
         path: 'add_ferries', component: SaveFerryComponent, data: {
-            title: 'Add a new ferry'
-        }
+            title: 'Add a new ferry',
+            expectedRole: 'admin'
+        }, canActivate: [AuthGuard, RoleGuard]
     },
     {
         path: 'ferry/:id', component: SaveFerryComponent, data: {
             title: 'Edit a ferry info',
+            expectedRole: 'admin'
 
         },
+        canActivate: [AuthGuard, RoleGuard],
         resolve: {
             oneFerry: OneFerryResolverService
         }
     },
     {
         path: 'all_tours', component: ShowToursComponent, data: {
-            title: 'All tours'
-        }
+            title: 'All tours',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
     },
     {
         path: 'add_tours', component: SaveTourComponent, data: {
-            title: 'Add a new tour'
-        }
+            title: 'Add a new tour',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {
         path: 'tour/:id', component: SaveTourComponent, data: {
-            title: 'Edit a tour info'
+            title: 'Edit a tour info',
+            expectedRole: 'admin'
         },
+        canActivate: [AuthGuard, RoleGuard],
         resolve: {
             oneTour: OneTourResolverService
         }
     },
     {
         path: 'all_tours_types', component: ShowTourTypesComponent, data: {
-            title: 'All tour types'
-        }
+            title: 'All tour types',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {
         path: 'tour_type/:id', component: SaveTourTypeComponent, data: {
-            title: 'Edit a tour type info'
-        }
+            title: 'Edit a tour type info',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {
         path: 'add_tours_types', component: SaveTourTypeComponent, data: {
-            title: 'Add a new tour type'
-        }
+            title: 'Add a new tour type',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {path: 'add_food-drink', component: AddFoodDrinkComponent},
     {path: 'all_food-drink', component: AllFoodDrinkComponent},
     {
         path: 'all_partners', component: ShowPartnersComponent, data: {
-            title: 'All partners'
-        }
+            title: 'All partners',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {
         path: 'add_partners', component: SavePartnerComponent, data: {
-            title: 'Add a new partner'
-        }
+            title: 'Add a new partner',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
     {
         path: 'partner/:id', component: SavePartnerComponent, data: {
-            title: 'Edit a partner'
-        }
+            title: 'Edit a partner',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
     },
-    {path: 'add_locations', component: GpsLocationComponent},
+    {
+        path: 'add_locations', component: GpsLocationComponent,
+        data: {
+            title: 'Add GPS locations',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
 ];
 
 @NgModule({

@@ -37,9 +37,9 @@ export class AllToursComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.checkAdmin()) {
-            this.router.navigate(['admin-panel']);
-        }
+        // if (!this.checkAdmin()) {
+        //     this.router.navigate(['admin-panel']);
+        // }
         this.getTours();
         // this.dataSource = new MatTableDataSource(this.users);
     }

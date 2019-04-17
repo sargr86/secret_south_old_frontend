@@ -1,0 +1,30 @@
+<div class="formContainer">
+    <form [formGroup]="loginForm" class="loginForm">
+        <h3>{{userType}}</h3>
+
+        <!-- E-mail field-->
+        <mat-form-field>
+            <input matInput [placeholder]="'E-mail'" [formControlName]="'email'">
+        </mat-form-field>
+        <div *ngIf="email.errors && !email.pristine" class="error">
+            <div [hidden]="!email.hasError('required')">E-mail is required</div>
+            <div [hidden]="!email.hasError('patternInvalid')">E-mail is invalid</div>
+        </div>
+
+        <!-- Password field -->
+        <mat-form-field>
+            <input matInput type="password" [placeholder]="'Password'" [formControlName]="'password'">
+        </mat-form-field>
+        <div *ngIf="pass.errors && (!pass.pristine||pass.touched)" class="error">
+            <div [hidden]="!pass.errors.required">Password is required</div>
+        </div>
+
+        <!-- Login/ navigate-to-register page buttons -->
+        <div class="actions">
+
+            <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">
+                Log in
+            </button>
+        </div>
+    </form>
+</div>
