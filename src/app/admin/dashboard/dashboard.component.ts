@@ -1,4 +1,4 @@
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 import {CollectionViewer, SelectionChange} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
