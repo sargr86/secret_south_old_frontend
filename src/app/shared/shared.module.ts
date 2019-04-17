@@ -7,19 +7,23 @@ import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reu
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
-
+import { LoginComponent } from './components/login/login.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
         ConfirmationDialogComponent,
         GetTableDataSourcePipe,
-        MatReusableTableComponent
+        MatReusableTableComponent,
+        LoginComponent
     ],
     imports: [
         CommonModule,
         MaterialModule,
         InternationalPhoneNumberModule,
-        DropzoneModule
+        DropzoneModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -32,6 +36,8 @@ import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
         MaterialModule,
         InternationalPhoneNumberModule,
         DropzoneModule,
+        FormsModule,
+        ReactiveFormsModule,
         GetTableDataSourcePipe,
         MatReusableTableComponent
     ],
