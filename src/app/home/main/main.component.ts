@@ -15,7 +15,7 @@ export class MainComponent implements OnInit {
     public searchelementRef: ElementRef;
     public lat = 0;
     public lng = 0;
-    latlng;
+    latlng: any = [];
     searchBy = {'type': ''};
     imgPath: String = '';
     public successData = false;
@@ -49,10 +49,12 @@ export class MainComponent implements OnInit {
                 });
 
                 this.latlng = arr;
+                if (this.latlng.length > 0) {
+                    this.lat = parseFloat(this.latlng[0].lat);
+                    this.lng = parseFloat(this.latlng[0].lng);
+                    this.successData = true;
+                }
 
-                this.lat = parseFloat(this.latlng[0].lat);
-                this.lng = parseFloat(this.latlng[0].lng);
-                this.successData = true;
             }
         });
     }
