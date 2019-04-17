@@ -3,6 +3,8 @@ import {MapLoaderService} from '../../maps/map.loader';
 import {FerryService} from '../services/ferry.service';
 import {Router} from '@angular/router';
 import {GpsLocationService} from '../services/gps-location.service';
+import * as mapStylesData from '../../maps/map_styles2.json';
+import {MapsAPILoader} from '@agm/core';
 
 declare var google: any;
 
@@ -19,8 +21,15 @@ export class GpsLocationComponent implements OnInit {
     ferryName2: any = [];
     partner = {partner_id: ''};
     drawing = {'drawingLatLng': [], 'markerLatLng': []};
+    mapStyles;
 
-    constructor(private ferry: FerryService, private router: Router, private gpsServises: GpsLocationService) {
+    constructor(
+        private ferry: FerryService,
+        private router: Router,
+        private gpsServises: GpsLocationService,
+        private mapsAPILoader: MapsAPILoader
+    ) {
+        this.mapStyles = mapStylesData['default'];
     }
 
     ngOnInit() {
@@ -36,8 +45,11 @@ export class GpsLocationComponent implements OnInit {
                 return false;
             }
             // console.log(r);
-            r['result'].map(k => this.ferryName.push(k));
-            r['result'].map(k => this.ferryName2.push(k));
+            if (r['result']) {
+
+                r['result'].map(k => this.ferryName.push(k));
+                r['result'].map(k => this.ferryName2.push(k));
+            }
         });
     }
 
@@ -69,12 +81,17 @@ export class GpsLocationComponent implements OnInit {
     }
 
     drawPolygon() {
+
         this.map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 52.8757843, lng: -7.3217572},
             zoom: 8,
-            icon: 'your-icon.png'
+            styles: this.mapStyles,
+            fullscreenControl: false,
+            mapTypeId: 'terrain',
+            mapTypeControl: false,
+            icon: 'https://image.flaticon.com/icons/png/128/0/300.png'
+            // icon: 'your-icon.png'
         });
-
 
 
         this.drawingManager = new google.maps.drawing.DrawingManager({
@@ -82,7 +99,7 @@ export class GpsLocationComponent implements OnInit {
             drawingControl: true,
             drawingControlOptions: {
                 position: google.maps.ControlPosition.TOP_CENTER,
-            //     drawingModes: ['polyline', 'marker'],
+                //     drawingModes: ['polyline', 'marker'],
                 drawingModes: [google.maps.drawing.OverlayType.POLYLINE, google.maps.drawing.OverlayType.MARKER],
             },
             polylineOptions: {
@@ -92,17 +109,17 @@ export class GpsLocationComponent implements OnInit {
         this.drawingManager.setMap(this.map);
         google.maps.event.addListener(this.drawingManager, 'polylinecomplete', (event) => {
             // if (event.type === google.maps.drawing.OverlayType.POLYLINE) {
-                let arr = event.getPath().getArray();
+            let arr = event.getPath().getArray();
 
-                arr.map((data) => {
-                    this.drawing['drawingLatLng'].push({'lat': data.lat(), 'lng': data.lng()});
-                });
+            arr.map((data) => {
+                this.drawing['drawingLatLng'].push({'lat': data.lat(), 'lng': data.lng()});
+            });
             // }
         });
 
         google.maps.event.addListener(this.drawingManager, 'markercomplete', (event) => {
             // if (event.type === google.maps.drawing.OverlayType.POLYLINE) {
-                this.drawing['markerLatLng'].push({'lat': event.getPosition().lat(), 'lng': event.getPosition().lng()});
+            this.drawing['markerLatLng'].push({'lat': event.getPosition().lat(), 'lng': event.getPosition().lng()});
             // }
         });
     }

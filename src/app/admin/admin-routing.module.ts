@@ -3,13 +3,9 @@ import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AddToursComponent} from './add-tours/add-tours.component';
 import {AllToursComponent} from './all-tours/all-tours.component';
-import {AddToursTypeComponent} from './add-tours-type/add-tours-type.component';
-import {AllToursTypeComponent} from './all-tours-type/all-tours-type.component';
 import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
 import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
-import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
-import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
 import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
@@ -19,6 +15,8 @@ import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.co
 import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
 import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
 import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
+import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
+
 
 const routes: Routes = [
     {
