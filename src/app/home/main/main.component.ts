@@ -15,7 +15,7 @@ export class MainComponent implements OnInit {
     public searchelementRef: ElementRef;
     public lat = 0;
     public lng = 0;
-    latlng: any = [];
+    latlng;
     searchBy = {'type': ''};
     imgPath: String = '';
     public successData = false;

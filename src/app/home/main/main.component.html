@@ -11,7 +11,7 @@
   </div>
 
   <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="8" [fullscreenControl]="true" [mapTypeId]= "'terrain'"
-  [styles]="mapStyles">
+  [styles]="mapStyles" *ngIf="latlng">
     <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]="">
       <agm-info-window *ngIf="searchBy.type==1 || searchBy.type==0">
         <h4>{{single.name}}</h4>
