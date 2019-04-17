@@ -5,14 +5,11 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddToursComponent} from './add-tours/add-tours.component';
 import {AllToursComponent} from './all-tours/all-tours.component';
-import {AddToursTypeComponent} from './add-tours-type/add-tours-type.component';
-import {AllToursTypeComponent} from './all-tours-type/all-tours-type.component';
 import {AgmCoreModule} from "@agm/core";
 import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
 import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {SharedModule} from '../shared/shared.module';
-import {EditFerryComponent} from './edit-ferry/edit-ferry.component';
 import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
 import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
@@ -27,12 +24,9 @@ import { SaveTourTypeComponent } from './tours/save-tour-type/save-tour-type.com
         DashboardComponent,
         AddToursComponent,
         AllToursComponent,
-        AddToursTypeComponent,
-        AllToursTypeComponent,
         AddFoodDrinkComponent,
         AllFoodDrinkComponent,
         GpsLocationComponent,
-        EditFerryComponent,
         ShowFerriesComponent,
         SaveFerryComponent,
         ShowToursComponent,

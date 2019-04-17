@@ -49,6 +49,7 @@ export class SaveFerryComponent implements OnInit {
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
+
     constructor(
         private _fb: FormBuilder,
         private _ferry: FerryService,
