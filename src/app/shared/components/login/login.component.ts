@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
         public _router: Router,
         public _auth: AuthService,
         private _fb: FormBuilder,
-        private route: ActivatedRoute,
-        private common: CommonService
+        public route: ActivatedRoute,
+        public common: CommonService
     ) {
     }
 
