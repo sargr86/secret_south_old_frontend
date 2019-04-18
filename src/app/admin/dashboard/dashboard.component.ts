@@ -130,6 +130,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     activeItem;
     showFiller = false;
+    menuItemIcons = MENU_ITEM_ICONS;
 
     treeControl: FlatTreeControl<DynamicFlatNode>;
 
@@ -148,6 +149,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             this.drawer.toggle();
             this.showFiller = true;
         }
+
 
     }
 

@@ -19,7 +19,7 @@
                 <!--                <mat-icon class="menu-icon">{{getIcon(node.item)}}</mat-icon>-->
                 <i class="menu-icon fa {{getIcon(node.item)}}"></i>
                 <p (click)="routing(node.item)" class="nodeItem"
-                   >{{checkActiveItem(node.item)}}</p>
+                >{{checkActiveItem(node.item)}}</p>
             </mat-tree-node>
             <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
                 <button mat-icon-button
@@ -37,6 +37,18 @@
     </mat-drawer>
 </mat-drawer-container>
 
-<div class="dashboardPageContainer">
+<div class="dashboardPageContainer" *ngIf="router.url=='/admin/dashboard'">
 
+    <div class="statistics">
+        <ul>
+            <ng-container *ngFor="let i of menuItemIcons">
+
+                <li *ngIf="i.item!='dashboard'">
+                    <i class="fa {{i.icon}}"></i>
+                    <p class="count">5</p>
+                    <p>{{i.item}}</p>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
 </div>
