@@ -16,13 +16,15 @@ import {
     MatPaginatorModule,
     MatSelectModule
 } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuComponent} from './menu/menu.component';
 import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';
 import {SharedModule} from '../shared/shared.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {AdminModule} from '../admin/admin.module';
 
 @NgModule({
-    declarations: [LoginComponent, MenuComponent, PartnerDashboardComponent],
+    declarations: [LoginComponent, MenuComponent, PartnerDashboardComponent, DashboardComponent],
     imports: [
         MatTreeModule,
         MatIconModule,
@@ -38,7 +40,8 @@ import {SharedModule} from '../shared/shared.module';
         PartnersRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        AdminModule
     ]
 })
 export class PartnersModule {

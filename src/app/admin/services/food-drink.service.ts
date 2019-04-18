@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import * as Base from "../../config.js";
+import {API_URL} from '../../shared/constants/settings';
 
 @Injectable({
     providedIn: 'root'
@@ -11,21 +11,10 @@ export class FoodDrinkService {
     }
 
     public insertFoodDrink(data) {
-        return this.http.post(Base.url + '/addFoodDrink', data);
-    }
-
-    public getAllTourType() {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
-
-        return this.http.get(Base.url + '/allTourType', httpOptions);
+        return this.http.post(`${API_URL}food-drink/add`, data);
     }
 
     getFoodDrink() {
-        return this.http.get(Base.url + '/allFoodDrink');
+        return this.http.get(`${API_URL}food-drink/get`);
     }
 }
