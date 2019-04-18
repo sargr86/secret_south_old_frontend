@@ -12,14 +12,14 @@
         <!-- Password field -->
         <mat-form-field>
             <input matInput type="password" [placeholder]="'Password'" [formControlName]="'password'">
-<!--            <ng-container *ngIf="pass.errors && (!pass.pristine||pass.touched)">-->
-                <mat-error [hidden]="!pass.hasError('required')">Password is <strong>required</strong></mat-error>
-<!--            </ng-container>-->
+            <!--            <ng-container *ngIf="pass.errors && (!pass.pristine||pass.touched)">-->
+            <mat-error [hidden]="!pass.hasError('required')">Password is <strong>required</strong></mat-error>
+            <!--            </ng-container>-->
         </mat-form-field>
 
         <!-- Login/ navigate-to-register page buttons -->
+        <mat-spinner [diameter]="spinnerDiamater" *ngIf="common.formProcessing"></mat-spinner>
         <div class="actions">
-
             <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">
                 Log in
             </button>

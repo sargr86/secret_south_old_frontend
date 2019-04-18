@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EMAIL_PATTERN} from '../../constants/patterns';
 
 import * as jwtDecode from 'jwt-decode';
+import {CommonService} from '../../services/common.service';
+import {SPINNER_DIAMETER} from '../../constants/settings';
 
 @Component({
     selector: 'app-login',
@@ -16,12 +18,14 @@ import * as jwtDecode from 'jwt-decode';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     userType: string;
+    spinnerDiamater = SPINNER_DIAMETER;
 
     constructor(
         public _router: Router,
         public _auth: AuthService,
         private _fb: FormBuilder,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private common: CommonService
     ) {
     }
 
@@ -41,6 +45,7 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        this.common.formProcessing = true;
         this._auth.login(this.loginForm.value, this.userType === 'admin' ? 'auth' : 'partners').subscribe(dt => {
             // this._router.navigate([`${this.userType}/dashboard`]);
             // Saving token to browser local storage
@@ -49,7 +54,7 @@ export class LoginComponent implements OnInit {
             // Gets current user data
             this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
-            console.log(this._auth.userData)
+            this.common.formProcessing = false;
 
             // Navigate to the home page
             this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboardPage']);
