@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';
 import {LoginComponent} from '../shared/components/login/login.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
             user: 'partner'
         }
     },
-    {path: 'dashboardPage', component: PartnerDashboardComponent},
+    {path: 'dashboard', component: DashboardComponent},
 ];
 
 @NgModule({

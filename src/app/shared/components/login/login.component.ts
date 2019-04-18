@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
             this.common.formProcessing = false;
 
             // Navigate to the home page
-            this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboardPage']);
+            this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboard']);
         });
     }
 

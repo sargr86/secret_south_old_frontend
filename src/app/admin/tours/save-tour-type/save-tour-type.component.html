@@ -8,5 +8,6 @@
         </mat-error>
     </mat-form-field>
     <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    <button mat-button type="button" (click)="router.navigate([redirectUrl])">Back</button>
     <button color="primary" mat-raised-button (click)="saveToursType()">Save</button>
 </form>
