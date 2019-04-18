@@ -1,41 +1,4 @@
-<mat-toolbar>
-    <div class="show_menu">
-        <button (click)="drawer.toggle();changeWidth(showFiller)" [matTooltip]="'Show menu'"
-                class="menuBtn">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
-    <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'">
-        <mat-icon>exit_to_app</mat-icon>
-    </button>
-</mat-toolbar>
-<mat-drawer-container [className]="!showFiller ? 'example-container no_width' : 'example-container'" autosize>
-    <mat-drawer #drawer [className]="!showFiller ? 'example-sidenav no_width' : 'example-sidenav'" mode="side">
-
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" #tree>
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [class.activeItem]="node.item==activeItem">
-                <button mat-icon-button disabled></button>
-                <!--                <button mat-button color="primary" (click)="routing(node.item)">{{node.item}}</button>-->
-                <!--                <mat-icon class="menu-icon">{{getIcon(node.item)}}</mat-icon>-->
-                <i class="menu-icon fa {{getIcon(node.item)}}"></i>
-                <p (click)="routing(node.item)" class="nodeItem"
-                >{{checkActiveItem(node.item)}}</p>
-            </mat-tree-node>
-            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-                <button mat-icon-button
-                        [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                    </mat-icon>
-                </button>
-                {{node.item}}
-                <mat-progress-bar *ngIf="node.isLoading"
-                                  mode="indeterminate"
-                                  class="example-tree-progress-bar"></mat-progress-bar>
-            </mat-tree-node>
-        </mat-tree>
-    </mat-drawer>
-</mat-drawer-container>
+<app-dashboard></app-dashboard>
 
 <div class="dashboardPageContainer" *ngIf="router.url=='/admin/dashboard'">
 

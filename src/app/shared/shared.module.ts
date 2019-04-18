@@ -9,13 +9,15 @@ import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DashboardTemplateComponent } from './components/dashboard-template/dashboard-template.component';
 
 @NgModule({
     declarations: [
         ConfirmationDialogComponent,
         GetTableDataSourcePipe,
         MatReusableTableComponent,
-        LoginComponent
+        LoginComponent,
+        DashboardTemplateComponent
     ],
     imports: [
         CommonModule,
@@ -39,7 +41,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
         GetTableDataSourcePipe,
-        MatReusableTableComponent
+        MatReusableTableComponent,
+        DashboardTemplateComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent

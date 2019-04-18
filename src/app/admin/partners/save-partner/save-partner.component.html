@@ -1,18 +1,33 @@
 <app-dashboard></app-dashboard>
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="savePartnerForm" class="savePartnerForm" *ngIf="showForm">
+
+    <!-- Partner form title-->
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <i class="fa fa-plus title-sign"></i>
+            <span>Add a new partner</span>
+        </ng-container>
+    </h4>
+
+
+    <!-- First name field -->
     <mat-form-field>
         <input matInput formControlName="first_name" placeholder="First name" required>
         <mat-error *ngIf="firstNameCtrl.hasError('required')">
             First name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
+
+    <!-- Last name field -->
     <mat-form-field>
         <input matInput formControlName="last_name" placeholder="Last name" required>
         <mat-error *ngIf="lastNameCtrl.hasError('required')">
             Last name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
+
+    <!-- E-mail field -->
     <mat-form-field *ngIf="!editCase">
         <input matInput formControlName="email" placeholder="E-mail" required>
         <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
@@ -22,17 +37,18 @@
         <input type="password" matInput formControlName="pass" placeholder="Password" required>
     </mat-form-field>
 
+    <!-- Partner type field -->
     <mat-form-field *ngIf="partnerType">
 
-                    <mat-select placeholder="Type" formControlName="partner_type_id" required >
-                        <mat-option>Please select</mat-option>
-                        <mat-option [value]="p.id" *ngFor="let p of partnerType">{{p.name}}</mat-option>
-                    </mat-select>
+        <mat-select placeholder="Type" formControlName="partner_type_id" required>
+            <mat-option>Please select</mat-option>
+            <mat-option [value]="p.id" *ngFor="let p of partnerType">{{p.name}}</mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
     <button mat-button type="button" (click)="router.navigate([redirectUrl])">Back</button>
-    <button mat-raised-button color="primary" (click)="savePartner()" >
+    <button mat-raised-button color="primary" (click)="savePartner()">
         Save
     </button>
 </form>
