@@ -1,0 +1,29 @@
+<mat-toolbar>
+    <div class="leftGroup">
+
+        <button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div class="centerGroup">
+
+    </div>
+    <div class="rightGroup">
+        <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav mode="side" #sidenav opened>
+        <ul>
+            <li *ngFor="let link of partnerLinks">
+                <span>{{link}}</span>
+            </li>
+        </ul>
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
