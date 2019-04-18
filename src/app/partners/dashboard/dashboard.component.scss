@@ -1,0 +1,28 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+.mat-toolbar {
+  justify-content: space-between;
+  //background-color: #55dadabf;
+  background-color: #71a8b1;
+
+
+  button {
+    display: block;
+    @include noBgBtn;
+  }
+}
+
+.mat-sidenav-container{
+  height: 100vh;
+ .mat-sidenav{
+   background-color: #989898;
+   color:$white;
+   li{
+     text-transform: uppercase;
+     padding:20px;
+   }
+ }
+}
+
+
