@@ -5,19 +5,17 @@
         <!-- E-mail field-->
         <mat-form-field>
             <input matInput [placeholder]="'E-mail'" [formControlName]="'email'">
+            <mat-error [hidden]="!email.hasError('required')">E-mail is <strong>required</strong></mat-error>
+            <mat-error [hidden]="!email.hasError('patternInvalid')">E-mail is <strong>invalid</strong></mat-error>
         </mat-form-field>
-        <div *ngIf="email.errors && !email.pristine" class="error">
-            <div [hidden]="!email.hasError('required')">E-mail is required</div>
-            <div [hidden]="!email.hasError('patternInvalid')">E-mail is invalid</div>
-        </div>
 
         <!-- Password field -->
         <mat-form-field>
             <input matInput type="password" [placeholder]="'Password'" [formControlName]="'password'">
+<!--            <ng-container *ngIf="pass.errors && (!pass.pristine||pass.touched)">-->
+                <mat-error [hidden]="!pass.hasError('required')">Password is <strong>required</strong></mat-error>
+<!--            </ng-container>-->
         </mat-form-field>
-        <div *ngIf="pass.errors && (!pass.pristine||pass.touched)" class="error">
-            <div [hidden]="!pass.errors.required">Password is required</div>
-        </div>
 
         <!-- Login/ navigate-to-register page buttons -->
         <div class="actions">
