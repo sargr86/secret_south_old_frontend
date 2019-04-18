@@ -21,7 +21,7 @@ export class SavePartnerComponent implements OnInit {
         first_name: ['', Validators.required],
         last_name: ['', Validators.required],
         email: ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
-        type: ['', Validators.required],
+        partner_type_id: ['', Validators.required],
         id: ''
     };
     savePartnerForm: FormGroup;

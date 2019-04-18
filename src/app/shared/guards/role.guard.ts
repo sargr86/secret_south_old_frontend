@@ -24,11 +24,21 @@ export class RoleGuard implements CanActivate {
         if (token) {
             // decode the token to get its payload
             const tokenPayload = jwtDecode(token);
-            if (tokenPayload.roles.length > 0) {
-                tokenPayload.roles.map(r => {
-                    receivedRoles.push(r.name_en.toLowerCase());
-                });
+
+            if ('role' in tokenPayload) {
+                receivedRoles.push(tokenPayload['role']['name_en'].toLowerCase());
+            } else {
+                if (tokenPayload.roles.length > 0) {
+                    tokenPayload.roles.map(r => {
+                        receivedRoles.push(r.name_en.toLowerCase());
+                    });
+                }
             }
+
+            // console.log(receivedRoles)
+            // console.log(expectedRole)
+            // console.log(receivedRoles.includes(expectedRole))
+
 
             // if user isn't authenticated or its role doesn't match current route expected role, showing error and heading to main page
             if (!this.auth.loggedIn() || !receivedRoles.includes(expectedRole)) {
