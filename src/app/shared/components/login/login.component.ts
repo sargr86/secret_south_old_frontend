@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EMAIL_PATTERN} from '../../constants/patterns';
 
 import * as jwtDecode from 'jwt-decode';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
         this.route.data.subscribe(dt => {
-            this.userType = 'admin';
+            this.userType = dt['user'];
         });
 
         // Defining login form fields
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this._auth.login(this.loginForm.value, 'auth').subscribe(dt => {
+        this._auth.login(this.loginForm.value, this.userType === 'admin' ? 'auth' : 'partners').subscribe(dt => {
             // this._router.navigate([`${this.userType}/dashboard`]);
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit {
             console.log(this._auth.userData)
 
             // Navigate to the home page
-            this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : '/']);
+            this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboardPage']);
         });
     }
 
