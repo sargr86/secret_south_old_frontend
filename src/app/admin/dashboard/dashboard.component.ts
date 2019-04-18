@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     @ViewChild('drawer') drawer;
 
-    constructor(private router: Router, database: DynamicDatabase, private cdr: ChangeDetectorRef) {
+    constructor(public router: Router, database: DynamicDatabase, private cdr: ChangeDetectorRef) {
         this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
         this.dataSource = new DynamicDataSource(this.treeControl, database);
 
