@@ -3,6 +3,7 @@ import {MapsAPILoader} from '@agm/core';
 import {MainService} from '../services/main.service';
 import * as Base from '../../config.js';
 import * as mapStylesData from '../../maps/map_styles2.json';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-main',
@@ -22,7 +23,12 @@ export class MainComponent implements OnInit {
 
     mapStyles;
 
-    constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private main: MainService) {
+    constructor(
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone,
+        private main: MainService,
+        public router: Router
+    ) {
         this.mapStyles = mapStylesData['default'];
     }
 
