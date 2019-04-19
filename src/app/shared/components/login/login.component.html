@@ -1,3 +1,16 @@
+<mat-toolbar>
+    <div class="leftGroup" *ngIf="!_router.url.includes('admin')">
+        <span (click)="_router.navigate(['admin/login'])">Admin</span>
+    </div>
+    <div class="centerGroup">
+        <button class="homeBtn" *ngIf="_router.url!=='/'" (click)="_router.navigate(['/'])">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
+    <div class="rightGroup" *ngIf="!_router.url.includes('partner')">
+        <span (click)="_router.navigate(['partners/login'])">Partners</span>
+    </div>
+</mat-toolbar>
 <div class="formContainer">
     <form [formGroup]="loginForm" class="loginForm">
         <h3>{{userType}}</h3>

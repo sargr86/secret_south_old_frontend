@@ -1,3 +1,16 @@
+<mat-toolbar>
+    <div class="leftGroup">
+        <span (click)="router.navigate(['admin/login'])">Admin</span>
+    </div>
+    <div class="centerGroup">
+        <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
+    <div class="rightGroup">
+        <span (click)="router.navigate(['partners/login'])" >Partners</span>
+    </div>
+</mat-toolbar>
 <div class="col-12" *ngIf="latlng.length>0;else no_map_data">
 
     <div class="form-group">
