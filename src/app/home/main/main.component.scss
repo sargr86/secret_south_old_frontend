@@ -18,7 +18,8 @@
 }
 
 .mat-toolbar {
-  position:absolute;
+  position:fixed;
+  top:0;
   background-color: #062845;
   display: flex;
   justify-content: space-between;
@@ -36,5 +37,5 @@
 }
 
 .mapFormContainer{
-  padding-top: 90px;
+  margin-top: 90px;
 }
