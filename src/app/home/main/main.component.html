@@ -11,7 +11,7 @@
         <span (click)="router.navigate(['partners/login'])" >Partners</span>
     </div>
 </mat-toolbar>
-<div class="col-12" *ngIf="latlng.length>0;else no_map_data">
+<div class="col-12 mapFormContainer" *ngIf="latlng.length>0;else no_map_data">
 
     <div class="form-group">
         <mat-form-field class="example-full-width">
