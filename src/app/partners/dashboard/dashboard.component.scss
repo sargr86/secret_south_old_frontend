@@ -13,16 +13,36 @@
   }
 }
 
-.mat-sidenav-container{
+.mat-sidenav-container {
   height: 100vh;
- .mat-sidenav{
-   background-color: #989898;
-   color:$white;
-   li{
-     text-transform: uppercase;
-     padding:20px;
-   }
- }
+
+  .mat-sidenav {
+    background-color: #989898;
+    color: $white;
+
+    li {
+      margin-top: 20px;
+
+      span {
+        text-transform: capitalize;
+      }
+    }
+  }
 }
 
+.mat-tree {
+  background-color: #989898;
+  padding: 20px;
+
+  .mat-tree-node {
+    color: $white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.menu-icon {
+  font-size: 14px;
+  margin-right: 4px;
+}
 
