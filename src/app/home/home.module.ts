@@ -6,39 +6,41 @@ import {MainComponent} from './main/main.component';
 import {AgmCoreModule} from '@agm/core';
 
 import {
-  MatIconModule,
-  MatButtonModule,
-  MatTreeModule,
-  MatProgressBarModule,
-  MatSidenavModule,
-  MatInputModule,
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatSelectModule
-} from '@angular/material';
-
-@NgModule({
-  declarations: [MainComponent],
-  imports: [
-    MatTreeModule,
     MatIconModule,
-    MatProgressBarModule,
     MatButtonModule,
+    MatTreeModule,
+    MatProgressBarModule,
     MatSidenavModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatSelectModule,
-    CommonModule,
-    HomeRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
-      libraries: ['places'],
-    }),
+    MatSelectModule
+} from '@angular/material';
+import {SharedModule} from '../shared/shared.module';
 
-  ]
+@NgModule({
+    declarations: [MainComponent],
+    imports: [
+        SharedModule,
+        MatTreeModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatInputModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatSelectModule,
+        CommonModule,
+        HomeRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
+            libraries: ['places'],
+        }),
+
+    ]
 })
 export class HomeModule {
 }

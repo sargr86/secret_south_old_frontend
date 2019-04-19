@@ -1,5 +1,8 @@
-.agm-info-window-content{
-  max-width:400px
+@import '../../../variables';
+@import '../../../mixins';
+
+.agm-info-window-content {
+  max-width: 400px
 }
 
 .info {
@@ -11,5 +14,22 @@
 
   img.infowindowImg {
     width: 100%;
+  }
+}
+
+.mat-toolbar {
+  background-color: #062845;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  margin-bottom:20px;
+  div {
+    span {
+      color: $white;
+      cursor: pointer;
+    }
+  }
+  .homeBtn{
+    @include noBgBtn;
   }
 }
