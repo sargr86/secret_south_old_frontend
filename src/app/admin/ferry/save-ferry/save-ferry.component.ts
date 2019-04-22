@@ -42,7 +42,7 @@ export class SaveFerryComponent implements OnInit {
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'phone': ['', [Validators.required]],
         'address': ['', Validators.required],
-        'type': '',
+        // 'type': '',
         'partner_id': ['', Validators.required]
     };
 
