@@ -20,6 +20,12 @@
     .actions {
       display: flex;
       justify-content: center;
+      button{
+        text-transform: uppercase;
+        mat-icon{
+          margin-top: -3px;
+        }
+      }
     }
   }
 }
