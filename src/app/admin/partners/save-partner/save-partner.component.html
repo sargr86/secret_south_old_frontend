@@ -47,7 +47,9 @@
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-    <button mat-button type="button" (click)="router.navigate([redirectUrl])">Back</button>
+    <button type="button" class="backBtn"  (click)="router.navigate([redirectUrl])">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
     <button mat-raised-button color="primary" (click)="savePartner()">
         Save
     </button>
