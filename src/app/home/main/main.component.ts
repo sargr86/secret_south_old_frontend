@@ -4,6 +4,8 @@ import {MainService} from '../services/main.service';
 import * as Base from '../../config.js';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {Router} from '@angular/router';
+import {PartnerService} from '../../admin/services/partner.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-main',
@@ -22,19 +24,33 @@ export class MainComponent implements OnInit {
     public successData = false;
 
     mapStyles;
+    partnerTypes;
+
+    mapForm: FormGroup;
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
         private main: MainService,
-        public router: Router
+        public router: Router,
+        private _partner: PartnerService,
+        private _fb: FormBuilder
     ) {
+        this.mapForm = this._fb.group({
+            type: ['']
+        });
+        // this.mapForm.patchValue({searchTerm: 1});
         this.mapStyles = mapStylesData['default'];
     }
 
     ngOnInit() {
         this.imgPath = Base.imgPath;
         this.getFerryLocation();
+        this._partner.getTypes().subscribe((dt: any) => {
+            const ferries = dt.filter(d => d['name'] === 'Ferries');
+            this.mapForm.patchValue({type: ferries[0]['name']});
+            this.partnerTypes = dt;
+        });
     }
 
     getFerryLocation() {
@@ -65,32 +81,30 @@ export class MainComponent implements OnInit {
         });
     }
 
+
     changePlace() {
+        this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
 
-        this.main.changePlace(this.searchBy).subscribe((r: any) => {
+            this.latlng = [];
 
-            if (r.status == 0) {
-                alert(r['message']);
-                return false;
+            if (r && r.length > 0) {
+
+                r.map((latlngs) => {
+                    latlngs.lat = parseFloat(latlngs.lat);
+                    latlngs.lng = parseFloat(latlngs.lng);
+                    this.latlng.push(latlngs);
+                });
+
+                this.lat = parseFloat(this.latlng[0].lat);
+                this.lng = parseFloat(this.latlng[0].lng);
+                this.successData = true;
             }
 
-            let arr = [];
-
-            r['result'].map((latlngs) => {
-                latlngs.lat = parseFloat(latlngs.lat);
-                latlngs.lng = parseFloat(latlngs.lng);
-                arr.push(latlngs);
-            });
-
-            this.latlng = arr;
-
-            this.lat = parseFloat(this.latlng[0]['lat'].lat);
-            this.lng = parseFloat(this.latlng[0].lng);
-            this.successData = true;
         });
     }
 
     getLocation() {
+        console.log(navigator.geolocation)
         if (navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
             var options = {timeout: 10000};
