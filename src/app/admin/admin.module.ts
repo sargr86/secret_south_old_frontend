@@ -18,6 +18,8 @@ import { ShowPartnersComponent } from './partners/show-partners/show-partners.co
 import { SavePartnerComponent } from './partners/save-partner/save-partner.component';
 import { ShowTourTypesComponent } from './tours/show-tour-types/show-tour-types.component';
 import { SaveTourTypeComponent } from './tours/save-tour-type/save-tour-type.component';
+import { ShowFoodDrinkComponent } from './food-drink/show-food-drink/show-food-drink.component';
+import { SaveFoodDrinkComponent } from './food-drink/save-food-drink/save-food-drink.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import { SaveTourTypeComponent } from './tours/save-tour-type/save-tour-type.com
         SavePartnerComponent,
         ShowTourTypesComponent,
         SaveTourTypeComponent,
+        ShowFoodDrinkComponent,
+        SaveFoodDrinkComponent,
     ],
     imports: [
         CommonModule,
