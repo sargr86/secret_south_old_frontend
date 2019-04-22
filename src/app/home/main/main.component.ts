@@ -39,7 +39,6 @@ export class MainComponent implements OnInit {
         this.mapForm = this._fb.group({
             type: ['']
         });
-        // this.mapForm.patchValue({searchTerm: 1});
         this.mapStyles = mapStylesData['default'];
     }
 
@@ -83,7 +82,6 @@ export class MainComponent implements OnInit {
 
 
     changePlace() {
-        console.log(this.mapForm.value)
         this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
 
             this.latlng = [];
