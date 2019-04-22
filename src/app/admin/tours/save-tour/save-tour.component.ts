@@ -103,7 +103,7 @@ export class SaveTourComponent implements OnInit {
      * Gets partners list
      */
     getPartners() {
-        this._tours.getAllpartner().subscribe((r: any) => {
+        this._tours.getPartners().subscribe((r: any) => {
             this.partners = r;
         });
     }

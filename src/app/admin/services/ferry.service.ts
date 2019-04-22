@@ -12,14 +12,7 @@ export class FerryService {
     }
 
     public getAllpartner() {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
-
-        return this.http.get(API_URL + 'partners/get');
+        return this.http.get(API_URL + 'ferries/get-partners');
     }
 
     public insertFerry(data) {

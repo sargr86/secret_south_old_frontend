@@ -88,4 +88,8 @@ export class ToursService {
     getOneTour(params) {
         return this.http.get(`${API_URL}tours/getOne`, {params: params});
     }
+
+    getPartners() {
+        return this.http.get(API_URL + 'tours/get-partners');
+    }
 }
