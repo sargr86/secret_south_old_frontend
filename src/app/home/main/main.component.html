@@ -8,25 +8,24 @@
         </button>
     </div>
     <div class="rightGroup">
-        <span (click)="router.navigate(['partners/login'])" >Partners</span>
+        <span (click)="router.navigate(['partners/login'])">Partners</span>
     </div>
 </mat-toolbar>
-<div class="col-12 mapFormContainer" *ngIf="latlng.length>0;else no_map_data">
+<div class="col-12 mapFormContainer">
+    <form [formGroup]="mapForm" *ngIf="partnerTypes">
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Search By" name="searchBy"
+                            formControlName="type" (selectionChange)="changePlace()">
+                    <mat-option *ngFor="let t of partnerTypes" [value]="t['name']">{{t['name']}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
 
-    <div class="form-group">
-        <mat-form-field class="example-full-width">
-            <mat-select placeholder="Search By" name="searchBy" [(value)]="searchBy.type"
-                        (selectionChange)="changePlace()">
-                <mat-option value="1">Ferry</mat-option>
-                <mat-option value="2">Food/Drink</mat-option>
-                <mat-option value="3">Tours</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-
-    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="8" [fullscreenControl]="true"
-             [mapTypeId]="'terrain'"
-             [styles]="mapStyles" *ngIf="latlng">
+    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+             [mapTypeId]="'terrain'"  *ngIf="latlng && latlng.length>0;else no_map_data"
+             [styles]="mapStyles">
         <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]="">
             <agm-info-window *ngIf="searchBy.type==1 || searchBy.type==0">
                 <h4>{{single.name}}</h4>
