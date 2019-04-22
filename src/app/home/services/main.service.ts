@@ -12,24 +12,11 @@ export class MainService {
     }
 
     public getFerryLocation() {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
-
-        return this.http.get(`${API_URL}home/get_places`, httpOptions);
+        return this.http.get(`${API_URL}home/get_places`);
     }
 
     public changePlace(data) {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
-
-        return this.http.post(Base.url + '/home/check_place', data, httpOptions);
+        const type = data.type.toLowerCase().replace('/', '-');
+        return this.http.get(`${API_URL}${type}/get`);
     }
 }
