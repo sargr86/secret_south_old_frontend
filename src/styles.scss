@@ -126,3 +126,14 @@ ul{
     padding: 0;
   }
 }
+
+.backBtn{
+  @include noBgBtn;
+  background-color:$silver;
+  margin-right:10px;
+  margin-top: 3px;
+}
+.backBtn:hover{
+  //background-color: $yellow;
+  background-color: #71a8b1;
+}
