@@ -11,6 +11,7 @@ import {ToursService} from '../../../admin/services/tours.service';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../services/common.service';
 import {TourTypeService} from '../../../admin/services/tour-type.service';
+import {FoodDrinkService} from '../../../admin/services/food-drink.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -41,6 +42,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private _partner: PartnerService,
         private _tour: ToursService,
         private _tour_type: TourTypeService,
+        private _food_drink: FoodDrinkService,
         private dataSrc: GetTableDataSourcePipe,
         private dialog: MatDialog,
         public router: Router,

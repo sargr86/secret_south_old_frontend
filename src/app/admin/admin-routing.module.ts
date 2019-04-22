@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {AddToursComponent} from './add-tours/add-tours.component';
-import {AllToursComponent} from './all-tours/all-tours.component';
 import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
 import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
@@ -20,6 +18,9 @@ import {LoginComponent} from '../shared/components/login/login.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {NonAuthGuard} from '../shared/guards/non-auth.guard';
+import {SaveFoodDrinkComponent} from './food-drink/save-food-drink/save-food-drink.component';
+import {ShowFoodDrinkComponent} from './food-drink/show-food-drink/show-food-drink.component';
+import {OneFoodDrinkResolverService} from '../shared/resolvers/one-food-drink-resolver.service';
 
 
 const routes: Routes = [
@@ -103,14 +104,31 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard],
     },
-    {path: 'add_food-drink', component: AddFoodDrinkComponent},
-    {path: 'all_food-drink', component: AllFoodDrinkComponent},
+
+    {
+        path: 'add_food-drink', component: SaveFoodDrinkComponent, data: {
+            title: 'Add a new food/drink place',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
+    },
+    {path: 'all_food-drink', component: ShowFoodDrinkComponent},
     {
         path: 'all_partners', component: ShowPartnersComponent, data: {
             title: 'All partners',
             expectedRole: 'admin'
         },
         canActivate: [AuthGuard, RoleGuard],
+    },
+    {
+        path: 'food_drink/:id', component: SaveFoodDrinkComponent, data: {
+            title: 'Edit a food/drink info',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
+        resolve: {
+            oneFoodDrink: OneFoodDrinkResolverService
+        }
     },
     {
         path: 'add_partners', component: SavePartnerComponent, data: {

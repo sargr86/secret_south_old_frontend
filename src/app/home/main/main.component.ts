@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
         this.getFerryLocation();
         this._partner.getTypes().subscribe((dt: any) => {
             const ferries = dt.filter(d => d['name'] === 'Ferries');
-            this.mapForm.patchValue({type: ferries[0]['name']});
+            this.mapForm.patchValue({type: dt[0]['name']});
             this.partnerTypes = dt;
         });
     }
@@ -83,6 +83,7 @@ export class MainComponent implements OnInit {
 
 
     changePlace() {
+        console.log(this.mapForm.value)
         this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
 
             this.latlng = [];
