@@ -1,0 +1,80 @@
+<app-dashboard></app-dashboard>
+<form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm">
+
+    <!-- Food/drink field -->
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="Name" required>
+    </mat-form-field>
+
+    <!-- Description field -->
+    <mat-form-field>
+            <textarea matInput formControlName="description" placeholder="Description" #searchAddress
+                      required></textarea>
+        <mat-error *ngIf="descCtrl.hasError('required')">
+            Description is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Food/drink latitude field -->
+    <mat-form-field>
+        <input matInput formControlName="lat" placeholder="Latitude" required>
+        <mat-error *ngIf="latCtrl.hasError('required')">
+            Latitude is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+            Latitude is <strong>invalid</strong>
+        </mat-error>
+    </mat-form-field>
+
+
+    <!-- Food/drink longitude field -->
+    <mat-form-field>
+        <input matInput formControlName="lng" placeholder="Longitude" required>
+        <mat-error *ngIf="lngCtrl.hasError('required')">
+            Longitude is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+            Longitude is <strong>invalid</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Address field -->
+    <div class="addressContainer">
+        <mat-form-field>
+            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
+            <mat-hint align="end">If locations drop down doesn't appear, please click on reload icon below</mat-hint>
+            <mat-error *ngIf="addressCtrl.hasError('required')">
+                Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button (click)="resetAddress()" class="resetAddress">
+            <mat-icon>replay</mat-icon>
+        </button>
+    </div>
+
+    <!-- Partner field-->
+    <mat-form-field>
+        <mat-select formControlName="partner_id" placeholder="Partner" required>
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of partners" [value]="p['id']">
+                {{p['first_name'] + ' ' + p['last_name']}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="foodDrinkForm.get('partner_id').hasError('required')">
+            Partner is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+
+    <!-- Action buttons -->
+    <div class="actions">
+
+        <button type="button" mat-button (click)="router.navigate([redirectUrl])">
+            Back
+        </button>
+        <button mat-raised-button color="primary" (click)="saveFoodDrink(searchAddress)">
+            Save
+        </button>
+    </div>
+</form>
