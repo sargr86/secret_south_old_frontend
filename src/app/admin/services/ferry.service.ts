@@ -17,13 +17,7 @@ export class FerryService {
 
     public insertFerry(data) {
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
-
-        return this.http.post(`${API_URL}ferries/add`, data, httpOptions);
+        return this.http.post(`${API_URL}ferries/add`, data);
     }
 
     public getFerry() {
