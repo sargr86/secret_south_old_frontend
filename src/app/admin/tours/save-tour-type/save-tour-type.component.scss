@@ -4,3 +4,13 @@
   padding: 20px;
   float: left;
 }
+
+@media(max-width: 767px){
+  .tourTypeForm {
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0;
+  }
+}

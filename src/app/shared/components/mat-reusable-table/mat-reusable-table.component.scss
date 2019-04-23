@@ -31,8 +31,18 @@
 
 @media screen and (max-width: 880px) {
   .allFerryContent {
-    width: auto;
+    width: 67%;
+    display: inline-block;
     margin-left: 3%;
     margin-right: 3%;
+  }
+}
+@media(max-width: 767px){
+  .allFerryContent {
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0;
   }
 }
