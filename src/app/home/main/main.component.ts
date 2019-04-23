@@ -6,6 +6,7 @@ import * as mapStylesData from '../../maps/map_styles2.json';
 import {Router} from '@angular/router';
 import {PartnerService} from '../../admin/services/partner.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {MAIN_SECTIONS} from '../../shared/constants/settings';
 
 @Component({
     selector: 'app-main',
@@ -27,6 +28,7 @@ export class MainComponent implements OnInit {
     partnerTypes;
 
     mapForm: FormGroup;
+    mainSections = MAIN_SECTIONS;
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
