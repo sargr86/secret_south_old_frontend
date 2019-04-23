@@ -2,8 +2,6 @@
 @import '../../../mixins';
 
 
-
-
 @media screen and (max-width: 1200px) {
   .example-container {
     width: auto;
@@ -23,8 +21,8 @@
 }
 
 
-.statistics{
-  ul{
+.statistics {
+  ul {
     background: #757474;
     color: white;
     margin: 20px auto;
@@ -33,19 +31,28 @@
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
-    i{
-      font-size:24px;
+
+    i {
+      font-size: 24px;
     }
-    p{
-      margin:5px 0 0 0;
+
+    .section {
+      margin: 5px 0 0 0;
     }
+
+    .count {
+      margin-top: 3px;
+    }
+
   }
 }
-ul{
-  list-style:none;
-  li{
+
+ul {
+  list-style: none;
+
+  li {
     display: inline-block;
-    width:auto;
+    width: auto;
     padding: 20px;
   }
 }
