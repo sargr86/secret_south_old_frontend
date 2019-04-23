@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
 import {MainService} from '../services/main.service';
 import * as Base from '../../config.js';
@@ -30,6 +30,19 @@ export class MainComponent implements OnInit {
     mapForm: FormGroup;
     mainSections = MAIN_SECTIONS;
 
+
+    // Material toolbar background color toggling on scroll
+    @HostListener('window:scroll', ['$event'])
+    toggleToolbarBg() {
+        const toolbar = document.querySelector('.mat-toolbar');
+        if (window.pageYOffset >= 179) {
+
+            toolbar.classList.add('header-bg');
+        } else {
+            toolbar.classList.remove('header-bg');
+        }
+    }
+
     constructor(
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
@@ -48,22 +61,22 @@ export class MainComponent implements OnInit {
         this.imgPath = Base.imgPath;
         this.getFerryLocation();
         this._partner.getTypes().subscribe((dt: any) => {
-            const ferries = dt.filter(d => d['name'] === 'Ferries');
             this.mapForm.patchValue({type: dt[0]['name']});
             this.partnerTypes = dt;
         });
     }
 
+
     getFerryLocation() {
 
         this.latlng = this.main.getFerryLocation().subscribe((r: any) => {
 
-            if (r.status == 0) {
+            if (r.status === 0) {
                 alert(r['message']);
                 return false;
             }
 
-            let arr = [];
+            const arr = [];
             if (r) {
                 r.map((latlngs) => {
                     latlngs.lat = parseFloat(latlngs.lat);
@@ -105,27 +118,28 @@ export class MainComponent implements OnInit {
     }
 
     getLocation() {
-        console.log(navigator.geolocation)
+        // console.log(navigator.geolocation)
         if (navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
-            var options = {timeout: 10000};
-            let geoLoc = navigator.geolocation;
-            let watchID = geoLoc.watchPosition(this.showLsocation, this.errorHandler, options);
+            const options = {timeout: 10000};
+            const geoLoc = navigator.geolocation;
+            const watchID = geoLoc.watchPosition(this.showLsocation, this.errorHandler, options);
         } else {
-            alert("Sorry, browser does not support geolocation!");
+            alert('Sorry, browser does not support geolocation!');
         }
     }
 
     errorHandler(err) {
-        if (err.code == 1) {
-            alert("Access denied");
-        } else if (err.code == 2) {
-            alert("Position is unvailable!");
+        if (err.code === 1) {
+            alert('Access denied');
+        } else if (err.code === 2) {
+            alert('Position is unvailable!');
         }
     }
 
     showLsocation(position) {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
     }
+
 }
