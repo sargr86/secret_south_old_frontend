@@ -29,7 +29,6 @@ export const MENU_ITEM_ICONS = [
 
 // Drop zone config
 export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-    // Change this to your upload POST address:
     url: '{no_url}',
     maxFilesize: 50,
     maxFiles: 1,
@@ -41,3 +40,13 @@ export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 // ngx-phone-number countries
 export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
 export const DEFAULT_COUNTRY = 'ie';
+
+
+export const MAIN_SECTIONS = [
+    {name: 'Ferries', icon: 'directions_boat'},
+    {name: 'Tours', icon: 'beach_access'},
+    {name: 'Food/Drink', icon: 'restaurant_menu'},
+    {name: 'Accommodation', icon: 'local_hotel'},
+    {name: 'Activities', icon: 'directions_run'},
+
+];
