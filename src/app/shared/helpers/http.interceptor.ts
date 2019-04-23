@@ -35,7 +35,6 @@ export class RequestInterceptor implements HttpInterceptor {
 
 
                 if (err.status === 200 || err.status === 0) {
-                    this.toastr.error(err.error.message)
                     this.toastr.error('Please check server connection.', 'Unknown error');
                 } else {
 
