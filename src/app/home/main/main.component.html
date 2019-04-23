@@ -1,6 +1,6 @@
 <mat-toolbar>
     <div class="leftGroup">
-        <div class="logo"></div>
+        <div class="logo" (click)="scrollToTop()"></div>
         <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>
         <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>
     </div>
