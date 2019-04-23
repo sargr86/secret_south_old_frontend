@@ -142,4 +142,8 @@ export class MainComponent implements OnInit {
         const longitude = position.coords.longitude;
     }
 
+    scrollToTop() {
+        window.scrollTo({top: 0});
+    }
+
 }
