@@ -3,9 +3,9 @@
 
 
 .saveFerryForm{
-  width:40%;
-  padding:20px;
-  float: left;
+  max-width: 600px;
+  width: 100%;
+  margin-left: 270px;
   .addressContainer {
     display: flex;
     .mat-form-field {
@@ -31,6 +31,8 @@
 
 @media screen and (max-width: 768px){
   .saveFerryForm{
-    width: 90%;
+   margin: auto !important;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
