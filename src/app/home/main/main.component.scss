@@ -27,7 +27,8 @@
   justify-content: space-between;
   //text-transform: uppercase;
   margin-bottom: 20px;
-
+  height:100px;
+  overflow: hidden;
   div {
     span.link {
       color: $white;
@@ -37,7 +38,6 @@
   }
 
   .leftGroup {
-    padding-top: 48px;
     display: flex;
     align-items: center;
 
@@ -136,4 +136,8 @@
      height: 70px !important;
    }
   }
+}
+
+.header-bg{
+  background-color: rgba(1, 1, 1, 0.49);
 }
