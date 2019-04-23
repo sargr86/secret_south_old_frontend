@@ -2,9 +2,11 @@
 @import '../../../../mixins';
 
 .saveTourForm {
-  width: 40%;
+  max-width: 600px;
+  width: 100%;
   padding: 20px;
   float: left;
+  margin-left: 270px;
 
   .addressContainer {
     display: flex;
@@ -31,6 +33,7 @@
 }
 
 .dropzoneContainer {
+  min-width: 420px;
   width: 25%;
   float: right;
   margin-top: 39px;
@@ -63,11 +66,29 @@
   padding: 20px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1360px) {
+  .saveTourForm{
+    max-width: 370px;
+    width: 100%;
+    padding: 20px;
+    float: left;
+    margin-left: 230px;
+  }
+  .dropzoneContainer {
+    min-width: 390px;
+  }
+
+}
+@media screen and (max-width: 1024px){
+  .dropzoneContainer{
+    display: none;
+  }
+}
+@media screen and (max-width: 767px){
   .saveTourForm {
-    width: 90%;
-    float: inherit;
-    margin: 0 3%;
+    max-width: 550px;
+    float: none;
+    margin: auto;
   }
 }
 

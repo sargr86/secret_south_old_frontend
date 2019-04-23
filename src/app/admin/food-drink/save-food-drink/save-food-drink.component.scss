@@ -21,3 +21,13 @@
 
   }
 }
+
+@media(max-width: 767px){
+  .saveFoodDrinkForm {
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0;
+  }
+}

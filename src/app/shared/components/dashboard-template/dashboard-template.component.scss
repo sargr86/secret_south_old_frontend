@@ -6,15 +6,13 @@
 }
 
 .example-container {
-  min-width: 14%;
-  width: auto;
-  //min-height: 600px;
-  float: left;
-  margin-right: 1%;
+  max-width: 220px;
+  width: 100%;
   height: auto;
   min-height: 100vh;
-  //background: #55dada;
   background-color: #989898;
+  position: absolute;
+  z-index: 2;
 }
 
 .example-container .mat-tree {

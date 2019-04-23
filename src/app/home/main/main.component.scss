@@ -65,9 +65,13 @@
   .mainSections {
     position: absolute;
     bottom: 0;
-    display: flex;
-    left: 35%;
-    background-color: $semi_transparent_bg;
+    display: inline-flex;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(1, 1, 1, 0.09);
+    justify-content: center;
+    max-width: 750px;
 
     p {
       margin: 10px 25px;
@@ -88,4 +92,48 @@
 
 .mapFormContainer {
   margin-top: 90px;
+}
+
+@media(max-width: 1024px) {
+  .mainSections {
+    left: 0 !important;
+    right: 0;
+
+    p {
+      margin: 10px auto !important;
+      text-align: center;
+      display: inline-grid;
+
+      mat-icon {
+        display: inline-flex !important;
+        float: none !important;
+        margin: auto !important;
+      }
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .mapFormContainer {
+    margin-top: 30px;
+  }
+}
+@media(max-width: 500px) {
+  .mainSections {
+
+    p {
+      font-size: 0.7rem;
+    }
+  }
+  .mat-toolbar {
+    div {
+      span.link {
+        margin-left: 20px;
+      }
+    }
+   .logo{
+     width: 70px !important;
+     height: 70px !important;
+   }
+  }
 }
