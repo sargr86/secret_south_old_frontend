@@ -44,7 +44,7 @@
         <mat-form-field>
 <!--            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>-->
             <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address" placeholder="Address"
-                   [options]='options' #searchAddress="ngx-places"/>
+                   [options]='options' #searchAddress="ngx-places" required/>
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
