@@ -41,6 +41,8 @@ export class SaveTourComponent implements OnInit {
     tourData;
     imgPath;
 
+    options = {types: ['geocode']}
+
     constructor(
         private _tours: ToursService,
         private _fb: FormBuilder,
@@ -93,9 +95,9 @@ export class SaveTourComponent implements OnInit {
     resetAddress() {
         this.saveTourForm.patchValue({'address': ''});
         this.saveTourForm.controls['address'].enable();
-        this.mapsAPILoader.load().then(() => {
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        });
+        // this.mapsAPILoader.load().then(() => {
+        //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+        // });
     }
 
 
@@ -144,7 +146,7 @@ export class SaveTourComponent implements OnInit {
             fd.append('name', data.name);
             fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
             fd.append('partner_id', data.partner_id ? data.partner_id : '');
-            fd.append('address', searchAddress.value);
+            fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
             fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
             if (!this.imgPath) {
 
