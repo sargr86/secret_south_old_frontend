@@ -95,7 +95,7 @@
         </button>
     </div>
 </form>
-<small class="notFound" *ngIf="partners.length===0">No partners found. Please add some partners first.</small>
+<small class="notFound" *ngIf="partners.length===0 && !common.dataLoading">No partners found. Please add some partners first.</small>
 <div class="dropzoneContainer" *ngIf="!common.dataLoading && partners.length > 0">
     <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg">
     <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
