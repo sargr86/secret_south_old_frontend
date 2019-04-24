@@ -32,6 +32,8 @@ export class SaveFoodDrinkComponent implements OnInit {
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
+    options = {types: ['geocode']}
+
 
     constructor(
         private _fb: FormBuilder,
@@ -67,9 +69,9 @@ export class SaveFoodDrinkComponent implements OnInit {
     resetAddress() {
         this.foodDrinkForm.patchValue({'address': ''});
         this.addressCtrl.enable();
-        this.mapsAPILoader.load().then(() => {
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        });
+        // this.mapsAPILoader.load().then(() => {
+        //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+        // });
     }
 
     /**
@@ -88,8 +90,7 @@ export class SaveFoodDrinkComponent implements OnInit {
      */
     saveFoodDrink(address) {
         const formValue = this.foodDrinkForm.value;
-        formValue.address = address.value.replace(/\r?\n|\r/g, '');
-
+        formValue.address = address.el.nativeElement.value;
 
         // if (this.editFerryForm.valid) {
         this.common.formProcessing = true;
