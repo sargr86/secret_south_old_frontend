@@ -32,7 +32,7 @@ export class SaveFerryComponent implements OnInit {
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
     partnerTypes: any = [];
-
+    options = {types: ['geocode']}
     ferryFields = {
         'name': ['', Validators.required],
         'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
@@ -79,12 +79,12 @@ export class SaveFerryComponent implements OnInit {
 
         this._partner.getTypes().subscribe(types => {
             this.partnerTypes = types;
-            this.mapsAPILoader.load().then(() => {
-                if (this.searchElementRef) {
-                    const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-                    this.common.dataLoading = false;
-                }
-            });
+            this.common.dataLoading = false;
+            // this.mapsAPILoader.load().then(() => {
+            //     if (this.searchElementRef) {
+            //         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+            //     }
+            // });
         });
 
     }
@@ -95,9 +95,6 @@ export class SaveFerryComponent implements OnInit {
     resetAddress() {
         this.editFerryForm.patchValue({'address': ''});
         this.addressCtrl.enable();
-        this.mapsAPILoader.load().then(() => {
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        });
     }
 
     /**
@@ -106,7 +103,7 @@ export class SaveFerryComponent implements OnInit {
      */
     saveFerry(searchAddress) {
         const formValue = this.editFerryForm.value;
-        formValue.address = searchAddress.value.replace(/\r?\n|\r/g, '');
+        formValue.address = searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, '');
 
 
         // if (this.editFerryForm.valid) {

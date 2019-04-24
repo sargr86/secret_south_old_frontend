@@ -10,6 +10,7 @@ import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardTemplateComponent } from './components/dashboard-template/dashboard-template.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { DashboardTemplateComponent } from './components/dashboard-template/dash
         InternationalPhoneNumberModule,
         DropzoneModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        GooglePlaceModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -40,6 +42,7 @@ import { DashboardTemplateComponent } from './components/dashboard-template/dash
         DropzoneModule,
         FormsModule,
         ReactiveFormsModule,
+        GooglePlaceModule,
         GetTableDataSourcePipe,
         MatReusableTableComponent,
         DashboardTemplateComponent
