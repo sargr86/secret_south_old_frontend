@@ -10,6 +10,8 @@ export const SPINNER_DIAMETER = 30;
 // Tables columns
 export const FERRIES_TABLE_COLUMNS = ['name', 'email', 'max_people', 'min_people', 'phone', 'address', 'actions'];
 export const FOOD_DRINK_TABLE_COLUMNS = ['name', 'address', 'actions'];
+export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'actions'];
+export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'actions'];
 export const TOURS_TABLE_COLUMNS = ['name', 'address', 'tours_type', 'actions'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];

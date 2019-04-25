@@ -1,0 +1,88 @@
+<app-dashboard></app-dashboard>
+<form [formGroup]="accommodationForm" class="accommodationForm"
+      *ngIf="!common.dataLoading && partners.length > 0">
+
+    <!-- Accommodation name field -->
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="Name" required>
+    </mat-form-field>
+
+    <!-- Accommodation place description field -->
+    <mat-form-field>
+        <textarea matInput formControlName="description" placeholder="Description"></textarea>
+        <!--    <mat-error *ngIf="descCtrl.hasError('required')">-->
+        <!--      Description is <strong>required</strong>-->
+        <!--    </mat-error>-->
+    </mat-form-field>
+
+    <!-- Accommodation place latitude field -->
+    <mat-form-field>
+        <input matInput formControlName="lat" placeholder="Latitude" required>
+        <mat-error *ngIf="latCtrl.hasError('required')">
+            Latitude is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+            Latitude is <strong>invalid</strong>
+        </mat-error>
+    </mat-form-field>
+
+
+    <!-- Accommodation place longitude field -->
+    <mat-form-field>
+        <input matInput formControlName="lng" placeholder="Longitude" required>
+        <mat-error *ngIf="lngCtrl.hasError('required')">
+            Longitude is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+            Longitude is <strong>invalid</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Accommodation place address field -->
+    <div class="addressContainer">
+        <mat-form-field>
+            <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address" placeholder="Address"
+                   [options]='options' #searchAddress="ngx-places" required/>
+            <mat-error *ngIf="addressCtrl.hasError('required')">
+                Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button (click)="resetAddress()" class="resetAddress">
+            <mat-icon>replay</mat-icon>
+        </button>
+    </div>
+
+    <!-- Accommodation partner field-->
+    <mat-form-field>
+        <mat-select formControlName="partner_id" placeholder="Partner" required>
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of partners" [value]="p['id']">
+                {{p['first_name'] + ' ' + p['last_name']}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="accommodationForm.get('partner_id').hasError('required')">
+            Partner is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+
+    <!-- Action buttons -->
+    <div class="actions">
+
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="saveFoodDrink(searchAddress)">
+            Save
+        </button>
+    </div>
+</form>
+
+
+<small class="notFound" *ngIf="partners.length===0 && !common.dataLoading">No partners found. Please add some partners
+    first.
+</small>
+<small *ngIf="!accommodationData && !common.dataLoading && editCase" class="notFound">The selected accommodation is not
+    found
+</small>

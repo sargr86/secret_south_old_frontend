@@ -16,6 +16,10 @@ import { ShowTourTypesComponent } from './tours/show-tour-types/show-tour-types.
 import { SaveTourTypeComponent } from './tours/save-tour-type/save-tour-type.component';
 import { ShowFoodDrinkComponent } from './food-drink/show-food-drink/show-food-drink.component';
 import { SaveFoodDrinkComponent } from './food-drink/save-food-drink/save-food-drink.component';
+import { SaveAccommodationComponent } from './accommodation/save-accommodation/save-accommodation.component';
+import { ShowAccommodationsComponent } from './accommodation/show-accommodations/show-accommodations.component';
+import { SaveActivityTypeComponent } from './activities/save-activity-type/save-activity-type.component';
+import { ShowActivityTypesComponent } from './activities/show-activity-types/show-activity-types.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +35,10 @@ import { SaveFoodDrinkComponent } from './food-drink/save-food-drink/save-food-d
         SaveTourTypeComponent,
         ShowFoodDrinkComponent,
         SaveFoodDrinkComponent,
+        SaveAccommodationComponent,
+        ShowAccommodationsComponent,
+        SaveActivityTypeComponent,
+        ShowActivityTypesComponent,
     ],
     imports: [
         CommonModule,

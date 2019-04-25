@@ -84,10 +84,10 @@
     <!-- Address field -->
     <div class="addressContainer">
         <mat-form-field>
-<!--            <input matInput formControlName="address" placeholder="Address" #searchAddress required>-->
+            <!--            <input matInput formControlName="address" placeholder="Address" #searchAddress required>-->
             <input matInput class="ngx" ngx-google-places-autocomplete placeholder="Address"
                    formControlName="address" [options]='options' #searchAddress="ngx-places" required/>
-<!--            <mat-hint align="end">If locations autocomplete doesn't appear, please click on reload icon below</mat-hint>-->
+            <!--            <mat-hint align="end">If locations autocomplete doesn't appear, please click on reload icon below</mat-hint>-->
             <mat-error *ngIf="addressCtrl.hasError('required')">
                 Tour address is <strong>required</strong>
             </mat-error>
@@ -98,17 +98,17 @@
     </div>
 
     <!-- Partner type field-->
-<!--    <mat-form-field>-->
-<!--        <mat-select formControlName="type" placeholder="Partner type" required>-->
-<!--            <mat-option>Please choose</mat-option>-->
-<!--            <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">-->
-<!--                {{p['name']}}-->
-<!--            </mat-option>-->
-<!--        </mat-select>-->
-<!--        <mat-error *ngIf="editFerryForm.get('type').hasError('required')">-->
-<!--            Partner type is <strong>required</strong>-->
-<!--        </mat-error>-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field>-->
+    <!--        <mat-select formControlName="type" placeholder="Partner type" required>-->
+    <!--            <mat-option>Please choose</mat-option>-->
+    <!--            <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">-->
+    <!--                {{p['name']}}-->
+    <!--            </mat-option>-->
+    <!--        </mat-select>-->
+    <!--        <mat-error *ngIf="editFerryForm.get('type').hasError('required')">-->
+    <!--            Partner type is <strong>required</strong>-->
+    <!--        </mat-error>-->
+    <!--    </mat-form-field>-->
 
 
     <!-- Partner field-->
@@ -129,7 +129,7 @@
     <!-- Action buttons -->
     <div class="actions">
 
-        <button type="button" class="backBtn"  (click)="router.navigate([redirectUrl])">
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
         <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
@@ -138,8 +138,11 @@
     </div>
 </form>
 
-<small class="notFound" *ngIf="partners.length===0 && !common.dataLoading">No partners found. Please add some partners
-    first.
+
+<small class="notFound" *ngIf="partners.length===0 && !common.dataLoading">
+   <i class="info info-circle"></i>
+    No partners found. Please add at least one
+    accommodation partner first.
 </small>
 <small class="notFound" *ngIf="partnerTypes.length===0&& !common.dataLoading">Partner types aren't loaded. Please try
     again

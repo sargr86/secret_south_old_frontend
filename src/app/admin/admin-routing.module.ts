@@ -19,6 +19,11 @@ import {NonAuthGuard} from '../shared/guards/non-auth.guard';
 import {SaveFoodDrinkComponent} from './food-drink/save-food-drink/save-food-drink.component';
 import {ShowFoodDrinkComponent} from './food-drink/show-food-drink/show-food-drink.component';
 import {OneFoodDrinkResolverService} from '../shared/resolvers/one-food-drink-resolver.service';
+import {ShowAccommodationsComponent} from './accommodation/show-accommodations/show-accommodations.component';
+import {SaveAccommodationComponent} from './accommodation/save-accommodation/save-accommodation.component';
+import {OneAccommodationResolverService} from '../shared/resolvers/one-accommodation-resolver.service';
+import {ShowActivityTypesComponent} from './activities/show-activity-types/show-activity-types.component';
+import {SaveActivityTypeComponent} from './activities/save-activity-type/save-activity-type.component';
 
 
 const routes: Routes = [
@@ -149,6 +154,44 @@ const routes: Routes = [
             expectedRole: 'admin'
         },
         canActivate: [AuthGuard, RoleGuard]
+    },
+    {path: 'all_accommodations', component: ShowAccommodationsComponent},
+    {
+        path: 'add_accommodation', component: SaveAccommodationComponent,
+        data: {
+            title: 'Add accommodation',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
+        path: 'accommodation/:id', component: SaveAccommodationComponent, data: {
+            title: 'Edit an accommodation info',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
+        resolve: {
+            oneFoodDrink: OneAccommodationResolverService
+        }
+    },
+    {path: 'all_activities_types', component: ShowActivityTypesComponent},
+    {
+        path: 'add_activity_type', component: SaveActivityTypeComponent,
+        data: {
+            title: 'Add activity type',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
+        path: 'activity_type/:id', component: SaveActivityTypeComponent, data: {
+            title: 'Edit an activity type',
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard],
+        resolve: {
+            oneFoodDrink: OneAccommodationResolverService
+        }
     },
 ];
 

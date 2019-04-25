@@ -1,0 +1,15 @@
+.activityTypeForm {
+  max-width: 600px;
+  width: 100%;
+  margin-left: 270px;
+}
+
+@media(max-width: 767px){
+  .activityTypeForm {
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0;
+  }
+}
