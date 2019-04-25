@@ -20,11 +20,22 @@ export class DynamicDatabase {
         ['Ferries', ['Add Ferries', 'All Ferries']],
         ['Tours', ['Add Tours', 'All Tours', 'Add Tours Types', 'All Tours Types']],
         ['Food-Drink', ['Add Food-Drink', 'All Food-Drink']],
+        ['Accommodation', ['Add', 'All accommodations']],
+        ['Activities', ['Add', 'All activities']],
         ['Partners', ['Add Partners', 'All Partners']],
         ['Gps Location', ['Add Locations']],
     ]);
 
-    rootLevelNodes: string[] = ['Admin', 'Ferries', 'Tours', 'Food-Drink', 'Partners', 'Gps Location'];
+    rootLevelNodes: string[] = [
+        'Admin',
+        'Accommodation',
+        'Activities',
+        'Ferries',
+        'Tours',
+        'Food-Drink',
+        'Partners',
+        'Gps Location'
+    ];
 
     /** Initial data from database */
     initialData(): DynamicFlatNode[] {
