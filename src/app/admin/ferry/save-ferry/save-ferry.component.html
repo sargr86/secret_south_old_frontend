@@ -18,12 +18,12 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- E-mail field-->
-    <mat-form-field *ngIf="!editCase">
-        <input matInput formControlName="email" placeholder="E-mail" required>
-        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
-        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
-    </mat-form-field>
+<!--    &lt;!&ndash; E-mail field&ndash;&gt;-->
+<!--    <mat-form-field *ngIf="!editCase">-->
+<!--        <input matInput formControlName="email" placeholder="E-mail" required>-->
+<!--        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>-->
+<!--        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>-->
+<!--    </mat-form-field>-->
 
     <!-- Max people for ferry field -->
     <mat-form-field>
