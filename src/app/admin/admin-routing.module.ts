@@ -171,7 +171,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard],
         resolve: {
-            oneFoodDrink: OneAccommodationResolverService
+            oneAccommodation: OneAccommodationResolverService
         }
     },
     {path: 'all_activities_types', component: ShowActivityTypesComponent},

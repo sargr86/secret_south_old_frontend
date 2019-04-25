@@ -7,6 +7,7 @@ import {CommonService} from '../../../shared/services/common.service';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
 
 @Component({
     selector: 'app-save-food-drink',
@@ -32,7 +33,7 @@ export class SaveFoodDrinkComponent implements OnInit {
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
-    options = {types: ['geocode']}
+    options = {types: ['geocode']};
 
 
     constructor(
@@ -42,10 +43,10 @@ export class SaveFoodDrinkComponent implements OnInit {
         public common: CommonService,
         public router: Router,
         private toastr: ToastrService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private checkFormData: CheckFormDataPipe
     ) {
         this.foodDrinkForm = this._fb.group(this.formFields);
-        this.getPartners();
         this.common.dataLoading = true;
         this.route.data.subscribe(dt => {
             this.getPartners();
@@ -80,6 +81,7 @@ export class SaveFoodDrinkComponent implements OnInit {
     getPartners() {
         this._foodDrink.getPartners().subscribe((d: any) => {
             this.partners = d;
+            this.checkFormData.transform('food drink', this.foodDrinkData, this.partners, this.editCase);
             this.common.dataLoading = false;
         });
     }
