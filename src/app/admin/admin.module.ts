@@ -3,11 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AdminRoutingModule} from './admin-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AddToursComponent} from './add-tours/add-tours.component';
-import {AllToursComponent} from './all-tours/all-tours.component';
 import {AgmCoreModule} from "@agm/core";
-import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
-import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {SharedModule} from '../shared/shared.module';
 import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
@@ -24,10 +20,6 @@ import { SaveFoodDrinkComponent } from './food-drink/save-food-drink/save-food-d
 @NgModule({
     declarations: [
         DashboardComponent,
-        AddToursComponent,
-        AllToursComponent,
-        AddFoodDrinkComponent,
-        AllFoodDrinkComponent,
         GpsLocationComponent,
         ShowFerriesComponent,
         SaveFerryComponent,
