@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {AddFoodDrinkComponent} from './add-food-drink/add-food-drink.component';
-import {AllFoodDrinkComponent} from './all-food-drink/all-food-drink.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
