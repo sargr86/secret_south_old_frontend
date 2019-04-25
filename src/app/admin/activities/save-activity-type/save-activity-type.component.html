@@ -1,0 +1,21 @@
+<app-dashboard></app-dashboard>
+<mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
+<form [formGroup]="activityTypeForm" class="activityTypeForm" *ngIf="!common.dataLoading">
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="Activity type" required>
+        <mat-error *ngIf="nameCtrl.hasError('required')">
+            Tour name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Activity description field -->
+    <mat-form-field>
+        <textarea matInput formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
+
+    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button color="primary" mat-raised-button (click)="saveToursType()">Save</button>
+</form>

@@ -20,8 +20,12 @@ export class DynamicDatabase {
         ['Ferries', ['Add Ferries', 'All Ferries']],
         ['Tours', ['Add Tours', 'All Tours', 'Add Tours Types', 'All Tours Types']],
         ['Food-Drink', ['Add Food-Drink', 'All Food-Drink']],
-        ['Accommodation', ['Add', 'All accommodations']],
-        ['Activities', ['Add', 'All activities']],
+        ['Accommodation', ['Add accommodation', 'All accommodations']],
+        ['Activities', [
+            // 'Add activities', 'All activities',
+            'Add activity type', 'All activities types'
+        ]
+        ],
         ['Partners', ['Add Partners', 'All Partners']],
         ['Gps Location', ['Add Locations']],
     ]);
