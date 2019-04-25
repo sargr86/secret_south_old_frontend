@@ -77,9 +77,11 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
                 this.ferryData = dt['oneFerry'];
                 this.ferryFields['id'] = '';
                 this.editFerryForm = this._fb.group(this.ferryFields);
-                this.editFerryForm.patchValue(this.ferryData);
                 this.editCase = true;
-                this.addressCtrl.disable();
+                if (this.ferryData) {
+                    this.editFerryForm.patchValue(this.ferryData);
+                    this.addressCtrl.disable();
+                }
             }
         });
 
