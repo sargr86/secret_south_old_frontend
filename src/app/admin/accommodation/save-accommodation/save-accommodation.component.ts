@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {Partner} from '../../../shared/models/Partner';
@@ -6,13 +6,15 @@ import {AccommodationsService} from '../../../shared/services/accommodations.ser
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
+import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-save-accommodation',
     templateUrl: './save-accommodation.component.html',
     styleUrls: ['./save-accommodation.component.scss']
 })
-export class SaveAccommodationComponent implements OnInit, AfterViewInit {
+export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     accommodationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
@@ -29,6 +31,9 @@ export class SaveAccommodationComponent implements OnInit, AfterViewInit {
     redirectUrl = 'admin/all_accommodations';
     editCase = false;
 
+    routeDataSubscription: Subscription;
+    partnersSubscription: Subscription;
+
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
@@ -41,28 +46,28 @@ export class SaveAccommodationComponent implements OnInit, AfterViewInit {
         private toastr: ToastrService,
         private route: ActivatedRoute,
         private _fb: FormBuilder,
-        private cdr: ChangeDetectorRef
+        private checkFormData: CheckFormDataPipe
     ) {
     }
 
     ngOnInit() {
         this.accommodationForm = this._fb.group(this.formFields);
-        this.getPartners();
         this.common.dataLoading = true;
-        this.route.data.subscribe(dt => {
+        this.routeDataSubscription = this.route.data.subscribe(dt => {
             this.getPartners();
             if (this.route.snapshot.paramMap.get('id')) {
-                this.accommodationData = dt['oneFoodDrink'];
+                this.accommodationData = dt['oneAccommodation'];
                 this.formFields['id'] = '';
                 this.accommodationForm = this._fb.group(this.formFields);
-                this.accommodationForm.patchValue(this.accommodationData);
                 this.editCase = true;
-                this.addressCtrl.disable();
+                if (this.accommodationData) {
+                    this.accommodationForm.patchValue(this.accommodationData);
+                    this.addressCtrl.disable();
+                }
             }
-            // this.showInfoBox();
+
         });
     }
-
 
 
     /**
@@ -77,9 +82,10 @@ export class SaveAccommodationComponent implements OnInit, AfterViewInit {
      * Gets partners list
      */
     getPartners() {
-        this._accommodation.getPartners().subscribe((d: any) => {
+        this.partnersSubscription = this._accommodation.getPartners().subscribe((d: any) => {
             this.partners = d;
             this.common.dataLoading = false;
+            this.checkFormData.transform('accommodation', this.accommodationData, this.partners, this.editCase);
         });
     }
 
@@ -123,33 +129,15 @@ export class SaveAccommodationComponent implements OnInit, AfterViewInit {
         return this.accommodationForm.get('address');
     }
 
-    get descCtrl() {
-        return this.accommodationForm.get('description');
-    }
-
-
-    showInfoBox() {
-        let title = '';
-        let msg = '';
-        if (this.partners.length === 0) {
-            title = 'No partners found.';
-            msg = 'Please add at least one accommodation partner first.';
-        } else if (!this.accommodationData && !this.common.dataLoading && this.editCase) {
-            title = 'Not found';
-            msg = 'The selected accommodation is not found';
+    ngOnDestroy() {
+        if (this.routeDataSubscription) {
+            this.routeDataSubscription.unsubscribe();
         }
-        setTimeout(() => this.toastr.info(msg, title, {timeOut: 0}))
-
-    }
-
-    ngAfterViewInit() {
-       this.showInfoBox();
-    }
-
-    ngOnDestroy(){
+        if (this.partnersSubscription) {
+            this.partnersSubscription.unsubscribe();
+        }
         this.toastr.clear();
     }
-
 
 
 }

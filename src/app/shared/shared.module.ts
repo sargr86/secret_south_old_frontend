@@ -7,10 +7,11 @@ import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reu
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
-import { LoginComponent } from './components/login/login.component';
+import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DashboardTemplateComponent } from './components/dashboard-template/dashboard-template.component';
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import {DashboardTemplateComponent} from './components/dashboard-template/dashboard-template.component';
+import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
+import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
         GetTableDataSourcePipe,
         MatReusableTableComponent,
         LoginComponent,
-        DashboardTemplateComponent
+        DashboardTemplateComponent,
+        CheckFormDataPipe
     ],
     imports: [
         CommonModule,
@@ -31,6 +33,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     ],
     providers: [
         GetTableDataSourcePipe,
+        CheckFormDataPipe,
         {
             provide: DROPZONE_CONFIG,
             useValue: DEFAULT_DROPZONE_CONFIG
