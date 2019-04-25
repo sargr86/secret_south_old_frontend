@@ -1,5 +1,5 @@
 <app-dashboard></app-dashboard>
-<form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm">
+<form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm" *ngIf="!common.dataLoading && partners.length > 0">
 
     <!-- Food/drink field -->
     <mat-form-field>

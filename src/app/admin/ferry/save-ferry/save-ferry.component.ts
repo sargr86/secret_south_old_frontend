@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FerryService} from '../../services/ferry.service';
 import {PartnerService} from '../../services/partner.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -15,13 +15,15 @@ import {
 import {MapsAPILoader} from '@agm/core';
 import {Ferry} from '../../../shared/models/Ferry';
 import {Partner} from '../../../shared/models/Partner';
+import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-save-ferry',
     templateUrl: './save-ferry.component.html',
     styleUrls: ['./save-ferry.component.scss']
 })
-export class SaveFerryComponent implements OnInit {
+export class SaveFerryComponent implements OnInit, OnDestroy {
 
     editFerryForm: FormGroup;
     ferryData: Ferry;
@@ -46,6 +48,9 @@ export class SaveFerryComponent implements OnInit {
         'partner_id': ['', Validators.required]
     };
 
+    routeDataSubscription: Subscription;
+    partnersSubscription: Subscription;
+
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
@@ -58,7 +63,8 @@ export class SaveFerryComponent implements OnInit {
         private route: ActivatedRoute,
         private toastr: ToastrService,
         public common: CommonService,
-        private mapsAPILoader: MapsAPILoader
+        private mapsAPILoader: MapsAPILoader,
+        private checkFormData: CheckFormDataPipe
     ) {
     }
 
@@ -80,11 +86,6 @@ export class SaveFerryComponent implements OnInit {
         this._partner.getTypes().subscribe(types => {
             this.partnerTypes = types;
             this.common.dataLoading = false;
-            // this.mapsAPILoader.load().then(() => {
-            //     if (this.searchElementRef) {
-            //         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-            //     }
-            // });
         });
 
     }
@@ -130,8 +131,9 @@ export class SaveFerryComponent implements OnInit {
      * Gets partners list
      */
     getPartners() {
-        this._ferry.getAllpartner().subscribe((d: any) => {
+        this.partnersSubscription = this._ferry.getAllpartner().subscribe((d: any) => {
             this.partners = d;
+            this.checkFormData.transform('ferry', this.ferryData, this.partners, this.editCase);
             this.common.dataLoading = false;
         });
     }
@@ -172,6 +174,16 @@ export class SaveFerryComponent implements OnInit {
 
     changed(e) {
         this.editFerryForm.patchValue({'phone': e.target.value});
+    }
+
+    ngOnDestroy() {
+        if (this.routeDataSubscription) {
+            this.routeDataSubscription.unsubscribe();
+        }
+        if (this.partnersSubscription) {
+            this.partnersSubscription.unsubscribe();
+        }
+        this.toastr.clear();
     }
 
 }

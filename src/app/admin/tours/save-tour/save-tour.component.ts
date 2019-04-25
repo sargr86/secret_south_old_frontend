@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ToursService} from '../../services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,13 +9,15 @@ import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
 import {Partner} from '../../../shared/models/Partner';
+import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-save-tour',
     templateUrl: './save-tour.component.html',
     styleUrls: ['./save-tour.component.scss']
 })
-export class SaveTourComponent implements OnInit {
+export class SaveTourComponent implements OnInit, OnDestroy {
 
 
     @ViewChild('searchAddress')
@@ -41,7 +43,10 @@ export class SaveTourComponent implements OnInit {
     tourData;
     imgPath;
 
-    options = {types: ['geocode']}
+    options = {types: ['geocode']};
+
+    routeDataSubscription: Subscription;
+    partnersSubscription: Subscription;
 
     constructor(
         private _tours: ToursService,
@@ -50,7 +55,8 @@ export class SaveTourComponent implements OnInit {
         private route: ActivatedRoute,
         private mapsAPILoader: MapsAPILoader,
         private toastr: ToastrService,
-        public common: CommonService
+        public common: CommonService,
+        private checkFormData: CheckFormDataPipe
     ) {
 
         this.getPartners();
@@ -61,7 +67,7 @@ export class SaveTourComponent implements OnInit {
     ngOnInit() {
 
         this.common.dataLoading = true;
-        this.route.data.subscribe(dt => {
+        this.routeDataSubscription = this.route.data.subscribe(dt => {
             if (this.route.snapshot.paramMap.get('id')) {
                 this.tourData = dt['oneTour'];
                 this.tourFields['id'] = '';
@@ -105,8 +111,9 @@ export class SaveTourComponent implements OnInit {
      * Gets partners list
      */
     getPartners() {
-        this._tours.getPartners().subscribe((r: any) => {
+        this.partnersSubscription = this._tours.getPartners().subscribe((r: any) => {
             this.partners = r;
+            this.checkFormData.transform('tours', this.tourData, this.partners, this.editCase);
         });
     }
 
@@ -204,6 +211,16 @@ export class SaveTourComponent implements OnInit {
 
     get addressCtrl() {
         return this.tourForm.get('address');
+    }
+
+    ngOnDestroy() {
+        if (this.routeDataSubscription) {
+            this.routeDataSubscription.unsubscribe();
+        }
+        if (this.partnersSubscription) {
+            this.partnersSubscription.unsubscribe();
+        }
+        this.toastr.clear();
     }
 
 }
