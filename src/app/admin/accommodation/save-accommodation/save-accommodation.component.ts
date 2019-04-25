@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {Partner} from '../../../shared/models/Partner';
@@ -12,7 +12,7 @@ import {ToastrService} from 'ngx-toastr';
     templateUrl: './save-accommodation.component.html',
     styleUrls: ['./save-accommodation.component.scss']
 })
-export class SaveAccommodationComponent implements OnInit {
+export class SaveAccommodationComponent implements OnInit, AfterViewInit {
 
     accommodationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
@@ -40,7 +40,8 @@ export class SaveAccommodationComponent implements OnInit {
         public common: CommonService,
         private toastr: ToastrService,
         private route: ActivatedRoute,
-        private _fb: FormBuilder
+        private _fb: FormBuilder,
+        private cdr: ChangeDetectorRef
     ) {
     }
 
@@ -58,8 +59,11 @@ export class SaveAccommodationComponent implements OnInit {
                 this.editCase = true;
                 this.addressCtrl.disable();
             }
+            // this.showInfoBox();
         });
     }
+
+
 
     /**
      * Resets address and reloads maps api to allow user to select from drop down again
@@ -122,5 +126,30 @@ export class SaveAccommodationComponent implements OnInit {
     get descCtrl() {
         return this.accommodationForm.get('description');
     }
+
+
+    showInfoBox() {
+        let title = '';
+        let msg = '';
+        if (this.partners.length === 0) {
+            title = 'No partners found.';
+            msg = 'Please add at least one accommodation partner first.';
+        } else if (!this.accommodationData && !this.common.dataLoading && this.editCase) {
+            title = 'Not found';
+            msg = 'The selected accommodation is not found';
+        }
+        setTimeout(() => this.toastr.info(msg, title, {timeOut: 0}))
+
+    }
+
+    ngAfterViewInit() {
+       this.showInfoBox();
+    }
+
+    ngOnDestroy(){
+        this.toastr.clear();
+    }
+
+
 
 }
