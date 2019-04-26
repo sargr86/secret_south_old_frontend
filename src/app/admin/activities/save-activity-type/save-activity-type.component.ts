@@ -40,8 +40,8 @@ export class SaveActivityTypeComponent implements OnInit {
                 if (dt) {
                     this.activityTypeForm.patchValue(dt);
                     this.editCase = true;
-                    this.common.dataLoading = false;
                 }
+                this.common.dataLoading = false;
             });
         }
     }

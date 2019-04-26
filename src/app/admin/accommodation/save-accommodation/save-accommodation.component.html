@@ -17,6 +17,9 @@
     <!-- Accommodation name field -->
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name" required>
+        <mat-error *ngIf="nameCtrl.hasError('required')">
+            Name is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
 
     <!-- Accommodation place description field -->

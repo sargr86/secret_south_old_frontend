@@ -28,7 +28,6 @@ export class CheckFormDataPipe implements PipeTransform {
             title = 'No partners found.';
             msg = 'Please add at least one ' + item + ' partner first.';
         } else if (editCase) {
-console.log(data)
             if (!data) {
                 title = 'Not found';
                 msg = 'The selected ' + item + ' is not found';
