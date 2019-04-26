@@ -23,8 +23,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     accommodationData;
     formFields = {
         name: ['', Validators.required],
-        lat: ['', Validators.required, patternValidator(LATITUDE_PATTERN)],
-        lng: ['', Validators.required, patternValidator(LONGITUDE_PATTERN)],
+        lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+        lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         description: [''],
         address: ['', Validators.required],
         partner_id: ['', Validators.required]
