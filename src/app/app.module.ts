@@ -42,7 +42,9 @@ export function tokenGetter() {
         ReactiveFormsModule,
         StorageServiceModule,
         MaterialModule,
-        ToastrModule.forRoot(),
+        ToastrModule.forRoot({
+            preventDuplicates: true
+        }),
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
