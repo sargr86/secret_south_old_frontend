@@ -2,6 +2,18 @@
 <form [formGroup]="accommodationForm" class="accommodationForm"
       *ngIf="!common.dataLoading && partners.length > 0">
 
+    <!-- Current form title -->
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <mat-icon class="title_sign">add_box</mat-icon>
+            <span>Add a new accommodation</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit accommodation details</span>
+        </ng-container>
+    </h4>
+
     <!-- Accommodation name field -->
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Name" required>
