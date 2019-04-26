@@ -41,6 +41,21 @@
         <input type="password" matInput formControlName="pass" placeholder="Password" required>
     </mat-form-field>
 
+    <!-- Phone number field -->
+    <mat-label>Phone*</mat-label>
+    <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20"
+                                [defaultCountry]="defaultCountry" [required]="true" (change)="changed($event)"
+                                [allowedCountries]="allowedCountries"></international-phone-number>
+
+    <ng-container *ngIf="!phoneCtrl.pristine">
+        <mat-error *ngIf="phoneCtrl.hasError('required')">
+            Phone number is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="phoneCtrl.hasError('patternInvalid')">
+            Phone number is <strong>invalid</strong>
+        </mat-error>
+    </ng-container>
+
     <!-- Partner type field -->
     <mat-form-field *ngIf="partnerType">
 

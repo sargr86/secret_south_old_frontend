@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartnerService} from '../../services/partner.service';
 import {ToastrService} from 'ngx-toastr';
-import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {CommonService} from '../../../shared/services/common.service';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {EMAIL_PATTERN} from '../../../shared/constants/patterns';
@@ -22,12 +22,15 @@ export class SavePartnerComponent implements OnInit {
         last_name: ['', Validators.required],
         email: ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
         partner_type_id: ['', Validators.required],
+        phone: ['', [Validators.required]],
         id: ''
     };
     savePartnerForm: FormGroup;
     editCase = false;
     partnerInfo: Partner;
     spinnerDiameter = SPINNER_DIAMETER;
+    allowedCountries = ALLOWED_COUNTRIES;
+    defaultCountry = DEFAULT_COUNTRY;
     redirectUrl = 'admin/all_partners';
     partnerType: PartnerType;
 
@@ -107,6 +110,14 @@ export class SavePartnerComponent implements OnInit {
 
     get emailCtrl() {
         return this.savePartnerForm.get('email');
+    }
+
+    get phoneCtrl() {
+        return this.savePartnerForm.get('phone');
+    }
+
+    changed(e) {
+        this.savePartnerForm.patchValue({'phone': e.target.value});
     }
 
 
