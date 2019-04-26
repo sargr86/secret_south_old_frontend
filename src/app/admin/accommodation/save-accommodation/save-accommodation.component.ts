@@ -119,6 +119,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         // }
     }
 
+    get nameCtrl() {
+        return this.accommodationForm.get('lat');
+    }
+
     get latCtrl() {
         return this.accommodationForm.get('lat');
     }
