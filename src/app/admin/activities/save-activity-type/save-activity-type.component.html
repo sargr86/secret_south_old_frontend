@@ -1,6 +1,20 @@
 <app-dashboard></app-dashboard>
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="activityTypeForm" class="activityTypeForm" *ngIf="!common.dataLoading">
+
+    <!-- Current form title -->
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <mat-icon class="title_sign">add_box</mat-icon>
+            <span>Add a new activity type</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit activity type details</span>
+        </ng-container>
+    </h4>
+
+    <!-- Activity type name field -->
     <mat-form-field>
         <input matInput formControlName="name" placeholder="Activity type" required>
         <mat-error *ngIf="nameCtrl.hasError('required')">

@@ -2,6 +2,12 @@
   max-width: 600px;
   width: 100%;
   margin-left: 270px;
+  .actions{
+    margin-top:20px;
+    .saveBtn{
+      float: left;
+    }
+  }
 }
 
 @media(max-width: 767px){

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
 import {Partner} from '../../../shared/models/Partner';
@@ -10,13 +10,14 @@ import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
 import {patternValidator} from '../../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-save-food-drink',
     templateUrl: './save-food-drink.component.html',
     styleUrls: ['./save-food-drink.component.scss']
 })
-export class SaveFoodDrinkComponent implements OnInit {
+export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     foodDrinkForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
     foodDrinkData;
@@ -37,6 +38,9 @@ export class SaveFoodDrinkComponent implements OnInit {
 
     options = {types: ['geocode']};
 
+    routeDataSubscription: Subscription;
+    partnersSubscription: Subscription;
+
 
     constructor(
         private _fb: FormBuilder,
@@ -50,7 +54,7 @@ export class SaveFoodDrinkComponent implements OnInit {
     ) {
         this.foodDrinkForm = this._fb.group(this.formFields);
         this.common.dataLoading = true;
-        this.route.data.subscribe(dt => {
+        this.routeDataSubscription = this.route.data.subscribe(dt => {
             this.getPartners();
             if (this.route.snapshot.paramMap.get('id')) {
                 this.foodDrinkData = dt['oneFoodDrink'];
@@ -72,16 +76,13 @@ export class SaveFoodDrinkComponent implements OnInit {
     resetAddress() {
         this.foodDrinkForm.patchValue({'address': ''});
         this.addressCtrl.enable();
-        // this.mapsAPILoader.load().then(() => {
-        //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        // });
     }
 
     /**
      * Gets partners list
      */
     getPartners() {
-        this._foodDrink.getPartners().subscribe((d: any) => {
+        this.partnersSubscription = this._foodDrink.getPartners().subscribe((d: any) => {
             this.partners = d;
             this.checkFormData.transform('food drink', this.foodDrinkData, this.partners, this.editCase);
             this.common.dataLoading = false;
@@ -130,6 +131,16 @@ export class SaveFoodDrinkComponent implements OnInit {
 
     get descCtrl() {
         return this.foodDrinkForm.get('description');
+    }
+
+    ngOnDestroy() {
+        if (this.routeDataSubscription) {
+            this.routeDataSubscription.unsubscribe();
+        }
+        if (this.partnersSubscription) {
+            this.partnersSubscription.unsubscribe();
+        }
+        this.toastr.clear();
     }
 
 }
