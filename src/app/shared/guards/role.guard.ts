@@ -41,7 +41,7 @@ export class RoleGuard implements CanActivate {
 
 
             // if user isn't authenticated or its role doesn't match current route expected role, showing error and heading to main page
-            if (!this.auth.loggedIn() || !receivedRoles.includes(expectedRole)) {
+            if (!receivedRoles.includes(expectedRole)) {
                 this.toastr.error('', 'You don\'t have permissions to access this page');
                 this.router.navigate([this.router.url]);
                 return false;
