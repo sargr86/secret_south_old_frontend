@@ -1,28 +1,29 @@
 @import "./variables";
-@mixin noBgBtn{
+
+@mixin noBgBtn {
   display: block;
   float: left;
-  background:none;
-  border:none;
-  outline: none!important;
+  background: none;
+  border: none;
+  outline: none !important;
   cursor: pointer;
   color: #ffffff;
   border-radius: 30px;
   width: 30px;
   height: 30px;
   padding: 0;
-  mat-icon{
+  mat-icon {
     margin-top: 3px;
   }
 }
 
-@mixin matTable{
-    width: 100%;
-    td.mat-column-actions {
-      width: 82px;
-      padding: 0 10px;
-      padding-right: 0!important;
-    }
+@mixin matTable {
+  width: 100%;
+  td.mat-column-actions {
+    width: 82px;
+    padding: 0 10px;
+    padding-right: 0 !important;
+  }
 }
 
 @mixin namedBtn {
@@ -37,4 +38,14 @@
   cursor: pointer;
   outline: none;
 
+}
+
+@mixin formTitle {
+  display: flex;
+  justify-content: center;
+  mat-icon {
+    display: block;
+    float: left;
+    margin-top: 3px;
+  }
 }

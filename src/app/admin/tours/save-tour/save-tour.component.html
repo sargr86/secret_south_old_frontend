@@ -2,10 +2,15 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!common.dataLoading && partners.length > 0">
 
+    <!-- Current form title -->
     <h4 class="formTitle">
         <ng-container *ngIf="!editCase">
-            <i class="fa fa-plus title-sign"></i>
+            <mat-icon class="title_sign">add_box</mat-icon>
             <span>Add a new tour</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit tour details</span>
         </ng-container>
     </h4>
 
@@ -42,7 +47,7 @@
     <!-- Tour address field -->
     <div class="addressContainer">
         <mat-form-field>
-<!--            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>-->
+            <!--            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>-->
             <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address" placeholder="Address"
                    [options]='options' #searchAddress="ngx-places" required/>
             <mat-error *ngIf="addressCtrl.hasError('required')">
@@ -89,7 +94,7 @@
     <!-- Action buttons -->
     <div class="actions">
         <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-        <button type="button" class="backBtn"  (click)="router.navigate([redirectUrl])">
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
         <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">

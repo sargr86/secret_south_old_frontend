@@ -2,10 +2,15 @@
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading && partners.length > 0">
 
+    <!-- Current form title -->
     <h4 class="formTitle">
         <ng-container *ngIf="!editCase">
-            <i class="fa fa-plus title-sign"></i>
+            <mat-icon class="title_sign">add_box</mat-icon>
             <span>Add a new ferry</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit ferry details</span>
         </ng-container>
     </h4>
 
