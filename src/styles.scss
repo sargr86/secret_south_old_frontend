@@ -31,6 +31,9 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 table.mat-table {
   @include matTable;
 }
+.formTitle{
+  @include formTitle;
+}
 
 .no_table_items_found {
   color: $silver;
