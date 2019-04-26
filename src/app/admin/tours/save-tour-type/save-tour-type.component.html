@@ -1,15 +1,33 @@
 <app-dashboard></app-dashboard>
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="saveTourTypeForm" class="tourTypeForm" *ngIf="!common.dataLoading">
+
+    <!-- Current form title -->
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <mat-icon class="title_sign">add_box</mat-icon>
+            <span>Add a new tour type</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit tour type details</span>
+        </ng-container>
+    </h4>
+
+    <!-- Tour type name -->
     <mat-form-field>
         <input matInput formControlName="tour_name" placeholder="Tour type" required>
         <mat-error *ngIf="nameCtrl.hasError('required')">
-            Tour name is <strong>required</strong>
+            Tour type name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
-    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
-    <button type="button" class="backBtn"  (click)="router.navigate([redirectUrl])">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button color="primary" mat-raised-button (click)="saveToursType()">Save</button>
+
+    <!-- Form processing loader and action buttons -->
+    <div class="actions">
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button color="primary" mat-raised-button class="saveBtn" (click)="saveToursType()">Save</button>
+        <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+    </div>
 </form>

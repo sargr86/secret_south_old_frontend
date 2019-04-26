@@ -1,6 +1,6 @@
 <app-dashboard></app-dashboard>
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
-<form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!common.dataLoading && partners.length > 0">
+<form [formGroup]="saveTourForm" class="saveTourForm" *ngIf="!common.dataLoading && partners.length > 0 && tourTypes.length > 0">
 
     <!-- Current form title -->
     <h4 class="formTitle">
@@ -63,7 +63,7 @@
     <mat-form-field>
         <mat-select placeholder="Tours Type" formControlName="tours_type_id" required>
             <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let t of tourType" [value]="t['id']">
+            <mat-option *ngFor="let t of tourTypes" [value]="t['id']">
                 {{t['tour_name']}}
             </mat-option>
         </mat-select>
@@ -97,13 +97,13 @@
         <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-raised-button color="primary" (click)="saveTour(searchAddress)">
+        <button mat-raised-button color="primary" class="saveBtn" (click)="saveTour(searchAddress)">
             Save Tour
         </button>
     </div>
 </form>
-<div class="dropzoneContainer" *ngIf="!common.dataLoading && partners.length > 0">
-    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg">
+<div class="dropzoneContainer" *ngIf="!common.dataLoading && partners.length > 0 && tourTypes.length > 0">
+    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg" [alt]="tourData.name">
     <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
     <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
               *ngIf="!editCase||(editCase && !imgPath)"></dropzone>

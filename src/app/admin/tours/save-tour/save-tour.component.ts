@@ -24,7 +24,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     public searchElementRef: ElementRef;
 
     partners: Partner[] = [];
-    tourType;
+    tourTypes = [];
     saveTourForm: FormGroup;
     uploadImages;
     tourFields = {
@@ -113,7 +113,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     getPartners() {
         this.partnersSubscription = this._tours.getPartners().subscribe((r: any) => {
             this.partners = r;
-            this.checkFormData.transform('tours', this.tourData, this.partners, this.editCase);
+            this.checkFormData.transform('tour', this.tourData, this.partners, this.editCase);
         });
     }
 
@@ -121,8 +121,11 @@ export class SaveTourComponent implements OnInit, OnDestroy {
      * Gets tour types list
      */
     getToursType() {
-        this._tours.getAllTourType().subscribe((r: any) => {
-            this.tourType = r;
+        this._tours.getAllTourType().subscribe((types: any) => {
+            this.tourTypes = types;
+            if (types.length === 0) {
+                this.toastr.info('Please add at least one tour type', 'No tour types')
+            }
         });
     }
 
@@ -142,9 +145,9 @@ export class SaveTourComponent implements OnInit, OnDestroy {
 
         // if (this.saveTourForm.valid) {
 
-        if (!this.dropZoneFile && !this.editCase) {
-            this.toastr.error('Please select an image to upload', 'No files');
-        } else {
+        // if (!this.dropZoneFile && !this.editCase) {
+        //     this.toastr.error('Please select an image to upload', 'No files');
+        // } else {
             this.common.formProcessing = true;
             const data = this.saveTourForm.value;
             const fd = new FormData();
@@ -175,7 +178,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
                     this.toastr.success('The tour info has been added successfully', 'Added!');
                 });
             }
-        }
+        // }
 
 
         // }
