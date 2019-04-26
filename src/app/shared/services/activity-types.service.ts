@@ -13,7 +13,6 @@ export class ActivityTypesService {
     }
 
     remove(params) {
-        console.log(params)
         return this.http.delete(`${API_URL}activity_types/remove`, {params: params});
     }
 
