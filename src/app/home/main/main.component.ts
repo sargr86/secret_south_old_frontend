@@ -64,6 +64,7 @@ export class MainComponent implements OnInit {
             this.mapForm.patchValue({type: dt[0]['name']});
             this.partnerTypes = dt;
         });
+        this.getLocation();
     }
 
 
@@ -118,12 +119,11 @@ export class MainComponent implements OnInit {
     }
 
     getLocation() {
-        // console.log(navigator.geolocation)
         if (navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
             const options = {timeout: 10000};
             const geoLoc = navigator.geolocation;
-            const watchID = geoLoc.watchPosition(this.showLsocation, this.errorHandler, options);
+            const watchID = geoLoc.watchPosition(this.showLocation, this.errorHandler, options);
         } else {
             alert('Sorry, browser does not support geolocation!');
         }
@@ -137,7 +137,7 @@ export class MainComponent implements OnInit {
         }
     }
 
-    showLsocation(position) {
+    showLocation(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
     }
