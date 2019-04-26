@@ -30,10 +30,10 @@ export class CheckFormDataPipe implements PipeTransform {
         } else if (editCase) {
             if (!data) {
                 title = 'Not found';
-                msg = 'The selected ' + item + ' is not found';
+                msg = 'The selected ' + item + ' is not found.';
             } else if (!data.user) {
                 title = 'Partner not found';
-                msg = 'The partner of current ' + item + ' is no longer available';
+                msg = 'The partner of current ' + item + ' is no longer available.';
             }
         }
 
