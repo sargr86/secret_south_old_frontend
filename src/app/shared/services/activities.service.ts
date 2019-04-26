@@ -12,12 +12,12 @@ export class ActivitiesService {
     ) {
     }
 
-    public addType(data) {
+    addType(data) {
 
         return this.http.post(`${API_URL}activity_types/add`, data);
     }
 
-    public getTypes() {
+    getTypes() {
 
         return this.http.get(`${API_URL}activity_types/get`);
     }
@@ -25,10 +25,6 @@ export class ActivitiesService {
 
     updateType(params) {
         return this.http.put(`${API_URL}activity_types/update`, params);
-    }
-
-    removeType(params) {
-        return this.http.post(`${API_URL}activity_types/remove`, params);
     }
 
     getOneType(params) {
