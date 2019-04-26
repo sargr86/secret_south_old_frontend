@@ -8,6 +8,8 @@ import {SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
+import {patternValidator} from '../../../shared/helpers/pattern-validator';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
 
 @Component({
     selector: 'app-save-food-drink',
@@ -20,8 +22,8 @@ export class SaveFoodDrinkComponent implements OnInit {
     foodDrinkData;
     formFields = {
         name: ['', Validators.required],
-        lat: ['', Validators.required],
-        lng: ['', Validators.required],
+        lat: ['', Validators.required, patternValidator(LATITUDE_PATTERN)],
+        lng: ['', Validators.required, patternValidator(LONGITUDE_PATTERN)],
         description: ['', Validators.required],
         address: ['', Validators.required],
         partner_id: ['', Validators.required]

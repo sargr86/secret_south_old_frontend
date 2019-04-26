@@ -8,6 +8,8 @@ import {CommonService} from '../../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
+import {patternValidator} from '../../../shared/helpers/pattern-validator';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../../shared/constants/patterns';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -21,8 +23,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     accommodationData;
     formFields = {
         name: ['', Validators.required],
-        lat: ['', Validators.required],
-        lng: ['', Validators.required],
+        lat: ['', Validators.required, patternValidator(LATITUDE_PATTERN)],
+        lng: ['', Validators.required, patternValidator(LONGITUDE_PATTERN)],
         description: [''],
         address: ['', Validators.required],
         partner_id: ['', Validators.required]
