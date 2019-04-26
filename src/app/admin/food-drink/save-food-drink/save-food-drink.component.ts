@@ -22,8 +22,8 @@ export class SaveFoodDrinkComponent implements OnInit {
     foodDrinkData;
     formFields = {
         name: ['', Validators.required],
-        lat: ['', Validators.required, patternValidator(LATITUDE_PATTERN)],
-        lng: ['', Validators.required, patternValidator(LONGITUDE_PATTERN)],
+        lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+        lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         description: ['', Validators.required],
         address: ['', Validators.required],
         partner_id: ['', Validators.required]
