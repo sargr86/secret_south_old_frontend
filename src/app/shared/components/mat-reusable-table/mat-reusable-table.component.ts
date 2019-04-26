@@ -131,7 +131,6 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
      * @param row current row data object
      */
     remove(row) {
-        console.log(`_${this.item}`)
 
         // Setting dialog properties
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
