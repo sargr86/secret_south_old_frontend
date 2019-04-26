@@ -2,11 +2,15 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="savePartnerForm" class="savePartnerForm" *ngIf="showForm">
 
-    <!-- Partner form title-->
+    <!-- Current form title -->
     <h4 class="formTitle">
         <ng-container *ngIf="!editCase">
-            <i class="fa fa-plus title-sign"></i>
+            <mat-icon class="title_sign">add_box</mat-icon>
             <span>Add a new partner</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit partner details</span>
         </ng-container>
     </h4>
 
