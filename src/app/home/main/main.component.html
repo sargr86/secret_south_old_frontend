@@ -6,8 +6,8 @@
                 <input type="radio" [hidden]="true">
                 <p (click)="changeSection(section.name)">
 
-                        <mat-icon>{{section.icon}}</mat-icon>
-                        <span>{{section.name}}</span>
+                    <mat-icon>{{section.icon}}</mat-icon>
+                    <span>{{section.name}}</span>
                 </p>
             </ng-container>
         </div>
@@ -26,8 +26,8 @@
 <!-- Background/gradient overlay with progress bar, shown at startup-->
 <div class="bgContainer" *ngIf="common.showOverlay" @Fading>
     <div id="overlay">
-        <div id="bigLogo"></div>
         <div id="overlayText">
+            <div id="bigLogo"></div>
             <h1>The Secret South</h1>
             <h3>Where the Ancient East ends and The Wild Atlantic way begins lie’s a <br>secret world born of land and
                 sea.</h3>
