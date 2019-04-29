@@ -7,6 +7,7 @@ export class CommonService {
 
     formProcessing = false;
     dataLoading = false;
+    showOverlay = true;
 
     constructor() {
     }

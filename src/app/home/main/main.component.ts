@@ -7,12 +7,25 @@ import {Router} from '@angular/router';
 import {PartnerService} from '../../admin/services/partner.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
+import {ToastrService} from "ngx-toastr";
+import {CommonService} from "../../shared/services/common.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss']
+    styleUrls: ['./main.component.scss'],
+    animations: [
+        trigger('Fading', [
+            state('void', style({opacity: 0})),
+            state('*', style({opacity: 1})),
+            transition(':enter', animate('400ms ease-out')),
+            transition(':leave', animate('400ms ease-in')),
+        ])
+    ]
+
 })
+
 export class MainComponent implements OnInit {
 
     @ViewChild('addSearch')
@@ -30,6 +43,8 @@ export class MainComponent implements OnInit {
     mapForm: FormGroup;
     mainSections = MAIN_SECTIONS;
 
+    progressVal = 0;
+    overlayOpacity = 1;
 
     // Material toolbar background color toggling on scroll
     @HostListener('window:scroll', ['$event'])
@@ -49,15 +64,29 @@ export class MainComponent implements OnInit {
         private main: MainService,
         public router: Router,
         private _partner: PartnerService,
-        private _fb: FormBuilder
+        private _fb: FormBuilder,
+        private toastr: ToastrService,
+        public common: CommonService
     ) {
         this.mapForm = this._fb.group({
             type: ['']
         });
-        this.mapStyles = mapStylesData['default'];
+
     }
 
     ngOnInit() {
+
+
+        // Simulating loading progress bar here
+        let int = setInterval(() => {
+            let random = Math.random() * 10 + 10;
+            this.progressVal += random;
+            if (this.progressVal > 100) {
+                clearInterval(int);
+                this.common.showOverlay = false;
+            }
+        }, 500);
+
         this.imgPath = Base.imgPath;
         this.getFerryLocation();
         this._partner.getTypes().subscribe((dt: any) => {
@@ -65,16 +94,15 @@ export class MainComponent implements OnInit {
             this.partnerTypes = dt;
         });
         this.getLocation();
+        this.mapStyles = mapStylesData['default'];
     }
 
 
     getFerryLocation() {
 
         this.latlng = this.main.getFerryLocation().subscribe((r: any) => {
-
             if (r.status === 0) {
-                alert(r['message']);
-                return false;
+                this.toastr.error(r.message)
             }
 
             const arr = [];
@@ -118,23 +146,25 @@ export class MainComponent implements OnInit {
         });
     }
 
+
+    changeSection(section) {
+        this.mapForm.patchValue({type: section})
+        this.changePlace();
+    }
+
     getLocation() {
         if (navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
             const options = {timeout: 10000};
             const geoLoc = navigator.geolocation;
-            const watchID = geoLoc.watchPosition(this.showLocation, this.errorHandler, options);
+            const watchID = geoLoc.watchPosition(this.showLocation.bind(this), this.errorHandler.bind(this), options);
         } else {
             alert('Sorry, browser does not support geolocation!');
         }
     }
 
     errorHandler(err) {
-        if (err.code === 1) {
-            alert('Access denied');
-        } else if (err.code === 2) {
-            alert('Position is unvailable!');
-        }
+        this.toastr.error('', err.message, {timeOut: 0});
     }
 
     showLocation(position) {
