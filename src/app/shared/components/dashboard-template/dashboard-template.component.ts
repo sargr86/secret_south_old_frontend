@@ -232,7 +232,7 @@ export class DashboardTemplateComponent implements OnInit, AfterViewInit {
 
     logout() {
         localStorage.removeItem('token');
-        this.router.navigate(['admin/login']);
+        this.router.navigate(['auth/login']);
     }
 
     getIcon(item) {

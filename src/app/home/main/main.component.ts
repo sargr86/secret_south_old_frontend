@@ -10,6 +10,7 @@ import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {ToastrService} from "ngx-toastr";
 import {CommonService} from "../../shared/services/common.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {SubjectService} from "../../shared/services/subject.service";
 
 @Component({
     selector: 'app-main',
@@ -42,6 +43,7 @@ export class MainComponent implements OnInit {
 
     mapForm: FormGroup;
     mainSections = MAIN_SECTIONS;
+    currentSection: string;
 
     progressVal = 0;
     overlayOpacity = 1;
@@ -66,20 +68,24 @@ export class MainComponent implements OnInit {
         private _partner: PartnerService,
         private _fb: FormBuilder,
         private toastr: ToastrService,
-        public common: CommonService
+        public common: CommonService,
+        private subject: SubjectService
     ) {
-        this.mapForm = this._fb.group({
-            type: ['']
+        this.subject.getMapData().subscribe(dt => {
+            this.lng = dt.lng;
+            this.lat = dt.lat;
+            this.latlng = dt.latlng;
+            this.currentSection = dt.section;
         });
-
     }
 
     ngOnInit() {
 
 
+
         // Simulating loading progress bar here
-        let int = setInterval(() => {
-            let random = Math.random() * 10 + 10;
+        const int = setInterval(() => {
+            const random = Math.random() * 10 + 10;
             this.progressVal += random;
             if (this.progressVal > 100) {
                 clearInterval(int);
@@ -89,10 +95,7 @@ export class MainComponent implements OnInit {
 
         this.imgPath = Base.imgPath;
         this.getFerryLocation();
-        this._partner.getTypes().subscribe((dt: any) => {
-            this.mapForm.patchValue({type: dt[0]['name']});
-            this.partnerTypes = dt;
-        });
+
         // this.getLocation();
         this.mapStyles = mapStylesData['default'];
     }
