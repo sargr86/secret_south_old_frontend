@@ -47,8 +47,8 @@ export class AuthService {
      * Sends login credentials
      * @param formData formData object
      */
-    login(formData, user) {
-        return this.httpClient.post<User>(`${API_URL}${user}/login`, formData);
+    login(formData) {
+        return this.httpClient.post<User>(`${API_URL}auth/login`, formData);
     }
 
 
@@ -75,7 +75,7 @@ export class AuthService {
      */
     logout() {
         localStorage.setItem('token', '');
-        this.router.navigate(['login']);
+        this.router.navigate(['auth/login']);
     }
 
     /**

@@ -1,27 +1,4 @@
-<mat-toolbar *ngIf="!common.showOverlay">
-    <div class="leftGroup">
-        <div class="logo" (click)="scrollToTop()"></div>
-        <div class="mainSections">
-            <ng-container *ngFor="let section of mainSections">
-                <input type="radio" [hidden]="true">
-                <p (click)="changeSection(section.name)">
-
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
-                </p>
-            </ng-container>
-        </div>
-    </div>
-    <div class="centerGroup">
-        <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
-            <mat-icon>home</mat-icon>
-        </button>
-    </div>
-    <div class="rightGroup">
-        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>
-        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>
-    </div>
-</mat-toolbar>
+<app-navbar></app-navbar>
 
 <!-- Background/gradient overlay with progress bar, shown at startup-->
 <div class="bgContainer" *ngIf="common.showOverlay" @Fading>
@@ -50,12 +27,11 @@
         </div>
     </form>
 
-    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
-             [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data"
+    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true" [mapTypeControl]="true"
+             [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
              [styles]="mapStyles">
         <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]="">
-            {{mapForm.value}}
-            <agm-info-window *ngIf="mapForm.value.type=='Ferries'">
+            <agm-info-window *ngIf="currentSection=='Ferries'">
                 <h4>{{single.name}}</h4>
                 <div class="info">
                     <p><span>Max:</span><span>{{single.max_people}} people</span></p>
@@ -65,7 +41,7 @@
                 <button onclick="" mat-raised-button color="primary">Book</button>
             </agm-info-window>
 
-            <agm-info-window class="infWindow" *ngIf="mapForm.value.type=='Food/Drink'">
+            <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
                 <div class="info">
                     <h4>{{single.name}}</h4>
                     <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
@@ -75,7 +51,7 @@
                 </div>
             </agm-info-window>
 
-            <agm-info-window class="infWindow" *ngIf="mapForm.value.type=='Tours'">
+            <agm-info-window class="infWindow" *ngIf="currentSection=='Tours'">
                 <div class="info">
                     <h4>{{single.name}}</h4>
                     <img class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
@@ -88,6 +64,6 @@
     </agm-map>
 
 </div>
-<ng-template #no_map_data *ngIf="!common.showOverlay">
-    <small *ngIf="!latLng" class="no_data">No map data found. Please define some.</small>
+<ng-template #no_map_data>
+    <small class="no_data">No map data found. Please define some.</small>
 </ng-template>

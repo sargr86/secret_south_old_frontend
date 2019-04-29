@@ -18,6 +18,7 @@ import {
     MatSelectModule
 } from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
+import {LayoutModule} from "../layout/layout.module";
 
 @NgModule({
     declarations: [MainComponent],
@@ -35,6 +36,7 @@ import {SharedModule} from '../shared/shared.module';
         MatSelectModule,
         CommonModule,
         HomeRoutingModule,
+        LayoutModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
             libraries: ['places'],

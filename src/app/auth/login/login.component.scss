@@ -1,0 +1,51 @@
+@import '../../../_variables';
+@import '../../../_mixins';
+
+.formContainer {
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    text-align: center;
+    text-transform:capitalize;
+  }
+
+  form {
+    width: 100%;
+    max-width: 400px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      button{
+        text-transform: uppercase;
+        mat-icon{
+          margin-top: -3px;
+        }
+      }
+    }
+  }
+}
+.mat-toolbar {
+  position:absolute;
+  background-color: #062845;
+  display: flex;
+  justify-content: space-between;
+  //text-transform: uppercase;
+  margin-bottom:20px;
+  div {
+    span {
+      color: $white;
+      cursor: pointer;
+    }
+  }
+  .homeBtn{
+    @include noBgBtn;
+  }
+}

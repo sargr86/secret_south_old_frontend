@@ -17,75 +17,7 @@
   }
 }
 
-.mat-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  //background-color: rgba(1, 1, 1, 0.49);
-  background-color: #062845;
-  //background-color: rgba(6,40,69,0.75);
-  //background-color: transparent;
-  display: flex;
-  justify-content: space-between;
-  //text-transform: uppercase;
-  margin-bottom: 20px;
-  height: 100px;
-  overflow: hidden;
 
-  .mainSections {
-    position: absolute;
-    top: 28px;
-    display: inline-flex;
-    left: 114px;
-    /* right: 0; */
-    margin: auto;
-    /* background-color: rgba(1, 1, 1, 0.09); */
-    justify-content: center;
-    max-width: 750px;
-
-    p {
-      margin: 10px 25px;
-      color: $white;
-      cursor: pointer;
-
-      mat-icon {
-        //margin-top: 2px;
-        display: block;
-        float: left;
-      }
-
-      span {
-        margin-left: 5px;
-        //cursor: pointer;
-      }
-    }
-  }
-
-  div {
-    span.link {
-      color: $white;
-      cursor: pointer;
-      margin-left: 40px;
-    }
-  }
-
-  .leftGroup {
-    display: flex;
-    align-items: center;
-
-    .logo {
-      background-image: url("../../../assets/images/logo-navy-150x150.png");
-      width: 100px;
-      height: 100px;
-      background-size: cover;
-      cursor: pointer;
-    }
-  }
-
-  .homeBtn {
-    @include noBgBtn;
-  }
-}
 
 .bgContainer {
   position: absolute;

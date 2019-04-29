@@ -86,11 +86,11 @@ export class SaveTourComponent implements OnInit, OnDestroy {
             this.saveTourForm = this._fb.group(this.tourFields);
         }
 
-        this.mapsAPILoader.load().then(() => {
-            if (this.searchElementRef) {
-                const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-            }
-        });
+        // this.mapsAPILoader.load().then(() => {
+        //     if (this.searchElementRef) {
+        //         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+        //     }
+        // });
 
 
     }
