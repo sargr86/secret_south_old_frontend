@@ -1,11 +1,13 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="!common.showOverlay">
     <div class="leftGroup">
         <div class="logo" (click)="scrollToTop()"></div>
         <div class="mainSections">
             <ng-container *ngFor="let section of mainSections">
-                <p>
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
+                <input type="radio" [hidden]="true">
+                <p (click)="changeSection(section.name)">
+
+                        <mat-icon>{{section.icon}}</mat-icon>
+                        <span>{{section.name}}</span>
                 </p>
             </ng-container>
         </div>
@@ -20,11 +22,24 @@
         <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>
     </div>
 </mat-toolbar>
-<div class="bgContainer">
+
+<!-- Background/gradient overlay with progress bar, shown at startup-->
+<div class="bgContainer" *ngIf="common.showOverlay" @Fading>
+    <div id="overlay">
+        <div id="bigLogo"></div>
+        <div id="overlayText">
+            <h1>The Secret South</h1>
+            <h3>Where the Ancient East ends and The Wild Atlantic way begins lie’s a <br>secret world born of land and
+                sea.</h3>
+            <mat-progress-bar mode="determinate" [value]="progressVal"></mat-progress-bar>
+        </div>
+    </div>
 
 </div>
-<div class="col-12 mapFormContainer">
-    <form [formGroup]="mapForm" *ngIf="partnerTypes">
+
+
+<div class="col-12 mapFormContainer" *ngIf="!common.showOverlay">
+    <form [formGroup]="mapForm" *ngIf="partnerTypes" [hidden]="true">
         <div class="form-group">
             <mat-form-field class="example-full-width">
                 <mat-select placeholder="Search By" name="searchBy"
@@ -73,6 +88,6 @@
     </agm-map>
 
 </div>
-<ng-template #no_map_data>
+<ng-template #no_map_data *ngIf="!common.showOverlay">
     <small *ngIf="!latLng" class="no_data">No map data found. Please define some.</small>
 </ng-template>
