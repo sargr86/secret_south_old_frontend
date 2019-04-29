@@ -34,13 +34,13 @@ export class MainComponent implements OnInit {
     // Material toolbar background color toggling on scroll
     @HostListener('window:scroll', ['$event'])
     toggleToolbarBg() {
-        const toolbar = document.querySelector('.mat-toolbar');
-        if (window.pageYOffset >= 179) {
-
-            toolbar.classList.add('header-bg');
-        } else {
-            toolbar.classList.remove('header-bg');
-        }
+        // const toolbar = document.querySelector('.mat-toolbar');
+        // if (window.pageYOffset >= 179) {
+        //
+        //     toolbar.classList.add('header-bg');
+        // } else {
+        //     toolbar.classList.remove('header-bg');
+        // }
     }
 
     constructor(
