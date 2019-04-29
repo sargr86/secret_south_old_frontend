@@ -93,7 +93,7 @@ export class MainComponent implements OnInit {
             this.mapForm.patchValue({type: dt[0]['name']});
             this.partnerTypes = dt;
         });
-        this.getLocation();
+        // this.getLocation();
         this.mapStyles = mapStylesData['default'];
     }
 
