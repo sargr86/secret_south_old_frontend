@@ -24,7 +24,11 @@ export class ShowFerriesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.ferries = this._ferry.getFerry();
+        const params = {};
+        if (this.auth.checkRoles('partner')) {
+            params['partner_id'] = this.auth.userData.id;
+        }
+        this.ferries = this._ferry.getFerries(params);
     }
 
 

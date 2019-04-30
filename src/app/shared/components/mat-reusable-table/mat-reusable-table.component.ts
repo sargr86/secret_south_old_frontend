@@ -15,6 +15,7 @@ import {FoodDrinkService} from '../../services/food-drink.service';
 import {AccommodationsService} from '../../services/accommodations.service';
 import {ActivitiesService} from '../../services/activities.service';
 import {ActivityTypesService} from '../../services/activity-types.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -53,7 +54,8 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public router: Router,
         private  toastr: ToastrService,
-        public common: CommonService
+        public common: CommonService,
+        public auth: AuthService
     ) {
     }
 

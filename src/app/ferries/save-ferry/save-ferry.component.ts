@@ -31,11 +31,11 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner[] = [];
     editCase = false;
-    redirectUrl = 'admin/all_ferries';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/all_ferries' : 'partners/ferries/show';
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
     partnerTypes: any = [];
-    options = {types: ['geocode']}
+    options = {types: ['geocode']};
     ferryFields = {
         'name': ['', Validators.required],
         // 'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
@@ -46,7 +46,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         'phone': ['', [Validators.required]],
         'address': ['', Validators.required],
         // 'type': '',
-        'partner_id': ['', Validators.required]
+
     };
 
     routeDataSubscription: Subscription;
@@ -68,6 +68,10 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         private checkFormData: CheckFormDataPipe,
         public auth: AuthService
     ) {
+        if (this.auth.checkRoles('admin')) {
+
+            this.ferryFields['partner_id'] = ['', Validators.required];
+        }
     }
 
     ngOnInit() {

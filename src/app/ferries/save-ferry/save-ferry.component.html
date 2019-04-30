@@ -97,7 +97,7 @@
   </div>
 
   <!-- Partner field-->
-  <mat-form-field>
+  <mat-form-field *ngIf="auth.checkRoles('admin')">
     <mat-select formControlName="partner_id" placeholder="Partner" required>
       <mat-option>Please choose</mat-option>
       <mat-option *ngFor="let p of partners" [value]="p['id']">

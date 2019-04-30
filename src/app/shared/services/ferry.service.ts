@@ -20,8 +20,8 @@ export class FerryService {
         return this.http.post(`${API_URL}ferries/add`, data);
     }
 
-    getFerry() {
-        return this.http.get(`${API_URL}ferries/get`);
+    getFerries(params) {
+        return this.http.get(`${API_URL}ferries/get`, {params: params});
     }
 
     getPartnerFerries() {

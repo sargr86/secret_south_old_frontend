@@ -23,7 +23,7 @@
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
 
-        <i class="menu-icon fa {{getIcon(node.name)}}"></i>
+        <i class="menu-icon fa {{getIcon(node)}}"></i>
         <span (click)="navigate(node)" class="node">{{node.name}}</span>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
