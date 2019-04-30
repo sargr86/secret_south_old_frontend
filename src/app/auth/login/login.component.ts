@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {patternValidator} from '../../shared/helpers/pattern-validator';
@@ -9,16 +9,21 @@ import {EMAIL_PATTERN} from '../../shared/constants/patterns';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '../../shared/services/common.service';
 import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
     userType: string;
-    spinnerDiamater = SPINNER_DIAMETER;
+    spinnerDiameter = SPINNER_DIAMETER;
+
+
+    routeSubscription: Subscription;
+    loginSubscription: Subscription;
 
     constructor(
         public _router: Router,
@@ -31,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
 
-        this.route.data.subscribe(dt => {
+        this.routeSubscription = this.route.data.subscribe(dt => {
             this.userType = dt['user'];
         });
 
@@ -46,7 +51,8 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.common.formProcessing = true;
-        this._auth.login(this.loginForm.value).subscribe(dt => {
+
+        this.loginSubscription = this._auth.login(this.loginForm.value).subscribe(dt => {
 
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));
@@ -73,6 +79,15 @@ export class LoginComponent implements OnInit {
      */
     get pass(): AbstractControl {
         return this.loginForm.get('password');
+    }
+
+    ngOnDestroy() {
+        if (this.routeSubscription) {
+            this.routeSubscription.unsubscribe();
+        }
+        if (this.loginSubscription) {
+            this.loginSubscription.unsubscribe();
+        }
     }
 
 

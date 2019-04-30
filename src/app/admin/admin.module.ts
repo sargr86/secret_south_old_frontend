@@ -6,8 +6,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AgmCoreModule} from "@agm/core";
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {SharedModule} from '../shared/shared.module';
-import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
-import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import { ShowPartnersComponent } from './partners/show-partners/show-partners.component';
@@ -20,13 +18,12 @@ import { SaveAccommodationComponent } from './accommodation/save-accommodation/s
 import { ShowAccommodationsComponent } from './accommodation/show-accommodations/show-accommodations.component';
 import { SaveActivityTypeComponent } from './activities/save-activity-type/save-activity-type.component';
 import { ShowActivityTypesComponent } from './activities/show-activity-types/show-activity-types.component';
+import {FerriesModule} from '../ferries/ferries.module';
 
 @NgModule({
     declarations: [
         DashboardComponent,
         GpsLocationComponent,
-        ShowFerriesComponent,
-        SaveFerryComponent,
         ShowToursComponent,
         SaveTourComponent,
         ShowPartnersComponent,
@@ -45,7 +42,8 @@ import { ShowActivityTypesComponent } from './activities/show-activity-types/sho
         AdminRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        FerriesModule
     ]
 })
 export class AdminModule {

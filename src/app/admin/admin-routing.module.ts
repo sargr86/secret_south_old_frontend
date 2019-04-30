@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
-import {SaveFerryComponent} from './ferry/save-ferry/save-ferry.component';
 import {SaveTourComponent} from './tours/save-tour/save-tour.component';
 import {ShowToursComponent} from './tours/show-tours/show-tours.component';
 import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
@@ -11,8 +10,6 @@ import {ShowTourTypesComponent} from './tours/show-tour-types/show-tour-types.co
 import {SaveTourTypeComponent} from './tours/save-tour-type/save-tour-type.component';
 import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
 import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
-import {ShowFerriesComponent} from './ferry/show-ferries/show-ferries.component';
-import {LoginComponent} from '../shared/components/login/login.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {NonAuthGuard} from '../shared/guards/non-auth.guard';
@@ -24,6 +21,8 @@ import {SaveAccommodationComponent} from './accommodation/save-accommodation/sav
 import {OneAccommodationResolverService} from '../shared/resolvers/one-accommodation-resolver.service';
 import {ShowActivityTypesComponent} from './activities/show-activity-types/show-activity-types.component';
 import {SaveActivityTypeComponent} from './activities/save-activity-type/save-activity-type.component';
+import {ShowFerriesComponent} from '../ferries/show-ferries/show-ferries.component';
+import {SaveFerryComponent} from '../ferries/save-ferry/save-ferry.component';
 
 
 const routes: Routes = [
@@ -32,12 +31,6 @@ const routes: Routes = [
             title: 'Dashboard',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'login', component: LoginComponent, data: {
-            user: 'admin'
-        },
-        canActivate: [NonAuthGuard]
     },
     {
         path: 'all_ferries', component: ShowFerriesComponent, data: {

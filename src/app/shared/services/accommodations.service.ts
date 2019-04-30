@@ -16,7 +16,6 @@ export class AccommodationsService {
     }
 
     get() {
-        console.log("OK")
         return this.http.get(`${API_URL}accommodations/get`);
     }
 
