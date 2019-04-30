@@ -50,7 +50,7 @@ export const MAIN_SECTIONS = [
     {name: 'Ferries', icon: 'directions_boat'},
     {name: 'Tours', icon: 'beach_access'},
     {name: 'Food/Drink', icon: 'restaurant_menu'},
-    {name: 'Accommodation', icon: 'local_hotel'},
+    {name: 'Accommodations', icon: 'local_hotel'},
     {name: 'Activities', icon: 'directions_run'},
 
 ];
