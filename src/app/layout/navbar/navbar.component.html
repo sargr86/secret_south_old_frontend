@@ -1,26 +1,30 @@
 <mat-toolbar *ngIf="!common.showOverlay">
-  <div class="leftGroup">
-    <div class="logo" (click)="router.navigate(['/'])"></div>
-    <div class="mainSections">
-      <ng-container *ngFor="let section of mainSections">
-        <input type="radio" [hidden]="true">
-        <p (click)="changeSection(section.name)">
+    <div class="leftGroup">
+        <div class="logo" (click)="router.navigate(['/'])"></div>
+        <div class="mainSections">
+            <ng-container *ngFor="let section of mainSections">
+                <input type="radio" [hidden]="true">
+                <p (click)="changeSection(section.name)">
 
-          <mat-icon>{{section.icon}}</mat-icon>
-          <span>{{section.name}}</span>
-        </p>
-      </ng-container>
+                    <mat-icon>{{section.icon}}</mat-icon>
+                    <span>{{section.name}}</span>
+                </p>
+            </ng-container>
+        </div>
     </div>
-  </div>
-  <div class="centerGroup">
+    <div class="centerGroup">
 
-  </div>
-  <div class="rightGroup">
-<!--    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">-->
-<!--      <mat-icon>home</mat-icon>-->
-<!--    </button>-->
-    <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && router.url!=='/auth/login'" class="link">Login</span>
-    <!--        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>-->
-    <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
-  </div>
+    </div>
+    <div class="rightGroup">
+        <!--    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">-->
+        <!--      <mat-icon>home</mat-icon>-->
+        <!--    </button>-->
+        <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+        <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && router.url!=='/auth/login'"
+              class="link">Login</span>
+        <!--        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>-->
+        <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
+    </div>
 </mat-toolbar>

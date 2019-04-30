@@ -78,4 +78,8 @@ export class NavbarComponent implements OnInit {
         this.changePlace(section);
     }
 
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['auth/login']);
+    }
 }

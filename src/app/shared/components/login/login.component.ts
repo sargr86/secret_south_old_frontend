@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.common.formProcessing = true;
-        this._auth.login(this.loginForm.value, this.userType === 'admin' ? 'auth' : 'partners').subscribe(dt => {
+        this._auth.login(this.loginForm.value).subscribe(dt => {
             // this._router.navigate([`${this.userType}/dashboard`]);
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));

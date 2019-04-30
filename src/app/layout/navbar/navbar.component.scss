@@ -69,4 +69,9 @@
   .homeBtn {
     @include noBgBtn;
   }
+
+  .logoutBtn {
+    display: block;
+    @include noBgBtn;
+  }
 }

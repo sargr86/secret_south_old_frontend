@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     login() {
         this.common.formProcessing = true;
         this._auth.login(this.loginForm.value).subscribe(dt => {
-            // this._router.navigate([`${this.userType}/dashboard`]);
+
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));
 
@@ -74,5 +74,6 @@ export class LoginComponent implements OnInit {
     get pass(): AbstractControl {
         return this.loginForm.get('password');
     }
+
 
 }
