@@ -37,7 +37,7 @@ export class GpsLocationComponent implements OnInit {
     }
 
     getferry() {
-        this.ferry.getFerry().subscribe((r: any) => {
+        this.ferry.getFerries({}).subscribe((r: any) => {
 
             if (r.status == 0) {
                 alert(r['message']);

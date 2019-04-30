@@ -79,7 +79,7 @@ export class AuthService {
     }
 
     /**
-     * Saves user profile details
+     * Saves user show-profile details
      * @param params
      * @returns
      */
