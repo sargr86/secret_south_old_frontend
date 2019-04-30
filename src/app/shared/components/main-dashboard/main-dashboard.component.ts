@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {PartnerService} from '../../admin/services/partner.service';
-import {AuthService} from '../../shared/services/auth.service';
-import {MENU_ITEM_ICONS} from '../../shared/constants/settings';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
+import {Router} from '@angular/router';
+import {PartnerService} from '../../../admin/services/partner.service';
+import {AuthService} from '../../services/auth.service';
+import {MENU_ITEM_ICONS} from '../../constants/settings';
+
 
 /**
  * Food data with nested structure.
@@ -26,12 +27,16 @@ interface ExampleFlatNode {
 
 
 @Component({
-    selector: 'app-partner-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    selector: 'app-main-dashboard',
+    templateUrl: './main-dashboard.component.html',
+    styleUrls: ['./main-dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class MainDashboardComponent implements OnInit {
 
+    partnerLinks = ['profile'];
+
+    treeControl = new FlatTreeControl<ExampleFlatNode>(
+        node => node.level, node => node.expandable);
 
     transformer = (node: FoodNode, level: number) => {
         return {
@@ -39,10 +44,7 @@ export class DashboardComponent implements OnInit {
             name: node.name,
             level: level,
         };
-    };
-
-    treeControl = new FlatTreeControl<ExampleFlatNode>(
-        node => node.level, node => node.expandable);
+    }
 
     treeFlattener = new MatTreeFlattener(
         this.transformer, node => node.level, node => node.expandable, node => node.children);
@@ -52,12 +54,11 @@ export class DashboardComponent implements OnInit {
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
 
-    partnerLinks = ['profile'];
-
     constructor(
         public router: Router,
         private _partner: PartnerService,
-        public _auth: AuthService
+        public _auth: AuthService,
+        private cdr: ChangeDetectorRef
     ) {
         this._partner.getOnePartner({id: this._auth.userData.id}).subscribe(dt => {
             const partnerType = dt['partner_type']['name'];
@@ -86,11 +87,25 @@ export class DashboardComponent implements OnInit {
 
             }
             this.dataSource.data = treeData;
+            this.expand(this.treeControl);
         });
     }
 
     ngOnInit() {
 
+    }
+
+    expand(treeControl) {
+        const routerUrl = this.router.url.replace('_', ' ');
+        for (let i = 0; i < treeControl.dataNodes.length; i++) {
+            const node = treeControl.dataNodes[i];
+            const treeItem = node.name.toLowerCase();
+
+            if (routerUrl.includes(treeItem)) {
+                this.treeControl.expand(node);
+                this.cdr.detectChanges();
+            }
+        }
     }
 
     logout() {
@@ -108,7 +123,7 @@ export class DashboardComponent implements OnInit {
                 icon = 'fa-plus';
             } else if (item.includes('edit')) {
                 icon = 'fa-edit';
-            } else {
+            } else if (item.includes('show')){
                 icon = 'fa-search';
             }
         });
@@ -139,5 +154,4 @@ export class DashboardComponent implements OnInit {
             }
         }
     }
-
 }

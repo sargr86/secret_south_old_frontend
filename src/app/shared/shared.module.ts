@@ -7,20 +7,20 @@ import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reu
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
-import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardTemplateComponent} from './components/dashboard-template/dashboard-template.component';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
+import { MainDashboardComponent } from './components/main-dashboard/main-dashboard.component';
 
 @NgModule({
     declarations: [
         ConfirmationDialogComponent,
         GetTableDataSourcePipe,
         MatReusableTableComponent,
-        LoginComponent,
         DashboardTemplateComponent,
-        CheckFormDataPipe
+        CheckFormDataPipe,
+        MainDashboardComponent
     ],
     imports: [
         CommonModule,
@@ -48,7 +48,8 @@ import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
         GooglePlaceModule,
         GetTableDataSourcePipe,
         MatReusableTableComponent,
-        DashboardTemplateComponent
+        DashboardTemplateComponent,
+        MainDashboardComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent

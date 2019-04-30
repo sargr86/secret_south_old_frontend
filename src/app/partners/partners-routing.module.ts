@@ -1,16 +1,22 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {LoginComponent} from '../shared/components/login/login.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {ShowFerriesComponent} from '../ferries/show-ferries/show-ferries.component';
+import {MainDashboardComponent} from '../shared/components/main-dashboard/main-dashboard.component';
+import {SaveFerryComponent} from '../ferries/save-ferry/save-ferry.component';
+import {ProfileComponent} from './profile/profile.component';
 
 
 const routes: Routes = [
+    {path: 'dashboard', component: MainDashboardComponent},
+    {path: 'profile/show', component: ProfileComponent},
     {
-        path: 'login', component: LoginComponent, data: {
-            user: 'partner'
-        }
+        path: 'ferries/show',
+        component: ShowFerriesComponent
     },
-    {path: 'dashboard', component: DashboardComponent},
+    {
+        path: 'ferries/add',
+        component: SaveFerryComponent
+    }
 ];
 
 @NgModule({

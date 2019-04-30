@@ -1,5 +1,5 @@
-@import '../../../variables';
-@import '../../../mixins';
+@import '../../../../variables';
+@import '../../../../mixins';
 
 .mat-toolbar {
   justify-content: space-between;
@@ -15,7 +15,9 @@
 
 .mat-sidenav-container {
   height: 100vh;
-
+  width: 10%;
+  float: left;
+  background: transparent;
   .mat-sidenav {
     background-color: #989898;
     color: $white;

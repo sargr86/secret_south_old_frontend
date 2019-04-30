@@ -1,22 +1,23 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FerryService} from '../../services/ferry.service';
-import {PartnerService} from '../../services/partner.service';
+import {FerryService} from '../../admin/services/ferry.service';
+import {PartnerService} from '../../admin/services/partner.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../../shared/constants/settings';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../../shared/services/common.service';
-import {patternValidator} from '../../../shared/helpers/pattern-validator';
+import {CommonService} from '../../shared/services/common.service';
+import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {
     EMAIL_PATTERN,
     LATITUDE_PATTERN,
     LONGITUDE_PATTERN,
-} from '../../../shared/constants/patterns';
+} from '../../shared/constants/patterns';
 import {MapsAPILoader} from '@agm/core';
-import {Ferry} from '../../../shared/models/Ferry';
-import {Partner} from '../../../shared/models/Partner';
-import {CheckFormDataPipe} from '../../../shared/pipes/check-form-data.pipe';
+import {Ferry} from '../../shared/models/Ferry';
+import {Partner} from '../../shared/models/Partner';
+import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-save-ferry',
@@ -64,7 +65,8 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         public common: CommonService,
         private mapsAPILoader: MapsAPILoader,
-        private checkFormData: CheckFormDataPipe
+        private checkFormData: CheckFormDataPipe,
+        public auth: AuthService
     ) {
     }
 

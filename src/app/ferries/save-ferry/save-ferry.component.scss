@@ -1,5 +1,5 @@
-@import '../../../../variables';
-@import '../../../../mixins';
+@import '../../../variables';
+@import '../../../mixins';
 
 
 .saveFerryForm{
@@ -31,7 +31,7 @@
 
 @media screen and (max-width: 768px){
   .saveFerryForm{
-   margin: auto !important;
+    margin: auto !important;
     padding-left: 20px;
     padding-right: 20px;
   }
