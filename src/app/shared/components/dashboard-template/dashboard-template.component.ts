@@ -205,28 +205,8 @@ export class DashboardTemplateComponent implements OnInit, AfterViewInit {
         }
     }
 
-    checkAdmin() {
-        let jsAdminInf = localStorage.getItem('adminInf');
-        if (typeof jsAdminInf == 'undefined') {
-            return false;
-        }
-
-        let adminInf = JSON.parse(jsAdminInf);
-
-        if (adminInf == null) {
-            return false;
-        }
-
-        if (adminInf['admin_session_inf'] == '') {
-            return false;
-        }
-
-        return true;
-    }
-
     routing(name) {
         const route = name.replace(/ /g, '_').toLowerCase();
-
         this.router.navigate(['/admin/' + route]);
     }
 

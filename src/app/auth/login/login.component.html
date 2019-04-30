@@ -22,9 +22,9 @@
             </mat-form-field>
 
             <!-- Login/ navigate-to-register page buttons -->
-            <mat-spinner [diameter]="spinnerDiamater" *ngIf="common.formProcessing"></mat-spinner>
+            <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
             <div class="actions">
-                <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">
+                <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid || common.formProcessing">
                     Log in
                     <mat-icon>arrow_forward</mat-icon>
                 </button>
