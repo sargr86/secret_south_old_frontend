@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FerryService} from '../../admin/services/ferry.service';
-import {PartnerService} from '../../admin/services/partner.service';
+import {FerryService} from '../../shared/services/ferry.service';
+import {PartnerService} from '../../shared/services/partner.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../shared/constants/settings';

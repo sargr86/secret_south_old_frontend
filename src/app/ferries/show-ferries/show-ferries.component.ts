@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FerryService} from '../../admin/services/ferry.service';
+import {FerryService} from '../../shared/services/ferry.service';
 import {Ferry} from '../../shared/models/Ferry';
 import {Observable} from 'rxjs/internal/Observable';
 import {CommonService} from '../../shared/services/common.service';

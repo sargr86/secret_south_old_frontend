@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PartnerService} from '../../services/partner.service';
+import {PartnerService} from '../../../shared/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
 import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../../shared/constants/settings';
 import {CommonService} from '../../../shared/services/common.service';
