@@ -33,7 +33,7 @@
                         <td mat-cell *matCellDef="let row">
                             <div class="flex_container">
                                 <button class="editBtn" [matTooltip]="'Edit'"
-                                        (click)="router.navigate(['admin/'+item+'/'+row.id],{state:{id:row.id}})">
+                                        (click)="router.navigate([auth.checkRoles('admin')?'admin/'+item+'/'+row.id:'partners/'+item+'/'+row.id],{state:{id:row.id}})">
                                     <mat-icon>edit</mat-icon>
                                 </button>
                                 <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)">

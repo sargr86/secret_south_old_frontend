@@ -33,7 +33,7 @@ interface ExampleFlatNode {
 })
 export class MainDashboardComponent implements OnInit {
 
-    partnerLinks = ['profile'];
+    partnerLinks = ['dashboard'];
 
     treeControl = new FlatTreeControl<ExampleFlatNode>(
         node => node.level, node => node.expandable);
@@ -44,7 +44,7 @@ export class MainDashboardComponent implements OnInit {
             name: node.name,
             level: level,
         };
-    }
+    };
 
     treeFlattener = new MatTreeFlattener(
         this.transformer, node => node.level, node => node.expandable, node => node.children);
@@ -74,7 +74,7 @@ export class MainDashboardComponent implements OnInit {
                 };
 
                 treeData = [{
-                    name: 'Profile',
+                    name: 'Dashboard',
                     children: [
                         {name: 'Edit'},
                         {name: 'Show'},
@@ -108,34 +108,48 @@ export class MainDashboardComponent implements OnInit {
         }
     }
 
+    /**
+     * Logs out current user
+     */
     logout() {
         localStorage.removeItem('token');
         this.router.navigate(['auth/login']);
     }
 
-    getIcon(item) {
+    /**
+     * Gets icons for each node
+     * @param node current section name
+     */
+    getIcon(node) {
         let icon = '';
-
-        item = item.toLowerCase();
+        const parentNode = this.getParent(node);
+        const childNode = node.name.toLowerCase();
         MENU_ITEM_ICONS.map(mi => {
-
-            if (item.includes('add')) {
+            if (childNode.includes('add')) {
                 icon = 'fa-plus';
-            } else if (item.includes('edit')) {
+            } else if (childNode.includes('edit')) {
                 icon = 'fa-edit';
-            } else if (item.includes('show')){
-                icon = 'fa-search';
+            } else if (parentNode === mi['item']) {
+                icon = mi['icon'];
             }
         });
         return icon;
     }
 
+    /**
+     * Navigates to the selected node page
+     * @param node current section name
+     */
     navigate(node) {
         const parentNode = this.getParent(node);
         const url = parentNode.replace(/\//g, '-') + '/' + node.name.toLowerCase();
         this.router.navigate(['partners/' + url]);
     }
 
+    /**
+     * Gets the parent node of current one
+     * @param node current section node
+     */
     getParent(node) {
         const {treeControl} = this;
         const currentLevel = treeControl.getLevel(node);
