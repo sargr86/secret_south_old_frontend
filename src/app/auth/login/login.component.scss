@@ -3,10 +3,9 @@
 
 .formContainer {
   width: 100%;
-  margin: 0 auto;
+  margin: 250px auto;
   height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
 
   h3 {
@@ -48,4 +47,5 @@
   .homeBtn{
     @include noBgBtn;
   }
+
 }
