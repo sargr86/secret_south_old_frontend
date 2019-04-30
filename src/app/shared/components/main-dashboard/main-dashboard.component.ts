@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
 import {Router} from '@angular/router';
-import {PartnerService} from '../../../admin/services/partner.service';
+import {PartnerService} from '../../services/partner.service';
 import {AuthService} from '../../services/auth.service';
 import {MENU_ITEM_ICONS} from '../../constants/settings';
 

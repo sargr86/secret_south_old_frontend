@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {FoodDrinkService} from '../../admin/services/food-drink.service';
+import {FoodDrinkService} from '../services/food-drink.service';
 
 @Injectable({
     providedIn: 'root'

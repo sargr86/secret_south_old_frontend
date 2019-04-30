@@ -4,7 +4,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {MainService} from '../../home/services/main.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
-import {PartnerService} from '../../admin/services/partner.service';
+import {PartnerService} from '../../shared/services/partner.service';
 import {SubjectService} from '../../shared/services/subject.service';
 import {AuthService} from '../../shared/services/auth.service';
 
