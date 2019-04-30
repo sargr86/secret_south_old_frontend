@@ -5,12 +5,14 @@ import {PartnersRoutingModule} from './partners-routing.module';
 import {MenuComponent} from './menu/menu.component';
 import {SharedModule} from '../shared/shared.module';
 import {FerriesModule} from '../ferries/ferries.module';
-import { ProfileComponent } from './profile/profile.component';
+import {ProfileComponent} from './profile/profile.component';
+import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';
 
 @NgModule({
     declarations: [
-         MenuComponent,
-         ProfileComponent
+        MenuComponent,
+        ProfileComponent,
+        PartnerDashboardComponent
     ],
     imports: [
         CommonModule,
@@ -18,8 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
         PartnersRoutingModule,
         FerriesModule
     ],
-    exports: [
-    ]
+    exports: []
 })
 export class PartnersModule {
 }
