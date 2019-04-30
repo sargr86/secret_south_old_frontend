@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PartnerService} from '../../services/partner.service';
+import {PartnerService} from '../../../shared/services/partner.service';
 import {PARTNERS_TABLE_COLUMNS} from '../../../shared/constants/settings';
 
 @Component({

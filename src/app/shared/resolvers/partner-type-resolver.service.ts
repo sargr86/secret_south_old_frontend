@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {FerryService} from '../../admin/services/ferry.service';
-import {PartnerService} from '../../admin/services/partner.service';
+import {FerryService} from '../services/ferry.service';
+import {PartnerService} from '../services/partner.service';
 
 @Injectable({
   providedIn: 'root'

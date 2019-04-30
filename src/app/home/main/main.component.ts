@@ -4,7 +4,7 @@ import {MainService} from '../services/main.service';
 import * as Base from '../../config.js';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {Router} from '@angular/router';
-import {PartnerService} from '../../admin/services/partner.service';
+import {PartnerService} from '../../shared/services/partner.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {ToastrService} from "ngx-toastr";

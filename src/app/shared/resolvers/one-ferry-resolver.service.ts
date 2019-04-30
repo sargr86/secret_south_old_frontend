@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {FerryService} from '../../admin/services/ferry.service';
+import {FerryService} from '../services/ferry.service';
 
 @Injectable({
     providedIn: 'root'
