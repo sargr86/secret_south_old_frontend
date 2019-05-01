@@ -4,11 +4,15 @@
     <button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+
   </div>
   <div class="centerGroup">
 
   </div>
   <div class="rightGroup">
+    <button (click)="router.navigate(['/'])" class="homeBtn">
+      <mat-icon>home</mat-icon>
+    </button>
     <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'">
       <mat-icon>exit_to_app</mat-icon>
     </button>
@@ -17,7 +21,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" #sidenav opened>
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="partnerLinks">
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <!-- use a disabled button to provide padding for tree leaf -->

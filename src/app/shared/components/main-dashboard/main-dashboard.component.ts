@@ -11,12 +11,12 @@ import {MENU_ITEM_ICONS} from '../../constants/settings';
  * Food data with nested structure.
  * Each node has a name and an optiona list of children.
  */
-interface FoodNode {
+interface TreeNode {
     name: string;
-    children?: FoodNode[];
+    children?: TreeNode[];
 }
 
-let treeData: FoodNode[] = [];
+let treeData: TreeNode[] = [];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -31,14 +31,52 @@ interface ExampleFlatNode {
     templateUrl: './main-dashboard.component.html',
     styleUrls: ['./main-dashboard.component.scss']
 })
-export class MainDashboardComponent implements OnInit {
+export class MainDashboardComponent implements OnInit, AfterViewInit {
 
-    partnerLinks = ['dashboard'];
+    partnerLinks = [
+        {
+            name: 'Dashboard',
+            children: [
+                {name: 'Edit'},
+                {name: 'Show'},
+            ]
+        },
+        {
+            name: 'Ferries',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+            ]
+        },
+        {
+            name: 'Food/Drink',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+            ]
+        },
+        {
+            name: 'Accommodations',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+            ]
+        },
+        {
+            name: 'Tours',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+                {name: 'Add types'},
+                {name: 'Show types'}
+            ]
+        },
+    ];
 
     treeControl = new FlatTreeControl<ExampleFlatNode>(
         node => node.level, node => node.expandable);
 
-    transformer = (node: FoodNode, level: number) => {
+    transformer = (node: TreeNode, level: number) => {
         return {
             expandable: !!node.children && node.children.length > 0,
             name: node.name,
@@ -60,45 +98,23 @@ export class MainDashboardComponent implements OnInit {
         public _auth: AuthService,
         private cdr: ChangeDetectorRef
     ) {
-        this._partner.getOnePartner({id: this._auth.userData.id}).subscribe(dt => {
-            const partnerType = dt['partner_type']['name'];
-            if (dt && !this.partnerLinks.includes(partnerType)) {
-                this.partnerLinks.push(partnerType);
 
-                const typeLink = {
-                    name: partnerType,
-                    children: [
-                        {name: 'Add'},
-                        {name: 'Show'},
-                    ]
-                };
+        const currentPartnerType = this._auth.userData.hasOwnProperty('partner_type') ? this._auth.userData.partner_type.name : '';
 
-                treeData = [{
-                    name: 'Dashboard',
-                    children: [
-                        {name: 'Edit'},
-                        {name: 'Show'},
-                    ]
-                }];
-
-
-                treeData.push(typeLink);
-
-
-            }
-            this.dataSource.data = treeData;
-            this.expand(this.treeControl);
-        });
+        // Generating partner links based on current partner type
+        this.partnerLinks = this.partnerLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
+        this.dataSource.data = this.partnerLinks;
     }
 
     ngOnInit() {
 
     }
 
-    expand(treeControl) {
+    // Expanding necessary tree parent node
+    ngAfterViewInit() {
         const routerUrl = this.router.url.replace('_', ' ');
-        for (let i = 0; i < treeControl.dataNodes.length; i++) {
-            const node = treeControl.dataNodes[i];
+        for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+            const node = this.treeControl.dataNodes[i];
             const treeItem = node.name.toLowerCase();
 
             if (routerUrl.includes(treeItem)) {
@@ -124,12 +140,15 @@ export class MainDashboardComponent implements OnInit {
         let icon = '';
         const parentNode = this.getParent(node);
         const childNode = node.name.toLowerCase();
+
         MENU_ITEM_ICONS.map(mi => {
             if (childNode.includes('add')) {
                 icon = 'fa-plus';
             } else if (childNode.includes('edit')) {
                 icon = 'fa-edit';
             } else if (parentNode === mi['item']) {
+                icon = mi['icon'];
+            } else if (parentNode.includes(mi['item'])) {
                 icon = mi['icon'];
             }
         });
@@ -142,7 +161,7 @@ export class MainDashboardComponent implements OnInit {
      */
     navigate(node) {
         const parentNode = this.getParent(node);
-        const url = parentNode.replace(/\//g, '-') + '/' + node.name.toLowerCase();
+        const url = parentNode.replace(/\//g, '-') + '/' + node.name.toLowerCase().replace(/ /g, '-');
         this.router.navigate(['partners/' + url]);
     }
 

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ToursService} from '../../shared/services/tours.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-show-tour-types',
@@ -11,7 +12,9 @@ export class ShowTourTypesComponent implements OnInit {
     tourTypes;
 
     constructor(
-        private _tours: ToursService) {
+        private _tours: ToursService,
+        public auth: AuthService
+    ) {
     }
 
     ngOnInit() {
@@ -20,6 +23,6 @@ export class ShowTourTypesComponent implements OnInit {
 
 
     getTourTypes() {
-       this.tourTypes = this._tours.getAllTourType();
+        this.tourTypes = this._tours.getAllTourType();
     }
 }

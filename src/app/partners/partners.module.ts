@@ -7,7 +7,9 @@ import {SharedModule} from '../shared/shared.module';
 import {FerriesModule} from '../ferries/ferries.module';
 import {ShowProfileComponent} from './show-profile/show-profile.component';
 import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {EditProfileComponent} from './edit-profile/edit-profile.component';
+import {ToursModule} from '../tours/tours.module';
+import {FooddrinkModule} from '../fooddrink/fooddrink.module';
 
 @NgModule({
     declarations: [
@@ -20,9 +22,15 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
         CommonModule,
         SharedModule,
         PartnersRoutingModule,
-        FerriesModule
+        FerriesModule,
+        ToursModule,
+        FooddrinkModule
     ],
-    exports: []
+    exports: [
+        ShowProfileComponent,
+        PartnerDashboardComponent,
+        EditProfileComponent
+    ]
 })
 export class PartnersModule {
 }
