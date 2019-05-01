@@ -9,7 +9,7 @@ import {ShowProfileComponent} from './show-profile/show-profile.component';
 import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {ToursModule} from '../tours/tours.module';
-import {FooddrinkModule} from '../fooddrink/fooddrink.module';
+import {FoodDrinkModule} from '../food-drink/food-drink.module';
 
 @NgModule({
     declarations: [
@@ -24,7 +24,7 @@ import {FooddrinkModule} from '../fooddrink/fooddrink.module';
         PartnersRoutingModule,
         FerriesModule,
         ToursModule,
-        FooddrinkModule
+        FoodDrinkModule
     ],
     exports: [
         ShowProfileComponent,
