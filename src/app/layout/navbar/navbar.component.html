@@ -19,11 +19,13 @@
         <!--    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">-->
         <!--      <mat-icon>home</mat-icon>-->
         <!--    </button>-->
+        <span (click)="navigateToDashboard()" class="link" *ngIf="auth.loggedIn()">Dashboard</span>
         <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
             <mat-icon>exit_to_app</mat-icon>
         </button>
         <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && router.url!=='/auth/login'"
               class="link">Login</span>
+
         <!--        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>-->
         <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
     </div>

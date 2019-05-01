@@ -3,6 +3,7 @@ import {TOURS_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../shared/constants/sett
 import {Observable} from 'rxjs/internal/Observable';
 import {ToursService} from '../../shared/services/tours.service';
 import {Tour} from '../../shared/models/Tour';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-show-tours',
@@ -15,7 +16,8 @@ export class ShowToursComponent implements OnInit {
     tours: Observable<Tour>;
 
     constructor(
-        private _tours: ToursService
+        private _tours: ToursService,
+        public auth: AuthService
     ) {
     }
 

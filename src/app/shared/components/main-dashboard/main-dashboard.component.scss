@@ -15,9 +15,10 @@
 
 .mat-sidenav-container {
   height: 100vh;
-  width: 10%;
+  width: 13%;
   float: left;
   background: transparent;
+
   .mat-sidenav {
     background-color: #989898;
     color: $white;
@@ -48,3 +49,6 @@
   margin-right: 4px;
 }
 
+.homeBtn {
+  margin: 0 30px;
+}

@@ -26,7 +26,7 @@ export const MENU_ITEM_ICONS = [
     {item: 'tour types', icon: 'fa-street-view'},
     {item: 'food', icon: 'fa-utensils'},
     {item: 'activities', icon: 'fa-swimmer'},
-    {item: 'accommodation', icon: 'fa-bed'},
+    {item: 'accommodations', icon: 'fa-bed'},
     {item: 'partners', icon: 'fa-users'},
 ];
 
