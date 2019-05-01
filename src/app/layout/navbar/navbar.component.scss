@@ -49,7 +49,7 @@
     span.link {
       color: $white;
       cursor: pointer;
-      margin-left: 40px;
+      margin: 0 40px;
     }
   }
 
@@ -72,6 +72,7 @@
 
   .logoutBtn {
     display: block;
+    float: right !important;
     @include noBgBtn;
   }
 }

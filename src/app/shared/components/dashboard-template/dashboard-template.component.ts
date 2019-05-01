@@ -220,11 +220,11 @@ export class DashboardTemplateComponent implements OnInit, AfterViewInit {
         // console.log(item)
         item = item.toLowerCase();
         MENU_ITEM_ICONS.map(mi => {
-
             if (item.includes('add')) {
                 icon = 'fa-plus';
             } else if (item.includes(mi['item'])) {
                 icon = mi['icon'];
+
             } else if (item.includes('type')) {
                 icon = 'fa-street-view';
             }

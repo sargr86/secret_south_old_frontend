@@ -82,4 +82,8 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('token');
         this.router.navigate(['auth/login']);
     }
+
+    navigateToDashboard() {
+        this.router.navigate([`${this.auth.checkRoles('admin') ? 'admin' : 'partners'}/dashboard`]);
+    }
 }
