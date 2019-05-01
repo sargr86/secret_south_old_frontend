@@ -31,7 +31,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner[] = [];
     editCase = false;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/all_ferries' : 'partners/ferries/show';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/ferries/show' : 'partners/ferries/show';
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
     partnerTypes: any = [];

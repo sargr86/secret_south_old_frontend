@@ -1,5 +1,4 @@
-<app-dashboard *ngIf="auth.checkRoles('admin')"></app-dashboard>
-<app-main-dashboard *ngIf="!auth.checkRoles('admin')"></app-main-dashboard>
+<app-main-dashboard></app-main-dashboard>
 
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="editFerryForm" class="saveFerryForm" *ngIf="!common.dataLoading && partners.length > 0">

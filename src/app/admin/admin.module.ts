@@ -13,13 +13,15 @@ import {SavePartnerComponent} from './partners/save-partner/save-partner.compone
 import {AccommodationModule} from '../accommodation/accommodation.module';
 import {ActivitiesModule} from '../activities/activities.module';
 import {FoodDrinkModule} from '../food-drink/food-drink.module';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
     declarations: [
         DashboardComponent,
         GpsLocationComponent,
         ShowPartnersComponent,
-        SavePartnerComponent
+        SavePartnerComponent,
+        EditProfileComponent
     ],
     imports: [
         CommonModule,

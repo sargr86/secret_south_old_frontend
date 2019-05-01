@@ -14,7 +14,7 @@ import {ToastrService} from 'ngx-toastr';
 export class SaveTourTypeComponent implements OnInit {
     saveTourTypeForm: FormGroup;
     editCase = false;
-    redirectUrl = 'admin/all_tours_types';
+    redirectUrl = 'admin/tours/show-types';
     spinnerDiameter = SPINNER_DIAMETER;
 
     constructor(
