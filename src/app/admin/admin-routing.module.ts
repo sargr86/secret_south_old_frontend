@@ -23,23 +23,30 @@ import {ShowActivityTypesComponent} from '../activities/show-activity-types/show
 import {SaveActivityTypeComponent} from '../activities/save-activity-type/save-activity-type.component';
 import {ShowFerriesComponent} from '../ferries/show-ferries/show-ferries.component';
 import {SaveFerryComponent} from '../ferries/save-ferry/save-ferry.component';
+import {EditProfileComponent} from './edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
     {
-        path: 'dashboard', component: DashboardComponent, data: {
+        path: 'dashboard/show', component: DashboardComponent, data: {
             title: 'Dashboard',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
     },
     {
-        path: 'all_ferries', component: ShowFerriesComponent, data: {
+        path: 'dashboard/edit', component: EditProfileComponent, data: {
+            title: 'Edit profile',
+            expectedRole: 'admin'
+        }, canActivate: [AuthGuard, RoleGuard]
+    },
+    {
+        path: 'ferries/show', component: ShowFerriesComponent, data: {
             title: 'All ferries',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
     },
     {
-        path: 'add_ferries', component: SaveFerryComponent, data: {
+        path: 'ferries/add', component: SaveFerryComponent, data: {
             title: 'Add a new ferry',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
@@ -56,14 +63,14 @@ const routes: Routes = [
         }
     },
     {
-        path: 'all_tours', component: ShowToursComponent, data: {
+        path: 'tours/show', component: ShowToursComponent, data: {
             title: 'All tours',
             expectedRole: 'admin'
         },
         canActivate: [AuthGuard, RoleGuard]
     },
     {
-        path: 'add_tours', component: SaveTourComponent, data: {
+        path: 'tours/add', component: SaveTourComponent, data: {
             title: 'Add a new tour',
             expectedRole: 'admin'
         },
@@ -80,7 +87,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'all_tours_types', component: ShowTourTypesComponent, data: {
+        path: 'tours/show-types', component: ShowTourTypesComponent, data: {
             title: 'All tour types',
             expectedRole: 'admin'
         },
@@ -94,7 +101,7 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
     },
     {
-        path: 'add_tours_types', component: SaveTourTypeComponent, data: {
+        path: 'tours/add-types', component: SaveTourTypeComponent, data: {
             title: 'Add a new tour type',
             expectedRole: 'admin'
         },
@@ -102,15 +109,15 @@ const routes: Routes = [
     },
 
     {
-        path: 'add_food-drink', component: SaveFoodDrinkComponent, data: {
+        path: 'food-drink/add', component: SaveFoodDrinkComponent, data: {
             title: 'Add a new food/drink place',
             expectedRole: 'admin'
         },
         canActivate: [AuthGuard, RoleGuard],
     },
-    {path: 'all_food-drink', component: ShowFoodDrinkComponent},
+    {path: 'food-drink/show', component: ShowFoodDrinkComponent},
     {
-        path: 'all_partners', component: ShowPartnersComponent, data: {
+        path: 'partners/show', component: ShowPartnersComponent, data: {
             title: 'All partners',
             expectedRole: 'admin'
         },
@@ -127,7 +134,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'add_partners', component: SavePartnerComponent, data: {
+        path: 'partners/add', component: SavePartnerComponent, data: {
             title: 'Add a new partner',
             expectedRole: 'admin'
         },
@@ -148,9 +155,9 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard]
     },
-    {path: 'all_accommodations', component: ShowAccommodationsComponent},
+    {path: 'accommodations/show', component: ShowAccommodationsComponent},
     {
-        path: 'add_accommodation', component: SaveAccommodationComponent,
+        path: 'accommodations/add', component: SaveAccommodationComponent,
         data: {
             title: 'Add accommodation',
             expectedRole: 'admin'
@@ -167,9 +174,9 @@ const routes: Routes = [
             oneAccommodation: OneAccommodationResolverService
         }
     },
-    {path: 'all_activities_types', component: ShowActivityTypesComponent},
+    {path: 'activity_types/show', component: ShowActivityTypesComponent},
     {
-        path: 'add_activity_type', component: SaveActivityTypeComponent,
+        path: 'activity_types/add', component: SaveActivityTypeComponent,
         data: {
             title: 'Add activity type',
             expectedRole: 'admin'

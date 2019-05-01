@@ -31,7 +31,7 @@ export class SavePartnerComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
-    redirectUrl = 'admin/all_partners';
+    redirectUrl = 'admin/partners/show';
     partnerType: PartnerType;
 
     constructor(

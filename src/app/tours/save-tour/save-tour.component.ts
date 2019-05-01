@@ -37,7 +37,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = 'admin/all_tours';
+    redirectUrl = 'admin/tours/show';
 
     dropZoneFile;
     tourData;

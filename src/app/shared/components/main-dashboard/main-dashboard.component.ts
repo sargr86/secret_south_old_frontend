@@ -33,6 +33,7 @@ interface ExampleFlatNode {
 })
 export class MainDashboardComponent implements OnInit, AfterViewInit {
 
+    adminRole;
     partnerLinks = [
         {
             name: 'Dashboard',
@@ -71,6 +72,15 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
                 {name: 'Show types'}
             ]
         },
+        {
+            name: 'Partners',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+                // {name: 'Add types'},
+                // {name: 'Show types'}
+            ]
+        },
     ];
 
     treeControl = new FlatTreeControl<ExampleFlatNode>(
@@ -99,10 +109,15 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         private cdr: ChangeDetectorRef
     ) {
 
-        const currentPartnerType = this._auth.userData.hasOwnProperty('partner_type') ? this._auth.userData.partner_type.name : '';
+        this.adminRole = this._auth.checkRoles('admin')
 
-        // Generating partner links based on current partner type
-        this.partnerLinks = this.partnerLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
+        if (!this.adminRole) {
+            const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
+
+            // Generating partner links based on current partner type
+            this.partnerLinks = this.partnerLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
+        }
+
         this.dataSource.data = this.partnerLinks;
     }
 
@@ -161,7 +176,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
     navigate(node) {
         const parentNode = this.getParent(node);
         const url = parentNode.replace(/\//g, '-') + '/' + node.name.toLowerCase().replace(/ /g, '-');
-        this.router.navigate(['partners/' + url]);
+        this.router.navigate([(this.adminRole ? 'admin/' : 'partners/') + url]);
     }
 
     /**
