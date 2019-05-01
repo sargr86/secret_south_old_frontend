@@ -30,7 +30,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         partner_id: ['', Validators.required]
     };
     partners: Partner[] = [];
-    redirectUrl = 'admin/all_accommodations';
+    redirectUrl = 'admin/accommodations/show';
     editCase = false;
 
     routeDataSubscription: Subscription;
