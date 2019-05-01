@@ -13,8 +13,8 @@ import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.serv
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {NonAuthGuard} from '../shared/guards/non-auth.guard';
-import {SaveFoodDrinkComponent} from '../fooddrink/save-food-drink/save-food-drink.component';
-import {ShowFoodDrinkComponent} from '../fooddrink/show-food-drink/show-food-drink.component';
+import {SaveFoodDrinkComponent} from '../food-drink/save-food-drink/save-food-drink.component';
+import {ShowFoodDrinkComponent} from '../food-drink/show-food-drink/show-food-drink.component';
 import {OneFoodDrinkResolverService} from '../shared/resolvers/one-food-drink-resolver.service';
 import {ShowAccommodationsComponent} from '../accommodation/show-accommodations/show-accommodations.component';
 import {SaveAccommodationComponent} from '../accommodation/save-accommodation/save-accommodation.component';

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FOOD_DRINK_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {Observable} from 'rxjs';
 import {FoodDrinkService} from '../../shared/services/food-drink.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-show-food-drink',
@@ -14,7 +15,8 @@ export class ShowFoodDrinkComponent implements OnInit {
     foodDrinks: Observable<any>;
 
     constructor(
-        private _foodDrink: FoodDrinkService
+        private _foodDrink: FoodDrinkService,
+        public auth: AuthService
     ) {
     }
 

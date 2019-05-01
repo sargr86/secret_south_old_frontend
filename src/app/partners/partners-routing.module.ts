@@ -11,6 +11,7 @@ import {SaveTourComponent} from '../tours/save-tour/save-tour.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
 import {ShowTourTypesComponent} from '../tours/show-tour-types/show-tour-types.component';
+import {ShowFoodDrinkComponent} from '../food-drink/show-food-drink/show-food-drink.component';
 
 
 const routes: Routes = [
@@ -80,6 +81,11 @@ const routes: Routes = [
     //     component: SaveTourComponent,
     //     canActivate: [ AuthGuard]
     // },
+    {
+        path: 'food-drink/show',
+        component: ShowFoodDrinkComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
