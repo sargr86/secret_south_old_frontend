@@ -115,8 +115,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         const routerUrl = this.router.url.replace('_', ' ');
         for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
             const node = this.treeControl.dataNodes[i];
-            const treeItem = node.name.toLowerCase();
-
+            const treeItem = node.name.toLowerCase().replace(/\//g, '-');
             if (routerUrl.includes(treeItem)) {
                 this.treeControl.expand(node);
                 this.cdr.detectChanges();
