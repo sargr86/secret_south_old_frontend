@@ -1,4 +1,5 @@
-<app-dashboard></app-dashboard>
+<app-dashboard *ngIf="auth.checkRoles('admin')"></app-dashboard>
+<app-main-dashboard *ngIf="!auth.checkRoles('admin')"></app-main-dashboard>
 
 <h4 class="formTitle">
   <i class="fa fa-utensils title-sign"></i>
