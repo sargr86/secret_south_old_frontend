@@ -10,13 +10,17 @@ import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.c
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {ToursModule} from '../tours/tours.module';
 import {FoodDrinkModule} from '../food-drink/food-drink.module';
+import {SavePartnerComponent} from './save-partner/save-partner.component';
+import {ShowPartnersComponent} from './show-partners/show-partners.component';
 
 @NgModule({
     declarations: [
         MenuComponent,
         ShowProfileComponent,
         PartnerDashboardComponent,
-        EditProfileComponent
+        EditProfileComponent,
+        SavePartnerComponent,
+        ShowPartnersComponent
     ],
     imports: [
         CommonModule,

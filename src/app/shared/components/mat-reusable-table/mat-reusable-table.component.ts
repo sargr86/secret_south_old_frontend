@@ -42,7 +42,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     dialogClosed: Subscription;
 
     constructor(
-        private _ferry: FerryService,
+        private _ferries: FerryService,
         private _partner: PartnerService,
         private _tour: ToursService,
         private _tour_type: TourTypeService,

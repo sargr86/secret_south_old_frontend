@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PartnerService} from '../../../shared/services/partner.service';
-import {PARTNERS_TABLE_COLUMNS} from '../../../shared/constants/settings';
+import {PartnerService} from '../../shared/services/partner.service';
+import {PARTNERS_TABLE_COLUMNS} from '../../shared/constants/settings';
 
 @Component({
     selector: 'app-show-partners',
@@ -13,7 +13,6 @@ export class ShowPartnersComponent implements OnInit {
     constructor(
         private _partner: PartnerService
     ) {
-        // @todo test all admin routes as they are changed, check mat-table (e.g change _ferry to _ferries)
     }
 
     ngOnInit() {
