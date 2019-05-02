@@ -13,6 +13,7 @@ export class ShowPartnersComponent implements OnInit {
     constructor(
         private _partner: PartnerService
     ) {
+        // @todo test all admin routes as they are changed, check mat-table (e.g change _ferry to _ferries)
     }
 
     ngOnInit() {

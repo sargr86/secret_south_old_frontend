@@ -43,6 +43,20 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
             ]
         },
         {
+            name: 'Activities',
+            children: [
+                {name: 'Add types'},
+                {name: 'Show types'}
+            ]
+        },
+        {
+            name: 'Accommodations',
+            children: [
+                {name: 'Add'},
+                {name: 'Show'},
+            ]
+        },
+        {
             name: 'Ferries',
             children: [
                 {name: 'Add'},
@@ -51,13 +65,6 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         },
         {
             name: 'Food/Drink',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-            ]
-        },
-        {
-            name: 'Accommodations',
             children: [
                 {name: 'Add'},
                 {name: 'Show'},
@@ -175,7 +182,9 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
      */
     navigate(node) {
         const parentNode = this.getParent(node);
-        const url = parentNode.replace(/\//g, '-') + '/' + node.name.toLowerCase().replace(/ /g, '-');
+        const childNode = node.name.toLowerCase().replace(/ /g, '-');
+        const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
+
         this.router.navigate([(this.adminRole ? 'admin/' : 'partners/') + url]);
     }
 

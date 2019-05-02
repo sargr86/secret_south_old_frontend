@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {Partner} from '../../shared/models/Partner';
@@ -30,7 +30,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         partner_id: ['', Validators.required]
     };
     partners: Partner[] = [];
-    redirectUrl = 'admin/accommodations/show';
+    redirectUrl = 'admin/accommodations';
     editCase = false;
 
     routeDataSubscription: Subscription;
@@ -99,24 +99,24 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         const formValue = this.accommodationForm.value;
         formValue.address = address.el.nativeElement.value;
 
-        // if (this.editFerryForm.valid) {
-        this.common.formProcessing = true;
-        if (this.editCase) {
-            this._accommodation.update(formValue).subscribe(() => {
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The accommodation info has been updated successfully', 'Updated!');
-                this.common.formProcessing = false;
-            });
-        } else {
-            this._accommodation.add(formValue).subscribe(() => {
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The accommodation info has been added successfully', 'Added!');
-                this.common.formProcessing = false;
-            });
+        if (this.accommodationForm.valid) {
+            this.common.formProcessing = true;
+            if (this.editCase) {
+                this._accommodation.update(formValue).subscribe(() => {
+                    this.router.navigate([this.redirectUrl]);
+                    this.toastr.success('The accommodation info has been updated successfully', 'Updated!');
+                    this.common.formProcessing = false;
+                });
+            } else {
+                this._accommodation.add(formValue).subscribe(() => {
+                    this.router.navigate([this.redirectUrl]);
+                    this.toastr.success('The accommodation info has been added successfully', 'Added!');
+                    this.common.formProcessing = false;
+                });
+            }
+
+
         }
-
-
-        // }
     }
 
     get nameCtrl() {
