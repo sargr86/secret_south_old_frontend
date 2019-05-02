@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivitiesService} from '../../shared/services/activities.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-save-activity-type',
@@ -14,7 +15,7 @@ import {ActivitiesService} from '../../shared/services/activities.service';
 export class SaveActivityTypeComponent implements OnInit {
     activityTypeForm: FormGroup;
     editCase = false;
-    redirectUrl = 'admin/activities/show-types';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/activities/show-types' : 'partners/activities/show-types';
     spinnerDiameter = SPINNER_DIAMETER;
 
     constructor(
@@ -23,7 +24,8 @@ export class SaveActivityTypeComponent implements OnInit {
         private router: Router,
         private _activities: ActivitiesService,
         public common: CommonService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        public auth: AuthService
     ) {
     }
 

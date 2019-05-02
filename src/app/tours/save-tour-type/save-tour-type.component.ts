@@ -5,6 +5,7 @@ import {ToursService} from '../../shared/services/tours.service';
 import {CommonService} from '../../shared/services/common.service';
 import {SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-save-tour-type',
@@ -14,7 +15,7 @@ import {ToastrService} from 'ngx-toastr';
 export class SaveTourTypeComponent implements OnInit {
     saveTourTypeForm: FormGroup;
     editCase = false;
-    redirectUrl = 'admin/tours/show-types';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/tours/show-types' : 'partners/tours/show-types';
     spinnerDiameter = SPINNER_DIAMETER;
 
     constructor(
@@ -23,7 +24,8 @@ export class SaveTourTypeComponent implements OnInit {
         private router: Router,
         private _tours: ToursService,
         public common: CommonService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        public auth: AuthService
     ) {
     }
 
