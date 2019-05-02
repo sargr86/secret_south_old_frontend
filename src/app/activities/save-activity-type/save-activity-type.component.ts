@@ -14,7 +14,7 @@ import {ActivitiesService} from '../../shared/services/activities.service';
 export class SaveActivityTypeComponent implements OnInit {
     activityTypeForm: FormGroup;
     editCase = false;
-    redirectUrl = 'admin/all_activities_types';
+    redirectUrl = 'admin/activities/show-types';
     spinnerDiameter = SPINNER_DIAMETER;
 
     constructor(

@@ -30,7 +30,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         partner_id: ['', Validators.required]
     };
     partners: Partner[] = [];
-    redirectUrl = 'admin/food-drink/show';
+    redirectUrl = 'admin/food-drink';
     editCase = false;
 
     @ViewChild('searchAddress')

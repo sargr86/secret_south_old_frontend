@@ -28,7 +28,7 @@ import {EditProfileComponent} from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
     {
-        path: 'dashboard/show', component: DashboardComponent, data: {
+        path: 'dashboard', component: DashboardComponent, data: {
             title: 'Dashboard',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
@@ -40,7 +40,7 @@ const routes: Routes = [
         }, canActivate: [AuthGuard, RoleGuard]
     },
     {
-        path: 'ferries/show', component: ShowFerriesComponent, data: {
+        path: 'ferries', component: ShowFerriesComponent, data: {
             title: 'All ferries',
             expectedRole: 'admin'
         }, canActivate: [AuthGuard, RoleGuard]
@@ -63,7 +63,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'tours/show', component: ShowToursComponent, data: {
+        path: 'tours', component: ShowToursComponent, data: {
             title: 'All tours',
             expectedRole: 'admin'
         },
@@ -115,9 +115,9 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard],
     },
-    {path: 'food-drink/show', component: ShowFoodDrinkComponent},
+    {path: 'food-drink', component: ShowFoodDrinkComponent},
     {
-        path: 'partners/show', component: ShowPartnersComponent, data: {
+        path: 'partners', component: ShowPartnersComponent, data: {
             title: 'All partners',
             expectedRole: 'admin'
         },
@@ -155,7 +155,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard]
     },
-    {path: 'accommodations/show', component: ShowAccommodationsComponent},
+    {path: 'accommodations', component: ShowAccommodationsComponent},
     {
         path: 'accommodations/add', component: SaveAccommodationComponent,
         data: {
@@ -174,9 +174,9 @@ const routes: Routes = [
             oneAccommodation: OneAccommodationResolverService
         }
     },
-    {path: 'activity_types/show', component: ShowActivityTypesComponent},
+    {path: 'activities/show-types', component: ShowActivityTypesComponent},
     {
-        path: 'activity_types/add', component: SaveActivityTypeComponent,
+        path: 'activities/add-types', component: SaveActivityTypeComponent,
         data: {
             title: 'Add activity type',
             expectedRole: 'admin'
