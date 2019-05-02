@@ -8,19 +8,16 @@ import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {SharedModule} from '../shared/shared.module';
 import {FerriesModule} from '../ferries/ferries.module';
 import {ToursModule} from '../tours/tours.module';
-import {ShowPartnersComponent} from './partners/show-partners/show-partners.component';
-import {SavePartnerComponent} from './partners/save-partner/save-partner.component';
 import {AccommodationModule} from '../accommodation/accommodation.module';
 import {ActivitiesModule} from '../activities/activities.module';
 import {FoodDrinkModule} from '../food-drink/food-drink.module';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {PartnersModule} from '../partners/partners.module';
 
 @NgModule({
     declarations: [
         DashboardComponent,
         GpsLocationComponent,
-        ShowPartnersComponent,
-        SavePartnerComponent,
         EditProfileComponent
     ],
     imports: [
@@ -31,7 +28,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
         FerriesModule,
         AccommodationModule,
         ActivitiesModule,
-        FoodDrinkModule
+        FoodDrinkModule,
+        PartnersModule
     ]
 })
 export class AdminModule {
