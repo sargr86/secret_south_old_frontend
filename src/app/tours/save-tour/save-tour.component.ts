@@ -11,6 +11,7 @@ import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patter
 import {Partner} from '../../shared/models/Partner';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-save-tour',
@@ -37,7 +38,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = 'admin/tours';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/tours' : 'partners/tours';
 
     dropZoneFile;
     tourData;
@@ -56,7 +57,8 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         private mapsAPILoader: MapsAPILoader,
         private toastr: ToastrService,
         public common: CommonService,
-        private checkFormData: CheckFormDataPipe
+        private checkFormData: CheckFormDataPipe,
+        public auth: AuthService
     ) {
 
         this.getPartners();
@@ -148,36 +150,36 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         // if (!this.dropZoneFile && !this.editCase) {
         //     this.toastr.error('Please select an image to upload', 'No files');
         // } else {
-            this.common.formProcessing = true;
-            const data = this.saveTourForm.value;
-            const fd = new FormData();
-            fd.append('lat', data.lat);
-            fd.append('lng', data.lng);
-            fd.append('name', data.name);
-            fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
-            fd.append('partner_id', data.partner_id ? data.partner_id : '');
-            fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
-            fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-            if (!this.imgPath) {
+        this.common.formProcessing = true;
+        const data = this.saveTourForm.value;
+        const fd = new FormData();
+        fd.append('lat', data.lat);
+        fd.append('lng', data.lng);
+        fd.append('name', data.name);
+        fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
+        fd.append('partner_id', data.partner_id ? data.partner_id : '');
+        fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
+        fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
+        if (!this.imgPath) {
 
-                fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
-            }
-            fd.append('img_path', this.imgPath ? this.imgPath : '');
+            fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+        }
+        fd.append('img_path', this.imgPath ? this.imgPath : '');
 
-            if (this.editCase) {
-                fd.append('id', data['id'])
-                this._tours.updateTour(fd).subscribe(dt => {
-                    this.common.formProcessing = false;
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The tour info has been updated successfully', 'Updated!');
-                });
-            } else {
-                this._tours.insertTours(fd).subscribe((r: any) => {
-                    this.common.formProcessing = false;
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The tour info has been added successfully', 'Added!');
-                });
-            }
+        if (this.editCase) {
+            fd.append('id', data['id'])
+            this._tours.updateTour(fd).subscribe(dt => {
+                this.common.formProcessing = false;
+                this.router.navigate([this.redirectUrl]);
+                this.toastr.success('The tour info has been updated successfully', 'Updated!');
+            });
+        } else {
+            this._tours.insertTours(fd).subscribe((r: any) => {
+                this.common.formProcessing = false;
+                this.router.navigate([this.redirectUrl]);
+                this.toastr.success('The tour info has been added successfully', 'Added!');
+            });
+        }
         // }
 
 

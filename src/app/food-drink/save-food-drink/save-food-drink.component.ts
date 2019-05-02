@@ -11,6 +11,7 @@ import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
 import {Subscription} from 'rxjs';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-save-food-drink',
@@ -30,7 +31,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         partner_id: ['', Validators.required]
     };
     partners: Partner[] = [];
-    redirectUrl = 'admin/food-drink';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/food-drink' : 'partners/food-drink';
     editCase = false;
 
     @ViewChild('searchAddress')
@@ -50,7 +51,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         public router: Router,
         private toastr: ToastrService,
         private route: ActivatedRoute,
-        private checkFormData: CheckFormDataPipe
+        private checkFormData: CheckFormDataPipe,
+        public auth: AuthService
     ) {
         this.foodDrinkForm = this._fb.group(this.formFields);
         this.common.dataLoading = true;

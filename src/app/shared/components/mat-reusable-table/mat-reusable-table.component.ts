@@ -61,6 +61,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+        this.item = this.item.replace(/_/g, '-');
         this.displayedColumns = this.cols;
         this.getData(this.dataObs);
     }
