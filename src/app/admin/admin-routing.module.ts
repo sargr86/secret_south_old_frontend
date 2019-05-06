@@ -5,6 +5,7 @@ import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
+import {UserResolverService} from '../shared/resolvers/user-resolver.service';
 
 
 const routes: Routes = [
@@ -12,13 +13,19 @@ const routes: Routes = [
         path: 'dashboard', component: DashboardComponent, data: {
             title: 'Dashboard',
             expectedRole: 'admin'
-        }, canActivate: [AuthGuard, RoleGuard]
+        },
+
+        canActivate: [AuthGuard, RoleGuard]
     },
     {
         path: 'dashboard/edit', component: EditProfileComponent, data: {
             title: 'Edit profile',
             expectedRole: 'admin'
-        }, canActivate: [AuthGuard, RoleGuard]
+        },
+        canActivate: [AuthGuard, RoleGuard],
+        resolve: {
+            user: UserResolverService
+        },
     },
     {
         path: 'ferries',

@@ -80,10 +80,17 @@ export class AuthService {
 
     /**
      * Saves user show-profile details
-     * @param params
-     * @returns
+     * @param params user profile info
      */
     update(params) {
         return this.httpClient.put<User>(`${API_URL}auth/update-profile`, params);
+    }
+
+    /**
+     * Gets user profile info
+     * @param params params user profile info
+     */
+    getUser(params) {
+        return this.httpClient.get<User>(`${API_URL}auth/get-profile`, {params: params});
     }
 }

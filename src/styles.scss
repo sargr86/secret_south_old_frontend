@@ -36,6 +36,23 @@ table.mat-table {
   @include formTitle;
 }
 
+.terminalTitle {
+  color: $dark_gray;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 30px;
+  span {
+    font-size: 24px;
+    margin: -3px 10px;
+  }
+
+  mat-icon, i {
+    background-color: $dark_gray;
+    color: $white;
+  }
+}
+
 .no_table_items_found {
   color: $silver;
   text-align: center;
@@ -149,7 +166,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .mat-progress-bar-fill::after {
-  background-color: $white!important;
+  background-color: $white !important;
 }
 
 .mat-progress-bar-background {

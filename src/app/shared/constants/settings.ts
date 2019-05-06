@@ -3,7 +3,9 @@ import {environment} from '../../../environments/environment';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
-export const TOURS_FOLDER = API_URL + 'uploads/others/tours/';
+export const UPLOADS_FOLDER = API_URL + 'uploads/';
+export const TOURS_FOLDER = UPLOADS_FOLDER + 'others/tours/';
+export const USERS_FOLDER = UPLOADS_FOLDER + 'users/';
 
 export const SPINNER_DIAMETER = 30;
 
@@ -28,8 +30,74 @@ export const MENU_ITEM_ICONS = [
     {item: 'activities', icon: 'fa-swimmer'},
     {item: 'accommodations', icon: 'fa-bed'},
     {item: 'partners', icon: 'fa-users'},
+    {item: 'employees', icon: 'fa-users'}
 ];
 
+// Partner links
+export const DASHBOARD_LINKS = [
+    {
+        name: 'Dashboard',
+        children: [
+            {name: 'Edit'},
+            {name: 'Show'},
+        ]
+    },
+    {
+        name: 'Activities',
+        children: [
+            {name: 'Add types'},
+            {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Accommodations',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
+        ]
+    },
+    {
+        name: 'Ferries',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
+        ]
+    },
+    {
+        name: 'Food/Drink',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
+        ]
+    },
+    {
+        name: 'Tours',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
+            {name: 'Add types'},
+            {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Partners',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
+            // {name: 'Add types'},
+            // {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Employees',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'}
+            // {name: 'Add types'},
+            // {name: 'Show types'}
+        ]
+    }
+];
 
 // Drop zone config
 export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {

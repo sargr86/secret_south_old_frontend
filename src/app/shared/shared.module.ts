@@ -11,7 +11,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardTemplateComponent} from './components/dashboard-template/dashboard-template.component';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
-import { MainDashboardComponent } from './components/main-dashboard/main-dashboard.component';
+import {MainDashboardComponent} from './components/main-dashboard/main-dashboard.component';
+import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
         MatReusableTableComponent,
         DashboardTemplateComponent,
         CheckFormDataPipe,
-        MainDashboardComponent
+        MainDashboardComponent,
+        GetImageUrlPipe
     ],
     imports: [
         CommonModule,
@@ -34,6 +36,7 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
     providers: [
         GetTableDataSourcePipe,
         CheckFormDataPipe,
+        GetImageUrlPipe,
         {
             provide: DROPZONE_CONFIG,
             useValue: DEFAULT_DROPZONE_CONFIG
@@ -47,9 +50,11 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
         ReactiveFormsModule,
         GooglePlaceModule,
         GetTableDataSourcePipe,
+        GetImageUrlPipe,
         MatReusableTableComponent,
         DashboardTemplateComponent,
-        MainDashboardComponent
+        MainDashboardComponent,
+        GetImageUrlPipe
     ],
     entryComponents: [
         ConfirmationDialogComponent

@@ -21,7 +21,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" #sidenav opened>
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="partnerLinks">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks">
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <!-- use a disabled button to provide padding for tree leaf -->
