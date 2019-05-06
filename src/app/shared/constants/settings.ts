@@ -20,6 +20,10 @@ export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 
+//GOOGLE API KEY
+export const GOOGLE_API_KEY = 'AIzaSyDpQFWb2RWEJvc-P8e1EBzvmwCLscIeP1w';
+
+
 // Menu icons
 export const MENU_ITEM_ICONS = [
     {item: 'dashboard', icon: 'fa-user'},

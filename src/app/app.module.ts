@@ -19,7 +19,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {RequestInterceptor} from './shared/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
-import {LayoutModule} from "./layout/layout.module";
+import {LayoutModule} from './layout/layout.module';
 
 // Token getter for JWT module
 export function tokenGetter() {
@@ -34,8 +34,8 @@ export function tokenGetter() {
     imports: [
         BrowserAnimationsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
-            libraries: ['places','geometry'],
+            apiKey: 'AIzaSyDpQFWb2RWEJvc-P8e1EBzvmwCLscIeP1w',
+            libraries: ['places', 'geometry'],
         }),
         AppRoutingModule,
         HttpClientModule,
