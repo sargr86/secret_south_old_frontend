@@ -1,5 +1,81 @@
 <app-main-dashboard></app-main-dashboard>
 
-<!--<form [formGroup]="profileForm">-->
-<!--    -->
-<!--</form>-->
+<form [formGroup]="profileForm" method="post" enctype="multipart/form-data" class="profileForm">
+
+    <!-- Register/ profile form title-->
+    <h2 class="terminalTitle">
+        <mat-icon>person</mat-icon>
+        <span translate>Profile</span>
+    </h2>
+
+    <!-- User details box -->
+    <div class="userInfo">
+        <!-- First name field -->
+        <mat-form-field>
+            <input matInput [placeholder]="'First name'"
+                   [formControlName]="'first_name'" required>
+            <!--                <mat-hint align="end">{{firstName.value ? firstName.value.length : 0}} /-->
+            <!--                    {{fieldsConfig.MAX_FIRST_NAME_LEN}}-->
+            <!--                </mat-hint>-->
+        </mat-form-field>
+        <div *ngIf="firstName.errors && (!firstName.pristine || firstName.touched)" class="error">
+            <div *ngIf="firstName.hasError('required')">First name is required</div>
+            <!--                <div *ngIf="firstName.hasError('minlength')||firstName.hasError('maxlength')">-->
+            <!--                    {{'first_name_length_error'|translate}}-->
+            <!--                </div>-->
+        </div>
+
+        <!-- Last name field -->
+        <mat-form-field>
+            <input matInput [placeholder]="'Last Name'"
+                   [formControlName]="'last_name'" required>
+            <!--                <mat-hint align="end">{{lastName.value ? lastName.value.length : 0}}-->
+            <!--                    / {{fieldsConfig.MAX_FIRST_NAME_LEN}}-->
+            <!--                </mat-hint>-->
+        </mat-form-field>
+        <div *ngIf="lastName.errors && (!lastName.pristine || lastName.touched)" class="error">
+            <div *ngIf="lastName.hasError('required')">Last name is required</div>
+            <!--                <div *ngIf="lastName.hasError('minlength')||lastName.hasError('maxlength')">-->
+            <!--                    {{'last_name_length_error'|translate}}-->
+            <!--                </div>-->
+        </div>
+
+
+        <!-- Gender field -->
+        <!--        <mat-radio-group name="gender" formControlName="gender">-->
+        <!--            <mat-radio-button value="male">Male</mat-radio-button>-->
+        <!--            <mat-radio-button value="female">Female</mat-radio-button>-->
+        <!--        </mat-radio-group>-->
+
+        <!-- E-mail field -->
+        <mat-form-field>
+            <input matInput [placeholder]="'Email'" formControlName="email" required>
+        </mat-form-field>
+        <div *ngIf="email.errors && (!email.pristine || email.touched)" class="error">
+            <div [hidden]="!email.hasError('required')">E-mail is required</div>
+            <div [hidden]="!email.hasError('patternInvalid')">E-mail is invalid</div>
+        </div>
+
+        <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="save()">
+            Save
+        </button>
+        <!-- [disabled]="registerForm.invalid"-->
+    </div>
+
+    <!-- User image or drop zone container-->
+    <div class="userImg">
+        <!-- Showing drop zone for non-authenticated user and for a user without a profile image -->
+        <dropzone [config]="dropzoneConfig" *ngIf="!profileImg" (removedFile)="removeImage()"
+                  id="dropzone" class="profileImgDropzone" #dropzone (thumbnail)="onAddedFile($event)"
+                  [message]="'Click or drag an image to upload'">
+        </dropzone>
+
+        <div class="profileImg" *ngIf="profileImg" [style.background]="profileImg| getImageUrl:'users':true">
+            <i class="fa fa-times-circle remove-profile-img" (click)="removeImage()"></i>
+        </div>
+    </div>
+</form>

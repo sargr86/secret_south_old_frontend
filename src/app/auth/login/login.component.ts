@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             // Gets current user data
             this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
-            this.common.formProcessing = false;
+
 
             // Navigate to the home page
             this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboard']);
@@ -82,6 +82,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+
+        this.common.formProcessing = false;
         if (this.routeSubscription) {
             this.routeSubscription.unsubscribe();
         }
