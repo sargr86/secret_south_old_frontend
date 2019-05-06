@@ -6,6 +6,7 @@ import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {ShowPartnersComponent} from './show-partners/show-partners.component';
 import {SavePartnerComponent} from './save-partner/save-partner.component';
+import {UserResolverService} from '../shared/resolvers/user-resolver.service';
 
 
 const routes: Routes = [
@@ -23,8 +24,14 @@ const routes: Routes = [
         component: ShowProfileComponent,
     },
     {
-        path: 'dashboard/edit',
-        component: EditProfileComponent,
+        path: 'dashboard/edit', component: EditProfileComponent, data: {
+            title: 'Edit profile',
+            expectedRole: 'partner'
+        },
+        canActivate: [AuthGuard, RoleGuard],
+        resolve: {
+            user: UserResolverService
+        },
     },
 
     {

@@ -4,7 +4,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
 import {Router} from '@angular/router';
 import {PartnerService} from '../../services/partner.service';
 import {AuthService} from '../../services/auth.service';
-import {MENU_ITEM_ICONS} from '../../constants/settings';
+import {DASHBOARD_LINKS, MENU_ITEM_ICONS} from '../../constants/settings';
 
 
 /**
@@ -34,61 +34,7 @@ interface ExampleFlatNode {
 export class MainDashboardComponent implements OnInit, AfterViewInit {
 
     adminRole;
-    partnerLinks = [
-        {
-            name: 'Dashboard',
-            children: [
-                {name: 'Edit'},
-                {name: 'Show'},
-            ]
-        },
-        {
-            name: 'Activities',
-            children: [
-                {name: 'Add types'},
-                {name: 'Show types'}
-            ]
-        },
-        {
-            name: 'Accommodations',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-            ]
-        },
-        {
-            name: 'Ferries',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-            ]
-        },
-        {
-            name: 'Food/Drink',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-            ]
-        },
-        {
-            name: 'Tours',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-                {name: 'Add types'},
-                {name: 'Show types'}
-            ]
-        },
-        {
-            name: 'Partners',
-            children: [
-                {name: 'Add'},
-                {name: 'Show'},
-                // {name: 'Add types'},
-                // {name: 'Show types'}
-            ]
-        },
-    ];
+    dashboardLinks = DASHBOARD_LINKS;
 
     treeControl = new FlatTreeControl<ExampleFlatNode>(
         node => node.level, node => node.expandable);
@@ -122,10 +68,10 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
             const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
 
             // Generating partner links based on current partner type
-            this.partnerLinks = this.partnerLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
+            this.dashboardLinks = this.dashboardLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
         }
 
-        this.dataSource.data = this.partnerLinks;
+        this.dataSource.data = this.dashboardLinks;
     }
 
     ngOnInit() {

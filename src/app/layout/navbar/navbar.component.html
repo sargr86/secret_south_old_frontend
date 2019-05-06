@@ -1,7 +1,7 @@
 <mat-toolbar *ngIf="!common.showOverlay">
     <div class="leftGroup">
         <div class="logo" (click)="router.navigate(['/'])"></div>
-        <div class="mainSections">
+        <div class="mainSections" *ngIf="this.router.url === '/'">
             <ng-container *ngFor="let section of mainSections">
                 <input type="radio" [hidden]="true">
                 <p (click)="changeSection(section.name)">
