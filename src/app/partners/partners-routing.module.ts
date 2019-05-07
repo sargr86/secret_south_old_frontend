@@ -33,6 +33,14 @@ const routes: Routes = [
             user: UserResolverService
         },
     },
+    {
+        path: 'employees',
+        loadChildren: '../employees/employees.module#EmployeesModule',
+        data: {
+            expectedRole: 'partner'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
 
     {
         path: 'ferries',

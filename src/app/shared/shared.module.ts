@@ -13,6 +13,7 @@ import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
 import {MainDashboardComponent} from './components/main-dashboard/main-dashboard.component';
 import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
+import { InvitationFormComponent } from './components/invitation-form/invitation-form.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
         DashboardTemplateComponent,
         CheckFormDataPipe,
         MainDashboardComponent,
-        GetImageUrlPipe
+        GetImageUrlPipe,
+        InvitationFormComponent
     ],
     imports: [
         CommonModule,
@@ -54,7 +56,8 @@ import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
         MatReusableTableComponent,
         DashboardTemplateComponent,
         MainDashboardComponent,
-        GetImageUrlPipe
+        GetImageUrlPipe,
+        InvitationFormComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-save-employee',
-  templateUrl: './save-employee.component.html',
-  styleUrls: ['./save-employee.component.scss']
+    selector: 'app-save-employee',
+    templateUrl: './save-employee.component.html',
+    styleUrls: ['./save-employee.component.scss']
 })
 export class SaveEmployeeComponent implements OnInit {
+    editCase = false;
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

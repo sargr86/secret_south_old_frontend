@@ -28,6 +28,14 @@ const routes: Routes = [
         },
     },
     {
+        path: 'employees',
+        loadChildren: '../employees/employees.module#EmployeesModule',
+        data: {
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
         path: 'ferries',
         loadChildren: '../ferries/ferries.module#FerriesModule',
         data: {
