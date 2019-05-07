@@ -3,6 +3,8 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {AuthService} from '../../shared/services/auth.service';
 import {CommonService} from '../../shared/services/common.service';
 import {Router} from '@angular/router';
+import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 
 @Component({
     selector: 'app-register',
@@ -14,6 +16,8 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     dropzoneFile;
     redirectUrl = '/';
+    spinnerDiameter = SPINNER_DIAMETER;
+    dropzoneConfig = DROPZONE_CONFIG;
 
     constructor(
         private _fb: FormBuilder,
@@ -31,6 +35,14 @@ export class RegisterComponent implements OnInit {
             'gender': ['', Validators.required],
             'password': ['', Validators.required]
         });
+    }
+
+    register() {
+
+    }
+
+    removeImage() {
+
     }
 
     /**
