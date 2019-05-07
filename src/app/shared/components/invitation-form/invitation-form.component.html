@@ -1,0 +1,43 @@
+<mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
+<form [formGroup]="invitationForm" class="invitationForm">
+
+    <!-- Current form title -->
+    <h4 class="formTitle">
+        <ng-container>
+            <mat-icon class="title_sign">mail</mat-icon>
+            <span>Invite a new partner</span>
+        </ng-container>
+    </h4>
+
+
+    <!-- First name field -->
+    <mat-form-field>
+        <input matInput formControlName="first_name" placeholder="First name" required>
+        <mat-error *ngIf="firstNameCtrl.hasError('required')">
+            First name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Last name field -->
+    <mat-form-field>
+        <input matInput formControlName="last_name" placeholder="Last name" required>
+        <mat-error *ngIf="lastNameCtrl.hasError('required')">
+            Last name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!-- E-mail field -->
+    <mat-form-field>
+        <input matInput formControlName="email" placeholder="E-mail" required>
+        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
+        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
+    </mat-form-field>
+
+    <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
+    <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" (click)="invitePartner()">
+        Invite
+    </button>
+</form>

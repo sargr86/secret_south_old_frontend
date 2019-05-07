@@ -13,7 +13,6 @@ export class UserResolverService implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot) {
-        console.log(route.params)
         return this._auth.getUser({email: this._auth.userData.email});
     }
 }

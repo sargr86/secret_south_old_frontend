@@ -68,7 +68,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
             const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
 
             // Generating partner links based on current partner type
-            this.dashboardLinks = this.dashboardLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard');
+            this.dashboardLinks = this.dashboardLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard' || l.name === 'Employees');
         }
 
         this.dataSource.data = this.dashboardLinks;
