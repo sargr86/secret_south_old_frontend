@@ -43,7 +43,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
 
     constructor(
         private _ferries: FerryService,
-        private _partner: PartnerService,
+        private _partners: PartnerService,
         private _tour: ToursService,
         private _tour_type: TourTypeService,
         private _food_drink: FoodDrinkService,
