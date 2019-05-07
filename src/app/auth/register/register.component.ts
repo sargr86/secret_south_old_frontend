@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
     registerForm: FormGroup;
     dropzoneFile;
+    redirectUrl = '/';
 
     constructor(
         private _fb: FormBuilder,
