@@ -62,5 +62,15 @@
       }
     }
 
+    /* Password show/hide button (only for register form) */
+    .passToggler {
+      position: absolute;
+      right: 0;
+      top: 5px;
+      color: gray;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
   }
 }
