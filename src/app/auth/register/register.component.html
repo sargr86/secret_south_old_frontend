@@ -14,49 +14,49 @@
         <div class="userInfo">
             <!-- First name field -->
             <mat-form-field>
-                <input matInput [placeholder]="'First name'"
-                       [formControlName]="'first_name'" required>
+                <input matInput [placeholder]="'First name'" [formControlName]="'first_name'" required>
                 <!--                <mat-hint align="end">{{firstName.value ? firstName.value.length : 0}} /-->
                 <!--                    {{fieldsConfig.MAX_FIRST_NAME_LEN}}-->
                 <!--                </mat-hint>-->
+                <mat-error *ngIf="firstName.hasError('required')">First name is <strong>required</strong></mat-error>
             </mat-form-field>
-            <div *ngIf="firstName.errors && (!firstName.pristine || firstName.touched)" class="error">
-                <div *ngIf="firstName.hasError('required')">First name is required</div>
-                <!--                <div *ngIf="firstName.hasError('minlength')||firstName.hasError('maxlength')">-->
-                <!--                    {{'first_name_length_error'|translate}}-->
-                <!--                </div>-->
-            </div>
+            <!--                <div *ngIf="firstName.hasError('minlength')||firstName.hasError('maxlength')">-->
+            <!--                    {{'first_name_length_error'|translate}}-->
+            <!--                </div>-->
 
             <!-- Last name field -->
             <mat-form-field>
-                <input matInput [placeholder]="'Last Name'"
-                       [formControlName]="'last_name'" required>
+                <input matInput [placeholder]="'Last Name'" [formControlName]="'last_name'" required>
                 <!--                <mat-hint align="end">{{lastName.value ? lastName.value.length : 0}}-->
                 <!--                    / {{fieldsConfig.MAX_FIRST_NAME_LEN}}-->
                 <!--                </mat-hint>-->
+                <mat-error *ngIf="lastName.hasError('required')">Last name is <strong>required</strong></mat-error>
             </mat-form-field>
-            <div *ngIf="lastName.errors && (!lastName.pristine || lastName.touched)" class="error">
-                <div *ngIf="lastName.hasError('required')">Last name is required</div>
-                <!--                <div *ngIf="lastName.hasError('minlength')||lastName.hasError('maxlength')">-->
-                <!--                    {{'last_name_length_error'|translate}}-->
-                <!--                </div>-->
-            </div>
+            <!--                <div *ngIf="lastName.hasError('minlength')||lastName.hasError('maxlength')">-->
+            <!--                    {{'last_name_length_error'|translate}}-->
+            <!--                </div>-->
 
 
             <!-- Gender field -->
-            <!--        <mat-radio-group name="gender" formControlName="gender">-->
-            <!--            <mat-radio-button value="male">Male</mat-radio-button>-->
-            <!--            <mat-radio-button value="female">Female</mat-radio-button>-->
-            <!--        </mat-radio-group>-->
+            <mat-radio-group name="gender" formControlName="gender">
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+            </mat-radio-group>
 
             <!-- E-mail field -->
             <mat-form-field>
                 <input matInput [placeholder]="'Email'" formControlName="email" required>
+                <mat-error [hidden]="!email.hasError('required')">E-mail is <strong>required</strong></mat-error>
+                <mat-error [hidden]="!email.hasError('patternInvalid')">E-mail is <strong>invalid</strong></mat-error>
             </mat-form-field>
-            <div *ngIf="email.errors && (!email.pristine || email.touched)" class="error">
-                <div [hidden]="!email.hasError('required')">E-mail is required</div>
-                <div [hidden]="!email.hasError('patternInvalid')">E-mail is invalid</div>
-            </div>
+
+            <!-- Password field (shown only in user registration case)-->
+            <mat-form-field>
+                <input [type]="!passHidden?'password':'text'" matInput [placeholder]="'Password'"
+                       formControlName="password" required>
+                <mat-slide-toggle class="passToggler" (change)="togglePass()"></mat-slide-toggle>
+                <mat-error [hidden]="!pass.hasError('required')">Password is <strong>required</strong></mat-error>
+            </mat-form-field>
 
             <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
             <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
