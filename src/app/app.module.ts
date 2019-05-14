@@ -34,7 +34,7 @@ export function tokenGetter() {
     imports: [
         BrowserAnimationsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDpQFWb2RWEJvc-P8e1EBzvmwCLscIeP1w',
+            apiKey: 'AIzaSyBo6kYTZfGkPGVCGzMiX_LsR8VN_pc6RJE',
             libraries: ['places', 'geometry'],
         }),
         AppRoutingModule,
@@ -50,8 +50,8 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ['localhost:3000', '167.99.92.212:9200'],
-                blacklistedRoutes: ['localhost:3000/auth/', '167.99.92.212:9200/auth/']
+                whitelistedDomains: ['localhost:3000', '167.99.92.212:80'],
+                blacklistedRoutes: ['localhost:3000/auth/', '167.99.92.212:80/auth/']
             }
         }),
     ],

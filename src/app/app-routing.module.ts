@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AuthGuard} from './shared/guards/auth.guard';
+import {RoleGuard} from './shared/guards/role.guard';
 
 const routes: Routes = [
     {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
@@ -10,8 +11,16 @@ const routes: Routes = [
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
         path: 'partners',
-        canActivate: [AuthGuard],
+        data: {
+            expectedRole: 'partner'
+        },
+        canActivate: [AuthGuard, RoleGuard],
         loadChildren: './partners/partners.module#PartnersModule'
+    },
+    {
+        path: 'employees',
+        canActivate: [AuthGuard],
+        loadChildren: './employees/employees.module#EmployeesModule'
     },
     {path: '**', component: NotFoundComponent},
 ];

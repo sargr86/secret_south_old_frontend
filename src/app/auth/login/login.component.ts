@@ -61,9 +61,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
 
+            // Navigate to the dashboard page
+            const role = this._auth.checkRoles('admin') ? 'admin' : (this._auth.checkRoles('partner') ? 'partners' : 'employees');
+            this._router.navigate([`${role}/dashboard`]);
 
-            // Navigate to the home page
-            this._router.navigate([this._auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboard']);
         });
     }
 

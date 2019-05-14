@@ -1,4 +1,13 @@
 <app-main-dashboard></app-main-dashboard>
-<p>
-  show-employees works!
-</p>
+
+<div class="tableContainer">
+
+
+  <h4 class="formTitle">
+    <i class="fa fa-users title-sign"></i>
+    <span>Employees</span>
+  </h4>
+
+
+  <app-mat-table [dataObs]="employees" [cols]="displayedColumns" [item]="'employees'"></app-mat-table>
+</div>
