@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     dropzoneConfig = DROPZONE_CONFIG;
     passHidden = false;
+    userTypes = ['partner', 'employee'];
 
     constructor(
         private _fb: FormBuilder,
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
             'last_name': ['', Validators.required],
             'email': ['', Validators.required],
             'gender': ['', Validators.required],
-            'password': ['', Validators.required]
+            'password': ['', Validators.required],
+            'user_type': ['']
         });
     }
 
@@ -50,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
 
             // Navigate to the home page
-            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard' : 'partners/dashboard']);
+            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard' : (this.auth.checkRoles('partner')) ? 'partners/dashboard' : 'employees/dashboard']);
         });
     }
 

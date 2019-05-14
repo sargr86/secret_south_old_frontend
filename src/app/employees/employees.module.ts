@@ -5,9 +5,11 @@ import { EmployeesRoutingModule } from './employees-routing.module';
 import { SaveEmployeeComponent } from './save-employee/save-employee.component';
 import { ShowEmployeesComponent } from './show-employees/show-employees.component';
 import {SharedModule} from '../shared/shared.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
-  declarations: [SaveEmployeeComponent, ShowEmployeesComponent],
+  declarations: [SaveEmployeeComponent, ShowEmployeesComponent, DashboardComponent, EditProfileComponent],
     imports: [
         CommonModule,
         EmployeesRoutingModule,

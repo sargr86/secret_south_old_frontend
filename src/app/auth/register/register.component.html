@@ -39,8 +39,8 @@
 
             <!-- Gender field -->
             <mat-radio-group name="gender" formControlName="gender">
-                <mat-radio-button value="male">Male</mat-radio-button>
-                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button [value]="'male'">Male</mat-radio-button>
+                <mat-radio-button [value]="'female'">Female</mat-radio-button>
             </mat-radio-group>
 
             <!-- E-mail field -->
@@ -56,6 +56,15 @@
                        formControlName="password" required>
                 <mat-slide-toggle class="passToggler" (change)="togglePass()"></mat-slide-toggle>
                 <mat-error [hidden]="!pass.hasError('required')">Password is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select formControlName="user_type" placeholder="User type" required>
+                    <mat-option>Please choose</mat-option>
+                    <mat-option *ngFor="let p of userTypes" [value]="p">
+                        {{p}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
