@@ -84,6 +84,7 @@ export class NavbarComponent implements OnInit {
     }
 
     navigateToDashboard() {
-        this.router.navigate([`${this.auth.checkRoles('admin') ? 'admin' : 'partners'}/dashboard`]);
+        const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
+        this.router.navigate([`${role}/dashboard`]);
     }
 }

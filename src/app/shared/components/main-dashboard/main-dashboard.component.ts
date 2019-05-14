@@ -62,13 +62,27 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         private cdr: ChangeDetectorRef
     ) {
 
-        this.adminRole = this._auth.checkRoles('admin')
+        this.adminRole = this._auth.checkRoles('admin');
+
 
         if (!this.adminRole) {
             const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
+            const employeeRole = this._auth.checkRoles('employee');
 
             // Generating partner links based on current partner type
-            this.dashboardLinks = this.dashboardLinks.filter(l => l.name === currentPartnerType || l.name === 'Dashboard' || l.name === 'Employees');
+            this.dashboardLinks = this.dashboardLinks.filter(l => {
+
+                if (employeeRole && l.children) {
+                    l.children = l.children.filter(sl => !sl.name.includes('Add'));
+                }
+
+                // Showing dashboard and current partner type links
+                const linksShown = l.name === 'Dashboard' || l.name === currentPartnerType;
+
+                return employeeRole ? linksShown : linksShown || l.name === 'Employees';
+
+
+            });
         }
 
         this.dataSource.data = this.dashboardLinks;
@@ -130,8 +144,9 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         const parentNode = this.getParent(node);
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
         const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
-
-        this.router.navigate([(this.adminRole ? 'admin/' : 'partners/') + url]);
+        const role = this.adminRole ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/')
+console.log(role + url)
+        this.router.navigate([role + url]);
     }
 
     /**
