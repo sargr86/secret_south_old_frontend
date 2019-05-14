@@ -65,7 +65,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         this.adminRole = this._auth.checkRoles('admin');
 
 
-        if (!this.adminRole) {
+        if (!this.adminRole && this._auth.userData) {
             const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
             const employeeRole = this._auth.checkRoles('employee');
 
@@ -145,7 +145,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
         const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
         const role = this.adminRole ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/')
-console.log(role + url)
+        console.log(role + url)
         this.router.navigate([role + url]);
     }
 
