@@ -50,8 +50,8 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ['localhost:3000', '68.183.36.96:80'],
-                blacklistedRoutes: ['localhost:3000/auth/', '68.183.36.96:80/auth/']
+                whitelistedDomains: ['localhost:3000', '68.183.36.96:80', 'secretsouth.ie', '68.183.36.96'],
+                blacklistedRoutes: ['localhost:3000/auth/', '68.183.36.96:80/auth/', 'secretsouth.ie', '68.183.36.96']
             }
         }),
     ],
