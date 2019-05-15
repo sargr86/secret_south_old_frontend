@@ -34,7 +34,7 @@ export function tokenGetter() {
     imports: [
         BrowserAnimationsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBo6kYTZfGkPGVCGzMiX_LsR8VN_pc6RJE',
+            apiKey: 'AIzaSyBwMznhBbkych61rBqITv2_ZPPp6d25B_c',// 'AIzaSyBo6kYTZfGkPGVCGzMiX_LsR8VN_pc6RJE',
             libraries: ['places', 'geometry'],
         }),
         AppRoutingModule,

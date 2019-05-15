@@ -145,7 +145,6 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
         const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
         const role = this.adminRole ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/')
-        console.log(role + url)
         this.router.navigate([role + url]);
     }
 
