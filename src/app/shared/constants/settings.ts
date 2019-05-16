@@ -21,8 +21,10 @@ export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 
-//GOOGLE API KEY
+// GOOGLE API KEY
 export const GOOGLE_API_KEY = 'AIzaSyDpQFWb2RWEJvc-P8e1EBzvmwCLscIeP1w';
+
+export const USER_TYPES = ['partner', 'employee'];
 
 
 // Menu icons
@@ -35,7 +37,8 @@ export const MENU_ITEM_ICONS = [
     {item: 'activities', icon: 'fa-swimmer'},
     {item: 'accommodations', icon: 'fa-bed'},
     {item: 'partners', icon: 'fa-users'},
-    {item: 'employees', icon: 'fa-users'}
+    {item: 'employees', icon: 'fa-users'},
+    {item: 'jobs', icon: 'fa-suitcase'}
 ];
 
 // Partner links
@@ -100,6 +103,12 @@ export const DASHBOARD_LINKS = [
             {name: 'Show'}
             // {name: 'Add types'},
             // {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Jobs',
+        children: [
+            {name: 'Show'}
         ]
     }
 ];

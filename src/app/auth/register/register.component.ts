@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {AuthService} from '../../shared/services/auth.service';
 import {CommonService} from '../../shared/services/common.service';
 import {Router} from '@angular/router';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
 
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     dropzoneConfig = DROPZONE_CONFIG;
     passHidden = false;
-    userTypes = ['partner', 'employee'];
+    userTypes = USER_TYPES;
 
     constructor(
         private _fb: FormBuilder,
