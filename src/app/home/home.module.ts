@@ -18,7 +18,7 @@ import {
     MatSelectModule
 } from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
-import {LayoutModule} from "../layout/layout.module";
+import {LayoutModule} from '../layout/layout.module';
 
 @NgModule({
     declarations: [MainComponent],
@@ -38,7 +38,7 @@ import {LayoutModule} from "../layout/layout.module";
         HomeRoutingModule,
         LayoutModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCgUl40xKEjDAAJNWZHMZqWajSOd25yJOs',
+            apiKey: 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs',
             libraries: ['places'],
         }),
 

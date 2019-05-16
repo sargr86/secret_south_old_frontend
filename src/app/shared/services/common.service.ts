@@ -13,6 +13,6 @@ export class CommonService {
     constructor(
         private router: Router
     ) {
-        this.showOverlay = this.router.url === '/';
+        // this.showOverlay = this.router.url === '/';
     }
 }

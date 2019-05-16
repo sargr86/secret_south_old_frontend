@@ -5,7 +5,7 @@
     <h4 class="formTitle">
         <ng-container>
             <mat-icon class="title_sign">mail</mat-icon>
-            <span>Invite a new partner</span>
+            <span>Invite a new {{auth.checkRoles('admin') ? 'partner/employee' : 'employee'}} </span>
         </ng-container>
     </h4>
 
@@ -31,6 +31,16 @@
         <input matInput formControlName="email" placeholder="E-mail" required>
         <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
+    </mat-form-field>
+
+    <!-- User type field -->
+    <mat-form-field>
+        <mat-select formControlName="user_type" placeholder="User type" required>
+            <mat-option>Please choose</mat-option>
+            <mat-option *ngFor="let p of userTypes" [value]="p">
+                {{p}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>

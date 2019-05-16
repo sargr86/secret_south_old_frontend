@@ -85,6 +85,14 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard]
     },
     {
+        path: 'jobs',
+        loadChildren: '../jobs/jobs.module#JobsModule',
+        data: {
+            expectedRole: 'partner'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
         path: ':id',
         component: SavePartnerComponent
     },

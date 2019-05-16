@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AdminService} from './admin.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AgmCoreModule} from '@agm/core';
+// import {AgmCoreModule} from '@agm/core';
 
 // Form
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -33,10 +33,6 @@ export function tokenGetter() {
     ],
     imports: [
         BrowserAnimationsModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBwMznhBbkych61rBqITv2_ZPPp6d25B_c',// 'AIzaSyBo6kYTZfGkPGVCGzMiX_LsR8VN_pc6RJE',
-            libraries: ['places', 'geometry'],
-        }),
         AppRoutingModule,
         HttpClientModule,
         FormsModule,

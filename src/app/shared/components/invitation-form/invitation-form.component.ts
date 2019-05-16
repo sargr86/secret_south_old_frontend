@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../services/common.service';
 import {Router} from '@angular/router';
-import {SPINNER_DIAMETER} from '../../constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '../../constants/settings';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -14,6 +14,12 @@ export class InvitationFormComponent implements OnInit {
     invitationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
     redirectUrl = this.auth.checkRoles('admin') ? 'admin/employees' : 'partners/employees';
+    userTypes = USER_TYPES;
+    fields = {
+        'first_name': ['', Validators.required],
+        'last_name': ['', Validators.required],
+        'email': ['', Validators.required],
+    };
 
     constructor(
         private _fb: FormBuilder,
@@ -24,11 +30,11 @@ export class InvitationFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.invitationForm = this._fb.group({
-            'first_name': ['', Validators.required],
-            'last_name': ['', Validators.required],
-            'email': ['', Validators.required],
-        });
+        this.invitationForm = this._fb.group(this.fields);
+        if (this.auth.checkRoles('admin')) {
+            this.fields['user_type'] = ['', Validators.required];
+            this.invitationForm = this._fb.group(this.fields);
+        }
     }
 
     get firstNameCtrl() {
