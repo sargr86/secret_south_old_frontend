@@ -77,7 +77,7 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
                 }
 
                 // Showing dashboard and current partner type links
-                const linksShown = l.name === 'Dashboard' || l.name === currentPartnerType;
+                const linksShown = l.name === 'Dashboard' || l.name === currentPartnerType || l.name === 'Jobs';
 
                 return employeeRole ? linksShown : linksShown || l.name === 'Employees';
 

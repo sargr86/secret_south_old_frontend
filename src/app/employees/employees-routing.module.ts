@@ -39,6 +39,14 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard]
     },
+    {
+        path: 'jobs',
+        loadChildren: '../jobs/jobs.module#JobsModule',
+        data: {
+            expectedRole: 'employee'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
 ];
 
 @NgModule({

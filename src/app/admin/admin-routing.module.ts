@@ -87,6 +87,14 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard]
     },
     {
+        path: 'jobs',
+        loadChildren: '../jobs/jobs.module#JobsModule',
+        data: {
+            expectedRole: 'employee'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
         path: 'add_locations', component: GpsLocationComponent,
         data: {
             title: 'Add GPS locations',
