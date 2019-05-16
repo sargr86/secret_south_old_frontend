@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
 
     mapForm: FormGroup;
     mainSections = MAIN_SECTIONS;
-    currentSection: string;
+    currentSection = 'Ferries';
 
     progressVal = 0;
     overlayOpacity = 1;
@@ -80,7 +80,6 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
-
 
 
         // Simulating loading progress bar here
@@ -178,5 +177,6 @@ export class MainComponent implements OnInit {
     scrollToTop() {
         window.scrollTo({top: 0});
     }
+
 
 }

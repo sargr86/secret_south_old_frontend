@@ -27,10 +27,12 @@
         </div>
     </form>
 
-    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true" [mapTypeControl]="true"
+    <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+             [mapTypeControl]="true"
              [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
              [styles]="mapStyles">
-        <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]="">
+        <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]=""
+                    [openInfoWindow]="true">
             <agm-info-window *ngIf="currentSection=='Ferries'">
                 <h4>{{single.name}}</h4>
                 <div class="info">
