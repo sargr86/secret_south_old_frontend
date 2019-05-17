@@ -17,14 +17,7 @@ const routes: Routes = [
         component: SaveActivityComponent
     },
 
-    {
-        path: 'activity/:id', component: SaveActivityComponent, data: {
-            title: 'Edit an  activity provider info',
-        },
-        resolve: {
-            activity: ActivityResolverService
-        }
-    },
+
     {path: 'show-types', component: ShowActivityTypesComponent},
     {
         path: 'add-types', component: SaveActivityTypeComponent,
@@ -33,11 +26,19 @@ const routes: Routes = [
         },
     },
     {
-        path: ':id', component: SaveActivityTypeComponent, data: {
+        path: 'activities/:id', component: SaveActivityComponent, data: {
+            title: 'Edit an  activity provider info',
+        },
+        resolve: {
+            activity: ActivityResolverService
+        }
+    },
+    {
+        path: 'activity-type/:id', component: SaveActivityTypeComponent, data: {
             title: 'Edit an activity type',
         },
         resolve: {
-            oneFoodDrink: OneAccommodationResolverService
+            // oneFoodDrink: OneAccommodationResolverService
         }
     },
 ];

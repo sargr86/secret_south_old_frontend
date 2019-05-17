@@ -28,6 +28,10 @@ export class ActivitiesService {
         return this.http.put(`${API_URL}activities/update`, params);
     }
 
+    remove(params) {
+        return this.http.delete(`${API_URL}activities/remove`, {params: params});
+    }
+
     getPartners() {
         return this.http.get(API_URL + 'activities/get-partners');
     }

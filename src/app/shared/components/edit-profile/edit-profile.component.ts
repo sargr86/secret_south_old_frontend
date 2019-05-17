@@ -17,7 +17,7 @@ export class EditProfileComponent implements OnInit {
     userData;
     dropzoneFile = {};
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = this.auth.checkRoles('partner') ? 'partners/dashboard' : 'employees/dashboard';
+    redirectUrl;
     dropzoneConfig = DROPZONE_CONFIG;
 
     constructor(
@@ -41,6 +41,8 @@ export class EditProfileComponent implements OnInit {
 
         // Setting all the received fields of the form
         this.setFormFields();
+
+        this.getRedirectUrl();
     }
 
     /**
@@ -144,6 +146,10 @@ export class EditProfileComponent implements OnInit {
      */
     get profileImg(): any {
         return this.userData ? this.userData.profile_img : false;
+    }
+
+    getRedirectUrl() {
+        this.redirectUrl = this.auth.checkRoles('partner') ? 'partners' : (this.auth.checkRoles('admin') ? 'admin' : 'employees') + '/dashboard';
     }
 
 
