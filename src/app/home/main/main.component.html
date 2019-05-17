@@ -31,8 +31,11 @@
              [mapTypeControl]="true"
              [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
              [styles]="mapStyles">
+        <agm-direction [origin]="origin" [destination]="destination">
+        </agm-direction>
         <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]=""
                     [openInfoWindow]="true">
+
             <agm-info-window *ngIf="currentSection=='Ferries'">
                 <h4>{{single.name}}</h4>
                 <div class="info">

@@ -48,7 +48,7 @@
     "@angular/language-service": "~7.2.0",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@types/google-libphonenumber": "^7.4.17",
-    "@types/googlemaps": "^3.30.16",
+    "@types/googlemaps": "^3.30.20",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

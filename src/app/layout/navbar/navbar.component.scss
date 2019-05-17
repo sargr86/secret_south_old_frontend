@@ -6,7 +6,7 @@
   top: 0;
   z-index: 200;
   //background-color: rgba(1, 1, 1, 0.49);
-  background-color: #062845;
+  background-color: #909090;;//#062845;
   //background-color: rgba(6,40,69,0.75);
   //background-color: transparent;
   display: flex;
@@ -58,9 +58,9 @@
     align-items: center;
 
     .logo {
-      background-image: url("../../../assets/images/logo-navy-150x150.png");
-      width: 100px;
-      height: 100px;
+      background-image: url("../../../assets/images/logo.png");
+      width: 89px;
+      height: 91px;
       background-size: cover;
       cursor: pointer;
     }
