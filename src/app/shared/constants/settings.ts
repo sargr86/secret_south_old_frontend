@@ -22,7 +22,7 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
 
 // GOOGLE API KEY
-export const GOOGLE_API_KEY = 'AIzaSyDpQFWb2RWEJvc-P8e1EBzvmwCLscIeP1w';
+export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
 
 export const USER_TYPES = ['partner', 'employee'];
 

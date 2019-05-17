@@ -19,6 +19,8 @@ import {
 } from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
+import {GOOGLE_API_KEY} from '../shared/constants/settings';
+import { AgmDirectionModule } from 'agm-direction'
 
 @NgModule({
     declarations: [MainComponent],
@@ -38,9 +40,10 @@ import {LayoutModule} from '../layout/layout.module';
         HomeRoutingModule,
         LayoutModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs',
+            apiKey: GOOGLE_API_KEY,
             libraries: ['places'],
         }),
+        AgmDirectionModule
 
     ]
 })
