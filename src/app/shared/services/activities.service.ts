@@ -12,6 +12,26 @@ export class ActivitiesService {
     ) {
     }
 
+    get() {
+        return this.http.get(`${API_URL}activities/get`);
+    }
+
+    getOne(params) {
+        return this.http.get(`${API_URL}activities/getOne`, {params: params});
+    }
+
+    add(params) {
+        return this.http.post(`${API_URL}activities/add`, params);
+    }
+
+    update(params) {
+        return this.http.put(`${API_URL}activities/update`, params);
+    }
+
+    getPartners() {
+        return this.http.get(API_URL + 'activities/get-partners');
+    }
+
     addType(data) {
 
         return this.http.post(`${API_URL}activity_types/add`, data);
@@ -21,7 +41,6 @@ export class ActivitiesService {
 
         return this.http.get(`${API_URL}activity_types/get`);
     }
-
 
     updateType(params) {
         return this.http.put(`${API_URL}activity_types/update`, params);
