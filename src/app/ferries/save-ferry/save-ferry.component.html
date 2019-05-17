@@ -65,8 +65,8 @@
 
 
   <!-- Phone number field -->
-  <mat-label>Phone*</mat-label>
-  <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20"
+  <mat-label [hidden]="true">Phone*</mat-label>
+  <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20" [hidden]="true"
                               [defaultCountry]="defaultCountry" [required]="true" (change)="changed($event)"
                               [allowedCountries]="allowedCountries"></international-phone-number>
 

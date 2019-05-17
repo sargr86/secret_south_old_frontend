@@ -4,6 +4,7 @@ import {CommonService} from '../../services/common.service';
 import {Router} from '@angular/router';
 import {SPINNER_DIAMETER, USER_TYPES} from '../../constants/settings';
 import {AuthService} from '../../services/auth.service';
+import {PartnerService} from '../../services/partner.service';
 
 @Component({
     selector: 'app-invitation-form',
@@ -15,6 +16,7 @@ export class InvitationFormComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     redirectUrl = this.auth.checkRoles('admin') ? 'admin/employees' : 'partners/employees';
     userTypes = USER_TYPES;
+    partnerTypes;
     fields = {
         'first_name': ['', Validators.required],
         'last_name': ['', Validators.required],
@@ -25,7 +27,8 @@ export class InvitationFormComponent implements OnInit {
         private _fb: FormBuilder,
         public common: CommonService,
         public router: Router,
-        public auth: AuthService
+        public auth: AuthService,
+        private _partner: PartnerService
     ) {
     }
 
@@ -35,6 +38,9 @@ export class InvitationFormComponent implements OnInit {
             this.fields['user_type'] = ['', Validators.required];
             this.invitationForm = this._fb.group(this.fields);
         }
+        this._partner.getTypes().subscribe(d => {
+            this.partnerTypes = d;
+        });
     }
 
     get firstNameCtrl() {
@@ -49,7 +55,7 @@ export class InvitationFormComponent implements OnInit {
         return this.invitationForm.get('email');
     }
 
-    invitePartner() {
+    invite() {
 
     }
 
