@@ -10,7 +10,7 @@ export const USERS_FOLDER = UPLOADS_FOLDER + 'users/';
 export const SPINNER_DIAMETER = 30;
 
 // Tables columns
-export const FERRIES_TABLE_COLUMNS = ['name', 'max_people', 'min_people', 'phone', 'address', 'actions'];
+export const FERRIES_TABLE_COLUMNS = ['name', 'max_people', 'min_people', 'address', 'actions'];
 export const FOOD_DRINK_TABLE_COLUMNS = ['name', 'address', 'actions'];
 export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'actions'];
 export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'actions'];

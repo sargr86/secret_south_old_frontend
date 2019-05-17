@@ -7,6 +7,7 @@ import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {UserResolverService} from '../shared/resolvers/user-resolver.service';
+import {SavePartnerComponent} from '../partners/save-partner/save-partner.component';
 
 const routes: Routes = [
     {
@@ -31,14 +32,14 @@ const routes: Routes = [
         },
         component: EditProfileComponent
     },
-    {
-        path: 'employees',
-        loadChildren: '../employees/employees.module#EmployeesModule',
-        data: {
-            expectedRole: 'employee'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
+    // {
+    //     path: 'employees',
+    //     loadChildren: '../employees/employees.module#EmployeesModule',
+    //     data: {
+    //         expectedRole: 'employee'
+    //     },
+    //     canActivate: [AuthGuard, RoleGuard]
+    // },
     {
         path: 'jobs',
         loadChildren: '../jobs/jobs.module#JobsModule',
@@ -47,6 +48,13 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard]
     },
+    {
+        path: ':id',
+        component: EditProfileComponent,
+        resolve: {
+            user: UserResolverService
+        },
+    }
 ];
 
 @NgModule({
