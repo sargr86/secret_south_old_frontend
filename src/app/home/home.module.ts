@@ -20,7 +20,7 @@ import {
 import {SharedModule} from '../shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
 import {GOOGLE_API_KEY} from '../shared/constants/settings';
-import { AgmDirectionModule } from 'agm-direction'
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
     declarations: [MainComponent],
