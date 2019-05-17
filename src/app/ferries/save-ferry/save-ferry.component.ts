@@ -12,12 +12,12 @@ import {
     LATITUDE_PATTERN,
     LONGITUDE_PATTERN,
 } from '../../shared/constants/patterns';
-import {MapsAPILoader} from '@agm/core';
 import {Ferry} from '../../shared/models/Ferry';
 import {Partner} from '../../shared/models/Partner';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
+
 
 @Component({
     selector: 'app-save-ferry',
@@ -64,7 +64,6 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private toastr: ToastrService,
         public common: CommonService,
-        private mapsAPILoader: MapsAPILoader,
         private checkFormData: CheckFormDataPipe,
         public auth: AuthService
     ) {
