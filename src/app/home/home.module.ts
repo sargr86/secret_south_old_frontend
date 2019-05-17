@@ -5,43 +5,21 @@ import {HomeRoutingModule} from './home-routing.module';
 import {MainComponent} from './main/main.component';
 import {AgmCoreModule} from '@agm/core';
 
-import {
-    MatIconModule,
-    MatButtonModule,
-    MatTreeModule,
-    MatProgressBarModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatSelectModule
-} from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
 import {GOOGLE_API_KEY} from '../shared/constants/settings';
-import { AgmDirectionModule } from 'agm-direction';
+import {AgmDirectionModule} from 'agm-direction';
 
 @NgModule({
     declarations: [MainComponent],
     imports: [
         SharedModule,
-        MatTreeModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatInputModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatSelectModule,
         CommonModule,
         HomeRoutingModule,
         LayoutModule,
         AgmCoreModule.forRoot({
             apiKey: GOOGLE_API_KEY,
-            libraries: ['places'],
+            libraries: ['places', 'geometry'],
         }),
         AgmDirectionModule
 

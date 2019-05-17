@@ -1,3 +1,4 @@
+/// <reference path="../../../../types/index.d.ts"/>
 import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
 import {MainService} from '../services/main.service';
@@ -7,10 +8,11 @@ import {Router} from '@angular/router';
 import {PartnerService} from '../../shared/services/partner.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
-import {ToastrService} from "ngx-toastr";
-import {CommonService} from "../../shared/services/common.service";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {SubjectService} from "../../shared/services/subject.service";
+import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../shared/services/common.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {SubjectService} from '../../shared/services/subject.service';
+import {} from 'googlemaps';
 
 @Component({
     selector: 'app-main',
@@ -37,6 +39,13 @@ export class MainComponent implements OnInit {
     searchBy = {'type': ''};
     imgPath: String = '';
     public successData = false;
+
+
+    // public lat: Number = 24.799448;
+    // public lng: Number = 120.979021
+
+    public origin: any;
+    public destination: any;
 
     mapStyles;
     partnerTypes;
@@ -81,7 +90,7 @@ export class MainComponent implements OnInit {
 
     ngOnInit() {
 
-
+        this.getDirection();
         // Simulating loading progress bar here
         const int = setInterval(() => {
             const random = Math.random() * 10 + 10;
@@ -178,5 +187,17 @@ export class MainComponent implements OnInit {
         window.scrollTo({top: 0});
     }
 
+
+    getDirection() {
+        this.origin = {lat: 51.797999, lng: -8.294371};
+        this.destination = {lat: 52.257385, lng: -6.338164};
+
+        const mexicoCity = new google.maps.LatLng(51.797999, -8.294371);
+        const jacksonville = new google.maps.LatLng(52.797999, -8.394371);
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
+        console.log(Math.round(distance / 1000))
+        // this.origin = 'Taipei Main Station'
+        // this.destination = 'Taiwan Presidential Office'
+    }
 
 }
