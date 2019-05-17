@@ -53,6 +53,8 @@ export const DASHBOARD_LINKS = [
     {
         name: 'Activities',
         children: [
+            {name: 'Add'},
+            {name: 'Show'},
             {name: 'Add types'},
             {name: 'Show types'}
         ]

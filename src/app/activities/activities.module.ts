@@ -5,11 +5,15 @@ import {ActivitiesRoutingModule} from './activities-routing.module';
 import {SaveActivityTypeComponent} from './save-activity-type/save-activity-type.component';
 import {ShowActivityTypesComponent} from './show-activity-types/show-activity-types.component';
 import {SharedModule} from '../shared/shared.module';
+import { SaveActivityComponent } from './save-activity/save-activity.component';
+import { ShowActivitiesComponent } from './show-activities/show-activities.component';
 
 @NgModule({
     declarations: [
         SaveActivityTypeComponent,
-        ShowActivityTypesComponent
+        ShowActivityTypesComponent,
+        SaveActivityComponent,
+        ShowActivitiesComponent
     ],
     imports: [
         CommonModule,
