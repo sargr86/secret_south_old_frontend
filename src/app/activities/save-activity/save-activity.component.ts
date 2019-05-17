@@ -1,47 +1,45 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ToursService} from '../../shared/services/tours.service';
+import {Partner} from '../../shared/models/Partner';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MapsAPILoader} from '@agm/core';
-import {SPINNER_DIAMETER, TOURS_FOLDER} from '../../shared/constants/settings';
-import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
-import {Partner} from '../../shared/models/Partner';
-import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
+import {SPINNER_DIAMETER, TOURS_FOLDER} from '../../shared/constants/settings';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../shared/services/common.service';
+import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {AuthService} from '../../shared/services/auth.service';
+import {ActivitiesService} from '../../shared/services/activities.service';
 
 @Component({
-    selector: 'app-save-tour',
-    templateUrl: './save-tour.component.html',
-    styleUrls: ['./save-tour.component.scss']
+    selector: 'app-save-activity',
+    templateUrl: './save-activity.component.html',
+    styleUrls: ['./save-activity.component.scss']
 })
-export class SaveTourComponent implements OnInit, OnDestroy {
-
+export class SaveActivityComponent implements OnInit, OnDestroy {
 
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
     partners: Partner[] = [];
-    tourTypes = [];
-    saveTourForm: FormGroup;
+    activityTypes = [];
+    saveActivityForm: FormGroup;
     uploadImages;
-    tourFields = {
+    activityFields = {
         'name': ['', Validators.required],
         'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'address': ['', Validators.required],
-        'tours_type_id': ['', Validators.required],
+        'activity_type_id': ['', Validators.required],
         'partner_id': ['', Validators.required]
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/tours' : 'partners/tours';
+    redirectUrl = this.auth.checkRoles('admin') ? 'admin/activities' : 'partners/activities';
 
     dropZoneFile;
-    tourData;
+    activityData;
     imgPath;
 
     options = {types: ['geocode']};
@@ -50,7 +48,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     partnersSubscription: Subscription;
 
     constructor(
-        private _tours: ToursService,
+        private _activities: ActivitiesService,
         private _fb: FormBuilder,
         public router: Router,
         private route: ActivatedRoute,
@@ -62,7 +60,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     ) {
 
         this.getPartners();
-        this.getToursType();
+        this.getActivityType();
 
     }
 
@@ -71,21 +69,21 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         this.common.dataLoading = true;
         this.routeDataSubscription = this.route.data.subscribe(dt => {
             if (this.route.snapshot.paramMap.get('id')) {
-                this.tourData = dt['oneTour'];
-                this.tourFields['id'] = '';
-                this.saveTourForm = this._fb.group(this.tourFields);
-                this.saveTourForm.patchValue(this.tourData);
-                this.saveTourForm.controls['address'].disable();
+                this.activityData = dt['activity'];
+                this.activityFields['id'] = '';
+                this.saveActivityForm = this._fb.group(this.activityFields);
+                this.saveActivityForm.patchValue(this.activityData);
+                this.saveActivityForm.controls['address'].disable();
                 this.editCase = true;
-                if (this.tourData['img']) {
-                    this.imgPath = TOURS_FOLDER + this.tourData['img'];
+                if (this.activityData['img']) {
+                    this.imgPath = TOURS_FOLDER + this.activityData['img'];
                 }
             }
             this.common.dataLoading = false;
         });
 
         if (!this.editCase) {
-            this.saveTourForm = this._fb.group(this.tourFields);
+            this.saveActivityForm = this._fb.group(this.activityFields);
         }
 
         // this.mapsAPILoader.load().then(() => {
@@ -101,8 +99,8 @@ export class SaveTourComponent implements OnInit, OnDestroy {
      * Resets address and reloads maps api to allow user to select from drop down again
      */
     resetAddress() {
-        this.saveTourForm.patchValue({'address': ''});
-        this.saveTourForm.controls['address'].enable();
+        this.saveActivityForm.patchValue({'address': ''});
+        this.saveActivityForm.controls['address'].enable();
         // this.mapsAPILoader.load().then(() => {
         //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
         // });
@@ -113,20 +111,20 @@ export class SaveTourComponent implements OnInit, OnDestroy {
      * Gets partners list
      */
     getPartners() {
-        this.partnersSubscription = this._tours.getPartners().subscribe((r: any) => {
+        this.partnersSubscription = this._activities.getPartners().subscribe((r: any) => {
             this.partners = r;
-            this.checkFormData.transform('tour', this.tourData, this.partners, this.editCase);
+            this.checkFormData.transform('tour', this.activityData, this.partners, this.editCase);
         });
     }
 
     /**
      * Gets tour types list
      */
-    getToursType() {
-        this._tours.getAllTourType().subscribe((types: any) => {
-            this.tourTypes = types;
+    getActivityType() {
+        this._activities.getTypes().subscribe((types: any) => {
+            this.activityTypes = types;
             if (types.length === 0) {
-                this.toastr.info('Please add at least one tour type.', 'No tour types', {timeOut: 0});
+                this.toastr.info('Please add at least one activity type.', 'No activity types', {timeOut: 0});
             }
         });
     }
@@ -143,20 +141,20 @@ export class SaveTourComponent implements OnInit, OnDestroy {
      * Add or edit a tour
      * @param searchAddress search full address
      */
-    saveTour(searchAddress) {
+    saveActivity(searchAddress) {
 
-        // if (this.saveTourForm.valid) {
+        // if (this.saveActivityForm.valid) {
 
         // if (!this.dropZoneFile && !this.editCase) {
         //     this.toastr.error('Please select an image to upload', 'No files');
         // } else {
         this.common.formProcessing = true;
-        const data = this.saveTourForm.value;
+        const data = this.saveActivityForm.value;
         const fd = new FormData();
         fd.append('lat', data.lat);
         fd.append('lng', data.lng);
         fd.append('name', data.name);
-        fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
+        fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
         fd.append('partner_id', data.partner_id ? data.partner_id : '');
         fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
         fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
@@ -168,16 +166,16 @@ export class SaveTourComponent implements OnInit, OnDestroy {
 
         if (this.editCase) {
             fd.append('id', data['id'])
-            this._tours.updateTour(fd).subscribe(dt => {
+            this._activities.update(fd).subscribe(dt => {
                 this.common.formProcessing = false;
                 this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The tour info has been updated successfully', 'Updated!');
+                this.toastr.success('The activity info has been updated successfully', 'Updated!');
             });
         } else {
-            this._tours.insertTours(fd).subscribe((r: any) => {
+            this._activities.add(fd).subscribe((r: any) => {
                 this.common.formProcessing = false;
                 this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The tour info has been added successfully', 'Added!');
+                this.toastr.success('The activity info has been added successfully', 'Added!');
             });
         }
         // }
@@ -199,7 +197,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
 
 
     get tourForm() {
-        return this.saveTourForm;
+        return this.saveActivityForm;
     }
 
     get nameCtrl() {
