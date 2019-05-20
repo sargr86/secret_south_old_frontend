@@ -66,6 +66,19 @@
                         {{p}}
                     </mat-option>
                 </mat-select>
+                <mat-error [hidden]="!userType.hasError('required')">User type is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <!-- Field type -->
+            <mat-form-field>
+                <mat-select formControlName="field_type" placeholder="Field" required>
+                    <mat-option>Please choose</mat-option>
+                    <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
+                        {{p['name']}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [hidden]="!fieldType.hasError('required')">Field type is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
 
             <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
