@@ -47,7 +47,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private _tour: ToursService,
         private _tour_type: TourTypeService,
         private _food_drink: FoodDrinkService,
-        private _accommodation: AccommodationsService,
+        private _accommodations: AccommodationsService,
         private _activities: ActivitiesService,
         private _activity_type: ActivityTypesService,
         private dataSrc: GetTableDataSourcePipe,
@@ -142,7 +142,8 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         this.dialogClosed = dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-                    this.getData(this[`_${this.item}`].remove({id: row.id}), true);
+                    console.log(this.item)
+                    this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
                 }
             }
         );

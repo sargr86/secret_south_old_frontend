@@ -3,7 +3,7 @@ import {Partner} from '../../shared/models/Partner';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
-import {SPINNER_DIAMETER, TOURS_FOLDER} from '../../shared/constants/settings';
+import {ACTIVITIES_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -76,7 +76,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
                 this.saveActivityForm.controls['address'].disable();
                 this.editCase = true;
                 if (this.activityData['img']) {
-                    this.imgPath = TOURS_FOLDER + this.activityData['img'];
+                    this.imgPath = ACTIVITIES_FOLDER + this.activityData['img'];
                 }
             }
             this.common.dataLoading = false;
@@ -85,14 +85,6 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         if (!this.editCase) {
             this.saveActivityForm = this._fb.group(this.activityFields);
         }
-
-        // this.mapsAPILoader.load().then(() => {
-        //     if (this.searchElementRef) {
-        //         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        //     }
-        // });
-
-
     }
 
     /**
@@ -166,13 +158,13 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
         if (this.editCase) {
             fd.append('id', data['id'])
-            this._activities.update(fd).subscribe(dt => {
+            this._activities.update(fd).subscribe(() => {
                 this.common.formProcessing = false;
                 this.router.navigate([this.redirectUrl]);
                 this.toastr.success('The activity info has been updated successfully', 'Updated!');
             });
         } else {
-            this._activities.add(fd).subscribe((r: any) => {
+            this._activities.add(fd).subscribe(() => {
                 this.common.formProcessing = false;
                 this.router.navigate([this.redirectUrl]);
                 this.toastr.success('The activity info has been added successfully', 'Added!');
@@ -223,7 +215,6 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         if (this.partnersSubscription) {
             this.partnersSubscription.unsubscribe();
         }
-        this.toastr.clear();
     }
 
 }

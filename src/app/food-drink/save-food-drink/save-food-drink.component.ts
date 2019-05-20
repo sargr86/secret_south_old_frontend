@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MapsAPILoader} from '@agm/core';
 import {Partner} from '../../shared/models/Partner';
 import {FoodDrinkService} from '../../shared/services/food-drink.service';
 import {CommonService} from '../../shared/services/common.service';
@@ -45,7 +44,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
 
     constructor(
         private _fb: FormBuilder,
-        private mapsAPILoader: MapsAPILoader,
         private _foodDrink: FoodDrinkService,
         public common: CommonService,
         public router: Router,
@@ -142,7 +140,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         if (this.partnersSubscription) {
             this.partnersSubscription.unsubscribe();
         }
-        this.toastr.clear();
     }
 
 }

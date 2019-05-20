@@ -190,7 +190,6 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         if (this.partnersSubscription) {
             this.partnersSubscription.unsubscribe();
         }
-        this.toastr.clear();
     }
 
 }
