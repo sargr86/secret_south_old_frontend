@@ -85,7 +85,8 @@
         <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-raised-button color="primary" (click)="saveFoodDrink(searchAddress)">
+        <button mat-raised-button color="primary" (click)="saveFoodDrink(searchAddress)"
+                [disabled]="accommodationForm.invalid">
             Save
         </button>
     </div>

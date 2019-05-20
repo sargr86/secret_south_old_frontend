@@ -225,7 +225,6 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         if (this.partnersSubscription) {
             this.partnersSubscription.unsubscribe();
         }
-        this.toastr.clear();
     }
 
 }
