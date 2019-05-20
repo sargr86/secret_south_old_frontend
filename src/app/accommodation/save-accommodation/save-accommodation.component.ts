@@ -144,7 +144,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         if (this.partnersSubscription) {
             this.partnersSubscription.unsubscribe();
         }
-        this.toastr.clear();
     }
 
 

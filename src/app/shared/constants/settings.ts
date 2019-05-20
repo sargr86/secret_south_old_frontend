@@ -5,6 +5,7 @@ export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
 export const UPLOADS_FOLDER = API_URL + 'uploads/';
 export const TOURS_FOLDER = UPLOADS_FOLDER + 'others/tours/';
+export const ACTIVITIES_FOLDER = UPLOADS_FOLDER + 'others/activities/';
 export const USERS_FOLDER = UPLOADS_FOLDER + 'users/';
 
 export const SPINNER_DIAMETER = 30;
@@ -135,6 +136,5 @@ export const MAIN_SECTIONS = [
     {name: 'Tours', icon: 'beach_access'},
     {name: 'Food/Drink', icon: 'restaurant_menu'},
     {name: 'Accommodations', icon: 'local_hotel'},
-    {name: 'Activities', icon: 'directions_run'},
-
+    {name: 'Activities', icon: 'directions_run'}
 ];
