@@ -45,7 +45,7 @@
 
     <!-- Field type -->
     <mat-form-field>
-        <mat-select formControlName="user_type" placeholder="Field" required>
+        <mat-select formControlName="field_type" placeholder="Field" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
                 {{p['name']}}

@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
+import {PartnerService} from '../../shared/services/partner.service';
 
 @Component({
     selector: 'app-register',
@@ -21,12 +22,14 @@ export class RegisterComponent implements OnInit {
     dropzoneConfig = DROPZONE_CONFIG;
     passHidden = false;
     userTypes = USER_TYPES;
+    partnerTypes;
 
     constructor(
         private _fb: FormBuilder,
         public auth: AuthService,
         public common: CommonService,
-        public router: Router
+        public router: Router,
+        private _partner: PartnerService
     ) {
     }
 
@@ -37,12 +40,18 @@ export class RegisterComponent implements OnInit {
             'email': ['', Validators.required],
             'gender': ['', Validators.required],
             'password': ['', Validators.required],
-            'user_type': ['']
+            'field_type': ['', Validators.required],
+            'user_type': ['', Validators.required]
+        });
+
+        this._partner.getTypes().subscribe(d => {
+            this.partnerTypes = d;
         });
     }
 
     register() {
         const formData = this.getFormData();
+        this.common.formProcessing = true;
         this.auth.register(formData).subscribe((dt: any) => {
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));
@@ -50,9 +59,9 @@ export class RegisterComponent implements OnInit {
             // Gets current user data
             this.auth.userData = jwtDecode(localStorage.getItem('token'));
 
-
             // Navigate to the home page
             this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard' : (this.auth.checkRoles('partner')) ? 'partners/dashboard' : 'employees/dashboard']);
+            this.common.formProcessing = false;
         });
     }
 
@@ -125,6 +134,14 @@ export class RegisterComponent implements OnInit {
      */
     get profileImg(): any {
         return this.auth.userData ? this.auth.userData.profile_img : false;
+    }
+
+    get userType(): AbstractControl {
+        return this.registerForm.get('user_type');
+    }
+
+    get fieldType(): AbstractControl {
+        return this.registerForm.get('field_type');
     }
 
 }

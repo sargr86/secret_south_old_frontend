@@ -21,6 +21,7 @@ export class InvitationFormComponent implements OnInit {
         'first_name': ['', Validators.required],
         'last_name': ['', Validators.required],
         'email': ['', Validators.required],
+        'field_type': ['', Validators.required]
     };
 
     constructor(
