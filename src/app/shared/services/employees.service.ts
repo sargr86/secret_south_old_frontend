@@ -13,4 +13,8 @@ export class EmployeesService {
     get() {
         return this.http.get(API_URL + 'employees/get');
     }
+
+    invite(params) {
+        return this.http.post(`${API_URL}employees/invite`, params);
+    }
 }

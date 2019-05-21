@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {SPINNER_DIAMETER, USER_TYPES} from '../../constants/settings';
 import {AuthService} from '../../services/auth.service';
 import {PartnerService} from '../../services/partner.service';
+import {EmployeesService} from '../../services/employees.service';
 
 @Component({
     selector: 'app-invitation-form',
@@ -21,7 +22,7 @@ export class InvitationFormComponent implements OnInit {
         'first_name': ['', Validators.required],
         'last_name': ['', Validators.required],
         'email': ['', Validators.required],
-        'field_type': ['', Validators.required]
+        'field_type': ['', Validators.required],
     };
 
     constructor(
@@ -29,7 +30,8 @@ export class InvitationFormComponent implements OnInit {
         public common: CommonService,
         public router: Router,
         public auth: AuthService,
-        private _partner: PartnerService
+        private _partner: PartnerService,
+        private _employee: EmployeesService
     ) {
     }
 
@@ -57,6 +59,11 @@ export class InvitationFormComponent implements OnInit {
     }
 
     invite() {
+        const userType = this.invitationForm.value['user_type'];
+        console.log(`_${userType}`)
+        this[`_${userType}`].invite(this.invitationForm.value).subscribe(dt => {
+
+        });
 
     }
 
