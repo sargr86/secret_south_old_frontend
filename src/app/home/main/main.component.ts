@@ -200,4 +200,16 @@ export class MainComponent implements OnInit {
         // this.destination = 'Taiwan Presidential Office'
     }
 
+    getIcon() {
+        let icon = '';
+        const iconsFolder = 'assets/icons/';
+        if (this.currentSection === 'Ferries') {
+            icon = 'baseline-directions_boat-24px.svg';
+        } else if (this.currentSection === 'Food/Drink') {
+            icon = 'baseline-restaurant_menu-24px.svg';
+        }
+
+        return iconsFolder + icon;
+    }
+
 }

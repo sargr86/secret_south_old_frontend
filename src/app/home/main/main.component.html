@@ -31,19 +31,27 @@
              [mapTypeControl]="true"
              [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
              [styles]="mapStyles">
-        <agm-direction [origin]="origin" [destination]="destination">
-        </agm-direction>
-        <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng" [iconUrl]=""
-                    [openInfoWindow]="true">
+        <!--        <agm-direction [origin]="origin" [destination]="destination">-->
+        <!--        </agm-direction>-->
+        <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng"
+                    [openInfoWindow]="true" [iconUrl]="getIcon()">
 
             <agm-info-window *ngIf="currentSection=='Ferries'">
                 <h4>{{single.name}}</h4>
                 <div class="info">
-                    <p><span>Max:</span><span>{{single.max_people}} people</span></p>
-                    <p><span>Min:</span><span>{{single.min_people}} people</span></p>
-                    <p><span>Tel:</span><span>{{single.phone}}</span></p>
+                    <ul>
+                        <li>
+                            <small>Max: {{single.max_people}} people</small>
+                        </li>
+                        <li>
+                            <small>Min: {{single.min_people}} people</small>
+                        </li>
+                        <li>
+                            <small>Tel: {{single.phone}}</small>
+                        </li>
+                    </ul>
                 </div>
-                <button onclick="" mat-raised-button color="primary">Book</button>
+                <button mat-raised-button color="primary">Book</button>
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
