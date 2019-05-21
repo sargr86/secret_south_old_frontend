@@ -48,4 +48,8 @@ export class PartnerService {
     getTypes() {
         return this.http.get(`${API_URL}partners/getTypes`);
     }
+
+    invite(params) {
+        return this.http.post(`${API_URL}partners/invite`, params);
+    }
 }
