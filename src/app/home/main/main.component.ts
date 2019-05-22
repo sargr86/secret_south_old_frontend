@@ -195,7 +195,7 @@ export class MainComponent implements OnInit {
         const mexicoCity = new google.maps.LatLng(51.797999, -8.294371);
         const jacksonville = new google.maps.LatLng(52.797999, -8.394371);
         const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
-        console.log(Math.round(distance / 1000))
+        // console.log(Math.round(distance / 1000))
         // this.origin = 'Taipei Main Station'
         // this.destination = 'Taiwan Presidential Office'
     }
