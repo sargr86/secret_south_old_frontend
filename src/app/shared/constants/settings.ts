@@ -25,7 +25,7 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 // GOOGLE API KEY
 export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
 
-export const USER_TYPES = ['partner', 'employee'];
+export const USER_TYPES = ['partners', 'employees'];
 
 
 // Menu icons
