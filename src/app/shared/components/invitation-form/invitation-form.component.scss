@@ -2,4 +2,12 @@
   max-width: 600px;
   width: 100%;
   margin-left: 270px;
+
+  .genderContainer {
+    display: flex !important;
+    justify-content: center !important;
+    .mat-radio-button{
+      margin-left: 10px;
+    }
+  }
 }

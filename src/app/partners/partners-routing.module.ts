@@ -16,7 +16,12 @@ const routes: Routes = [
     },
     {
         path: 'add',
-        component: SavePartnerComponent
+        component: SavePartnerComponent,
+        data: {
+            title: 'Invite a partner',
+            user_type: 'partner',
+            expectedRole: 'admin'
+        }
     },
 
     {

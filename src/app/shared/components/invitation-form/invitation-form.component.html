@@ -5,7 +5,7 @@
     <h4 class="formTitle">
         <ng-container>
             <mat-icon class="title_sign">mail</mat-icon>
-            <span>Invite a new {{auth.checkRoles('admin') ? 'partner/employee' : 'employee'}} </span>
+            <span>Invite a new {{userType}} </span>
         </ng-container>
     </h4>
 
@@ -26,6 +26,15 @@
         </mat-error>
     </mat-form-field>
 
+
+    <!-- Gender field -->
+    <div class="genderContainer">
+        <mat-radio-group name="gender" formControlName="gender">
+            <mat-radio-button [value]="'male'">Male</mat-radio-button>
+            <mat-radio-button [value]="'female'">Female</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
     <!-- E-mail field -->
     <mat-form-field>
         <input matInput formControlName="email" placeholder="E-mail" required>
@@ -33,24 +42,16 @@
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
 
-    <!-- User type field -->
-    <mat-form-field>
-        <mat-select formControlName="user_type" placeholder="Users group" required>
-            <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of userTypes" [value]="p">
-                {{p}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
 
     <!-- Field type -->
     <mat-form-field>
-        <mat-select formControlName="field_type" placeholder="Field" required>
+        <mat-select formControlName="field_type" placeholder="Business" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
                 {{p['name']}}
             </mat-option>
         </mat-select>
+        <mat-error [hidden]="!fieldType.hasError('required')">Business type is <strong>required</strong></mat-error>
     </mat-form-field>
 
     <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
