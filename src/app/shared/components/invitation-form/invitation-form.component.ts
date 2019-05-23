@@ -6,6 +6,7 @@ import {SPINNER_DIAMETER, USER_TYPES} from '../../constants/settings';
 import {AuthService} from '../../services/auth.service';
 import {PartnerService} from '../../services/partner.service';
 import {EmployeesService} from '../../services/employees.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-invitation-form',
@@ -15,7 +16,7 @@ import {EmployeesService} from '../../services/employees.service';
 export class InvitationFormComponent implements OnInit {
     invitationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/employees' : 'partners/employees';
+    redirectUrl;
     userTypes = USER_TYPES;
     partnerTypes;
     fields = {
@@ -30,8 +31,9 @@ export class InvitationFormComponent implements OnInit {
         public common: CommonService,
         public router: Router,
         public auth: AuthService,
-        private _partner: PartnerService,
-        private _employee: EmployeesService
+        private _partners: PartnerService,
+        private _employees: EmployeesService,
+        private toastr: ToastrService
     ) {
     }
 
@@ -41,7 +43,7 @@ export class InvitationFormComponent implements OnInit {
             this.fields['user_type'] = ['', Validators.required];
             this.invitationForm = this._fb.group(this.fields);
         }
-        this._partner.getTypes().subscribe(d => {
+        this._partners.getTypes().subscribe(d => {
             this.partnerTypes = d;
         });
     }
@@ -60,9 +62,12 @@ export class InvitationFormComponent implements OnInit {
 
     invite() {
         const userType = this.invitationForm.value['user_type'];
-        console.log(`_${userType}`)
+        this.common.formProcessing = true;
         this[`_${userType}`].invite(this.invitationForm.value).subscribe(dt => {
-
+            this.toastr.success('The invitation has been sent successfully');
+            this.redirectUrl = (this.auth.checkRoles('admin') ? 'admin/' : 'partners/') + userType;
+            this.router.navigate([this.redirectUrl]);
+            this.common.formProcessing = false;
         });
 
     }

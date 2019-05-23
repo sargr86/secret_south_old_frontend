@@ -35,7 +35,7 @@
 
     <!-- User type field -->
     <mat-form-field>
-        <mat-select formControlName="user_type" placeholder="User type" required>
+        <mat-select formControlName="user_type" placeholder="Users group" required>
             <mat-option>Please choose</mat-option>
             <mat-option *ngFor="let p of userTypes" [value]="p">
                 {{p}}
