@@ -16,7 +16,12 @@ const routes: Routes = [
     },
     {
         path: 'add',
-        component: SaveEmployeeComponent
+        component: SaveEmployeeComponent,
+        data: {
+            title: 'Invite an employee',
+            user_type: 'employee',
+            expectedRole: 'admin'
+        }
     },
     {
         path: 'dashboard',
@@ -32,14 +37,6 @@ const routes: Routes = [
         },
         component: EditProfileComponent
     },
-    // {
-    //     path: 'employees',
-    //     loadChildren: '../employees/employees.module#EmployeesModule',
-    //     data: {
-    //         expectedRole: 'employee'
-    //     },
-    //     canActivate: [AuthGuard, RoleGuard]
-    // },
     {
         path: 'jobs',
         loadChildren: '../jobs/jobs.module#JobsModule',
