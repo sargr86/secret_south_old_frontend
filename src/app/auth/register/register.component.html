@@ -2,7 +2,11 @@
 
 <div class="formContainer">
 
-    <form [formGroup]="registerForm" method="post" enctype="multipart/form-data" class="registerForm">
+
+    <h2 *ngIf="regTokenExpired">Registration session has been expired</h2>
+
+    <form [formGroup]="registerForm" method="post" enctype="multipart/form-data" class="registerForm"
+          *ngIf="!regTokenExpired">
 
         <!-- Register/ profile form title-->
         <h2 class="terminalTitle">
@@ -36,7 +40,6 @@
             <!--                    {{'last_name_length_error'|translate}}-->
             <!--                </div>-->
 
-
             <!-- Gender field -->
             <mat-radio-group name="gender" formControlName="gender">
                 <mat-radio-button [value]="'male'">Male</mat-radio-button>
@@ -62,8 +65,8 @@
             <mat-form-field>
                 <mat-select formControlName="user_type" placeholder="Users group" required>
                     <mat-option>Please choose</mat-option>
-                    <mat-option *ngFor="let p of userTypes" [value]="p">
-                        {{p}}
+                    <mat-option *ngFor="let p of userTypes" [value]="p['role']">
+                        {{p['label']}}
                     </mat-option>
                 </mat-select>
                 <mat-error [hidden]="!userType.hasError('required')">User type is <strong>required</strong></mat-error>
@@ -71,13 +74,13 @@
 
             <!-- Field type -->
             <mat-form-field>
-                <mat-select formControlName="field_type" placeholder="Field" required>
+                <mat-select formControlName="field_type" placeholder="Business" required>
                     <mat-option>Please choose</mat-option>
                     <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">
                         {{p['name']}}
                     </mat-option>
                 </mat-select>
-                <mat-error [hidden]="!fieldType.hasError('required')">Field type is <strong>required</strong>
+                <mat-error [hidden]="!fieldType.hasError('required')">Business type is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
 
