@@ -38,6 +38,7 @@ export const MENU_ITEM_ICONS = [
     {item: 'food', icon: 'fa-utensils'},
     {item: 'activities', icon: 'fa-swimmer'},
     {item: 'accommodations', icon: 'fa-bed'},
+    {item: 'companies', icon: 'fa-briefcase'},
     {item: 'partners', icon: 'fa-users'},
     {item: 'employees', icon: 'fa-users'},
     {item: 'jobs', icon: 'fa-suitcase'}
@@ -89,6 +90,13 @@ export const DASHBOARD_LINKS = [
             {name: 'Show'},
             {name: 'Add types'},
             {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Companies',
+        children: [
+            {name: 'Add'},
+            {name: 'Show'},
         ]
     },
     {
