@@ -16,6 +16,7 @@ import {AccommodationsService} from '../../services/accommodations.service';
 import {ActivitiesService} from '../../services/activities.service';
 import {ActivityTypesService} from '../../services/activity-types.service';
 import {AuthService} from '../../services/auth.service';
+import {CompaniesService} from '../../services/companies.service';
 
 @Component({
     selector: 'app-mat-table',
@@ -51,6 +52,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         private _activities: ActivitiesService,
         private _activity_type: ActivityTypesService,
         private dataSrc: GetTableDataSourcePipe,
+        private _companies: CompaniesService,
         private dialog: MatDialog,
         public router: Router,
         private  toastr: ToastrService,
@@ -134,7 +136,6 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
      * @param row current row data object
      */
     remove(row) {
-
         // Setting dialog properties
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
 
@@ -142,7 +143,6 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         this.dialogClosed = dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-                    console.log(this.item)
                     this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
                 }
             }
