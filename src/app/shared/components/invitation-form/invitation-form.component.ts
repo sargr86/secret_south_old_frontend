@@ -50,7 +50,9 @@ export class InvitationFormComponent implements OnInit {
             this.userType = dt.user_type;
             // if (this.auth.checkRoles('admin')) {
             this.fields['user_type'] = [this.userType, Validators.required];
+            const userType = USER_TYPES.filter(t => t['role'] === this.userType);
             this.invitationForm = this._fb.group(this.fields);
+            this.redirectUrl = (this.auth.checkRoles('admin') ? 'admin/' : 'partners/') + userType[0]['label'];
             // }
         });
     }

@@ -1,0 +1,38 @@
+<app-main-dashboard></app-main-dashboard>
+
+<div class="companyForm">
+
+    <!-- Current form title -->
+    <h4 class="formTitle">
+        <ng-container *ngIf="!editCase">
+            <mat-icon class="title_sign">add_box</mat-icon>
+            <span>Add a new company</span>
+        </ng-container>
+        <ng-container *ngIf="editCase">
+            <mat-icon>edit</mat-icon>
+            <span>Edit company details</span>
+        </ng-container>
+    </h4>
+
+    <form [formGroup]="companyForm">
+        <mat-form-field>
+            <input matInput placeholder="Company name" formControlName="name" required>
+        </mat-form-field>
+
+        <!-- Company type field -->
+        <mat-form-field>
+
+            <mat-select placeholder="Type" formControlName="type_id" required>
+                <mat-option>Please select</mat-option>
+                <mat-option [value]="t['id']" *ngFor="let t of companyTypes">{{t['name']}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="saveCompany()">
+            Save
+        </button>
+    </form>
+</div>

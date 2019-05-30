@@ -67,6 +67,14 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard, RoleGuard]
     },
+    {
+        path: 'companies',
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+            expectedRole: 'admin'
+        },
+        loadChildren: '../companies/companies.module#CompaniesModule'
+    },
 
 
     {
