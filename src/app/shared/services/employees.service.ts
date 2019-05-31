@@ -11,7 +11,8 @@ export class EmployeesService {
     }
 
     get(company) {
-        return this.http.get(API_URL + 'employees/get', {params: {name: company}});
+        const params: any = {params: company ? {name: company} : ''};
+        return this.http.get(API_URL + 'employees/get', params);
     }
 
     invite(params) {
