@@ -45,6 +45,7 @@ export class RegisterComponent implements OnInit {
             'gender': ['', Validators.required],
             'password': ['', Validators.required],
             'field_type': ['', Validators.required],
+            'company_id': ['', Validators.required],
             'user_type': ['', Validators.required]
         });
 
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
             const token = dt.token;
             this.regTokenExpired = this.jwtHelper.isTokenExpired(token);
             const userData = jwtDecode(dt.token);
+            console.log(userData)
             this.registerForm.patchValue(userData);
         });
     }

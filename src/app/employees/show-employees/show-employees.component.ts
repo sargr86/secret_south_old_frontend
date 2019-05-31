@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeesService} from '../../shared/services/employees.service';
 import {EMPLOYEES_TABLE_COLUMNS} from '../../shared/constants/settings';
+import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-show-employees',
@@ -13,12 +15,18 @@ export class ShowEmployeesComponent implements OnInit {
     employees;
 
     constructor(
-        private _employees: EmployeesService
+        private _employees: EmployeesService,
+        private route: ActivatedRoute,
+        public auth: AuthService
     ) {
     }
 
     ngOnInit() {
-        this.employees = this._employees.get();
+        this.route.data.subscribe(dt => {
+            const company = dt.expectedRole === 'partner'? this.auth.userData.company.name : '';
+            this.employees = this._employees.get(company);
+        });
+
     }
 
 }

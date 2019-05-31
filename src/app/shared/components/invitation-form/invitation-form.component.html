@@ -40,6 +40,27 @@
         <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
     </mat-form-field>
 
+    <!-- Company drop down field for admin-->
+    <ng-container *ngIf="auth.checkRoles('admin')">
+        <mat-form-field>
+            <mat-select formControlName="company_id" placeholder="Company" required>
+                <mat-option>Please choose</mat-option>
+                <mat-option *ngFor="let c of companies" [value]="c['id']">
+                    {{c['name']}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- Company name required error -->
+    <ng-container *ngIf="!auth.checkRoles('admin')">
+        <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
+    </ng-container>
+
+    <!-- Company hidden field for partners -->
+    <ng-container *ngIf="auth.checkRoles('partner')">
+        <input type="hidden" formControlName="company_id">
+    </ng-container>
 
     <!-- Field type -->
     <mat-form-field>
