@@ -1,7 +1,7 @@
 <app-main-dashboard></app-main-dashboard>
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="saveActivityForm" class="saveActivityForm"
-      *ngIf="!common.dataLoading && partners.length > 0 && activityTypes.length > 0">
+      *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">
 
     <!-- Current form title -->
     <h4 class="formTitle">
@@ -73,18 +73,27 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- Partner field -->
-    <mat-form-field>
-        <mat-select placeholder="Partners" formControlName="partner_id" required>
-            <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of partners" [value]="p['id']">
-                {{p['first_name'] + ' ' + p['last_name']}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="saveActivityForm.get('partner_id').hasError('required')">
-            Partner is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
+    <!-- Company drop down field for admin-->
+    <ng-container *ngIf="auth.checkRoles('admin')">
+        <mat-form-field>
+            <mat-select formControlName="company_id" placeholder="Company" required>
+                <mat-option>Please choose</mat-option>
+                <mat-option *ngFor="let c of companies" [value]="c['id']">
+                    {{c['name']}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- Company name required error -->
+    <ng-container *ngIf="!auth.checkRoles('admin')">
+        <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
+    </ng-container>
+
+    <!-- Company hidden field for partners -->
+    <ng-container *ngIf="auth.checkRoles('partner')">
+        <input type="hidden" formControlName="company_id">
+    </ng-container>
 
     <!-- Image field -->
     <div class="fileContainer" [hidden]="true">
@@ -104,7 +113,7 @@
         </button>
     </div>
 </form>
-<div class="dropzoneContainer" *ngIf="!common.dataLoading && partners.length > 0 && activityTypes.length > 0">
+<div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">
     <img *ngIf="activityData && imgPath" [src]="imgPath" class="savedImg" [alt]="activityData.name">
     <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
     <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
