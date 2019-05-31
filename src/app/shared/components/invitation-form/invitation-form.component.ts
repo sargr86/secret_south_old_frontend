@@ -56,7 +56,6 @@ export class InvitationFormComponent implements OnInit {
 
         this.route.data.subscribe(dt => {
             this.userType = dt.user_type;
-            console.log(this.auth.userData)
             // if (this.auth.checkRoles('admin')) {
             this.fields['user_type'] = [this.userType, Validators.required];
             const userType = USER_TYPES.filter(t => t['role'] === this.userType);
