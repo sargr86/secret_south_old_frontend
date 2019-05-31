@@ -72,7 +72,11 @@
                 <mat-error [hidden]="!userType.hasError('required')">User type is <strong>required</strong></mat-error>
             </mat-form-field>
 
-            <!-- Field type -->
+            <!-- Company field -->
+                <input type="hidden"
+                       formControlName="company_id">
+
+            <!-- Field/ business type -->
             <mat-form-field>
                 <mat-select formControlName="field_type" placeholder="Business" required>
                     <mat-option>Please choose</mat-option>

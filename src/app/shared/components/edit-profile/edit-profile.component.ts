@@ -148,8 +148,11 @@ export class EditProfileComponent implements OnInit {
         return this.userData ? this.userData.profile_img : false;
     }
 
+    /**
+     * Gets redirect url
+     */
     getRedirectUrl() {
-        this.redirectUrl = this.auth.checkRoles('partner') ? 'partners' : (this.auth.checkRoles('admin') ? 'admin' : 'employees') + '/dashboard';
+        this.redirectUrl = (this.auth.checkRoles('partner') ? 'partners' : (this.auth.checkRoles('admin') ? 'admin' : 'employees')) + '/dashboard';
     }
 
 
