@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Partner} from '../../shared/models/Partner';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
 import {ACTIVITIES_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
@@ -11,6 +11,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {AuthService} from '../../shared/services/auth.service';
 import {ActivitiesService} from '../../shared/services/activities.service';
+import {CompaniesService} from '../../shared/services/companies.service';
 
 @Component({
     selector: 'app-save-activity',
@@ -32,7 +33,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'address': ['', Validators.required],
         'activity_type_id': ['', Validators.required],
-        'partner_id': ['', Validators.required]
+        'company_id': [this.getCompany(), Validators.required]
     };
     editCase = false;
     spinnerDiameter = SPINNER_DIAMETER;
@@ -43,6 +44,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     imgPath;
 
     options = {types: ['geocode']};
+    companies;
 
     routeDataSubscription: Subscription;
     partnersSubscription: Subscription;
@@ -56,11 +58,16 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         public common: CommonService,
         private checkFormData: CheckFormDataPipe,
+        private _companies: CompaniesService,
         public auth: AuthService
     ) {
 
-        this.getPartners();
+        // this.getPartners();
         this.getActivityType();
+
+        this._companies.get().subscribe(dt => {
+            this.companies = dt;
+        });
 
     }
 
@@ -69,6 +76,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         this.common.dataLoading = true;
         this.routeDataSubscription = this.route.data.subscribe(dt => {
             if (this.route.snapshot.paramMap.get('id')) {
+                console.log(dt)
                 this.activityData = dt['activity'];
                 this.activityFields['id'] = '';
                 this.saveActivityForm = this._fb.group(this.activityFields);
@@ -147,7 +155,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         fd.append('lng', data.lng);
         fd.append('name', data.name);
         fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
-        fd.append('partner_id', data.partner_id ? data.partner_id : '');
+        fd.append('company_id', data.company_id ? data.company_id : '');
         fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
         fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
         if (!this.imgPath) {
@@ -187,25 +195,29 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         this.imgPath = '';
     }
 
-
-    get tourForm() {
-        return this.saveActivityForm;
-    }
-
     get nameCtrl() {
-        return this.tourForm.get('name');
+        return this.saveActivityForm.get('name');
     }
 
     get latCtrl() {
-        return this.tourForm.get('lat');
+        return this.saveActivityForm.get('lat');
     }
 
     get lngCtrl() {
-        return this.tourForm.get('lng');
+        return this.saveActivityForm.get('lng');
     }
 
     get addressCtrl() {
-        return this.tourForm.get('address');
+        return this.saveActivityForm.get('address');
+    }
+
+    get companyCtrl(): AbstractControl {
+        return this.saveActivityForm.get('company_id');
+    }
+
+
+    getCompany() {
+        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
     }
 
     ngOnDestroy() {
