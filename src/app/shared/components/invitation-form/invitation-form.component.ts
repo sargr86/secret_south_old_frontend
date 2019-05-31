@@ -7,6 +7,7 @@ import {AuthService} from '../../services/auth.service';
 import {PartnerService} from '../../services/partner.service';
 import {EmployeesService} from '../../services/employees.service';
 import {ToastrService} from 'ngx-toastr';
+import {CompaniesService} from '../../services/companies.service';
 
 @Component({
     selector: 'app-invitation-form',
@@ -19,12 +20,14 @@ export class InvitationFormComponent implements OnInit {
     redirectUrl;
     userType;
     partnerTypes;
+    companies;
     fields = {
         'first_name': ['', Validators.required],
         'last_name': ['', Validators.required],
         'gender': ['', Validators.required],
         'email': ['', Validators.required],
         'field_type': ['', Validators.required],
+        'company_id': [this.getCompany(), Validators.required]
     };
 
     constructor(
@@ -35,7 +38,8 @@ export class InvitationFormComponent implements OnInit {
         private _partners: PartnerService,
         private _employees: EmployeesService,
         private toastr: ToastrService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private _companies: CompaniesService
     ) {
     }
 
@@ -46,15 +50,28 @@ export class InvitationFormComponent implements OnInit {
             this.partnerTypes = d;
         });
 
+        this._companies.get().subscribe(dt => {
+            this.companies = dt;
+        });
+
         this.route.data.subscribe(dt => {
             this.userType = dt.user_type;
+            console.log(this.auth.userData)
             // if (this.auth.checkRoles('admin')) {
             this.fields['user_type'] = [this.userType, Validators.required];
             const userType = USER_TYPES.filter(t => t['role'] === this.userType);
             this.invitationForm = this._fb.group(this.fields);
-            this.redirectUrl = (this.auth.checkRoles('admin') ? 'admin/' : 'partners/') + userType[0]['label'];
+            if (this.auth.checkRoles('admin')) {
+                this.redirectUrl = 'admin/' + userType[0]['label'];
+            } else {
+                this.redirectUrl = 'partners/' + userType[0]['label'];
+            }
             // }
         });
+    }
+
+    getCompany() {
+        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
     }
 
     get firstNameCtrl() {
@@ -71,6 +88,10 @@ export class InvitationFormComponent implements OnInit {
 
     get fieldType(): AbstractControl {
         return this.invitationForm.get('field_type');
+    }
+
+    get companyCtrl(): AbstractControl {
+        return this.invitationForm.get('company_id');
     }
 
     /**

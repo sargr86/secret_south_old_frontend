@@ -118,6 +118,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
             this.dataSource.paginator.firstPage();
         }
         this.filteredData = this.dataSource.filteredData;
+        console.log(this.dataSource)
     }
 
 

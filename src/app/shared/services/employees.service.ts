@@ -10,8 +10,8 @@ export class EmployeesService {
     constructor(private http: HttpClient) {
     }
 
-    get() {
-        return this.http.get(API_URL + 'employees/get');
+    get(company) {
+        return this.http.get(API_URL + 'employees/get', {params: {name: company}});
     }
 
     invite(params) {
