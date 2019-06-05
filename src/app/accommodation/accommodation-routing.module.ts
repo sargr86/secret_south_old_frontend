@@ -17,7 +17,7 @@ const routes: Routes = [
       title: 'Edit an accommodation info',
     },
     resolve: {
-      oneAccommodation: OneAccommodationResolverService
+      accommodation: OneAccommodationResolverService
     }
   },
 ];

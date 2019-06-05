@@ -1,0 +1,11 @@
+<!-- Current form title -->
+<h4 class="formTitle">
+  <ng-container *ngIf="!editCase">
+    <mat-icon class="title_sign">add_box</mat-icon>
+    <span>Add a new {{item}}</span>
+  </ng-container>
+  <ng-container *ngIf="editCase">
+    <mat-icon>edit</mat-icon>
+    <span>Edit {{item}} details</span>
+  </ng-container>
+</h4>

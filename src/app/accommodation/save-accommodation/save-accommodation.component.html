@@ -1,18 +1,9 @@
 <app-main-dashboard></app-main-dashboard>
 <form [formGroup]="accommodationForm" class="accommodationForm"
-      *ngIf="!common.dataLoading && partners.length > 0">
+      *ngIf="!common.dataLoading && companies && companies.length > 0">
 
     <!-- Current form title -->
-    <h4 class="formTitle">
-        <ng-container *ngIf="!editCase">
-            <mat-icon class="title_sign">add_box</mat-icon>
-            <span>Add a new accommodation</span>
-        </ng-container>
-        <ng-container *ngIf="editCase">
-            <mat-icon>edit</mat-icon>
-            <span>Edit accommodation details</span>
-        </ng-container>
-    </h4>
+    <app-form-title [item]="'accommodation'" [editCase]="editCase"></app-form-title>
 
     <!-- Accommodation name field -->
     <mat-form-field>
@@ -66,14 +57,14 @@
 
     <!-- Accommodation partner field-->
     <mat-form-field>
-        <mat-select formControlName="partner_id" placeholder="Partner" required>
+        <mat-select formControlName="company_id" placeholder="Company" required>
             <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of partners" [value]="p['id']">
-                {{p['first_name'] + ' ' + p['last_name']}}
+            <mat-option *ngFor="let c of companies" [value]="c['id']">
+                {{c['name']}}
             </mat-option>
         </mat-select>
-        <mat-error *ngIf="accommodationForm.get('partner_id').hasError('required')">
-            Partner is <strong>required</strong>
+        <mat-error *ngIf="accommodationForm.get('company_id').hasError('required')">
+            Company is <strong>required</strong>
         </mat-error>
     </mat-form-field>
 
@@ -85,8 +76,8 @@
         <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-raised-button color="primary" (click)="saveFoodDrink(searchAddress)"
-                [disabled]="accommodationForm.invalid">
+        <button mat-raised-button color="primary" (click)="save(searchAddress)"
+                [disabled]="common.formProcessing">
             Save
         </button>
     </div>
