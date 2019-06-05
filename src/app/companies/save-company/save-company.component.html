@@ -3,18 +3,11 @@
 <div class="companyForm">
 
     <!-- Current form title -->
-    <h4 class="formTitle">
-        <ng-container *ngIf="!editCase">
-            <mat-icon class="title_sign">add_box</mat-icon>
-            <span>Add a new company</span>
-        </ng-container>
-        <ng-container *ngIf="editCase">
-            <mat-icon>edit</mat-icon>
-            <span>Edit company details</span>
-        </ng-container>
-    </h4>
+    <app-form-title [item]="'company'" [editCase]="editCase"></app-form-title>
 
     <form [formGroup]="companyForm">
+
+        <!-- Company name field -->
         <mat-form-field>
             <input matInput placeholder="Company name" formControlName="name" required>
         </mat-form-field>

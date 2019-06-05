@@ -15,6 +15,8 @@ import {MainDashboardComponent} from './components/main-dashboard/main-dashboard
 import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
 import {InvitationFormComponent} from './components/invitation-form/invitation-form.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
+import {FormTitleComponent} from './components/form-title/form-title.component';
+import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,9 @@ import {EditProfileComponent} from './components/edit-profile/edit-profile.compo
         MainDashboardComponent,
         GetImageUrlPipe,
         InvitationFormComponent,
-        EditProfileComponent
+        EditProfileComponent,
+        FormTitleComponent,
+        ShowFormMessagePipe
     ],
     imports: [
         CommonModule,
@@ -41,6 +45,7 @@ import {EditProfileComponent} from './components/edit-profile/edit-profile.compo
         GetTableDataSourcePipe,
         CheckFormDataPipe,
         GetImageUrlPipe,
+        ShowFormMessagePipe,
         {
             provide: DROPZONE_CONFIG,
             useValue: DEFAULT_DROPZONE_CONFIG
@@ -60,7 +65,8 @@ import {EditProfileComponent} from './components/edit-profile/edit-profile.compo
         MainDashboardComponent,
         GetImageUrlPipe,
         InvitationFormComponent,
-        EditProfileComponent
+        EditProfileComponent,
+        FormTitleComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent

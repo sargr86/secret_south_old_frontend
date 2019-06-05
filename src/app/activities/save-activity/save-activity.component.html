@@ -4,22 +4,13 @@
       *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">
 
     <!-- Current form title -->
-    <h4 class="formTitle">
-        <ng-container *ngIf="!editCase">
-            <mat-icon class="title_sign">add_box</mat-icon>
-            <span>Add a new activity provider</span>
-        </ng-container>
-        <ng-container *ngIf="editCase">
-            <mat-icon>edit</mat-icon>
-            <span>Edit activity provider details</span>
-        </ng-container>
-    </h4>
+    <app-form-title [item]="'activity provider'" [editCase]="editCase"></app-form-title>
 
     <!-- Name field -->
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name" required>
         <mat-error *ngIf="nameCtrl.hasError('required')">
-            Tour name is <strong>required</strong>
+            Activity name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
 
@@ -45,7 +36,7 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- Tour address field -->
+    <!-- Activity provider address field -->
     <div class="addressContainer">
         <mat-form-field>
             <!--            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>-->
@@ -107,7 +98,7 @@
         <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-raised-button color="primary" class="saveBtn" [disabled]="saveActivityForm.invalid"
+        <button mat-raised-button color="primary" class="saveBtn" [disabled]="common.formProcessing"
                 (click)="saveActivity(searchAddress)">
             Save
         </button>

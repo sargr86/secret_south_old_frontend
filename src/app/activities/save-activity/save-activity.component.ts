@@ -12,6 +12,7 @@ import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {AuthService} from '../../shared/services/auth.service';
 import {ActivitiesService} from '../../shared/services/activities.service';
 import {CompaniesService} from '../../shared/services/companies.service';
+import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
 
 @Component({
     selector: 'app-save-activity',
@@ -45,54 +46,67 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
     options = {types: ['geocode']};
     companies;
-
-    routeDataSubscription: Subscription;
-    partnersSubscription: Subscription;
+    subscriptions: Subscription[] = [];
+    formAction = 'add';
 
     constructor(
         private _activities: ActivitiesService,
         private _fb: FormBuilder,
         public router: Router,
         private route: ActivatedRoute,
-        // private mapsAPILoader: MapsAPILoader,
         private toastr: ToastrService,
         public common: CommonService,
         private checkFormData: CheckFormDataPipe,
         private _companies: CompaniesService,
-        public auth: AuthService
+        public auth: AuthService,
+        private _formMsg: ShowFormMessagePipe,
     ) {
 
-        // this.getPartners();
         this.getActivityType();
+        this.getCompanies();
 
-        this._companies.get().subscribe(dt => {
-            this.companies = dt;
-        });
 
     }
 
     ngOnInit() {
 
         this.common.dataLoading = true;
-        this.routeDataSubscription = this.route.data.subscribe(dt => {
-            if (this.route.snapshot.paramMap.get('id')) {
-                console.log(dt)
-                this.activityData = dt['activity'];
-                this.activityFields['id'] = '';
-                this.saveActivityForm = this._fb.group(this.activityFields);
-                this.saveActivityForm.patchValue(this.activityData);
-                this.saveActivityForm.controls['address'].disable();
-                this.editCase = true;
-                if (this.activityData['img']) {
-                    this.imgPath = ACTIVITIES_FOLDER + this.activityData['img'];
-                }
-            }
-            this.common.dataLoading = false;
-        });
+        this.subscriptions.push(this.route.data.subscribe(dt => {
+            this.getRouteData(dt);
+        }));
 
         if (!this.editCase) {
             this.saveActivityForm = this._fb.group(this.activityFields);
         }
+    }
+
+    /**
+     * Gets activity provider companies list
+     */
+    getCompanies() {
+        this.subscriptions.push(this._companies.get({name: 'activities'}).subscribe(dt => {
+            this.companies = dt;
+        }));
+    }
+
+    /**
+     * Gets route data passed from resolver
+     * @param dt route data
+     */
+    getRouteData(dt) {
+        if (this.route.snapshot.paramMap.get('id')) {
+            this.activityData = dt['activity'];
+            this.activityFields['id'] = '';
+            this.saveActivityForm = this._fb.group(this.activityFields);
+            this.saveActivityForm.patchValue(this.activityData);
+            this.saveActivityForm.controls['address'].disable();
+            this.editCase = true;
+            this.formAction = 'update';
+            if (this.activityData['img']) {
+                this.imgPath = ACTIVITIES_FOLDER + this.activityData['img'];
+            }
+        }
+        this.common.dataLoading = false;
     }
 
     /**
@@ -101,32 +115,18 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     resetAddress() {
         this.saveActivityForm.patchValue({'address': ''});
         this.saveActivityForm.controls['address'].enable();
-        // this.mapsAPILoader.load().then(() => {
-        //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        // });
-    }
-
-
-    /**
-     * Gets partners list
-     */
-    getPartners() {
-        this.partnersSubscription = this._activities.getPartners().subscribe((r: any) => {
-            this.partners = r;
-            this.checkFormData.transform('tour', this.activityData, this.partners, this.editCase);
-        });
     }
 
     /**
      * Gets tour types list
      */
     getActivityType() {
-        this._activities.getTypes().subscribe((types: any) => {
+        this.subscriptions.push(this._activities.getTypes().subscribe((types: any) => {
             this.activityTypes = types;
             if (types.length === 0) {
                 this.toastr.info('Please add at least one activity type.', 'No activity types', {timeOut: 0});
             }
-        });
+        }));
     }
 
     /**
@@ -159,29 +159,18 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
         fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
         if (!this.imgPath) {
-
             fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
         }
         fd.append('img_path', this.imgPath ? this.imgPath : '');
 
         if (this.editCase) {
-            fd.append('id', data['id'])
-            this._activities.update(fd).subscribe(() => {
-                this.common.formProcessing = false;
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The activity info has been updated successfully', 'Updated!');
-            });
-        } else {
-            this._activities.add(fd).subscribe(() => {
-                this.common.formProcessing = false;
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The activity info has been added successfully', 'Added!');
-            });
+            fd.append('id', data['id']);
         }
-        // }
 
 
-        // }
+        this.subscriptions.push(this._activities[this.formAction](fd).subscribe(() => {
+            this._formMsg.transform('activity info', this.editCase, this.redirectUrl);
+        }));
 
 
     }
@@ -221,12 +210,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.routeDataSubscription) {
-            this.routeDataSubscription.unsubscribe();
-        }
-        if (this.partnersSubscription) {
-            this.partnersSubscription.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 }

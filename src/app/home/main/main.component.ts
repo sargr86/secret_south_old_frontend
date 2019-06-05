@@ -91,6 +91,7 @@ export class MainComponent implements OnInit {
     ngOnInit() {
 
         this.getDirection();
+        this.getGeo();
         // Simulating loading progress bar here
         const int = setInterval(() => {
             const random = Math.random() * 10 + 10;
@@ -106,6 +107,16 @@ export class MainComponent implements OnInit {
 
         // this.getLocation();
         this.mapStyles = mapStylesData['default'];
+    }
+
+
+    getGeo() {
+        // setInterval(() => {
+        //     console.log('here')
+            this.main.getRealLocations().subscribe(dt => {
+
+            });
+        // }, 2000);
     }
 
 
@@ -211,5 +222,6 @@ export class MainComponent implements OnInit {
 
         return iconsFolder + icon;
     }
+
 
 }

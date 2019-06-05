@@ -11,6 +11,8 @@ import {Subscription} from 'rxjs';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
 import {AuthService} from '../../shared/services/auth.service';
+import {CompaniesService} from '../../shared/services/companies.service';
+import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -21,35 +23,37 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     accommodationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
-    accommodationData;
     formFields = {
         name: ['', Validators.required],
         lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
         lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         description: [''],
         address: ['', Validators.required],
-        partner_id: ['', Validators.required]
+        company_id: ['', Validators.required]
     };
     partners: Partner[] = [];
     redirectUrl = this.auth.checkRoles('admin') ? 'admin/accommodations' : 'partners/accommodations';
     editCase = false;
 
-    routeDataSubscription: Subscription;
-    partnersSubscription: Subscription;
+    companies;
 
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
     options = {types: ['geocode']};
+    formAction = 'add';
+    subscriptions: Subscription[] = [];
 
     constructor(
         private _accommodation: AccommodationsService,
+        private _companies: CompaniesService,
         public router: Router,
         public common: CommonService,
         private toastr: ToastrService,
         private route: ActivatedRoute,
         private _fb: FormBuilder,
         private checkFormData: CheckFormDataPipe,
+        private _formMsg: ShowFormMessagePipe,
         public auth: AuthService
     ) {
     }
@@ -57,20 +61,29 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.accommodationForm = this._fb.group(this.formFields);
         this.common.dataLoading = true;
-        this.routeDataSubscription = this.route.data.subscribe(dt => {
-            this.getPartners();
-            if (this.route.snapshot.paramMap.get('id')) {
-                this.accommodationData = dt['oneAccommodation'];
-                this.formFields['id'] = '';
-                this.accommodationForm = this._fb.group(this.formFields);
-                this.editCase = true;
-                if (this.accommodationData) {
-                    this.accommodationForm.patchValue(this.accommodationData);
-                    this.addressCtrl.disable();
-                }
+        this.subscriptions.push(this.route.data.subscribe(dt => {
+            this.getCompanies();
+            this.editCase = !!this.route.snapshot.paramMap.get('id');
+
+            if (this.editCase) {
+                this.editFormPreparations(dt);
             }
 
-        });
+            this.common.dataLoading = false;
+
+        }));
+    }
+
+    /**
+     * Prepares edit form fields & data
+     * @param dt route data
+     */
+    editFormPreparations(dt) {
+        this.formAction = 'update';
+        this.formFields['id'] = '';
+        this.accommodationForm = this._fb.group(this.formFields);
+        this.accommodationForm.patchValue(dt['accommodation']);
+        this.addressCtrl.disable();
     }
 
 
@@ -83,41 +96,25 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Gets partners list
+     * Gets activity provider companies list
      */
-    getPartners() {
-        this.partnersSubscription = this._accommodation.getPartners().subscribe((d: any) => {
-            this.partners = d;
-            this.common.dataLoading = false;
-            this.checkFormData.transform('accommodation', this.accommodationData, this.partners, this.editCase);
-        });
+    getCompanies() {
+        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe(dt => this.companies = dt));
     }
 
     /**
      * Adds/updates food drink info
      * @param address food-drink address
      */
-    saveFoodDrink(address) {
-        const formValue = this.accommodationForm.value;
-        formValue.address = address.el.nativeElement.value;
+    save(address) {
 
         if (this.accommodationForm.valid) {
             this.common.formProcessing = true;
-            if (this.editCase) {
-                this._accommodation.update(formValue).subscribe(() => {
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The accommodation info has been updated successfully', 'Updated!');
-                    this.common.formProcessing = false;
-                });
-            } else {
-                this._accommodation.add(formValue).subscribe(() => {
-                    this.router.navigate([this.redirectUrl]);
-                    this.toastr.success('The accommodation info has been added successfully', 'Added!');
-                    this.common.formProcessing = false;
-                });
-            }
+            const formValue = {...this.accommodationForm.value, address: address.el.nativeElement.value};
 
-
+            this._accommodation[this.formAction](formValue).subscribe(() => {
+                this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
+            });
         }
     }
 
@@ -138,12 +135,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.routeDataSubscription) {
-            this.routeDataSubscription.unsubscribe();
-        }
-        if (this.partnersSubscription) {
-            this.partnersSubscription.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 
