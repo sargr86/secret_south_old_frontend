@@ -19,4 +19,8 @@ export class MainService {
         const type = data.type.toLowerCase().replace('/', '-');
         return this.http.get(`${API_URL}${type}/get`);
     }
+
+    getRealLocations() {
+        return this.http.get(`${API_URL}ferries/get_real_locations`);
+    }
 }
