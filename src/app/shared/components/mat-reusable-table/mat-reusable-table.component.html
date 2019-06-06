@@ -60,5 +60,6 @@
                        [hidden]="common.dataLoading || !dataSource"></mat-paginator>
     </div>
 
-    <small *ngIf="!dataSource && !common.dataLoading" class="no_data">Partner data is not loaded</small>
+    <small *ngIf="!dataSource && !common.dataLoading" class="no_data">
+        <span class="item">{{item}}</span> data is not loaded</small>
 </div>
