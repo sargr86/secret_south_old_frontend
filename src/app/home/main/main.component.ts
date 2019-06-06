@@ -113,9 +113,9 @@ export class MainComponent implements OnInit {
     getGeo() {
         // setInterval(() => {
         //     console.log('here')
-            this.main.getRealLocations().subscribe(dt => {
-
-            });
+        //     this.main.getRealLocations().subscribe(dt => {
+        //
+        //     });
         // }, 2000);
     }
 
