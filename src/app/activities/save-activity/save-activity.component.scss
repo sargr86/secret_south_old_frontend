@@ -34,34 +34,9 @@
   }
 }
 
-.dropzoneContainer {
-  min-width: 420px;
-  width: 25%;
-  float: right;
-  margin-top: 39px;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  height: 452px;
-  position: relative;
 
-  .removeSavedImg {
-    @include noBgBtn;
-    color: $red;
-    position: absolute;
-    top: 50%;
-    left: 45%;
-  }
 
-  ngx-dropzone {
-    align-self: center;
-    width: 100%;
-  }
-}
 
-.savedImg {
-  width: 400px;
-}
 
 .notFound{
   text-align: center;
