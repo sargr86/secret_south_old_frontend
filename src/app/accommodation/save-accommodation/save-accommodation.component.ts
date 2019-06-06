@@ -13,6 +13,7 @@ import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patter
 import {AuthService} from '../../shared/services/auth.service';
 import {CompaniesService} from '../../shared/services/companies.service';
 import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
+import {Company} from '../../shared/models/Company';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -32,16 +33,16 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         company_id: ['', Validators.required]
     };
     partners: Partner[] = [];
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/accommodations' : 'partners/accommodations';
-    editCase = false;
+    redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/accommodations';
+    editCase = !!this.route.snapshot.paramMap.get('id');
 
-    companies;
+    companies: Company[] = [];
 
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
 
     options = {types: ['geocode']};
-    formAction = 'add';
+    formAction = this.editCase ? 'update' : 'add';
     subscriptions: Subscription[] = [];
 
     constructor(
@@ -59,12 +60,15 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.accommodationForm = this._fb.group(this.formFields);
+
+        this.setFormFields();
         this.common.dataLoading = true;
         this.subscriptions.push(this.route.data.subscribe(dt => {
-            this.getCompanies();
-            this.editCase = !!this.route.snapshot.paramMap.get('id');
 
+            // Getting companies list
+            this.getCompanies();
+
+            // Preparing the edit form for updating info case
             if (this.editCase) {
                 this.editFormPreparations(dt);
             }
@@ -79,11 +83,15 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * @param dt route data
      */
     editFormPreparations(dt) {
-        this.formAction = 'update';
         this.formFields['id'] = '';
-        this.accommodationForm = this._fb.group(this.formFields);
-        this.accommodationForm.patchValue(dt['accommodation']);
+        this.setFormFields();
         this.addressCtrl.disable();
+        this.accommodationForm.patchValue(dt['accommodation']);
+    }
+
+    // Setting form fields with provided object
+    setFormFields() {
+        this.accommodationForm = this._fb.group(this.formFields);
     }
 
 
@@ -99,7 +107,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * Gets activity provider companies list
      */
     getCompanies() {
-        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe(dt => this.companies = dt));
+        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe((dt: Company[]) => this.companies = dt));
     }
 
     /**

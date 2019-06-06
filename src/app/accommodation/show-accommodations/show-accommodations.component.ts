@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ACCOMMODATIONS_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {ACCOMMODATIONS_TABLE_COLUMNS} from '../../shared/constants/settings';
 import {Observable} from 'rxjs';
 import {AccommodationsService} from '../../shared/services/accommodations.service';
+import {Accommodation} from '../../shared/models/Accommodation';
 
 @Component({
     selector: 'app-show-accommodations',
@@ -10,8 +11,7 @@ import {AccommodationsService} from '../../shared/services/accommodations.servic
 })
 export class ShowAccommodationsComponent implements OnInit {
     displayedColumns = ACCOMMODATIONS_TABLE_COLUMNS;
-    spinnerDiameter = SPINNER_DIAMETER;
-    accommodations: Observable<any>;
+    accommodations: Observable<Accommodation>;
 
     constructor(
         private _accommodation: AccommodationsService
