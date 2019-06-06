@@ -17,6 +17,7 @@ import {InvitationFormComponent} from './components/invitation-form/invitation-f
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {FormTitleComponent} from './components/form-title/form-title.component';
 import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
+import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
         InvitationFormComponent,
         EditProfileComponent,
         FormTitleComponent,
-        ShowFormMessagePipe
+        ShowFormMessagePipe,
+        BuildFormDataPipe,
     ],
     imports: [
         CommonModule,
@@ -46,6 +48,7 @@ import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
         CheckFormDataPipe,
         GetImageUrlPipe,
         ShowFormMessagePipe,
+        BuildFormDataPipe,
         {
             provide: DROPZONE_CONFIG,
             useValue: DEFAULT_DROPZONE_CONFIG

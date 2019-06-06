@@ -42,6 +42,7 @@ table.mat-table {
   display: flex;
   justify-content: center;
   margin: 0 0 30px;
+
   span {
     font-size: 24px;
     margin: -3px 10px;
@@ -112,6 +113,7 @@ mat-label {
   }
 }
 
+/** drop zone styles */
 dropzone {
   height: 410px !important;
 
@@ -137,6 +139,47 @@ dropzone {
     }
   }
 }
+
+.dropzoneContainer {
+  min-width: 420px;
+  width: 25%;
+  float: right;
+  margin-top: 39px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  height: 452px;
+  position: relative;
+
+  .savedImg {
+    width: 400px;
+    cursor: pointer;
+  }
+
+  .removeSavedImg {
+    @include namedBtn;
+    background-color: $red;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 0 5px;
+  }
+
+  .savedImg:hover{
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+  }
+
+
+  ngx-dropzone {
+    align-self: center;
+    width: 100%;
+  }
+}
+
+///////////////////////////////////////////////////////
 
 ul {
   margin: 0;
