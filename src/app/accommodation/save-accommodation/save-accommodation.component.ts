@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {ACCOMMODATIONS_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {Partner} from '../../shared/models/Partner';
 import {AccommodationsService} from '../../shared/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,6 +14,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {CompaniesService} from '../../shared/services/companies.service';
 import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
 import {Company} from '../../shared/models/Company';
+import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -30,7 +31,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         description: [''],
         address: ['', Validators.required],
-        company_id: ['', Validators.required]
+        company_id: ['', Validators.required],
+        folder: 'accommodations'
     };
     partners: Partner[] = [];
     redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/accommodations';
@@ -39,11 +41,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     companies: Company[] = [];
 
     @ViewChild('searchAddress')
-    public searchElementRef: ElementRef;
+    searchElementRef: ElementRef;
 
     options = {types: ['geocode']};
     formAction = this.editCase ? 'update' : 'add';
     subscriptions: Subscription[] = [];
+    dropZoneFile: File;
+    imgPath: string;
 
     constructor(
         private _accommodation: AccommodationsService,
@@ -55,8 +59,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         private _fb: FormBuilder,
         private checkFormData: CheckFormDataPipe,
         private _formMsg: ShowFormMessagePipe,
-        public auth: AuthService
+        public auth: AuthService,
+        private formData: BuildFormDataPipe
     ) {
+
     }
 
     ngOnInit() {
@@ -70,7 +76,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
             // Preparing the edit form for updating info case
             if (this.editCase) {
-                this.editFormPreparations(dt);
+                this.editFormPreparations(dt['accommodation']);
             }
 
             this.common.dataLoading = false;
@@ -86,7 +92,11 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         this.formFields['id'] = '';
         this.setFormFields();
         this.addressCtrl.disable();
-        this.accommodationForm.patchValue(dt['accommodation']);
+        this.accommodationForm.patchValue(dt);
+        if (dt['img']) {
+            this.imgPath = ACCOMMODATIONS_FOLDER + dt['img'];
+        }
+        console.log(this.imgPath)
     }
 
     // Setting form fields with provided object
@@ -115,15 +125,26 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * @param address food-drink address
      */
     save(address) {
-
         if (this.accommodationForm.valid) {
-            this.common.formProcessing = true;
-            const formValue = {...this.accommodationForm.value, address: address.el.nativeElement.value};
 
-            this._accommodation[this.formAction](formValue).subscribe(() => {
+            this.common.formProcessing = true;
+            const formData = this.formData.transform({
+                ...this.accommodationForm.value,
+                address: address.el.nativeElement.value
+            }, this.dropZoneFile);
+
+            this._accommodation[this.formAction](formData).subscribe(() => {
                 this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
             });
         }
+    }
+
+    getFile(e) {
+        this.dropZoneFile = e;
+    }
+
+    removeSavedImg() {
+        this.imgPath = '';
     }
 
     get nameCtrl() {

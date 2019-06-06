@@ -86,12 +86,6 @@
         <input type="hidden" formControlName="company_id">
     </ng-container>
 
-    <!-- Image field -->
-    <div class="fileContainer" [hidden]="true">
-        <input type="file" *ngIf="!editCase" (change)="getFiles($event.target['files'])" required>
-        <mat-spinner [diameter]="spinnerDiameter" [hidden]="!common.formProcessing"></mat-spinner>
-    </div>
-
     <!-- Action buttons -->
     <div class="actions">
         <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>

@@ -13,6 +13,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {ActivitiesService} from '../../shared/services/activities.service';
 import {CompaniesService} from '../../shared/services/companies.service';
 import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
+import {ActivityType} from '../../shared/models/ActivityType';
 
 @Component({
     selector: 'app-save-activity',
@@ -25,9 +26,8 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     public searchElementRef: ElementRef;
 
     partners: Partner[] = [];
-    activityTypes = [];
+    activityTypes: ActivityType[] = [];
     saveActivityForm: FormGroup;
-    uploadImages;
     activityFields = {
         'name': ['', Validators.required],
         'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
@@ -36,18 +36,18 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         'activity_type_id': ['', Validators.required],
         'company_id': [this.getCompany(), Validators.required]
     };
-    editCase = false;
+    editCase = !!this.route.snapshot.paramMap.get('id');
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/activities' : 'partners/activities';
+    redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/activities';
 
-    dropZoneFile;
+    dropZoneFile: File;
     activityData;
     imgPath;
 
     options = {types: ['geocode']};
     companies;
     subscriptions: Subscription[] = [];
-    formAction = 'add';
+    formAction = this.editCase ? 'update' : 'add';
 
     constructor(
         private _activities: ActivitiesService,
@@ -72,7 +72,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
         this.common.dataLoading = true;
         this.subscriptions.push(this.route.data.subscribe(dt => {
-            this.getRouteData(dt);
+            this.getRouteData(dt['activity']);
         }));
 
         if (!this.editCase) {
@@ -94,16 +94,13 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
      * @param dt route data
      */
     getRouteData(dt) {
-        if (this.route.snapshot.paramMap.get('id')) {
-            this.activityData = dt['activity'];
+        if (this.editCase) {
             this.activityFields['id'] = '';
             this.saveActivityForm = this._fb.group(this.activityFields);
-            this.saveActivityForm.patchValue(this.activityData);
+            this.saveActivityForm.patchValue(dt);
             this.saveActivityForm.controls['address'].disable();
-            this.editCase = true;
-            this.formAction = 'update';
-            if (this.activityData['img']) {
-                this.imgPath = ACTIVITIES_FOLDER + this.activityData['img'];
+            if (dt['img']) {
+                this.imgPath = ACTIVITIES_FOLDER + dt['img'];
             }
         }
         this.common.dataLoading = false;
@@ -130,48 +127,41 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Gets uploaded file list
-     * @param files files object
-     */
-    getFiles(files) {
-        this.uploadImages = files.item(0);
-    }
-
-    /**
      * Add or edit a tour
      * @param searchAddress search full address
      */
     saveActivity(searchAddress) {
 
-        // if (this.saveActivityForm.valid) {
+        if (this.saveActivityForm.valid) {
 
-        // if (!this.dropZoneFile && !this.editCase) {
-        //     this.toastr.error('Please select an image to upload', 'No files');
-        // } else {
-        this.common.formProcessing = true;
-        const data = this.saveActivityForm.value;
-        const fd = new FormData();
-        fd.append('lat', data.lat);
-        fd.append('lng', data.lng);
-        fd.append('name', data.name);
-        fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
-        fd.append('company_id', data.company_id ? data.company_id : '');
-        fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
-        fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-        if (!this.imgPath) {
-            fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+            if (!this.dropZoneFile && !this.editCase) {
+                this.toastr.error('Please select an image to upload', 'No files');
+            } else {
+                this.common.formProcessing = true;
+                const data = this.saveActivityForm.value;
+                const fd = new FormData();
+                fd.append('lat', data.lat);
+                fd.append('lng', data.lng);
+                fd.append('name', data.name);
+                fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
+                fd.append('company_id', data.company_id ? data.company_id : '');
+                fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
+                fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
+                if (!this.imgPath) {
+                    fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+                }
+                fd.append('img_path', this.imgPath ? this.imgPath : '');
+
+                if (this.editCase) {
+                    fd.append('id', data['id']);
+                }
+
+
+                this.subscriptions.push(this._activities[this.formAction](fd).subscribe(() => {
+                    this._formMsg.transform('activity info', this.editCase, this.redirectUrl);
+                }));
+            }
         }
-        fd.append('img_path', this.imgPath ? this.imgPath : '');
-
-        if (this.editCase) {
-            fd.append('id', data['id']);
-        }
-
-
-        this.subscriptions.push(this._activities[this.formAction](fd).subscribe(() => {
-            this._formMsg.transform('activity info', this.editCase, this.redirectUrl);
-        }));
-
 
     }
 
@@ -200,7 +190,9 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         return this.saveActivityForm.get('address');
     }
 
-    get companyCtrl(): AbstractControl {
+    get companyCtrl()
+        :
+        AbstractControl {
         return this.saveActivityForm.get('company_id');
     }
 

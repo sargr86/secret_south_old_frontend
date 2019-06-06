@@ -3,10 +3,15 @@ import {environment} from '../../../environments/environment';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
+
+
+
+// Folders
 export const UPLOADS_FOLDER = API_URL + 'uploads/';
 export const TOURS_FOLDER = UPLOADS_FOLDER + 'others/tours/';
 export const ACTIVITIES_FOLDER = UPLOADS_FOLDER + 'others/activities/';
 export const USERS_FOLDER = UPLOADS_FOLDER + 'users/';
+export const ACCOMMODATIONS_FOLDER = UPLOADS_FOLDER + 'others/accommodations/';
 
 export const SPINNER_DIAMETER = 30;
 
