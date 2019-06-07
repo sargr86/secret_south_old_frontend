@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     lat = 0;
     lng = 0;
     partnerTypes;
-    navbarOpen = false;
+    sidebarOpen = false;
 
     constructor(
         public common: CommonService,
@@ -44,12 +44,12 @@ export class NavbarComponent implements OnInit {
     }
 
 
-    toggleNavbar() {
-        this.navbarOpen = !this.navbarOpen;
+    toggleSidebar() {
+        this.sidebarOpen = !this.sidebarOpen;
     }
 
-    closeNavbar() {
-        this.navbarOpen = false;
+    closeSidebar() {
+        this.sidebarOpen = false;
     }
 
     changePlace(section) {
@@ -86,6 +86,7 @@ export class NavbarComponent implements OnInit {
     changeSection(section) {
         this.mapForm.patchValue({type: section});
         this.changePlace(section);
+        this.closeSidebar()
     }
 
     logout() {
