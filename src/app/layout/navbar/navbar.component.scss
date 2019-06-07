@@ -79,6 +79,7 @@
 
 .burger_menu {
   display: none;
+  cursor: pointer;
 }
 
 .rightGroup {
@@ -106,7 +107,8 @@
     align-items: center;
     justify-content: flex-start;
 
-    span{
+    span {
+      cursor: pointer;
       padding-left: 15px;
     }
   }
