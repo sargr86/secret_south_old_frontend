@@ -97,7 +97,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         const formValue = this.foodDrinkForm.value;
         formValue.address = address.el.nativeElement.value;
 
-        // if (this.editFerryForm.valid) {
+        // if (this.ferryForm.valid) {
         this.common.formProcessing = true;
         if (this.editCase) {
             this._foodDrink.update(formValue).subscribe(() => {

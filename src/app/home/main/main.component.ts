@@ -218,7 +218,10 @@ export class MainComponent implements OnInit {
             icon = 'baseline-directions_boat-24px.svg';
         } else if (this.currentSection === 'Food/Drink') {
             icon = 'baseline-restaurant_menu-24px.svg';
+        } else if (this.currentSection === 'Accommodation') {
+            icon = 'baseline-local_hotel-24px.svg';
         }
+
 
         return iconsFolder + icon;
     }

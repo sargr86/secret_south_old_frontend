@@ -190,9 +190,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         return this.saveActivityForm.get('address');
     }
 
-    get companyCtrl()
-        :
-        AbstractControl {
+    get companyCtrl(): AbstractControl {
         return this.saveActivityForm.get('company_id');
     }
 
