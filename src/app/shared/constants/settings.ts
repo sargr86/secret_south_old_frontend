@@ -5,7 +5,6 @@ export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
 
 
-
 // Folders
 export const UPLOADS_FOLDER = API_URL + 'uploads/';
 export const TOURS_FOLDER = UPLOADS_FOLDER + 'others/tours/';
@@ -18,11 +17,11 @@ export const SPINNER_DIAMETER = 30;
 // Tables columns
 export const FERRIES_TABLE_COLUMNS = ['name', 'max_people', 'min_people', 'address', 'actions'];
 export const FOOD_DRINK_TABLE_COLUMNS = ['name', 'address', 'actions'];
-export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'actions'];
+export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
 export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'actions'];
 export const EMPLOYEES_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'company', 'actions'];
-export const TOURS_TABLE_COLUMNS = ['name', 'address', 'tours_type', 'actions'];
+export const TOURS_TABLE_COLUMNS = ['name', 'address', 'company', 'tours_type', 'actions'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 

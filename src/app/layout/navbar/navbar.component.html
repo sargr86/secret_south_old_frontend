@@ -1,6 +1,7 @@
 <mat-toolbar *ngIf="!common.showOverlay">
     <div class="leftGroup">
         <div class="logo" (click)="router.navigate(['/'])"></div>
+
         <div class="mainSections" *ngIf="this.router.url === '/'">
             <ng-container *ngFor="let section of mainSections">
                 <input type="radio" [hidden]="true">
@@ -15,7 +16,15 @@
     <div class="centerGroup">
 
     </div>
+
     <div class="rightGroup">
+
+        <div class="burger_menu" (click)="toggleNavbar()">
+            <i class="material-icons">
+                menu
+            </i>
+        </div>
+
         <!--    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">-->
         <!--      <mat-icon>home</mat-icon>-->
         <!--    </button>-->
@@ -30,5 +39,23 @@
 
         <!--        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>-->
         <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
+    </div>
+
+    <div class="positioned_sidebar_wrapper" [ngClass]="{ 'show': navbarOpen }">
+        <div class="close" (click)="closeNavbar()">
+            <i class="material-icons">
+                close
+            </i>
+        </div>
+        <div class="clearfix"></div>
+        <div class="" *ngIf="this.router.url === '/'">
+            <ng-container *ngFor="let section of mainSections">
+                <input type="radio" [hidden]="true">
+                <p (click)="changeSection(section.name)" class="menuItem">
+                    <mat-icon>{{section.icon}}</mat-icon>
+                    <span>{{section.name}}</span>
+                </p>
+            </ng-container>
+        </div>
     </div>
 </mat-toolbar>
