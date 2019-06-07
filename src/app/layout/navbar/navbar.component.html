@@ -19,7 +19,7 @@
 
     <div class="rightGroup">
 
-        <div class="burger_menu" (click)="toggleSidebar()">
+        <div class="burger_menu" (click)="toggleSidebar()" *ngIf="router.url==='/'">
             <i class="material-icons">
                 menu
             </i>
