@@ -25,8 +25,8 @@ export class CheckFormDataPipe implements PipeTransform {
         let title = '';
         let msg = '';
         if (partners.length === 0) {
-            title = 'No partners found.';
-            msg = 'Please add at least one ' + item + ' partner first.';
+            title = 'No companies found.';
+            msg = 'Please add at least one ' + item + ' company first.';
         } else if (editCase) {
             if (!data) {
                 title = 'Not found';

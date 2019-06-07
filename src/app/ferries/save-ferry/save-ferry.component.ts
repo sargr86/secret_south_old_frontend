@@ -1,14 +1,13 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FerryService} from '../../shared/services/ferry.service';
 import {PartnerService} from '../../shared/services/partner.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../shared/services/common.service';
 import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {
-    EMAIL_PATTERN,
     LATITUDE_PATTERN,
     LONGITUDE_PATTERN,
 } from '../../shared/constants/patterns';
@@ -17,6 +16,8 @@ import {Partner} from '../../shared/models/Partner';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
+import {Company} from '../../shared/models/Company';
+import {CompaniesService} from '../../shared/services/companies.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ import {AuthService} from '../../shared/services/auth.service';
 })
 export class SaveFerryComponent implements OnInit, OnDestroy {
 
-    editFerryForm: FormGroup;
+    ferryForm: FormGroup;
     ferryData: Ferry;
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner[] = [];
@@ -34,23 +35,21 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     redirectUrl = this.auth.checkRoles('admin') ? 'admin/ferries' : 'partners/ferries';
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
-    partnerTypes: any = [];
     options = {types: ['geocode']};
     ferryFields = {
         'name': ['', Validators.required],
-        // 'email': ['', [Validators.required, patternValidator(EMAIL_PATTERN)]],
         'max_people': ['', Validators.required],
         'min_people': [5, Validators.required],
         'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         'phone': ['', [Validators.required]],
         'address': ['', Validators.required],
-        // 'type': '',
+        'company_id': [this.getCompany(), Validators.required]
 
     };
 
-    routeDataSubscription: Subscription;
-    partnersSubscription: Subscription;
+    companies: Company[] = [];
+    subscriptions: Subscription[] = [];
 
     @ViewChild('searchAddress')
     public searchElementRef: ElementRef;
@@ -65,35 +64,28 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         public common: CommonService,
         private checkFormData: CheckFormDataPipe,
+        private _companies: CompaniesService,
         public auth: AuthService
     ) {
-        if (this.auth.checkRoles('admin')) {
-
-            this.ferryFields['partner_id'] = ['', Validators.required];
-        }
     }
 
     ngOnInit() {
-        this.editFerryForm = this._fb.group(this.ferryFields);
+        this.ferryForm = this._fb.group(this.ferryFields);
         this.common.dataLoading = true;
-        this.route.data.subscribe(dt => {
-            this.getPartners();
+        this.subscriptions.push(this.route.data.subscribe(dt => {
+            this.getCompanies();
             if (this.route.snapshot.paramMap.get('id')) {
                 this.ferryData = dt['oneFerry'];
                 this.ferryFields['id'] = '';
-                this.editFerryForm = this._fb.group(this.ferryFields);
+                this.ferryForm = this._fb.group(this.ferryFields);
                 this.editCase = true;
                 if (this.ferryData) {
-                    this.editFerryForm.patchValue(this.ferryData);
+                    this.ferryForm.patchValue(this.ferryData);
                     this.addressCtrl.disable();
                 }
             }
-        });
-
-        this._partner.getTypes().subscribe(types => {
-            this.partnerTypes = types;
             this.common.dataLoading = false;
-        });
+        }));
 
     }
 
@@ -101,7 +93,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
      * Resets address and reloads maps api to allow user to select from drop down again
      */
     resetAddress() {
-        this.editFerryForm.patchValue({'address': ''});
+        this.ferryForm.patchValue({'address': ''});
         this.addressCtrl.enable();
     }
 
@@ -110,11 +102,11 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
      * @param searchAddress ferry address
      */
     saveFerry(searchAddress) {
-        const formValue = this.editFerryForm.value;
+        const formValue = this.ferryForm.value;
         formValue.address = searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, '');
 
 
-        // if (this.editFerryForm.valid) {
+        // if (this.ferryForm.valid) {
         this.common.formProcessing = true;
         if (this.editCase) {
             this._ferry.update(formValue).subscribe(() => {
@@ -135,61 +127,58 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Gets partners list
+     * Gets ferry companies list
      */
-    getPartners() {
-        this.partnersSubscription = this._ferry.getAllpartner().subscribe((d: any) => {
-            this.partners = d;
-            this.checkFormData.transform('ferry', this.ferryData, this.partners, this.editCase);
-            this.common.dataLoading = false;
-        });
+    getCompanies() {
+        this.subscriptions.push(this._companies.get({name: 'ferries'}).subscribe((dt: Company[]) => {
+            this.companies = dt;
+            this.checkFormData.transform('ferry', this.ferryData, this.companies, this.editCase);
+        }));
     }
-
 
     get nameCtrl() {
-        return this.editFerryForm.get('name');
-    }
-
-    get emailCtrl() {
-        return this.editFerryForm.get('email');
+        return this.ferryForm.get('name');
     }
 
     get latCtrl() {
-        return this.editFerryForm.get('lat');
+        return this.ferryForm.get('lat');
     }
 
     get lngCtrl() {
-        return this.editFerryForm.get('lng');
+        return this.ferryForm.get('lng');
     }
 
     get addressCtrl() {
-        return this.editFerryForm.get('address');
+        return this.ferryForm.get('address');
     }
 
     get phoneCtrl() {
-        return this.editFerryForm.get('phone');
+        return this.ferryForm.get('phone');
     }
 
     get maxCtrl() {
-        return this.editFerryForm.get('max_people');
+        return this.ferryForm.get('max_people');
     }
 
     get minCtrl() {
-        return this.editFerryForm.get('min_people');
+        return this.ferryForm.get('min_people');
+    }
+
+    get companyCtrl(): AbstractControl {
+        return this.ferryForm.get('company_id');
+    }
+
+    getCompany() {
+        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
     }
 
 
     changed(e) {
-        this.editFerryForm.patchValue({'phone': e.target.value});
+        this.ferryForm.patchValue({'phone': e.target.value});
     }
 
     ngOnDestroy() {
-        if (this.routeDataSubscription) {
-            this.routeDataSubscription.unsubscribe();
-        }
-        if (this.partnersSubscription) {
-            this.partnersSubscription.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 }
