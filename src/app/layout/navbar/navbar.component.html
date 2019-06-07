@@ -19,7 +19,7 @@
 
     <div class="rightGroup">
 
-        <div class="burger_menu" (click)="toggleNavbar()">
+        <div class="burger_menu" (click)="toggleSidebar()">
             <i class="material-icons">
                 menu
             </i>
@@ -41,7 +41,8 @@
         <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
     </div>
 
-    <div class="positioned_sidebar_wrapper" [ngClass]="{ 'show': navbarOpen }">
+    <!-- Sidebar for responsive mode -->
+    <div class="positioned_sidebar_wrapper" [ngClass]="{ 'show': sidebarOpen }">
         <div class="close" (click)="closeNavbar()">
             <i class="material-icons">
                 close
