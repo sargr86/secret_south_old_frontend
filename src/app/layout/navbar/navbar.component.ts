@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     lat = 0;
     lng = 0;
     partnerTypes;
+    navbarOpen = false;
 
     constructor(
         public common: CommonService,
@@ -40,6 +41,15 @@ export class NavbarComponent implements OnInit {
             this.mapForm.patchValue({type: dt[0]['name']});
             this.partnerTypes = dt;
         });
+    }
+
+
+    toggleNavbar() {
+        this.navbarOpen = !this.navbarOpen;
+    }
+
+    closeNavbar() {
+        this.navbarOpen = false;
     }
 
     changePlace(section) {
