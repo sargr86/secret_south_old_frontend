@@ -24,7 +24,8 @@
 
   .actions {
     margin-top: 40px;
-    .saveBtn{
+
+    .saveBtn {
       float: left;
     }
   }
@@ -62,14 +63,20 @@
   width: 400px;
 }
 
-.notFound{
+.notFound {
   text-align: center;
   display: block;
   padding: 20px;
 }
 
+.formContainer {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1360px) {
-  .saveTourForm{
+  .saveTourForm {
     max-width: 370px;
     width: 100%;
     padding: 20px;
@@ -81,12 +88,14 @@
   }
 
 }
-@media screen and (max-width: 1024px){
-  .dropzoneContainer{
+
+@media screen and (max-width: 1024px) {
+  .dropzoneContainer {
     display: none;
   }
 }
-@media screen and (max-width: 767px){
+
+@media screen and (max-width: 767px) {
   .saveTourForm {
     max-width: 550px;
     float: none;

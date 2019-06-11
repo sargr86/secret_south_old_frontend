@@ -12,6 +12,8 @@ import {Partner} from '../../shared/models/Partner';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
+import {Company} from '../../shared/models/Company';
+import {CompaniesService} from '../../shared/services/companies.service';
 
 @Component({
     selector: 'app-save-tour',
@@ -49,6 +51,9 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     routeDataSubscription: Subscription;
     partnersSubscription: Subscription;
 
+    subscriptions: Subscription[] = [];
+    companies: Company[];
+
     constructor(
         private _tours: ToursService,
         private _fb: FormBuilder,
@@ -58,10 +63,12 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         public common: CommonService,
         private checkFormData: CheckFormDataPipe,
-        public auth: AuthService
+        public auth: AuthService,
+        private _companies: CompaniesService
     ) {
 
-        this.getPartners();
+        // this.getPartners();
+        this.getCompanies();
         this.getToursType();
 
     }
@@ -69,7 +76,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.common.dataLoading = true;
-        this.routeDataSubscription = this.route.data.subscribe(dt => {
+        this.subscriptions.push(this.route.data.subscribe(dt => {
             if (this.route.snapshot.paramMap.get('id')) {
                 this.tourData = dt['oneTour'];
                 this.tourFields['id'] = '';
@@ -82,19 +89,11 @@ export class SaveTourComponent implements OnInit, OnDestroy {
                 }
             }
             this.common.dataLoading = false;
-        });
+        }));
 
         if (!this.editCase) {
             this.saveTourForm = this._fb.group(this.tourFields);
         }
-
-        // this.mapsAPILoader.load().then(() => {
-        //     if (this.searchElementRef) {
-        //         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        //     }
-        // });
-
-
     }
 
     /**
@@ -106,6 +105,16 @@ export class SaveTourComponent implements OnInit, OnDestroy {
         // this.mapsAPILoader.load().then(() => {
         //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
         // });
+    }
+
+    /**
+     * Gets ferry companies list
+     */
+    getCompanies() {
+        this.subscriptions.push(this._companies.get({name: 'tours'}).subscribe((dt: Company[]) => {
+            this.companies = dt;
+            this.checkFormData.transform('tours', this.tourData, this.companies, this.editCase);
+        }));
     }
 
 

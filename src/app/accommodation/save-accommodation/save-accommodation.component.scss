@@ -1,40 +1,45 @@
 @import '../../../variables';
 @import '../../../mixins';
 
-.accommodationForm {
-  max-width: 600px;
-  width: 100%;
-  float: left;
+.formContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
-  .addressContainer {
-    display: flex;
-
-    .mat-form-field {
-      width: 100%;
-    }
-
-    .resetAddress {
-      @include noBgBtn;
-      color: $red;
-      margin-top: 20px;
-    }
-
-  }
-}
-
-@media(max-width: 767px){
   .accommodationForm {
+    max-width: 600px;
     width: 100%;
-    display: block;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 0;
+
+    .addressContainer {
+      display: flex;
+
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .resetAddress {
+        @include noBgBtn;
+        color: $red;
+        margin-top: 20px;
+      }
+
+    }
   }
-}
+
+  @media(max-width: 767px) {
+    .accommodationForm {
+      width: 100%;
+      display: block;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0;
+    }
+  }
 
 
-.notFound{
-  text-align: center;
-  display: block;
-  padding: 20px;
+  .notFound {
+    text-align: center;
+    display: block;
+    padding: 20px;
+  }
 }
