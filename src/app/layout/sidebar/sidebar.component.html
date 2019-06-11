@@ -1,4 +1,4 @@
-<ng-container *ngIf="router.url!=='/' && !router.url.includes('auth') && _auth.loggedIn()">
+<div [hidden]="!(router.url!=='/' && !router.url.includes('auth') && _auth.loggedIn())">
     <div class="treeContainer">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
             <!-- This is the tree node template for leaf nodes -->
@@ -25,28 +25,12 @@
         </mat-tree>
 
     </div>
-</ng-container>
+</div>
 
 
 <ng-container *ngIf="router.url==='/' || router.url.includes('auth')">
-    <!-- Sidebar for responsive mode -->
-    <div class="positioned_sidebar_wrapper" [ngClass]="{ 'show': sidebarOpen }">
-        <div class="close" (click)="closeSidebar()">
-            <i class="material-icons">
-                close
-            </i>
-        </div>
-        <div class="clearfix"></div>
-        <div class="">
-            <ng-container *ngFor="let section of mainSections">
-                <input type="radio" [hidden]="true">
-                <p (click)="changeSection(section.name)" class="menuItem">
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
-                </p>
-            </ng-container>
-        </div>
-    </div>
+    <app-main-sections [mainSections]="mainSections" (toggleSidebarEmit)="toggle.emit()"
+                       (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>
 
 

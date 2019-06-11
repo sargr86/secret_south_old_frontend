@@ -3,9 +3,10 @@ import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SharedModule} from "../shared/shared.module";
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MainSectionsComponent } from './main-sections/main-sections.component';
 
 @NgModule({
-    declarations: [NavbarComponent, SidebarComponent],
+    declarations: [NavbarComponent, SidebarComponent, MainSectionsComponent],
     imports: [
         CommonModule,
         SharedModule
