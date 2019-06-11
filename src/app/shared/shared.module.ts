@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardTemplateComponent} from './components/dashboard-template/dashboard-template.component';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
-import {MainDashboardComponent} from './components/main-dashboard/main-dashboard.component';
 import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
 import {InvitationFormComponent} from './components/invitation-form/invitation-form.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
@@ -26,7 +25,6 @@ import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
         MatReusableTableComponent,
         DashboardTemplateComponent,
         CheckFormDataPipe,
-        MainDashboardComponent,
         GetImageUrlPipe,
         InvitationFormComponent,
         EditProfileComponent,
@@ -65,7 +63,6 @@ import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
         GetImageUrlPipe,
         MatReusableTableComponent,
         DashboardTemplateComponent,
-        MainDashboardComponent,
         GetImageUrlPipe,
         InvitationFormComponent,
         EditProfileComponent,

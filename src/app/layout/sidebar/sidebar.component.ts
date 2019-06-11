@@ -1,11 +1,13 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS} from '../../shared/constants/settings';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
+import {AuthService} from '../../shared/services/auth.service';
+import {PartnerService} from '../../shared/services/partner.service';
 import {Router} from '@angular/router';
-import {PartnerService} from '../../services/partner.service';
-import {AuthService} from '../../services/auth.service';
-import {DASHBOARD_LINKS, MENU_ITEM_ICONS} from '../../constants/settings';
-
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MainService} from '../../home/services/main.service';
+import {SubjectService} from '../../shared/services/subject.service';
 
 /**
  * Food data with nested structure.
@@ -25,17 +27,23 @@ interface ExampleFlatNode {
     level: number;
 }
 
-
 @Component({
-    selector: 'app-main-dashboard',
-    templateUrl: './main-dashboard.component.html',
-    styleUrls: ['./main-dashboard.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss']
 })
-export class MainDashboardComponent implements OnInit, AfterViewInit {
-
+export class SidebarComponent implements OnInit, AfterViewInit {
     adminRole;
     dashboardLinks = DASHBOARD_LINKS;
+    mainSections = MAIN_SECTIONS;
+    sidebarOpened = false;
+    mapForm: FormGroup;
+    latlng: any = [];
+    lat = 0;
+    lng = 0;
 
+
+    @Output() toggle = new EventEmitter();
     treeControl = new FlatTreeControl<ExampleFlatNode>(
         node => node.level, node => node.expandable);
 
@@ -54,14 +62,30 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
 
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
+    sidebarOpen = false;
+
+    @Output() toggleSide = new EventEmitter();
 
     constructor(
-        public router: Router,
         private _partner: PartnerService,
         public _auth: AuthService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private _fb: FormBuilder,
+        public router: Router,
+        private main: MainService,
+        private subject: SubjectService,
     ) {
+    }
 
+    ngOnInit() {
+        this.getSidebarDataSrc();
+        // this.toggle.emit();
+        this.mapForm = this._fb.group({
+            type: ['']
+        });
+    }
+
+    getSidebarDataSrc() {
         this.adminRole = this._auth.checkRoles('admin');
 
 
@@ -86,31 +110,6 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         }
 
         this.dataSource.data = this.dashboardLinks;
-    }
-
-    ngOnInit() {
-
-    }
-
-    // Expanding necessary tree parent node
-    ngAfterViewInit() {
-        const routerUrl = this.router.url.replace('_', ' ');
-        for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-            const node = this.treeControl.dataNodes[i];
-            const treeItem = node.name.toLowerCase().replace(/\//g, '-');
-            if (routerUrl.includes(treeItem)) {
-                this.treeControl.expand(node);
-                this.cdr.detectChanges();
-            }
-        }
-    }
-
-    /**
-     * Logs out current user
-     */
-    logout() {
-        localStorage.removeItem('token');
-        this.router.navigate(['auth/login']);
     }
 
     /**
@@ -144,8 +143,15 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
         const parentNode = this.getParent(node);
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
         const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
-        const role = this.adminRole ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/')
+        const role = this._auth.checkRoles('admin') ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/');
+        // sidenav.toggle();
+        this.sidebarOpened = !this.sidebarOpened;
+        if (this.responsiveMode) {
+            this.toggle.emit();
+            this.closeSidebar();
+        }
         this.router.navigate([role + url]);
+        this.expandLinks();
     }
 
     /**
@@ -169,5 +175,79 @@ export class MainDashboardComponent implements OnInit, AfterViewInit {
                 return currentNode.name.toLowerCase();
             }
         }
+    }
+
+    toggleSidebar() {
+        this.toggleSide.emit();
+        if (this.router.url === '/' || this.router.url.includes('auth')) {
+            this.sidebarOpen = !this.sidebarOpen;
+
+        }
+    }
+
+    closeSidebar() {
+        this.sidebarOpen = false;
+    }
+
+    changePlace(section) {
+        this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
+
+            this.latlng = [];
+
+            if (r && r.length > 0) {
+
+                r.map((latlngs) => {
+                    latlngs.lat = parseFloat(latlngs.lat);
+                    latlngs.lng = parseFloat(latlngs.lng);
+                    this.latlng.push(latlngs);
+                });
+
+                this.lat = parseFloat(this.latlng[0].lat);
+                this.lng = parseFloat(this.latlng[0].lng);
+
+
+            }
+
+            this.subject.setMapData({
+                section: section,
+                lat: this.lat,
+                lng: this.lng,
+                latlng: this.latlng
+            });
+            this.toggle.emit();
+
+        });
+    }
+
+
+    changeSection(section) {
+        this.mapForm.patchValue({type: section});
+        this.changePlace(section);
+        if (this.responsiveMode) {
+            this.closeSidebar();
+        }
+
+    }
+
+    // Expanding necessary tree parent node
+    ngAfterViewInit() {
+        this.expandLinks();
+    }
+
+    expandLinks() {
+        const routerUrl = this.router.url.replace('_', ' ');
+        for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+            const node = this.treeControl.dataNodes[i];
+            const treeItem = node.name.toLowerCase().replace(/\//g, '-');
+            if (routerUrl.includes(treeItem)) {
+                this.treeControl.expand(node);
+                this.cdr.detectChanges();
+            }
+        }
+    }
+
+    get responsiveMode() {
+
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 }

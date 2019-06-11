@@ -1,5 +1,3 @@
-<app-main-dashboard></app-main-dashboard>
-
 <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 <form [formGroup]="ferryForm" class="saveFerryForm" *ngIf="!common.dataLoading && companies.length > 0">
 

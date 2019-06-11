@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
+<mat-sidenav-container>
+    <mat-sidenav [mode]="getMode()" #sidenav opened> <!---->
+        <app-sidebar (toggle)="sidenav.toggle()" ></app-sidebar> <!-- *ngIf="router.url!=='/' && _auth.loggedIn()" -->
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
