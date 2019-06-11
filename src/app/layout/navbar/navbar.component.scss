@@ -81,7 +81,6 @@
 
 .burger_menu {
   display: none;
-  cursor: pointer;
 }
 
 .rightGroup {
@@ -104,6 +103,11 @@
     &.show {
       display: none;
     }
+
+
+  }
+  .sidebarToggler {
+    display: none;
   }
 }
 
@@ -122,7 +126,6 @@
       padding-left: 15px;
     }
   }
-
 
   .mainSections {
     display: none !important;

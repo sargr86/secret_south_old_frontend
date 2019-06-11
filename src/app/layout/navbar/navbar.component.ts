@@ -48,10 +48,9 @@ export class NavbarComponent implements OnInit {
 
     toggleSidebar() {
         this.toggleSide.emit();
-        if (this.router.url === '/' || this.router.url.includes('auth')) {
-            this.sidebarOpen = !this.sidebarOpen;
-
-        }
+        // if (this.router.url === '/' || this.router.url.includes('auth')) {
+        //     this.sidebarOpen = !this.sidebarOpen;
+        // }
     }
 
     closeSidebar() {
