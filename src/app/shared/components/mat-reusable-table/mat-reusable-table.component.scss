@@ -19,6 +19,10 @@
   display: flex;
 }
 
+.tableContainer{
+
+}
+
 .table_responsive {
   overflow-x: auto;
 
@@ -31,10 +35,10 @@
 
 @media screen and (max-width: 880px) {
   .allFerryContent {
-    width: 67%;
-    display: inline-block;
-    margin-left: 3%;
-    margin-right: 3%;
+    //width: 67%;
+    //display: inline-block;
+    //margin-left: 3%;
+    //margin-right: 3%;
   }
 }
 @media(max-width: 767px){
