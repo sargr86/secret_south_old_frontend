@@ -187,6 +187,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     closeSidebar() {
         this.sidebarOpen = false;
+        // this.toggle.emit();
     }
 
     changePlace(section) {

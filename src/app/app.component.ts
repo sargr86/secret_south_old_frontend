@@ -63,18 +63,12 @@ export class AppComponent implements OnDestroy {
         }
     }
 
-    ngAfterViewInit() {
-        // console.log('on after view init', this.sidenav);
-        // this.cdr.detectChanges();
-        // this.sidenav.toggle();
-        // this returns null
-    }
-
     getMode() {
-        if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-            return "side";
+        console.log(screen.width)
+        if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) || screen.width >= 1060) {
+            return 'side';
         }
-        return "over";
+        return 'over';
     }
 
 
