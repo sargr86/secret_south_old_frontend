@@ -1,0 +1,18 @@
+<!-- Sidebar for responsive mode -->
+<div class="positioned_sidebar_wrapper">
+  <div class="close" (click)="closeSidebar()">
+    <i class="material-icons">
+      close
+    </i>
+  </div>
+  <div class="clearfix"></div>
+  <div class="sections">
+    <div *ngFor="let section of mainSections">
+      <input type="radio" [hidden]="true">
+      <p (click)="changeSection(section.name)" class="menuItem">
+        <mat-icon>{{section.icon}}</mat-icon>
+        <span>{{section.name}}</span>
+      </p>
+    </div>
+  </div>
+</div>
