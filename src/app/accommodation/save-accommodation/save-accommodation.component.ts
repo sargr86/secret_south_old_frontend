@@ -144,6 +144,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     removeSavedImg() {
         this.imgPath = '';
+        this.accommodationForm.patchValue({'img': ''});
     }
 
     get nameCtrl() {
