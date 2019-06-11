@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {CommonService} from '../../shared/services/common.service';
 import {MainService} from '../../home/services/main.service';
@@ -22,12 +22,14 @@ export class NavbarComponent implements OnInit {
     partnerTypes;
     sidebarOpen = false;
 
+    @Output() toggleSide = new EventEmitter();
+
     constructor(
         public common: CommonService,
-        private main: MainService,
-        public router: Router,
         private _partner: PartnerService,
         private _fb: FormBuilder,
+        public router: Router,
+        private main: MainService,
         private subject: SubjectService,
         public auth: AuthService
     ) {
@@ -45,7 +47,11 @@ export class NavbarComponent implements OnInit {
 
 
     toggleSidebar() {
-        this.sidebarOpen = !this.sidebarOpen;
+        this.toggleSide.emit();
+        if (this.router.url === '/' || this.router.url.includes('auth')) {
+            this.sidebarOpen = !this.sidebarOpen;
+
+        }
     }
 
     closeSidebar() {
@@ -86,7 +92,10 @@ export class NavbarComponent implements OnInit {
     changeSection(section) {
         this.mapForm.patchValue({type: section});
         this.changePlace(section);
-        this.closeSidebar()
+        if (this.responsiveMode) {
+            this.closeSidebar();
+        }
+
     }
 
     logout() {
@@ -97,5 +106,14 @@ export class NavbarComponent implements OnInit {
     navigateToDashboard() {
         const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
         this.router.navigate([`${role}/dashboard`]);
+    }
+
+    get showBurger() {
+        return this.auth.loggedIn() && (this.router.url !== '/' && !this.router.url.includes('auth'));
+    }
+
+    get responsiveMode() {
+
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 }

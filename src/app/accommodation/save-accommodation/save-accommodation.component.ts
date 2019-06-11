@@ -96,7 +96,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         if (dt['img']) {
             this.imgPath = ACCOMMODATIONS_FOLDER + dt['img'];
         }
-        console.log(this.imgPath)
     }
 
     // Setting form fields with provided object

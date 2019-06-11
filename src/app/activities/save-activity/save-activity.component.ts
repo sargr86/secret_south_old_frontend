@@ -72,6 +72,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
         this.common.dataLoading = true;
         this.subscriptions.push(this.route.data.subscribe(dt => {
+            this.activityData = dt['activity'];
             this.getRouteData(dt['activity']);
         }));
 
@@ -86,6 +87,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     getCompanies() {
         this.subscriptions.push(this._companies.get({name: 'activities'}).subscribe(dt => {
             this.companies = dt;
+            this.checkFormData.transform('ferry', this.activityData, this.companies, this.editCase);
         }));
     }
 

@@ -1,4 +1,4 @@
-<app-main-dashboard></app-main-dashboard>
+
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <form [formGroup]="saveActivityForm" class="saveActivityForm"
       *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">

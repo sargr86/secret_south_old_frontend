@@ -57,6 +57,7 @@
     display: flex;
     align-items: center;
 
+
     .logo {
       background-image: url("../../../assets/images/logo.png");
       width: 89px;
@@ -68,6 +69,7 @@
 
   .homeBtn {
     @include noBgBtn;
+    margin: 0 10px;
   }
 
   .logoutBtn {
@@ -86,6 +88,14 @@
   padding-top: 8px;
 }
 
+.dashboard {
+  background-color: #71a8b1 !important;
+}
+
+.sidebarToggler {
+  @include noBgBtn;
+  cursor: pointer;
+}
 
 @media screen and (min-width: 1059px) {
   .positioned_sidebar_wrapper {
@@ -112,36 +122,7 @@
       padding-left: 15px;
     }
   }
-  .positioned_sidebar_wrapper {
-    position: fixed;
-    left: 0;
-    background: #1f7679;
-    width: auto;
-    height: 100vh;
-    top: 0;
-    color: white;
-    padding: 130px 20px 20px;
-    opacity: 0;
-    visibility: hidden;
-    transition: 1200ms;
 
-    &.show {
-      opacity: 1;
-      transition: 1200ms;
-      visibility: visible;
-    }
-
-    .close {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-
-      i {
-        color: white;
-        cursor: pointer;
-      }
-    }
-  }
 
   .mainSections {
     display: none !important;

@@ -1,17 +1,28 @@
-<mat-toolbar *ngIf="!common.showOverlay">
+<mat-toolbar *ngIf="!common.showOverlay"
+             [class.dashboard]="auth.loggedIn() && router.url!=='/' && !router.url.includes('auth')">
     <div class="leftGroup">
-        <div class="logo" (click)="router.navigate(['/'])"></div>
 
-        <div class="mainSections" *ngIf="this.router.url === '/'">
-            <ng-container *ngFor="let section of mainSections">
-                <input type="radio" [hidden]="true">
-                <p (click)="changeSection(section.name)">
+        <ng-container *ngIf="router.url==='/'">
 
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
-                </p>
-            </ng-container>
-        </div>
+            <div class="logo" (click)="router.navigate(['/'])"></div>
+
+            <div class="mainSections" *ngIf="router.url === '/'">
+                <ng-container *ngFor="let section of mainSections">
+                    <input type="radio" [hidden]="true">
+                    <p (click)="changeSection(section.name)">
+
+                        <mat-icon>{{section.icon}}</mat-icon>
+                        <span>{{section.name}}</span>
+                    </p>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="showBurger && responsiveMode">
+            <button class="sidebarToggler" (click)="toggleSidebar()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </ng-container>
     </div>
     <div class="centerGroup">
 
@@ -19,44 +30,51 @@
 
     <div class="rightGroup">
 
-        <div class="burger_menu" (click)="toggleSidebar()" *ngIf="router.url==='/'">
-            <i class="material-icons">
-                menu
-            </i>
-        </div>
 
-        <!--    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">-->
-        <!--      <mat-icon>home</mat-icon>-->
-        <!--    </button>-->
+        <ng-container *ngIf="router.url==='/' && responsiveMode">
+            <button class="sidebarToggler" (click)="toggleSidebar()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </ng-container>
+
+        <!--        <div class="burger_menu" (click)="toggleSidebar()" *ngIf="router.url==='/'">-->
+        <!--            <i class="material-icons">-->
+        <!--                menu-->
+        <!--            </i>-->
+        <!--        </div>-->
+
+        <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
+            <mat-icon>home</mat-icon>
+        </button>
         <span (click)="router.navigate(['auth/register'])" class="link"
               *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
-        <span (click)="navigateToDashboard()" class="link" *ngIf="auth.loggedIn()">Dashboard</span>
+        <span (click)="navigateToDashboard()" class="link"
+              *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</span>
+
+        <!--        <button (click)="router.navigate(['/'])" class="homeBtn">-->
+        <!--            <mat-icon>home</mat-icon>-->
+        <!--        </button>-->
+
+        <!-- Logout button -->
         <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
             <mat-icon>exit_to_app</mat-icon>
         </button>
         <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && router.url!=='/auth/login'"
               class="link">Login</span>
 
-        <!--        <span (click)="router.navigate(['admin/login'])" class="link">Admin</span>-->
-        <!--        <span (click)="router.navigate(['partners/login'])" class="link">Partners</span>-->
     </div>
 
-    <!-- Sidebar for responsive mode -->
-    <div class="positioned_sidebar_wrapper" [ngClass]="{ 'show': sidebarOpen }">
-        <div class="close" (click)="closeSidebar()">
-            <i class="material-icons">
-                close
-            </i>
-        </div>
-        <div class="clearfix"></div>
-        <div class="" *ngIf="this.router.url === '/'">
-            <ng-container *ngFor="let section of mainSections">
-                <input type="radio" [hidden]="true">
-                <p (click)="changeSection(section.name)" class="menuItem">
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
-                </p>
-            </ng-container>
-        </div>
-    </div>
+
 </mat-toolbar>
+
+
+<!--<div class="leftGroup">-->
+
+<!--</div>-->
+<!--<div class="centerGroup">-->
+
+<!--</div>-->
+<!--<div class="rightGroup">-->
+
+<!--
+</div>-->
