@@ -4,10 +4,11 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
 import {AuthService} from '../../shared/services/auth.service';
 import {PartnerService} from '../../shared/services/partner.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '../../shared/services/subject.service';
+import {filter} from 'rxjs/operators';
 
 /**
  * Food data with nested structure.
@@ -65,6 +66,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     sidebarOpen = false;
 
     @Output() toggleSide = new EventEmitter();
+    routerUrl;
 
     constructor(
         private _partner: PartnerService,
@@ -74,11 +76,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         public router: Router,
         private main: MainService,
         private subject: SubjectService,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
         this.getSidebarDataSrc();
+
+
         // this.toggle.emit();
         this.mapForm = this._fb.group({
             type: ['']
@@ -232,17 +237,27 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     // Expanding necessary tree parent node
     ngAfterViewInit() {
-        this.expandLinks();
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe((dt: Data) => {
+            this.routerUrl = dt.url;
+            this.expandLinks();
+        });
+
+
     }
 
     expandLinks() {
-        const routerUrl = this.router.url.replace('_', ' ');
-        for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-            const node = this.treeControl.dataNodes[i];
-            const treeItem = node.name.toLowerCase().replace(/\//g, '-');
-            if (routerUrl.includes(treeItem)) {
-                this.treeControl.expand(node);
-                this.cdr.detectChanges();
+        if (this.routerUrl) {
+            const routerUrl = this.routerUrl.replace('_', ' ');
+            for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+                const node = this.treeControl.dataNodes[i];
+                const treeItem = node.name.toLowerCase().replace(/\//g, '-');
+                this.treeControl.collapse(node);
+                if (routerUrl.includes(treeItem)) {
+                    this.treeControl.expand(node);
+                    this.cdr.detectChanges();
+                }
             }
         }
     }
