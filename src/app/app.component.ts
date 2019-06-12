@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {AuthService} from './shared/services/auth.service';
 import {PartnerService} from './shared/services/partner.service';
+import {MatSidenav} from '@angular/material';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AppComponent implements OnDestroy {
     pageTitle: string;
 
 
-    @ViewChild('sidenav') sidenav;
+    sidenav: MatSidenav;
 
     constructor(
         public Admin: AdminService,
@@ -63,12 +64,19 @@ export class AppComponent implements OnDestroy {
         }
     }
 
-    getMode() {
-        console.log(screen.width)
-        if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) || screen.width >= 1060) {
+    getMode(sidenav) {
+
+        // sidenav.close();
+        if (this.responsiveMode && screen.width < 1060) {
+            return 'over';
+        } else {
             return 'side';
         }
-        return 'over';
+    }
+
+    get responsiveMode() {
+
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
 

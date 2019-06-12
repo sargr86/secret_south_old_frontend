@@ -1,10 +1,10 @@
 <div class="formContainer">
 
 
-    <h2 *ngIf="regTokenExpired">Registration session has been expired</h2>
+    <h2 *ngIf="regTokenExpired && !customerRegistration">Registration session has been expired</h2>
 
     <form [formGroup]="registerForm" method="post" enctype="multipart/form-data" class="registerForm"
-          *ngIf="!regTokenExpired">
+          *ngIf="customerRegistration || !regTokenExpired">
 
         <!-- Register/ profile form title-->
         <h2 class="terminalTitle">

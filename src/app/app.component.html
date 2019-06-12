@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-    <mat-sidenav [mode]="getMode()" #sidenav opened> <!---->
+    <mat-sidenav [mode]="getMode(sidenav)" #sidenav> <!---->
         <app-sidebar (toggle)="sidenav.toggle()"></app-sidebar> <!-- *ngIf="router.url!=='/' && _auth.loggedIn()" -->
     </mat-sidenav>
     <mat-sidenav-content>

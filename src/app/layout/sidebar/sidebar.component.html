@@ -1,4 +1,4 @@
-<div [hidden]="!(router.url!=='/' && !router.url.includes('auth') && _auth.loggedIn())">
+<ng-container *ngIf="router.url!=='/' && !router.url.includes('auth') && _auth.loggedIn()">
     <div class="treeContainer">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
             <!-- This is the tree node template for leaf nodes -->
@@ -25,10 +25,10 @@
         </mat-tree>
 
     </div>
-</div>
+</ng-container>
 
 
-<ng-container *ngIf="router.url==='/' || router.url.includes('auth')">
+<ng-container *ngIf="router.url==='/'">
     <app-main-sections [mainSections]="mainSections" (toggleSidebarEmit)="toggle.emit()"
                        (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>
