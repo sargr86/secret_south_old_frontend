@@ -87,7 +87,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     getCompanies() {
         this.subscriptions.push(this._companies.get({name: 'activities'}).subscribe(dt => {
             this.companies = dt;
-            this.checkFormData.transform('ferry', this.activityData, this.companies, this.editCase);
+            this.checkFormData.transform('activity provider', this.activityData, this.companies, this.editCase);
         }));
     }
 
