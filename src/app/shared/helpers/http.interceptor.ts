@@ -36,11 +36,11 @@ export class RequestInterceptor implements HttpInterceptor {
                 // if (!this.common.showOverlay) {
                     // Sequelize db connection error
                     if (err.error.hasOwnProperty('db_error')) {
-                        this.toastr.error(err.error.db_error, 'Unable to connect to database', {timeOut: 0});
+                        this.toastr.error(err.error.db_error, 'Unable to connect to database');
 
                         // Server connection error
                     } else if (err.status === 200 || err.status === 0 || err.error.hasOwnProperty('conn_error')) {
-                        this.toastr.error('Please check server connection.', 'Unable to connect to server', {timeOut: 0});
+                        this.toastr.error('Please check server connection.', 'Unable to connect to server');
                     } else {
 
                         if (err.error.hasOwnProperty('msg')) {
