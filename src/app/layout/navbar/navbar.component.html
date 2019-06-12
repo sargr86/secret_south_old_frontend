@@ -2,7 +2,7 @@
              [class.dashboard]="auth.loggedIn() && router.url!=='/' && !router.url.includes('auth')">
     <div class="leftGroup">
 
-        <ng-container *ngIf="router.url==='/'">
+        <ng-container>
 
             <div class="logo" (click)="router.navigate(['/'])"></div>
 
@@ -18,10 +18,10 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf="showBurger && responsiveMode">
-            <button class="sidebarToggler" (click)="toggleSidebar()">
-                <mat-icon>menu</mat-icon>
-            </button>
+        <ng-container *ngIf="showBurger && !responsiveMode">
+            <!--            <button class="sidebarToggler" (click)="toggleSidebar()">-->
+            <!--                <mat-icon>menu</mat-icon>-->
+            <!--            </button>-->
         </ng-container>
     </div>
     <div class="centerGroup">
@@ -31,8 +31,8 @@
     <div class="rightGroup">
 
 
-        <ng-container *ngIf="router.url==='/' && responsiveMode">
-            <button class="sidebarToggler" (click)="toggleSidebar()">
+        <ng-container *ngIf="!router.url.includes('auth')">
+            <button class="sidebarToggler" (click)="toggleSidebar()" >
                 <mat-icon>menu</mat-icon>
             </button>
         </ng-container>

@@ -58,3 +58,14 @@
   }
 
 }
+
+
+@media screen and (max-width: 768px){
+  .profileForm {
+    .userInfo, .userImg {
+      width: 80%;
+      float: unset;
+      margin: 0 auto;
+    }
+  }
+}
