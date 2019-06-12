@@ -3,6 +3,9 @@
 
   span {
     margin-left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 
@@ -24,12 +27,12 @@
   .positioned_sidebar_wrapper {
     position: relative;
     left: 0;
-    background: #1f7679;
+    background-color: #1f7679;
     width: auto;
     height: 100vh;
     top: 0;
     color: white;
-    padding: 130px 20px 20px;
+    padding: 185px 20px 20px;
 
     &.show {
       opacity: 1;

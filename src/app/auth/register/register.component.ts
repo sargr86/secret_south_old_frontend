@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {CommonService} from '../../shared/services/common.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
 import {PartnerService} from '../../shared/services/partner.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -25,6 +26,8 @@ export class RegisterComponent implements OnInit {
     userTypes = USER_TYPES;
     partnerTypes;
     regTokenExpired = false;
+    customerRegistration = false;
+
 
     constructor(
         private _fb: FormBuilder,
@@ -57,10 +60,13 @@ export class RegisterComponent implements OnInit {
         // Checking if user token expired and getting user data from token here
         this.route.queryParams.subscribe(dt => {
             const token = dt.token;
-            this.regTokenExpired = this.jwtHelper.isTokenExpired(token);
-            const userData = jwtDecode(dt.token);
-            console.log(userData)
-            this.registerForm.patchValue(userData);
+            if (token) {
+
+                this.regTokenExpired = this.jwtHelper.isTokenExpired(token);
+                const userData = jwtDecode(dt.token);
+                this.registerForm.patchValue(userData);
+            }
+            this.customerRegistration = !token;
         });
     }
 
