@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS} from '../../shared/constants/settings';
+import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS, USER_TYPES} from '../../shared/constants/settings';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
 import {AuthService} from '../../shared/services/auth.service';
@@ -97,12 +97,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         if (!this.adminRole && this._auth.userData) {
             const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
             const employeeRole = this._auth.checkRoles('employee');
+            const customerRole = this._auth.checkRoles('customer');
+
 
             // Generating partner links based on current partner type
             this.dashboardLinks = this.dashboardLinks.filter(l => {
 
                 if (employeeRole && l.children) {
                     l.children = l.children.filter(sl => !sl.name.includes('Add'));
+                } else if (customerRole) {
+                    return l.name === 'Dashboard';
                 }
 
                 // Showing dashboard and current partner type links
@@ -148,14 +152,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         const parentNode = this.getParent(node);
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
         const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
-        const role = this._auth.checkRoles('admin') ? 'admin/' : (this._auth.checkRoles('partner') ? 'partners/' : 'employees/');
+
+        // Getting redirect url part matching current user role
+        const currentRole = this._auth.userData.role.name_en.toLowerCase();
+        const userType = USER_TYPES.find(d => d.role === currentRole);
+
+
         // sidenav.toggle();
         this.sidebarOpened = !this.sidebarOpened;
         if (this.responsiveMode) {
             this.toggle.emit();
             this.closeSidebar();
         }
-        this.router.navigate([role + url]);
+        this.router.navigate([`${userType ? userType.label : 'admin'}/${url}`]);
         this.expandLinks();
     }
 

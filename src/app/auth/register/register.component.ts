@@ -8,7 +8,6 @@ import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
 import {PartnerService} from '../../shared/services/partner.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -70,6 +69,8 @@ export class RegisterComponent implements OnInit {
                 this.regTokenExpired = this.jwtHelper.isTokenExpired(token);
                 const userData = jwtDecode(dt.token);
                 this.registerForm.patchValue(userData);
+            } else {
+                this.registerForm.patchValue({user_type: 'customer'});
             }
             this.customerRegistration = !token;
         });

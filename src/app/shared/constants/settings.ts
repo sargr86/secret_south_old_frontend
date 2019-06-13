@@ -30,7 +30,10 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
 
 export const USER_TYPES = [
-    {label: 'partners', role: 'partner'}, {label: 'employees', role: 'employee'}];
+    {label: 'partners', role: 'partner'},
+    {label: 'employees', role: 'employee'},
+    {label: 'customers', role: 'customer'}
+];
 
 
 // Menu icons
