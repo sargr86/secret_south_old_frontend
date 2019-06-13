@@ -265,7 +265,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 this.treeControl.collapse(node);
                 if (routerUrl.includes(treeItem)) {
                     this.treeControl.expand(node);
-                    this.cdr.detectChanges();
+                    // this.cdr.detectChanges();
                 }
             }
         }
