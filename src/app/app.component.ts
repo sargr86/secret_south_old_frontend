@@ -25,7 +25,7 @@ export class AppComponent implements OnDestroy {
 
     constructor(
         public Admin: AdminService,
-        private router: Router,
+        public router: Router,
         private route: ActivatedRoute,
         private _title: Title,
         public _auth: AuthService,
