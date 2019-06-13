@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PartnerService} from '../../shared/services/partner.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {CompaniesService} from '../../shared/services/companies.service';
+import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-save-company',
     templateUrl: './save-company.component.html',
     styleUrls: ['./save-company.component.scss']
 })
-export class SaveCompanyComponent implements OnInit {
+export class SaveCompanyComponent implements OnInit, OnDestroy {
     companyForm: FormGroup;
     companyTypes;
     editCase = false;
@@ -19,6 +21,7 @@ export class SaveCompanyComponent implements OnInit {
         name: ['', Validators.required],
         type_id: ['', Validators.required]
     };
+    subscriptions: Subscription[] = [];
 
 
     constructor(
@@ -27,14 +30,15 @@ export class SaveCompanyComponent implements OnInit {
         private _company: CompaniesService,
         public router: Router,
         private route: ActivatedRoute,
-        public auth: AuthService
+        public auth: AuthService,
+        private _formMsg: ShowFormMessagePipe
     ) {
     }
 
     ngOnInit() {
         this.companyForm = this._fb.group(this.fields);
 
-        this.route.data.subscribe(dt => {
+        this.subscriptions.push(this.route.data.subscribe(dt => {
 
             const company_id = this.route.snapshot.paramMap.get('id');
 
@@ -47,18 +51,23 @@ export class SaveCompanyComponent implements OnInit {
                 this.companyForm = this._fb.group(this.fields);
                 this.companyForm.patchValue(dt.company);
             }
-        });
+        }));
 
 
-        this._partner.getTypes().subscribe(d => {
+        this.subscriptions.push(this._partner.getTypes().subscribe(d => {
             this.companyTypes = d;
-        });
+        }));
     }
 
     saveCompany() {
-        this._company[this.editCase ? 'update' : 'add'](this.companyForm.value).subscribe(() => {
+        this.subscriptions.push(this._company[this.editCase ? 'update' : 'add'](this.companyForm.value).subscribe(() => {
             this.router.navigate([this.redirectUrl]);
-        });
+            this._formMsg.transform('company', this.editCase, this.redirectUrl);
+        }));
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 }

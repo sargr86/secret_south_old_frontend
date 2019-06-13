@@ -1,26 +1,31 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {CommonService} from '../../shared/services/common.service';
 import {MainService} from '../../home/services/main.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {PartnerService} from '../../shared/services/partner.service';
 import {SubjectService} from '../../shared/services/subject.service';
 import {AuthService} from '../../shared/services/auth.service';
+import {Subscription} from 'rxjs';
+import {filter} from 'rxjs/operators';
+import {PartnerType} from '../../shared/models/PartnerType';
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
     mainSections = MAIN_SECTIONS;
     mapForm: FormGroup;
     latlng: any = [];
     lat = 0;
     lng = 0;
-    partnerTypes;
+    partnerTypes: PartnerType[];
     sidebarOpen = false;
+    subscriptions: Subscription[] = [];
+    routerUrl;
 
     @Output() toggleSide = new EventEmitter();
 
@@ -31,7 +36,8 @@ export class NavbarComponent implements OnInit {
         public router: Router,
         private main: MainService,
         private subject: SubjectService,
-        public auth: AuthService
+        public auth: AuthService,
+        private route: ActivatedRoute
     ) {
         this.mapForm = this._fb.group({
             type: ['']
@@ -39,10 +45,20 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._partner.getTypes().subscribe((dt: any) => {
-            this.mapForm.patchValue({type: dt[0]['name']});
-            this.partnerTypes = dt;
-        });
+
+        this.subscriptions.push(
+            this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+            ).subscribe((dt: Data) => {
+                this.routerUrl = dt.url;
+                this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
+                    this.mapForm.patchValue({type: d[0]['name']});
+                    this.partnerTypes = d;
+                }));
+            })
+        );
+
+
     }
 
 
@@ -114,5 +130,9 @@ export class NavbarComponent implements OnInit {
     get responsiveMode() {
 
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }
