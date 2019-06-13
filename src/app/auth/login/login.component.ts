@@ -8,7 +8,7 @@ import {EMAIL_PATTERN} from '../../shared/constants/patterns';
 
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '../../shared/services/common.service';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     userType: string;
     spinnerDiameter = SPINNER_DIAMETER;
 
-
-    routeSubscription: Subscription;
-    loginSubscription: Subscription;
+    subscriptions: Subscription[] = [];
 
     constructor(
         public _router: Router,
@@ -36,9 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.routeSubscription = this.route.data.subscribe(dt => {
+        this.subscriptions.push(this.route.data.subscribe(dt => {
             this.userType = dt['user'];
-        });
+        }));
 
         // Defining login form fields
         this.loginForm = this._fb.group({
@@ -49,10 +47,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Authenticate user
+     */
     login() {
         this.common.formProcessing = true;
 
-        this.loginSubscription = this._auth.login(this.loginForm.value).subscribe(dt => {
+        this.subscriptions.push(this._auth.login(this.loginForm.value).subscribe(dt => {
 
             // Saving token to browser local storage
             localStorage.setItem('token', (dt.hasOwnProperty('token') ? dt.token : ''));
@@ -60,12 +61,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             // Gets current user data
             this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
+            // Getting redirect url part matching current user role
+            const currentRole = this._auth.userData.role.name_en.toLowerCase();
+            const userType = USER_TYPES.find(d => d.role === currentRole);
 
             // Navigate to the dashboard page
-            const role = this._auth.checkRoles('admin') ? 'admin' : (this._auth.checkRoles('partner') ? 'partners' : 'employees');
-            this._router.navigate([`${role}/dashboard`]);
+            this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard`]);
 
-        });
+        }));
     }
 
     /**
@@ -83,14 +86,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-
         this.common.formProcessing = false;
-        if (this.routeSubscription) {
-            this.routeSubscription.unsubscribe();
-        }
-        if (this.loginSubscription) {
-            this.loginSubscription.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 
