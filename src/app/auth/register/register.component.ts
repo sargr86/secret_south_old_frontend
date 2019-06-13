@@ -27,7 +27,16 @@ export class RegisterComponent implements OnInit {
     partnerTypes;
     regTokenExpired = false;
     customerRegistration = false;
+    formFields = {
+        'first_name': ['', Validators.required],
+        'last_name': ['', Validators.required],
+        'email': ['', Validators.required],
+        'gender': ['', Validators.required],
+        'password': ['', Validators.required],
 
+        'company_id': ['', Validators.required],
+        'user_type': ['', Validators.required]
+    };
 
     constructor(
         private _fb: FormBuilder,
@@ -41,16 +50,12 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerForm = this._fb.group({
-            'first_name': ['', Validators.required],
-            'last_name': ['', Validators.required],
-            'email': ['', Validators.required],
-            'gender': ['', Validators.required],
-            'password': ['', Validators.required],
-            'field_type': ['', Validators.required],
-            'company_id': ['', Validators.required],
-            'user_type': ['', Validators.required]
-        });
+
+        if (!this.customerRegistration) {
+            this.formFields['field_type'] = ['', Validators.required];
+        }
+
+        this.registerForm = this._fb.group(this.formFields);
 
         this._partner.getTypes().subscribe(d => {
             this.partnerTypes = d;
