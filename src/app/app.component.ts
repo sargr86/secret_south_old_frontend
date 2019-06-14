@@ -67,7 +67,7 @@ export class AppComponent implements OnDestroy {
     getMode(sidenav) {
 
         // sidenav.close();
-        if (this.responsiveMode && screen.width < 1060) {
+        if (this.responsiveMode && screen.width < 1060 && !this.router.url.includes('auth')) {
             return 'over';
         } else {
             return 'side';

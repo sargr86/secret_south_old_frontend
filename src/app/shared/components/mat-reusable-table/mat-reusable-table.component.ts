@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '../../constants/settings';
 import {FerryService} from '../../services/ferry.service';
 import {GetTableDataSourcePipe} from '../../pipes/get-table-data-source.pipe';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 import {PartnerService} from '../../services/partner.service';
 import {Router} from '@angular/router';
@@ -37,10 +37,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     paginationValues = MAT_TABLE_PAGINATION_VALUES;
     dataSource;
     filteredData;
-
-
-    dataSubscription: Subscription;
-    dialogClosed: Subscription;
+    subscriptions: Subscription[] = [];
 
     constructor(
         private _ferries: FerryService,
@@ -72,7 +69,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         this.common.dataLoading = true;
 
 
-        this.dataSubscription = dataObs.subscribe(dt => {
+        this.subscriptions.push(dataObs.subscribe(dt => {
             if (dt.hasOwnProperty('result')) {
                 dt = dt['result'];
             }
@@ -104,7 +101,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
             };
 
 
-        });
+        }));
     }
 
     /**
@@ -118,7 +115,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
             this.dataSource.paginator.firstPage();
         }
         this.filteredData = this.dataSource.filteredData;
-        console.log(this.dataSource)
+        // console.log(this.dataSource)
     }
 
 
@@ -141,22 +138,17 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
 
         // Post-confirming actions
-        this.dialogClosed = dialogRef.afterClosed().subscribe(
+        this.subscriptions.push(dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
                     this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
                 }
             }
-        );
+        ));
     }
 
     ngOnDestroy() {
-        if (this.dataSubscription) {
-            this.dataSubscription.unsubscribe();
-        }
-        if (this.dialogClosed) {
-            this.dialogClosed.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 }

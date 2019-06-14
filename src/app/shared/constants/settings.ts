@@ -22,6 +22,7 @@ export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'
 export const TOURS_TABLE_COLUMNS = ['name', 'address', 'company', 'tours_type', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'actions'];
 export const EMPLOYEES_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'company', 'actions'];
+export const CUSTOMERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 
@@ -48,6 +49,7 @@ export const MENU_ITEM_ICONS = [
     {item: 'companies', icon: 'fa-briefcase'},
     {item: 'partners', icon: 'fa-users'},
     {item: 'employees', icon: 'fa-users'},
+    {item: 'customers', icon: 'fa-users'},
     {item: 'jobs', icon: 'fa-suitcase'}
 ];
 
@@ -122,6 +124,12 @@ export const DASHBOARD_LINKS = [
             {name: 'Show'}
             // {name: 'Add types'},
             // {name: 'Show types'}
+        ]
+    },
+    {
+        name: 'Customers',
+        children: [
+            {name: 'Show'}
         ]
     },
     {
