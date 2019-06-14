@@ -1,21 +1,28 @@
-.tourTypeForm {
-  max-width: 600px;
-  width: 100%;
-  margin-left: 270px;
-  .actions{
-    margin-top:20px;
-    .saveBtn{
-      float: left;
+.formContainer {
+  display: flex;
+  justify-content: center;
+
+  .tourTypeForm {
+    max-width: 600px;
+    width: 100%;
+    margin-left: 270px;
+
+    .actions {
+      margin-top: 20px;
+
+      .saveBtn {
+        float: left;
+      }
     }
   }
-}
 
-@media(max-width: 767px){
-  .tourTypeForm {
-    width: 100%;
-    display: block;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 0;
+  @media(max-width: 767px) {
+    .tourTypeForm {
+      width: 100%;
+      display: block;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0;
+    }
   }
 }
