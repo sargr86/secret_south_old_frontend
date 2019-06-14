@@ -38,7 +38,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     options = {types: ['geocode']};
     ferryFields = {
         'name': ['', Validators.required],
-        'max_people': ['', Validators.required],
+        'max_people': [12, Validators.required],
         'min_people': [5, Validators.required],
         'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
         'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],

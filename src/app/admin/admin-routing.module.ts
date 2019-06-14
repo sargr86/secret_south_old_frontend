@@ -36,6 +36,14 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard]
     },
     {
+        path: 'customers',
+        loadChildren: '../customers/customers.module#CustomersModule',
+        data: {
+            expectedRole: 'admin'
+        },
+        canActivate: [AuthGuard, RoleGuard]
+    },
+    {
         path: 'ferries',
         loadChildren: '../ferries/ferries.module#FerriesModule',
         data: {
