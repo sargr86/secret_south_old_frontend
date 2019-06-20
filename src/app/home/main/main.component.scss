@@ -18,7 +18,6 @@
 }
 
 
-
 .bgContainer {
   position: absolute;
   background-image: url("../../../assets/images/Aerial-Cork-Harbour.jpg");
@@ -30,7 +29,7 @@
   //height: 540px;
   //margin-top: -119px;
 
-  #bigLogo{
+  #bigLogo {
     background-image: url("../../../assets/images/logo-navy_big.png");
     background-size: cover;
     width: 300px;
@@ -60,13 +59,14 @@
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    color:$white;
+    color: $white;
     text-align: center;
-    h1{
-      font-size:60px;
+
+    h1 {
+      font-size: 60px;
     }
 
-    .mat-progress-bar{
+    .mat-progress-bar {
       margin-top: 115px;
     }
   }
@@ -128,3 +128,11 @@
 }
 
 
+h4.title{
+  margin-bottom: 0;
+}
+.description {
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+}
