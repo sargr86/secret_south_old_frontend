@@ -1,5 +1,4 @@
-
-<form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm" *ngIf="!common.dataLoading && partners.length > 0">
+<form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm" *ngIf="!common.dataLoading && companies && companies.length > 0">
 
     <!-- Current form title -->
     <h4 class="formTitle">
@@ -64,18 +63,40 @@
         </button>
     </div>
 
-    <!-- Partner field-->
-    <mat-form-field>
-        <mat-select formControlName="partner_id" placeholder="Partner" required>
-            <mat-option>Please choose</mat-option>
-            <mat-option *ngFor="let p of partners" [value]="p['id']">
-                {{p['first_name'] + ' ' + p['last_name']}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="foodDrinkForm.get('partner_id').hasError('required')">
-            Partner is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
+    <!-- Company drop down field for admin-->
+    <ng-container *ngIf="auth.checkRoles('admin')">
+        <mat-form-field>
+            <mat-select formControlName="company_id" placeholder="Company" required>
+                <mat-option>Please choose</mat-option>
+                <mat-option *ngFor="let c of companies" [value]="c['id']">
+                    {{c['name']}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+    <!-- Company name required error -->
+    <ng-container *ngIf="!auth.checkRoles('admin')">
+        <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
+    </ng-container>
+
+    <!-- Company hidden field for partners -->
+    <ng-container *ngIf="auth.checkRoles('partner')">
+        <input type="hidden" formControlName="company_id">
+    </ng-container>
+
+<!--    &lt;!&ndash; Partner field&ndash;&gt;-->
+<!--    <mat-form-field>-->
+<!--        <mat-select formControlName="partner_id" placeholder="Partner" required>-->
+<!--            <mat-option>Please choose</mat-option>-->
+<!--            <mat-option *ngFor="let p of partners" [value]="p['id']">-->
+<!--                {{p['first_name'] + ' ' + p['last_name']}}-->
+<!--            </mat-option>-->
+<!--        </mat-select>-->
+<!--        <mat-error *ngIf="foodDrinkForm.get('partner_id').hasError('required')">-->
+<!--            Partner is <strong>required</strong>-->
+<!--        </mat-error>-->
+<!--    </mat-form-field>-->
 
     <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
 
