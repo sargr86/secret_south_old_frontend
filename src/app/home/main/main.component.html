@@ -54,10 +54,10 @@
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
                 <div class="info">
-                    <h4>{{single.name}}</h4>
+                    <h4 class="title">{{single.name}}</h4>
+                    <small class="description">{{single.description}}</small>
                     <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
-                    <p><span>Description:</span><span>{{single.description}}</span></p>
-                    <p><span>Address:</span><span>{{single.address}}</span></p>
+                    <p><small>Address: {{single.address}}</small></p>
                     <button onclick="" mat-raised-button color="primary">Book</button>
                 </div>
             </agm-info-window>
