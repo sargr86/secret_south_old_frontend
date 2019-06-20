@@ -13,6 +13,9 @@ import {CommonService} from '../../shared/services/common.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {SubjectService} from '../../shared/services/subject.service';
 import {} from 'googlemaps';
+import {Subscription} from 'rxjs';
+import {BookingFormComponent} from '../../shared/components/booking-form/booking-form.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app-main',
@@ -57,6 +60,8 @@ export class MainComponent implements OnInit {
     progressVal = 0;
     overlayOpacity = 1;
 
+    subscriptions: Subscription[] = [];
+
     // Material toolbar background color toggling on scroll
     @HostListener('window:scroll', ['$event'])
     toggleToolbarBg() {
@@ -78,7 +83,8 @@ export class MainComponent implements OnInit {
         private _fb: FormBuilder,
         private toastr: ToastrService,
         public common: CommonService,
-        private subject: SubjectService
+        private subject: SubjectService,
+        private dialog: MatDialog,
     ) {
         this.subject.getMapData().subscribe(dt => {
             this.lng = dt.lng;
@@ -226,6 +232,26 @@ export class MainComponent implements OnInit {
 
 
         return iconsFolder + icon;
+    }
+
+    /**
+     * Books a selected item
+     * @param item
+     */
+    book(item) {
+        const dialogRef = this.dialog.open(BookingFormComponent, {
+            autoFocus: true, width: '800px', height: '500px',
+            data: {section: 'food/drink', item: item}
+        });
+
+        // Post-confirming actions
+        this.subscriptions.push(dialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+                    console.log("OK")
+                }
+            }
+        ));
     }
 
 

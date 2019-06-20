@@ -58,7 +58,7 @@
                     <small class="description">{{single.description}}</small>
                     <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
                     <p><small>Address: {{single.address}}</small></p>
-                    <button onclick="" mat-raised-button color="primary">Book</button>
+                    <button onclick="" mat-raised-button color="primary" (click)="book(single)">Book</button>
                 </div>
             </agm-info-window>
 

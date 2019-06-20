@@ -17,6 +17,7 @@ import {EditProfileComponent} from './components/edit-profile/edit-profile.compo
 import {FormTitleComponent} from './components/form-title/form-title.component';
 import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
+import {BookingFormComponent} from './components/booking-form/booking-form.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
         FormTitleComponent,
         ShowFormMessagePipe,
         BuildFormDataPipe,
+        BookingFormComponent,
     ],
     imports: [
         CommonModule,
@@ -69,7 +71,8 @@ import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
         FormTitleComponent
     ],
     entryComponents: [
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        BookingFormComponent
     ]
 })
 export class SharedModule {
