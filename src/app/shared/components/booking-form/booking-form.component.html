@@ -1,0 +1,19 @@
+<ng-container *ngIf="categoryName == 'food/drink'">
+    <div class="bookingInfo">
+        <h4>{{itemData.name}}</h4>
+        <small class="description">{{itemData.description}}</small>
+    </div>
+    <form [formGroup]="foodDrinkForm">
+        <mat-form-field>
+            <input matInput type="number" placeholder="Persons">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Date">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="time" placeholder="Hour">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="bookBtn">Book</button>
+    </form>
+</ng-container>
