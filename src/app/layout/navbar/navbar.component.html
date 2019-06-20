@@ -9,10 +9,10 @@
             <div class="mainSections" *ngIf="router.url === '/'">
                 <ng-container *ngFor="let section of mainSections">
                     <input type="radio" [hidden]="true">
-                    <p (click)="changeSection(section.name)">
+                    <p (click)="changeSection(section.name)" >
 
-                        <mat-icon>{{section.icon}}</mat-icon>
-                        <span>{{section.name}}</span>
+                        <mat-icon [class.selected]="selectedSection===section.name">{{section.icon}}</mat-icon>
+                        <span [class.selected]="selectedSection===section.name">{{section.name}}</span>
                     </p>
                 </ng-container>
             </div>
@@ -32,7 +32,7 @@
 
 
         <ng-container *ngIf="!router.url.includes('auth')">
-            <button class="sidebarToggler" (click)="toggleSidebar()" >
+            <button class="sidebarToggler" (click)="toggleSidebar()">
                 <mat-icon>menu</mat-icon>
             </button>
         </ng-container>

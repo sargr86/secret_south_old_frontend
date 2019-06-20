@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     sidebarOpen = false;
     subscriptions: Subscription[] = [];
     routerUrl;
+    selectedSection: string;
 
     @Output() toggleSide = new EventEmitter();
 
@@ -98,7 +99,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 lng: this.lng,
                 latlng: this.latlng
             });
-
+            this.selectedSection = section;
+            console.log(this.selectedSection)
 
         });
     }

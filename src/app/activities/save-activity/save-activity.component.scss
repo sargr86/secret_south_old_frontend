@@ -1,51 +1,58 @@
 @import '../../../variables';
 @import '../../../mixins';
 
-.saveActivityForm {
-  max-width: 600px;
+.formContainer {
   width: 100%;
-  padding: 20px;
-  float: left;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 
-  .addressContainer {
-    display: flex;
+  .saveActivityForm {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    float: left;
 
-    .mat-form-field {
-      width: 100%;
+    .addressContainer {
+      display: flex;
+
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .resetAddress {
+        @include noBgBtn;
+        color: $red;
+        margin-top: 20px;
+      }
+
     }
 
-    .resetAddress {
-      @include noBgBtn;
-      color: $red;
-      margin-top: 20px;
+    .actions {
+      margin-top: 40px;
+
+      .saveBtn {
+        float: left;
+      }
     }
 
-  }
-
-  .actions {
-    margin-top: 40px;
-    .saveBtn{
-      float: left;
+    .mat-spinner {
+      float: right;
     }
   }
 
-  .mat-spinner {
-    float: right;
-  }
 }
 
 
-
-
-
-.notFound{
+.notFound {
   text-align: center;
   display: block;
   padding: 20px;
 }
 
 @media screen and (max-width: 1360px) {
-  .saveActivityForm{
+  .saveActivityForm {
     max-width: 370px;
     width: 100%;
     padding: 20px;
@@ -57,12 +64,14 @@
   }
 
 }
-@media screen and (max-width: 1024px){
-  .dropzoneContainer{
+
+@media screen and (max-width: 1024px) {
+  .dropzoneContainer {
     display: none;
   }
 }
-@media screen and (max-width: 767px){
+
+@media screen and (max-width: 767px) {
   .saveActivityForm {
     max-width: 550px;
     float: none;
