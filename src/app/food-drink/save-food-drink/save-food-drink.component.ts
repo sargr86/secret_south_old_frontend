@@ -11,6 +11,8 @@ import {patternValidator} from '../../shared/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
+import {Company} from '../../shared/models/Company';
+import {CompaniesService} from '../../shared/services/companies.service';
 
 @Component({
     selector: 'app-save-food-drink',
@@ -27,7 +29,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
         description: ['', Validators.required],
         address: ['', Validators.required],
-        partner_id: ['', Validators.required]
+        company_id: ['', Validators.required]
     };
     partners: Partner[] = [];
     redirectUrl = this.auth.checkRoles('admin') ? 'admin/food-drink' : 'partners/food-drink';
@@ -38,8 +40,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
 
     options = {types: ['geocode']};
 
-    routeDataSubscription: Subscription;
-    partnersSubscription: Subscription;
+    subscriptions: Subscription[] = [];
+    companies: Company[];
 
 
     constructor(
@@ -50,12 +52,13 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         private route: ActivatedRoute,
         private checkFormData: CheckFormDataPipe,
+        private _companies: CompaniesService,
         public auth: AuthService
     ) {
         this.foodDrinkForm = this._fb.group(this.formFields);
         this.common.dataLoading = true;
-        this.routeDataSubscription = this.route.data.subscribe(dt => {
-            this.getPartners();
+        this.subscriptions.push(this.route.data.subscribe(dt => {
+            this.getCompanies();
             if (this.route.snapshot.paramMap.get('id')) {
                 this.foodDrinkData = dt['oneFoodDrink'];
                 this.formFields['id'] = '';
@@ -64,7 +67,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
                 this.editCase = true;
                 this.addressCtrl.disable();
             }
-        });
+            this.common.dataLoading = false;
+        }));
     }
 
     ngOnInit() {
@@ -79,14 +83,10 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Gets partners list
+     * Gets activity provider companies list
      */
-    getPartners() {
-        this.partnersSubscription = this._foodDrink.getPartners().subscribe((d: any) => {
-            this.partners = d;
-            this.checkFormData.transform('food drink', this.foodDrinkData, this.partners, this.editCase);
-            this.common.dataLoading = false;
-        });
+    getCompanies() {
+        this.subscriptions.push(this._companies.get({name: 'food/drink'}).subscribe((dt: Company[]) => this.companies = dt));
     }
 
     /**
@@ -134,12 +134,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.routeDataSubscription) {
-            this.routeDataSubscription.unsubscribe();
-        }
-        if (this.partnersSubscription) {
-            this.partnersSubscription.unsubscribe();
-        }
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 
 }
