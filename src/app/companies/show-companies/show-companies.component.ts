@@ -7,7 +7,7 @@ import {CompaniesService} from '../../shared/services/companies.service';
     styleUrls: ['./show-companies.component.scss']
 })
 export class ShowCompaniesComponent implements OnInit {
-    displayedColumns = ['name', 'actions'];
+    displayedColumns = ['name', 'partner_type', 'actions'];
     companies;
 
     constructor(
