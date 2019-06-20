@@ -71,6 +71,16 @@
                 </div>
             </agm-info-window>
 
+            <agm-info-window class="infWindow" *ngIf="currentSection=='Accommodations'">
+                <div class="info">
+                    <h4 class="title">{{single.name}}</h4>
+                    <small class="description">{{single.description}}</small>
+                    <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
+                    <p><small>Address: {{single.address}}</small></p>
+                    <button mat-raised-button color="primary">Book</button>
+                </div>
+            </agm-info-window>
+
             <agm-info-window class="infWindow" *ngIf="currentSection=='Activities'">
                 <div class="info">
                     <h4>{{single.name}}</h4>
