@@ -25,6 +25,7 @@ export const EMPLOYEES_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'par
 export const CUSTOMERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email'];
 export const MAT_TABLE_PAGINATION_VALUES = [5, 10, 25, 100];
 export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
+export const BOOKING_DIALOG_SETTINGS = {autoFocus: true, width: '500px'};
 
 
 // GOOGLE API KEY
