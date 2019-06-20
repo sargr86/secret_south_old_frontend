@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
 import {Company} from '../../shared/models/Company';
 import {CompaniesService} from '../../shared/services/companies.service';
+import {FoodDrink} from '../../shared/models/FoodDrink';
 
 @Component({
     selector: 'app-save-food-drink',
@@ -22,7 +23,7 @@ import {CompaniesService} from '../../shared/services/companies.service';
 export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     foodDrinkForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
-    foodDrinkData;
+    foodDrinkData: FoodDrink;
     formFields = {
         name: ['', Validators.required],
         lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
