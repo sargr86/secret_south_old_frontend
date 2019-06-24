@@ -60,8 +60,19 @@ export class BookingFormComponent implements OnInit {
 
     }
 
-    saveBooking(data) {
+    timeChanged(e,p) {
+        console.log(p)
+        this.foodDrinkForm.patchValue({bookingHour: e});
+    }
 
+    personsCountChanged(e) {
+        this.personsCount = e;
+        this.foodDrinkForm.patchValue({personCount: e});
+    }
+
+
+    saveBooking(data) {
+        console.log(data)
     }
 
 }
