@@ -13,7 +13,34 @@
   text-align: center;
 }
 
-.bookBtn {
-  display: block;
-  margin: 0 auto;
+.availabilityFields {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  border: 1px dotted silver;
+  padding: 20px;
+
+  .bookingTime {
+    height: 30px;
+    margin-top: 27px;
+  }
+}
+
+.personsCount {
+  width: 70px;
+  margin: auto;
+
+  input {
+    border: 1px solid silver !important;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+
+  .bookBtn {
+    display: block;
+  }
 }
