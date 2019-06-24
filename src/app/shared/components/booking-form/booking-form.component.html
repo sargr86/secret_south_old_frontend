@@ -28,7 +28,8 @@
                 <div class="personsCount">
                     <mat-label>Persons</mat-label>
                     <ng-number-picker [(value)]="personsCount" [size]="'small'"
-                                      [buttonsOrientation]="'v'" (valueChange)="personsCountChanged($event)"></ng-number-picker>
+                                      [buttonsOrientation]="'v'"
+                                      (valueChange)="personsCountChanged($event)"></ng-number-picker>
                     <mat-form-field [hidden]="true">
                         <input matInput type="number" placeholder="Persons" formControlName="personCount">
                     </mat-form-field>
@@ -40,8 +41,9 @@
 
             <div class="bookingTime">
                 <!-- Booking/reservation time field-->
-                <input [ngxTimepicker]="tpicker" placeholder="Time" [format]="24" (change)="timeChanged($event)" formControlName="bookingHour">
-                <ngx-material-timepicker  [ngxMaterialTimepickerTheme]="timepickerDarkTheme"
+                <input [ngxTimepicker]="tpicker" placeholder="Time" [format]="24" (change)="timeChanged($event)"
+                       formControlName="bookingHour">
+                <ngx-material-timepicker [ngxMaterialTimepickerTheme]="timepickerDarkTheme"
                                          #tpicker></ngx-material-timepicker>
             </div>
 
@@ -60,11 +62,15 @@
                 <input matInput placeholder="E-mail" formControlName="email">
             </mat-form-field>
 
-            <!-- Phone field-->
-            <mat-label>Phone</mat-label>
-            <international-phone-number placeholder="Phone number" [maxlength]="20" formControlName="phone"
-                                        [defaultCountry]="defaultCountry" [required]="true"
-                                        [allowedCountries]="allowedCountries"></international-phone-number>
+
+            <div class="phoneField">
+
+                <!-- Phone field-->
+                <mat-label>Phone</mat-label>
+                <international-phone-number placeholder="Phone number" [maxlength]="20" formControlName="phone"
+                                            [defaultCountry]="defaultCountry" [required]="true"
+                                            [allowedCountries]="allowedCountries"></international-phone-number>
+            </div>
 
         </div>
 
