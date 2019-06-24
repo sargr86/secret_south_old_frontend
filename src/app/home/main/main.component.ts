@@ -236,11 +236,11 @@ export class MainComponent implements OnInit {
 
     /**
      * Books a selected item
-     * @param item
+     * @param item selected item on the map
      */
     book(item) {
         const dialogRef = this.dialog.open(BookingFormComponent, {
-            autoFocus: true, width: '800px', height: '500px',
+            autoFocus: true, width: '800px', height: '550px',
             data: {section: 'food/drink', item: item}
         });
 
@@ -248,7 +248,6 @@ export class MainComponent implements OnInit {
         this.subscriptions.push(dialogRef.afterClosed().subscribe(
             result => {
                 if (result) {
-                    console.log("OK")
                 }
             }
         ));
