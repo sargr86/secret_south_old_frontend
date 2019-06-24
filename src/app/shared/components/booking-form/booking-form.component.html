@@ -13,7 +13,7 @@
             <!-- Booking date field -->
             <div class="bookingDate">
                 <mat-form-field>
-                    <input matInput placeholder="Date" name="bookingDate"
+                    <input matInput placeholder="Date" name="bookingDate" (dateChange)="dateChanged($event)"
                            [matDatepicker]="dtpicker" formControlName="bookingDate">
                     <mat-datepicker-toggle matSuffix [for]="dtpicker"></mat-datepicker-toggle>
                     <mat-datepicker #dtpicker startView="year"
@@ -40,7 +40,7 @@
 
             <div class="bookingTime">
                 <!-- Booking/reservation time field-->
-                <input [ngxTimepicker]="tpicker" placeholder="Time" [format]="24" (change)="timeChanged($event,tpicker)" formControlName="bookingHour">
+                <input [ngxTimepicker]="tpicker" placeholder="Time" [format]="24" (change)="timeChanged($event)" formControlName="bookingHour">
                 <ngx-material-timepicker  [ngxMaterialTimepickerTheme]="timepickerDarkTheme"
                                          #tpicker></ngx-material-timepicker>
             </div>
@@ -64,7 +64,6 @@
             <mat-label>Phone</mat-label>
             <international-phone-number placeholder="Phone number" [maxlength]="20" formControlName="phone"
                                         [defaultCountry]="defaultCountry" [required]="true"
-                                        (change)="phoneChanged($event)"
                                         [allowedCountries]="allowedCountries"></international-phone-number>
 
         </div>
