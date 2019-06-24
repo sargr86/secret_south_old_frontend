@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY} from '../../constants/settings';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
+import moment from 'moment';
 
 @Component({
     selector: 'app-booking-form',
@@ -56,15 +57,25 @@ export class BookingFormComponent implements OnInit {
 
     }
 
-    phoneChanged(e) {
-
+    /**
+     * Applying date picker dat to the form field
+     * @param e change event
+     */
+    dateChanged(e) {
+        this.foodDrinkForm.patchValue({bookingDate: moment(e).format('YYYY-MM-DD')});
     }
 
-    timeChanged(e,p) {
-        console.log(p)
+    /**
+     * Applying time picker value to the form field
+     * @param e change event
+     */
+    timeChanged(e) {
         this.foodDrinkForm.patchValue({bookingHour: e});
     }
-
+    /**
+     * Applying number picker count to the form field
+     * @param e change event
+     */
     personsCountChanged(e) {
         this.personsCount = e;
         this.foodDrinkForm.patchValue({personCount: e});
