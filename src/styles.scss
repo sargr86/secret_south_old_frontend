@@ -232,5 +232,37 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .clock-face {
-  border: 1px solid #f5f5f51c!important;
+  border: 1px solid #f5f5f51c !important;
+}
+
+/* Booking form persons count input */
+.personsCount {
+  width: 70px;
+  margin: auto;
+
+  input {
+    border: 1px solid silver !important;
+    border-radius: unset;
+  }
+
+  .input-group-text {
+    border-radius: unset;
+    background-color: #673ab7;
+    color: $white;
+  }
+}
+
+
+.phoneField, .bookingTime {
+  input {
+    border: none;
+    outline: none;
+    border-radius: unset;
+    border-bottom: 1px solid silver;
+  }
+
+  input:focus {
+    box-shadow: none !important;
+    border-bottom: 2px solid #673ab7;
+  }
 }
