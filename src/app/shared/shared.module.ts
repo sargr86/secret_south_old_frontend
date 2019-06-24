@@ -18,6 +18,8 @@ import {FormTitleComponent} from './components/form-title/form-title.component';
 import {ShowFormMessagePipe} from './pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
 import {BookingFormComponent} from './components/booking-form/booking-form.component';
+import {NumberPickerModule} from 'ng-number-picker';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import {BookingFormComponent} from './components/booking-form/booking-form.compo
         DropzoneModule,
         FormsModule,
         ReactiveFormsModule,
-        GooglePlaceModule
+        GooglePlaceModule,
+        NumberPickerModule,
+        NgxMaterialTimepickerModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -61,6 +65,7 @@ import {BookingFormComponent} from './components/booking-form/booking-form.compo
         FormsModule,
         ReactiveFormsModule,
         GooglePlaceModule,
+        NumberPickerModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
         MatReusableTableComponent,

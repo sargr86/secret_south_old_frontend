@@ -3,17 +3,77 @@
         <h4>{{itemData.name}}</h4>
         <small class="description">{{itemData.description}}</small>
     </div>
-    <form [formGroup]="foodDrinkForm">
-        <mat-form-field>
-            <input matInput type="number" placeholder="Persons">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Date">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="time" placeholder="Hour">
-        </mat-form-field>
 
-        <button mat-raised-button color="primary" class="bookBtn">Book</button>
+    <!-- Food/drink booking button -->
+    <form [formGroup]="foodDrinkForm">
+
+
+        <div class="availabilityFields">
+
+            <!-- Booking date field -->
+            <div class="bookingDate">
+                <mat-form-field>
+                    <input matInput placeholder="Date" name="bookingDate"
+                           [matDatepicker]="dtpicker" formControlName="bookingDate">
+                    <mat-datepicker-toggle matSuffix [for]="dtpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dtpicker startView="year"
+                                    [startAt]="getStartDate()"></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div class="personsContainer">
+
+                <!-- Persons count field -->
+                <div class="personsCount">
+                    <mat-label>Persons</mat-label>
+                    <ng-number-picker [(value)]="personsCount" [size]="'small'"
+                                      [buttonsOrientation]="'v'"></ng-number-picker>
+                    <mat-form-field [hidden]="true">
+                        <input matInput type="number" placeholder="Persons" formControlName="personCount">
+                    </mat-form-field>
+
+                </div>
+                <button mat-stroked-button>Check availability</button>
+            </div>
+
+
+            <div class="bookingTime">
+                <!-- Booking/reservation time field-->
+                <input [ngxTimepicker]="picker" placeholder="Time">
+                <ngx-material-timepicker [ngxMaterialTimepickerTheme]="timepickerDarkTheme"
+                                         #picker></ngx-material-timepicker>
+            </div>
+
+
+        </div>
+
+        <div class="customerInfo">
+
+            <!-- Full name field -->
+            <mat-form-field>
+                <input matInput placeholder="Full name" formControlName="fullName">
+            </mat-form-field>
+
+            <!-- E-mail field -->
+            <mat-form-field>
+                <input matInput placeholder="E-mail" formControlName="email">
+            </mat-form-field>
+
+            <!-- Phone field-->
+            <mat-label>Phone</mat-label>
+            <international-phone-number placeholder="Phone number" [maxlength]="20" formControlName="phone"
+                                        [defaultCountry]="defaultCountry" [required]="true"
+                                        (change)="phoneChanged($event)"
+                                        [allowedCountries]="allowedCountries"></international-phone-number>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button mat-raised-button color="primary" class="bookBtn" (click)="saveBooking(foodDrinkForm.value)">Book
+            </button>
+        </div>
     </form>
 </ng-container>
