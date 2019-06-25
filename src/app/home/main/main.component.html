@@ -63,9 +63,22 @@
                         <p>
                             <small>Address: {{single.address}}</small>
                         </p>
-                        <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
-                            Book
-                        </button>
+
+                        <div class="actions">
+                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
+                                Book
+                            </button>
+
+                            <div class="icons">
+                                <button mat-icon-button [matTooltip]="'Gallery'">
+                                    <mat-icon>photo</mat-icon>
+                                </button>
+                                <button mat-icon-button [matTooltip]="'Videos'">
+                                    <mat-icon>videocam</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </agm-info-window>
