@@ -35,21 +35,43 @@
                     [openInfoWindow]="true" [iconUrl]="getIcon()">
 
             <agm-info-window *ngIf="currentSection=='Ferries'">
-                <h4>{{single.name}}</h4>
-                <div class="info">
-                    <ul>
-                        <li>
-                            <small>Max: {{single.max_people}} people</small>
-                        </li>
-                        <li>
-                            <small>Min: {{single.min_people}} people</small>
-                        </li>
-                        <li>
-                            <!--                            <small>Tel: {{single.phone}}</small>-->
-                        </li>
-                    </ul>
+                <div class="infoContainer">
+                    <div class="image">
+                        <img class="infowindowImg" src="{{imgPath+'uploads/others/ferries/'+single.img}}"
+                             [hidden]="true" alt="">
+                    </div>
+                    <div class="info">
+                        <h4>{{single.name}}</h4>
+                        <ul>
+                            <li>
+                                <small>Max: {{single.max_people}} people</small>
+                            </li>
+                            <li>
+                                <small>Min: {{single.min_people}} people</small>
+                            </li>
+                            <li>
+                                <!--                            <small>Tel: {{single.phone}}</small>-->
+                            </li>
+                        </ul>
+
+                        <div class="actions">
+                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
+                                Book
+                            </button>
+
+                            <div class="icons">
+                                <button mat-icon-button [matTooltip]="'Gallery'">
+                                    <mat-icon>photo</mat-icon>
+                                </button>
+                                <button mat-icon-button [matTooltip]="'Videos'">
+                                    <mat-icon>videocam</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
-                <button mat-raised-button color="primary">Book</button>
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
@@ -107,18 +129,51 @@
                         <p>
                             <small>Address: {{single.address}}</small>
                         </p>
-                        <button mat-raised-button color="primary" (click)="book(single, currentSection)">Book</button>
+                        <div class="actions">
+                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
+                                Book
+                            </button>
+
+                            <div class="icons">
+                                <button mat-icon-button [matTooltip]="'Gallery'">
+                                    <mat-icon>photo</mat-icon>
+                                </button>
+                                <button mat-icon-button [matTooltip]="'Videos'">
+                                    <mat-icon>videocam</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Activities'">
-                <div class="info">
-                    <h4>{{single.name}}</h4>
-                    <img class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
-                    <p><span>Company: </span><span>{{single.company.name_en}}</span></p>
-                    <p><span>Address: </span><span>{{single.address}}</span></p>
-                    <button onclick="" mat-raised-button color="primary">Book</button>
+                <div class="infoContainer">
+                    <div class="image">
+                        <img class="infowindowImg" src="{{imgPath+'uploads/others/activities/'+single.img}}" alt="">
+                    </div>
+                    <div class="info">
+                        <h4>{{single.name}}</h4>
+                        <p>
+                            <small>Address: {{single.address}}</small>
+                        </p>
+                        <div class="actions">
+                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
+                                Book
+                            </button>
+
+                            <div class="icons">
+                                <button mat-icon-button [matTooltip]="'Gallery'">
+                                    <mat-icon>photo</mat-icon>
+                                </button>
+                                <button mat-icon-button [matTooltip]="'Videos'">
+                                    <mat-icon>videocam</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </agm-info-window>
         </agm-marker>
