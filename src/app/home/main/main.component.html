@@ -53,31 +53,49 @@
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
-                <div class="info">
-                    <h4 class="title">{{single.name}}</h4>
-                    <small class="description">{{single.description}}</small>
-                    <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
-                    <p><small>Address: {{single.address}}</small></p>
-                    <button onclick="" mat-raised-button color="primary" (click)="book(single)">Book</button>
+                <div class="infoContainer">
+                    <div class="image">
+                        <img class="infowindowImg" src="{{imgPath+'uploads/others/food-drink/'+single.img}}" alt="">
+                    </div>
+                    <div class="info">
+                        <h4 class="title">{{single.name}}</h4>
+                        <small class="description">{{single.description}}</small>
+                        <p>
+                            <small>Address: {{single.address}}</small>
+                        </p>
+                        <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
+                            Book
+                        </button>
+                    </div>
                 </div>
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Tours'">
+                <div class="infoContainer">
+                    <div class="image">
+                        <img class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
+                    </div>
+                </div>
                 <div class="info">
                     <h4>{{single.name}}</h4>
-                    <img class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
                     <p><span>Address: </span><span>{{single.address}}</span></p>
                     <button onclick="" mat-raised-button color="primary">Book</button>
                 </div>
             </agm-info-window>
 
             <agm-info-window class="infWindow" *ngIf="currentSection=='Accommodations'">
-                <div class="info">
-                    <h4 class="title">{{single.name}}</h4>
-                    <small class="description">{{single.description}}</small>
-                    <img class="infowindowImg" src="{{imgPath+'uploads/food_drink/'+single.img}}" alt="">
-                    <p><small>Address: {{single.address}}</small></p>
-                    <button mat-raised-button color="primary" (click)="book(single)">Book</button>
+                <div class="infoContainer">
+                    <div class="image">
+                        <img class="infowindowImg" src="{{imgPath+'uploads/others/accommodations/'+single.img}}" alt="">
+                    </div>
+                    <div class="info">
+                        <h4 class="title">{{single.name}}</h4>
+                        <small class="description">{{single.description}}</small>
+                        <p>
+                            <small>Address: {{single.address}}</small>
+                        </p>
+                        <button mat-raised-button color="primary" (click)="book(single, currentSection)">Book</button>
+                    </div>
                 </div>
             </agm-info-window>
 

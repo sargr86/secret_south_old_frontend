@@ -13,6 +13,7 @@ import moment from 'moment';
 export class BookingFormComponent implements OnInit {
     categoryName;
     itemData;
+    folder;
 
     timepickerDarkTheme: NgxMaterialTimepickerTheme = {
         container: {
@@ -40,6 +41,7 @@ export class BookingFormComponent implements OnInit {
     ) {
         this.categoryName = data.section;
         this.itemData = data.item;
+        this.folder = data.folder;
     }
 
     ngOnInit() {
@@ -72,6 +74,7 @@ export class BookingFormComponent implements OnInit {
     timeChanged(e) {
         this.foodDrinkForm.patchValue({bookingHour: e});
     }
+
     /**
      * Applying number picker count to the form field
      * @param e change event

@@ -7,7 +7,7 @@ import * as mapStylesData from '../../maps/map_styles2.json';
 import {Router} from '@angular/router';
 import {PartnerService} from '../../shared/services/partner.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MAIN_SECTIONS} from '../../shared/constants/settings';
+import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../shared/services/common.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
     public lng = 0;
     latlng: any = [];
     searchBy = {'type': ''};
-    imgPath: String = '';
+    imgPath: String = API_URL;
     public successData = false;
 
 
@@ -108,7 +108,7 @@ export class MainComponent implements OnInit {
             }
         }, 500);
 
-        this.imgPath = Base.imgPath;
+        // this.imgPath = Base.imgPath;
         this.getFerryLocation();
 
         // this.getLocation();
@@ -237,11 +237,12 @@ export class MainComponent implements OnInit {
     /**
      * Books a selected item
      * @param item selected item on the map
+     * @param category selected category name
      */
-    book(item) {
+    book(item, category) {
         const dialogRef = this.dialog.open(BookingFormComponent, {
             autoFocus: true, width: '800px', height: '550px',
-            data: {section: 'food/drink', item: item}
+            data: {section: 'food/drink', item: item, folder: `${UPLOADS_FOLDER}others/${category.toLowerCase()}`}
         });
 
         // Post-confirming actions

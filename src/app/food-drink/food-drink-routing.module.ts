@@ -17,7 +17,7 @@ const routes: Routes = [
             title: 'Edit a food/drink info',
         },
         resolve: {
-            oneFoodDrink: OneFoodDrinkResolverService
+            foodDrink: OneFoodDrinkResolverService
         }
     },
 ];

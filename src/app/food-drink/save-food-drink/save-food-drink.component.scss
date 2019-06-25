@@ -1,28 +1,35 @@
 @import '../../../variables';
 @import '../../../mixins';
 
-.saveFoodDrinkForm {
-  max-width: 600px;
-  width: 100%;
-  margin-left: 270px;
 
-  .addressContainer {
-    display: flex;
+.formContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
-    .mat-form-field {
-      width: 100%;
+  .saveFoodDrinkForm {
+    max-width: 600px;
+    width: 100%;
+    margin-left: 270px;
+
+    .addressContainer {
+      display: flex;
+
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .resetAddress {
+        @include noBgBtn;
+        color: $red;
+        margin-top: 20px;
+      }
+
     }
-
-    .resetAddress {
-      @include noBgBtn;
-      color: $red;
-      margin-top: 20px;
-    }
-
   }
 }
 
-@media(max-width: 767px){
+@media(max-width: 767px) {
   .saveFoodDrinkForm {
     width: 100%;
     display: block;

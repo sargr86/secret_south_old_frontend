@@ -20,6 +20,8 @@ import {BuildFormDataPipe} from './pipes/build-form-data.pipe';
 import {BookingFormComponent} from './components/booking-form/booking-form.component';
 import {NumberPickerModule} from 'ng-number-picker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
+import { DropzoneComponent } from './components/dropzone/dropzone.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
         ShowFormMessagePipe,
         BuildFormDataPipe,
         BookingFormComponent,
+        RedirectUrlGeneratorPipe,
+        DropzoneComponent,
     ],
     imports: [
         CommonModule,
@@ -53,6 +57,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
         GetImageUrlPipe,
         ShowFormMessagePipe,
         BuildFormDataPipe,
+        RedirectUrlGeneratorPipe,
         {
             provide: DROPZONE_CONFIG,
             useValue: DEFAULT_DROPZONE_CONFIG
