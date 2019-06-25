@@ -11,6 +11,7 @@ export const TOURS_FOLDER = UPLOADS_FOLDER + 'others/tours/';
 export const ACTIVITIES_FOLDER = UPLOADS_FOLDER + 'others/activities/';
 export const USERS_FOLDER = UPLOADS_FOLDER + 'users/';
 export const ACCOMMODATIONS_FOLDER = UPLOADS_FOLDER + 'others/accommodations/';
+export const FOOD_DRINK_FOLDER = UPLOADS_FOLDER + 'others/food-drink/';
 
 export const SPINNER_DIAMETER = 30;
 

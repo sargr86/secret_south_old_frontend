@@ -15,8 +15,7 @@ export class BuildFormDataPipe implements PipeTransform {
 
         // If file is selected
         if (file) {
-
-            fd.append('img', file.name)
+            fd.append('img', file.name);
             fd.append('upload_image', file);
         }
 
