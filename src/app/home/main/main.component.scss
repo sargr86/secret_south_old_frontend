@@ -86,6 +86,19 @@
   margin-top: 90px;
 }
 
+.actions {
+  display: flex;
+  justify-content: space-between;
+
+  .icons {
+
+  }
+}
+
+button.mat-icon-button {
+  color: #81b92c;
+}
+
 @media(max-width: 1024px) {
   .mainSections {
     left: 0 !important;
