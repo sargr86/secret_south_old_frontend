@@ -1,131 +1,144 @@
-<mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
-<form [formGroup]="ferryForm" class="saveFerryForm" *ngIf="!common.dataLoading && companies.length > 0">
+<div class="formContainer">
 
-  <!-- Current form title -->
-  <h4 class="formTitle">
-    <ng-container *ngIf="!editCase">
-      <mat-icon class="title_sign">add_box</mat-icon>
-      <span>Add a new ferry</span>
-    </ng-container>
-    <ng-container *ngIf="editCase">
-      <mat-icon>edit</mat-icon>
-      <span>Edit ferry details</span>
-    </ng-container>
-  </h4>
+    <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>
 
+    <form [formGroup]="ferryForm" class="saveFerryForm" *ngIf="!common.dataLoading && companies.length > 0">
 
-  <!-- Ferry name field-->
-  <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name" required>
-    <mat-error *ngIf="nameCtrl.hasError('required')">
-      Ferry name is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <!-- Max people for ferry field -->
-  <mat-form-field>
-    <input matInput formControlName="max_people" type="number" placeholder="Max people" required>
-    <mat-error *ngIf="maxCtrl.hasError('required')">
-      Maximum people count is <strong>required</strong>
-    </mat-error>
-    <mat-error [hidden]="!maxCtrl.hasError('pattern')"> Maximum people is <strong>invalid</strong></mat-error>
-  </mat-form-field>
-
-  <!-- Min people for ferry field -->
-  <mat-form-field>
-    <input matInput formControlName="min_people" type="number" placeholder="Min people" required>
-    <mat-error *ngIf="minCtrl.hasError('required')">
-      Minimum people count <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <!-- Ferry latitude field -->
-  <mat-form-field>
-    <input matInput formControlName="lat" placeholder="Latitude" required>
-    <mat-error *ngIf="latCtrl.hasError('required')">
-      Latitude is <strong>required</strong>
-    </mat-error>
-    <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
-      Latitude is <strong>invalid</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <!-- Ferry longitude field -->
-  <mat-form-field>
-    <input matInput formControlName="lng" placeholder="Longitude" required>
-    <mat-error *ngIf="lngCtrl.hasError('required')">
-      Longitude is <strong>required</strong>
-    </mat-error>
-    <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
-      Longitude is <strong>invalid</strong>
-    </mat-error>
-  </mat-form-field>
+        <!-- Current form title -->
+        <h4 class="formTitle">
+            <ng-container *ngIf="!editCase">
+                <mat-icon class="title_sign">add_box</mat-icon>
+                <span>Add a new ferry</span>
+            </ng-container>
+            <ng-container *ngIf="editCase">
+                <mat-icon>edit</mat-icon>
+                <span>Edit ferry details</span>
+            </ng-container>
+        </h4>
 
 
-  <!-- Phone number field -->
-  <mat-label [hidden]="true">Phone*</mat-label>
-  <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20" [hidden]="true"
-                              [defaultCountry]="defaultCountry" [required]="true" (change)="changed($event)"
-                              [allowedCountries]="allowedCountries"></international-phone-number>
+        <!-- Ferry name field-->
+        <mat-form-field>
+            <input matInput formControlName="name" placeholder="Name" required>
+            <mat-error *ngIf="nameCtrl.hasError('required')">
+                Ferry name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
 
-  <ng-container *ngIf="!phoneCtrl.pristine">
-    <mat-error *ngIf="phoneCtrl.hasError('required')">
-      Phone number is <strong>required</strong>
-    </mat-error>
-    <mat-error *ngIf="phoneCtrl.hasError('patternInvalid')">
-      Phone number is <strong>invalid</strong>
-    </mat-error>
-  </ng-container>
+        <!-- Max people for ferry field -->
+        <mat-form-field>
+            <input matInput formControlName="max_people" type="number" placeholder="Max people" required>
+            <mat-error *ngIf="maxCtrl.hasError('required')">
+                Maximum people count is <strong>required</strong>
+            </mat-error>
+            <mat-error [hidden]="!maxCtrl.hasError('pattern')"> Maximum people is <strong>invalid</strong></mat-error>
+        </mat-form-field>
 
-  <!-- Address field -->
-  <div class="addressContainer">
-    <mat-form-field>
-      <!--            <input matInput formControlName="address" placeholder="Address" #searchAddress required>-->
-      <input matInput class="ngx" ngx-google-places-autocomplete placeholder="Address"
-             formControlName="address" [options]='options' #searchAddress="ngx-places" required/>
-      <!--            <mat-hint align="end">If locations autocomplete doesn't appear, please click on reload icon below</mat-hint>-->
-      <mat-error *ngIf="addressCtrl.hasError('required')">
-        Tour address is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <button (click)="resetAddress()" class="resetAddress">
-      <mat-icon>replay</mat-icon>
-    </button>
-  </div>
+        <!-- Min people for ferry field -->
+        <mat-form-field>
+            <input matInput formControlName="min_people" type="number" placeholder="Min people" required>
+            <mat-error *ngIf="minCtrl.hasError('required')">
+                Minimum people count <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Ferry latitude field -->
+        <mat-form-field>
+            <input matInput formControlName="lat" placeholder="Latitude" required>
+            <mat-error *ngIf="latCtrl.hasError('required')">
+                Latitude is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+                Latitude is <strong>invalid</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Ferry longitude field -->
+        <mat-form-field>
+            <input matInput formControlName="lng" placeholder="Longitude" required>
+            <mat-error *ngIf="lngCtrl.hasError('required')">
+                Longitude is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+                Longitude is <strong>invalid</strong>
+            </mat-error>
+        </mat-form-field>
 
 
-  <!-- Company drop down field for admin-->
-  <ng-container *ngIf="auth.checkRoles('admin')">
-    <mat-form-field>
-      <mat-select formControlName="company_id" placeholder="Company" required>
-        <mat-option>Please choose</mat-option>
-        <mat-option *ngFor="let c of companies" [value]="c['id']">
-          {{c['name']}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </ng-container>
+        <!-- Phone number field -->
+        <mat-label [hidden]="true">Phone*</mat-label>
+        <international-phone-number placeholder="Phone number" formControlName="phone" [maxlength]="20" [hidden]="true"
+                                    [defaultCountry]="defaultCountry" [required]="true" (change)="changed($event)"
+                                    [allowedCountries]="allowedCountries"></international-phone-number>
 
-  <!-- Company name required error -->
-  <ng-container *ngIf="!auth.checkRoles('admin')">
-    <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
-  </ng-container>
+        <ng-container *ngIf="!phoneCtrl.pristine">
+            <mat-error *ngIf="phoneCtrl.hasError('required')">
+                Phone number is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="phoneCtrl.hasError('patternInvalid')">
+                Phone number is <strong>invalid</strong>
+            </mat-error>
+        </ng-container>
 
-  <!-- Company hidden field for partners -->
-  <ng-container *ngIf="auth.checkRoles('partner')">
-    <input type="hidden" formControlName="company_id">
-  </ng-container>
+        <!-- Address field -->
+        <div class="addressContainer">
+            <mat-form-field>
+                <!--            <input matInput formControlName="address" placeholder="Address" #searchAddress required>-->
+                <input matInput class="ngx" ngx-google-places-autocomplete placeholder="Address"
+                       formControlName="address" [options]='options' #searchAddress="ngx-places" required/>
+                <!--            <mat-hint align="end">If locations autocomplete doesn't appear, please click on reload icon below</mat-hint>-->
+                <mat-error *ngIf="addressCtrl.hasError('required')">
+                    Tour address is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <button (click)="resetAddress()" class="resetAddress">
+                <mat-icon>replay</mat-icon>
+            </button>
+        </div>
 
-  <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
 
-  <!-- Action buttons -->
-  <div class="actions">
+        <!-- Company drop down field for admin-->
+        <ng-container *ngIf="auth.checkRoles('admin')">
+            <mat-form-field>
+                <mat-select formControlName="company_id" placeholder="Company" required>
+                    <mat-option>Please choose</mat-option>
+                    <mat-option *ngFor="let c of companies" [value]="c['id']">
+                        {{c['name']}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
 
-    <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
-      Save
-    </button>
-  </div>
-</form>
+        <!-- Company name required error -->
+        <ng-container *ngIf="!auth.checkRoles('admin')">
+            <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
+        </ng-container>
+
+        <!-- Company hidden field for partners -->
+        <ng-container *ngIf="auth.checkRoles('partner')">
+            <input type="hidden" formControlName="company_id">
+        </ng-container>
+
+        <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+
+        <!-- Action buttons -->
+        <div class="actions">
+
+            <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
+                Save
+            </button>
+        </div>
+    </form>
+
+    <!-- Drop zone -->
+    <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
+        <img *ngIf="imgPath" [src]="imgPath" class="savedImg">
+        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
+        <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
+                  *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+    </div>
+
+</div>

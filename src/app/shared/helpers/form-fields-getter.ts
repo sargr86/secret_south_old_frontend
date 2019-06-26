@@ -11,3 +11,15 @@ export const FOOD_DRINK_FIELDS = {
     company_id: ['', Validators.required],
     folder: 'food-drink',
 };
+
+export const FERRY_FIELDS = {
+    name: ['', Validators.required],
+    max_people: [12, Validators.required],
+    min_people: [5, Validators.required],
+    lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+    lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
+    phone: ['', [Validators.required]],
+    address: ['', Validators.required],
+    company_id: ['', Validators.required],
+    folder: 'ferries'
+};

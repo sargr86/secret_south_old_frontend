@@ -12,6 +12,7 @@ export class BuildFormDataPipe implements PipeTransform {
             fd.append(field, data[field]);
         }
 
+        console.log(file)
 
         // If file is selected
         if (file) {
