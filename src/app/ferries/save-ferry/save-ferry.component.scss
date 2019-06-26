@@ -2,35 +2,46 @@
 @import '../../../mixins';
 
 
-.saveFerryForm{
-  max-width: 600px;
-  width: 100%;
-  margin-left: 270px;
-  .addressContainer {
-    display: flex;
-    .mat-form-field {
-      width: 100%;
-    }
-    .resetAddress {
-      @include noBgBtn;
-      color: $red;
-      margin-top:20px;
+.formContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .saveFerryForm {
+    max-width: 600px;
+    width: 100%;
+    margin-left: 270px;
+
+    .addressContainer {
+      display: flex;
+
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .resetAddress {
+        @include noBgBtn;
+        color: $red;
+        margin-top: 20px;
+      }
+
     }
 
+    .actions {
+      margin-top: 40px;
+    }
   }
-  .actions{
-    margin-top:40px;
-  }
+
 }
 
-.notFound{
+.notFound {
   text-align: center;
   display: block;
   padding: 20px;
 }
 
-@media screen and (max-width: 768px){
-  .saveFerryForm{
+@media screen and (max-width: 768px) {
+  .saveFerryForm {
     margin: auto !important;
     padding-left: 20px;
     padding-right: 20px;

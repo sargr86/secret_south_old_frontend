@@ -3,14 +3,15 @@ import {FerryService} from '../../shared/services/ferry.service';
 import {PartnerService} from '../../shared/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {
+    ALLOWED_COUNTRIES,
+    DEFAULT_COUNTRY,
+    FERRIES_FOLDER,
+    FOOD_DRINK_FOLDER,
+    SPINNER_DIAMETER
+} from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../shared/services/common.service';
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {
-    LATITUDE_PATTERN,
-    LONGITUDE_PATTERN,
-} from '../../shared/constants/patterns';
 import {Ferry} from '../../shared/models/Ferry';
 import {Partner} from '../../shared/models/Partner';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
@@ -18,6 +19,10 @@ import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
 import {Company} from '../../shared/models/Company';
 import {CompaniesService} from '../../shared/services/companies.service';
+import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
+import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
+import {FERRY_FIELDS} from '../../shared/helpers/form-fields-getter';
+import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
 
 
 @Component({
@@ -32,21 +37,14 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     spinnerDiameter = SPINNER_DIAMETER;
     partners: Partner[] = [];
     editCase = false;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/ferries' : 'partners/ferries';
+    redirectUrl = this.getRedirectUrl.transform('ferries');
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
     options = {types: ['geocode']};
-    ferryFields = {
-        'name': ['', Validators.required],
-        'max_people': [12, Validators.required],
-        'min_people': [5, Validators.required],
-        'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
-        'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
-        'phone': ['', [Validators.required]],
-        'address': ['', Validators.required],
-        'company_id': [this.getCompany(), Validators.required]
-
-    };
+    ferryFields = FERRY_FIELDS;
+    dropZoneFile;
+    imgPath;
+    formAction: string;
 
     companies: Company[] = [];
     subscriptions: Subscription[] = [];
@@ -57,7 +55,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
 
     constructor(
         private _fb: FormBuilder,
-        private _ferry: FerryService,
+        private _ferries: FerryService,
         private _partner: PartnerService,
         private router: Router,
         private route: ActivatedRoute,
@@ -65,7 +63,10 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         public common: CommonService,
         private checkFormData: CheckFormDataPipe,
         private _companies: CompaniesService,
-        public auth: AuthService
+        public auth: AuthService,
+        private _formMsg: ShowFormMessagePipe,
+        private formData: BuildFormDataPipe,
+        private getRedirectUrl: RedirectUrlGeneratorPipe
     ) {
     }
 
@@ -83,7 +84,11 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
                     this.ferryForm.patchValue(this.ferryData);
                     this.addressCtrl.disable();
                 }
+                if (this.ferryData['img']) {
+                    this.imgPath = FERRIES_FOLDER + this.ferryData['img'];
+                }
             }
+            this.formAction = this.editCase ? 'update' : 'add';
             this.common.dataLoading = false;
         }));
 
@@ -99,28 +104,21 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
 
     /**
      * Adds or updates a ferry info
-     * @param searchAddress ferry address
+     * @param address ferry address
      */
-    saveFerry(searchAddress) {
-        const formValue = this.ferryForm.value;
-        formValue.address = searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, '');
+    saveFerry(address) {
+
+        this.common.formProcessing = true;
+        const formData = this.formData.transform({
+            ...this.ferryForm.value,
+            address: address.el.nativeElement.value.replace(/\r?\n|\r/g, '')
+        }, this.dropZoneFile);
 
 
         // if (this.ferryForm.valid) {
-        this.common.formProcessing = true;
-        if (this.editCase) {
-            this._ferry.update(formValue).subscribe(() => {
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The ferry info has been updated successfully', 'Updated!');
-                this.common.formProcessing = false;
-            });
-        } else {
-            this._ferry.insertFerry(formValue).subscribe(() => {
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The ferry info has been added successfully', 'Added!');
-                this.common.formProcessing = false;
-            });
-        }
+            this.subscriptions.push(this._ferries[this.formAction](formData).subscribe(() => {
+                this._formMsg.transform('ferry', this.editCase, this.redirectUrl);
+            }));
 
 
         // }
@@ -134,6 +132,23 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
             this.companies = dt;
             this.checkFormData.transform('ferry', this.ferryData, this.companies, this.editCase);
         }));
+    }
+
+    /**
+     * Gets drop zone file
+     * @param e the file
+     */
+    getFile(e) {
+        this.dropZoneFile = e;
+    }
+
+
+    /**
+     * Removes saved drop zone image
+     */
+    removeSavedImg() {
+        this.imgPath = '';
+        this.ferryForm.patchValue({'img': ''});
     }
 
     get nameCtrl() {
