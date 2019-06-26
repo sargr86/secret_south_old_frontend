@@ -67,7 +67,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
                 this.editCase = true;
                 this.addressCtrl.disable();
                 if (this.foodDrinkData['img']) {
-                    this.imgPath = FERRIES_FOLDER + this.foodDrinkData['img'];
+                    this.imgPath = FOOD_DRINK_FOLDER + this.foodDrinkData['img'];
                 }
             }
             this.formAction = this.editCase ? 'update' : 'add';
@@ -103,7 +103,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     save(address) {
 
         // if (this.foodDrinkForm.valid) {
-
         this.common.formProcessing = true;
         const formData = this.formData.transform({
             ...this.foodDrinkForm.value,
@@ -133,6 +132,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     removeSavedImg() {
         this.imgPath = '';
         this.foodDrinkForm.patchValue({'img': ''});
+        this.dropZoneFile = null;
     }
 
     get latCtrl() {

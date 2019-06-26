@@ -9,14 +9,16 @@ export class BuildFormDataPipe implements PipeTransform {
         const fd: FormData = new FormData();
 
         for (const field of Object.keys(data)) {
-            fd.append(field, data[field]);
+            if (field !== 'img') {
+                fd.append(field, data[field]);
+            } else {
+                fd.append('img', file ? file.name : '');
+            }
         }
-
-        console.log(file)
 
         // If file is selected
         if (file) {
-            fd.append('img', file.name);
+
             fd.append('upload_image', file);
         }
 

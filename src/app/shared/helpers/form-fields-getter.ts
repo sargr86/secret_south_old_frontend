@@ -10,6 +10,7 @@ export const FOOD_DRINK_FIELDS = {
     address: ['', Validators.required],
     company_id: ['', Validators.required],
     folder: 'food-drink',
+    img: ''
 };
 
 export const FERRY_FIELDS = {
@@ -21,5 +22,6 @@ export const FERRY_FIELDS = {
     phone: ['', [Validators.required]],
     address: ['', Validators.required],
     company_id: ['', Validators.required],
-    folder: 'ferries'
+    folder: 'ferries',
+    img: ''
 };
