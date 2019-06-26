@@ -91,6 +91,8 @@
             </button>
         </div>
     </form>
+
+    <!-- Drop zone -->
     <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
         <img *ngIf="imgPath" [src]="imgPath" class="savedImg">
         <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>

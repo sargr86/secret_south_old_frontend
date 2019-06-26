@@ -253,7 +253,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 
-.phoneField, .bookingTime {
+.phoneField, .bookingTime, .personsContainer {
   input {
     border: none;
     outline: none;
@@ -266,3 +266,5 @@ mat-progress-bar .mat-progress-bar-buffer {
     border-bottom: 2px solid #673ab7;
   }
 }
+
+

@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {FoodDrinkService} from '../../shared/services/food-drink.service';
 import {CommonService} from '../../shared/services/common.service';
-import {FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
@@ -67,7 +67,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
                 this.editCase = true;
                 this.addressCtrl.disable();
                 if (this.foodDrinkData['img']) {
-                    this.imgPath = FOOD_DRINK_FOLDER + this.foodDrinkData['img'];
+                    this.imgPath = FERRIES_FOLDER + this.foodDrinkData['img'];
                 }
             }
             this.formAction = this.editCase ? 'update' : 'add';
@@ -120,7 +120,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
 
     /**
      * Gets drop zone file
-     * @param e
+     * @param e the file
      */
     getFile(e) {
         this.dropZoneFile = e;
