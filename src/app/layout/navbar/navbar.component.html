@@ -1,68 +1,58 @@
-<mat-toolbar *ngIf="!common.showOverlay"
-             [class.dashboard]="auth.loggedIn() && router.url!=='/' && !router.url.includes('auth')">
+<mat-toolbar *ngIf="!common.showOverlay">
+
+    <!-- Left group of nav bar items -->
     <div class="leftGroup">
 
-        <ng-container>
+        <!-- Website logo -->
+        <div class="logo" (click)="router.navigate(['/'])"></div>
 
-            <div class="logo" (click)="router.navigate(['/'])"></div>
-
-            <div class="mainSections" *ngIf="router.url === '/'">
-                <ng-container *ngFor="let section of mainSections">
-                    <input type="radio" [hidden]="true">
-                    <p (click)="changeSection(section.name)" >
-
-                        <mat-icon [class.selected]="selectedSection===section.name">{{section.icon}}</mat-icon>
-                        <span [class.selected]="selectedSection===section.name">{{section.name}}</span>
-                    </p>
-                </ng-container>
-            </div>
-        </ng-container>
-
-        <ng-container *ngIf="showBurger && !responsiveMode">
-            <!--            <button class="sidebarToggler" (click)="toggleSidebar()">-->
-            <!--                <mat-icon>menu</mat-icon>-->
-            <!--            </button>-->
-        </ng-container>
+        <!-- Main sections of the home page -->
+        <div class="mainSections" *ngIf="router.url === '/'">
+            <ng-container *ngFor="let section of mainSections">
+                <p (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
+                    <mat-icon>{{section.icon}}</mat-icon>
+                    <span>{{section.name}}</span>
+                </p>
+            </ng-container>
+        </div>
     </div>
+
+
+    <!-- Center group of navigation items -->
     <div class="centerGroup">
 
     </div>
 
+
+    <!-- Right group of navigation items -->
     <div class="rightGroup">
 
-
-        <ng-container *ngIf="!router.url.includes('auth')">
+        <!-- Sidebar toggler button -->
+        <ng-container *ngIf="!router.url.includes('auth') && responsiveMode">
             <button class="sidebarToggler" (click)="toggleSidebar()">
                 <mat-icon>menu</mat-icon>
             </button>
         </ng-container>
 
-        <!--        <div class="burger_menu" (click)="toggleSidebar()" *ngIf="router.url==='/'">-->
-        <!--            <i class="material-icons">-->
-        <!--                menu-->
-        <!--            </i>-->
-        <!--        </div>-->
-
+        <!-- Home page redirect button -->
         <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
             <mat-icon>home</mat-icon>
         </button>
+
+        <!-- Login/Register/Dashboard links-->
+        <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
+              class="link" [matTooltip]="'Login/ Register'">
+            <mat-icon>lock_open</mat-icon>
+        </span>
         <span (click)="router.navigate(['auth/register'])" class="link"
               *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
         <span (click)="navigateToDashboard()" class="link"
               *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</span>
 
-        <!--        <button (click)="router.navigate(['/'])" class="homeBtn">-->
-        <!--            <mat-icon>home</mat-icon>-->
-        <!--        </button>-->
-
         <!-- Logout button -->
         <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
             <mat-icon>exit_to_app</mat-icon>
         </button>
-        <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && router.url!=='/auth/login'"
-              class="link">Login</span>
 
     </div>
-
-
 </mat-toolbar>
