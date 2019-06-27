@@ -18,13 +18,13 @@ export class CheckFormDataPipe implements PipeTransform {
      * Checks form data & partner data for existence and display info box
      * @param item current section
      * @param data current section form data
-     * @param partners current section partners data
+     * @param companies current section partners data
      * @param editCase shows if we're on edit or add mode
      */
-    transform(item, data, partners, editCase): any {
+    transform(item, data, companies, editCase): any {
         let title = '';
         let msg = '';
-        if (partners.length === 0) {
+        if (companies.length === 0) {
             title = 'No companies found.';
             msg = 'Please add at least one ' + item + ' company first.';
         } else if (editCase) {
@@ -35,6 +35,8 @@ export class CheckFormDataPipe implements PipeTransform {
                 title = 'Partner company not found';
                 msg = 'The partner of current ' + item + ' company is no longer available.';
             }
+        } else {
+            this.toastr.clear();
         }
 
         if (title) {
