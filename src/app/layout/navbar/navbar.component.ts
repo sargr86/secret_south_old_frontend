@@ -10,6 +10,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {PartnerType} from '../../shared/models/PartnerType';
+import IsResponsive from '../../shared/helpers/is-responsive';
 
 @Component({
     selector: 'app-navbar',
@@ -22,11 +23,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     latlng: any = [];
     lat = 0;
     lng = 0;
-    partnerTypes: PartnerType[];
-    sidebarOpen = false;
     subscriptions: Subscription[] = [];
-    routerUrl;
+    routerUrl: string;
     selectedSection = 'Ferries';
+    responsiveMode: boolean;
 
     @Output() toggleSide = new EventEmitter();
 
@@ -38,8 +38,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
         private main: MainService,
         private subject: SubjectService,
         public auth: AuthService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
     ) {
+
+        // Checking for responsive mode and initializing map form
+        this.responsiveMode = IsResponsive.check();
         this.mapForm = this._fb.group({
             type: ['']
         });
@@ -47,14 +50,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+
         this.subscriptions.push(
             this.router.events.pipe(
                 filter(event => event instanceof NavigationEnd)
             ).subscribe((dt: Data) => {
                 this.routerUrl = dt.url;
+
+                // Getting partner types (section names) and setting 'Ferries' section as selected one
                 this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
-                    this.mapForm.patchValue({type: d[0]['name']});
-                    this.partnerTypes = d;
+                    this.mapForm.patchValue({type: d.filter(t => t['name'] === 'Ferries')});
                 }));
             })
         );
@@ -62,16 +67,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     }
 
-
+    /**
+     * Emits toggle event to toggle sidebar
+     */
     toggleSidebar() {
         this.toggleSide.emit();
-        // if (this.router.url === '/' || this.router.url.includes('auth')) {
-        //     this.sidebarOpen = !this.sidebarOpen;
-        // }
-    }
-
-    closeSidebar() {
-        this.sidebarOpen = false;
     }
 
     changePlace(section) {
@@ -107,9 +107,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     changeSection(section) {
         this.mapForm.patchValue({type: section});
         this.changePlace(section);
-        if (this.responsiveMode) {
-            this.closeSidebar();
-        }
 
     }
 
@@ -121,15 +118,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     navigateToDashboard() {
         const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
         this.router.navigate([`${role}/dashboard`]);
-    }
-
-    get showBurger() {
-        return this.auth.loggedIn() && (this.router.url !== '/' && !this.router.url.includes('auth'));
-    }
-
-    get responsiveMode() {
-
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     ngOnDestroy() {
