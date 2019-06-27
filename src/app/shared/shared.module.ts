@@ -21,7 +21,7 @@ import {BookingFormComponent} from './components/booking-form/booking-form.compo
 import {NumberPickerModule} from 'ng-number-picker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
-import { DropzoneComponent } from './components/dropzone/dropzone.component';
+import {DropzoneComponent} from './components/dropzone/dropzone.component';
 
 @NgModule({
     declarations: [
@@ -73,9 +73,9 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
         NumberPickerModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
+        GetImageUrlPipe,
         MatReusableTableComponent,
         DashboardTemplateComponent,
-        GetImageUrlPipe,
         InvitationFormComponent,
         EditProfileComponent,
         FormTitleComponent
