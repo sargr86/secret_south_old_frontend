@@ -39,7 +39,7 @@
                     <div class="image">
                         <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/ferries/'+single.img}}"
                              alt="">
-                        <img *ngIf="!single.img" [src]="'assets/images/no_image.jpg'">
+                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
                     </div>
                     <div class="info">
                         <h4>{{single.name}}</h4>
