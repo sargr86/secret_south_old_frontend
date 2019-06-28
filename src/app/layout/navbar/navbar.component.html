@@ -41,7 +41,7 @@
 
         <!-- Login/Register/Dashboard links-->
         <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
-              class="link" [matTooltip]="'Login/ Register'">
+              class="link authLink" [matTooltip]="'Login/ Register'">
             <mat-icon>lock_open</mat-icon>
         </span>
         <span (click)="router.navigate(['auth/register'])" class="link"
