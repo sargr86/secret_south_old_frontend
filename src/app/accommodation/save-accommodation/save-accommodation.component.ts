@@ -37,6 +37,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     partners: Partner[] = [];
     redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/accommodations';
     editCase = !!this.route.snapshot.paramMap.get('id');
+    accommodationData;
 
     companies: Company[] = [];
 
@@ -72,7 +73,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.route.data.subscribe(dt => {
 
             // Getting companies list
-            this.getCompanies();
+            this.getCompanies(dt['accommodation']);
+
 
             // Preparing the edit form for updating info case
             if (this.editCase) {
@@ -98,7 +100,9 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         }
     }
 
-    // Setting form fields with provided object
+    /**
+     * Setting form fields with provided object
+     */
     setFormFields() {
         this.accommodationForm = this._fb.group(this.formFields);
     }
@@ -115,8 +119,11 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     /**
      * Gets activity provider companies list
      */
-    getCompanies() {
-        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe((dt: Company[]) => this.companies = dt));
+    getCompanies(accommodationData) {
+        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe((dt: Company[]) => {
+            this.companies = dt;
+            this.checkFormData.transform('accommodation', accommodationData, this.companies, this.editCase);
+        }));
     }
 
     /**
@@ -124,7 +131,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * @param address food-drink address
      */
     save(address) {
-        if (this.accommodationForm.valid) {
+        // if (this.accommodationForm.valid) {
 
             this.common.formProcessing = true;
             const formData = this.formData.transform({
@@ -135,7 +142,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
             this._accommodation[this.formAction](formData).subscribe(() => {
                 this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
             });
-        }
+        // }
     }
 
     getFile(e) {

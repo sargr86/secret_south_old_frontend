@@ -136,9 +136,9 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
         if (this.saveActivityForm.valid) {
 
-            if (!this.dropZoneFile && !this.editCase) {
-                this.toastr.error('Please select an image to upload', 'No files');
-            } else {
+            // if (!this.dropZoneFile && !this.editCase) {
+            //     this.toastr.error('Please select an image to upload', 'No files');
+            // } else {
                 this.common.formProcessing = true;
                 const data = this.saveActivityForm.value;
                 const fd = new FormData();
@@ -162,7 +162,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
                 this.subscriptions.push(this._activities[this.formAction](fd).subscribe(() => {
                     this._formMsg.transform('activity info', this.editCase, this.redirectUrl);
                 }));
-            }
+            // }
         }
 
     }
