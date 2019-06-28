@@ -37,8 +37,9 @@
             <agm-info-window *ngIf="currentSection=='Ferries'">
                 <div class="infoContainer">
                     <div class="image">
-                        <img class="infowindowImg" src="{{imgPath+'uploads/others/ferries/'+single.img}}"
+                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/ferries/'+single.img}}"
                              alt="">
+                        <img *ngIf="!single.img" [src]="'assets/images/no_image.jpg'">
                     </div>
                     <div class="info">
                         <h4>{{single.name}}</h4>
@@ -77,7 +78,8 @@
             <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
                 <div class="infoContainer">
                     <div class="image">
-                        <img class="infowindowImg" src="{{imgPath+'uploads/others/food-drink/'+single.img}}" alt="">
+                        <img *ngIf="single.img"  class="infowindowImg" src="{{imgPath+'uploads/others/food-drink/'+single.img}}" alt="">
+                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
                     </div>
                     <div class="info">
                         <h4 class="title">{{single.name}}</h4>
@@ -108,7 +110,8 @@
             <agm-info-window class="infWindow" *ngIf="currentSection=='Tours'">
                 <div class="infoContainer">
                     <div class="image">
-                        <img class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
+                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
+                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
                     </div>
                 </div>
                 <div class="info">
@@ -121,7 +124,8 @@
             <agm-info-window class="infWindow" *ngIf="currentSection=='Accommodations'">
                 <div class="infoContainer">
                     <div class="image">
-                        <img class="infowindowImg" src="{{imgPath+'uploads/others/accommodations/'+single.img}}" alt="">
+                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/accommodations/'+single.img}}" alt="">
+                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
                     </div>
                     <div class="info">
                         <h4 class="title">{{single.name}}</h4>
@@ -151,7 +155,8 @@
             <agm-info-window class="infWindow" *ngIf="currentSection=='Activities'">
                 <div class="infoContainer">
                     <div class="image">
-                        <img class="infowindowImg" src="{{imgPath+'uploads/others/activities/'+single.img}}" alt="">
+                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/activities/'+single.img}}" alt="">
+                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
                     </div>
                     <div class="info">
                         <h4>{{single.name}}</h4>
