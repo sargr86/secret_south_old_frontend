@@ -24,6 +24,8 @@ export class CheckFormDataPipe implements PipeTransform {
     transform(item, data, companies, editCase): any {
         let title = '';
         let msg = '';
+
+        // Checking if at least one partner company present
         if (companies.length === 0) {
             title = 'No companies found.';
             msg = 'Please add at least one ' + item + ' company first.';
@@ -39,8 +41,8 @@ export class CheckFormDataPipe implements PipeTransform {
             this.toastr.clear();
         }
 
+        // Showing current message to user
         if (title) {
-
             setTimeout(() => this.toastr.info(msg, title, {timeOut: 0}));
             this.toastr.clear();
         }
