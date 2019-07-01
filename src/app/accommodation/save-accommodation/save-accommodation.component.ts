@@ -8,13 +8,13 @@ import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
 import {AuthService} from '../../shared/services/auth.service';
 import {CompaniesService} from '../../shared/services/companies.service';
 import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
 import {Company} from '../../shared/models/Company';
 import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
+import {ACCOMMODATION_FIELDS} from '../../shared/helpers/form-fields-getter';
+import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -25,28 +25,18 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     accommodationForm: FormGroup;
     spinnerDiameter = SPINNER_DIAMETER;
-    formFields = {
-        name: ['', Validators.required],
-        lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
-        lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
-        description: [''],
-        address: ['', Validators.required],
-        company_id: ['', Validators.required],
-        folder: 'accommodations'
-    };
-    partners: Partner[] = [];
-    redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/accommodations';
+    formFields = ACCOMMODATION_FIELDS;
+    subscriptions: Subscription[] = [];
     editCase = !!this.route.snapshot.paramMap.get('id');
-    accommodationData;
+    formAction = this.editCase ? 'update' : 'add';
+    redirectUrl = this.getRedirectUrl.transform('accommodations');
 
     companies: Company[] = [];
 
     @ViewChild('searchAddress')
     searchElementRef: ElementRef;
-
     options = {types: ['geocode']};
-    formAction = this.editCase ? 'update' : 'add';
-    subscriptions: Subscription[] = [];
+
     dropZoneFile: File;
     imgPath: string;
 
@@ -61,12 +51,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         private checkFormData: CheckFormDataPipe,
         private _formMsg: ShowFormMessagePipe,
         public auth: AuthService,
-        private formData: BuildFormDataPipe
+        private formData: BuildFormDataPipe,
+        private getRedirectUrl: RedirectUrlGeneratorPipe
     ) {
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         this.setFormFields();
         this.common.dataLoading = true;
@@ -90,7 +81,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * Prepares edit form fields & data
      * @param dt route data
      */
-    editFormPreparations(dt) {
+    editFormPreparations(dt): void {
         this.formFields['id'] = '';
         this.setFormFields();
         this.addressCtrl.disable();
@@ -103,7 +94,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     /**
      * Setting form fields with provided object
      */
-    setFormFields() {
+    setFormFields(): void {
         this.accommodationForm = this._fb.group(this.formFields);
     }
 
@@ -111,7 +102,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     /**
      * Resets address and reloads maps api to allow user to select from drop down again
      */
-    resetAddress() {
+    resetAddress(): void {
         this.accommodationForm.patchValue({'address': ''});
         this.addressCtrl.enable();
     }
@@ -133,15 +124,15 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     save(address) {
         // if (this.accommodationForm.valid) {
 
-            this.common.formProcessing = true;
-            const formData = this.formData.transform({
-                ...this.accommodationForm.value,
-                address: address.el.nativeElement.value
-            }, this.dropZoneFile);
+        this.common.formProcessing = true;
+        const formData = this.formData.transform({
+            ...this.accommodationForm.value,
+            address: address.el.nativeElement.value
+        }, this.dropZoneFile);
 
-            this._accommodation[this.formAction](formData).subscribe(() => {
-                this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
-            });
+        this._accommodation[this.formAction](formData).subscribe(() => {
+            this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
+        });
         // }
     }
 
