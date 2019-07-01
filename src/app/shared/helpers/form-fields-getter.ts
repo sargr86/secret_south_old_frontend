@@ -25,3 +25,13 @@ export const FERRY_FIELDS = {
     folder: 'ferries',
     img: ''
 };
+
+export const ACCOMMODATION_FIELDS = {
+    name: ['', Validators.required],
+    lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+    lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
+    description: [''],
+    address: ['', Validators.required],
+    company_id: ['', Validators.required],
+    folder: 'accommodations'
+};
