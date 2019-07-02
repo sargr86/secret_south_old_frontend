@@ -22,6 +22,7 @@ import {NumberPickerModule} from 'ng-number-picker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
 import {DropzoneComponent} from './components/dropzone/dropzone.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import {DropzoneComponent} from './components/dropzone/dropzone.component';
         InternationalPhoneNumberModule,
         DropzoneModule,
         FormsModule,
+        NgSelectModule,
         ReactiveFormsModule,
         GooglePlaceModule,
         NumberPickerModule,
@@ -70,6 +72,7 @@ import {DropzoneComponent} from './components/dropzone/dropzone.component';
         FormsModule,
         ReactiveFormsModule,
         GooglePlaceModule,
+        NgSelectModule,
         NumberPickerModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
