@@ -79,7 +79,6 @@ export class InvitationFormComponent implements OnInit {
      * @param e mat select change event
      */
     changeBusinessType(e) {
-        console.log(e)
         if (this.auth.checkRoles('admin')) {
 
             this._companies.getCompaniesByBusinessType({type_id: e.id}).subscribe(dt => {
