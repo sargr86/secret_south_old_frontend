@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {FoodDrinkService} from '../../shared/services/food-drink.service';
 import {CommonService} from '../../shared/services/common.service';
 import {FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
@@ -57,25 +57,34 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
 
         this.foodDrinkForm = this._fb.group(this.formFields);
         this.common.dataLoading = true;
-        this.subscriptions.push(this.route.data.subscribe(dt => {
+        this.subscriptions.push(this.route.data.subscribe((dt: Data) => {
             this.getCompanies();
-            if (this.route.snapshot.paramMap.get('id')) {
-                this.foodDrinkData = dt['foodDrink'];
-                this.formFields['id'] = '';
-                this.foodDrinkForm = this._fb.group(this.formFields);
-                this.foodDrinkForm.patchValue(this.foodDrinkData);
-                this.editCase = true;
-                this.addressCtrl.disable();
-                if (this.foodDrinkData['img']) {
-                    this.imgPath = FOOD_DRINK_FOLDER + this.foodDrinkData['img'];
-                }
-            }
+            this.prepareEditForm(dt);
+
             this.formAction = this.editCase ? 'update' : 'add';
             this.common.dataLoading = false;
         }));
     }
 
     ngOnInit() {
+    }
+
+    /**
+     * Prepares edit form fields & data
+     * @param dt router data
+     */
+    prepareEditForm(dt): void {
+        if (this.route.snapshot.paramMap.get('id')) {
+            this.foodDrinkData = dt['foodDrink'];
+            this.formFields['id'] = '';
+            this.foodDrinkForm = this._fb.group(this.formFields);
+            this.foodDrinkForm.patchValue(this.foodDrinkData);
+            this.editCase = true;
+            this.addressCtrl.disable();
+            if (this.foodDrinkData['img']) {
+                this.imgPath = FOOD_DRINK_FOLDER + this.foodDrinkData['img'];
+            }
+        }
     }
 
     /**
@@ -94,6 +103,10 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
             this.companies = dt;
             this.checkFormData.transform('food/drink', this.foodDrinkData, this.companies, this.editCase);
         }));
+
+        if (this.auth.checkRoles('partner')) {
+            this.foodDrinkForm.patchValue({company_id: this.auth.userData.company.id})
+        }
     }
 
     /**

@@ -4,7 +4,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
-import {EditProfileComponent} from './edit-profile/edit-profile.component';
+// import {EditProfileComponent} from './edit-profile/edit-profile.component';
+import {EditProfileComponent} from '../shared/components/edit-profile/edit-profile.component';
 import {UserResolverService} from '../shared/resolvers/user-resolver.service';
 
 
@@ -108,7 +109,7 @@ const routes: Routes = [
         data: {
             // expectedRole: 'employee' RoleGuard
         },
-        canActivate: [AuthGuard, ]
+        canActivate: [AuthGuard,]
     },
     {
         path: 'add_locations', component: GpsLocationComponent,

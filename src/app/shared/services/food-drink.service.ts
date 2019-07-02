@@ -18,8 +18,8 @@ export class FoodDrinkService {
         return this.http.post(`${API_URL}food-drink/add`, data);
     }
 
-    getFoodDrink() {
-        return this.http.get(`${API_URL}food-drink/get`);
+    getFoodDrink(params) {
+        return this.http.get(`${API_URL}food-drink/get`,{params:params});
     }
 
     getOneFoodDrink(params) {
