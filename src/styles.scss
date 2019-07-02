@@ -13,6 +13,9 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/v4-shims";
 
+// Ng-select styles
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
 .mat-spinner {
   text-align: center !important;
   margin: 20px auto;
@@ -137,7 +140,7 @@ dropzone {
       background-color: $red;
       border-radius: 20px;
       transform: translate(-50%, -50%);
-      text-decoration: none!important;
+      text-decoration: none !important;
       //color: $white;
       z-index: 44444;
     }

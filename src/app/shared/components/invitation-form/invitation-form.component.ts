@@ -8,6 +8,7 @@ import {PartnerService} from '../../services/partner.service';
 import {EmployeesService} from '../../services/employees.service';
 import {ToastrService} from 'ngx-toastr';
 import {CompaniesService} from '../../services/companies.service';
+import {MatSelectChange} from '@angular/material';
 
 @Component({
     selector: 'app-invitation-form',
@@ -71,6 +72,20 @@ export class InvitationFormComponent implements OnInit {
 
     getCompany() {
         return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
+    }
+
+    /**
+     * Changes business type and gets corresponding companies list
+     * @param e mat select change event
+     */
+    changeBusinessType(e) {
+        console.log(e)
+        if (this.auth.checkRoles('admin')) {
+
+            this._companies.getCompaniesByBusinessType({type_id: e.id}).subscribe(dt => {
+                this.companies = dt;
+            });
+        }
     }
 
     get firstNameCtrl() {
