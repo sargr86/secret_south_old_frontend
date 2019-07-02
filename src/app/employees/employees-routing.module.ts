@@ -5,9 +5,8 @@ import {SaveEmployeeComponent} from './save-employee/save-employee.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {RoleGuard} from '../shared/guards/role.guard';
-import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {UserResolverService} from '../shared/resolvers/user-resolver.service';
-import {SavePartnerComponent} from '../partners/save-partner/save-partner.component';
+import {EditProfileComponent} from '../shared/components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
     {
