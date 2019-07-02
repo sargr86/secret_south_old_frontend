@@ -5,6 +5,7 @@ import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../../services/common.service';
 import {AuthService} from '../../services/auth.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-edit-user-profile',
@@ -25,7 +26,8 @@ export class EditProfileComponent implements OnInit {
         private _route: ActivatedRoute,
         public common: CommonService,
         public router: Router,
-        public auth: AuthService
+        public auth: AuthService,
+        private toastr: ToastrService
     ) {
         this.profileForm = this._fb.group({
             'first_name': ['', Validators.required],
@@ -33,7 +35,8 @@ export class EditProfileComponent implements OnInit {
             // 'gender': ['', Validators.required],
             'email': ['', Validators.required],
             'id': [''],
-            'profile_img': ['']
+            'profile_img': [''],
+            folder: ['users']
         });
     }
 
@@ -93,7 +96,8 @@ export class EditProfileComponent implements OnInit {
     save() {
         const formData = this.buildFormData();
         this.auth.update(formData).subscribe(dt => {
-            this.router.navigate([this.redirectUrl])
+            this.router.navigate([this.redirectUrl]);
+            this.toastr.success('The profile has been updated successfully');
         });
     }
 

@@ -21,7 +21,8 @@ export class ShowFoodDrinkComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.foodDrinks = this._foodDrink.getFoodDrink();
+        const company = this.auth.checkRoles('admin') ? '' : this.auth.userData.company.name;
+        this.foodDrinks = this._foodDrink.getFoodDrink({company: company});
     }
 
 }

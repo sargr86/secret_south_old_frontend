@@ -1,6 +1,13 @@
 @import '../../../../variables';
 @import '../../../../mixins';
 
+
+.formContainer {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+
 .profileForm {
   margin: 50px auto;
   max-width: 680px;
