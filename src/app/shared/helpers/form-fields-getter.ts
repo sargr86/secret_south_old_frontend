@@ -33,5 +33,6 @@ export const ACCOMMODATION_FIELDS = {
     description: [''],
     address: ['', Validators.required],
     company_id: ['', Validators.required],
-    folder: 'accommodations'
+    folder: 'accommodations',
+    img: ''
 };
