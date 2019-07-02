@@ -37,6 +37,14 @@ export class CompaniesService {
     }
 
     /**
+     * Gets companies list by business type
+     * @param params type_id
+     */
+    getCompaniesByBusinessType(params) {
+        return this.http.get(`${API_URL}companies/getByType`, {params: params});
+    }
+
+    /**
      * Updates a company info
      * @param params company_id parameter
      */
