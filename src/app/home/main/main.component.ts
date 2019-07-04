@@ -229,7 +229,7 @@ export class MainComponent implements OnInit {
         if (this.currentSection === 'Ferries') {
             icon = 'baseline-directions_boat-24px.svg';
         } else if (this.currentSection === 'Food/Drink') {
-            icon = 'baseline-restaurant_menu-24px.svg';
+            icon = 'food-drink.png';
         } else if (this.currentSection === 'Accommodations') {
             icon = 'acc4.png';
         } else if (this.currentSection === 'Activities') {
