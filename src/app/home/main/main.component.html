@@ -26,160 +26,168 @@
     </form>
 
     <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
-             [mapTypeControl]="true"
-             [mapTypeId]="'terrain'" *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
+             [mapTypeControl]="true" (mapClick)="mapClick($event)"
+             *ngIf="latlng && latlng.length>0;else no_map_data" [rotateControl]="true"
              [styles]="mapStyles">
         <!--        <agm-direction [origin]="origin" [destination]="destination">-->
         <!--        </agm-direction>-->
         <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng"
-                    [openInfoWindow]="true" [iconUrl]="getIcon()">
+                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
+            <agm-info-window class="infWindow" #infoWindow>
+                <ng-container *ngIf="currentSection=='Food/Drink'">
 
-            <agm-info-window *ngIf="currentSection=='Ferries'">
-                <div class="infoContainer">
-                    <div class="image">
-                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/ferries/'+single.img}}"
-                             alt="">
-                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                    <div class="infoContainer">
+                        <div class="image">
+                            <img *ngIf="single.img" class="infowindowImg"
+                                 src="{{imgPath+'uploads/others/food-drink/baseline-restaurant_menu-24px-svg.svg'}}"
+                                 alt="">
+                            <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                        </div>
+                        <div class="info">
+                            <h4 class="title">{{single.name}}</h4>
+                            <small class="description">{{single.description}}</small>
+                            <p>
+                                <small>Address: {{single.address}}</small>
+                            </p>
+
+                            <div class="actions">
+                                <button onclick="" mat-raised-button color="primary"
+                                        (click)="book(single, currentSection)">
+                                    Book
+                                </button>
+
+                                <div class="icons">
+                                    <button mat-icon-button [matTooltip]="'Gallery'">
+                                        <mat-icon>photo</mat-icon>
+                                    </button>
+                                    <button mat-icon-button [matTooltip]="'Videos'">
+                                        <mat-icon>videocam</mat-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentSection==='Ferries'">
+                    <div class="infoContainer">
+                        <div class="image">
+                            <img *ngIf="single.img" class="infowindowImg"
+                                 src="{{imgPath+'uploads/others/ferries/'+single.img}}"
+                                 alt="">
+                            <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                        </div>
+                        <div class="info">
+                            <h4>{{single.name}}</h4>
+                            <ul>
+                                <li>
+                                    <small>Max: {{single.max_people}} people</small>
+                                </li>
+                                <li>
+                                    <small>Min: {{single.min_people}} people</small>
+                                </li>
+                                <li>
+                                    <!--                            <small>Tel: {{single.phone}}</small>-->
+                                </li>
+                            </ul>
+
+                            <div class="actions">
+                                <button onclick="" mat-raised-button color="primary"
+                                        (click)="book(single, currentSection)">
+                                    Book
+                                </button>
+
+                                <div class="icons">
+                                    <button mat-icon-button [matTooltip]="'Gallery'">
+                                        <mat-icon>photo</mat-icon>
+                                    </button>
+                                    <button mat-icon-button [matTooltip]="'Videos'">
+                                        <mat-icon>videocam</mat-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentSection==='Tours'">
+                    <div class="infoContainer">
+                        <div class="image">
+                            <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}"
+                                 alt="">
+                            <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                        </div>
                     </div>
                     <div class="info">
                         <h4>{{single.name}}</h4>
-                        <ul>
-                            <li>
-                                <small>Max: {{single.max_people}} people</small>
-                            </li>
-                            <li>
-                                <small>Min: {{single.min_people}} people</small>
-                            </li>
-                            <li>
-                                <!--                            <small>Tel: {{single.phone}}</small>-->
-                            </li>
-                        </ul>
-
-                        <div class="actions">
-                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
-                                Book
-                            </button>
-
-                            <div class="icons">
-                                <button mat-icon-button [matTooltip]="'Gallery'">
-                                    <mat-icon>photo</mat-icon>
+                        <p><span>Address: </span><span>{{single.address}}</span></p>
+                        <button onclick="" mat-raised-button color="primary">Book</button>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentSection=='Accommodations'">
+                    <div class="infoContainer">
+                        <div class="image">
+                            <img *ngIf="single.img" class="infowindowImg"
+                                 src="{{imgPath+'uploads/others/accommodations/'+single.img}}" alt="">
+                            <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                        </div>
+                        <div class="info">
+                            <h4 class="title">{{single.name}}</h4>
+                            <small class="description">{{single.description}}</small>
+                            <p>
+                                <small>Address: {{single.address}}</small>
+                            </p>
+                            <div class="actions">
+                                <button onclick="" mat-raised-button color="primary"
+                                        (click)="book(single, currentSection)">
+                                    Book
                                 </button>
-                                <button mat-icon-button [matTooltip]="'Videos'">
-                                    <mat-icon>videocam</mat-icon>
-                                </button>
+
+                                <div class="icons">
+                                    <button mat-icon-button [matTooltip]="'Gallery'">
+                                        <mat-icon>photo</mat-icon>
+                                    </button>
+                                    <button mat-icon-button [matTooltip]="'Videos'">
+                                        <mat-icon>videocam</mat-icon>
+                                    </button>
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
-
-                </div>
-            </agm-info-window>
-
-            <agm-info-window class="infWindow" *ngIf="currentSection=='Food/Drink'">
-                <div class="infoContainer">
-                    <div class="image">
-                        <img *ngIf="single.img"  class="infowindowImg" src="{{imgPath+'uploads/others/food-drink/'+single.img}}" alt="">
-                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
-                    </div>
-                    <div class="info">
-                        <h4 class="title">{{single.name}}</h4>
-                        <small class="description">{{single.description}}</small>
-                        <p>
-                            <small>Address: {{single.address}}</small>
-                        </p>
-
-                        <div class="actions">
-                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
-                                Book
-                            </button>
-
-                            <div class="icons">
-                                <button mat-icon-button [matTooltip]="'Gallery'">
-                                    <mat-icon>photo</mat-icon>
+                </ng-container>
+                <ng-container *ngIf="currentSection=='Activities'">
+                    <div class="infoContainer">
+                        <div class="image">
+                            <img *ngIf="single.img" class="infowindowImg"
+                                 src="{{imgPath+'uploads/others/activities/'+single.img}}" alt="">
+                            <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                        </div>
+                        <div class="info">
+                            <h4>{{single.name}}</h4>
+                            <p>
+                                <small>Address: {{single.address}}</small>
+                            </p>
+                            <div class="actions">
+                                <button onclick="" mat-raised-button color="primary"
+                                        (click)="book(single, currentSection)">
+                                    Book
                                 </button>
-                                <button mat-icon-button [matTooltip]="'Videos'">
-                                    <mat-icon>videocam</mat-icon>
-                                </button>
+
+                                <div class="icons">
+                                    <button mat-icon-button [matTooltip]="'Gallery'">
+                                        <mat-icon>photo</mat-icon>
+                                    </button>
+                                    <button mat-icon-button [matTooltip]="'Videos'">
+                                        <mat-icon>videocam</mat-icon>
+                                    </button>
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
-                </div>
-            </agm-info-window>
-
-            <agm-info-window class="infWindow" *ngIf="currentSection=='Tours'">
-                <div class="infoContainer">
-                    <div class="image">
-                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/tour/'+single.img}}" alt="">
-                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
-                    </div>
-                </div>
-                <div class="info">
-                    <h4>{{single.name}}</h4>
-                    <p><span>Address: </span><span>{{single.address}}</span></p>
-                    <button onclick="" mat-raised-button color="primary">Book</button>
-                </div>
-            </agm-info-window>
-
-            <agm-info-window class="infWindow" *ngIf="currentSection=='Accommodations'">
-                <div class="infoContainer">
-                    <div class="image">
-                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/accommodations/'+single.img}}" alt="">
-                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
-                    </div>
-                    <div class="info">
-                        <h4 class="title">{{single.name}}</h4>
-                        <small class="description">{{single.description}}</small>
-                        <p>
-                            <small>Address: {{single.address}}</small>
-                        </p>
-                        <div class="actions">
-                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
-                                Book
-                            </button>
-
-                            <div class="icons">
-                                <button mat-icon-button [matTooltip]="'Gallery'">
-                                    <mat-icon>photo</mat-icon>
-                                </button>
-                                <button mat-icon-button [matTooltip]="'Videos'">
-                                    <mat-icon>videocam</mat-icon>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </agm-info-window>
-
-            <agm-info-window class="infWindow" *ngIf="currentSection=='Activities'">
-                <div class="infoContainer">
-                    <div class="image">
-                        <img *ngIf="single.img" class="infowindowImg" src="{{imgPath+'uploads/others/activities/'+single.img}}" alt="">
-                        <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
-                    </div>
-                    <div class="info">
-                        <h4>{{single.name}}</h4>
-                        <p>
-                            <small>Address: {{single.address}}</small>
-                        </p>
-                        <div class="actions">
-                            <button onclick="" mat-raised-button color="primary" (click)="book(single, currentSection)">
-                                Book
-                            </button>
-
-                            <div class="icons">
-                                <button mat-icon-button [matTooltip]="'Gallery'">
-                                    <mat-icon>photo</mat-icon>
-                                </button>
-                                <button mat-icon-button [matTooltip]="'Videos'">
-                                    <mat-icon>videocam</mat-icon>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </agm-info-window>
         </agm-marker>
     </agm-map>
