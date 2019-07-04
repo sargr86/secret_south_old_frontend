@@ -1,6 +1,6 @@
 /// <reference path="../../../../types/index.d.ts"/>
 import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
-import {MapsAPILoader} from '@agm/core';
+import {AgmInfoWindow, MapsAPILoader} from '@agm/core';
 import {MainService} from '../services/main.service';
 import * as Base from '../../config.js';
 import * as mapStylesData from '../../maps/map_styles2.json';
@@ -61,6 +61,8 @@ export class MainComponent implements OnInit {
     overlayOpacity = 1;
 
     subscriptions: Subscription[] = [];
+    currentIW: AgmInfoWindow;
+    previousIW: AgmInfoWindow;
 
     // Material toolbar background color toggling on scroll
     @HostListener('window:scroll', ['$event'])
@@ -98,6 +100,10 @@ export class MainComponent implements OnInit {
 
         this.getDirection();
         this.getGeo();
+
+        this.currentIW = null;
+        this.previousIW = null;
+
         // Simulating loading progress bar here
         const int = setInterval(() => {
             const random = Math.random() * 10 + 10;
@@ -225,13 +231,29 @@ export class MainComponent implements OnInit {
         } else if (this.currentSection === 'Food/Drink') {
             icon = 'baseline-restaurant_menu-24px.svg';
         } else if (this.currentSection === 'Accommodations') {
-            icon = 'baseline-local_hotel-24px.svg';
+            icon = 'acc4.png';
         } else if (this.currentSection === 'Activities') {
             icon = 'baseline-directions_run-24px.svg';
         }
 
 
         return iconsFolder + icon;
+    }
+
+
+    markerClick(infoWindow) {
+        if (this.previousIW) {
+            this.currentIW = infoWindow;
+            this.previousIW.close();
+        }
+        this.previousIW = infoWindow;
+    }
+
+    mapClick() {
+
+        if (this.previousIW) {
+            this.previousIW.close();
+        }
     }
 
     /**
