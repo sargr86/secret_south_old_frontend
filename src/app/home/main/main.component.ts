@@ -244,6 +244,7 @@ export class MainComponent implements OnInit {
     markerClick(infoWindow) {
         if (this.previousIW) {
             this.currentIW = infoWindow;
+            console.log(this.previousIW, infoWindow)
             this.previousIW.close();
         }
         this.previousIW = infoWindow;
@@ -252,7 +253,9 @@ export class MainComponent implements OnInit {
     mapClick() {
 
         if (this.previousIW) {
-            this.previousIW.close();
+            this.previousIW.close().then(dt => {
+
+            });
         }
     }
 

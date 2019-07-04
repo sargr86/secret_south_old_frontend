@@ -159,9 +159,9 @@ export const DEFAULT_COUNTRY = 'ie';
 
 
 export const MAIN_SECTIONS = [
+    {name: 'Accommodations', icon: 'local_hotel'},
+    {name: 'Food/Drink', icon: 'restaurant_menu'},
     {name: 'Ferries', icon: 'directions_boat'},
     {name: 'Tours', icon: 'beach_access'},
-    {name: 'Food/Drink', icon: 'restaurant_menu'},
-    {name: 'Accommodations', icon: 'local_hotel'},
     {name: 'Activities', icon: 'directions_run'}
 ];

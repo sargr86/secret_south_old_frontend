@@ -16,7 +16,7 @@
     position: absolute;
     top: 28px;
     display: inline-flex;
-    left: 114px;
+    left: 144px;
     margin: auto;
     justify-content: center;
     max-width: 750px;
@@ -35,6 +35,11 @@
         margin-left: 5px;
       }
     }
+
+    .section {
+      text-transform: uppercase;
+      font-size: 18px;
+    }
   }
 
   div {
@@ -43,8 +48,9 @@
       cursor: pointer;
       margin: 0 40px;
     }
-    .authLink{
-      margin-top: 3px!important;
+
+    .authLink {
+      margin-top: 3px !important;
     }
   }
 
