@@ -10,8 +10,7 @@
         <div class="mainSections" *ngIf="router.url === '/'">
             <ng-container *ngFor="let section of mainSections">
                 <p (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
-                    <mat-icon>{{section.icon}}</mat-icon>
-                    <span>{{section.name}}</span>
+                    <span class="section">{{section.name}}</span>
                 </p>
             </ng-container>
         </div>
@@ -42,7 +41,7 @@
         <!-- Login/Register/Dashboard links-->
         <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
               class="link authLink" [matTooltip]="'Login/ Register'">
-            <mat-icon>lock_open</mat-icon>
+            Log in
         </span>
         <span (click)="router.navigate(['auth/register'])" class="link"
               *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
