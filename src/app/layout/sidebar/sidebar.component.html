@@ -3,8 +3,8 @@
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
             <!-- This is the tree node template for leaf nodes -->
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                <!-- use a disabled button to provide padding for tree leaf -->
-                <button mat-icon-button disabled></button>
+<!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
+<!--                <button mat-icon-button disabled></button>-->
 
                 <button class="treeNode">
                     <i class="menu-icon fa {{getIcon(node)}}"></i>
