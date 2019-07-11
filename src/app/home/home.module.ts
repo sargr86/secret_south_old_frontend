@@ -9,9 +9,10 @@ import {SharedModule} from '../shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
 import {GOOGLE_API_KEY} from '../shared/constants/settings';
 import {AgmDirectionModule} from 'agm-direction';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
-    declarations: [MainComponent],
+    declarations: [MainComponent, MapComponent],
     imports: [
         SharedModule,
         CommonModule,
