@@ -96,7 +96,8 @@
     <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
         <img *ngIf="imgPath" [src]="imgPath" class="savedImg">
         <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
-        <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
+        <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
+                  (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
                   *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
     </div>
 </div>

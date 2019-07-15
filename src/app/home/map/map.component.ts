@@ -79,7 +79,8 @@ export class MapComponent implements OnInit {
             this.lng = dt.lng;
             this.lat = dt.lat;
             this.latlng = dt.latlng;
-            this.currentSection = dt.section;
+            console.log(dt)
+            // this.currentSection = dt.section === 'map'? ;
         });
     }
 

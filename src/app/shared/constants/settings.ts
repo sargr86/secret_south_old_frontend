@@ -163,5 +163,6 @@ export const MAIN_SECTIONS = [
     {name: 'Food/Drink', icon: 'restaurant_menu'},
     {name: 'Ferries', icon: 'directions_boat'},
     {name: 'Tours', icon: 'beach_access'},
-    {name: 'Activities', icon: 'directions_run'}
+    {name: 'Activities', icon: 'directions_run'},
+    {name: 'Map'}
 ];

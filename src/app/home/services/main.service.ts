@@ -16,8 +16,11 @@ export class MainService {
     }
 
     public changePlace(data) {
-        const type = data.type.toLowerCase().replace('/', '-');
-        return this.http.get(`${API_URL}${type}/get`);
+        if (data.type) {
+            // console.log(data.type)
+            const type = data.type.toLowerCase().replace('/', '-');
+            return this.http.get(`${API_URL}${type}/get`);
+        }
     }
 
     getRealLocations() {
