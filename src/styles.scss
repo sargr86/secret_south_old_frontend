@@ -116,8 +116,36 @@ mat-label {
   }
 }
 
-/** drop zone styles */
-dropzone {
+
+/** multiple files drop zone styles */
+dropzone.multiple {
+  height: 410px !important;
+  border: 1px solid #c0c0c042;
+
+  .dz-wrapper {
+    height: 100%;
+    overflow: hidden !important;
+
+    .dz-message {
+      height: 392px !important;
+      border: none !important;
+    }
+
+    .dz-progress {
+      display: none !important;
+    }
+  }
+
+  .dz-started {
+    .dz-message {
+      display: none !important;
+    }
+  }
+}
+
+
+/** one file drop zone styles */
+dropzone.single {
   height: 410px !important;
 
   .dz-wrapper {
@@ -275,3 +303,10 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 
+.table_responsive table td:not(:first-of-type) {
+  padding: 0 !important;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: #2f96b4;
+}

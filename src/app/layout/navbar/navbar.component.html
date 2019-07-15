@@ -1,18 +1,94 @@
-<mat-toolbar *ngIf="!common.showOverlay">
+<header *ngIf="router.url.includes('accommodations') || router.url==='/'">
+    <div class="header_top">
+        <div class="header_top_left">
+            <div class="header_top_logo">
+                <!-- Website logo -->
+                <div class="logo" (click)="router.navigate(['/'])"></div>
+            </div>
+            <ul>
+
+                <li *ngFor="let section of mainSections"
+                    (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
+                    <span class="section">{{section.name}}</span>
+
+                </li>
+            </ul>
+            <!--            <div class="nav_burger">-->
+            <!--                <p><i class="fas fa-bars"></i></p>-->
+            <!--            </div>-->
+        </div>
+        <div class="header_top_right">
+            <p *ngIf="auth.loggedIn()">
+                <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
+                <!--                My Favorites-->
+            </p>
+            <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
+
+
+            <p (click)="navigateToDashboard()" class="link"
+               *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</p>
+
+            <!-- Logout button -->
+            <p (click)="logout()" *ngIf="auth.loggedIn()">
+                Logout
+            </p>
+        </div>
+    </div>
+    <div class="header_main">
+        <div class="header_main_box">
+            <div class="location">
+                <i class="fa fa-map-marker-alt"></i>
+                <input type="text" name="" value="" placeholder="Going to">
+            </div>
+            <div class="checkIn">
+                <i class="fa fa-calendar-alt"></i>
+                <input type="text" name="" value="" placeholder="Check-in" class="Check_out_inp">
+            </div>
+            <div class="checkOut">
+                <i class="fa fa-calendar-alt"></i>
+                <input type="text" name="" value="" placeholder="Check-out" class="Check_out_inp">
+            </div>
+
+            <div class="guests">
+                <i class="fa fa-user"></i>
+                <select>
+                    <option value="">Guests</option>
+                    <option value="">Guests</option>
+                    <option value="">Guests</option>
+                </select>
+            </div>
+
+            <div class="searchBtn">
+                <button type="button" name="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="header_bottom">
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+    </div>
+</header>
+
+
+<mat-toolbar *ngIf="!common.showOverlay && !router.url.includes('accommodations') && router.url!=='/'">
 
     <!-- Left group of nav bar items -->
     <div class="leftGroup">
 
-        <!-- Website logo -->
-        <div class="logo" (click)="router.navigate(['/'])"></div>
 
         <!-- Main sections of the home page -->
-        <div class="mainSections" *ngIf="router.url === '/'">
-            <ng-container *ngFor="let section of mainSections">
-                <p (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
-                    <span class="section">{{section.name}}</span>
-                </p>
-            </ng-container>
+        <div class="mainSections" *ngIf="!checkIfAuthDashboardPage()">
+
         </div>
     </div>
 

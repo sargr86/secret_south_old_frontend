@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {RoleGuard} from './shared/guards/role.guard';
+import {AccommodationsHomeComponent} from './accommodation/accommodations-home/accommodations-home.component';
 
 const routes: Routes = [
     {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
@@ -26,6 +27,10 @@ const routes: Routes = [
         path: 'customers',
         canActivate: [AuthGuard],
         loadChildren: './customers/customers.module#CustomersModule'
+    },
+    {
+        path: 'accommodations',
+        loadChildren: './accommodation/accommodation.module#AccommodationModule'
     },
     {path: '**', component: NotFoundComponent},
 ];
