@@ -32,6 +32,9 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     editCase = false;
     formAction: string;
     dropZoneFile: File;
+    dropzoneConfig = {
+        maxFiles: 10
+    };
     imgPath;
 
     // Address search

@@ -1,21 +1,9 @@
 /// <reference path="../../../../types/index.d.ts"/>
-import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
-import {AgmInfoWindow, MapsAPILoader} from '@agm/core';
-import {MainService} from '../services/main.service';
-import * as Base from '../../config.js';
-import * as mapStylesData from '../../maps/map_styles2.json';
-import {Router} from '@angular/router';
-import {PartnerService} from '../../shared/services/partner.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '../../shared/constants/settings';
-import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
+import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {SubjectService} from '../../shared/services/subject.service';
 import {} from 'googlemaps';
-import {Subscription} from 'rxjs';
-import {BookingFormComponent} from '../../shared/components/booking-form/booking-form.component';
-import {MatDialog} from '@angular/material';
+
 
 @Component({
     selector: 'app-main',
@@ -36,6 +24,7 @@ export class MainComponent implements OnInit {
 
     lat;
     lng;
+    currentSection;
 
     constructor(
         private subject: SubjectService,
@@ -43,6 +32,8 @@ export class MainComponent implements OnInit {
         this.subject.getMapData().subscribe(dt => {
             this.lng = dt.lng;
             this.lat = dt.lat;
+            this.currentSection = dt.section;
+            // console.log(dt.section)
             // this.latlng = dt.latlng;
         });
     }
