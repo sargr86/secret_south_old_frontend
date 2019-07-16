@@ -15,6 +15,7 @@ import {Company} from '../../shared/models/Company';
 import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
 import {ACCOMMODATION_FIELDS} from '../../shared/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
+import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -39,6 +40,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     dropZoneFile: File;
     imgPath: string;
+    countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
 
     constructor(
         private _accommodation: AccommodationsService,

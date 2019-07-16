@@ -8,6 +8,10 @@ import {AccommodationsHomeComponent} from './accommodation/accommodations-home/a
 const routes: Routes = [
     {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
+    {
+        path: 'accommodations',
+        loadChildren: './accommodation/accommodation.module#AccommodationModule'
+    },
     // {path: 'admin-panel', loadChildren: './admin-login/admin-login.module#AdminLoginModule'},
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
@@ -28,10 +32,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: './customers/customers.module#CustomersModule'
     },
-    {
-        path: 'accommodations',
-        loadChildren: './accommodation/accommodation.module#AccommodationModule'
-    },
+
     {path: '**', component: NotFoundComponent},
 ];
 

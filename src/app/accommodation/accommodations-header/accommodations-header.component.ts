@@ -1,23 +1,20 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {MAIN_SECTIONS} from '../../shared/constants/settings';
-import {CommonService} from '../../shared/services/common.service';
-import {MainService} from '../../home/services/main.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
-import {PartnerService} from '../../shared/services/partner.service';
-import {SubjectService} from '../../shared/services/subject.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
-import {Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {PartnerType} from '../../shared/models/PartnerType';
 import IsResponsive from '../../shared/helpers/is-responsive';
+import {MAIN_SECTIONS} from '../../shared/constants/settings';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {MainService} from '../../home/services/main.service';
+import {SubjectService} from '../../shared/services/subject.service';
+import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+    selector: 'app-accommodations-header',
+    templateUrl: './accommodations-header.component.html',
+    styleUrls: ['./accommodations-header.component.scss']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class AccommodationsHeaderComponent implements OnInit {
     mainSections = MAIN_SECTIONS;
     mapForm: FormGroup;
     latlng: any = [];
@@ -27,51 +24,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
     routerUrl: string;
     selectedSection = 'Accommodations';
     responsiveMode: boolean;
-
-    @Output() toggleSide = new EventEmitter();
+    countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
 
     constructor(
-        public common: CommonService,
-        private _partner: PartnerService,
-        private _fb: FormBuilder,
         public router: Router,
-        private main: MainService,
-        private subject: SubjectService,
         public auth: AuthService,
-        private route: ActivatedRoute,
+        private _fb: FormBuilder,
+        private main: MainService,
+        private subject: SubjectService
     ) {
+
+    }
+
+    ngOnInit() {
 
         // Checking for responsive mode and initializing map form
         this.responsiveMode = IsResponsive.check();
         this.mapForm = this._fb.group({
             type: ['']
         });
-    }
-
-    ngOnInit() {
-
-
-        this.subscriptions.push(
-            this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-            ).subscribe((dt: Data) => {
-                this.routerUrl = dt.url;
-
-                // Getting partner types (section names) and setting 'Ferries' section as selected one
-                this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
-                    this.mapForm.patchValue({type: d.filter(t => t['name'] === 'Ferries')});
-                }));
-            })
-        );
-
-
-    }
-
-    /**
-     * Emits toggle event to toggle sidebar
-     */
-    toggleSidebar() {
-        this.toggleSide.emit();
     }
 
     changePlace(section) {
@@ -103,7 +74,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
     }
 
-
     changeSection(section) {
         if (section === 'Accommodations') {
             this.mapForm.patchValue({type: section});
@@ -122,10 +92,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.router.navigate([`${role}/dashboard`]);
     }
 
-    checkIfAuthDashboardPage() {
-        return /auth|admin|partner|employee/.test(this.router.url);
-    }
-
     getStartDate() {
 
     }
@@ -134,7 +100,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(s => s.unsubscribe());
-    }
 }
