@@ -1,6 +1,58 @@
 @import '../../../variables';
 @import '../../../mixins';
 
+
+.mainSections {
+  position: absolute;
+  top: 40px;
+  display: inline-flex;
+  left: 144px;
+  margin: auto;
+  justify-content: center;
+  max-width: 850px;
+
+  p {
+    margin: 10px 25px;
+    color: $white;
+    cursor: pointer;
+
+    mat-icon {
+      display: block;
+      float: left;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  .section {
+    text-transform: uppercase;
+  }
+
+  li {
+    color: white;
+    margin-left: 36px;
+
+    span {
+      font-weight: unset;
+    }
+  }
+}
+
+div {
+  span.link {
+    color: $white;
+    cursor: pointer;
+    margin: 0 40px;
+  }
+
+  .authLink {
+    margin-top: 3px !important;
+  }
+}
+
+
 .mat-toolbar {
   position: sticky;
   top: 0;
@@ -12,47 +64,6 @@
   height: 100px;
   overflow: hidden;
 
-  .mainSections {
-    position: absolute;
-    top: 28px;
-    display: inline-flex;
-    left: 144px;
-    margin: auto;
-    justify-content: center;
-    max-width: 850px;
-
-    p {
-      margin: 10px 25px;
-      color: $white;
-      cursor: pointer;
-
-      mat-icon {
-        display: block;
-        float: left;
-      }
-
-      span {
-        margin-left: 5px;
-      }
-    }
-
-    .section {
-      text-transform: uppercase;
-      font-size: 18px;
-    }
-  }
-
-  div {
-    span.link {
-      color: $white;
-      cursor: pointer;
-      margin: 0 40px;
-    }
-
-    .authLink {
-      margin-top: 3px !important;
-    }
-  }
 
   .leftGroup {
     display: flex;
@@ -86,9 +97,27 @@
   cursor: pointer;
 }
 
+.selected {
+  color: #08C1C6 !important;
+}
+
+.section {
+  text-transform: uppercase;
+  font-weight: bold;
+}
 
 
+.header_main_box > div {
+  position: relative;
 
+  mat-icon, i {
+    position: absolute;
+    top: 11px;
+    left: 1px;
+    color: #fff;
+    //font-size: 18px;
+  }
+}
 
 
 @media screen and (min-width: 1059px) {
