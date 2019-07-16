@@ -310,3 +310,25 @@ mat-progress-bar .mat-progress-bar-buffer {
 .mat-raised-button.mat-primary {
   background-color: #2f96b4;
 }
+
+
+.checkIn, .checkOut, .location {
+  input {
+    padding-left: 32px;
+  }
+}
+
+.checkInIcon, .checkOutIcon {
+  position: absolute !important;
+  top: 8px !important;
+  left: 3px !important;
+  color: #fff !important;
+  font-size: 18px !important;;
+
+  button {
+    width: 24px !important;
+    height: 30px !important;
+    line-height: 0 !important;
+    border-radius: unset !important;
+  }
+}
