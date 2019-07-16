@@ -100,4 +100,8 @@ export class AccommodationsHeaderComponent implements OnInit {
 
     }
 
+    searchAccommodations() {
+        this.router.navigate(['accommodations/list']);
+    }
+
 }

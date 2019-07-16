@@ -7,13 +7,15 @@ import {ShowAccommodationsComponent} from './show-accommodations/show-accommodat
 import {SharedModule} from '../shared/shared.module';
 import { AccommodationsHomeComponent } from './accommodations-home/accommodations-home.component';
 import { AccommodationsHeaderComponent } from './accommodations-header/accommodations-header.component';
+import { AccommodationsListComponent } from './accommodations-list/accommodations-list.component';
 
 @NgModule({
     declarations: [
         SaveAccommodationComponent,
         ShowAccommodationsComponent,
         AccommodationsHomeComponent,
-        AccommodationsHeaderComponent
+        AccommodationsHeaderComponent,
+        AccommodationsListComponent
     ],
     imports: [
         CommonModule,

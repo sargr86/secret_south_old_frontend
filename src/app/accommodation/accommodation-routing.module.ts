@@ -4,9 +4,11 @@ import {ShowAccommodationsComponent} from './show-accommodations/show-accommodat
 import {SaveAccommodationComponent} from './save-accommodation/save-accommodation.component';
 import {OneAccommodationResolverService} from '../shared/resolvers/one-accommodation-resolver.service';
 import {AccommodationsHomeComponent} from './accommodations-home/accommodations-home.component';
+import {AccommodationsListComponent} from './accommodations-list/accommodations-list.component';
 
 const routes: Routes = [
     {path: '', component: AccommodationsHomeComponent},
+    {path: 'list', component: AccommodationsListComponent},
     {path: 'manage', component: ShowAccommodationsComponent},
     {
         path: 'add', component: SaveAccommodationComponent,
