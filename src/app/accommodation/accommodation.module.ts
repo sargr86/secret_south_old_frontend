@@ -6,12 +6,14 @@ import {SaveAccommodationComponent} from './save-accommodation/save-accommodatio
 import {ShowAccommodationsComponent} from './show-accommodations/show-accommodations.component';
 import {SharedModule} from '../shared/shared.module';
 import { AccommodationsHomeComponent } from './accommodations-home/accommodations-home.component';
+import { AccommodationsHeaderComponent } from './accommodations-header/accommodations-header.component';
 
 @NgModule({
     declarations: [
         SaveAccommodationComponent,
         ShowAccommodationsComponent,
-        AccommodationsHomeComponent
+        AccommodationsHomeComponent,
+        AccommodationsHeaderComponent
     ],
     imports: [
         CommonModule,
@@ -20,7 +22,8 @@ import { AccommodationsHomeComponent } from './accommodations-home/accommodation
     ],
     exports: [
         SaveAccommodationComponent,
-        ShowAccommodationsComponent
+        ShowAccommodationsComponent,
+        AccommodationsHeaderComponent
     ],
 })
 export class AccommodationModule {
