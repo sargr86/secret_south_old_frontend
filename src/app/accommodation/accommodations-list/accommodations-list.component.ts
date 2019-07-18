@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-accommodations-list',
-  templateUrl: './accommodations-list.component.html',
-  styleUrls: ['./accommodations-list.component.scss']
+    selector: 'app-accommodations-list',
+    templateUrl: './accommodations-list.component.html',
+    styleUrls: ['./accommodations-list.component.scss']
 })
 export class AccommodationsListComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    getStartDate() {
+
+    }
+
+    dateChanged() {
+
+    }
 }
