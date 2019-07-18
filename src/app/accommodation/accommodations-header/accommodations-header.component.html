@@ -44,14 +44,14 @@
                        #searchAddress="ngx-places" placeholder="Going to">
             </div>
             <div class="checkIn">
-                <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged($event)"
+                <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged()"
                        [matDatepicker]="checkInPicker" class="Check_out_inp">
                 <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
                 <mat-datepicker #checkInPicker startView="year"
                                 [startAt]="getStartDate()"></mat-datepicker>
             </div>
             <div class="checkOut">
-                <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged($event)"
+                <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
                        [matDatepicker]="checkOutPicker" class="Check_out_inp">
                 <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
                 <mat-datepicker #checkOutPicker startView="year"
