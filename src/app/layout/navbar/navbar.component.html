@@ -1,14 +1,13 @@
 <ng-container *ngIf="!checkIfAuthDashboardPage()">
-
     <!-- Accommodation header with booking starter form -->
     <app-accommodations-header
-            *ngIf="router.url == '/accommodations' || router.url==='/'"></app-accommodations-header>
+            *ngIf="routerUrl === '/accommodations'|| routerUrl==='/'"></app-accommodations-header>
 
 </ng-container>
 
 <!-- Nav bar for users dashboard -->
 <mat-toolbar
-        *ngIf="!common.showOverlay  && checkIfAuthDashboardPage() && router.url!=='/'|| router.url.includes('list')">
+        *ngIf="!common.showOverlay  && checkIfAuthDashboardPage() && routerUrl!=='/'|| routerUrl.includes('list')">
 
     <!-- Left group of nav bar items -->
     <div class="leftGroup">
