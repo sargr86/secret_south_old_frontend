@@ -37,6 +37,7 @@
     "ng-number-picker": "^1.1.9",
     "ngx-cookie": "^4.1.2",
     "ngx-dropzone-wrapper": "^7.2.1",
+    "ngx-gallery": "^5.10.0",
     "ngx-google-places-autocomplete": "^2.0.3",
     "ngx-international-phone-number": "^1.0.4",
     "ngx-material-timepicker": "3.0.0",

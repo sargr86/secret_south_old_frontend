@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
             this.lng = dt.lng;
             this.lat = dt.lat;
             this.currentSection = dt.section;
-            // console.log(dt.section)
+            console.log(dt)
             // this.latlng = dt.latlng;
         });
     }
