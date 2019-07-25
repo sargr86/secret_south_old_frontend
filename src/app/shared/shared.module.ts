@@ -77,6 +77,7 @@ import {NgxGalleryModule} from 'ngx-gallery';
         NgSelectModule,
         NumberPickerModule,
         NgxGalleryModule,
+        NgxMaterialTimepickerModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
         GetImageUrlPipe,
