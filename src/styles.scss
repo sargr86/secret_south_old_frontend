@@ -332,3 +332,17 @@ mat-progress-bar .mat-progress-bar-buffer {
     border-radius: unset !important;
   }
 }
+
+// Ngx Material timepicker
+.ngx-material-timepicker-toggle {
+  position: absolute !important;
+  top: 8px !important;
+
+  svg {
+    fill: white !important;
+  }
+}
+
+.timepicker__header, .clock-face__number span.active {
+  background-color: #164547 !important;
+}
