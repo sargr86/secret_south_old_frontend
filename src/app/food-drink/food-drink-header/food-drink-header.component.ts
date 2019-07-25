@@ -8,6 +8,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '../../shared/services/subject.service';
 import IsResponsive from '../../shared/helpers/is-responsive';
+import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 
 @Component({
     selector: 'app-food-drink-header',
@@ -25,6 +26,21 @@ export class FoodDrinkHeaderComponent implements OnInit {
     selectedSection = 'Food/Drink';
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+
+    customTheme: NgxMaterialTimepickerTheme = {
+        container: {
+            bodyBackgroundColor: '#424242',
+            buttonColor: '#fff'
+        },
+        dial: {
+            dialBackgroundColor: '#555',
+        },
+        clockFace: {
+            clockFaceBackgroundColor: '#555',
+            clockHandColor: '#164547',
+            clockFaceTimeInactiveColor: '#fff'
+        }
+    };
 
     constructor(
         public router: Router,
