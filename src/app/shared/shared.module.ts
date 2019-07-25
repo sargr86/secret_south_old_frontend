@@ -23,6 +23,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
 import {DropzoneComponent} from './components/dropzone/dropzone.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {NgxGalleryModule} from 'ngx-gallery';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         ReactiveFormsModule,
         GooglePlaceModule,
         NumberPickerModule,
-        NgxMaterialTimepickerModule
+        NgxMaterialTimepickerModule,
+        NgxGalleryModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -74,6 +76,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         GooglePlaceModule,
         NgSelectModule,
         NumberPickerModule,
+        NgxGalleryModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
         GetImageUrlPipe,
