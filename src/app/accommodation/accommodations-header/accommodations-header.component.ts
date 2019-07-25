@@ -68,7 +68,7 @@ export class AccommodationsHeaderComponent implements OnInit {
                 section: section,
                 lat: this.lat,
                 lng: this.lng,
-                latlng: this.latlng
+                list: r
             });
             this.selectedSection = section;
         });
