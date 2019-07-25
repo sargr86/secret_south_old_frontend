@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from '../../shared/services/auth.service';
-import IsResponsive from '../../shared/helpers/is-responsive';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
+import {Router} from '@angular/router';
+import {AuthService} from '../../shared/services/auth.service';
 import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '../../shared/services/subject.service';
-import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
+import IsResponsive from '../../shared/helpers/is-responsive';
 
 @Component({
-    selector: 'app-accommodations-header',
-    templateUrl: './accommodations-header.component.html',
-    styleUrls: ['./accommodations-header.component.scss']
+    selector: 'app-food-drink-header',
+    templateUrl: './food-drink-header.component.html',
+    styleUrls: ['./food-drink-header.component.scss']
 })
-export class AccommodationsHeaderComponent implements OnInit {
+export class FoodDrinkHeaderComponent implements OnInit {
     mainSections = MAIN_SECTIONS;
     mapForm: FormGroup;
     latlng: any = [];
@@ -22,7 +22,7 @@ export class AccommodationsHeaderComponent implements OnInit {
     lng = 0;
     subscriptions: Subscription[] = [];
     routerUrl: string;
-    selectedSection = 'Accommodations';
+    selectedSection = 'Food/Drink';
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
 
@@ -75,12 +75,11 @@ export class AccommodationsHeaderComponent implements OnInit {
     }
 
     changeSection(section) {
-        console.log(section)
-        // if (section === 'Accommodations') {
-        this.mapForm.patchValue({type: section});
-        this.router.navigate([section.toLowerCase()]);
-        this.changePlace(section);
-        // }
+        if (section === 'Accommodations') {
+            this.mapForm.patchValue({type: section});
+            this.router.navigate([section.toLowerCase()]);
+            this.changePlace(section);
+        }
     }
 
     logout() {
@@ -104,5 +103,6 @@ export class AccommodationsHeaderComponent implements OnInit {
     searchAccommodations() {
         this.router.navigate(['accommodations/list']);
     }
+
 
 }

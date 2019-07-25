@@ -8,7 +8,7 @@
             <ul class="mainSections">
 
                 <li *ngFor="let section of mainSections"
-                    (click)="changeSection(section.link)" [class.selected]="selectedSection === section.name">
+                    (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
                     <span class="section">{{section.name}}</span>
 
                 </li>
@@ -41,21 +41,7 @@
                 <mat-icon>place</mat-icon>
                 <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
                        [options]="countryRestrictredPlaces"
-                       #searchAddress="ngx-places" placeholder="Going to">
-            </div>
-            <div class="checkIn">
-                <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged()"
-                       [matDatepicker]="checkInPicker" class="Check_out_inp">
-                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
-                <mat-datepicker #checkInPicker startView="year"
-                                [startAt]="getStartDate()"></mat-datepicker>
-            </div>
-            <div class="checkOut">
-                <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
-                       [matDatepicker]="checkOutPicker" class="Check_out_inp">
-                <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
-                <mat-datepicker #checkOutPicker startView="year"
-                                [startAt]="getStartDate()"></mat-datepicker>
+                       #searchAddress="ngx-places" placeholder="Location">
             </div>
 
             <div class="guests">
@@ -66,6 +52,23 @@
                     <option value="">Guests</option>
                 </select>
             </div>
+
+            <div class="checkIn">
+                <mat-icon>access_time</mat-icon>
+                <input placeholder="Time" name="bookingDate" (dateChange)="dateChanged()"
+                       class="Check_out_inp">
+                <!--                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>-->
+                <!--                <mat-datepicker #checkInPicker startView="year"-->
+                <!--                                [startAt]="getStartDate()"></mat-datepicker>-->
+            </div>
+            <div class="checkOut">
+                <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"
+                       [matDatepicker]="checkOutPicker" class="Check_out_inp">
+                <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
+                <mat-datepicker #checkOutPicker startView="year"
+                                [startAt]="getStartDate()"></mat-datepicker>
+            </div>
+
 
             <div class="searchBtn">
                 <button type="button" name="button" (click)="searchAccommodations()">Search</button>

@@ -12,6 +12,10 @@ const routes: Routes = [
         path: 'accommodations',
         loadChildren: './accommodation/accommodation.module#AccommodationModule'
     },
+    {
+        path: 'food-drink',
+        loadChildren: './food-drink/food-drink.module#FoodDrinkModule'
+    },
     // {path: 'admin-panel', loadChildren: './admin-login/admin-login.module#AdminLoginModule'},
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
