@@ -94,7 +94,7 @@ export class AccommodationsHeaderComponent implements OnInit {
      */
     navigateToDashboard() {
         const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
-        this.router.navigate([`${role}/dashboard`]);
+        this.router.navigate([`${role}/dashboard/show`]);
     }
 
     getStartDate() {
