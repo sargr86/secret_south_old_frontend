@@ -24,6 +24,8 @@ import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
 import {DropzoneComponent} from './components/dropzone/dropzone.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgxGalleryModule} from 'ngx-gallery';
+import {CarouselModule} from 'ngx-owl-carousel-o';
+import { CarouselHolderComponent } from './components/carousel-holder/carousel-holder.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +43,7 @@ import {NgxGalleryModule} from 'ngx-gallery';
         BookingFormComponent,
         RedirectUrlGeneratorPipe,
         DropzoneComponent,
+        CarouselHolderComponent,
     ],
     imports: [
         CommonModule,
@@ -53,7 +56,8 @@ import {NgxGalleryModule} from 'ngx-gallery';
         GooglePlaceModule,
         NumberPickerModule,
         NgxMaterialTimepickerModule,
-        NgxGalleryModule
+        NgxGalleryModule,
+        CarouselModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -78,6 +82,7 @@ import {NgxGalleryModule} from 'ngx-gallery';
         NumberPickerModule,
         NgxGalleryModule,
         NgxMaterialTimepickerModule,
+        CarouselModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
         GetImageUrlPipe,
@@ -85,7 +90,8 @@ import {NgxGalleryModule} from 'ngx-gallery';
         DashboardTemplateComponent,
         InvitationFormComponent,
         EditProfileComponent,
-        FormTitleComponent
+        FormTitleComponent,
+        CarouselHolderComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,

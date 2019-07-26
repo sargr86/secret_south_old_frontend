@@ -41,6 +41,7 @@
     "ngx-google-places-autocomplete": "^2.0.3",
     "ngx-international-phone-number": "^1.0.4",
     "ngx-material-timepicker": "3.0.0",
+    "ngx-owl-carousel-o": "^1.1.6",
     "ngx-toastr": "^10.0.2",
     "node-sass": "^4.11.0",
     "rxjs": "~6.3.3",

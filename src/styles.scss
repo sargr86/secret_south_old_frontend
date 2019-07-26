@@ -16,6 +16,10 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 // Ng-select styles
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
+// Owl Carousel styles
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
 .mat-spinner {
   text-align: center !important;
   margin: 20px auto;
@@ -345,4 +349,50 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 .timepicker__header, .clock-face__number span.active {
   background-color: #164547 !important;
+}
+
+
+// Owl carousel
+.owl-theme .owl-nav {
+  background-color: unset !important;
+}
+
+
+.owl-nav {
+  color: #fff;
+  margin: 5px;
+  padding: 4px 7px;
+
+  //background: #959595;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+  border: none;
+}
+
+.owl-prev, .owl-next {
+  font-size: 34px !important;
+  display: flex;
+  background-color: unset !important;
+
+  img {
+    width: 20px !important;
+  }
+}
+
+.owl-prev {
+  left: -7px;
+
+}
+
+.owl-next {
+  right: 15px;
+}
+
+.owl-nav div {
+  position: absolute;
+  top: 23%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
