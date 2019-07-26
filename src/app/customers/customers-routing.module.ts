@@ -7,7 +7,7 @@ import {UserResolverService} from '../shared/resolvers/user-resolver.service';
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'show',
         component: ShowCustomersComponent
     },
     {

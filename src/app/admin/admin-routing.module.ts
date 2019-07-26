@@ -11,7 +11,7 @@ import {UserResolverService} from '../shared/resolvers/user-resolver.service';
 
 const routes: Routes = [
     {
-        path: 'dashboard', component: DashboardComponent, data: {
+        path: 'dashboard/show', component: DashboardComponent, data: {
             title: 'Dashboard',
             expectedRole: 'admin'
         },

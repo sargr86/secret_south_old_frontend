@@ -7,7 +7,7 @@ import {FoodDrinkHomeComponent} from './food-drink-home/food-drink-home.componen
 
 const routes: Routes = [
     {path: '', component: FoodDrinkHomeComponent},
-    {path: 'manage', component: ShowFoodDrinkComponent},
+    {path: 'show', component: ShowFoodDrinkComponent},
     {
         path: 'add', component: SaveFoodDrinkComponent, data: {
             title: 'Add a new food/drink place',

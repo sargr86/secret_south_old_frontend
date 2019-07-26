@@ -16,6 +16,10 @@ const routes: Routes = [
         path: 'food-drink',
         loadChildren: './food-drink/food-drink.module#FoodDrinkModule'
     },
+    {
+        path: 'ferries',
+        loadChildren: './ferries/ferries.module#FerriesModule'
+    },
     // {path: 'admin-panel', loadChildren: './admin-login/admin-login.module#AdminLoginModule'},
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
