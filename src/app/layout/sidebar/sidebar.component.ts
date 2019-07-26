@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '../../shared/services/subject.service';
 import {filter} from 'rxjs/operators';
+import {log} from 'util';
 
 /**
  * Food data with nested structure.
@@ -151,7 +152,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     navigate(node) {
         const parentNode = this.getParent(node);
         const childNode = node.name.toLowerCase().replace(/ /g, '-');
-        const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? '' : childNode);
+        const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? 'show' : childNode);
 
         // Getting redirect url part matching current user role
         const currentRole = this._auth.userData.role.name_en.toLowerCase();

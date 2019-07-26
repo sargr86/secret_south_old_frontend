@@ -11,7 +11,7 @@ import {EditProfileComponent} from '../shared/components/edit-profile/edit-profi
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'show',
         component: ShowPartnersComponent
     },
     {

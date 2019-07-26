@@ -4,7 +4,7 @@ import {ShowJobsComponent} from './show-jobs/show-jobs.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'show',
         component: ShowJobsComponent
     }
 ];

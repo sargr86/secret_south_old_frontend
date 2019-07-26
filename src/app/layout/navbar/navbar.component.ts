@@ -56,7 +56,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 filter(event => event instanceof NavigationEnd)
             ).subscribe((dt: Data) => {
                 this.routerUrl = dt.url;
-                console.log(this.routerUrl)
 
                 // Getting partner types (section names) and setting 'Ferries' section as selected one
                 this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
