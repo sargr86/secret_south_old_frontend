@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectService} from '../../shared/services/subject.service';
 import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
+import {MainService} from '../../home/services/main.service';
 
 @Component({
     selector: 'app-accommodations-home',
@@ -10,22 +11,34 @@ import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
 export class AccommodationsHomeComponent implements OnInit {
     accommodationObjects;
     galleryOptions = [
-        {preview : false},
+        {preview: false},
         {'image': false, 'height': '100px'},
         {'breakpoint': 500, 'width': '100%'}
     ];
     accommodationsFolder = ACCOMMODATIONS_FOLDER;
+
     constructor(
-        private subject: SubjectService
+        private subject: SubjectService,
+        private main: MainService
     ) {
     }
 
     ngOnInit() {
+
+        this.getObjects();
+
         this.subject.getMapData().subscribe(dt => {
-            this.accommodationObjects = dt;
-            console.log(dt)
-            // this.latlng = dt.latlng;
+            this.accommodationObjects = dt.list;
         });
+    }
+
+    getObjects() {
+        this.main.changePlace({type: 'food/drink'}).subscribe((dt: any) => {
+
+            this.accommodationObjects = dt;
+        });
+
+
     }
 
 }

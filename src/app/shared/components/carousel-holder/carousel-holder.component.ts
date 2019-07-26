@@ -39,7 +39,7 @@ export class CarouselHolderComponent implements OnInit {
     };
 
     ngOnInit() {
-        console.log(this.items)
+        // console.log(this.items)
     }
 
 }
