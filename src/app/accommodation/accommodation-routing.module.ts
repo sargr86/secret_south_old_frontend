@@ -9,7 +9,7 @@ import {AccommodationsListComponent} from './accommodations-list/accommodations-
 const routes: Routes = [
     {path: '', component: AccommodationsHomeComponent},
     {path: 'list', component: AccommodationsListComponent},
-    {path: 'manage', component: ShowAccommodationsComponent},
+    {path: 'show', component: ShowAccommodationsComponent},
     {
         path: 'add', component: SaveAccommodationComponent,
         data: {

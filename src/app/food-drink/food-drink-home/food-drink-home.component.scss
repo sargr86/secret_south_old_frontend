@@ -43,6 +43,21 @@ ul {
 }
 
 
+.home_1_food_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.box_title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00253c;
+  margin: 0 0 29px 0;
+  text-align: center
+}
+
 .home_1 {
   margin: 100px auto 0 auto;
   width: 1200px;
@@ -113,12 +128,6 @@ ul {
   padding: 14px;
 }
 
-.home_1_box_tittle {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00253c;
-  margin: 0 0 29px 0;
-}
 
 .home_1_box_bottom_price {
   display: flex;

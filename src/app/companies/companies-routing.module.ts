@@ -6,7 +6,7 @@ import {CompanyResolverService} from '../shared/resolvers/company-resolver.servi
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'show',
         component: ShowCompaniesComponent
     },
     {

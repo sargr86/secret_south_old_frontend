@@ -9,7 +9,7 @@ import {ActivityResolverService} from '../shared/resolvers/activity-resolver.ser
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'show',
         component: ShowActivitiesComponent
     },
     {

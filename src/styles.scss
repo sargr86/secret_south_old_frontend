@@ -400,3 +400,12 @@ mat-progress-bar .mat-progress-bar-buffer {
 .section {
   cursor: pointer;
 }
+
+.mat-calendar-body-selected {
+  background: $dark_green;
+  border: none;
+}
+
+.mat-calendar-body-today.mat-calendar-body-selected {
+  box-shadow: none;
+}

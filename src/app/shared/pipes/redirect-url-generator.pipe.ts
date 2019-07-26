@@ -9,7 +9,7 @@ export class RedirectUrlGeneratorPipe implements PipeTransform {
     }
 
     transform(item: any, args?: any): any {
-        return `${this.auth.checkRoles('admin') ? 'admin' : 'partners'}/${item}`;
+        return `${this.auth.checkRoles('admin') ? 'admin' : 'partners'}/${item}/show`;
     }
 
 }

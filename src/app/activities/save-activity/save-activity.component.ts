@@ -38,7 +38,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     };
     editCase = !!this.route.snapshot.paramMap.get('id');
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/activities';
+    redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/activities/show';
 
     dropZoneFile: File;
     activityData;

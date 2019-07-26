@@ -74,13 +74,14 @@ export class AccommodationsHeaderComponent implements OnInit {
         });
     }
 
+    /**
+     * Navigates to the specified section
+     * @param section
+     */
     changeSection(section) {
-        console.log(section)
-        // if (section === 'Accommodations') {
         this.mapForm.patchValue({type: section});
         this.router.navigate([section.toLowerCase()]);
         this.changePlace(section);
-        // }
     }
 
     logout() {
@@ -88,6 +89,9 @@ export class AccommodationsHeaderComponent implements OnInit {
         this.router.navigate(['/']);
     }
 
+    /**
+     * Navigates to the user dashboard
+     */
     navigateToDashboard() {
         const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
         this.router.navigate([`${role}/dashboard`]);

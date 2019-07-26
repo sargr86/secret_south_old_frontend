@@ -10,11 +10,6 @@ import {MainService} from '../../home/services/main.service';
 })
 export class AccommodationsHomeComponent implements OnInit {
     accommodationObjects;
-    galleryOptions = [
-        {preview: false},
-        {'image': false, 'height': '100px'},
-        {'breakpoint': 500, 'width': '100%'}
-    ];
     accommodationsFolder = ACCOMMODATIONS_FOLDER;
 
     constructor(
