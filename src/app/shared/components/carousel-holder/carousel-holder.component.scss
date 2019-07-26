@@ -1,0 +1,50 @@
+.box {
+  border: solid 1px #dcdcdc;
+  width: 378px;
+  height: 373px;
+
+  .no_image {
+    background-image: url('../../../../assets/images/no_image_slider.jpg');
+    background-position: center center;
+    background-size: cover;
+    height: 256px;
+  }
+
+  .info {
+    .name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00253c;
+      margin: 0 0 29px 0;
+      font-family: "Roboto";
+    }
+
+
+    .priceTxt {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #0b9194;
+
+      p {
+        font-size: 24px;
+      }
+
+      span {
+        font-size: 34px;
+      }
+
+    }
+
+    button {
+      width: 144px;
+      height: 48px;
+      border-radius: 24px;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+      background-image: linear-gradient(to right, #0b9194, #08c1c6);
+      color: #fff;
+      font-size: 16px;
+      border: none;
+    }
+  }
+}

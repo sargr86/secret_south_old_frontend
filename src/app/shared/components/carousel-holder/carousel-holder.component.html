@@ -1,0 +1,21 @@
+<owl-carousel-o [options]="customOptions">
+    <ng-container *ngFor="let item of items">
+
+        <ng-template carouselSlide>
+            <div class="box">
+
+                <img *ngIf="item.img" [src]="folder+'/'+item.img">
+                <div *ngIf="!item.img" class="no_image"></div>
+                <div class="info">
+                    <span class="name">{{item.name}}</span>
+                    <div class="priceTxt">
+                        <p>FROM <span>$25</span></p>
+                        <button type="button" name="button">View more</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ng-container>
+    <!--    <ng-template carouselSlide>Slide 2</ng-template>-->
+    <!--    <ng-template carouselSlide>Slide 3</ng-template>-->
+</owl-carousel-o>

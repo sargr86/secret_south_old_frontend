@@ -1,7 +1,7 @@
 <div class="formContainer">
 
 
-    <h2 *ngIf="regTokenExpired && !customerRegistration">Registration session has been expired</h2>
+    <h2 *ngIf="regTokenExpired && !customerRegistration">The registration session has been expired</h2>
 
     <form [formGroup]="registerForm" method="post" enctype="multipart/form-data" class="registerForm"
           *ngIf="customerRegistration || !regTokenExpired">
@@ -71,8 +71,8 @@
             </mat-form-field>
 
             <!-- Company field -->
-                <input type="hidden"
-                       formControlName="company_id">
+            <input type="hidden"
+                   formControlName="company_id">
 
             <!-- Field/ business type -->
             <mat-form-field *ngIf="!customerRegistration">

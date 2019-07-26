@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectService} from '../../shared/services/subject.service';
+import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
 
 @Component({
     selector: 'app-accommodations-home',
@@ -13,7 +14,7 @@ export class AccommodationsHomeComponent implements OnInit {
         {'image': false, 'height': '100px'},
         {'breakpoint': 500, 'width': '100%'}
     ];
-
+    accommodationsFolder = ACCOMMODATIONS_FOLDER;
     constructor(
         private subject: SubjectService
     ) {
