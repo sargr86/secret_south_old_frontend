@@ -1,22 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MENU_ITEM_ICONS} from '../../shared/constants/settings';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-admin-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    menuItemIcons = MENU_ITEM_ICONS;
 
-    constructor(
-        public router: Router
-    ) {
+  constructor() { }
 
-    }
+  ngOnInit() {
+  }
 
-    ngOnInit(): void {
-
-    }
 }

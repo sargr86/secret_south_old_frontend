@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
             this.auth.userData = jwtDecode(localStorage.getItem('token'));
 
             // Navigate to the home page
-            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard' : (this.auth.checkRoles('partner')) ? 'partners/dashboard' : 'employees/dashboard']);
+            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard/show' : (this.auth.checkRoles('partner')) ? 'partners/dashboard/show' : 'employees/dashboard/show']);
             this.common.formProcessing = false;
         });
     }

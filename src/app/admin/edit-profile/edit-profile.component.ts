@@ -17,7 +17,7 @@ export class EditProfileComponent implements OnInit {
     userData;
     dropzoneFile = {};
     spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = 'admin/dashboard';
+    redirectUrl = 'admin/dashboard/show';
     dropzoneConfig = DROPZONE_CONFIG;
 
     constructor(
