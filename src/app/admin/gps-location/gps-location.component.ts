@@ -76,7 +76,7 @@ export class GpsLocationComponent implements OnInit {
                 return false;
             }
 
-            this.router.navigate(['admin/dashboard']);
+            this.router.navigate(['admin/dashboard/show']);
         });
     }
 
