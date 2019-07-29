@@ -21,7 +21,7 @@ export class NonAuthGuard implements CanActivate {
     ) {
         if (this.auth.loggedIn()) {
 
-            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard' : '/']);
+            this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard/show' : '/']);
             return false;
         } else {
             return true;

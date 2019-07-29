@@ -25,7 +25,7 @@ const routes: Routes = [
     },
 
     {
-        path: 'dashboard',
+        path: 'dashboard/show',
         component: ShowProfileComponent,
     },
     {

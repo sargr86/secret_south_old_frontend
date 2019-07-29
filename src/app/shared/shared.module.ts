@@ -8,7 +8,6 @@ import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DashboardTemplateComponent} from './components/dashboard-template/dashboard-template.component';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
 import {GetImageUrlPipe} from './pipes/get-image-url.pipe';
@@ -25,14 +24,13 @@ import {DropzoneComponent} from './components/dropzone/dropzone.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {CarouselModule} from 'ngx-owl-carousel-o';
-import { CarouselHolderComponent } from './components/carousel-holder/carousel-holder.component';
+import {CarouselHolderComponent} from './components/carousel-holder/carousel-holder.component';
 
 @NgModule({
     declarations: [
         ConfirmationDialogComponent,
         GetTableDataSourcePipe,
         MatReusableTableComponent,
-        DashboardTemplateComponent,
         CheckFormDataPipe,
         GetImageUrlPipe,
         InvitationFormComponent,
@@ -87,7 +85,6 @@ import { CarouselHolderComponent } from './components/carousel-holder/carousel-h
         GetImageUrlPipe,
         GetImageUrlPipe,
         MatReusableTableComponent,
-        DashboardTemplateComponent,
         InvitationFormComponent,
         EditProfileComponent,
         FormTitleComponent,
