@@ -28,7 +28,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="!checkIfAuthDashboardPage() && sidebarOpen">
+<ng-container *ngIf="!checkIfAuthDashboardPage()">
     <app-main-sections [mainSections]="mainSections" (toggleSidebarEmit)="toggle.emit()"
                        (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>

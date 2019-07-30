@@ -6,18 +6,24 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {MainSectionsComponent} from './main-sections/main-sections.component';
 import {AccommodationModule} from '../accommodation/accommodation.module';
 import {FooterComponent} from './footer/footer.component';
+import {HeaderComponent} from './header/header.component';
+import {FoodDrinkModule} from '../food-drink/food-drink.module';
+import {FerriesModule} from '../ferries/ferries.module';
 
 @NgModule({
-    declarations: [NavbarComponent, SidebarComponent, MainSectionsComponent, FooterComponent],
+    declarations: [NavbarComponent, SidebarComponent, MainSectionsComponent, FooterComponent, HeaderComponent],
     imports: [
         CommonModule,
         SharedModule,
-        AccommodationModule
+        AccommodationModule,
+        FoodDrinkModule,
+        FerriesModule
     ],
     exports: [
         NavbarComponent,
         SidebarComponent,
-        FooterComponent
+        FooterComponent,
+        HeaderComponent
     ]
 })
 export class LayoutModule {
