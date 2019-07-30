@@ -2,6 +2,7 @@
 @import '../../../mixins';
 
 
+
 .checkIn, .checkOut, .location {
   position: relative !important;
 
@@ -173,8 +174,10 @@ header {
 
   mat-icon, i {
     position: absolute;
-    top: 11px;
-    left: 1px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 5px;
     color: #fff;
     //font-size: 18px;
   }
@@ -183,3 +186,5 @@ header {
 .selected {
   color: #08C1C6 !important;
 }
+
+@import "../../../assets/css/media";
