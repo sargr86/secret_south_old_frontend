@@ -9,7 +9,7 @@ import {SharedModule} from '../shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
 import {GOOGLE_API_KEY} from '../shared/constants/settings';
 import {AgmDirectionModule} from 'agm-direction';
-import { MapComponent } from './map/map.component';
+import {MapComponent} from './map/map.component';
 
 @NgModule({
     declarations: [MainComponent, MapComponent],
@@ -24,7 +24,11 @@ import { MapComponent } from './map/map.component';
         }),
         AgmDirectionModule
 
+    ],
+    exports: [
+        MapComponent
     ]
+
 })
 export class HomeModule {
 }

@@ -6,7 +6,7 @@ import {GetTableDataSourcePipe} from './pipes/get-table-data-source.pipe';
 import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reusable-table.component';
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
-import {DEFAULT_DROPZONE_CONFIG} from './constants/settings';
+import {DEFAULT_DROPZONE_CONFIG, GOOGLE_API_KEY} from './constants/settings';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
@@ -25,6 +25,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import {CarouselHolderComponent} from './components/carousel-holder/carousel-holder.component';
+import {AgmCoreModule} from '@agm/core';
+import {AgmDirectionModule} from 'agm-direction';
 
 @NgModule({
     declarations: [
@@ -55,7 +57,12 @@ import {CarouselHolderComponent} from './components/carousel-holder/carousel-hol
         NumberPickerModule,
         NgxMaterialTimepickerModule,
         NgxGalleryModule,
-        CarouselModule
+        CarouselModule,
+        AgmCoreModule.forRoot({
+            apiKey: GOOGLE_API_KEY,
+            libraries: ['places', 'geometry'],
+        }),
+        AgmDirectionModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -81,6 +88,8 @@ import {CarouselHolderComponent} from './components/carousel-holder/carousel-hol
         NgxGalleryModule,
         NgxMaterialTimepickerModule,
         CarouselModule,
+        AgmCoreModule,
+        AgmDirectionModule,
         GetTableDataSourcePipe,
         GetImageUrlPipe,
         GetImageUrlPipe,

@@ -1,10 +1,10 @@
-<ng-container *ngIf="router.url!=='/' && _auth.loggedIn()">
+<ng-container *ngIf="checkIfAuthDashboardPage()">
     <div class="treeContainer">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
             <!-- This is the tree node template for leaf nodes -->
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-<!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
-<!--                <button mat-icon-button disabled></button>-->
+                <!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
+                <!--                <button mat-icon-button disabled></button>-->
 
                 <button class="treeNode">
                     <i class="menu-icon fa {{getIcon(node)}}"></i>
@@ -28,7 +28,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="router.url==='/'">
+<ng-container *ngIf="!checkIfAuthDashboardPage() && sidebarOpen">
     <app-main-sections [mainSections]="mainSections" (toggleSidebarEmit)="toggle.emit()"
                        (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>

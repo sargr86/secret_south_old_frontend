@@ -1,3 +1,92 @@
-<p>
-  ferries-header works!
-</p>
+<header>
+    <div class="header_top">
+        <div class="header_top_left">
+            <div class="header_top_logo">
+                <!-- Website logo -->
+                <div class="logo" (click)="router.navigate(['/'])"></div>
+            </div>
+            <ul class="mainSections">
+
+                <li *ngFor="let section of mainSections"
+                    (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
+                    <span class="section">{{section.name}}</span>
+
+                </li>
+            </ul>
+            <!--            <div class="nav_burger">-->
+            <!--                <p><i class="fas fa-bars"></i></p>-->
+            <!--            </div>-->
+        </div>
+        <div class="header_top_right">
+            <p *ngIf="auth.loggedIn()">
+                <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
+                <!--                My Favorites-->
+            </p>
+            <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
+
+
+            <p (click)="navigateToDashboard()" class="link"
+               *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</p>
+
+            <!-- Logout button -->
+            <p (click)="logout()" *ngIf="auth.loggedIn()">
+                Logout
+            </p>
+        </div>
+    </div>
+    <div class="header_main">
+        <div class="header_main_box">
+            <div class="location">
+                <!--                <i class="fa fa-map-marker-alt"></i>-->
+                <mat-icon>place</mat-icon>
+                <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
+                       [options]="countryRestrictredPlaces"
+                       #searchAddress="ngx-places" placeholder="Your location">
+            </div>
+
+            <div class="location">
+                <!--                <i class="fa fa-map-marker-alt"></i>-->
+                <mat-icon>place</mat-icon>
+                <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
+                       [options]="countryRestrictredPlaces"
+                       #searchAddress="ngx-places" placeholder="Direction">
+            </div>
+
+            <div class="guests">
+                <mat-icon>group</mat-icon>
+                <select>
+                    <option value="">Number of passengers</option>
+                    <option value="">Guests</option>
+                    <option value="">Guests</option>
+                </select>
+            </div>
+
+            <!--            <div class="checkOut">-->
+            <!--                <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"-->
+            <!--                       [matDatepicker]="checkOutPicker" class="Check_out_inp">-->
+            <!--                <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>-->
+            <!--                <mat-datepicker #checkOutPicker startView="year"-->
+            <!--                                [startAt]="getStartDate()"></mat-datepicker>-->
+            <!--            </div>-->
+
+
+            <div class="searchBtn">
+                <button type="button" name="button" (click)="searchAccommodations()">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="header_bottom">
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+        <div class="header_bottom_box">
+            <img src="../../../assets/images/icon_1.png" alt="">
+            <p>Earn free travel rewards instantly with Secret South</p>
+        </div>
+    </div>
+</header>

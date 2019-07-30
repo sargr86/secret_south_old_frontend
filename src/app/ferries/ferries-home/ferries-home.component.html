@@ -1,4 +1,72 @@
 <app-ferries-header></app-ferries-header>
-<p>
-    ferries-home works!
-</p>
+<section class="ferry_page">
+    <div class="ferry_page_size">
+        <div class="ferry_page_left">
+
+        </div>
+        <div class="mapContainer">
+
+            <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+                     [mapTypeControl]="true" (mapClick)="mapClick($event)"
+                     [rotateControl]="true"
+                     [styles]="mapStyles">
+                <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng"
+                            [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
+                    <agm-info-window class="infWindow" #infoWindow>
+
+                        <ng-container>
+                            <div class="infoContainer">
+                                <div class="image">
+                                    <img *ngIf="single.img" class="infowindowImg"
+                                         src="{{imgPath+'uploads/others/ferries/'+single.img}}"
+                                         alt="">
+                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">
+                                </div>
+                                <div class="info">
+                                    <h4>{{single.name}}</h4>
+                                    <ul>
+                                        <li>
+                                            <small>Max: {{single.max_people}} people</small>
+                                        </li>
+                                        <li>
+                                            <small>Min: {{single.min_people}} people</small>
+                                        </li>
+                                        <li>
+                                            <!--                            <small>Tel: {{single.phone}}</small>-->
+                                        </li>
+                                    </ul>
+
+                                    <div class="actions">
+                                        <button onclick="" mat-raised-button color="primary"
+                                                (click)="book(single, currentSection)">
+                                            Book
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>
+        <div class="ferry_page_right">
+            <p class="boat_name">Boat name</p>
+            <div class="ferry_page_right_images">
+
+            </div>
+            <p class="company_name">Company Name</p>
+            <div class="company_name_line"></div>
+            <p class="ferry_page_right_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                been the industry's standard dummy text ever since the</p>
+            <div class="ferry_page_right_face">
+                <div class="ferry_page_right_face_img"><img src="" alt=""></div>
+                <p>Driver name</p>
+            </div>
+            <div class="company_name_line"></div>
+
+        </div>
+    </div>
+</section>
+
+

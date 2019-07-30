@@ -1,7 +1,8 @@
 .box {
   border: solid 1px #dcdcdc;
   width: 378px;
-  height: 373px;
+  height: unset;
+
 
   .no_image {
     background-image: url('../../../../assets/images/no_image_slider.jpg');
@@ -12,6 +13,8 @@
   }
 
   .info {
+    padding: 20px;
+
     .name {
       font-size: 24px;
       font-weight: bold;
@@ -47,5 +50,77 @@
       font-size: 16px;
       border: none;
     }
+  }
+
+
+}
+
+ul {
+  display: flex;
+  overflow-x: scroll;
+
+  li:not(:first-of-type) {
+    margin-left: 10px;
+  }
+}
+
+.info .name {
+  display: block;
+  width: 100%;
+  height: 28px;
+  overflow: hidden;
+  font-size: 22px !important;
+}
+
+.actual_image {
+  width: 100%;
+  height: 256px;
+}
+
+.actual_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (max-width: 1230px) {
+  .box {
+    width: 300px;
+  }
+  .box {
+    .no_image, .actual_image {
+
+      height: 220px;
+    }
+  }
+  .info {
+    padding: 10px !important;
+  }
+  .box .info .name {
+    font-size: 18px !important;
+    margin: 0 0 10px 0 !important;
+    overflow: hidden;
+  }
+  .priceTxt p {
+    font-size: 18px !important;
+  }
+
+
+  .priceTxt button {
+    width: 120px !important;
+    height: 40px !important;
+  }
+
+  .priceTxt p span {
+    font-size: 24px !important;
+  }
+}
+@media screen and (max-width: 400px) {
+  .box{
+    width: 100vw !important;
+  }
+  .box button{
+    margin-right: 20px;
   }
 }

@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-    sidebarOpen = false;
+    sidebarOpen = true;
 
     @Output() toggleSide = new EventEmitter();
     routerUrl;
@@ -236,10 +236,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     }
 
 
-    changeSection(section) {
-        this.mapForm.patchValue({type: section});
-        this.changePlace(section);
+    changeSection(link) {
+        // console.log(section)
+        // this.mapForm.patchValue({type: section});
+        // this.changePlace(section);
         if (this.responsiveMode) {
+            this.router.navigate([link])
             this.closeSidebar();
         }
 
@@ -275,5 +277,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     get responsiveMode() {
 
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    checkIfAuthDashboardPage() {
+        return /auth|admin|partner|employee/.test(this.router.url);
     }
 }
