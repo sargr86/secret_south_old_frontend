@@ -18,6 +18,9 @@
             <!--            </div>-->
         </div>
         <div class="header_top_right">
+            <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
+                <mat-icon>menu</mat-icon>
+            </button>
             <p *ngIf="auth.loggedIn()">
                 <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
                 <!--                My Favorites-->
@@ -36,6 +39,7 @@
     </div>
     <div class="header_main">
         <div class="header_main_box">
+
             <div class="location">
                 <!--                <i class="fa fa-map-marker-alt"></i>-->
                 <mat-icon>place</mat-icon>

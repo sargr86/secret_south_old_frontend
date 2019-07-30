@@ -7,7 +7,7 @@
   </div>
   <div class="clearfix"></div>
   <div class="sections">
-    <div *ngFor="let section of mainSections">
+    <div class="section" *ngFor="let section of mainSections">
       <input type="radio" [hidden]="true">
       <p (click)="changeSection(section.link)" class="menuItem">
         <mat-icon>{{section.icon}}</mat-icon>

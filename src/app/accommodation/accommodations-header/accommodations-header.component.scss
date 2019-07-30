@@ -2,7 +2,6 @@
 @import '../../../mixins';
 
 
-
 .checkIn, .checkOut, .location {
   position: relative !important;
 
@@ -185,6 +184,11 @@ header {
 
 .selected {
   color: #08C1C6 !important;
+}
+
+.sidebarToggler {
+  @include noBgBtn;
+  cursor: pointer;
 }
 
 @import "../../../assets/css/media";

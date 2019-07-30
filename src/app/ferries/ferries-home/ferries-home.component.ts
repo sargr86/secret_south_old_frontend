@@ -39,7 +39,6 @@ export class FerriesHomeComponent implements OnInit {
                 });
 
                 this.ferryPositions = arr;
-                console.log(this.ferryPositions)
             }
         });
     }

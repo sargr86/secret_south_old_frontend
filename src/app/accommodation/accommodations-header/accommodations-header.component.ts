@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import IsResponsive from '../../shared/helpers/is-responsive';
@@ -26,6 +26,8 @@ export class AccommodationsHeaderComponent implements OnInit {
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
 
+    @Output() toggle = new EventEmitter();
+
     constructor(
         public router: Router,
         public auth: AuthService,
@@ -43,6 +45,11 @@ export class AccommodationsHeaderComponent implements OnInit {
         this.mapForm = this._fb.group({
             type: ['']
         });
+    }
+
+    toggleSidebar() {
+        console.log("OK")
+        this.toggle.emit();
     }
 
     changePlace(section) {

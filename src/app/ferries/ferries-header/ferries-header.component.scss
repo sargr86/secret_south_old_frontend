@@ -188,5 +188,10 @@ header {
   text-align: center;
 }
 
+.sidebarToggler {
+  @include noBgBtn;
+  cursor: pointer;
+}
+
 
 @import "../../../assets/css/media";
