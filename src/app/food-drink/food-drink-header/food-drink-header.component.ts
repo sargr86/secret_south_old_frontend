@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -26,6 +26,8 @@ export class FoodDrinkHeaderComponent implements OnInit {
     selectedSection = 'Food/Drink';
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+
+    @Output() toggle = new EventEmitter();
 
     customTheme: NgxMaterialTimepickerTheme = {
         container: {
@@ -59,6 +61,10 @@ export class FoodDrinkHeaderComponent implements OnInit {
         this.mapForm = this._fb.group({
             type: ['']
         });
+    }
+
+    toggleSidebar() {
+        this.toggle.emit();
     }
 
     changePlace(section) {

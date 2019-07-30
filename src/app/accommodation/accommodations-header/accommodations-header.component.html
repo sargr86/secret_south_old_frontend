@@ -18,6 +18,9 @@
             <!--            </div>-->
         </div>
         <div class="header_top_right">
+            <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
+                <mat-icon>menu</mat-icon>
+            </button>
             <p *ngIf="auth.loggedIn()">
                 <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
                 <!--                My Favorites-->

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MAIN_SECTIONS} from '../../shared/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -27,6 +27,8 @@ export class FerriesHeaderComponent implements OnInit {
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
 
+    @Output() toggle = new EventEmitter();
+
     constructor(
         public router: Router,
         public auth: AuthService,
@@ -44,6 +46,10 @@ export class FerriesHeaderComponent implements OnInit {
         this.mapForm = this._fb.group({
             type: ['']
         });
+    }
+
+    toggleSidebar() {
+        this.toggle.emit();
     }
 
     changePlace(section) {

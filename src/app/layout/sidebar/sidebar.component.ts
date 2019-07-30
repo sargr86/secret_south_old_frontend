@@ -165,6 +165,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             this.toggle.emit();
             this.closeSidebar();
         }
+        console.log(childNode)
         this.router.navigate([`${userType ? userType.label : 'admin'}/${url}`]);
         this.expandLinks();
     }
@@ -194,15 +195,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     toggleSidebar() {
         this.toggleSide.emit();
-        if (this.router.url === '/' || this.router.url.includes('auth')) {
-            this.sidebarOpen = !this.sidebarOpen;
-
-        }
+        // if (this.router.url === '/' || this.router.url.includes('auth')) {
+        //     this.sidebarOpen = !this.sidebarOpen;
+        //
+        // }
     }
 
     closeSidebar() {
-        this.sidebarOpen = false;
-        // this.toggle.emit();
+        // this.sidebarOpen = false;
+        this.toggle.emit();
     }
 
     changePlace(section) {
@@ -237,10 +238,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
 
     changeSection(link) {
-        // console.log(section)
+        // console.log(link)
         // this.mapForm.patchValue({type: section});
         // this.changePlace(section);
-        if (this.responsiveMode) {
+        // @todo enable activities & tours here
+        if (this.responsiveMode && link !== 'activities' && link !== 'tours') {
             this.router.navigate([link])
             this.closeSidebar();
         }

@@ -32,6 +32,8 @@ export class AppComponent implements OnDestroy {
         private cdr: ChangeDetectorRef
     ) {
 
+
+
         // Getting current page title
         this.routeSubscription = this.router.events.pipe(map(() => {
             let child = this.route.firstChild;
@@ -48,6 +50,7 @@ export class AppComponent implements OnDestroy {
         })).subscribe(title => {
             this.pageTitle = title;
             this.setPageTitle();
+            // this.sidenav.toggle();
             // this._subject.setPageTitle(title)
         });
 
@@ -66,7 +69,7 @@ export class AppComponent implements OnDestroy {
 
     getMode(sidenav) {
 
-        // sidenav.close();
+        // sidenav.toggle();
         if (this.responsiveMode && screen.width < 1060 && !this.router.url.includes('auth')) {
             return 'over';
         } else {

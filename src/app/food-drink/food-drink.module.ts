@@ -15,6 +15,9 @@ import { FoodDrinkHomeComponent } from './food-drink-home/food-drink-home.compon
         FoodDrinkHeaderComponent,
         FoodDrinkHomeComponent
     ],
+    exports: [
+        FoodDrinkHeaderComponent
+    ],
     imports: [
         CommonModule,
         FoodDrinkRoutingModule,

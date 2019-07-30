@@ -1,12 +1,12 @@
 <mat-sidenav-container>
-    <mat-sidenav [mode]="getMode(sidenav)" #sidenav [opened]="router.url!=='/' || router.url.includes('auth')"
-                 id="sidenav"> <!---->
+    <mat-sidenav [mode]="getMode(sidenav)" #sidenav
+                 id="sidenav" [opened]="false">
         <app-sidebar (toggle)="sidenav.toggle()"
-                     ></app-sidebar>
-        <!-- *ngIf="router.url!=='/' && _auth.loggedIn()" -->
+        ></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
+        <app-header (toggle)="sidenav.toggle()"></app-header>
         <router-outlet></router-outlet>
         <app-footer></app-footer>
     </mat-sidenav-content>
