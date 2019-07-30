@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ToastrService} from 'ngx-toastr';
+import * as mapStylesData from '../../maps/map_styles2.json';
 
 @Component({
     selector: 'app-ferries-home',
@@ -11,7 +12,10 @@ export class FerriesHomeComponent implements OnInit {
 
     lat = 51.797999;
     lng = -8.294371;
+    latlng = [];
     ferryPositions;
+    mapStyles;
+    imgPath;
 
     constructor(
         private main: MainService,
@@ -21,6 +25,7 @@ export class FerriesHomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.getFerryLocation();
+        this.mapStyles = mapStylesData['default'];
     }
 
     getFerryLocation() {
@@ -41,6 +46,18 @@ export class FerriesHomeComponent implements OnInit {
                 this.ferryPositions = arr;
             }
         });
+    }
+
+    mapClick(e) {
+
+    }
+
+    markerClick(w) {
+
+    }
+
+    getIcon() {
+
     }
 
 
