@@ -17,11 +17,11 @@ export class MainSectionsComponent implements OnInit {
     ngOnInit() {
     }
 
-    changeSection(name) {
-        this.changeSectionEmit.emit(name);
+    changeSection(link) {
+        this.changeSectionEmit.emit(link);
     }
 
     closeSidebar() {
-        this.toggleSidebarEmit.emit(name);
+        this.toggleSidebarEmit.emit();
     }
 }

@@ -28,7 +28,7 @@ export class AccommodationsHomeComponent implements OnInit {
     }
 
     getObjects() {
-        this.main.changePlace({type: 'food/drink'}).subscribe((dt: any) => {
+        this.main.changePlace({type: 'accommodations'}).subscribe((dt: any) => {
 
             this.accommodationObjects = dt;
         });

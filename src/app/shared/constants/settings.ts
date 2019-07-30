@@ -164,5 +164,5 @@ export const MAIN_SECTIONS = [
     {name: 'Ferries', icon: 'directions_boat', link: 'ferries'},
     {name: 'Tours', icon: 'beach_access', link: 'tours'},
     {name: 'Activities', icon: 'directions_run', link: 'activities'},
-    {name: 'Map'}
+    // {name: 'Map'}
 ];

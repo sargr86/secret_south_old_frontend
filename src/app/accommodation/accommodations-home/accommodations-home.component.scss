@@ -43,7 +43,6 @@ ul {
 }
 
 
-
 .home_1 {
   margin: 100px auto 0 auto;
   width: 1200px;
@@ -288,63 +287,4 @@ ul {
 
 }
 
-@media screen and (max-width: 960px) {
-  .header_top {
-    align-items: center;
-  }
-  .header_top_left ul {
-    display: none;
-  }
-  .nav_burger {
-    display: block;
-  }
-  .nav_burger p {
-    font-size: 30px
-  }
-  .header_top_left {
-    width: 50%;
-    justify-content: space-between;
-  }
-  .header_main {
-    display: flex;
-    justify-content: center;
-  }
-  .header_main_box {
-    height: auto;
-    width: auto;
-    flex-direction: column;
-    padding: 15px;
-  }
-  .header_main_box input {
-    width: 200px !important;
-    margin: 5px 0
-  }
-  .header_main_box select {
-    width: 200px !important;
-    margin: 5px 0
-  }
-  .header_main_box button {
-    width: 200px !important;
-    margin-top: 5px
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .home_1_block {
-    justify-content: center;
-  }
-  .header_top_right p {
-    font-size: 14px
-  }
-  .home_1_box {
-    width: 300px
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .header_top_left {
-    width: 20%;
-    justify-content: space-between;
-  }
-
-}
+//@import "../../../assets/css/media";
