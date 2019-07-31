@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
+import IsResponsive from '../../helpers/is-responsive';
 
 @Component({
     selector: 'app-carousel-holder',
@@ -13,6 +14,7 @@ export class CarouselHolderComponent implements OnInit {
 
     @Input() items;
     @Input() folder;
+    responsiveMode;
     customOptions: OwlOptions = {
         loop: true,
         mouseDrag: false,
@@ -39,6 +41,7 @@ export class CarouselHolderComponent implements OnInit {
     };
 
     ngOnInit() {
+        this.responsiveMode = IsResponsive.check();
         // console.log(this.items)
     }
 

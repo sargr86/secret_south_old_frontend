@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     }
 
     toggleSidebar() {
-       this.toggle.emit();
+        this.toggle.emit();
     }
 
 }
