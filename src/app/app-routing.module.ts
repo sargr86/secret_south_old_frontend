@@ -9,6 +9,10 @@ const routes: Routes = [
     {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
     {
+        path: '',
+        component: AccommodationsHomeComponent
+    },
+    {
         path: 'accommodations',
         loadChildren: './accommodation/accommodation.module#AccommodationModule'
     },

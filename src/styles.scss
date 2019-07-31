@@ -3,8 +3,6 @@
 @import './mixins';
 @import 'variables';
 //@import "assets/css/media";
-
-
 // regular style toast
 @import '~ngx-toastr/toastr.css';
 
@@ -23,8 +21,16 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
-p{
+p {
   margin-bottom: 0 !important;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  height: 2px !important;
+}
+
+::-webkit-scrollbar-track:horizontal {
+  border-width: 0
 }
 
 .mat-spinner {
