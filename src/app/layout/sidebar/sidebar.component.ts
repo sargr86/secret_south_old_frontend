@@ -10,6 +10,7 @@ import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '../../shared/services/subject.service';
 import {filter} from 'rxjs/operators';
 import {log} from 'util';
+import {Section} from '../../shared/models/Section';
 
 /**
  * Food data with nested structure.
@@ -35,9 +36,9 @@ interface ExampleFlatNode {
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
-    adminRole;
+    adminRole: boolean;
     dashboardLinks = DASHBOARD_LINKS;
-    mainSections = MAIN_SECTIONS;
+    mainSections: Section[] = MAIN_SECTIONS;
     sidebarOpened = false;
     mapForm: FormGroup;
     latlng: any = [];

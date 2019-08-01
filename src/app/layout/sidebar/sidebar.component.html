@@ -29,7 +29,7 @@
 
 
 <ng-container *ngIf="!checkIfAuthDashboardPage()">
-    <app-main-sections [mainSections]="mainSections" (toggleSidebarEmit)="toggle.emit()"
+    <app-main-sections (toggleSidebarEmit)="toggle.emit()"
                        (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>
 
