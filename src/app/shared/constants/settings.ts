@@ -1,5 +1,6 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '../../../environments/environment';
+import {Section} from '../models/Section';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
@@ -158,7 +159,7 @@ export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
 export const DEFAULT_COUNTRY = 'ie';
 
 
-export const MAIN_SECTIONS = [
+export const MAIN_SECTIONS: Section[] = [
     {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
     {name: 'Food/Drink', icon: 'restaurant_menu', link: 'food-drink'},
     {name: 'Ferries', icon: 'directions_boat', link: 'ferries'},

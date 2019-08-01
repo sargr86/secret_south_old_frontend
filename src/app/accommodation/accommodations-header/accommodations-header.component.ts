@@ -17,9 +17,7 @@ import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country
 export class AccommodationsHeaderComponent implements OnInit {
     mainSections = MAIN_SECTIONS;
     mapForm: FormGroup;
-    latlng: any = [];
-    lat = 0;
-    lng = 0;
+
     subscriptions: Subscription[] = [];
     routerUrl: string;
     selectedSection = 'Accommodations';
@@ -52,44 +50,7 @@ export class AccommodationsHeaderComponent implements OnInit {
         this.toggle.emit();
     }
 
-    changePlace(section) {
-        this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
 
-            this.latlng = [];
-
-            if (r && r.length > 0) {
-
-                r.map((latlngs) => {
-                    latlngs.lat = parseFloat(latlngs.lat);
-                    latlngs.lng = parseFloat(latlngs.lng);
-                    this.latlng.push(latlngs);
-                });
-
-                this.lat = parseFloat(this.latlng[0].lat);
-                this.lng = parseFloat(this.latlng[0].lng);
-
-
-            }
-
-            this.subject.setMapData({
-                section: section,
-                lat: this.lat,
-                lng: this.lng,
-                list: r
-            });
-            this.selectedSection = section;
-        });
-    }
-
-    /**
-     * Navigates to the specified section
-     * @param section
-     */
-    changeSection(section) {
-        this.mapForm.patchValue({type: section});
-        this.router.navigate([section.toLowerCase()]);
-        this.changePlace(section);
-    }
 
     logout() {
         localStorage.removeItem('token');
