@@ -5,17 +5,9 @@
                 <!-- Website logo -->
                 <div class="logo" (click)="router.navigate(['/'])"></div>
             </div>
-            <ul class="mainSections">
 
-                <li *ngFor="let section of mainSections"
-                    (click)="changeSection(section.link)" [class.selected]="selectedSection === section.name">
-                    <span class="section">{{section.name}}</span>
-
-                </li>
-            </ul>
-            <!--            <div class="nav_burger">-->
-            <!--                <p><i class="fas fa-bars"></i></p>-->
-            <!--            </div>-->
+            <!-- Nav bar section links -->
+            <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
         </div>
         <div class="header_top_right">
             <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">

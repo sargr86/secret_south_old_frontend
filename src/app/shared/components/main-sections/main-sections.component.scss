@@ -1,3 +1,7 @@
+.selected {
+  color: #08C1C6 !important;
+}
+
 .menuItem {
   display: flex;
 
@@ -6,14 +10,25 @@
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
+    cursor: pointer;
   }
 }
 
-.sections {
-  margin-top: -50px;
 
-  .section {
-    margin: 20px 0;
+ul {
+  width: 100%;
+  display: flex;
+  list-style-type: none;
+
+  li {
+    margin-right: 35px;
+    font-size: 18px;
+
+    .section {
+      margin: 20px 0;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   }
 }
 

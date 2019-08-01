@@ -27,6 +27,7 @@ import {CarouselModule} from 'ngx-owl-carousel-o';
 import {CarouselHolderComponent} from './components/carousel-holder/carousel-holder.component';
 import {AgmCoreModule} from '@agm/core';
 import {AgmDirectionModule} from 'agm-direction';
+import {MainSectionsComponent} from './components/main-sections/main-sections.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import {AgmDirectionModule} from 'agm-direction';
         RedirectUrlGeneratorPipe,
         DropzoneComponent,
         CarouselHolderComponent,
+        MainSectionsComponent
     ],
     imports: [
         CommonModule,
@@ -97,7 +99,8 @@ import {AgmDirectionModule} from 'agm-direction';
         InvitationFormComponent,
         EditProfileComponent,
         FormTitleComponent,
-        CarouselHolderComponent
+        CarouselHolderComponent,
+        MainSectionsComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,

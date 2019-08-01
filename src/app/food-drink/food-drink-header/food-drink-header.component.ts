@@ -55,7 +55,6 @@ export class FoodDrinkHeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.selectedSection)
         // Checking for responsive mode and initializing map form
         this.responsiveMode = IsResponsive.check();
         this.mapForm = this._fb.group({
