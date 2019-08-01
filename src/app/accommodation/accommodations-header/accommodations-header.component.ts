@@ -46,10 +46,8 @@ export class AccommodationsHeaderComponent implements OnInit {
     }
 
     toggleSidebar() {
-        console.log("OK")
         this.toggle.emit();
     }
-
 
 
     logout() {
