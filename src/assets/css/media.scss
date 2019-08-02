@@ -28,7 +28,7 @@
     font-size: 17px;
   }
   .header_main {
-    width: 95%;
+    width: 70%;
     max-width: unset;
   }
   .header_main_box {
@@ -171,7 +171,11 @@
 
 @media screen and (max-width: 960px) {
 
-  .location, .checkIn, .guests, .checkOut {
+  .location, .checkIn, .checkOut {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .guests {
     width: 100% !important;
     margin: 0 !important;
   }

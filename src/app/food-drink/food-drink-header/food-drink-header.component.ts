@@ -26,6 +26,8 @@ export class FoodDrinkHeaderComponent implements OnInit {
     selectedSection = 'Food/Drink';
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+    personsCount = 2;
+
 
     @Output() toggle = new EventEmitter();
 
@@ -123,6 +125,10 @@ export class FoodDrinkHeaderComponent implements OnInit {
 
     searchAccommodations() {
         this.router.navigate(['accommodations/list']);
+    }
+
+    personsCountChanged(e) {
+
     }
 
 

@@ -26,6 +26,7 @@ export class FerriesHeaderComponent implements OnInit {
     selectedSection = 'Ferries';
     responsiveMode: boolean;
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+    personsCount = 2;
 
     @Output() toggle = new EventEmitter();
 
@@ -109,6 +110,10 @@ export class FerriesHeaderComponent implements OnInit {
 
     searchAccommodations() {
         this.router.navigate(['accommodations/list']);
+    }
+
+    personsCountChanged() {
+
     }
 
 }

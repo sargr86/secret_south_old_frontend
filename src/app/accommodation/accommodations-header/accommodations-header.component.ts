@@ -26,6 +26,8 @@ export class AccommodationsHeaderComponent implements OnInit {
 
     @Output() toggle = new EventEmitter();
 
+    personsCount = 2;
+
     constructor(
         public router: Router,
         public auth: AuthService,
@@ -73,6 +75,10 @@ export class AccommodationsHeaderComponent implements OnInit {
 
     searchAccommodations() {
         this.router.navigate(['accommodations/list']);
+    }
+
+    personsCountChanged(e) {
+
     }
 
 }

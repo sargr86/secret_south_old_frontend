@@ -1,3 +1,6 @@
+@import '../../../variables';
+@import '../../../mixins';
+
 button {
   border: none !important;
 }
@@ -219,7 +222,7 @@ button {
 }
 
 .accommodations_main_right_top_right_icon {
-  font-size: 40px
+  font-size: 20px;
 }
 
 .accommodations_main_right_top_line {
@@ -283,27 +286,27 @@ button {
   margin-bottom: 15px;
 }
 
-.accommodations_main_reiting {
+.accommodations_main_rating {
   display: flex;
   align-items: flex-end;
 }
 
-.accommodations_main_reiting_stars {
+.accommodations_main_rating_stars {
   display: flex;
   margin-right: 8px
 }
 
-.accommodations_main_reiting_stars p {
+.accommodations_main_rating_stars p {
   color: #fd8c5c;
   font-size: 16px;
 }
 
-.accommodations_main_reiting_num {
+.accommodations_main_rating_num {
   font-size: 16px;
   color: #10191f;
 }
 
-.accommodations_main_reiting_num span {
+.accommodations_main_rating_num span {
   font-size: 24px;
   font-weight: bold;
   color: #10191f;
@@ -315,28 +318,30 @@ button {
   margin: 15px 0
 }
 
-.accommodations_main_reiting_icons {
-  display: flex;
+.accommodations_main_rating_icons {
+  display: flex !important;
 }
 
-.accommodations_main_reiting_icons_block {
-  text-align: center;
-  margin-right: 8px
+//
+.accommodations_main_rating_icons_block {
+  text-align: center !important;
+  margin-right: 20px !important;
 }
 
-.accommodations_main_reiting_icons_block_user {
-  font-size: 32px;
-  border-radius: 4px;
-  border: solid 1px #cecece;
-  padding: 6px;
-  margin-bottom: 5px
-}
-
-.accommodations_main_reiting_icons_info {
-  font-size: 16px;
-  font-weight: 500;
-  color: #00253c;
-}
+//
+//.accommodations_main_rating_icons_block_user {
+//  font-size: 32px;
+//  border-radius: 4px;
+//  border: solid 1px #cecece;
+//  padding: 6px;
+//  margin-bottom: 5px
+//}
+//
+//.accommodations_main_rating_icons_info {
+//  font-size: 16px;
+//  font-weight: 500;
+//  color: #00253c;
+//}
 
 .accommodations_main_right_main_block_bottom {
   width: 100%;
@@ -451,11 +456,13 @@ button {
     margin: 9px 0;
 
   }
-  .filter_block_box_left input {
+  .filter_block_box_left mat-checkbox {
     width: 20px;
     height: 20px;
     margin-right: 10px
   }
+
+
   .filter_block_box_line {
     width: 120px;
     height: 8px;
@@ -525,16 +532,16 @@ button {
     margin-bottom: 15px;
   }
 
-  .accommodations_main_reiting_stars {
+  .accommodations_main_rating_stars {
     margin-right: 8px
   }
-  .accommodations_main_reiting_stars p {
+  .accommodations_main_rating_stars p {
     font-size: 15px;
   }
-  .accommodations_main_reiting_num {
+  .accommodations_main_rating_num {
     font-size: 15px;
   }
-  .accommodations_main_reiting_num span {
+  .accommodations_main_rating_num span {
     font-size: 20px;
     font-weight: bold;
     color: #10191f;
@@ -544,15 +551,15 @@ button {
     margin: 15px 0
   }
 
-  .accommodations_main_reiting_icons_block {
+  .accommodations_main_rating_icons_block {
     margin-right: 8px
   }
-  .accommodations_main_reiting_icons_block_user {
+  .accommodations_main_rating_icons_block_user {
     font-size: 25px;
     padding: 5px;
     margin-bottom: 5px
   }
-  .accommodations_main_reiting_icons_info {
+  .accommodations_main_rating_icons_info {
     font-size: 15px;
   }
   .accommodations_main_right_main_block_bottom {
