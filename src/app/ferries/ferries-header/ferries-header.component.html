@@ -53,11 +53,9 @@
 
             <div class="guests">
                 <mat-icon>group</mat-icon>
-                <select>
-                    <option value="">Number of passengers</option>
-                    <option value="">Guests</option>
-                    <option value="">Guests</option>
-                </select>
+                <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                                  [buttonsOrientation]="'v'" [placeholder]="'Guests'"
+                                  (valueChange)="personsCountChanged($event)"></ng-number-picker>
             </div>
 
             <!--            <div class="checkOut">-->

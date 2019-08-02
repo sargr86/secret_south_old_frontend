@@ -32,6 +32,12 @@ ul {
   }
 }
 
+.sections {
+  .section {
+    margin: 20px 0;
+  }
+}
+
 @media screen and (min-width: 1059px) {
   .positioned_sidebar_wrapper {
     display: none;

@@ -74,27 +74,28 @@ header {
   height: 108px;
   opacity: 0.9;
   background-color: #164547;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px
+  padding: 0 16px;
+
+  input {
+    width: 300px;
+    height: 44px;
+    border: solid 1px #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    color: #fff !important
+  }
+
+  input::placeholder {
+    //padding-left: 27px;
+    color: #fff !important
+  }
 }
 
-.header_main_box input {
-  width: 300px;
-  height: 44px;
-  border: solid 1px #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  background: transparent;
-  color: #fff !important
-}
-
-.header_main_box input::placeholder {
-  //padding-left: 27px;
-  color: #fff !important
-}
 
 .Check_out_inp {
   width: 180px !important;

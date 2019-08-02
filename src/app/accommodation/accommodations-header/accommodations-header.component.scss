@@ -191,4 +191,11 @@ header {
   cursor: pointer;
 }
 
+.guests {
+
+  mat-icon {
+    z-index: 20;
+  }
+}
+
 @import "../../../assets/css/media";
