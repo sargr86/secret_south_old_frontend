@@ -28,6 +28,8 @@ import {CarouselHolderComponent} from './components/carousel-holder/carousel-hol
 import {AgmCoreModule} from '@agm/core';
 import {AgmDirectionModule} from 'agm-direction';
 import {MainSectionsComponent} from './components/main-sections/main-sections.component';
+import {Ng5SliderModule} from 'ng5-slider';
+import {ProgressBarModule} from 'angular-progress-bar';
 
 @NgModule({
     declarations: [
@@ -64,7 +66,9 @@ import {MainSectionsComponent} from './components/main-sections/main-sections.co
             apiKey: GOOGLE_API_KEY,
             libraries: ['places', 'geometry'],
         }),
-        AgmDirectionModule
+        AgmDirectionModule,
+        Ng5SliderModule,
+        ProgressBarModule
     ],
     providers: [
         GetTableDataSourcePipe,
@@ -92,8 +96,9 @@ import {MainSectionsComponent} from './components/main-sections/main-sections.co
         CarouselModule,
         AgmCoreModule,
         AgmDirectionModule,
+        Ng5SliderModule,
+        ProgressBarModule,
         GetTableDataSourcePipe,
-        GetImageUrlPipe,
         GetImageUrlPipe,
         MatReusableTableComponent,
         InvitationFormComponent,

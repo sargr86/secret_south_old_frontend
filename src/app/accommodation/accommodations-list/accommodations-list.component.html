@@ -55,10 +55,9 @@
                     <p class="filter_block_tittle">Price</p>
                     <div class="filter_block_box">
                         <div class="range">
-                            <h1>Range</h1>
+                            <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
                         </div>
                     </div>
-
 
                 </div>
                 <div class="filter_block">
@@ -66,42 +65,48 @@
                     <p class="filter_block_tittle">Star rating</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
-                        <div class="filter_block_box_line"></div>
+                        <progress-bar [progress]="'100'" [color]="'#08C1C6'">
+                        </progress-bar>
+                        <!--                        <div class="filter_block_box_line"></div>-->
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
-                            <p>5 star</p>
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                            <p>4 stars</p>
                         </div>
-                        <div class="filter_block_box_line"></div>
+                        <progress-bar [progress]="'80'" [color]="'#08C1C6'">
+                        </progress-bar>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
-                            <p>5 star</p>
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                            <p>3 stars</p>
                         </div>
-                        <div class="filter_block_box_line"></div>
+                        <progress-bar [progress]="'60'" [color]="'#08C1C6'">
+                        </progress-bar>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
-                            <p>5 star</p>
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                            <p>2 stars</p>
                         </div>
-                        <div class="filter_block_box_line"></div>
+                        <progress-bar [progress]="'40'" [color]="'#08C1C6'">
+                        </progress-bar>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
-                            <p>5 star</p>
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                            <p>Unrated</p>
                         </div>
-                        <div class="filter_block_box_line"></div>
+                        <progress-bar [progress]="'20'" [color]="'#08C1C6'">
+                        </progress-bar>
                         <p>124</p>
                     </div>
                 </div>
@@ -110,28 +115,28 @@
                     <p class="filter_block_tittle">Popular filters</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
 
@@ -139,7 +144,7 @@
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
@@ -150,28 +155,28 @@
                     <p class="filter_block_tittle">Accommodation type</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
 
@@ -179,7 +184,7 @@
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
@@ -190,28 +195,28 @@
                     <p class="filter_block_tittle">Meals</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
 
@@ -219,7 +224,7 @@
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
@@ -230,28 +235,28 @@
                     <p class="filter_block_tittle">Bedrooms</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
 
@@ -259,7 +264,7 @@
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
@@ -270,28 +275,28 @@
                     <p class="filter_block_tittle">Amenities</p>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
 
@@ -299,7 +304,7 @@
                     </div>
                     <div class="filter_block_box">
                         <div class="filter_block_box_left">
-                            <input type="checkbox" name="" value="">
+                            <mat-checkbox class="filter_checkbox"></mat-checkbox>
                             <p>5 star</p>
                         </div>
                         <p>124</p>
@@ -329,416 +334,58 @@
             </div>
             <hr class="accommodations_main_right_top_line">
             <div class="accommodations_main_right_main">
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
+
+                <ng-container *ngFor="let obj of accommodationObjects">
+
+
+                    <div class="accommodations_main_right_main_block">
+                        <div class="accommodations_main_right_main_block_img">
+                            <div class="accommodations_main_right_main_block_img_2">
+                                <img src="../../../assets/images/face2.png" alt="">
+                            </div>
+                            <img *ngIf="obj.img" [src]="accommodationsFolder+ obj.img" alt=""
+                                 class="accommodations_main_right_main_block_img_photo">
+                            <div *ngIf="!obj.img" class="no_image"></div>
                         </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
+                        <div class="accommodations_main_right_main_block_size">
+                            <p class="ModernApartment">{{obj.name}}</p>
+                            <p class="CamdenRoad">{{obj.address}}</p>
+                            <div class="accommodations_main_rating">
+                                <div class="accommodations_main_rating_stars">
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="far fa-star"></i></p>
+                                </div>
+                                <p class="accommodations_main_rating_num"><span>4.1</span> of 5 (1235)</p>
                             </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
+                            <p class="Apartment">Apartment</p>
+                            <div class="accommodations_main_rating_icons">
+                                <div class="accommodations_main_rating_icons_block">
+                                    <p class="accommodations_main_rating_icons_block_user"><i class="fas fa-user"></i>
+                                    </p>
+                                    <p class="accommodations_main_rating_icons_info">x 4</p>
+                                </div>
+                                <div class="accommodations_main_rating_icons_block">
+                                    <p class="accommodations_main_rating_icons_block_user"><i class="fas fa-bed"></i>
+                                    </p>
+                                    <p class="accommodations_main_rating_icons_info">x 4</p>
+                                </div>
+                                <div class="accommodations_main_rating_icons_block">
+                                    <p class="accommodations_main_rating_icons_block_user"><i class="fas fa-bath"></i>
+                                    </p>
+                                    <p class="accommodations_main_rating_icons_info">x 4</p>
+                                </div>
                             </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
+                            <div class="accommodations_main_right_main_block_bottom">
+                                <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night
+                                </p>
+                                <button type="button" name="button">Book now</button>
                             </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
                         </div>
                     </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="accommodations_main_right_main_block">
-                    <div class="accommodations_main_right_main_block_img">
-                        <div class="accommodations_main_right_main_block_img_2">
-                            <img src="img/face2.png" alt="">
-                        </div>
-                        <img src="img/img_2.png" alt="" class="accommodations_main_right_main_block_img_photo">
-                    </div>
-                    <div class="accommodations_main_right_main_block_size">
-                        <p class="ModernApartment">Modern Apartment in Ireland</p>
-                        <p class="CamdenRoad">1 Camden Road, Crosshaven, Co. Cork, Ireland</p>
-                        <div class="accommodations_main_reiting">
-                            <div class="accommodations_main_reiting_stars">
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="fas fa-star"></i></p>
-                                <p><i class="far fa-star"></i></p>
-                            </div>
-                            <p class="accommodations_main_reiting_num"><span>4.1</span> of 5 (1235)</p>
-                        </div>
-                        <p class="Apartment">Apartment</p>
-                        <div class="accommodations_main_reiting_icons">
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-user"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bed"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                            <div class="accommodations_main_reiting_icons_block">
-                                <p class="accommodations_main_reiting_icons_block_user"><i class="fas fa-bath"></i></p>
-                                <p class="accommodations_main_reiting_icons_info">x 4</p>
-                            </div>
-                        </div>
-                        <div class="accommodations_main_right_main_block_bottom">
-                            <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span> /night</p>
-                            <button type="button" name="button">Book now</button>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
         </div>
     </div>

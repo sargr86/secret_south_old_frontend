@@ -422,3 +422,107 @@ mat-progress-bar .mat-progress-bar-buffer {
 .mat-calendar-body-today.mat-calendar-body-selected {
   box-shadow: none;
 }
+
+.guestsCount {
+  input {
+    border: 1px solid white !important;
+    border-radius: unset !important;
+    background: transparent !important;
+    padding-left: 28px;
+    color: $white;
+    font-weight: bold;
+    height: 42px;
+  }
+
+  input:focus {
+    color: $white;
+  }
+
+  .input-group {
+    height: 41px;
+    margin-top: -1px;
+
+    .input-group-text {
+      background-color: transparent;
+      color: $white;
+      border-radius: unset;
+    }
+  }
+}
+
+
+// Material calendar styles
+.mat-calendar {
+  background-color: $dark_green;
+  color: $white !important;
+
+  .mat-calendar-table-header {
+    th {
+      color: $white !important;
+    }
+  }
+
+  .mat-calendar-arrow {
+    border-top-color: $white;
+  }
+
+  .mat-calendar-body-label, .mat-calendar-body-cell-content, .mat-icon-button {
+    color: $white;
+  }
+}
+
+.guests {
+  height: 40px !important;
+}
+
+
+// Range slider styles
+.ng5-slider {
+  .ng5-slider-selection {
+    background: #08C1C6 !important;
+  }
+
+  .ng5-slider-pointer {
+    background-color: $dark_green !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: -9px !important;
+    outline: none !important;
+  }
+}
+
+.ng5-slider-pointer:after {
+  display: none !important;
+}
+
+//Ngx progress bar styles
+.progress-outer {
+  width: 217px !important;
+}
+
+.progress-inner {
+  height: 4px !important;
+}
+
+// No image
+.no_image {
+  background-image: url('assets/images/no_image_slider.jpg');
+  background-position: center center;
+  background-size: cover;
+  height: 256px;
+
+}
+
+
+//Mat checkbox
+.mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  background-color: $dark_green !important;
+}
+
+.mat-checkbox-frame {
+  border: 1px solid $silver !important;
+}
+
+.filter_checkbox {
+  margin: 7px 17px 0 3px !important;
+}
