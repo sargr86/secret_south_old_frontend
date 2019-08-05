@@ -1,4 +1,4 @@
 <app-accommodations-header [hidden]="routerUrl !== '/accommodations' && routerUrl!=='/'"
                            (toggle)="toggleSidebar()"></app-accommodations-header>
-<app-food-drink-header [hidden]="!routerUrl.includes('food-drink')" (toggle)="toggleSidebar()"></app-food-drink-header>
-<app-ferries-header [hidden]="!routerUrl.includes('ferries')" (toggle)="toggleSidebar()"></app-ferries-header>
+<app-food-drink-header [hidden]="routerUrl !== '/food-drink'" (toggle)="toggleSidebar()"></app-food-drink-header>
+<app-ferries-header [hidden]="routerUrl !== '/ferries'" (toggle)="toggleSidebar()"></app-ferries-header>

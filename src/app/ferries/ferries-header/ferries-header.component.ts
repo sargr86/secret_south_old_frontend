@@ -108,8 +108,8 @@ export class FerriesHeaderComponent implements OnInit {
 
     }
 
-    searchAccommodations() {
-        this.router.navigate(['accommodations/list']);
+    searchFerries() {
+        this.router.navigate(['ferries/list']);
     }
 
     personsCountChanged(e) {

@@ -1,0 +1,57 @@
+.Filter_By {
+  font-size: 30px;
+  font-weight: 500;
+  color: #00253c;
+  margin-bottom: 18px;
+}
+
+.filter_block {
+  margin-bottom: 60px
+}
+
+.filter_block_line {
+  width: 190px;
+  height: 1px;
+  background-color: #000;
+}
+
+.filter_block_tittle {
+  font-size: 24px;
+  color: #00253c;
+  margin: 15px 0 30px
+}
+
+.filter_block_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #00253c;
+  margin: 9px 0;
+
+}
+
+.filter_block_box_left {
+  display: flex;
+  align-items: center;
+}
+
+.filter_block_box_left input {
+  width: 24px;
+  height: 24px;
+  border: solid 1px #00253c;
+  margin-right: 15px
+}
+
+.filter_block_box_line {
+  width: 210px;
+  height: 8px;
+  border-radius: 8px;
+  border: solid 1px #dcdcdc;
+  background-color: #ffffff;
+}
+
+.range {
+  height: 80px;
+  width: 100%
+}

@@ -124,7 +124,7 @@ export class FoodDrinkHeaderComponent implements OnInit {
     }
 
     searchAccommodations() {
-        this.router.navigate(['accommodations/list']);
+        this.router.navigate(['food-drink/list']);
     }
 
     personsCountChanged(e) {
