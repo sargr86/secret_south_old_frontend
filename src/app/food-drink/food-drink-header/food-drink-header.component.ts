@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MAIN_SECTIONS} from '../../shared/constants/settings';
+import {MAIN_SECTIONS, TIMEPICKER_THEME} from '../../shared/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
@@ -31,20 +31,8 @@ export class FoodDrinkHeaderComponent implements OnInit {
 
     @Output() toggle = new EventEmitter();
 
-    customTheme: NgxMaterialTimepickerTheme = {
-        container: {
-            bodyBackgroundColor: '#424242',
-            buttonColor: '#fff'
-        },
-        dial: {
-            dialBackgroundColor: '#555',
-        },
-        clockFace: {
-            clockFaceBackgroundColor: '#555',
-            clockHandColor: '#164547',
-            clockFaceTimeInactiveColor: '#fff'
-        }
-    };
+
+    timepickerTheme = TIMEPICKER_THEME;
 
     constructor(
         public router: Router,

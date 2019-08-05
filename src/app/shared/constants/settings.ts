@@ -1,6 +1,7 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '../../../environments/environment';
 import {Section} from '../models/Section';
+import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
@@ -167,3 +168,19 @@ export const MAIN_SECTIONS: Section[] = [
     {name: 'Activities', icon: 'directions_run', link: 'activities'},
     // {name: 'Map'}
 ];
+
+
+export const TIMEPICKER_THEME: NgxMaterialTimepickerTheme = {
+    container: {
+        bodyBackgroundColor: '#424242',
+        buttonColor: '#fff'
+    },
+    dial: {
+        dialBackgroundColor: '#555',
+    },
+    clockFace: {
+        clockFaceBackgroundColor: '#555',
+        clockHandColor: '#164547',
+        clockFaceTimeInactiveColor: '#fff'
+    }
+};

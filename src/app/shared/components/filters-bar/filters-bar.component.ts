@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Options} from 'ng5-slider';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-filters-bar',
@@ -13,8 +14,11 @@ export class FiltersBarComponent implements OnInit {
         floor: 0,
         ceil: 200
     };
+    @Input() section;
 
-    constructor() {
+    constructor(
+        public router: Router
+    ) {
     }
 
     ngOnInit() {
