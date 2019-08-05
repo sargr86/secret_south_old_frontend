@@ -1,4 +1,5 @@
 <section class="accommodations">
+    <!-- Breadcrumb -->
     <div class="Home_Cork">
         <a href="#">Home </a>
         <p>/</p>
@@ -32,8 +33,6 @@
                         <mat-datepicker #checkOutPicker startView="year"
                                         [startAt]="getStartDate()"></mat-datepicker>
                     </div>
-                    <!--                    <input type="text" name="" value="" placeholder="Check-in">-->
-                    <!--                    <input type="text" name="" value="" placeholder="Check-out">-->
                 </div>
 
                 <div class="guests">
@@ -49,7 +48,7 @@
                 </div>
             </div>
             <div class="accommodations_main_left_top_box_2">
-                <app-filters-bar></app-filters-bar>
+                <app-filters-bar [section]="'accommodations'"></app-filters-bar>
             </div>
         </div>
         <div class="accommodations_main_right">
