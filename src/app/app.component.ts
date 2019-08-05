@@ -87,6 +87,12 @@ export class AppComponent implements OnDestroy {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
+    closeSidenav(sidenav) {
+        if (this.responsiveMode) {
+            sidenav.close();
+        }
+    }
+
 
     ngOnDestroy() {
         if (this.routeSubscription) {
