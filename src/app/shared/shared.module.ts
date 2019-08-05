@@ -30,6 +30,7 @@ import {AgmDirectionModule} from 'agm-direction';
 import {MainSectionsComponent} from './components/main-sections/main-sections.component';
 import {Ng5SliderModule} from 'ng5-slider';
 import {ProgressBarModule} from 'angular-progress-bar';
+import { FiltersBarComponent } from './components/filters-bar/filters-bar.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import {ProgressBarModule} from 'angular-progress-bar';
         RedirectUrlGeneratorPipe,
         DropzoneComponent,
         CarouselHolderComponent,
-        MainSectionsComponent
+        MainSectionsComponent,
+        FiltersBarComponent
     ],
     imports: [
         CommonModule,
@@ -105,7 +107,8 @@ import {ProgressBarModule} from 'angular-progress-bar';
         EditProfileComponent,
         FormTitleComponent,
         CarouselHolderComponent,
-        MainSectionsComponent
+        MainSectionsComponent,
+        FiltersBarComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,
