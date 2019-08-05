@@ -7,13 +7,15 @@ import {ShowFoodDrinkComponent} from './show-food-drink/show-food-drink.componen
 import {SharedModule} from '../shared/shared.module';
 import { FoodDrinkHeaderComponent } from './food-drink-header/food-drink-header.component';
 import { FoodDrinkHomeComponent } from './food-drink-home/food-drink-home.component';
+import { FoodDrinkListComponent } from './food-drink-list/food-drink-list.component';
 
 @NgModule({
     declarations: [
         SaveFoodDrinkComponent,
         ShowFoodDrinkComponent,
         FoodDrinkHeaderComponent,
-        FoodDrinkHomeComponent
+        FoodDrinkHomeComponent,
+        FoodDrinkListComponent
     ],
     exports: [
         FoodDrinkHeaderComponent
