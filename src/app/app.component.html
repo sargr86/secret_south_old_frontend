@@ -1,13 +1,13 @@
 <mat-sidenav-container>
     <mat-sidenav [mode]="getMode(sidenav)" #sidenav
-                 id="sidenav" [opened]="false">
-        <app-sidebar (toggle)="sidenav.toggle()"
+                 id="sidenav" [opened]="checkDashboardPage()">
+        <app-sidebar (toggle)="closeSidenav(sidenav)"
         ></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
         <app-header (toggle)="sidenav.toggle()"></app-header>
         <router-outlet></router-outlet>
-        <app-footer></app-footer>
+        <app-footer *ngIf="!checkDashboardPage()"></app-footer>
     </mat-sidenav-content>
 </mat-sidenav-container>

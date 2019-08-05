@@ -164,9 +164,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.sidebarOpened = !this.sidebarOpened;
         if (this.responsiveMode) {
             this.toggle.emit();
+            this.toggleSide.emit();
             this.closeSidebar();
         }
-        console.log(childNode)
         this.router.navigate([`${userType ? userType.label : 'admin'}/${url}`]);
         this.expandLinks();
     }
