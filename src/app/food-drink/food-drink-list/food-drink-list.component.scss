@@ -1,0 +1,160 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+button {
+  border: none !important;
+}
+
+#header {
+  background-color: #164547;
+  padding: 15px 0;
+}
+
+.accommodations {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.Home_Cork {
+  display: flex;
+  margin: 30px 0;
+}
+
+.Home_Cork a, .Home_Cork p {
+  color: #000;
+  font-size: 14px;
+}
+
+.vacation_rentals {
+  font-size: 30px;
+  color: #10191f;
+  margin-bottom: 30px;
+}
+
+.accommodations_main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accommodations_main_left {
+  width: 380px;
+
+}
+
+.accommodations_main_left_top_box {
+  width: 100%;
+  opacity: 0.85;
+  background-color: #164547;
+  color: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.Change_Search {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 15px;
+}
+
+.accommodations_main_left_top_box input {
+  height: 44px;
+  border-radius: 4px;
+  border: solid 1px #ffffff;
+  font-size: 16px;
+  color: #fff;
+  margin: 8px 0;
+  background: transparent
+}
+
+.accommodations_main_left_top_box input::placeholder {
+  padding-left: 20px;
+  color: #fff;
+}
+
+.Cork_inp {
+  width: 100%;
+}
+
+
+.accommodations_main_left_top_box_inpts input {
+  width: 49%;
+}
+
+.accommodations_main_left_top_box select {
+  height: 44px;
+  width: 100%;
+  border-radius: 4px;
+  border: solid 1px #ffffff;
+  font-size: 16px;
+  color: #fff;
+  margin: 8px 0;
+  background: transparent
+}
+
+.accommodations_main_left_top_box button {
+  width: 120px;
+  height: 44px;
+  border-radius: 24px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to right, #0b9194, #08c1c6);
+  font-size: 20px;
+  color: #fff;
+}
+
+.accommodations_main_left_top_box_btn {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.accommodations_main_left_top_box_2 {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  border: solid 1px #cecece;
+}
+
+.address, .guests {
+  position: relative !important;
+
+  mat-icon {
+    position: absolute;
+    top: 18px;
+  }
+}
+
+.food_drink_inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.guests {
+  margin-top: 10px;
+
+  mat-icon {
+    position: absolute;
+    top: 10px !important;
+  }
+}
+
+.date {
+  position: relative !important;
+
+
+  mat-icon, .dateIcon, .timeIcon {
+    position: absolute;
+    top: 15px !important;
+  }
+}
+
+.time {
+  position: relative !important;
+
+  .timeIcon {
+    position: absolute;
+    top: 7px !important;
+    left: -1px;
+  }
+}
+

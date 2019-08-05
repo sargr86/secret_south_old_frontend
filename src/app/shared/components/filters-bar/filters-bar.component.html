@@ -1,251 +1,256 @@
 <p class="Filter_By">Filter By</p>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Price</p>
-    <div class="filter_block_box">
-        <div class="range">
-            <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
-        </div>
-    </div>
 
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Star rating</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 stars</mat-checkbox>
-        </div>
-        <progress-bar [progress]="'100'" [color]="'#08C1C6'">
-        </progress-bar>
-        <!--                        <div class="filter_block_box_line"></div>-->
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">4 stars</mat-checkbox>
-        </div>
-        <progress-bar [progress]="'80'" [color]="'#08C1C6'">
-        </progress-bar>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">3 stars</mat-checkbox>
-        </div>
-        <progress-bar [progress]="'60'" [color]="'#08C1C6'">
-        </progress-bar>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">2 stars</mat-checkbox>
-        </div>
-        <progress-bar [progress]="'40'" [color]="'#08C1C6'">
-        </progress-bar>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">Unrated</mat-checkbox>
-        </div>
-        <progress-bar [progress]="'20'" [color]="'#08C1C6'">
-        </progress-bar>
-        <p>124</p>
-    </div>
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Popular filters</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
-        </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
-        </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
-        </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+
+<ng-container>
+
+    <div class="filter_block">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Price</p>
+        <div class="filter_block_box">
+            <div class="range">
+                <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
+            </div>
         </div>
 
-        <p>124</p>
     </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+    <div class="filter_block">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Star rating</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 stars</mat-checkbox>
+            </div>
+            <progress-bar [progress]="'100'" [color]="'#08C1C6'">
+            </progress-bar>
+            <!--                        <div class="filter_block_box_line"></div>-->
+            <p>124</p>
         </div>
-        <p>124</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">4 stars</mat-checkbox>
+            </div>
+            <progress-bar [progress]="'80'" [color]="'#08C1C6'">
+            </progress-bar>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">3 stars</mat-checkbox>
+            </div>
+            <progress-bar [progress]="'60'" [color]="'#08C1C6'">
+            </progress-bar>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">2 stars</mat-checkbox>
+            </div>
+            <progress-bar [progress]="'40'" [color]="'#08C1C6'">
+            </progress-bar>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">Unrated</mat-checkbox>
+            </div>
+            <progress-bar [progress]="'20'" [color]="'#08C1C6'">
+            </progress-bar>
+            <p>124</p>
+        </div>
     </div>
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Accommodation type</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+    <div class="filter_block" *ngIf="section==='accommodations'">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Popular filters</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
-        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
 
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Meals</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
     </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+    <div class="filter_block" *ngIf="section==='accommodations'">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Accommodation type</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
 
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Bedrooms</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
     </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+    <div class="filter_block" *ngIf="section==='accommodations' || section==='food-drink'">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Meals</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox"></mat-checkbox>
-            <p>5 star</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
 
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
-            <p></p>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-</div>
-<div class="filter_block">
-    <div class="filter_block_line"></div>
-    <p class="filter_block_tittle">Amenities</p>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
     </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+    <div class="filter_block" *ngIf="section==='accommodations'">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Bedrooms</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
+            <p>124</p>
         </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox"></mat-checkbox>
+                <p>5 star</p>
+            </div>
 
-        <p>124</p>
-    </div>
-    <div class="filter_block_box">
-        <div class="filter_block_box_left">
-            <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            <p>124</p>
         </div>
-        <p>124</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+                <p></p>
+            </div>
+            <p>124</p>
+        </div>
     </div>
-</div>
+    <div class="filter_block" *ngIf="section==='accommodations'">
+        <div class="filter_block_line"></div>
+        <p class="filter_block_tittle">Amenities</p>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            </div>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            </div>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            </div>
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            </div>
+
+            <p>124</p>
+        </div>
+        <div class="filter_block_box">
+            <div class="filter_block_box_left">
+                <mat-checkbox class="filter_checkbox">5 star</mat-checkbox>
+            </div>
+            <p>124</p>
+        </div>
+    </div>
+</ng-container>
