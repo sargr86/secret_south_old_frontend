@@ -7,13 +7,17 @@ import {ShowActivityTypesComponent} from './show-activity-types/show-activity-ty
 import {SharedModule} from '../shared/shared.module';
 import { SaveActivityComponent } from './save-activity/save-activity.component';
 import { ShowActivitiesComponent } from './show-activities/show-activities.component';
+import { ActivitiesHeaderComponent } from './activities-header/activities-header.component';
+import { ActivitiesHomeComponent } from './activities-home/activities-home.component';
 
 @NgModule({
     declarations: [
         SaveActivityTypeComponent,
         ShowActivityTypesComponent,
         SaveActivityComponent,
-        ShowActivitiesComponent
+        ShowActivitiesComponent,
+        ActivitiesHeaderComponent,
+        ActivitiesHomeComponent
     ],
     imports: [
         CommonModule,
