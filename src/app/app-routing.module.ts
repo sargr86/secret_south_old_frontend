@@ -17,6 +17,10 @@ const routes: Routes = [
         loadChildren: './accommodation/accommodation.module#AccommodationModule'
     },
     {
+        path: 'activities',
+        loadChildren: './activities/activities.module#ActivitiesModule'
+    },
+    {
         path: 'food-drink',
         loadChildren: './food-drink/food-drink.module#FoodDrinkModule'
     },

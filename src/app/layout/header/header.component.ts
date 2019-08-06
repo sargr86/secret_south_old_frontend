@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
     }
 
     toggleSidebar() {
+        console.log('toggle')
         this.toggle.emit();
     }
 
