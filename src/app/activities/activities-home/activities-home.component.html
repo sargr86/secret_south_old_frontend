@@ -1,0 +1,121 @@
+<app-activities-header></app-activities-header>
+<section class="active_page">
+
+    <div class="active_page_size">
+        <ng-container *ngFor="let type of activityTypes">
+
+            <div class="active_page_block">
+                <p class="active_page_block_tittle">{{type.name}}</p>
+                <div class="active_page_block_line"></div>
+                <div class="active_page_block_box">
+                    <div class="active_page_block_box_left">
+                        <p class="active_page_block_box_left_text">{{type.description}}</p>
+                        <!--                        <p class="active_page_block_box_left_info">Kayaking Companies(4)</p>-->
+                        <div class="active_page_block_box_left_bottom">
+                            <div class="active_page_block_box_left_bottom_left">
+                                <img src="img/mark1.png" alt="">
+                                <img src="img/mark2.png" alt="">
+                                <img src="img/mark3.png" alt="">
+                                <img src="img/mark4.png" alt="">
+                            </div>
+                            <button type="button" name="button">View more</button>
+                        </div>
+                    </div>
+                    <div class="active_page_block_box_right">
+                        <img src="../../../assets/images/{{type.name.toLowerCase()}}.png" alt="">
+                    </div>
+                </div>
+
+                <!--            <div class="active_page_block">-->
+                <!--                <p class="active_page_block_tittle">Surfing</p>-->
+                <!--                <div class="active_page_block_line"></div>-->
+                <!--                <div class="active_page_block_box">-->
+                <!--                    <div class="active_page_block_box_left">-->
+                <!--                        <p class="active_page_block_box_left_text">Lorem ipsum dolor sit amet, consectetur adipiscing-->
+                <!--                            elit. Nam luctus-->
+                <!--                            lectus quis lobortis dictum. Integer et diam id odio consequat fermentum-->
+                <!--                            vitae eget ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus.-->
+                <!--                            Maecenas porta mollis enim in dignissim. Morbi tempor diam at augue fringilla molestie.-->
+                <!--                            Morbi maximus pulvinar lectus ac ornare. In vestibulum, mi quis laoreet bibendum, purus-->
+                <!--                            est vulputate massa, sit amet viverra eros lorem ac nibh. </p>-->
+                <!--                        <p class="active_page_block_box_left_info">Kayaking Companies(4)</p>-->
+                <!--                        <div class="active_page_block_box_left_bottom">-->
+                <!--                            <div class="active_page_block_box_left_bottom_left">-->
+                <!--                                <img src="img/mark1.png" alt="">-->
+                <!--                                <img src="img/mark2.png" alt="">-->
+                <!--                                <img src="img/mark3.png" alt="">-->
+                <!--                                <img src="img/mark4.png" alt="">-->
+                <!--                            </div>-->
+                <!--                            <button type="button" name="button">View more</button>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="active_page_block_box_right">-->
+                <!--                        <img src="../../../assets/images/surfing.png" alt="">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div class="active_page_block">-->
+                <!--                    <p class="active_page_block_tittle">Sup</p>-->
+                <!--                    <div class="active_page_block_line"></div>-->
+                <!--                    <div class="active_page_block_box">-->
+                <!--                        <div class="active_page_block_box_left">-->
+                <!--                            <p class="active_page_block_box_left_text">Lorem ipsum dolor sit amet, consectetur-->
+                <!--                                adipiscing elit. Nam luctus-->
+                <!--                                lectus quis lobortis dictum. Integer et diam id odio consequat fermentum-->
+                <!--                                vitae eget ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus.-->
+                <!--                                Maecenas porta mollis enim in dignissim. Morbi tempor diam at augue fringilla molestie.-->
+                <!--                                Morbi maximus pulvinar lectus ac ornare. In vestibulum, mi quis laoreet bibendum, purus-->
+                <!--                                est vulputate massa, sit amet viverra eros lorem ac nibh. </p>-->
+                <!--                            <p class="active_page_block_box_left_info">Kayaking Companies(4)</p>-->
+                <!--                            <div class="active_page_block_box_left_bottom">-->
+                <!--                                <div class="active_page_block_box_left_bottom_left">-->
+                <!--                                    <img src="img/mark1.png" alt="">-->
+                <!--                                    <img src="img/mark2.png" alt="">-->
+                <!--                                    <img src="img/mark3.png" alt="">-->
+                <!--                                    <img src="img/mark4.png" alt="">-->
+                <!--                                </div>-->
+                <!--                                <button type="button" name="button">View more</button>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="active_page_block_box_right">-->
+                <!--                            <img src="../../../assets/images/sup.png" alt="">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="active_page_block">-->
+                <!--                        <p class="active_page_block_tittle">Snorkelling</p>-->
+                <!--                        <div class="active_page_block_line"></div>-->
+                <!--                        <div class="active_page_block_box">-->
+                <!--                            <div class="active_page_block_box_left">-->
+                <!--                                <p class="active_page_block_box_left_text">Lorem ipsum dolor sit amet, consectetur-->
+                <!--                                    adipiscing elit. Nam luctus-->
+                <!--                                    lectus quis lobortis dictum. Integer et diam id odio consequat fermentum-->
+                <!--                                    vitae eget ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus.-->
+                <!--                                    Maecenas porta mollis enim in dignissim. Morbi tempor diam at augue fringilla-->
+                <!--                                    molestie.-->
+                <!--                                    Morbi maximus pulvinar lectus ac ornare. In vestibulum, mi quis laoreet bibendum,-->
+                <!--                                    purus-->
+                <!--                                    est vulputate massa, sit amet viverra eros lorem ac nibh. </p>-->
+                <!--                                <p class="active_page_block_box_left_info">Kayaking Companies(4)</p>-->
+                <!--                                <div class="active_page_block_box_left_bottom">-->
+                <!--                                    <div class="active_page_block_box_left_bottom_left">-->
+                <!--                                        <img src="img/mark1.png" alt="">-->
+                <!--                                        <img src="img/mark2.png" alt="">-->
+                <!--                                        <img src="img/mark3.png" alt="">-->
+                <!--                                        <img src="img/mark4.png" alt="">-->
+                <!--                                    </div>-->
+                <!--                                    <button type="button" name="button">View more</button>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="active_page_block_box_right">-->
+                <!--                                <img src="../../../assets/images/snorkelling.png" alt="">-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+            </div>
+        </ng-container>
+        <!--            </div>-->
+        <!--        </div>-->
+    </div>
+</section>
+
+
+

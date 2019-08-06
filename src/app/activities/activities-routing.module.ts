@@ -2,12 +2,16 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowActivityTypesComponent} from './show-activity-types/show-activity-types.component';
 import {SaveActivityTypeComponent} from './save-activity-type/save-activity-type.component';
-import {OneAccommodationResolverService} from '../shared/resolvers/one-accommodation-resolver.service';
 import {ShowActivitiesComponent} from './show-activities/show-activities.component';
 import {SaveActivityComponent} from './save-activity/save-activity.component';
 import {ActivityResolverService} from '../shared/resolvers/activity-resolver.service';
+import {ActivitiesHomeComponent} from './activities-home/activities-home.component';
 
 const routes: Routes = [
+    {
+        path: '',
+        component: ActivitiesHomeComponent
+    },
     {
         path: 'show',
         component: ShowActivitiesComponent
