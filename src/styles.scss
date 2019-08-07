@@ -33,6 +33,14 @@ p {
   border-width: 0
 }
 
+.logo {
+  background-image: url("./assets/images/logo.png");
+  width: 89px;
+  height: 91px;
+  background-size: cover;
+  cursor: pointer;
+}
+
 .mat-spinner {
   text-align: center !important;
   margin: 20px auto;
@@ -335,7 +343,7 @@ mat-progress-bar .mat-progress-bar-buffer {
   }
 }
 
-.checkInIcon, .checkOutIcon,.dateIcon {
+.checkInIcon, .checkOutIcon, .dateIcon {
   position: absolute !important;
   top: 8px !important;
   left: 3px !important;
@@ -473,6 +481,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 .guests {
   height: 40px !important;
+  width: 75px !important;
 }
 
 
@@ -525,4 +534,41 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 .filter_checkbox {
   margin: 7px 17px 0 3px !important;
+}
+
+
+.activityTypes {
+
+  .ng-select {
+    margin-top: 2px;
+
+    .ng-select-container {
+      border-bottom: 1px solid $white;
+      //margin-top: 10px;
+      .ng-value-container {
+        height: 55px;
+        margin-top: 1px;
+        padding-top: 9px !important;
+      }
+
+      .ng-placeholder, .ng-arrow, .ng-clear {
+        color: $white !important;
+        margin-top: 7px;
+      }
+
+      .ng-value {
+        height: 27px !important;
+        margin: 2px 0.4375em 0 0 !important;
+        background-color: #08c1c6 !important;
+      }
+    }
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    color: #08c1c6 !important;
+  }
+
+  .ng-select .ng-select-container:after {
+    display: none !important;
+  }
 }

@@ -8,6 +8,8 @@ import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {FoodDrinkModule} from '../food-drink/food-drink.module';
 import {FerriesModule} from '../ferries/ferries.module';
+import {ActivitiesModule} from '../activities/activities.module';
+import {ToursModule} from '../tours/tours.module';
 
 @NgModule({
     declarations: [NavbarComponent, SidebarComponent, FooterComponent, HeaderComponent],
@@ -16,7 +18,9 @@ import {FerriesModule} from '../ferries/ferries.module';
         SharedModule,
         AccommodationModule,
         FoodDrinkModule,
-        FerriesModule
+        FerriesModule,
+        ActivitiesModule,
+        ToursModule
     ],
     exports: [
         NavbarComponent,

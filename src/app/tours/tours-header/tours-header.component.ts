@@ -1,26 +1,23 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
-import IsResponsive from '../../shared/helpers/is-responsive';
-import {ActivitiesService} from '../../shared/services/activities.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
+import IsResponsive from '../../shared/helpers/is-responsive';
 
 @Component({
-    selector: 'app-activities-header',
-    templateUrl: './activities-header.component.html',
-    styleUrls: ['./activities-header.component.scss'],
+    selector: 'app-tours-header',
+    templateUrl: './tours-header.component.html',
+    styleUrls: ['./tours-header.component.scss']
 })
-export class ActivitiesHeaderComponent implements OnInit {
+export class ToursHeaderComponent implements OnInit {
     countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
     personsCount = 2;
-    selectedSection = 'Activities';
+    selectedSection = 'Tours';
     responsiveMode: boolean;
-    activityTypes;
 
     @Output() toggle = new EventEmitter();
 
     constructor(
-        private _activities: ActivitiesService,
         public router: Router,
         public auth: AuthService
     ) {
@@ -29,21 +26,6 @@ export class ActivitiesHeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._activities.getTypes().subscribe(dt => {
-            this.activityTypes = dt;
-        });
-    }
-
-    getStartDate() {
-
-    }
-
-    dateChanged() {
-
-    }
-
-    personsCountChanged(e) {
-
     }
 
     toggleSidebar() {
@@ -63,4 +45,5 @@ export class ActivitiesHeaderComponent implements OnInit {
         localStorage.removeItem('token');
         this.router.navigate(['/']);
     }
+
 }

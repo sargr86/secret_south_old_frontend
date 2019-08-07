@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'ferries',
         loadChildren: './ferries/ferries.module#FerriesModule'
     },
+    {
+        path: 'tours',
+        loadChildren: './tours/tours.module#ToursModule'
+    },
     // {path: 'admin-panel', loadChildren: './admin-login/admin-login.module#AdminLoginModule'},
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
