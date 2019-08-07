@@ -5,8 +5,13 @@ import {SaveTourComponent} from './save-tour/save-tour.component';
 import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
+import {ToursHomeComponent} from './tours-home/tours-home.component';
 
 const routes: Routes = [
+    {
+        path: '',
+        component: ToursHomeComponent
+    },
     {
         path: 'show', component: ShowToursComponent, data: {
             title: 'All tours',

@@ -2,7 +2,8 @@
     <div class="header_top">
         <div class="header_top_left">
             <div class="header_top_logo">
-                <img src="img/logo.png" alt="">
+                <!-- Website logo -->
+                <div class="logo" (click)="router.navigate(['/'])"></div>
             </div>
             <!-- Nav bar section links -->
             <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
@@ -42,11 +43,22 @@
                            #searchAddress="ngx-places" placeholder="Location">
                 </div>
                 <div class="checkIn">
-                    <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"
+                    <input placeholder="Date" required name="bookingDate" (dateChange)="dateChanged()"
                            [matDatepicker]="checkInPicker" class="Check_out_inp">
                     <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
                     <mat-datepicker #checkInPicker startView="year"
                                     [startAt]="getStartDate()"></mat-datepicker>
+                </div>
+
+                <!--                <select>-->
+                <!--                    <option value="" *ngFor="let type of activityTypes">{{type['name']}}</option>-->
+                <!--                </select>-->
+
+                <div class="activityTypes">
+                    <ng-select [items]="activityTypes" [multiple]="true"
+                               bindLabel="name" placeholder="Activity type *">
+
+                    </ng-select>
                 </div>
 
                 <div class="guests">
@@ -55,7 +67,7 @@
                                       [buttonsOrientation]="'v'"
                                       (valueChange)="personsCountChanged($event)"></ng-number-picker>
                 </div>
-                <button type="button" name="button">Search</button>
+                <button type="button" name="button" class="searchBtn">Search</button>
             </div>
         </div>
     </div>

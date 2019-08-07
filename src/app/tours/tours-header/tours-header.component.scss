@@ -1,0 +1,75 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+
+/* header */
+header {
+  width: 100%;
+  min-height: 98vh;
+  background-image: url("../../../assets/images/tours_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.logo {
+  background-image: url("../../../assets/images/logo.png");
+  width: 89px;
+  height: 91px;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.header_top {
+  width: 1200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.header_top_left {
+  display: flex;
+  align-items: center;
+}
+
+.header_top_logo {
+  margin-right: 60px;
+}
+
+.header_top_left ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.header_top_left ul li {
+  margin-right: 35px;
+  font-size: 18px;
+}
+
+.header_top_right {
+  display: flex;
+
+  p {
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 18px;
+  }
+}
+
+.selected {
+  color: #08C1C6 !important;
+}
+
+.sidebarToggler {
+  @include noBgBtn;
+  cursor: pointer;
+}
+
+@import "../../../assets/css/media";

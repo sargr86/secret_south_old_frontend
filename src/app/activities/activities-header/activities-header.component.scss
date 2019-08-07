@@ -14,7 +14,7 @@
 header {
   width: 100%;
   min-height: 98vh;
-  background-image: url("../../../assets/images/bg.png");
+  background-image: url("../../../assets/images/activities_bg.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -40,6 +40,9 @@ header {
 
 .header_top_logo {
   margin-right: 60px;
+  img{
+    object-fit: cover;
+  }
 }
 
 .header_top_left ul {
@@ -116,7 +119,7 @@ header {
   padding: 10px 0
 }
 
-.header_main_box button {
+.header_main_box button.searchBtn {
   width: 120px;
   height: 46px;
   border-radius: 4px;
@@ -148,15 +151,6 @@ header {
 }
 
 .login {
-  cursor: pointer;
-}
-
-
-.logo {
-  background-image: url("../../../assets/images/logo.png");
-  width: 89px;
-  height: 91px;
-  background-size: cover;
   cursor: pointer;
 }
 
@@ -197,5 +191,11 @@ header {
     z-index: 20;
   }
 }
+
+.activityTypes {
+  width: 370px;
+}
+
+
 
 @import "../../../assets/css/media";

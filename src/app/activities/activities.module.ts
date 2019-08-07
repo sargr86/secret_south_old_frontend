@@ -26,7 +26,8 @@ import { ActivitiesHomeComponent } from './activities-home/activities-home.compo
     ],
     exports: [
         SaveActivityTypeComponent,
-        ShowActivityTypesComponent
+        ShowActivityTypesComponent,
+        ActivitiesHeaderComponent
     ],
 })
 export class ActivitiesModule {

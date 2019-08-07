@@ -7,13 +7,17 @@ import {SharedModule} from '../shared/shared.module';
 import {SaveTourComponent} from './save-tour/save-tour.component';
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
+import { ToursHomeComponent } from './tours-home/tours-home.component';
+import { ToursHeaderComponent } from './tours-header/tours-header.component';
 
 @NgModule({
     declarations: [
         ShowToursComponent,
         SaveTourComponent,
         ShowTourTypesComponent,
-        SaveTourTypeComponent
+        SaveTourTypeComponent,
+        ToursHomeComponent,
+        ToursHeaderComponent
     ],
     imports: [
         CommonModule,
@@ -24,7 +28,8 @@ import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
         ShowToursComponent,
         SaveTourComponent,
         ShowTourTypesComponent,
-        SaveTourTypeComponent
+        SaveTourTypeComponent,
+        ToursHeaderComponent
     ]
 })
 export class ToursModule {

@@ -1,0 +1,34 @@
+<header>
+    <div class="header_top">
+        <div class="header_top_left">
+            <div class="header_top_logo">
+                <!-- Website logo -->
+                <div class="logo" (click)="router.navigate(['/'])"></div>
+            </div>
+            <!-- Nav bar section links -->
+            <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
+            <!--            <div class="nav_burger">-->
+            <!--                <p><i class="fas fa-bars"></i></p>-->
+            <!--            </div>-->
+        </div>
+        <div class="header_top_right">
+            <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <p *ngIf="auth.loggedIn()">
+                <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
+                <!--                My Favorites-->
+            </p>
+            <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
+
+
+            <p (click)="navigateToDashboard()" class="link"
+               *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</p>
+
+            <!-- Logout button -->
+            <p (click)="logout()" *ngIf="auth.loggedIn()">
+                Logout
+            </p>
+        </div>
+    </div>
+</header>
