@@ -5,21 +5,27 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class BuildFormDataPipe implements PipeTransform {
 
-    transform(data: any, file?: any): any {
+    transform(data: any, files?: any): any {
         const fd: FormData = new FormData();
 
         for (const field of Object.keys(data)) {
             if (field !== 'img') {
                 fd.append(field, data[field]);
             } else {
-                fd.append('img', file ? file.name : '');
+                // fd.append('img', files ? file.name : '');
             }
         }
 
-        // If file is selected
-        if (file) {
-
-            fd.append('upload_image', file);
+        // If files are selected
+        if (files && files.length > 1) {
+            console.log(files)
+            files.map(file => {
+                fd.append('upload_images', file);
+                fd.append('img', file ? file.name : '');
+            });
+        } else {
+            fd.append('upload_image', files);
+            fd.append('img', files ? files.name : '');
         }
 
         return fd;
