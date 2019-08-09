@@ -90,7 +90,8 @@ export class EditProfileComponent implements OnInit {
     save() {
         const formData = this.buildFormData();
         this.auth.update(formData).subscribe(dt => {
-            this.router.navigate([this.redirectUrl])
+            console.log(this.redirectUrl)
+            this.router.navigate([this.redirectUrl]);
         });
     }
 
