@@ -7,7 +7,6 @@ import {
     ALLOWED_COUNTRIES,
     DEFAULT_COUNTRY,
     FERRIES_FOLDER,
-    FOOD_DRINK_FOLDER,
     SPINNER_DIAMETER
 } from '../../shared/constants/settings';
 import {ToastrService} from 'ngx-toastr';
@@ -23,6 +22,7 @@ import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
 import {FERRY_FIELDS} from '../../shared/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
+import {DropzoneConfig} from 'ngx-dropzone-wrapper';
 
 
 @Component({
@@ -42,9 +42,10 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     defaultCountry = DEFAULT_COUNTRY;
     options = {types: ['geocode']};
     ferryFields = FERRY_FIELDS;
-    dropZoneFile;
+    dropZoneFiles = [];
     imgPath;
     formAction: string;
+    dropzoneIndividualConfig = {maxFiles: 5}
 
     companies: Company[] = [];
     subscriptions: Subscription[] = [];
@@ -112,13 +113,13 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         const formData = this.formData.transform({
             ...this.ferryForm.value,
             address: address.el.nativeElement.value.replace(/\r?\n|\r/g, '')
-        }, this.dropZoneFile);
+        }, this.dropZoneFiles);
 
 
         // if (this.ferryForm.valid) {
-            this.subscriptions.push(this._ferries[this.formAction](formData).subscribe(() => {
-                this._formMsg.transform('ferry', this.editCase, this.redirectUrl);
-            }));
+        this.subscriptions.push(this._ferries[this.formAction](formData).subscribe(() => {
+            this._formMsg.transform('ferry', this.editCase, this.redirectUrl);
+        }));
 
 
         // }
@@ -138,8 +139,8 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
      * Gets drop zone file
      * @param e the file
      */
-    getFile(e) {
-        this.dropZoneFile = e;
+    getFiles(e) {
+        this.dropZoneFiles.push(e);
     }
 
 

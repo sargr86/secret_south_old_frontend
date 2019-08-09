@@ -156,7 +156,7 @@ export class EditProfileComponent implements OnInit {
      * Gets redirect url
      */
     getRedirectUrl() {
-        this.redirectUrl = (this.auth.checkRoles('partner') ? 'partners' : (this.auth.checkRoles('admin') ? 'admin' : 'employees')) + '/dashboard';
+        this.redirectUrl = (this.auth.checkRoles('partner') ? 'partners' : (this.auth.checkRoles('admin') ? 'admin' : 'employees')) + '/dashboard/show';
     }
 
 

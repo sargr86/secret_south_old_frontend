@@ -146,6 +146,7 @@ mat-label {
 dropzone.multiple {
   height: 410px !important;
   border: 1px solid #c0c0c042;
+  margin-top: 27px;
 
   .dz-wrapper {
     height: 100%;
@@ -165,6 +166,14 @@ dropzone.multiple {
     .dz-message {
       display: none !important;
     }
+  }
+
+  .dz-remove {
+    color: $red;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-decoration: none !important;
   }
 }
 
@@ -372,8 +381,8 @@ mat-progress-bar .mat-progress-bar-buffer {
   background-color: #164547 !important;
 }
 
-.timepicker-dial__item_active{
-  outline:1px solid #c0c0c05c;
+.timepicker-dial__item_active {
+  outline: 1px solid #c0c0c05c;
 }
 
 
