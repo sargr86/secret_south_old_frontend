@@ -13,7 +13,7 @@ export class FerriesHomeComponent implements OnInit {
     lat = 51.797999;
     lng = -8.294371;
     latlng = [];
-    ferryPositions;
+    ferryPositions: any = {lat: 0, lng: 0};
     mapStyles;
     imgPath;
 

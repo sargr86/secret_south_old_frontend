@@ -21,7 +21,7 @@
 
 
             <p (click)="navigateToDashboard()" class="link"
-               *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</p>
+               *ngIf="auth.loggedIn()">Dashboard</p>
 
             <!-- Logout button -->
             <p (click)="logout()" *ngIf="auth.loggedIn()">
