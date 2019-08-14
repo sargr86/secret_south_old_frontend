@@ -23,7 +23,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'dashboard',
+        path: 'dashboard/show',
         component: DashboardComponent
     }, {
         path: 'dashboard/edit', data: {

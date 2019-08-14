@@ -10,4 +10,5 @@ export interface Ferry {
     lng?: number;
     partner_id?: number;
     type?: string;
+    images?: any;
 }

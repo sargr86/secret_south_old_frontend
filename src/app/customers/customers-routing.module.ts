@@ -11,7 +11,7 @@ const routes: Routes = [
         component: ShowCustomersComponent
     },
     {
-        path: 'dashboard',
+        path: 'dashboard/show',
         component: DashboardComponent
     },
     {

@@ -23,6 +23,7 @@ import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
 import {FERRY_FIELDS} from '../../shared/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
 import {DropzoneConfig} from 'ngx-dropzone-wrapper';
+import {NgxGalleryOptions} from 'ngx-gallery';
 
 
 @Component({
@@ -45,7 +46,27 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     dropZoneFiles = [];
     imgPath;
     formAction: string;
-    dropzoneIndividualConfig = {maxFiles: 5}
+    dropzoneIndividualConfig = {maxFiles: 5};
+    galleryOptions: NgxGalleryOptions[] = [
+        {
+            'image': false, 'height': '100px',
+            'previewFullscreen': true,
+            'width': '50%',
+            'previewKeyboardNavigation': true,
+            'imageDescription': true,
+            'previewCloseOnEsc': true,
+            'thumbnailActions': [
+                {
+                    icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
+                },
+                {
+                    icon: 'fa fa-star', onClick: this.makeCover.bind(this), titleText: 'cover'
+                }
+            ]
+        },
+        {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+        // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
+    ];
 
     companies: Company[] = [];
     subscriptions: Subscription[] = [];
@@ -86,7 +107,8 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
                     this.addressCtrl.disable();
                 }
                 if (this.ferryData['img']) {
-                    this.imgPath = FERRIES_FOLDER + this.ferryData['img'];
+                    this.imgPath = FERRIES_FOLDER + '/' + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
+                    this.getCoverImgFromList();
                 }
             }
             this.formAction = this.editCase ? 'update' : 'add';
@@ -152,6 +174,52 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         this.ferryForm.patchValue({'img': ''});
     }
 
+    removeImage(event, index): void {
+        this.ferryData.images.splice(index, 1);
+    }
+
+    /**
+     * Marks the selected image as cover
+     * @param event
+     * @param index
+     */
+    makeCover(event, index) {
+
+        // Removing previous images marked as cover
+        const coverImg = document.querySelector('.coverStar');
+        if (coverImg) {
+            coverImg.classList.remove('coverStar');
+        }
+
+        // Getting current star icon and marking it as selected
+        const el = event.target;
+        el.classList.add('coverStar');
+
+
+        const image = this.ferryData.images.find((img, ind) => ind === index);
+        if (image) {
+            this.imgPath = image['big'];
+            let p = this.imgPath.split('/').pop();
+            this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
+                this.toastr.success('The selected images set as cover successfully');
+            });
+        }
+    }
+
+    getCoverImgFromList() {
+        // console.log(this.imgPath)
+        // console.log(document.querySelector('.ngx-gallery-thumbnails'));
+    }
+
+    getCompany() {
+        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
+    }
+
+
+    changed(e) {
+        this.ferryForm.patchValue({'phone': e.target.value});
+    }
+
     get nameCtrl() {
         return this.ferryForm.get('name');
     }
@@ -182,15 +250,6 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
 
     get companyCtrl(): AbstractControl {
         return this.ferryForm.get('company_id');
-    }
-
-    getCompany() {
-        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
-    }
-
-
-    changed(e) {
-        this.ferryForm.patchValue({'phone': e.target.value});
     }
 
     ngOnDestroy() {

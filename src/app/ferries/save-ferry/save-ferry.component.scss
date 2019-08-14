@@ -48,3 +48,18 @@
     padding-right: 20px;
   }
 }
+
+
+.ferryGallery {
+  margin-left: 235px !important;
+}
+
+.savedImgContainer {
+  height: 450px;
+  margin-top: 15px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}

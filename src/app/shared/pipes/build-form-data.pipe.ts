@@ -10,7 +10,7 @@ export class BuildFormDataPipe implements PipeTransform {
 
         for (const field of Object.keys(data)) {
             if (field !== 'img') {
-                fd.append(field, data[field]);
+                fd.append(field, data[field] ? data[field] : '');
             } else {
                 // fd.append('img', files ? file.name : '');
             }
@@ -21,11 +21,13 @@ export class BuildFormDataPipe implements PipeTransform {
             console.log(files)
             files.map(file => {
                 fd.append('upload_images', file);
-                fd.append('img', file ? file.name : '');
+                // fd.append('img', file ? file.name : '');
             });
         } else {
+
+            console.log(files)
             fd.append('upload_image', files);
-            fd.append('img', files ? files.name : '');
+            fd.append('img', files.length !== 0 ? files.name : '');
         }
 
         return fd;

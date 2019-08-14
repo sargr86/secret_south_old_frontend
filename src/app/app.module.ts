@@ -20,6 +20,7 @@ import {RequestInterceptor} from './shared/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
 import {LayoutModule} from './layout/layout.module';
+import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 // Token getter for JWT module
 export function tokenGetter() {
