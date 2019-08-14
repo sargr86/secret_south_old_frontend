@@ -37,7 +37,10 @@ export class FerryService {
     }
 
     remove(params) {
-
         return this.http.delete(`${API_URL}ferries/remove`, {params: params});
+    }
+
+    makeCover(params) {
+        return this.http.put(`${API_URL}ferries/make-cover`, params);
     }
 }

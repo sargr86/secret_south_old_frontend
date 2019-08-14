@@ -1,5 +1,3 @@
-
-
 <form [formGroup]="profileForm" method="post" enctype="multipart/form-data" class="profileForm">
 
     <!-- Register/ profile form title-->
@@ -52,7 +50,7 @@
 
 
         <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+        <button type="button" class="backBtn">
             <mat-icon>arrow_back</mat-icon>
         </button>
         <button mat-raised-button color="primary" (click)="save()">

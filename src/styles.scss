@@ -589,3 +589,15 @@ mat-progress-bar .mat-progress-bar-buffer {
     display: none !important;
   }
 }
+
+
+// Ngx gallery icons
+.ngx-gallery-icon[title='delete'] {
+  left: 4px !important;
+  top: 0 !important;
+  position: absolute !important;
+}
+
+.coverStar {
+  color: $dark_green !important;
+}

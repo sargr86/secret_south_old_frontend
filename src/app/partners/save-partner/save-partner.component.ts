@@ -31,7 +31,7 @@ export class SavePartnerComponent implements OnInit {
     spinnerDiameter = SPINNER_DIAMETER;
     allowedCountries = ALLOWED_COUNTRIES;
     defaultCountry = DEFAULT_COUNTRY;
-    redirectUrl = 'admin/partners';
+    redirectUrl = 'admin/partners/show';
     partnerType: PartnerType;
 
     constructor(
@@ -40,7 +40,7 @@ export class SavePartnerComponent implements OnInit {
         private _partner: PartnerService,
         private router: Router,
         private toastr: ToastrService,
-        public common: CommonService
+        public common: CommonService,
     ) {
         if (!this.editCase) {
             this.partnersFields['pass'] = ['', Validators.required];
@@ -88,7 +88,7 @@ export class SavePartnerComponent implements OnInit {
             });
 
         } else {
-             this._partner.insertPartner(data).subscribe(() => {
+            this._partner.insertPartner(data).subscribe(() => {
                 this.toastr.success('Partner info has been added successfully');
                 this.router.navigate([this.redirectUrl]);
                 this.common.formProcessing = false;
