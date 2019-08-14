@@ -33,7 +33,6 @@ export class AppComponent implements OnDestroy {
     ) {
 
 
-
         // Getting current page title
         this.routeSubscription = this.router.events.pipe(map(() => {
             let child = this.route.firstChild;
@@ -78,8 +77,7 @@ export class AppComponent implements OnDestroy {
     }
 
     checkDashboardPage() {
-
-        return /admin|partner|employee/.test(this.router.url);
+        return /admin|partner|employee|customers/.test(this.router.url);
     }
 
     get responsiveMode() {

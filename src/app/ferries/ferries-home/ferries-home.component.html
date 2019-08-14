@@ -3,13 +3,13 @@
         <div class="ferry_page_left">
             <app-filters-bar [section]="'ferries'"></app-filters-bar>
         </div>
-        <div class="mapContainer">
+        <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">
 
             <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
                      [mapTypeControl]="true" (mapClick)="mapClick($event)"
                      [rotateControl]="true"
                      [styles]="mapStyles">
-                <agm-marker *ngFor="let single of latlng" [latitude]="single.lat" [longitude]="single.lng"
+                <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"
                             [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
                     <agm-info-window class="infWindow" #infoWindow>
 

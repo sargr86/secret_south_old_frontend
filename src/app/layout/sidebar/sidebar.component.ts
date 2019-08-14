@@ -283,6 +283,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     }
 
     checkIfAuthDashboardPage() {
-        return /auth|admin|partner|employee/.test(this.router.url);
+        return /auth|admin|partner|customers|employee/.test(this.router.url);
     }
 }

@@ -124,7 +124,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     checkIfAuthDashboardPage() {
-        return /auth|admin|partner|employee/.test(this.router.url);
+        return /auth|admin|partner|employee|customers/.test(this.router.url);
     }
 
     getStartDate() {

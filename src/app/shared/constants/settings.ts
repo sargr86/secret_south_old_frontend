@@ -184,3 +184,10 @@ export const TIMEPICKER_THEME: NgxMaterialTimepickerTheme = {
         clockFaceTimeInactiveColor: '#fff'
     }
 };
+
+export const USER_ROLES = [
+    {name: 'admin', url: '/admin'},
+    {name: 'partner', url: '/partners'},
+    {name: 'employee', url: '/employees'},
+    {name: 'customer', url: '/customers'},
+];
