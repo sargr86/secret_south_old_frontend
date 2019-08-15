@@ -28,7 +28,7 @@
     }
 
     .actions {
-      margin-top: 40px;
+      margin: 30px;
     }
   }
 
@@ -62,4 +62,8 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+.coverToggler {
+  float: right;
 }
