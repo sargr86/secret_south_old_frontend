@@ -56,6 +56,11 @@ p {
   color: $yellow;
 }
 
+.assignBtn {
+  @include noBgBtn;
+  color: $silver;
+}
+
 table.mat-table {
   @include matTable;
 }
