@@ -69,6 +69,7 @@ export class RegisterComponent implements OnInit {
                 this.regTokenExpired = this.jwtHelper.isTokenExpired(token);
                 const userData = jwtDecode(dt.token);
                 this.registerForm.patchValue(userData);
+                console.log(userData)
             } else {
                 this.registerForm.patchValue({user_type: 'customer'});
             }

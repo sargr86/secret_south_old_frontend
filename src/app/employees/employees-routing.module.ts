@@ -39,9 +39,9 @@ const routes: Routes = [
     {
         path: 'jobs',
         loadChildren: '../jobs/jobs.module#JobsModule',
-        data: {
-            expectedRole: 'employee'
-        },
+        // data: {
+        //     expectedRole: 'employee'
+        // },
         canActivate: [AuthGuard, RoleGuard]
     },
     {
