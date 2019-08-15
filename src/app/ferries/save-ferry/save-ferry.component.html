@@ -130,20 +130,31 @@
             <button mat-raised-button color="primary" (click)="saveFerry(searchAddress)">
                 Save
             </button>
+
+            <div class="coverToggler">
+                <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
+                    <small>Show cover</small>
+                </mat-slide-toggle>
+            </div>
         </div>
+        <mat-divider></mat-divider>
     </form>
+
 
     <!-- Drop zone -->
     <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
 
-        <div class="savedImgContainer" *ngIf="imgPath">
+        <div class="savedImgContainer" *ngIf="imgPath && coverShown">
             <img [src]="imgPath" class="savedImg">
         </div>
         <!--        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
         <dropzone [message]="'Click or drag images here to upload'" [config]="dropzoneIndividualConfig"
                   (addedFile)="getFiles($event)" class="multiple"
-                  *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+                  *ngIf="(!editCase||(editCase)) && !coverShown"></dropzone>
+
+
     </div>
+
 
     <ng-container *ngIf="ferryData">
         <ngx-gallery [options]="galleryOptions" [images]="ferryData.images" class="ferryGallery"></ngx-gallery>

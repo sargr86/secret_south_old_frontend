@@ -11,4 +11,5 @@ export interface Ferry {
     partner_id?: number;
     type?: string;
     images?: any;
+    folder?: string;
 }

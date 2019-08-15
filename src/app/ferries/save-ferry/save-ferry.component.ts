@@ -47,6 +47,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     imgPath;
     formAction: string;
     dropzoneIndividualConfig = {maxFiles: 5};
+    coverShown = true;
     galleryOptions: NgxGalleryOptions[] = [
         {
             'image': false, 'height': '100px',
@@ -107,7 +108,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
                     this.addressCtrl.disable();
                 }
                 if (this.ferryData['img']) {
-                    this.imgPath = FERRIES_FOLDER + '/' + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
+                    this.imgPath = FERRIES_FOLDER + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
                     this.getCoverImgFromList();
                 }
             }
@@ -175,7 +176,16 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     }
 
     removeImage(event, index): void {
-        this.ferryData.images.splice(index, 1);
+        // this.ferryData.images.splice(index, 1);
+        const image = this.ferryData.images.find((img, ind) => ind === index);
+
+        this._ferries.removeImage({
+            id: this.ferryData.id,
+            folder: this.ferryData.folder,
+            file: image['big'].split('/').pop()
+        }).subscribe(d => {
+            this.ferryData = d;
+        });
     }
 
     /**
@@ -201,7 +211,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
             this.imgPath = image['big'];
             let p = this.imgPath.split('/').pop();
             this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
-                this.toastr.success('The selected images set as cover successfully');
+                this.toastr.success('The selected image was set as cover successfully');
             });
         }
     }

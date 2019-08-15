@@ -40,6 +40,10 @@ export class FerryService {
         return this.http.delete(`${API_URL}ferries/remove`, {params: params});
     }
 
+    removeImage(params){
+        return this.http.delete(`${API_URL}ferries/remove-image`, {params: params});
+    }
+
     makeCover(params) {
         return this.http.put(`${API_URL}ferries/make-cover`, params);
     }

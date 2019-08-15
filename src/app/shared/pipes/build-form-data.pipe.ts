@@ -16,19 +16,23 @@ export class BuildFormDataPipe implements PipeTransform {
             }
         }
 
-        // If files are selected
-        if (files && files.length > 1) {
-            console.log(files)
-            files.map(file => {
-                fd.append('upload_images', file);
-                // fd.append('img', file ? file.name : '');
-            });
-        } else {
 
-            console.log(files)
-            fd.append('upload_image', files);
-            fd.append('img', files.length !== 0 ? files.name : '');
+        // If files are selected
+        if (files) {
+            // Multiple files case
+            if (files.length > 1) {
+                files.map(file => {
+                    fd.append('upload_images', file);
+                    // fd.append('img', file ? file.name : '');
+                });
+
+                // One file case
+            } else {
+                fd.append('upload_images', files[0]);
+                // fd.append('img', files.length !== 0 ? files[0].name : '');
+            }
         }
+
 
         return fd;
     }
