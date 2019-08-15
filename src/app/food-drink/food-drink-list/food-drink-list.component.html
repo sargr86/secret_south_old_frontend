@@ -109,7 +109,8 @@
                             <div class="accommodations_main_right_main_block_bottom">
                                 <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span>
                                 </p>
-                                <button type="button" name="button">Book now</button>
+                                <button type="button" name="button"
+                                        (click)="router.navigate(['food-drink/single/'+obj.id])">Book now</button>
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
 import {Accommodation} from '../../shared/models/Accommodation';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-accommodations-list',
@@ -13,7 +14,10 @@ export class AccommodationsListComponent implements OnInit {
     accommodationObjects: Accommodation[];
     accommodationsFolder = ACCOMMODATIONS_FOLDER;
 
-    constructor(private main: MainService) {
+    constructor(
+        private main: MainService,
+        private router: Router
+    ) {
     }
 
     ngOnInit() {

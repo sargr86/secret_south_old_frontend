@@ -6,6 +6,7 @@ import {API_URL} from '../../shared/constants/settings';
 import {FerryService} from '../../shared/services/ferry.service';
 import {Ferry} from '../../shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-ferries-home',
@@ -42,7 +43,8 @@ export class FerriesHomeComponent implements OnInit {
     constructor(
         private main: MainService,
         private toastr: ToastrService,
-        private _ferries: FerryService
+        private _ferries: FerryService,
+        public auth: AuthService
     ) {
     }
 

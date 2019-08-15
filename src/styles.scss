@@ -501,9 +501,11 @@ mat-progress-bar .mat-progress-bar-buffer {
   }
 }
 
-.guests {
-  height: 40px !important;
-  width: 75px !important;
+.header_main_box {
+  .guests {
+    height: 40px !important;
+    width: 75px !important;
+  }
 }
 
 
