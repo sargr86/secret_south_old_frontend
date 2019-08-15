@@ -9,6 +9,7 @@ import { AccommodationsHomeComponent } from './accommodations-home/accommodation
 import { AccommodationsHeaderComponent } from './accommodations-header/accommodations-header.component';
 import { AccommodationsListComponent } from './accommodations-list/accommodations-list.component';
 import {LayoutModule} from '../layout/layout.module';
+import { AccommodationSingleComponent } from './accommodation-single/accommodation-single.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import {LayoutModule} from '../layout/layout.module';
         ShowAccommodationsComponent,
         AccommodationsHomeComponent,
         AccommodationsHeaderComponent,
-        AccommodationsListComponent
+        AccommodationsListComponent,
+        AccommodationSingleComponent
     ],
     imports: [
         CommonModule,

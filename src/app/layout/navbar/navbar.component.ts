@@ -52,16 +52,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 
         this.subscriptions.push(
-            this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-            ).subscribe((dt: Data) => {
-                this.routerUrl = dt.url;
+            this.router.events
+                .pipe(
+                    filter(event => event instanceof NavigationEnd)
+                )
+                .subscribe((dt: Data) => {
+                    this.routerUrl = dt.url;
 
-                // Getting partner types (section names) and setting 'Ferries' section as selected one
-                this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
-                    this.mapForm.patchValue({type: d.filter(t => t['name'] === 'Ferries')});
-                }));
-            })
+                    // Getting partner types (section names) and setting 'Ferries' section as selected one
+                    this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
+                        this.mapForm.patchValue({type: d.filter(t => t['name'] === 'Ferries')});
+                    }));
+                })
         );
 
 
@@ -105,10 +107,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 
     changeSection(section) {
-        console.log(section)
         if (section !== 'Activities' && section !== 'Tours') {
             this.mapForm.patchValue({type: section});
-            this.router.navigate([section.toLowerCase()]);
+            this.router.navigate([section.toLowerCase().replace('/', '-')]);
             this.changePlace(section);
         }
     }
