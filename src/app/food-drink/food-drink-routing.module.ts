@@ -5,10 +5,12 @@ import {ShowFoodDrinkComponent} from './show-food-drink/show-food-drink.componen
 import {OneFoodDrinkResolverService} from '../shared/resolvers/one-food-drink-resolver.service';
 import {FoodDrinkHomeComponent} from './food-drink-home/food-drink-home.component';
 import {FoodDrinkListComponent} from './food-drink-list/food-drink-list.component';
+import {FoodDrinkSingleComponent} from './food-drink-single/food-drink-single.component';
 
 const routes: Routes = [
     {path: '', component: FoodDrinkHomeComponent},
     {path: 'list', component: FoodDrinkListComponent},
+    {path: 'single/:id', component: FoodDrinkSingleComponent},
     {path: 'show', component: ShowFoodDrinkComponent},
     {
         path: 'add', component: SaveFoodDrinkComponent, data: {

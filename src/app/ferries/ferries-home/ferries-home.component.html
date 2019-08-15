@@ -1,5 +1,5 @@
 <section class="ferry_page">
-    <div class="ferry_page_size">
+    <div class="ferry_page_size" *ngIf="auth.loggedIn()">
         <div class="ferry_page_left" [hidden]="!showFilters">
             <app-filters-bar [section]="'ferries'"></app-filters-bar>
         </div>
@@ -80,6 +80,9 @@
             </div>
 
         </div>
+    </div>
+    <div>
+        <h1 class="loginMsg">Please log in to view drivers on the map</h1>
     </div>
 </section>
 

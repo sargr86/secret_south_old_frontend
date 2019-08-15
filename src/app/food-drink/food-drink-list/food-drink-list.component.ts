@@ -3,6 +3,7 @@ import {MainService} from '../../home/services/main.service';
 import {FoodDrink} from '../../shared/models/FoodDrink';
 import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
 import {FOOD_DRINK_FOLDER, TIMEPICKER_THEME} from '../../shared/constants/settings';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-food-drink-list',
@@ -17,7 +18,10 @@ export class FoodDrinkListComponent implements OnInit {
     timepickerTheme = TIMEPICKER_THEME;
     foodDrinkFolder = FOOD_DRINK_FOLDER;
 
-    constructor(private main: MainService) {
+    constructor(
+        private main: MainService,
+        public router: Router
+    ) {
     }
 
     ngOnInit() {
