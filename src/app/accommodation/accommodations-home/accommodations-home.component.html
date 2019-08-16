@@ -6,7 +6,7 @@
         </div>
 
         <app-carousel-holder [items]="accommodationObjects" [folder]="accommodationsFolder"
-                             *ngIf="accommodationObjects"></app-carousel-holder>
+            [category]="'accommodations'"                 *ngIf="accommodationObjects"></app-carousel-holder>
 
         <div class="home_1_top">
             <p>Today's top deals</p>
@@ -14,7 +14,7 @@
         </div>
 
         <app-carousel-holder [items]="accommodationObjects" [folder]="accommodationsFolder"
-                             *ngIf="accommodationObjects"></app-carousel-holder>
+                             [category]="'accommodations'" *ngIf="accommodationObjects"></app-carousel-holder>
 
         <div class="home_1_hotels">
             <div class="home_1_top">
@@ -27,6 +27,6 @@
         </div>
 
         <app-carousel-holder [items]="accommodationObjects" [folder]="accommodationsFolder"
-                             *ngIf="accommodationObjects"></app-carousel-holder>
+                             [category]="'accommodations'" *ngIf="accommodationObjects"></app-carousel-holder>
     </div>
 </section>

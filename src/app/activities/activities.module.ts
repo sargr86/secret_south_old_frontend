@@ -9,6 +9,8 @@ import { SaveActivityComponent } from './save-activity/save-activity.component';
 import { ShowActivitiesComponent } from './show-activities/show-activities.component';
 import { ActivitiesHeaderComponent } from './activities-header/activities-header.component';
 import { ActivitiesHomeComponent } from './activities-home/activities-home.component';
+import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
+import { ActivitiesListComponent } from './activities-list/activities-list.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { ActivitiesHomeComponent } from './activities-home/activities-home.compo
         SaveActivityComponent,
         ShowActivitiesComponent,
         ActivitiesHeaderComponent,
-        ActivitiesHomeComponent
+        ActivitiesHomeComponent,
+        ActivitiesSingleComponent,
+        ActivitiesListComponent
     ],
     imports: [
         CommonModule,

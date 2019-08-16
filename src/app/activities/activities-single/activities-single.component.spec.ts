@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccommodationSingleComponent } from './accommodation-single.component';
+import { ActivitiesSingleComponent } from './activities-single.component';
 
 describe('ActivitiesSingleComponent', () => {
-  let component: AccommodationSingleComponent;
-  let fixture: ComponentFixture<AccommodationSingleComponent>;
+  let component: ActivitiesSingleComponent;
+  let fixture: ComponentFixture<ActivitiesSingleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccommodationSingleComponent ]
+      declarations: [ ActivitiesSingleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccommodationSingleComponent);
+    fixture = TestBed.createComponent(ActivitiesSingleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

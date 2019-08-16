@@ -50,6 +50,10 @@ export class ActivitiesHeaderComponent implements OnInit {
         this.toggle.emit();
     }
 
+    searchActivities() {
+        this.router.navigate(['activities/list']);
+    }
+
     /**
      * Navigates to the user dashboard
      */

@@ -3,6 +3,7 @@ import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import IsResponsive from '../../shared/helpers/is-responsive';
+import {ToursService} from '../../shared/services/tours.service';
 
 @Component({
     selector: 'app-tours-header',
@@ -14,18 +15,35 @@ export class ToursHeaderComponent implements OnInit {
     personsCount = 2;
     selectedSection = 'Tours';
     responsiveMode: boolean;
+    tourTypes;
 
     @Output() toggle = new EventEmitter();
 
     constructor(
         public router: Router,
-        public auth: AuthService
+        public auth: AuthService,
+        private  _tours: ToursService
     ) {
         // Checking for responsive mode and initializing map form
         this.responsiveMode = IsResponsive.check();
     }
 
     ngOnInit() {
+        this._tours.getAllTourType().subscribe(d => {
+            this.tourTypes = d;
+        });
+    }
+
+    getStartDate() {
+
+    }
+
+    dateChanged() {
+
+    }
+
+    personsCountChanged(e) {
+
     }
 
     toggleSidebar() {
