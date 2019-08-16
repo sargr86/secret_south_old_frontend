@@ -20,7 +20,7 @@
             </div>
             <div class="map_box">
                 <div id="map-container-google-1" class="z-depth-1-half map-container map_area">
-                    <iframe src="https://maps.google.com/maps?q=cork&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                    <iframe src="https://maps.google.com/maps?q=manhatan&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
                             frameborder="0" style="border:0" allowfullscreen=""></iframe>
                 </div>
                 <div class="show_on_map">
@@ -110,24 +110,51 @@
         </div>
         <div class="accommodations_main_right">
             <div class="right_image_home">
-                <img src="../../../assets/images/_a1a8429 (1).png">
+                <img src="../../../assets/images/1-10@3x.png">
             </div>
             <div class="content_image_line">
                 <div class="photo">
-                    <img src="../../../assets/images/csm_PWH_7635_2bcb7ca580 (1).png">
+                    <img src="../../../assets/images/shutterstock-1446108023.svg">
                 </div>
                 <div class="photo">
-                    <img src="../../../assets/images/czlmc-restaurant-0025-hor-feat.png">
+                    <img src="../../../assets/images/shutterstock-1446108023.svg">
                 </div>
                 <div class="photo">
-                    <img src="../../../assets/images/0219_Elmwood_0016 (2).png">
+                    <img src="../../../assets/images/shutterstock-1446108023.svg">
                 </div>
             </div>
             <div class="right_text">
-                <div class="second_left_block" *ngIf="foodDrinkProvider">
+                <div class="second_left_block">
                     <div class="text">
-                        <h2>{{foodDrinkProvider.name}}</h2>
-                        <p>{{foodDrinkProvider.description}}
+                        <h2>{{activitiesProvider.name}}</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu libero in turpis posuere
+                            blandit. Maecenas non tellus sodales, scelerisque lorem non, cursus dolor. Mauris at ante
+                            congue nulla dictum facilisis. Integer suscipit quis nibh et lobortis. Ut purus odio,
+                            consequat
+                            quis lobortis nec, laoreet ornare elit. Fusce ultricies leo eget est pharetra luctus. Proin
+                            id
+                            tristique enim. Maecenas a fringilla quam, quis pellentesque lectus. Nunc ut metus
+                            convallis,
+                            aliquet lectus eu, laoreet metus. Vestibulum non sapien vel elit dignissim vehicula ut id
+                            nisi.
+                            Suspendisse sit amet ullamcorper lacus, ac tristique ipsum. In non auctor dui, eget
+                            ullamcorper
+                            nunc. Cras vulputate, sem at ornare interdum, enim tellus commodo dui, eu tincidunt tortor
+                            felis
+                            nec nibh. Pellentesque dignissim nec eros eget mollis. Aliquam quam risus, placerat et dolor
+                            ac
+                            , sodales lobortis lorem. Aliquam eget ligula vel leo pharetra bibendum in commodo felis.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In ac
+                            odio velit. In convallis consequat nisl, sed semper tortor condimentum eu. Morbi auctor
+                            tempus
+                            arcu, at volutpat tellus rutrum in. Vivamus luctus vel leo eget convallis. Pellentesque
+                            habitant
+                            morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam sit amet dui
+                            malesuada, tincidunt lectus ut, accumsan erat. Etiam consectetur et velit at malesuada.
+                            Proin
+                            vitae fermentum augue. Nulla quis ornare ipsum, nec luctus turpis malesuada, tincidunt
+                            lectus
+                            ut, accumsan erat. Etiam consectetur et velit at .
                         </p>
                     </div>
                     <div class="credit_card_box">
@@ -152,99 +179,26 @@
 
                     <div class="include_box">
                         <h3>Details</h3>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/street.svg">
-                            <p>Cross Street</p>
+                        <div class="company_name" *ngIf="activitiesProvider.company">
+                            <img src="../../../assets/images/logo-temp1.png">
+                            <h4>{{activitiesProvider.company.name}}</h4>
                         </div>
-                        <ul class="option_box">
-                            <li>
-                                Lorem
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/location-pointer.svg">
-                            <p>Area</p>
+                        <div class="company_stars">
+                            <img src="../../../assets/images/star%20(1).svg">
+                            <img src="../../../assets/images/star%20(1).svg">
+                            <img src="../../../assets/images/star%20(1).svg">
+                            <img src="../../../assets/images/star%20(1).svg">
+                            <img src="../../../assets/images/star%20(1).svg">
+                            <span>5</span>
+                            <p> of 5 (275)</p>
                         </div>
-                        <ul class="option_box">
-                            <li>
-                                Lorem
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/clock-with-white-face.svg">
-                            <p>Hours of Operation</p>
+                        <p class="paragraph">Lorem ipsum dolor sit amet</p>
+                        <div class="price_now">
+                            <div class="now">
+                                <p>$199</p>
+                            </div>
+                            <button class="bookNow">Book Now</button>
                         </div>
-                        <ul class="option_box">
-                            <li>Brunch</li>
-                            <li>Sun 10:00–15:00</li>
-                            <li>Dinner</li>
-                            <li> Mon, Sun 17:00–01:00</li>
-                            <li>Tue–Sat 17:00–02:00</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/spoon-and-fork-crossed.svg">
-                            <p>Cuisines</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Contemporary American,
-                                American
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/dining-meal-covered.svg">
-                            <p>Dining Style</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Casual Elegant</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/dress.svg">
-                            <p>Dress Code</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Smart Casual</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/bus.svg">
-                            <p>Public Transit</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Universal City</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/credit-card (1).svg">
-                            <p>Payment Options</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>AMEX, Discover,</li>
-                            <li> MasterCard, Visa</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/clapperboard.svg">
-                            <p>Entertainment</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>The Joshua Payne</li>
-                            <li> Orchestra - Modern Jazz</li>
-                            <li>every Monday Night</li>
-                            <li>DJs Fridays and</li>
-                            <li>Saturday Nights</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="../../../assets/images/add-document.svg">
-                            <p>Additional</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Bar/Lounge, Beer, BYO Wine,</li>
-                            <li>Cocktails, Corkage Fee,</li>
-                            <li> Entertainment, Fireplace,</li>
-                            <li> Full Bar, Gender Neutral</li>
-                            <li>Restroom, Late Night,</li>
-                            <li>Outdoor dining ,</li>
-                            <li>Patio/Outdoor Dining,</li>
-                            <li> View, Weekend Brunch,</li>
-                            <li>Wheelchair Access, Wine</li>
-                        </ul>
                     </div>
 
                 </div>

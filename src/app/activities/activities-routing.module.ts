@@ -6,6 +6,8 @@ import {ShowActivitiesComponent} from './show-activities/show-activities.compone
 import {SaveActivityComponent} from './save-activity/save-activity.component';
 import {ActivityResolverService} from '../shared/resolvers/activity-resolver.service';
 import {ActivitiesHomeComponent} from './activities-home/activities-home.component';
+import {ActivitiesListComponent} from './activities-list/activities-list.component';
+import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
 
 const routes: Routes = [
     {
@@ -22,6 +24,11 @@ const routes: Routes = [
         data: {
             title: 'Add an activity provider',
         },
+    },
+    {path: 'single/:id', component: ActivitiesSingleComponent},
+    {
+        path: 'list',
+        component: ActivitiesListComponent
     },
 
 

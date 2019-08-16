@@ -1,5 +1,5 @@
 export interface ActivityType {
     id?: number;
     name?: string;
-    desciption?: string;
+    description?: string;
 }

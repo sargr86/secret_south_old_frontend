@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
 import IsResponsive from '../../helpers/is-responsive';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-carousel-holder',
@@ -9,11 +10,14 @@ import IsResponsive from '../../helpers/is-responsive';
 })
 export class CarouselHolderComponent implements OnInit {
 
-    constructor() {
+    constructor(
+        public router: Router
+    ) {
     }
 
     @Input() items;
     @Input() folder;
+    @Input() category;
     responsiveMode;
     customOptions: OwlOptions = {
         loop: true,
