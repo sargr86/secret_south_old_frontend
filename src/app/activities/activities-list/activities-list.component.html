@@ -1,0 +1,122 @@
+<section class="accommodations">
+    <!-- Breadcrumb -->
+    <div class="Home_Cork">
+        <a href="#">Home </a>
+        <p>/</p>
+        <a href="#">Cork</a>
+    </div>
+    <!--    <p class="vacation_rentals">200 vacation rentals in Cork on Jul 20 - Aug 20</p>-->
+    <div class="accommodations_main">
+        <div class="accommodations_main_left">
+            <div class="accommodations_main_left_top_box">
+                <p class="Change_Search">Change Search</p>
+                <hr>
+
+                <div class="address">
+                    <mat-icon>place</mat-icon>
+                    <input type="text" name="" value="" placeholder="Location" class="Cork_inp">
+                </div>
+
+                <div class="guests">
+                    <mat-icon>group</mat-icon>
+                    <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                                      [buttonsOrientation]="'v'" [placeholder]="'Guests'"
+                                      (valueChange)="personsCountChanged($event)"></ng-number-picker>
+                </div>
+
+                <div class="food_drink_inputs">
+                    <div class="date">
+                        <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"
+                               [matDatepicker]="checkInPicker" class="Check_out_inp">
+                        <mat-datepicker-toggle matSuffix [for]="checkInPicker"
+                                               class="dateIcon"></mat-datepicker-toggle>
+                        <mat-datepicker #checkInPicker startView="year"
+                                        [startAt]="getStartDate()"></mat-datepicker>
+                    </div>
+                    <div class="time">
+                        <input placeholder="Time" name="bookingDate" (dateChange)="dateChanged()"
+                               [ngxTimepicker]="timepicker"
+                               class="Check_out_inp">
+                        <ngx-material-timepicker-toggle [for]="timepicker" class="timeIcon">
+                            <mat-icon>access_time</mat-icon>
+                            <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
+                            <!--                         ngxMaterialTimepickerToggleIcon>-->
+                            <!--                        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
+                            <!--                    </svg>-->
+                        </ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker #timepicker panelClass="datepickerOne"
+                                                 [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>
+                    </div>
+
+                </div>
+                <div class="accommodations_main_left_top_box_btn">
+                    <button type="button" name="button">Search</button>
+                </div>
+            </div>
+            <div class="accommodations_main_left_top_box_2">
+                <app-filters-bar [section]="'food-drink'"></app-filters-bar>
+            </div>
+        </div>
+        <div class="accommodations_main_right">
+            <div class="accommodations_main_right_top">
+                <div class="filter_burger">
+                    <p><i class="fas fa-sort-amount-down"></i></p>
+                </div>
+                <div class="accommodations_main_right_top_left">
+                    <select class="" name="">
+                        <option value="">Sort: Price (low to high)</option>
+                        <option value="">Sort: Price (low to high)</option>
+                    </select>
+                    <button type="button" name="button">Choose on map</button>
+                </div>
+                <div class="accommodations_main_right_top_right">
+                    <p class="accommodations_main_right_top_right_view">View:</p>
+                    <p>
+                        <i class="fas fa-list accommodations_main_right_top_right_icon accommodations_main_right_top_right_icon_1"></i>
+                    </p>
+                    <p><i class="fas fa-th-large accommodations_main_right_top_right_icon"></i></p>
+                </div>
+            </div>
+            <hr class="accommodations_main_right_top_line">
+            <div class="accommodations_main_right_main">
+
+                <ng-container *ngFor="let obj of activityProviders">
+
+
+                    <div class="accommodations_main_right_main_block">
+                        <div class="accommodations_main_right_main_block_img">
+                            <!--                            <div class="accommodations_main_right_main_block_img_2">-->
+                            <!--                                <img src="../../../assets/images/face2.png" alt="">-->
+                            <!--                            </div>-->
+                            <img *ngIf="obj.img" [src]="activityFolder+ obj.img" alt=""
+                                 class="accommodations_main_right_main_block_img_photo">
+                            <div *ngIf="!obj.img" class="no_image"></div>
+                        </div>
+                        <div class="accommodations_main_right_main_block_size">
+                            <p class="ModernApartment">{{obj.name}}</p>
+                            <p class="CamdenRoad">{{obj.address}}</p>
+                            <div class="accommodations_main_rating">
+                                <div class="accommodations_main_rating_stars">
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="fas fa-star"></i></p>
+                                    <p><i class="far fa-star"></i></p>
+                                </div>
+                                <p class="accommodations_main_rating_num"><span>4.1</span> of 5 (1235)</p>
+                            </div>
+
+                            <div class="accommodations_main_right_main_block_bottom">
+                                <p>$ <span class="accommodations_main_right_main_block_bottom_price">99</span>
+                                </p>
+                                <button type="button" name="button"
+                                        (click)="router.navigate(['activities/single/'+obj.id])">View more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>
