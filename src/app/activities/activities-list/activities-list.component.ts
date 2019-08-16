@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ACTIVITIES_FOLDER} from '../../shared/constants/settings';
+import {ACTIVITIES_FOLDER, TIMEPICKER_THEME} from '../../shared/constants/settings';
 
 @Component({
     selector: 'app-activities-list',
@@ -11,6 +11,8 @@ import {ACTIVITIES_FOLDER} from '../../shared/constants/settings';
 export class ActivitiesListComponent implements OnInit {
     activityProviders;
     activityFolder = ACTIVITIES_FOLDER;
+    personsCount = 2;
+    timepickerTheme = TIMEPICKER_THEME;
 
     constructor(
         private main: MainService,
