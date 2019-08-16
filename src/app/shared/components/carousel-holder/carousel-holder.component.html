@@ -12,7 +12,9 @@
                         <span class="name">{{item.name}}</span>
                         <div class="priceTxt">
                             <p>FROM <span>$25</span></p>
-                            <button type="button" name="button">View more</button>
+                            <button type="button" name="button"
+                                    (click)="router.navigate([category+'/single/'+item.id])">View more
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -34,7 +36,9 @@
                 <span class="name">{{item.name}}</span>
                 <div class="priceTxt">
                     <p>FROM <span>$25</span></p>
-                    <button type="button" name="button">View more</button>
+                    <button type="button" name="button" (click)="router.navigate([category+'/single/'+item.id])">View
+                        more
+                    </button>
                 </div>
             </div>
         </div>

@@ -19,11 +19,11 @@ export class FoodDrinkService {
     }
 
     getFoodDrink(params) {
-        return this.http.get(`${API_URL}food-drink/get`,{params:params});
+        return this.http.get(`${API_URL}food-drink/get`, {params: params});
     }
 
     getOneFoodDrink(params) {
-        return this.http.get(`${API_URL}food-drink/getOne`,{params: params});
+        return this.http.get(`${API_URL}food-drink/getOne`, {params: params});
     }
 
     getPartners() {

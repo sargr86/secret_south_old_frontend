@@ -107,11 +107,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 
     changeSection(section) {
-        if (section !== 'Activities' && section !== 'Tours') {
-            this.mapForm.patchValue({type: section});
-            this.router.navigate([section.toLowerCase().replace('/', '-')]);
-            this.changePlace(section);
-        }
+        this.mapForm.patchValue({type: section});
+        this.router.navigate([section.toLowerCase().replace('/', '-')]);
+        this.changePlace(section);
     }
 
     logout() {
