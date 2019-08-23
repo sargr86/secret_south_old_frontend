@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SubjectService} from '../../shared/services/subject.service';
-import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
+import {SubjectService} from '@shared/services/subject.service';
+import {ACCOMMODATIONS_FOLDER} from '@shared/constants/settings';
 import {MainService} from '../../home/services/main.service';
 
 @Component({
