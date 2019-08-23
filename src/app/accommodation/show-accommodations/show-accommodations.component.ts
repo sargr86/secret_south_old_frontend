@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ACCOMMODATIONS_TABLE_COLUMNS} from '../../shared/constants/settings';
+import {ACCOMMODATIONS_TABLE_COLUMNS} from '@shared/constants/settings';
 import {Observable} from 'rxjs';
-import {AccommodationsService} from '../../shared/services/accommodations.service';
-import {Accommodation} from '../../shared/models/Accommodation';
+import {AccommodationsService} from '@shared/services/accommodations.service';
+import {Accommodation} from '@shared/models/Accommodation';
 
 @Component({
     selector: 'app-show-accommodations',

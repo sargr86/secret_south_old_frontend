@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
-import {ACCOMMODATIONS_FOLDER} from '../../shared/constants/settings';
-import {Accommodation} from '../../shared/models/Accommodation';
+import {ACCOMMODATIONS_FOLDER} from '@shared/constants/settings';
+import {Accommodation} from '@shared/models/Accommodation';
 import {Router} from '@angular/router';
 
 @Component({
