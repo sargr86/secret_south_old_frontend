@@ -126,7 +126,7 @@
             <div class="right_text">
                 <div class="second_left_block">
                     <div class="text">
-                        <h2>{{activitiesProvider.name}}</h2>
+                        <h2>{{activitiesProvider?.name}}</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu libero in turpis posuere
                             blandit. Maecenas non tellus sodales, scelerisque lorem non, cursus dolor. Mauris at ante
                             congue nulla dictum facilisis. Integer suscipit quis nibh et lobortis. Ut purus odio,
@@ -179,9 +179,9 @@
 
                     <div class="include_box">
                         <h3>Details</h3>
-                        <div class="company_name" *ngIf="activitiesProvider.company">
+                        <div class="company_name">
                             <img src="../../../assets/images/logo-temp1.png">
-                            <h4>{{activitiesProvider.company.name}}</h4>
+                            <h4>{{activitiesProvider?.company?.name}}</h4>
                         </div>
                         <div class="company_stars">
                             <img src="../../../assets/images/star%20(1).svg">
