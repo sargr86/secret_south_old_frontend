@@ -14,7 +14,7 @@
 header {
   width: 100%;
   min-height: 98vh;
-  background-image: url("../../../assets/images/head_bg.jpg");
+  background-image: url("assets/images/head_bg.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -153,7 +153,7 @@ header {
 
 
 .logo {
-  background-image: url("../../../assets/images/logo.png");
+  background-image: url("assets/images/logo.png");
   width: 89px;
   height: 91px;
   background-size: cover;
@@ -198,4 +198,4 @@ header {
   }
 }
 
-@import "../../../assets/styles/media";
+@import "media";
