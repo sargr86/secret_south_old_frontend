@@ -101,7 +101,7 @@ export class FerriesHomeComponent implements OnInit {
     // }
 
     getIcon() {
-        return '../../../assets/icons/ferry.svg';
+        return 'assets/icons/ferry.svg';
     }
 
     selectFerry(ferry) {
