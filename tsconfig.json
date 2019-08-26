@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "allowJs": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -24,7 +24,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@env": [
+        "environments/environment"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",
