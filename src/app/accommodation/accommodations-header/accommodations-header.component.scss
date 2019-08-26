@@ -1,5 +1,5 @@
-@import '../../../variables';
-@import '../../../mixins';
+@import 'variables';
+@import 'mixins';
 
 
 .checkIn, .checkOut, .location {
@@ -198,4 +198,4 @@ header {
   }
 }
 
-@import "../../../assets/css/media";
+@import "../../../assets/styles/media";
