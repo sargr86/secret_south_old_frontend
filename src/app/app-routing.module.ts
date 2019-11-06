@@ -1,17 +1,17 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {NotFoundComponent} from './not-found/not-found.component';
+import {NotFoundComponent} from '@core/components/not-found/not-found.component';
 import {AuthGuard} from '@core/guards/auth.guard';
 import {RoleGuard} from '@core/guards/role.guard';
-import {AccommodationsHomeComponent} from './accommodation/accommodations-home/accommodations-home.component';
 
 const routes: Routes = [
     {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
-    // {
-    //     path: '',
-    //     component: AccommodationsHomeComponent
-    // },
+    {
+        path: '',
+        redirectTo: 'ferries',
+        pathMatch: 'full'
+    },
     {
         path: 'accommodations',
         loadChildren: './accommodation/accommodation.module#AccommodationModule'
@@ -32,7 +32,6 @@ const routes: Routes = [
         path: 'tours',
         loadChildren: './tours/tours.module#ToursModule'
     },
-    // {path: 'admin-panel', loadChildren: './admin-login/admin-login.module#AdminLoginModule'},
     {path: '', loadChildren: './home/home.module#HomeModule'},
     {
         path: 'partners',

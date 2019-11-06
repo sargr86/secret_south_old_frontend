@@ -13,7 +13,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import 'hammerjs';
 
-import {NotFoundComponent} from './not-found/not-found.component';
 import {MaterialModule} from '@core/modules/material.module';
 import {ToastrModule} from 'ngx-toastr';
 import {RequestInterceptor} from '@core/helpers/http.interceptor';
@@ -29,13 +28,11 @@ export function tokenGetter() {
 @NgModule({
     declarations: [
         AppComponent,
-        NotFoundComponent,
     ],
     imports: [
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule,
         CoreModule,
         ReactiveFormsModule,
         StorageServiceModule,
