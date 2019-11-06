@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-tours-home',
-  templateUrl: './tours-home.component.html',
-  styleUrls: ['./tours-home.component.scss']
+    selector: 'app-tours-home',
+    templateUrl: './tours-home.component.html',
+    styleUrls: ['./tours-home.component.scss']
 })
 export class ToursHomeComponent implements OnInit {
 
-  constructor() { }
+    constructor(
+        public router: Router
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }
