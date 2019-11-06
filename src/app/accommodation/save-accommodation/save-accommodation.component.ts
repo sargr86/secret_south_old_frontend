@@ -37,9 +37,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     searchElementRef: ElementRef;
     options = {types: ['geocode']};
 
-    dropZoneFile: File;
+    dropZoneFiles: File[] = [];
     imgPath: string;
     countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
+
+    dropzoneConfig = {
+        maxFiles: 10
+    };
 
     constructor(
         private _accommodation: AccommodationsService,
@@ -124,12 +128,12 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      */
     save(address) {
         // if (this.accommodationForm.valid) {
-
+        console.log(this.dropZoneFiles)
         this.common.formProcessing = true;
         const formData = this.formData.transform({
             ...this.accommodationForm.value,
             address: address.el.nativeElement.value
-        }, this.dropZoneFile);
+        }, this.dropZoneFiles);
 
         this._accommodation[this.formAction](formData).subscribe(() => {
             this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
@@ -138,7 +142,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     }
 
     getFile(e) {
-        this.dropZoneFile = e;
+        this.dropZoneFiles.push(e);
     }
 
     removeSavedImg() {
