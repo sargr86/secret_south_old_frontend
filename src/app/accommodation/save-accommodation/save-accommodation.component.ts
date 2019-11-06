@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ACCOMMODATIONS_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {ACCOMMODATIONS_FOLDER, EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER} from '@core/constants/settings';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
@@ -15,6 +15,7 @@ import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 import {ACCOMMODATION_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
+import {NgxGalleryOptions} from 'ngx-gallery';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -44,6 +45,9 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     dropzoneConfig = {
         maxFiles: 10
     };
+
+    accommodationData;
+    galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
     constructor(
         private _accommodation: AccommodationsService,
@@ -90,10 +94,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         this.formFields['id'] = '';
         this.setFormFields();
         this.addressCtrl.disable();
+        this.accommodationData = dt;
         this.accommodationForm.patchValue(dt);
         if (dt['img']) {
             this.imgPath = ACCOMMODATIONS_FOLDER + dt['img'];
         }
+
+        console.log(dt)
     }
 
     /**
@@ -116,7 +123,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * Gets activity provider companies list
      */
     getCompanies(accommodationData) {
-        this.subscriptions.push(this._companies.get({name: 'accommodations'}).subscribe((dt: Company[]) => {
+        this.subscriptions.push(this._companies.get({name: 'accommodation'}).subscribe((dt: Company[]) => {
             this.companies = dt;
             this.checkFormData.transform('accommodation', accommodationData, this.companies, this.editCase);
         }));
