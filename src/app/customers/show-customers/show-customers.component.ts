@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CUSTOMERS_TABLE_COLUMNS} from '../../shared/constants/settings';
+import {CUSTOMERS_TABLE_COLUMNS} from '@core/constants/settings';
 import {Observable} from 'rxjs';
-import {User} from '../../shared/models/User';
-import {CustomersService} from '../../shared/services/customers.service';
+import {User} from '@shared/models/User';
+import {CustomersService} from '@core/services/customers.service';
 
 @Component({
     selector: 'app-show-customers',

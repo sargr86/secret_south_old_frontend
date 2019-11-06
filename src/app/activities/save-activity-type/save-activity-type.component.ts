@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {SPINNER_DIAMETER} from '@core/constants/settings';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../../shared/services/common.service';
+import {CommonService} from '@core/services/common.service';
 import {ToastrService} from 'ngx-toastr';
-import {ActivitiesService} from '../../shared/services/activities.service';
-import {AuthService} from '../../shared/services/auth.service';
+import {ActivitiesService} from '@core/services/activities.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-save-activity-type',

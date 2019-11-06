@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '@shared/services/auth.service';
-import IsResponsive from '@shared/helpers/is-responsive';
-import {MAIN_SECTIONS} from '@shared/constants/settings';
+import {AuthService} from '@core/services/auth.service';
+import IsResponsive from '@core/helpers/is-responsive';
+import {MAIN_SECTIONS} from '@core/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {MainService} from '../../home/services/main.service';
-import {SubjectService} from '@shared/services/subject.service';
-import {COUNTRY_RESTRICTED_PLACES} from '@shared/helpers/google-one-country-places-getter';
+import {SubjectService} from '@core/services/subject.service';
+import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 
 @Component({
     selector: 'app-accommodations-header',

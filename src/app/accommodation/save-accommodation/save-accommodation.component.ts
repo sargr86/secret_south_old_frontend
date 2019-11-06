@@ -1,21 +1,20 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ACCOMMODATIONS_FOLDER, SPINNER_DIAMETER} from '@shared/constants/settings';
-import {Partner} from '../../shared/models/Partner';
-import {AccommodationsService} from '@shared/services/accommodations.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ACCOMMODATIONS_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {AccommodationsService} from '@core/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '@shared/services/common.service';
+import {CommonService} from '@core/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
-import {AuthService} from '@shared/services/auth.service';
-import {CompaniesService} from '@shared/services/companies.service';
+import {AuthService} from '@core/services/auth.service';
+import {CompaniesService} from '@core/services/companies.service';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {Company} from '@shared/models/Company';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
-import {ACCOMMODATION_FIELDS} from '@shared/helpers/form-fields-getter';
+import {ACCOMMODATION_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
-import {COUNTRY_RESTRICTED_PLACES} from '@shared/helpers/google-one-country-places-getter';
+import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 
 @Component({
     selector: 'app-save-accommodation',

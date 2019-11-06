@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, OnDestroy, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {AdminService} from './admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
-import {AuthService} from '@shared/services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 import {MatSidenav} from '@angular/material';
 
 

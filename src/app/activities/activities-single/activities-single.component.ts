@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ActivitiesService} from '../../shared/services/activities.service';
+import {ActivitiesService} from '@core/services/activities.service';
 
 @Component({
     selector: 'app-activity-single',

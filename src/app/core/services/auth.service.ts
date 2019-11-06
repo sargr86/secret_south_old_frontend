@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 // JWT helper
 import {JwtHelperService} from '@auth0/angular-jwt';
 import * as jwtDecode from 'jwt-decode';
-import {User} from '../models/User';
+import {User} from '../../shared/models/User';
 
 @Injectable({
     providedIn: 'root'

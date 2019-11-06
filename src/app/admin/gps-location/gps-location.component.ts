@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MapLoaderService} from '../../maps/map.loader';
-import {FerryService} from '../../shared/services/ferry.service';
+import {FerryService} from '@core/services/ferry.service';
 import {Router} from '@angular/router';
-import {GpsLocationService} from '../../shared/services/gps-location.service';
+import {GpsLocationService} from '@core/services/gps-location.service';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {MapsAPILoader} from '@agm/core';
 

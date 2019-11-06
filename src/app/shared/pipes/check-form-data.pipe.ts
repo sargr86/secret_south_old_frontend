@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../services/common.service';
+import {CommonService} from '@core/services/common.service';
 
 @Pipe({
     name: 'checkFormData'

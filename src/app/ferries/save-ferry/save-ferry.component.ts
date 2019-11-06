@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FerryService} from '../../shared/services/ferry.service';
-import {PartnerService} from '../../shared/services/partner.service';
+import {FerryService} from '@core/services/ferry.service';
+import {PartnerService} from '@core/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
@@ -8,20 +8,20 @@ import {
     DEFAULT_COUNTRY,
     FERRIES_FOLDER,
     SPINNER_DIAMETER
-} from '../../shared/constants/settings';
+} from '@core/constants/settings';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
-import {Ferry} from '../../shared/models/Ferry';
-import {Partner} from '../../shared/models/Partner';
-import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
+import {CommonService} from '@core/services/common.service';
+import {Ferry} from '@shared/models/Ferry';
+import {Partner} from '@shared/models/Partner';
+import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
-import {AuthService} from '../../shared/services/auth.service';
-import {Company} from '../../shared/models/Company';
-import {CompaniesService} from '../../shared/services/companies.service';
-import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
-import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
-import {FERRY_FIELDS} from '../../shared/helpers/form-fields-getter';
-import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
+import {AuthService} from '@core/services/auth.service';
+import {Company} from '@shared/models/Company';
+import {CompaniesService} from '@core/services/companies.service';
+import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
+import {FERRY_FIELDS} from '@core/helpers/form-fields-getter';
+import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {DropzoneConfig} from 'ngx-dropzone-wrapper';
 import {NgxGalleryOptions} from 'ngx-gallery';
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {FerryService} from '../../shared/services/ferry.service';
-import {UsersService} from '../../shared/services/users.service';
+import {FerryService} from '@core/services/ferry.service';
+import {UsersService} from '@core/services/users.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({

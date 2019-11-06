@@ -1,19 +1,19 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Partner} from '../../shared/models/Partner';
+import {Partner} from '@shared/models/Partner';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
-import {ACTIVITIES_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {patternValidator} from '@core/helpers/pattern-validator';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '@core/constants/patterns';
+import {ACTIVITIES_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
-import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
-import {AuthService} from '../../shared/services/auth.service';
-import {ActivitiesService} from '../../shared/services/activities.service';
-import {CompaniesService} from '../../shared/services/companies.service';
-import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
-import {ActivityType} from '../../shared/models/ActivityType';
+import {CommonService} from '@core/services/common.service';
+import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
+import {AuthService} from '@core/services/auth.service';
+import {ActivitiesService} from '@core/services/activities.service';
+import {CompaniesService} from '@core/services/companies.service';
+import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
+import {ActivityType} from '@shared/models/ActivityType';
 
 @Component({
     selector: 'app-save-activity',

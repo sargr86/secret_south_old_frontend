@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Pipe({
     name: 'redirectUrlGenerator'

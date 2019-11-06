@@ -1,19 +1,18 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ToursService} from '../../shared/services/tours.service';
+import {ToursService} from '@core/services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MapsAPILoader} from '@agm/core';
-import {SPINNER_DIAMETER, TOURS_FOLDER} from '../../shared/constants/settings';
+import {SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/settings';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../../shared/constants/patterns';
-import {Partner} from '../../shared/models/Partner';
-import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
+import {CommonService} from '@core/services/common.service';
+import {patternValidator} from '@core/helpers/pattern-validator';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '@core/constants/patterns';
+import {Partner} from '@shared/models/Partner';
+import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
-import {AuthService} from '../../shared/services/auth.service';
-import {Company} from '../../shared/models/Company';
-import {CompaniesService} from '../../shared/services/companies.service';
+import {AuthService} from '@core/services/auth.service';
+import {Company} from '@shared/models/Company';
+import {CompaniesService} from '@core/services/companies.service';
 
 @Component({
     selector: 'app-save-tour',

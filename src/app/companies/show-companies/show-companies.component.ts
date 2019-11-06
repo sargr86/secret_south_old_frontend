@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CompaniesService} from '../../shared/services/companies.service';
+import {CompaniesService} from '@core/services/companies.service';
 
 @Component({
     selector: 'app-show-companies',

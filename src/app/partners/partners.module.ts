@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {PartnersRoutingModule} from './partners-routing.module';
 import {MenuComponent} from './menu/menu.component';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {FerriesModule} from '../ferries/ferries.module';
 import {ShowProfileComponent} from './show-profile/show-profile.component';
 import {PartnerDashboardComponent} from './partner-dashboard/partner-dashboard.component';

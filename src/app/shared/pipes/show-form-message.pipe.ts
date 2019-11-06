@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../services/common.service';
+import {CommonService} from '@core/services/common.service';
 
 @Pipe({
     name: 'showFormMessage'

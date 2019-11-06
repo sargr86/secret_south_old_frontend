@@ -1,6 +1,6 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '../../../environments/environment';
-import {Section} from '../models/Section';
+import {Section} from '../../shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';

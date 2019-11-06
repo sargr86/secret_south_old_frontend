@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CommonService} from '../../services/common.service';
+import {CommonService} from '@core/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SPINNER_DIAMETER, USER_TYPES} from '../../constants/settings';
-import {AuthService} from '../../services/auth.service';
-import {PartnerService} from '../../services/partner.service';
-import {EmployeesService} from '../../services/employees.service';
+import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
+import {AuthService} from '@core/services/auth.service';
+import {PartnerService} from '@core/services/partner.service';
+import {EmployeesService} from '@core/services/employees.service';
 import {ToastrService} from 'ngx-toastr';
-import {CompaniesService} from '../../services/companies.service';
-import {MatSelectChange} from '@angular/material';
+import {CompaniesService} from '@core/services/companies.service';
 
 @Component({
     selector: 'app-invitation-form',
