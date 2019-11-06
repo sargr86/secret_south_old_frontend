@@ -21,6 +21,10 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
+.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+  transform: none !important;
+}
+
 .header_top {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 10px;

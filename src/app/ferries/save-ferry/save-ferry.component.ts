@@ -5,7 +5,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {ActivatedRoute, Router} from '@angular/router';
 import {
     ALLOWED_COUNTRIES,
-    DEFAULT_COUNTRY,
+    DEFAULT_COUNTRY, EDIT_FORM_GALLERY_OPTIONS,
     FERRIES_FOLDER,
     SPINNER_DIAMETER
 } from '@core/constants/settings';
@@ -48,26 +48,7 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     formAction: string;
     dropzoneIndividualConfig = {maxFiles: 5};
     coverShown = true;
-    galleryOptions: NgxGalleryOptions[] = [
-        {
-            'image': false, 'height': '100px',
-            'previewFullscreen': true,
-            'width': '50%',
-            'previewKeyboardNavigation': true,
-            'imageDescription': true,
-            'previewCloseOnEsc': true,
-            'thumbnailActions': [
-                {
-                    icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
-                },
-                {
-                    icon: 'fa fa-star', onClick: this.makeCover.bind(this), titleText: 'cover'
-                }
-            ]
-        },
-        {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
-        // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
-    ];
+    galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
     companies: Company[] = [];
     subscriptions: Subscription[] = [];
@@ -96,6 +77,11 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.ferryForm = this._fb.group(this.ferryFields);
         this.common.dataLoading = true;
+        // this.galleryOptions[0].thumbnailActions = [{
+        //     onClick: () => {
+        //         console.log('OK')
+        //     }
+        // }];
         this.subscriptions.push(this.route.data.subscribe(dt => {
             this.getCompanies();
             if (this.route.snapshot.paramMap.get('id')) {
