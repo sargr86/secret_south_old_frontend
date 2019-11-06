@@ -6,7 +6,6 @@ import {MainComponent} from './main/main.component';
 import {AgmCoreModule} from '@agm/core';
 
 import {SharedModule} from '@shared/shared.module';
-import {LayoutModule} from '../layout/layout.module';
 import {GOOGLE_API_KEY} from '@core/constants/settings';
 import {AgmDirectionModule} from 'agm-direction';
 import {MapComponent} from './map/map.component';
@@ -17,7 +16,6 @@ import {MapComponent} from './map/map.component';
         SharedModule,
         CommonModule,
         HomeRoutingModule,
-        LayoutModule,
         AgmCoreModule.forRoot({
             apiKey: GOOGLE_API_KEY,
             libraries: ['places', 'geometry'],

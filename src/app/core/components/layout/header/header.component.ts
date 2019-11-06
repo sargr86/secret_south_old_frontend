@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
         );
     }
 
+    // @todo this should be included in every header component since separating those
     toggleSidebar() {
         console.log('toggle')
         this.toggle.emit();
