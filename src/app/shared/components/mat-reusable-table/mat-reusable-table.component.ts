@@ -1,22 +1,22 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '../../constants/settings';
-import {FerryService} from '../../services/ferry.service';
+import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '@core/constants/settings';
+import {FerryService} from '@core/services/ferry.service';
 import {GetTableDataSourcePipe} from '../../pipes/get-table-data-source.pipe';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
-import {PartnerService} from '../../services/partner.service';
+import {PartnerService} from '@core/services/partner.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {ToursService} from '../../services/tours.service';
+import {ToursService} from '@core/services/tours.service';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../services/common.service';
-import {TourTypeService} from '../../services/tour-type.service';
-import {FoodDrinkService} from '../../services/food-drink.service';
-import {AccommodationsService} from '../../services/accommodations.service';
-import {ActivitiesService} from '../../services/activities.service';
-import {ActivityTypesService} from '../../services/activity-types.service';
-import {AuthService} from '../../services/auth.service';
-import {CompaniesService} from '../../services/companies.service';
+import {CommonService} from '@core/services/common.service';
+import {TourTypeService} from '@core/services/tour-type.service';
+import {FoodDrinkService} from '@core/services/food-drink.service';
+import {AccommodationsService} from '@core/services/accommodations.service';
+import {ActivitiesService} from '@core/services/activities.service';
+import {ActivityTypesService} from '@core/services/activity-types.service';
+import {AuthService} from '@core/services/auth.service';
+import {CompaniesService} from '@core/services/companies.service';
 
 @Component({
     selector: 'app-mat-table',

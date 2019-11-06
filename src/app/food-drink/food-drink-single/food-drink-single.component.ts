@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FoodDrinkService} from '../../shared/services/food-drink.service';
+import {FoodDrinkService} from '@core/services/food-drink.service';
 
 @Component({
     selector: 'app-food-drink-single',

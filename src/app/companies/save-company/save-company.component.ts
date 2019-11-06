@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PartnerService} from '../../shared/services/partner.service';
+import {PartnerService} from '@core/services/partner.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../shared/services/auth.service';
-import {CompaniesService} from '../../shared/services/companies.service';
-import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
+import {AuthService} from '@core/services/auth.service';
+import {CompaniesService} from '@core/services/companies.service';
+import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {Subscription} from 'rxjs';
 
 @Component({

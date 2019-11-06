@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowToursComponent} from './show-tours/show-tours.component';
 import {SaveTourComponent} from './save-tour/save-tour.component';
-import {OneTourResolverService} from '../shared/resolvers/one-tour-resolver.service';
+import {OneTourResolverService} from '@core/resolvers/one-tour-resolver.service';
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import {ToursHomeComponent} from './tours-home/tours-home.component';

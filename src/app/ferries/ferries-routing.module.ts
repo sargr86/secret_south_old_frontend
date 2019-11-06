@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowFerriesComponent} from './show-ferries/show-ferries.component';
 import {SaveFerryComponent} from './save-ferry/save-ferry.component';
-import {OneFerryResolverService} from '../shared/resolvers/one-ferry-resolver.service';
+import {OneFerryResolverService} from '@core/resolvers/one-ferry-resolver.service';
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
-import {AuthGuard} from '../shared/guards/auth.guard';
+import {AuthGuard} from '@core/guards/auth.guard';
 
 const routes: Routes = [
     {

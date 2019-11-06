@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ToursService} from '../../shared/services/tours.service';
-import {AuthService} from '../../shared/services/auth.service';
+import {ToursService} from '@core/services/tours.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-show-tour-types',

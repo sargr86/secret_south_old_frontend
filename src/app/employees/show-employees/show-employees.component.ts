@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeesService} from '../../shared/services/employees.service';
-import {EMPLOYEES_TABLE_COLUMNS} from '../../shared/constants/settings';
+import {EmployeesService} from '@core/services/employees.service';
+import {EMPLOYEES_TABLE_COLUMNS} from '@core/constants/settings';
 import {ActivatedRoute} from '@angular/router';
-import {AuthService} from '../../shared/services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-show-employees',

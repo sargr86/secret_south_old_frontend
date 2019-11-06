@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {GpsLocationComponent} from './gps-location/gps-location.component';
-import {AuthGuard} from '../shared/guards/auth.guard';
-import {RoleGuard} from '../shared/guards/role.guard';
+import {AuthGuard} from '@core/guards/auth.guard';
+import {RoleGuard} from '@core/guards/role.guard';
 // import {EditProfileComponent} from './edit-profile/edit-profile.component';
-import {EditProfileComponent} from '../shared/components/edit-profile/edit-profile.component';
-import {UserResolverService} from '../shared/resolvers/user-resolver.service';
+import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
+import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 
 

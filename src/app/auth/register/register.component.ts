@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../shared/services/auth.service';
-import {CommonService} from '../../shared/services/common.service';
+import {AuthService} from '@core/services/auth.service';
+import {CommonService} from '@core/services/common.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
-import {PartnerService} from '../../shared/services/partner.service';
+import {PartnerService} from '@core/services/partner.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({

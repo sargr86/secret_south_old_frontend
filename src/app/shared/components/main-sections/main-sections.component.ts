@@ -1,11 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Section} from '../../models/Section';
-import IsResponsive from '../../helpers/is-responsive';
-import {MAIN_SECTIONS} from '../../constants/settings';
+import {Section} from '@shared/models/Section';
+import IsResponsive from '@core/helpers/is-responsive';
+import {MAIN_SECTIONS} from '@core/constants/settings';
 import {Data, NavigationEnd, Router} from '@angular/router';
 import {MainService} from '../../../home/services/main.service';
 import {filter} from 'rxjs/operators';
-import {PartnerType} from '../../models/PartnerType';
 import {Subscription} from 'rxjs';
 
 @Component({

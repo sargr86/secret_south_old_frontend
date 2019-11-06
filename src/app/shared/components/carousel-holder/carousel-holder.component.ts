@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
-import IsResponsive from '../../helpers/is-responsive';
+import IsResponsive from '@core/helpers/is-responsive';
 import {Router} from '@angular/router';
 
 @Component({

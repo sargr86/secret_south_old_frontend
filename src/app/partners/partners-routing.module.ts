@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowProfileComponent} from './show-profile/show-profile.component';
-import {AuthGuard} from '../shared/guards/auth.guard';
-import {RoleGuard} from '../shared/guards/role.guard';
+import {AuthGuard} from '@core/guards/auth.guard';
+import {RoleGuard} from '@core/guards/role.guard';
 import {ShowPartnersComponent} from './show-partners/show-partners.component';
 import {SavePartnerComponent} from './save-partner/save-partner.component';
-import {UserResolverService} from '../shared/resolvers/user-resolver.service';
-import {EditProfileComponent} from '../shared/components/edit-profile/edit-profile.component';
+import {UserResolverService} from '@core/resolvers/user-resolver.service';
+import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
