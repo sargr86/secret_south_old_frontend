@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class BuildFormDataPipe implements PipeTransform {
 
-    transform(data: any, files?: any): any {
+    transform(data: any, files?: any, fileKey = 'upload_images'): any {
         const fd: FormData = new FormData();
 
         for (const field of Object.keys(data)) {
@@ -20,17 +20,18 @@ export class BuildFormDataPipe implements PipeTransform {
         // If files are selected
         if (files) {
             // Multiple files case
-            if (files.length > 1) {
+            // if (files.length > 1) {
                 files.map(file => {
-                    fd.append('upload_images', file);
+                    fd.append(fileKey, file);
                     // fd.append('img', file ? file.name : '');
                 });
 
                 // One file case
-            } else {
-                fd.append('upload_images', files[0]);
-                // fd.append('img', files.length !== 0 ? files[0].name : '');
-            }
+            // } else {
+            //     console.log(files)
+            //     fd.append('upload_images', files[0]);
+            //     // fd.append('img', files.length !== 0 ? files[0].name : '');
+            // }
         }
 
 

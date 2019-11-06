@@ -1,6 +1,6 @@
 import {Validators} from '@angular/forms';
 import {patternValidator} from './pattern-validator';
-import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '../constants/patterns';
+import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '@core/constants/patterns';
 
 export const FOOD_DRINK_FIELDS = {
     name: ['', Validators.required],

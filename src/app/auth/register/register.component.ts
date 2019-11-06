@@ -8,6 +8,7 @@ import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
 import {PartnerService} from '@core/services/partner.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 
 @Component({
     selector: 'app-register',
@@ -17,7 +18,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 export class RegisterComponent implements OnInit {
 
     registerForm: FormGroup;
-    dropzoneFile;
+    dropzoneFile = [];
     redirectUrl = '/';
     spinnerDiameter = SPINNER_DIAMETER;
     dropzoneConfig = DROPZONE_CONFIG;
@@ -32,7 +33,8 @@ export class RegisterComponent implements OnInit {
         'email': ['', Validators.required],
         'gender': ['', Validators.required],
         'password': ['', Validators.required],
-
+        'folder': ['users'],
+        'profile_img': [''],
         'company_id': ['', Validators.required],
         'user_type': ['', Validators.required]
     };
@@ -45,6 +47,7 @@ export class RegisterComponent implements OnInit {
         private _partner: PartnerService,
         private route: ActivatedRoute,
         private jwtHelper: JwtHelperService,
+        private buildFormData: BuildFormDataPipe
     ) {
     }
 
@@ -78,7 +81,7 @@ export class RegisterComponent implements OnInit {
     }
 
     register() {
-        const formData = this.getFormData();
+        const formData = this.buildFormData.transform(this.registerForm.value, this.dropzoneFile, 'profile_img_file');
         this.common.formProcessing = true;
         this.auth.register(formData).subscribe((dt: any) => {
             // Saving token to browser local storage
@@ -122,7 +125,9 @@ export class RegisterComponent implements OnInit {
      * Gets selected image file
      */
     onAddedFile(e) {
-        this.dropzoneFile = e;
+        this.dropzoneFile.push(e[0]);
+        this.registerForm.patchValue({profile_img: e[0].name});
+        console.log(e)
     }
 
     togglePass() {
