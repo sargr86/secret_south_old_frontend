@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToursService} from '../../shared/services/tours.service';
-import {CommonService} from '../../shared/services/common.service';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {ToursService} from '@core/services/tours.service';
+import {CommonService} from '@core/services/common.service';
+import {SPINNER_DIAMETER} from '@core/constants/settings';
 import {ToastrService} from 'ngx-toastr';
-import {AuthService} from '../../shared/services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-save-tour-type',

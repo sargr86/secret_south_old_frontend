@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../../shared/services/common.service';
-import {SPINNER_DIAMETER} from '../../shared/constants/settings';
-import {AuthService} from '../../shared/services/auth.service';
-import {DROPZONE_CONFIG, DropzoneConfig} from 'ngx-dropzone-wrapper';
+import {CommonService} from '@core/services/common.service';
+import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {AuthService} from '@core/services/auth.service';
+import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 
 @Component({
     selector: 'app-edit-profile',

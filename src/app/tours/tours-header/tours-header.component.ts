@@ -1,9 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
+import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {Router} from '@angular/router';
-import {AuthService} from '../../shared/services/auth.service';
-import IsResponsive from '../../shared/helpers/is-responsive';
-import {ToursService} from '../../shared/services/tours.service';
+import {AuthService} from '@core/services/auth.service';
+import IsResponsive from '@core/helpers/is-responsive';
+import {ToursService} from '@core/services/tours.service';
 
 @Component({
     selector: 'app-tours-header',

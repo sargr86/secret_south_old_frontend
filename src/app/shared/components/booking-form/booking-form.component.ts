@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY} from '../../constants/settings';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY} from '@core/constants/settings';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import moment from 'moment';
 

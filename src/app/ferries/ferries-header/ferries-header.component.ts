@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MAIN_SECTIONS} from '../../shared/constants/settings';
+import {MAIN_SECTIONS} from '@core/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {COUNTRY_RESTRICTED_PLACES} from '../../shared/helpers/google-one-country-places-getter';
+import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {Router} from '@angular/router';
-import {AuthService} from '../../shared/services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 import {MainService} from '../../home/services/main.service';
-import {SubjectService} from '../../shared/services/subject.service';
-import IsResponsive from '../../shared/helpers/is-responsive';
+import {SubjectService} from '@core/services/subject.service';
+import IsResponsive from '@core/helpers/is-responsive';
 
 @Component({
     selector: 'app-ferries-header',

@@ -1,16 +1,16 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {MAIN_SECTIONS} from '../../shared/constants/settings';
-import {CommonService} from '../../shared/services/common.service';
+import {MAIN_SECTIONS} from '@core/constants/settings';
+import {CommonService} from '@core/services/common.service';
 import {MainService} from '../../home/services/main.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
-import {PartnerService} from '../../shared/services/partner.service';
-import {SubjectService} from '../../shared/services/subject.service';
-import {AuthService} from '../../shared/services/auth.service';
+import {PartnerService} from '@core/services/partner.service';
+import {SubjectService} from '@core/services/subject.service';
+import {AuthService} from '@core/services/auth.service';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {PartnerType} from '../../shared/models/PartnerType';
-import IsResponsive from '../../shared/helpers/is-responsive';
+import {PartnerType} from '@shared/models/PartnerType';
+import IsResponsive from '@core/helpers/is-responsive';
 
 @Component({
     selector: 'app-navbar',

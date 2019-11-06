@@ -1,20 +1,20 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {FoodDrinkService} from '../../shared/services/food-drink.service';
-import {CommonService} from '../../shared/services/common.service';
-import {FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {FoodDrinkService} from '@core/services/food-drink.service';
+import {CommonService} from '@core/services/common.service';
+import {FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {CheckFormDataPipe} from '../../shared/pipes/check-form-data.pipe';
+import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
 import {Subscription} from 'rxjs';
-import {AuthService} from '../../shared/services/auth.service';
-import {Company} from '../../shared/models/Company';
-import {CompaniesService} from '../../shared/services/companies.service';
-import {FoodDrink} from '../../shared/models/FoodDrink';
-import {FOOD_DRINK_FIELDS} from '../../shared/helpers/form-fields-getter';
-import {RedirectUrlGeneratorPipe} from '../../shared/pipes/redirect-url-generator.pipe';
-import {ShowFormMessagePipe} from '../../shared/pipes/show-form-message.pipe';
-import {BuildFormDataPipe} from '../../shared/pipes/build-form-data.pipe';
+import {AuthService} from '@core/services/auth.service';
+import {Company} from '@shared/models/Company';
+import {CompaniesService} from '@core/services/companies.service';
+import {FoodDrink} from '@shared/models/FoodDrink';
+import {FOOD_DRINK_FIELDS} from '@core/helpers/form-fields-getter';
+import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
+import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 
 @Component({
     selector: 'app-save-food-drink',

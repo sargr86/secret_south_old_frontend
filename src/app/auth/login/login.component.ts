@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {AuthService} from '../../shared/services/auth.service';
+import {patternValidator} from '@core/helpers/pattern-validator';
+import {AuthService} from '@core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {EMAIL_PATTERN} from '../../shared/constants/patterns';
+import {EMAIL_PATTERN} from '@core/constants/patterns';
 
 import * as jwtDecode from 'jwt-decode';
-import {CommonService} from '../../shared/services/common.service';
-import {SPINNER_DIAMETER, USER_TYPES} from '../../shared/constants/settings';
+import {CommonService} from '@core/services/common.service';
+import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
 
 @Component({

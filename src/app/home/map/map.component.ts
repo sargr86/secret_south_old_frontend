@@ -1,16 +1,16 @@
 import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {BookingFormComponent} from '../../shared/components/booking-form/booking-form.component';
-import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '../../shared/constants/settings';
+import {BookingFormComponent} from '@shared/components/booking-form/booking-form.component';
+import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '@core/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {AgmInfoWindow, MapsAPILoader} from '@agm/core';
 import {MainService} from '../services/main.service';
 import {Router} from '@angular/router';
-import {PartnerService} from '../../shared/services/partner.service';
+import {PartnerService} from '@core/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../shared/services/common.service';
-import {SubjectService} from '../../shared/services/subject.service';
+import {CommonService} from '@core/services/common.service';
+import {SubjectService} from '@core/services/subject.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

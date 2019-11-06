@@ -5,9 +5,9 @@ import {HomeRoutingModule} from './home-routing.module';
 import {MainComponent} from './main/main.component';
 import {AgmCoreModule} from '@agm/core';
 
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {LayoutModule} from '../layout/layout.module';
-import {GOOGLE_API_KEY} from '../shared/constants/settings';
+import {GOOGLE_API_KEY} from '@core/constants/settings';
 import {AgmDirectionModule} from 'agm-direction';
 import {MapComponent} from './map/map.component';
 

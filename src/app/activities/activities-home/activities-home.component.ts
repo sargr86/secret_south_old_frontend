@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivitiesService} from '../../shared/services/activities.service';
+import {ActivitiesService} from '@core/services/activities.service';
 
 @Component({
     selector: 'app-activities-home',

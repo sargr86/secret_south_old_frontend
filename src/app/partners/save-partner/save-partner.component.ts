@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PartnerService} from '../../shared/services/partner.service';
+import {PartnerService} from '@core/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
-import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '../../shared/constants/settings';
-import {CommonService} from '../../shared/services/common.service';
-import {patternValidator} from '../../shared/helpers/pattern-validator';
-import {EMAIL_PATTERN} from '../../shared/constants/patterns';
-import {PartnerType} from '../../shared/models/PartnerType';
-import {Partner} from '../../shared/models/Partner';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '@core/constants/settings';
+import {CommonService} from '@core/services/common.service';
+import {patternValidator} from '@core/helpers/pattern-validator';
+import {EMAIL_PATTERN} from '@core/constants/patterns';
+import {PartnerType} from '@shared/models/PartnerType';
+import {Partner} from '@shared/models/Partner';
 
 @Component({
     selector: 'app-save-partner',

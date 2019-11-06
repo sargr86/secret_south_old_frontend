@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {JobsRoutingModule} from './jobs-routing.module';
 import {ShowJobsComponent} from './show-jobs/show-jobs.component';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {AssignJobComponent} from './assign-job/assign-job.component';
 
 @NgModule({

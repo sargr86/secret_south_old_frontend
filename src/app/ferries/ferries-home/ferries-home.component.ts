@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {API_URL} from '../../shared/constants/settings';
-import {FerryService} from '../../shared/services/ferry.service';
-import {Ferry} from '../../shared/models/Ferry';
+import {API_URL} from '@core/constants/settings';
+import {FerryService} from '@core/services/ferry.service';
+import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery';
-import {AuthService} from '../../shared/services/auth.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-ferries-home',

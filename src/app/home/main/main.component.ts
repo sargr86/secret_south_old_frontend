@@ -1,7 +1,7 @@
 /// <reference path="../../../../types/index.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {SubjectService} from '../../shared/services/subject.service';
+import {SubjectService} from '@core/services/subject.service';
 import {} from 'googlemaps';
 
 

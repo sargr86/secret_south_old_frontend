@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FOOD_DRINK_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {FOOD_DRINK_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
 import {Observable} from 'rxjs';
-import {FoodDrinkService} from '../../shared/services/food-drink.service';
-import {AuthService} from '../../shared/services/auth.service';
+import {FoodDrinkService} from '@core/services/food-drink.service';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-show-food-drink',

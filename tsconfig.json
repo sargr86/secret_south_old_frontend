@@ -31,6 +31,12 @@
       ],
       "@shared/*": [
         "app/shared/*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@core/*": [
+        "app/core/*"
       ]
     }
   },

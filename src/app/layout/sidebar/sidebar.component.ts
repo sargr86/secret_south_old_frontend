@@ -1,16 +1,15 @@
 import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS, USER_TYPES} from '../../shared/constants/settings';
+import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS, USER_TYPES} from '@core/constants/settings';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
-import {AuthService} from '../../shared/services/auth.service';
-import {PartnerService} from '../../shared/services/partner.service';
+import {AuthService} from '@core/services/auth.service';
+import {PartnerService} from '@core/services/partner.service';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../../home/services/main.service';
-import {SubjectService} from '../../shared/services/subject.service';
+import {SubjectService} from '@core/services/subject.service';
 import {filter} from 'rxjs/operators';
-import {log} from 'util';
-import {Section} from '../../shared/models/Section';
+import {Section} from '@shared/models/Section';
 
 /**
  * Food data with nested structure.

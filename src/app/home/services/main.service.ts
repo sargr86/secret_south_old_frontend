@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import * as Base from "../../config.js";
-import {API_URL} from '../../shared/constants/settings';
+import {HttpClient} from '@angular/common/http';
+import {API_URL} from '@core/constants/settings';
 
 @Injectable({
     providedIn: 'root'

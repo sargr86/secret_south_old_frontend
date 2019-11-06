@@ -4,7 +4,7 @@ import {ShowActivityTypesComponent} from './show-activity-types/show-activity-ty
 import {SaveActivityTypeComponent} from './save-activity-type/save-activity-type.component';
 import {ShowActivitiesComponent} from './show-activities/show-activities.component';
 import {SaveActivityComponent} from './save-activity/save-activity.component';
-import {ActivityResolverService} from '../shared/resolvers/activity-resolver.service';
+import {ActivityResolverService} from '@core/resolvers/activity-resolver.service';
 import {ActivitiesHomeComponent} from './activities-home/activities-home.component';
 import {ActivitiesListComponent} from './activities-list/activities-list.component';
 import {ActivitiesSingleComponent} from './activities-single/activities-single.component';

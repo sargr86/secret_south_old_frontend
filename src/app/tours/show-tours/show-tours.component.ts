@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {TOURS_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../shared/constants/settings';
+import {TOURS_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
 import {Observable} from 'rxjs/internal/Observable';
-import {ToursService} from '../../shared/services/tours.service';
-import {Tour} from '../../shared/models/Tour';
-import {AuthService} from '../../shared/services/auth.service';
+import {ToursService} from '@core/services/tours.service';
+import {Tour} from '@shared/models/Tour';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-show-tours',
