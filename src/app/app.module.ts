@@ -14,9 +14,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import {NotFoundComponent} from './not-found/not-found.component';
-import {MaterialModule} from './shared/modules/material.module';
+import {MaterialModule} from '@shared/modules/material.module';
 import {ToastrModule} from 'ngx-toastr';
-import {RequestInterceptor} from './shared/helpers/http.interceptor';
+import {RequestInterceptor} from '@shared/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
 import {LayoutModule} from './layout/layout.module';
@@ -42,7 +42,7 @@ export function tokenGetter() {
         StorageServiceModule,
         MaterialModule,
         ToastrModule.forRoot({
-            preventDuplicates: true
+              preventDuplicates: true
         }),
         JwtModule.forRoot({
             config: {
