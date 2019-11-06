@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SubjectService} from '@core/services/subject.service';
 import {FOOD_DRINK_FOLDER} from '@core/constants/settings';
 import {MainService} from '../../home/services/main.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-food-drink-home',
@@ -14,7 +15,8 @@ export class FoodDrinkHomeComponent implements OnInit {
 
     constructor(
         private subject: SubjectService,
-        private main: MainService
+        private main: MainService,
+        public router: Router
     ) {
     }
 
