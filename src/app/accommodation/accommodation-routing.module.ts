@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowAccommodationsComponent} from './show-accommodations/show-accommodations.component';
 import {SaveAccommodationComponent} from './save-accommodation/save-accommodation.component';
-import {OneAccommodationResolverService} from '../core/resolvers/one-accommodation-resolver.service';
+import {OneAccommodationResolverService} from '@core/resolvers/one-accommodation-resolver.service';
 import {AccommodationsHomeComponent} from './accommodations-home/accommodations-home.component';
 import {AccommodationsListComponent} from './accommodations-list/accommodations-list.component';
 import {AccommodationSingleComponent} from './accommodation-single/accommodation-single.component';

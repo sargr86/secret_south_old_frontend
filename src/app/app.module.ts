@@ -19,8 +19,6 @@ import {ToastrModule} from 'ngx-toastr';
 import {RequestInterceptor} from '@core/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
-import {LayoutModule} from './layout/layout.module';
-import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {CoreModule} from '@core/core.module';
 
 // Token getter for JWT module
@@ -38,7 +36,6 @@ export function tokenGetter() {
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        LayoutModule,
         CoreModule,
         ReactiveFormsModule,
         StorageServiceModule,
