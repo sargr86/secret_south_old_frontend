@@ -21,6 +21,11 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
+.header_top {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
 p {
   margin-bottom: 0 !important;
 }
@@ -561,7 +566,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 
-.activityTypes,.tourTypes {
+.activityTypes, .tourTypes {
 
   .ng-select {
     margin-top: 2px;
