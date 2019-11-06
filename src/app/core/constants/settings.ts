@@ -2,6 +2,7 @@ import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '../../../environments/environment';
 import {Section} from '../../shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
+import {NgxGalleryOptions} from 'ngx-gallery';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
@@ -190,4 +191,26 @@ export const USER_ROLES = [
     {name: 'partner', url: '/partners'},
     {name: 'employee', url: '/employees'},
     {name: 'customer', url: '/customers'},
+];
+
+
+export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
+    {
+        'image': false, 'height': '100px',
+        'previewFullscreen': true,
+        'width': '50%',
+        'previewKeyboardNavigation': true,
+        'imageDescription': true,
+        'previewCloseOnEsc': true,
+        'thumbnailActions': [
+            // {
+            //     icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
+            // },
+            // {
+            //     icon: 'fa fa-star', onClick: this.makeCover.bind(this), titleText: 'cover'
+            // }
+        ]
+    },
+    {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+    // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
 ];
