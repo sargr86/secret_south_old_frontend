@@ -24,7 +24,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         SharedModule,
         ToursModule,
         FerriesModule,
-        AccommodationModule,
+        // AccommodationModule,
         ActivitiesModule,
         FoodDrinkModule,
         PartnersModule

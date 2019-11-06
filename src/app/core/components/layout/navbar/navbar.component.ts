@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MAIN_SECTIONS} from '@core/constants/settings';
 import {CommonService} from '@core/services/common.service';
-import {MainService} from '../../home/services/main.service';
+import {MainService} from '../../../../home/services/main.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {PartnerService} from '@core/services/partner.service';
