@@ -24,6 +24,7 @@ import {FERRY_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {DropzoneConfig} from 'ngx-dropzone-wrapper';
 import {NgxGalleryOptions} from 'ngx-gallery';
+import {SubjectService} from '@core/services/subject.service';
 
 
 @Component({
@@ -70,7 +71,8 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         public auth: AuthService,
         private _formMsg: ShowFormMessagePipe,
         private formData: BuildFormDataPipe,
-        private getRedirectUrl: RedirectUrlGeneratorPipe
+        private getRedirectUrl: RedirectUrlGeneratorPipe,
+        private subject: SubjectService
     ) {
     }
 
@@ -246,6 +248,10 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
 
     get companyCtrl(): AbstractControl {
         return this.ferryForm.get('company_id');
+    }
+
+    toggleSidebar(action) {
+        this.subject.setSidebarAction(action);
     }
 
     ngOnDestroy() {
