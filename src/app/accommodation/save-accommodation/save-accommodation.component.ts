@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ACCOMMODATIONS_FOLDER, EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER} from '@core/constants/settings';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -99,8 +99,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         if (dt['img']) {
             this.imgPath = ACCOMMODATIONS_FOLDER + dt['img'];
         }
-
-        console.log(dt)
     }
 
     /**
@@ -122,7 +120,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     /**
      * Gets activity provider companies list
      */
-    getCompanies(accommodationData) {
+    getCompanies(accommodationData): void {
         this.subscriptions.push(this._companies.get({name: 'accommodation'}).subscribe((dt: Company[]) => {
             this.companies = dt;
             this.checkFormData.transform('accommodation', accommodationData, this.companies, this.editCase);
@@ -133,7 +131,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      * Adds/updates food drink info
      * @param address food-drink address
      */
-    save(address) {
+    save(address): void {
         // if (this.accommodationForm.valid) {
         console.log(this.dropZoneFiles)
         this.common.formProcessing = true;
@@ -148,32 +146,32 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         // }
     }
 
-    getFile(e) {
+    getFile(e): void {
         this.dropZoneFiles.push(e);
     }
 
-    removeSavedImg() {
+    removeSavedImg(): void {
         this.imgPath = '';
         this.accommodationForm.patchValue({'img': ''});
     }
 
-    get nameCtrl() {
+    get nameCtrl(): AbstractControl {
         return this.accommodationForm.get('lat');
     }
 
-    get latCtrl() {
+    get latCtrl(): AbstractControl {
         return this.accommodationForm.get('lat');
     }
 
-    get lngCtrl() {
+    get lngCtrl(): AbstractControl {
         return this.accommodationForm.get('lng');
     }
 
-    get addressCtrl() {
+    get addressCtrl(): AbstractControl {
         return this.accommodationForm.get('address');
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.subscriptions.forEach(s => s.unsubscribe());
     }
 

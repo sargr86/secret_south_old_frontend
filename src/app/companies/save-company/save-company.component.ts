@@ -16,7 +16,7 @@ export class SaveCompanyComponent implements OnInit, OnDestroy {
     companyForm: FormGroup;
     companyTypes;
     editCase = false;
-    redirectUrl = 'admin/companies';
+    redirectUrl = 'admin/companies/show';
     fields = {
         name: ['', Validators.required],
         type_id: ['', Validators.required]
