@@ -1,18 +1,29 @@
-import { Injectable } from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SubjectService {
-  public mapData = new Subject<any>();
-  constructor() { }
+    public mapData = new Subject<any>();
+    public sidebarActions = new Subject<any>();
 
-  setMapData(value){
-    this.mapData.next(value)
-  }
+    constructor() {
+    }
 
-  getMapData(): Observable<any> {
-    return this.mapData.asObservable();
-  }
+    setMapData(value) {
+        this.mapData.next(value)
+    }
+
+    getMapData(): Observable<any> {
+        return this.mapData.asObservable();
+    }
+
+    setSidebarAction(value) {
+        this.sidebarActions.next(value);
+    }
+
+    getSidebarAction(): Observable<any> {
+        return this.sidebarActions.asObservable();
+    }
 }
