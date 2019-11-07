@@ -88,14 +88,17 @@
     <!-- Drop zone -->
     <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
         <img *ngIf="imgPath" [src]="imgPath" class="savedImg">
-<!--        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
-        <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig" (addedFile)="getFile($event)"
+        <!--        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
+        <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
+                  (addedFile)="getFile($event)"
                   *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
     </div>
 
-
-    <ng-container *ngIf="accommodationData">
-        <ngx-gallery [options]="galleryOptions" [images]="accommodationData.images" class="ferryGallery"></ngx-gallery>
-    </ng-container>
-
 </div>
+<div class="galleryContainer">
+    <ng-container *ngIf="accommodationData">
+        <ngx-gallery [options]="galleryOptions" [images]="accommodationData.images" (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"
+                     class="accommodationGallery"></ngx-gallery>
+    </ng-container>
+</div>
+
