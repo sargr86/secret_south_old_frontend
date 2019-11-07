@@ -97,7 +97,9 @@
 </div>
 <div class="galleryContainer">
     <ng-container *ngIf="accommodationData">
-        <ngx-gallery [options]="galleryOptions" [images]="accommodationData.images" (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"
+
+        <ngx-gallery [options]="galleryOptions" [images]="accommodationData.images" (change)="onChange($event)"
+                     (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"
                      class="accommodationGallery"></ngx-gallery>
     </ng-container>
 </div>

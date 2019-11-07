@@ -15,7 +15,7 @@ import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 import {ACCOMMODATION_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 
 @Component({
@@ -70,8 +70,17 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+        console.log(this.galleryOptions)
+
         this.setFormFields();
         this.common.dataLoading = true;
+        this.galleryOptions[0].thumbnailActions = [
+            {
+                icon: 'fa fa-star', onClick: (event: Event, index: number) => {
+                    this.makeCover(event, index)
+                }, titleText: 'cover'
+            }
+        ];
         this.subscriptions.push(this.route.data.subscribe(dt => {
 
             // Getting companies list
@@ -86,6 +95,14 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
             this.common.dataLoading = false;
 
         }));
+    }
+
+    makeCover(event, index) {
+        const currentImg = this.accommodationData.images[index];
+    }
+
+    onChange(e) {
+        console.log(e)
     }
 
     /**
