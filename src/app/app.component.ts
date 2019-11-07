@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from './admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {AuthService} from '@core/services/auth.service';
 import {MatSidenav} from '@angular/material';
+import {SubjectService} from '@core/services/subject.service';
 
 
 @Component({
@@ -14,13 +15,11 @@ import {MatSidenav} from '@angular/material';
     styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'Secret South';
     routeSubscription: Subscription;
     pageTitle: string;
-
-
-    sidenav: MatSidenav;
+    @ViewChild('sidenav') sidenav: MatSidenav;
 
     constructor(
         public Admin: AdminService,
@@ -28,6 +27,7 @@ export class AppComponent implements OnDestroy {
         private route: ActivatedRoute,
         private _title: Title,
         public _auth: AuthService,
+        private subject: SubjectService,
         private cdr: ChangeDetectorRef
     ) {
 
@@ -53,6 +53,15 @@ export class AppComponent implements OnDestroy {
         });
 
 
+    }
+
+    ngOnInit(): void {
+        this.subject.getSidebarAction().subscribe(action => {
+
+            this.sidenav.toggle();
+            this.closeSidenav(this.sidenav);
+
+        });
     }
 
 

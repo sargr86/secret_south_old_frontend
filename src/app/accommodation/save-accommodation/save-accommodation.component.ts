@@ -16,6 +16,7 @@ import {ACCOMMODATION_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {NgxGalleryOptions} from 'ngx-gallery';
+import {SubjectService} from '@core/services/subject.service';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -61,7 +62,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         private _formMsg: ShowFormMessagePipe,
         public auth: AuthService,
         private formData: BuildFormDataPipe,
-        private getRedirectUrl: RedirectUrlGeneratorPipe
+        private getRedirectUrl: RedirectUrlGeneratorPipe,
+        private subject: SubjectService
     ) {
 
     }
@@ -169,6 +171,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     get addressCtrl(): AbstractControl {
         return this.accommodationForm.get('address');
+    }
+
+    toggleSidebar(action) {
+        this.subject.setSidebarAction(action);
     }
 
     ngOnDestroy(): void {
