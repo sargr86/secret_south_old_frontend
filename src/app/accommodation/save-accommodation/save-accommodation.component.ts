@@ -17,6 +17,7 @@ import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pip
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
+import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 
 @Component({
     selector: 'app-save-accommodation',
@@ -63,14 +64,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         public auth: AuthService,
         private formData: BuildFormDataPipe,
         private getRedirectUrl: RedirectUrlGeneratorPipe,
-        private subject: SubjectService
+        private subject: SubjectService,
+        private basename: GetFileBasenamePipe
     ) {
 
     }
 
     ngOnInit(): void {
-
-        console.log(this.galleryOptions)
 
         this.setFormFields();
         this.common.dataLoading = true;
@@ -98,7 +98,9 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
     }
 
     makeCover(event, index) {
-        const currentImg = this.accommodationData.images[index];
+        const currentImg = this.basename.transform(this.accommodationData.images[index].big);
+        this.accommodationForm.patchValue({img: currentImg})
+        console.log(this.accommodationForm.value)
     }
 
     onChange(e) {
@@ -115,8 +117,9 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         this.addressCtrl.disable();
         this.accommodationData = dt;
         this.accommodationForm.patchValue(dt);
+        console.log(dt.folder)
         if (dt['img']) {
-            this.imgPath = ACCOMMODATIONS_FOLDER + dt['img'];
+            this.imgPath = dt.realFolder + '/' + dt['img'];
         }
     }
 
@@ -152,7 +155,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      */
     save(address): void {
         // if (this.accommodationForm.valid) {
-        console.log(this.dropZoneFiles)
+        console.log(this.accommodationForm.value)
         this.common.formProcessing = true;
         const formData = this.formData.transform({
             ...this.accommodationForm.value,
