@@ -168,10 +168,6 @@ header {
   }
 }
 
-.selected {
-  color: #08C1C6 !important;
-}
-
 .sidebarToggler {
   @include noBgBtn;
   cursor: pointer;

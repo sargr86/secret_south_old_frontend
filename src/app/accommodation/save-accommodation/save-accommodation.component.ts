@@ -36,7 +36,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     companies: Company[] = [];
 
-    @ViewChild('searchAddress')
+    @ViewChild('searchAddress') searchAddress;
     searchElementRef: ElementRef;
     options = {types: ['geocode']};
 
@@ -72,24 +72,36 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+
         this.setFormFields();
         this.common.dataLoading = true;
         this.galleryOptions[0].thumbnailActions = [
             {
                 icon: 'fa fa-star', onClick: (event: Event, index: number) => {
-                    this.makeCover(event, index)
+
+                    // Removing previous selected cover
+                    const selectedCover = document.querySelector('.selected')
+                    if (selectedCover) {
+                        selectedCover.classList.remove('selected');
+                    }
+
+                    // Marking selected image as cover by star icon
+                    const target = event.target as HTMLElement;
+                    target.classList.add('selected');
+
+                    this.makeCover(event, index);
                 }, titleText: 'cover'
             }
         ];
         this.subscriptions.push(this.route.data.subscribe(dt => {
 
             // Getting companies list
-            this.getCompanies(dt['accommodation']);
+            this.getCompanies(dt.accommodation);
 
 
             // Preparing the edit form for updating info case
             if (this.editCase) {
-                this.editFormPreparations(dt['accommodation']);
+                this.editFormPreparations(dt.accommodation);
             }
 
             this.common.dataLoading = false;
@@ -99,8 +111,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
 
     makeCover(event, index) {
         const currentImg = this.basename.transform(this.accommodationData.images[index].big);
-        this.accommodationForm.patchValue({img: currentImg})
-        console.log(this.accommodationForm.value)
+        this.accommodationForm.patchValue({img: currentImg});
+        this.imgPath = this.accommodationData.images[index].big;
+        // console.log(event)
+        // this.save(this.searchAddress);
     }
 
     onChange(e) {
@@ -117,10 +131,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         this.addressCtrl.disable();
         this.accommodationData = dt;
         this.accommodationForm.patchValue(dt);
-        console.log(dt.folder)
         if (dt['img']) {
             this.imgPath = dt.realFolder + '/' + dt['img'];
         }
+
+        let i = dt.images.filter(img => this.basename.transform(img.big) === this.basename.transform(this.imgPath));
+        document.querySelectorAll('[background-image="' + i[0]['big'] + '"]');
+        console.log(i, document.querySelectorAll('[style*="' + i[0]['big'] + '"]'));
     }
 
     /**
@@ -155,7 +172,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
      */
     save(address): void {
         // if (this.accommodationForm.valid) {
-        console.log(this.accommodationForm.value)
         this.common.formProcessing = true;
         const formData = this.formData.transform({
             ...this.accommodationForm.value,
