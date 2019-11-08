@@ -30,7 +30,8 @@ import {AgmDirectionModule} from 'agm-direction';
 import {MainSectionsComponent} from './components/main-sections/main-sections.component';
 import {Ng5SliderModule} from 'ng5-slider';
 import {ProgressBarModule} from 'angular-progress-bar';
-import { FiltersBarComponent } from './components/filters-bar/filters-bar.component';
+import {FiltersBarComponent} from './components/filters-bar/filters-bar.component';
+import {GetFileBasenamePipe} from './pipes/get-file-basename.pipe';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { FiltersBarComponent } from './components/filters-bar/filters-bar.compon
         DropzoneComponent,
         CarouselHolderComponent,
         MainSectionsComponent,
-        FiltersBarComponent
+        FiltersBarComponent,
+        GetFileBasenamePipe
     ],
     imports: [
         CommonModule,
@@ -78,6 +80,7 @@ import { FiltersBarComponent } from './components/filters-bar/filters-bar.compon
         GetImageUrlPipe,
         ShowFormMessagePipe,
         BuildFormDataPipe,
+        GetFileBasenamePipe,
         RedirectUrlGeneratorPipe,
         {
             provide: DROPZONE_CONFIG,
@@ -108,7 +111,8 @@ import { FiltersBarComponent } from './components/filters-bar/filters-bar.compon
         FormTitleComponent,
         CarouselHolderComponent,
         MainSectionsComponent,
-        FiltersBarComponent
+        FiltersBarComponent,
+        GetFileBasenamePipe
     ],
     entryComponents: [
         ConfirmationDialogComponent,
