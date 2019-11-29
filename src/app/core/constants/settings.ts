@@ -37,123 +37,123 @@ export const BOOKING_DIALOG_SETTINGS = {autoFocus: true, width: '500px'};
 export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
 
 export const USER_TYPES = [
-    {label: 'partners', role: 'partner'},
-    {label: 'employees', role: 'employee'},
-    {label: 'customers', role: 'customer'}
+  {label: 'partners', role: 'partner'},
+  {label: 'employees', role: 'employee'},
+  {label: 'customers', role: 'customer'}
 ];
 
 
 // Menu icons
 export const MENU_ITEM_ICONS = [
-    {item: 'dashboard', icon: 'fa-user'},
-    {item: 'ferries', icon: 'fa-anchor'},
-    {item: 'tours', icon: 'fa-directions'},
-    {item: 'tour types', icon: 'fa-street-view'},
-    {item: 'food', icon: 'fa-utensils'},
-    {item: 'activities', icon: 'fa-swimmer'},
-    {item: 'accommodations', icon: 'fa-bed'},
-    {item: 'companies', icon: 'fa-briefcase'},
-    {item: 'partners', icon: 'fa-users'},
-    {item: 'employees', icon: 'fa-users'},
-    {item: 'customers', icon: 'fa-users'},
-    {item: 'jobs', icon: 'fa-suitcase'}
+  {item: 'dashboard', icon: 'fa-user'},
+  {item: 'ferries', icon: 'fa-anchor'},
+  {item: 'tours', icon: 'fa-directions'},
+  {item: 'tour types', icon: 'fa-street-view'},
+  {item: 'food', icon: 'fa-utensils'},
+  {item: 'activities', icon: 'fa-swimmer'},
+  {item: 'accommodations', icon: 'fa-bed'},
+  {item: 'companies', icon: 'fa-briefcase'},
+  {item: 'partners', icon: 'fa-users'},
+  {item: 'employees', icon: 'fa-users'},
+  {item: 'customers', icon: 'fa-users'},
+  {item: 'jobs', icon: 'fa-suitcase'}
 ];
 
 // Partner links
 export const DASHBOARD_LINKS = [
-    {
-        name: 'Dashboard',
-        children: [
-            {name: 'Edit'},
-            {name: 'Show'},
-        ]
-    },
-    {
-        name: 'Activities',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-            {name: 'Add types'},
-            {name: 'Show types'}
-        ]
-    },
-    {
-        name: 'Accommodations',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-        ]
-    },
-    {
-        name: 'Ferries',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-        ]
-    },
-    {
-        name: 'Food/Drink',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-        ]
-    },
-    {
-        name: 'Tours',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-            {name: 'Add types'},
-            {name: 'Show types'}
-        ]
-    },
-    {
-        name: 'Companies',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-        ]
-    },
-    {
-        name: 'Partners',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'},
-            // {name: 'Add types'},
-            // {name: 'Show types'}
-        ]
-    },
-    {
-        name: 'Employees',
-        children: [
-            {name: 'Add'},
-            {name: 'Show'}
-            // {name: 'Add types'},
-            // {name: 'Show types'}
-        ]
-    },
-    {
-        name: 'Customers',
-        children: [
-            {name: 'Show'}
-        ]
-    },
-    {
-        name: 'Jobs',
-        children: [
-            {name: 'Show'}
-        ]
-    }
+  {
+    name: 'Dashboard',
+    children: [
+      {name: 'Edit'},
+      {name: 'Show'},
+    ]
+  },
+  {
+    name: 'Activities',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+      {name: 'Add types'},
+      {name: 'Show types'}
+    ]
+  },
+  {
+    name: 'Accommodations',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+    ]
+  },
+  {
+    name: 'Ferries',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+    ]
+  },
+  {
+    name: 'Food/Drink',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+    ]
+  },
+  {
+    name: 'Tours',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+      {name: 'Add types'},
+      {name: 'Show types'}
+    ]
+  },
+  {
+    name: 'Companies',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+    ]
+  },
+  {
+    name: 'Partners',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+      // {name: 'Add types'},
+      // {name: 'Show types'}
+    ]
+  },
+  {
+    name: 'Employees',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'}
+      // {name: 'Add types'},
+      // {name: 'Show types'}
+    ]
+  },
+  {
+    name: 'Customers',
+    children: [
+      {name: 'Show'}
+    ]
+  },
+  {
+    name: 'Jobs',
+    children: [
+      {name: 'Show'}
+    ]
+  }
 ];
 
 // Drop zone config
 export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-    url: '{no_url}',
-    maxFilesize: 50,
-    maxFiles: 1,
-    acceptedFiles: 'image/*',
-    autoProcessQueue: false,
-    addRemoveLinks: true
+  url: '{no_url}',
+  maxFilesize: 50,
+  maxFiles: 1,
+  acceptedFiles: 'image/*',
+  autoProcessQueue: false,
+  addRemoveLinks: true
 };
 
 // ngx-phone-number countries
@@ -162,55 +162,55 @@ export const DEFAULT_COUNTRY = 'ie';
 
 
 export const MAIN_SECTIONS: Section[] = [
-    {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
-    {name: 'Food/Drink', icon: 'restaurant_menu', link: 'food-drink'},
-    {name: 'Ferries', icon: 'directions_boat', link: 'ferries'},
-    {name: 'Tours', icon: 'beach_access', link: 'tours'},
-    {name: 'Activities', icon: 'directions_run', link: 'activities'},
-    // {name: 'Map'}
+  {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
+  {name: 'Food/Drink', icon: 'restaurant_menu', link: 'food-drink'},
+  {name: 'Ferries', icon: 'directions_boat', link: 'ferries'},
+  {name: 'Tours', icon: 'beach_access', link: 'tours'},
+  {name: 'Activities', icon: 'directions_run', link: 'activities'},
+  // {name: 'Map'}
 ];
 
 
 export const TIMEPICKER_THEME: NgxMaterialTimepickerTheme = {
-    container: {
-        bodyBackgroundColor: '#424242',
-        buttonColor: '#fff'
-    },
-    dial: {
-        dialBackgroundColor: '#555',
-    },
-    clockFace: {
-        clockFaceBackgroundColor: '#555',
-        clockHandColor: '#164547',
-        clockFaceTimeInactiveColor: '#fff'
-    }
+  container: {
+    bodyBackgroundColor: '#424242',
+    buttonColor: '#fff'
+  },
+  dial: {
+    dialBackgroundColor: '#555',
+  },
+  clockFace: {
+    clockFaceBackgroundColor: '#555',
+    clockHandColor: '#164547',
+    clockFaceTimeInactiveColor: '#fff'
+  }
 };
 
 export const USER_ROLES = [
-    {name: 'admin', url: '/admin'},
-    {name: 'partner', url: '/partners'},
-    {name: 'employee', url: '/employees'},
-    {name: 'customer', url: '/customers'},
+  {name: 'admin', url: '/admin'},
+  {name: 'partner', url: '/partners'},
+  {name: 'employee', url: '/employees'},
+  {name: 'customer', url: '/customers'},
 ];
 
 
 export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
-    {
-        'image': false, 'height': '100px',
-        'previewFullscreen': true,
-        'width': '50%',
-        'previewKeyboardNavigation': true,
-        'imageDescription': true,
-        'previewCloseOnEsc': true,
-        'thumbnailActions': [
-            // {
-            //     icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
-            // },
-            // {
-            //     icon: 'fa fa-star', onClick: this.makeCover.bind(this), titleText: 'cover'
-            // }
-        ]
-    },
-    {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
-    // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
+  {
+    'image': false, 'height': '100px',
+    'previewFullscreen': true,
+    'width': '50%',
+    'previewKeyboardNavigation': true,
+    'imageDescription': true,
+    'previewCloseOnEsc': true,
+    'thumbnailActions': [
+      // {
+      //     icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
+      // },
+      // {
+      //     icon: 'fa fa-star', onClick: this.makeCover.bind(this), titleText: 'cover'
+      // }
+    ]
+  },
+  {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+  // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
 ];
