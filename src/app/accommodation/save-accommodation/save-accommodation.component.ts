@@ -136,8 +136,11 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy {
         }
 
         let i = dt.images.filter(img => this.basename.transform(img.big) === this.basename.transform(this.imgPath));
-        document.querySelectorAll('[background-image="' + i[0]['big'] + '"]');
-        console.log(i, document.querySelectorAll('[style*="' + i[0]['big'] + '"]'));
+
+
+        console.log(document.querySelector('.ngx-gallery-thumbnail'));
+        window.onload = function () {
+        }
     }
 
     /**
