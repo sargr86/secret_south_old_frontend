@@ -4,10 +4,10 @@ import {PartnerService} from '@core/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
-    ALLOWED_COUNTRIES,
-    DEFAULT_COUNTRY, EDIT_FORM_GALLERY_OPTIONS,
-    FERRIES_FOLDER,
-    SPINNER_DIAMETER
+  ALLOWED_COUNTRIES,
+  DEFAULT_COUNTRY, EDIT_FORM_GALLERY_OPTIONS,
+  FERRIES_FOLDER,
+  SPINNER_DIAMETER
 } from '@core/constants/settings';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
@@ -25,237 +25,256 @@ import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pip
 import {DropzoneConfig} from 'ngx-dropzone-wrapper';
 import {NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
+import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 
 
 @Component({
-    selector: 'app-save-ferry',
-    templateUrl: './save-ferry.component.html',
-    styleUrls: ['./save-ferry.component.scss']
+  selector: 'app-save-ferry',
+  templateUrl: './save-ferry.component.html',
+  styleUrls: ['./save-ferry.component.scss']
 })
 export class SaveFerryComponent implements OnInit, OnDestroy {
 
-    ferryForm: FormGroup;
-    ferryData: Ferry;
-    spinnerDiameter = SPINNER_DIAMETER;
-    partners: Partner[] = [];
-    editCase = false;
-    redirectUrl = this.getRedirectUrl.transform('ferries');
-    allowedCountries = ALLOWED_COUNTRIES;
-    defaultCountry = DEFAULT_COUNTRY;
-    options = {types: ['geocode']};
-    ferryFields = FERRY_FIELDS;
-    dropZoneFiles = [];
-    imgPath;
-    formAction: string;
-    dropzoneIndividualConfig = {maxFiles: 5};
-    coverShown = true;
-    galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
+  ferryForm: FormGroup;
+  ferryData: Ferry;
+  spinnerDiameter = SPINNER_DIAMETER;
+  partners: Partner[] = [];
+  editCase = false;
+  redirectUrl = this.getRedirectUrl.transform('ferries');
+  allowedCountries = ALLOWED_COUNTRIES;
+  defaultCountry = DEFAULT_COUNTRY;
+  options = {types: ['geocode']};
+  ferryFields = FERRY_FIELDS;
+  dropZoneFiles = [];
+  imgPath;
+  formAction: string;
+  dropzoneIndividualConfig = {maxFiles: 5};
+  coverShown = true;
+  galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
-    companies: Company[] = [];
-    subscriptions: Subscription[] = [];
+  companies: Company[] = [];
+  subscriptions: Subscription[] = [];
 
-    @ViewChild('searchAddress')
-    public searchElementRef: ElementRef;
+  @ViewChild('searchAddress')
+  public searchElementRef: ElementRef;
 
 
-    constructor(
-        private _fb: FormBuilder,
-        private _ferries: FerryService,
-        private _partner: PartnerService,
-        private router: Router,
-        private route: ActivatedRoute,
-        private toastr: ToastrService,
-        public common: CommonService,
-        private checkFormData: CheckFormDataPipe,
-        private _companies: CompaniesService,
-        public auth: AuthService,
-        private _formMsg: ShowFormMessagePipe,
-        private formData: BuildFormDataPipe,
-        private getRedirectUrl: RedirectUrlGeneratorPipe,
-        private subject: SubjectService
-    ) {
-    }
+  constructor(
+    private _fb: FormBuilder,
+    private _ferries: FerryService,
+    private _partner: PartnerService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    public common: CommonService,
+    private checkFormData: CheckFormDataPipe,
+    private _companies: CompaniesService,
+    public auth: AuthService,
+    private _formMsg: ShowFormMessagePipe,
+    private formData: BuildFormDataPipe,
+    private getRedirectUrl: RedirectUrlGeneratorPipe,
+    private subject: SubjectService,
+    private basename: GetFileBasenamePipe,
+    private elRef: ElementRef,
+  ) {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
+    this.ferryForm = this._fb.group(this.ferryFields);
+    this.common.dataLoading = true;
+    // this.galleryOptions[0].thumbnailActions = [{
+    //     onClick: () => {
+    //         console.log('OK')
+    //     }
+    // }];
+    this.subscriptions.push(this.route.data.subscribe(dt => {
+      this.getCompanies();
+      if (this.route.snapshot.paramMap.get('id')) {
+        this.ferryData = dt['oneFerry'];
+        this.ferryFields['id'] = '';
         this.ferryForm = this._fb.group(this.ferryFields);
-        this.common.dataLoading = true;
-        // this.galleryOptions[0].thumbnailActions = [{
-        //     onClick: () => {
-        //         console.log('OK')
-        //     }
-        // }];
-        this.subscriptions.push(this.route.data.subscribe(dt => {
-            this.getCompanies();
-            if (this.route.snapshot.paramMap.get('id')) {
-                this.ferryData = dt['oneFerry'];
-                this.ferryFields['id'] = '';
-                this.ferryForm = this._fb.group(this.ferryFields);
-                this.editCase = true;
-                if (this.ferryData) {
-                    this.ferryForm.patchValue(this.ferryData);
-                    this.addressCtrl.disable();
-                }
-                if (this.ferryData['img']) {
-                    this.imgPath = FERRIES_FOLDER + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
-                    this.getCoverImgFromList();
-                }
-            }
-            this.formAction = this.editCase ? 'update' : 'add';
-            this.common.dataLoading = false;
-        }));
-
-    }
-
-    /**
-     * Resets address and reloads maps api to allow user to select from drop down again
-     */
-    resetAddress() {
-        this.ferryForm.patchValue({'address': ''});
-        this.addressCtrl.enable();
-    }
-
-    /**
-     * Adds or updates a ferry info
-     * @param address ferry address
-     */
-    saveFerry(address) {
-
-        this.common.formProcessing = true;
-        const formData = this.formData.transform({
-            ...this.ferryForm.value,
-            address: address.el.nativeElement.value.replace(/\r?\n|\r/g, '')
-        }, this.dropZoneFiles);
-
-
-        // if (this.ferryForm.valid) {
-        this.subscriptions.push(this._ferries[this.formAction](formData).subscribe(() => {
-            this._formMsg.transform('ferry', this.editCase, this.redirectUrl);
-        }));
-
-
-        // }
-    }
-
-    /**
-     * Gets ferry companies list
-     */
-    getCompanies() {
-        this.subscriptions.push(this._companies.get({name: 'ferries'}).subscribe((dt: Company[]) => {
-            this.companies = dt;
-            this.checkFormData.transform('ferry', this.ferryData, this.companies, this.editCase);
-        }));
-    }
-
-    /**
-     * Gets drop zone file
-     * @param e the file
-     */
-    getFiles(e) {
-        this.dropZoneFiles.push(e);
-    }
-
-
-    /**
-     * Removes saved drop zone image
-     */
-    removeSavedImg() {
-        this.imgPath = '';
-        this.ferryForm.patchValue({'img': ''});
-    }
-
-    removeImage(event, index): void {
-        // this.ferryData.images.splice(index, 1);
-        const image = this.ferryData.images.find((img, ind) => ind === index);
-
-        this._ferries.removeImage({
-            id: this.ferryData.id,
-            folder: this.ferryData.folder,
-            file: image['big'].split('/').pop()
-        }).subscribe(d => {
-            this.ferryData = d;
-        });
-    }
-
-    /**
-     * Marks the selected image as cover
-     * @param event
-     * @param index
-     */
-    makeCover(event, index) {
-
-        // Removing previous images marked as cover
-        const coverImg = document.querySelector('.coverStar');
-        if (coverImg) {
-            coverImg.classList.remove('coverStar');
+        this.editCase = true;
+        if (this.ferryData) {
+          this.ferryForm.patchValue(this.ferryData);
+          this.addressCtrl.disable();
         }
-
-        // Getting current star icon and marking it as selected
-        const el = event.target;
-        el.classList.add('coverStar');
-
-
-        const image = this.ferryData.images.find((img, ind) => ind === index);
-        if (image) {
-            this.imgPath = image['big'];
-            let p = this.imgPath.split('/').pop();
-            this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
-                this.toastr.success('The selected image was set as cover successfully');
-            });
+        if (this.ferryData['img']) {
+          this.imgPath = FERRIES_FOLDER + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
+          this.getCoverImgFromList();
         }
+      }
+      this.formAction = this.editCase ? 'update' : 'add';
+      this.common.dataLoading = false;
+    }));
+
+  }
+
+  /**
+   * Resets address and reloads maps api to allow user to select from drop down again
+   */
+  resetAddress() {
+    this.ferryForm.patchValue({'address': ''});
+    this.addressCtrl.enable();
+  }
+
+  /**
+   * Adds or updates a ferry info
+   * @param address ferry address
+   */
+  saveFerry(address) {
+
+    this.common.formProcessing = true;
+    const formData = this.formData.transform({
+      ...this.ferryForm.value,
+      address: address.el.nativeElement.value.replace(/\r?\n|\r/g, '')
+    }, this.dropZoneFiles);
+
+
+    // if (this.ferryForm.valid) {
+    this.subscriptions.push(this._ferries[this.formAction](formData).subscribe(() => {
+      this._formMsg.transform('ferry', this.editCase, this.redirectUrl);
+    }));
+
+
+    // }
+  }
+
+  /**
+   * Gets ferry companies list
+   */
+  getCompanies() {
+    this.subscriptions.push(this._companies.get({name: 'ferries'}).subscribe((dt: Company[]) => {
+      this.companies = dt;
+      this.checkFormData.transform('ferry', this.ferryData, this.companies, this.editCase);
+    }));
+  }
+
+  /**
+   * Gets drop zone file
+   * @param e the file
+   */
+  getFiles(e) {
+    this.dropZoneFiles.push(e);
+  }
+
+
+  /**
+   * Removes saved drop zone image
+   */
+  removeSavedImg() {
+    this.imgPath = '';
+    this.ferryForm.patchValue({'img': ''});
+  }
+
+  removeImage(event, index): void {
+    // this.ferryData.images.splice(index, 1);
+    const image = this.ferryData.images.find((img, ind) => ind === index);
+
+    this._ferries.removeImage({
+      id: this.ferryData.id,
+      folder: this.ferryData.folder,
+      file: image['big'].split('/').pop()
+    }).subscribe(d => {
+      this.ferryData = d;
+    });
+  }
+
+  /**
+   * Marks the selected image as cover
+   * @param event
+   * @param index
+   */
+  makeCover(event, index) {
+
+    // Removing previous images marked as cover
+    const coverImg = document.querySelector('.coverStar');
+    if (coverImg) {
+      coverImg.classList.remove('coverStar');
     }
 
-    getCoverImgFromList() {
-        // console.log(this.imgPath)
-        // console.log(document.querySelector('.ngx-gallery-thumbnails'));
-    }
-
-    getCompany() {
-        return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
-    }
+    // Getting current star icon and marking it as selected
+    const el = event.target;
+    el.classList.add('coverStar');
 
 
-    changed(e) {
-        this.ferryForm.patchValue({'phone': e.target.value});
+    const image = this.ferryData.images.find((img, ind) => ind === index);
+    if (image) {
+      this.imgPath = image['big'];
+      let p = this.imgPath.split('/').pop();
+      this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
+        this.toastr.success('The selected image was set as cover successfully');
+      });
+    }
+  }
+
+  getCoverImgFromList() {
+    // console.log(this.imgPath)
+    // console.log(document.querySelector('.ngx-gallery-thumbnails'));
+  }
+
+  getCompany() {
+    return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
+  }
+
+
+  changed(e) {
+    this.ferryForm.patchValue({'phone': e.target.value});
+  }
+
+  get nameCtrl() {
+    return this.ferryForm.get('name');
+  }
+
+  get latCtrl() {
+    return this.ferryForm.get('lat');
+  }
+
+  get lngCtrl() {
+    return this.ferryForm.get('lng');
+  }
+
+  get addressCtrl() {
+    return this.ferryForm.get('address');
+  }
+
+  get phoneCtrl() {
+    return this.ferryForm.get('phone');
+  }
+
+  get maxCtrl() {
+    return this.ferryForm.get('max_people');
+  }
+
+  get minCtrl() {
+    return this.ferryForm.get('min_people');
+  }
+
+  get companyCtrl(): AbstractControl {
+    return this.ferryForm.get('company_id');
+  }
+
+  toggleSidebar(action) {
+    this.subject.setSidebarAction(action);
+  }
+
+  ngAfterViewInit() {
+
+    const thumbs = this.elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
+
+    // Getting selected cover image star
+    for (let i = 0; i < thumbs.length; i++) {
+      const url = thumbs[i].style.backgroundImage;
+      const realUrl = this.basename.transform(url.slice(4, -1).replace(/"/g, ''));
+      if (this.basename.transform(this.imgPath) === realUrl) {
+        const star = thumbs[i].querySelector('.ngx-gallery-icon-content');
+        star.classList.add('selected');
+      }
     }
 
-    get nameCtrl() {
-        return this.ferryForm.get('name');
-    }
+  }
 
-    get latCtrl() {
-        return this.ferryForm.get('lat');
-    }
-
-    get lngCtrl() {
-        return this.ferryForm.get('lng');
-    }
-
-    get addressCtrl() {
-        return this.ferryForm.get('address');
-    }
-
-    get phoneCtrl() {
-        return this.ferryForm.get('phone');
-    }
-
-    get maxCtrl() {
-        return this.ferryForm.get('max_people');
-    }
-
-    get minCtrl() {
-        return this.ferryForm.get('min_people');
-    }
-
-    get companyCtrl(): AbstractControl {
-        return this.ferryForm.get('company_id');
-    }
-
-    toggleSidebar(action) {
-        this.subject.setSidebarAction(action);
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.forEach(s => s.unsubscribe());
-    }
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 
 }
