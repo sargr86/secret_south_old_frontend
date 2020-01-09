@@ -18,6 +18,7 @@ import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places
 import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
+import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 
 @Component({
   selector: 'app-save-accommodation',
@@ -67,6 +68,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     private subject: SubjectService,
     private basename: GetFileBasenamePipe,
     private elRef: ElementRef,
+    private markCover: MarkSelectedCoverImagePipe
   ) {
 
   }
@@ -94,6 +96,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
         }, titleText: 'cover'
       }
     ];
+
+
     this.subscriptions.push(this.route.data.subscribe(dt => {
 
       // Getting companies list
@@ -111,6 +115,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   makeCover(event, index) {
+    console.log(this.accommodationData.images)
     const currentImg = this.basename.transform(this.accommodationData.images[index].big);
     this.accommodationForm.patchValue({img: currentImg});
     this.imgPath = this.accommodationData.images[index].big;
@@ -190,6 +195,19 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.accommodationForm.patchValue({'img': ''});
   }
 
+
+  toggleSidebar(action) {
+    this.subject.setSidebarAction(action);
+  }
+
+  handleAddressChange(e) {
+    console.log(e)
+  }
+
+  ngAfterViewInit() {
+    this.markCover.transform(this.imgPath, this.elRef);
+  }
+
   get nameCtrl(): AbstractControl {
     return this.accommodationForm.get('lat');
   }
@@ -204,30 +222,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
 
   get addressCtrl(): AbstractControl {
     return this.accommodationForm.get('address');
-  }
-
-  toggleSidebar(action) {
-    this.subject.setSidebarAction(action);
-  }
-
-  handleAddressChange(e) {
-    console.log(e)
-  }
-
-  ngAfterViewInit() {
-
-    const thumbs = this.elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
-
-    // Getting selected cover image star
-    for (let i = 0; i < thumbs.length; i++) {
-      const url = thumbs[i].style.backgroundImage;
-      const realUrl = this.basename.transform(url.slice(4, -1).replace(/"/g, ''));
-      if (this.basename.transform(this.imgPath) === realUrl) {
-        const star = thumbs[i].querySelector('.ngx-gallery-icon-content');
-        star.classList.add('selected');
-      }
-    }
-
   }
 
   ngOnDestroy(): void {

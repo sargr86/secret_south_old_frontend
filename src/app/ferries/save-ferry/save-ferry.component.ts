@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FerryService} from '@core/services/ferry.service';
 import {PartnerService} from '@core/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -26,6 +26,7 @@ import {DropzoneConfig} from 'ngx-dropzone-wrapper';
 import {NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
+import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 
 
 @Component({
@@ -33,7 +34,7 @@ import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
   templateUrl: './save-ferry.component.html',
   styleUrls: ['./save-ferry.component.scss']
 })
-export class SaveFerryComponent implements OnInit, OnDestroy {
+export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ferryForm: FormGroup;
   ferryData: Ferry;
@@ -76,17 +77,34 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
     private subject: SubjectService,
     private basename: GetFileBasenamePipe,
     private elRef: ElementRef,
+    private markCover: MarkSelectedCoverImagePipe
   ) {
   }
 
   ngOnInit() {
     this.ferryForm = this._fb.group(this.ferryFields);
     this.common.dataLoading = true;
-    // this.galleryOptions[0].thumbnailActions = [{
-    //     onClick: () => {
-    //         console.log('OK')
-    //     }
-    // }];
+    // this.getSelectedCover()
+
+    this.galleryOptions[0].thumbnailActions = [
+      {
+        icon: 'fa fa-star', onClick: (event: Event, index: number) => {
+
+          // Removing previous selected cover
+          const selectedCover = document.querySelector('.selected')
+          if (selectedCover) {
+            selectedCover.classList.remove('selected');
+          }
+
+          // Marking selected image as cover by star icon
+          const target = event.target as HTMLElement;
+          target.classList.add('selected');
+          this.makeCover(event, index);
+        }, titleText: 'cover'
+      }
+    ];
+
+
     this.subscriptions.push(this.route.data.subscribe(dt => {
       this.getCompanies();
       if (this.route.snapshot.paramMap.get('id')) {
@@ -98,8 +116,9 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
           this.ferryForm.patchValue(this.ferryData);
           this.addressCtrl.disable();
         }
+
         if (this.ferryData['img']) {
-          this.imgPath = FERRIES_FOLDER + this.ferryData['name'].replace(/ /g, '_') + '/' + this.ferryData['img'];
+          this.imgPath = this.ferryData['realFolder'] + '/' + this.ferryData['img'];
           this.getCoverImgFromList();
         }
       }
@@ -205,12 +224,19 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
         this.toastr.success('The selected image was set as cover successfully');
       });
     }
+
+
+    // const currentImg = this.basename.transform(this.ferryData.images[index].big);
+    // this.ferryForm.patchValue({img: currentImg});
+    // this.imgPath = this.ferryData.images[index].big;
+    // console.log(this.imgPath)
   }
 
   getCoverImgFromList() {
     // console.log(this.imgPath)
     // console.log(document.querySelector('.ngx-gallery-thumbnails'));
   }
+
 
   getCompany() {
     return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
@@ -258,18 +284,10 @@ export class SaveFerryComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.markCover.transform(this.imgPath, this.elRef);
+  }
 
-    const thumbs = this.elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
-
-    // Getting selected cover image star
-    for (let i = 0; i < thumbs.length; i++) {
-      const url = thumbs[i].style.backgroundImage;
-      const realUrl = this.basename.transform(url.slice(4, -1).replace(/"/g, ''));
-      if (this.basename.transform(this.imgPath) === realUrl) {
-        const star = thumbs[i].querySelector('.ngx-gallery-icon-content');
-        star.classList.add('selected');
-      }
-    }
+  getSelectedCover(e, index) {
 
   }
 
