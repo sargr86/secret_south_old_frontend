@@ -32,92 +32,95 @@ import {Ng5SliderModule} from 'ng5-slider';
 import {ProgressBarModule} from 'angular-progress-bar';
 import {FiltersBarComponent} from './components/filters-bar/filters-bar.component';
 import {GetFileBasenamePipe} from './pipes/get-file-basename.pipe';
+import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe';
 
 @NgModule({
-    declarations: [
-        ConfirmationDialogComponent,
-        GetTableDataSourcePipe,
-        MatReusableTableComponent,
-        CheckFormDataPipe,
-        GetImageUrlPipe,
-        InvitationFormComponent,
-        EditProfileComponent,
-        FormTitleComponent,
-        ShowFormMessagePipe,
-        BuildFormDataPipe,
-        BookingFormComponent,
-        RedirectUrlGeneratorPipe,
-        DropzoneComponent,
-        CarouselHolderComponent,
-        MainSectionsComponent,
-        FiltersBarComponent,
-        GetFileBasenamePipe
-    ],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        InternationalPhoneNumberModule,
-        DropzoneModule,
-        FormsModule,
-        NgSelectModule,
-        ReactiveFormsModule,
-        GooglePlaceModule,
-        NumberPickerModule,
-        NgxMaterialTimepickerModule,
-        NgxGalleryModule,
-        CarouselModule,
-        AgmCoreModule.forRoot({
-            apiKey: GOOGLE_API_KEY,
-            libraries: ['places', 'geometry'],
-        }),
-        AgmDirectionModule,
-        Ng5SliderModule,
-        ProgressBarModule
-    ],
-    providers: [
-        GetTableDataSourcePipe,
-        CheckFormDataPipe,
-        GetImageUrlPipe,
-        ShowFormMessagePipe,
-        BuildFormDataPipe,
-        GetFileBasenamePipe,
-        RedirectUrlGeneratorPipe,
-        {
-            provide: DROPZONE_CONFIG,
-            useValue: DEFAULT_DROPZONE_CONFIG
-        }
-    ],
-    exports: [
-        MaterialModule,
-        InternationalPhoneNumberModule,
-        DropzoneModule,
-        FormsModule,
-        ReactiveFormsModule,
-        GooglePlaceModule,
-        NgSelectModule,
-        NumberPickerModule,
-        NgxGalleryModule,
-        NgxMaterialTimepickerModule,
-        CarouselModule,
-        AgmCoreModule,
-        AgmDirectionModule,
-        Ng5SliderModule,
-        ProgressBarModule,
-        GetTableDataSourcePipe,
-        GetImageUrlPipe,
-        MatReusableTableComponent,
-        InvitationFormComponent,
-        EditProfileComponent,
-        FormTitleComponent,
-        CarouselHolderComponent,
-        MainSectionsComponent,
-        FiltersBarComponent,
-        GetFileBasenamePipe
-    ],
-    entryComponents: [
-        ConfirmationDialogComponent,
-        BookingFormComponent
-    ]
+  declarations: [
+    ConfirmationDialogComponent,
+    GetTableDataSourcePipe,
+    MatReusableTableComponent,
+    CheckFormDataPipe,
+    GetImageUrlPipe,
+    InvitationFormComponent,
+    EditProfileComponent,
+    FormTitleComponent,
+    ShowFormMessagePipe,
+    BuildFormDataPipe,
+    BookingFormComponent,
+    RedirectUrlGeneratorPipe,
+    DropzoneComponent,
+    CarouselHolderComponent,
+    MainSectionsComponent,
+    FiltersBarComponent,
+    GetFileBasenamePipe,
+    MarkSelectedCoverImagePipe
+  ],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    InternationalPhoneNumberModule,
+    DropzoneModule,
+    FormsModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    GooglePlaceModule,
+    NumberPickerModule,
+    NgxMaterialTimepickerModule,
+    NgxGalleryModule,
+    CarouselModule,
+    AgmCoreModule.forRoot({
+      apiKey: GOOGLE_API_KEY,
+      libraries: ['places', 'geometry'],
+    }),
+    AgmDirectionModule,
+    Ng5SliderModule,
+    ProgressBarModule
+  ],
+  providers: [
+    GetTableDataSourcePipe,
+    CheckFormDataPipe,
+    GetImageUrlPipe,
+    ShowFormMessagePipe,
+    BuildFormDataPipe,
+    GetFileBasenamePipe,
+    RedirectUrlGeneratorPipe,
+    MarkSelectedCoverImagePipe,
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
+  ],
+  exports: [
+    MaterialModule,
+    InternationalPhoneNumberModule,
+    DropzoneModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GooglePlaceModule,
+    NgSelectModule,
+    NumberPickerModule,
+    NgxGalleryModule,
+    NgxMaterialTimepickerModule,
+    CarouselModule,
+    AgmCoreModule,
+    AgmDirectionModule,
+    Ng5SliderModule,
+    ProgressBarModule,
+    GetTableDataSourcePipe,
+    GetImageUrlPipe,
+    MatReusableTableComponent,
+    InvitationFormComponent,
+    EditProfileComponent,
+    FormTitleComponent,
+    CarouselHolderComponent,
+    MainSectionsComponent,
+    FiltersBarComponent,
+    GetFileBasenamePipe
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent,
+    BookingFormComponent
+  ]
 })
 export class SharedModule {
 }
