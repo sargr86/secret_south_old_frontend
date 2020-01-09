@@ -7,6 +7,7 @@ import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.componen
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
 
+
 @NgModule({
     declarations: [
         NavbarComponent,

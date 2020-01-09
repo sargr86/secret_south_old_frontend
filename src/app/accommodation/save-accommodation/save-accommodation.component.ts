@@ -210,6 +210,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.subject.setSidebarAction(action);
   }
 
+  handleAddressChange(e) {
+    console.log(e)
+  }
+
   ngAfterViewInit() {
 
     const thumbs = this.elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
