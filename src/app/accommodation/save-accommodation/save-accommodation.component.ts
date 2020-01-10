@@ -19,6 +19,7 @@ import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
+import SelectImageToMakeCover from '@core/helpers/select-image-to-make-cover';
 
 @Component({
   selector: 'app-save-accommodation',
@@ -68,7 +69,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     private subject: SubjectService,
     private basename: GetFileBasenamePipe,
     private elRef: ElementRef,
-    private markCover: MarkSelectedCoverImagePipe
+    private markCover: MarkSelectedCoverImagePipe,
   ) {
 
   }
@@ -81,17 +82,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.galleryOptions[0].thumbnailActions = [
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
-
-          // Removing previous selected cover
-          const selectedCover = document.querySelector('.selected')
-          if (selectedCover) {
-            selectedCover.classList.remove('selected');
-          }
-
-          // Marking selected image as cover by star icon
-          const target = event.target as HTMLElement;
-          target.classList.add('selected');
-
+          SelectImageToMakeCover.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
       }
@@ -113,6 +104,20 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
 
     }));
   }
+
+  // selectSetCover(event: Event, index: number) {
+  //
+  //   // Removing previous selected cover
+  //   const selectedCover = document.querySelector('.selected');
+  //   if (selectedCover) {
+  //     selectedCover.classList.remove('selected');
+  //   }
+  //
+  //   // Marking selected image as cover by star icon
+  //   const target = event.target as HTMLElement;
+  //   target.classList.add('selected');
+  //
+  // }
 
   makeCover(event, index) {
     console.log(this.accommodationData.images)
