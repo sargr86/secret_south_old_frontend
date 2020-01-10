@@ -62,7 +62,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   constructor(
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
     private _ferries: FerryService,
     private _partner: PartnerService,
     private router: Router,
@@ -83,9 +83,8 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ferryForm = this._fb.group(this.ferryFields);
+    this.ferryForm = this.fb.group(this.ferryFields);
     this.common.dataLoading = true;
-    // this.getSelectedCover()
 
     this.galleryOptions[0].thumbnailActions = [
       {
@@ -102,7 +101,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.route.snapshot.paramMap.get('id')) {
         this.ferryData = dt['oneFerry'];
         this.ferryFields['id'] = '';
-        this.ferryForm = this._fb.group(this.ferryFields);
+        this.ferryForm = this.fb.group(this.ferryFields);
         this.editCase = true;
         if (this.ferryData) {
           this.ferryForm.patchValue(this.ferryData);
@@ -111,7 +110,6 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (this.ferryData['img']) {
           this.imgPath = this.ferryData['realFolder'] + '/' + this.ferryData['img'];
-          this.getCoverImgFromList();
         }
       }
       this.formAction = this.editCase ? 'update' : 'add';
@@ -216,19 +214,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.toastr.success('The selected image was set as cover successfully');
       });
     }
-
-
-    // const currentImg = this.basename.transform(this.ferryData.images[index].big);
-    // this.ferryForm.patchValue({img: currentImg});
-    // this.imgPath = this.ferryData.images[index].big;
-    // console.log(this.imgPath)
   }
-
-  getCoverImgFromList() {
-    // console.log(this.imgPath)
-    // console.log(document.querySelector('.ngx-gallery-thumbnails'));
-  }
-
 
   getCompany() {
     return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
