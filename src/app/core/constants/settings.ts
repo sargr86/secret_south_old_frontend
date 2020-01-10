@@ -202,6 +202,7 @@ export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
     'previewKeyboardNavigation': true,
     'imageDescription': true,
     'previewCloseOnEsc': true,
+
     'thumbnailActions': [
       // {
       //     icon: 'fa fa-times-circle', onClick: this.removeImage.bind(this), titleText: 'delete'
