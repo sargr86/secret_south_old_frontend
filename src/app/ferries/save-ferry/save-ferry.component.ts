@@ -27,6 +27,7 @@ import {NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
+import SelectImageToMakeCover from '@core/helpers/select-image-to-make-cover';
 
 
 @Component({
@@ -89,16 +90,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.galleryOptions[0].thumbnailActions = [
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
-
-          // Removing previous selected cover
-          const selectedCover = document.querySelector('.selected')
-          if (selectedCover) {
-            selectedCover.classList.remove('selected');
-          }
-
-          // Marking selected image as cover by star icon
-          const target = event.target as HTMLElement;
-          target.classList.add('selected');
+          SelectImageToMakeCover.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
       }
