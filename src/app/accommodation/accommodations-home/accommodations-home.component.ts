@@ -5,40 +5,40 @@ import {MainService} from '../../home/services/main.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-accommodations-home',
-    templateUrl: './accommodations-home.component.html',
-    styleUrls: ['./accommodations-home.component.scss']
+  selector: 'app-accommodations-home',
+  templateUrl: './accommodations-home.component.html',
+  styleUrls: ['./accommodations-home.component.scss']
 })
 export class AccommodationsHomeComponent implements OnInit {
-    accommodationObjects;
-    accommodationsFolder = ACCOMMODATIONS_FOLDER;
-    routerUrl;
+  accommodationObjects;
+  accommodationsFolder = ACCOMMODATIONS_FOLDER;
+  routerUrl;
 
-    constructor(
-        private subject: SubjectService,
-        private main: MainService,
-        public router: Router
-    ) {
-    }
+  constructor(
+    private subject: SubjectService,
+    private main: MainService,
+    public router: Router
+  ) {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-        this.routerUrl = this.router.url;
+    this.routerUrl = this.router.url;
 
-        this.getObjects();
+    this.getObjects();
 
-        this.subject.getMapData().subscribe(dt => {
-            this.accommodationObjects = dt.list;
-        });
-    }
+    this.subject.getMapData().subscribe(dt => {
+      this.accommodationObjects = dt.list;
+    });
+  }
 
-    getObjects() {
-        this.main.changePlace({type: 'accommodations'}).subscribe((dt: any) => {
+  getObjects() {
+    this.main.changePlace({type: 'accommodations'}).subscribe((dt: any) => {
 
-            this.accommodationObjects = dt;
-        });
+      this.accommodationObjects = dt;
+    });
 
 
-    }
+  }
 
 }
