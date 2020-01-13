@@ -1,67 +1,68 @@
 <ng-container *ngIf="!checkIfAuthDashboardPage()">
-    <!-- Accommodation header with booking starter form -->
-    <!--    <app-accommodations-header (toggle)="toggleSidebar()"-->
-    <!--                               *ngIf="routerUrl === '/accommodations' ||  routerUrl==='/'"></app-accommodations-header>-->
+  <!-- Accommodation header with booking starter form -->
+  <!--    <app-accommodations-header (toggle)="toggleSidebar()"-->
+  <!--                               *ngIf="routerUrl === '/accommodations' ||  routerUrl==='/'"></app-accommodations-header>-->
 
 </ng-container>
 
 <!-- Nav bar for users dashboard -->
 <mat-toolbar
-        *ngIf="!common.showOverlay  && checkIfAuthDashboardPage() && routerUrl!=='/'|| routerUrl.includes('list') ||  routerUrl.includes('single')">
+  *ngIf="!common.showOverlay  && checkIfAuthDashboardPage() && routerUrl!=='/'|| routerUrl.includes('list') ||  routerUrl.includes('single')">
 
-    <!-- Left group of nav bar items -->
-    <div class="leftGroup">
+  <!-- Left group of nav bar items -->
+  <div class="leftGroup">
 
 
-        <!-- Main sections of the home page -->
-        <div *ngIf="!checkIfAuthDashboardPage()">
-            <ul class="mainSections">
+    <!-- Main sections of the home page -->
+    <div *ngIf="!checkIfAuthDashboardPage()">
+      <ul class="mainSections">
 
-                <li *ngFor="let section of mainSections"
-                    (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
-                    <span class="section">{{section.name}}</span>
+        <li *ngFor="let section of mainSections"
+            (click)="changeSection(section.name)" [class.selected]="selectedSection === section.name">
+          <span class="section">{{section.name}}</span>
 
-                </li>
-            </ul>
-        </div>
+        </li>
+      </ul>
     </div>
+  </div>
 
 
-    <!-- Center group of navigation items -->
-    <div class="centerGroup">
+  <!-- Center group of navigation items -->
+  <div class="centerGroup">
 
-    </div>
+  </div>
 
 
-    <!-- Right group of navigation items -->
-    <div class="rightGroup">
+  <!-- Right group of navigation items -->
+  <div class="rightGroup">
 
-        <!-- Sidebar toggler button -->
-        <ng-container *ngIf="!router.url.includes('auth') && responsiveMode">
-            <button class="sidebarToggler" (click)="toggleSidebar()">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </ng-container>
+    <!-- Sidebar toggler button -->
+    <ng-container *ngIf="!router.url.includes('auth') && responsiveMode">
+      <button class="sidebarToggler" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </ng-container>
 
-        <!-- Home page redirect button -->
-        <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
-            <mat-icon>home</mat-icon>
-        </button>
+    <!-- Home page redirect button -->
+    <button class="homeBtn" *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
+      <mat-icon>home</mat-icon>
+    </button>
 
-        <!-- Login/Register/Dashboard links-->
-        <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
-              class="link authLink" [matTooltip]="'Login/ Register'">
+
+    <!-- Login/Register/Dashboard links-->
+    <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
+          class="link authLink" [matTooltip]="'Login/ Register'">
             Log in
         </span>
-        <span (click)="router.navigate(['auth/register'])" class="link"
-              *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
-        <span (click)="navigateToDashboard()" class="link"
-              *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</span>
+    <span (click)="router.navigate(['auth/register'])" class="link"
+          *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
+    <span (click)="navigateToDashboard()" class="link"
+          *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</span>
 
-        <!-- Logout button -->
-        <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
+    <!-- Logout button -->
+    <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
 
-    </div>
+  </div>
 </mat-toolbar>

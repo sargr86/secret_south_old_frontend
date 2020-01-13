@@ -51,7 +51,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './customers/customers.module#CustomersModule'
   },
-
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule'
+  },
   {path: '**', component: NotFoundComponent},
 ];
 
