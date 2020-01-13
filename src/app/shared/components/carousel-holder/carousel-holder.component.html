@@ -1,46 +1,46 @@
 <ng-container *ngIf="!responsiveMode">
 
-    <owl-carousel-o [options]="customOptions">
-        <ng-container *ngFor="let item of items">
+  <owl-carousel-o [options]="customOptions">
+    <ng-container *ngFor="let item of items">
 
-            <ng-template carouselSlide>
-                <div class="box">
+      <ng-template carouselSlide>
+        <div class="box">
 
-                    <img *ngIf="item.img" [src]="folder+'/'+item.img">
-                    <div *ngIf="!item.img" class="no_image"></div>
-                    <div class="info">
-                        <span class="name">{{item.name}}</span>
-                        <div class="priceTxt">
-                            <p>FROM <span>$25</span></p>
-                            <button type="button" name="button"
-                                    (click)="router.navigate([category+'/single/'+item.id])">View more
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </ng-container>
-        <!--    <ng-template carouselSlide>Slide 2</ng-template>-->
-        <!--    <ng-template carouselSlide>Slide 3</ng-tem+plate>-->
-    </owl-carousel-o>
+          <img *ngIf="item.img" [src]="getPath(item, folder)">
+          <div *ngIf="!item.img" class="no_image"></div>
+          <div class="info">
+            <span class="name">{{item.name}}</span>
+            <div class="priceTxt">
+              <p>FROM <span>$25</span></p>
+              <button type="button" name="button"
+                      (click)="router.navigate([category+'/single/'+item.id])">View more
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+    <!--    <ng-template carouselSlide>Slide 2</ng-template>-->
+    <!--    <ng-template carouselSlide>Slide 3</ng-tem+plate>-->
+  </owl-carousel-o>
 
 </ng-container>
 <ul *ngIf="responsiveMode">
-    <li *ngFor="let item of items">
-        <div class="box">
-            <div class="actual_image" *ngIf="item.img">
-                <img [src]="folder+'/'+item.img">
-            </div>
-            <div *ngIf="!item.img" class="no_image"></div>
-            <div class="info">
-                <span class="name">{{item.name}}</span>
-                <div class="priceTxt">
-                    <p>FROM <span>$25</span></p>
-                    <button type="button" name="button" (click)="router.navigate([category+'/single/'+item.id])">View
-                        more
-                    </button>
-                </div>
-            </div>
+  <li *ngFor="let item of items">
+    <div class="box">
+      <div class="actual_image" *ngIf="item.img">
+        <img [src]="folder+'/'+item.img">
+      </div>
+      <div *ngIf="!item.img" class="no_image"></div>
+      <div class="info">
+        <span class="name">{{item.name}}</span>
+        <div class="priceTxt">
+          <p>FROM <span>$25</span></p>
+          <button type="button" name="button" (click)="router.navigate([category+'/single/'+item.id])">View
+            more
+          </button>
         </div>
-    </li>
+      </div>
+    </div>
+  </li>
 </ul>
