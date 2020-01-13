@@ -20,8 +20,8 @@
         <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
         <!--                My Favorites-->
       </p>
-      <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
       <p (click)="router.navigate(['home/contact-us'])">Contact Us</p>
+      <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
 
       <p (click)="navigateToDashboard()" class="link"
          *ngIf="auth.loggedIn()">Dashboard</p>

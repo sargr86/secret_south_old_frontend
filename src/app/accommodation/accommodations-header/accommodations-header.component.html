@@ -1,82 +1,82 @@
 <header>
-    <div class="header_top">
-        <div class="header_top_left">
-            <div class="header_top_logo">
-                <!-- Website logo -->
-                <div class="logo" (click)="router.navigate(['/'])"></div>
-            </div>
+  <div class="header_top">
+    <div class="header_top_left">
+      <div class="header_top_logo">
+        <!-- Website logo -->
+        <div class="logo" (click)="router.navigate(['/'])"></div>
+      </div>
 
-            <!-- Nav bar section links -->
-            <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
-        </div>
-        <div class="header_top_right">
-            <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
-                <mat-icon>menu</mat-icon>
-            </button>
-            <p *ngIf="auth.loggedIn()">
-                <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
-                <!--                My Favorites-->
-            </p>
-            <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
-
-
-            <p (click)="navigateToDashboard()" class="link"
-               *ngIf="auth.loggedIn()">Dashboard</p>
-
-            <!-- Logout button -->
-            <p (click)="logout()" *ngIf="auth.loggedIn()">
-                Logout
-            </p>
-        </div>
+      <!-- Nav bar section links -->
+      <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
     </div>
-    <div class="header_main">
-        <div class="header_main_box">
-            <div class="location">
-                <!--                <i class="fa fa-map-marker-alt"></i>-->
-                <mat-icon>place</mat-icon>
-                <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-                       [options]="countryRestrictredPlaces"
-                       #searchAddress="ngx-places" placeholder="Going to">
-            </div>
-            <div class="checkIn">
-                <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged()"
-                       [matDatepicker]="checkInPicker" class="Check_out_inp">
-                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
-                <mat-datepicker #checkInPicker startView="year"
-                                [startAt]="getStartDate()"></mat-datepicker>
-            </div>
-            <div class="checkOut">
-                <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
-                       [matDatepicker]="checkOutPicker" class="Check_out_inp">
-                <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
-                <mat-datepicker #checkOutPicker startView="year"
-                                [startAt]="getStartDate()"></mat-datepicker>
-            </div>
+    <div class="header_top_right">
+      <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <p *ngIf="auth.loggedIn()">
+        <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
+        <!--                My Favorites-->
+      </p>
+      <p (click)="router.navigate(['home/contact-us'])">Contact Us</p>
+      <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
 
-            <div class="guests">
-                <mat-icon>person</mat-icon>
-                <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
-                                  [buttonsOrientation]="'v'"
-                                  (valueChange)="personsCountChanged($event)"></ng-number-picker>
-            </div>
+      <p (click)="navigateToDashboard()" class="link"
+         *ngIf="auth.loggedIn()">Dashboard</p>
 
-            <div class="searchBtn">
-                <button type="button" name="button" (click)="searchAccommodations()">Search</button>
-            </div>
-        </div>
+      <!-- Logout button -->
+      <p (click)="logout()" *ngIf="auth.loggedIn()">
+        Logout
+      </p>
     </div>
-    <div class="header_bottom">
-        <div class="header_bottom_box">
-            <img src="assets/images/icon_1.png" alt="">
-            <p>Earn free travel rewards instantly with Secret South</p>
-        </div>
-        <div class="header_bottom_box">
-            <img src="assets/images/icon_1.png" alt="">
-            <p>Earn free travel rewards instantly with Secret South</p>
-        </div>
-        <div class="header_bottom_box">
-            <img src="assets/images/icon_1.png" alt="">
-            <p>Earn free travel rewards instantly with Secret South</p>
-        </div>
+  </div>
+  <div class="header_main">
+    <div class="header_main_box">
+      <div class="location">
+        <!--                <i class="fa fa-map-marker-alt"></i>-->
+        <mat-icon>place</mat-icon>
+        <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
+               [options]="countryRestrictredPlaces"
+               #searchAddress="ngx-places" placeholder="Going to">
+      </div>
+      <div class="checkIn">
+        <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged()"
+               [matDatepicker]="checkInPicker" class="Check_out_inp">
+        <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
+        <mat-datepicker #checkInPicker startView="year"
+                        [startAt]="getStartDate()"></mat-datepicker>
+      </div>
+      <div class="checkOut">
+        <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
+               [matDatepicker]="checkOutPicker" class="Check_out_inp">
+        <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
+        <mat-datepicker #checkOutPicker startView="year"
+                        [startAt]="getStartDate()"></mat-datepicker>
+      </div>
+
+      <div class="guests">
+        <mat-icon>person</mat-icon>
+        <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                          [buttonsOrientation]="'v'"
+                          (valueChange)="personsCountChanged($event)"></ng-number-picker>
+      </div>
+
+      <div class="searchBtn">
+        <button type="button" name="button" (click)="searchAccommodations()">Search</button>
+      </div>
     </div>
+  </div>
+  <div class="header_bottom">
+    <div class="header_bottom_box">
+      <img src="assets/images/icon_1.png" alt="">
+      <p>Earn free travel rewards instantly with Secret South</p>
+    </div>
+    <div class="header_bottom_box">
+      <img src="assets/images/icon_1.png" alt="">
+      <p>Earn free travel rewards instantly with Secret South</p>
+    </div>
+    <div class="header_bottom_box">
+      <img src="assets/images/icon_1.png" alt="">
+      <p>Earn free travel rewards instantly with Secret South</p>
+    </div>
+  </div>
 </header>
