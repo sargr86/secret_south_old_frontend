@@ -19,6 +19,7 @@
                 <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
                 <!--                My Favorites-->
             </p>
+          <p (click)="router.navigate(['home/contact-us'])">Contact Us</p>
             <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
 
 
