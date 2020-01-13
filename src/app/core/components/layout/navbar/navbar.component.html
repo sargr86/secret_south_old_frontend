@@ -51,16 +51,14 @@
 
     <!-- Login/Register/Dashboard links-->
     <span (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn() && !router.url.includes('auth')"
-          class="link authLink" [matTooltip]="'Login/ Register'">
-            Log in
-        </span>
+          class="link authLink" [matTooltip]="'Login/ Register'">Log in</span>
     <span (click)="router.navigate(['auth/register'])" class="link"
           *ngIf="!auth.loggedIn() && router.url==='/auth/login'">Register</span>
     <span (click)="navigateToDashboard()" class="link"
           *ngIf="(router.url==='/' || router.url==='auth/login') && auth.loggedIn()">Dashboard</span>
 
     <!-- Logout button -->
-    <button (click)="logout()" class="logoutBtn" [matTooltip]="'Logout'" *ngIf="auth.loggedIn()">
+    <button (click)="auth.logout()" class="logoutBtn" matTooltip="Logout" *ngIf="auth.loggedIn()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
 
