@@ -35,19 +35,19 @@
         <!--                <i class="fa fa-map-marker-alt"></i>-->
         <mat-icon>place</mat-icon>
         <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-               [options]="countryRestrictredPlaces"
+               [options]="countryRestrictedPlaces"
                #searchAddress="ngx-places" placeholder="Going to">
       </div>
       <div class="checkIn">
         <input placeholder="Check-in" name="bookingDate" (dateChange)="dateChanged()"
-               [matDatepicker]="checkInPicker" class="Check_out_inp">
+               [matDatepicker]="getPicker(checkInPicker)" class="Check_out_inp">
         <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
         <mat-datepicker #checkInPicker startView="year"
                         [startAt]="getStartDate()"></mat-datepicker>
       </div>
       <div class="checkOut">
         <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
-               [matDatepicker]="checkOutPicker" class="Check_out_inp">
+               [matDatepicker]="getPicker(checkOutPicker)" class="Check_out_inp">
         <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
         <mat-datepicker #checkOutPicker startView="year"
                         [startAt]="getStartDate()"></mat-datepicker>
