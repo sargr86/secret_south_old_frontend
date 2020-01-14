@@ -1,91 +1,91 @@
-<app-ferries-header [hidden]="router.url !== '/ferries'"></app-ferries-header>
+<app-ferries-header></app-ferries-header>
 
 <section class="ferry_page">
-    <div class="ferry_page_size" *ngIf="auth.loggedIn()">
-        <div class="ferry_page_left" [hidden]="!showFilters">
-            <app-filters-bar [section]="'ferries'"></app-filters-bar>
-        </div>
-        <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">
-            <div class="filterToggler">
-                <i class="fa fa-filter" (click)="toggleFilters()"></i>
-            </div>
-            <div class="infoToggler" *ngIf="selectedFerry">
-                <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
-            </div>
-            <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
-                     [mapTypeControl]="true" (mapClick)="mapClick($event)"
-                     [rotateControl]="true"
-                     [styles]="mapStyles">
-                <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"
-                            [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
-                    <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">
+  <div class="ferry_page_size" *ngIf="auth.loggedIn()">
+    <div class="ferry_page_left" [hidden]="!showFilters">
+      <app-filters-bar [section]="'ferries'"></app-filters-bar>
+    </div>
+    <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">
+      <div class="filterToggler">
+        <i class="fa fa-filter" (click)="toggleFilters()"></i>
+      </div>
+      <div class="infoToggler" *ngIf="selectedFerry">
+        <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
+      </div>
+      <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+               [mapTypeControl]="true" (mapClick)="mapClick($event)"
+               [rotateControl]="true"
+               [styles]="mapStyles">
+        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"
+                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
+          <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">
 
-                        <ng-container>
-                            <div class="infoContainer">
-                                <!--                                <div class="image">-->
-                                <!--                                    <img *ngIf="single.img" class="infowindowImg"-->
-                                <!--                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"-->
-                                <!--                                         alt="">-->
-                                <!--                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">-->
-                                <!--                                </div>-->
-                                <div class="info">
-                                    <h4>{{single.name}}</h4>
-                                    <ul>
-                                        <li>
-                                            <small>Max: {{single.max_people}} people</small>
-                                        </li>
-                                        <li>
-                                            <small>Min: {{single.min_people}} people</small>
-                                        </li>
-                                        <li>
-                                            <!--                            <small>Tel: {{single.phone}}</small>-->
-                                        </li>
-                                    </ul>
+            <ng-container>
+              <div class="infoContainer">
+                <!--                                <div class="image">-->
+                <!--                                    <img *ngIf="single.img" class="infowindowImg"-->
+                <!--                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"-->
+                <!--                                         alt="">-->
+                <!--                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">-->
+                <!--                                </div>-->
+                <div class="info">
+                  <h4>{{single.name}}</h4>
+                  <ul>
+                    <li>
+                      <small>Max: {{single.max_people}} people</small>
+                    </li>
+                    <li>
+                      <small>Min: {{single.min_people}} people</small>
+                    </li>
+                    <li>
+                      <!--                            <small>Tel: {{single.phone}}</small>-->
+                    </li>
+                  </ul>
 
-                                    <div class="actions">
-                                        <button mat-raised-button color="primary" (click)="selectFerry(single)">
-                                            <span>{{selectAction}}</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </ng-container>
-                    </agm-info-window>
-                </agm-marker>
-            </agm-map>
-        </div>
-        <div class="ferry_page_right">
-            <div *ngIf="selectedFerry">
-                <!--                <span>Boat</span>-->
-                <p>Boat</p>
-                <div class="company_name_line"></div>
-                <!--            <div class="ferry_page_right_images">-->
-                <ng-container *ngIf="ferryData">
-
-                    <ngx-gallery [options]="galleryOptions" [images]="ferryData.images"
-                                 class="ferryGallery"></ngx-gallery>
-                    <!--            </div>-->
-                    <p class="boat_name">Boat: <strong>{{ferryData.name}}</strong></p>
-                    <p class="boat_name">Company: <strong>{{ferryData.company.name}}</strong></p>
-                </ng-container>
-
-                <!--                <p class="ferry_page_right_text">Lorem Ipsum is simply dummy text of the printing and typesetting-->
-                <!--                    industry.-->
-                <!--                    Lorem Ipsum has-->
-                <!--                    been the industry's standard dummy text ever since the</p>-->
-                <div class="ferry_page_right_face">
-                    <span>Driver</span>
-                    <div class="company_name_line"></div>
-                    <div class="ferry_page_right_face_img"><img src="" alt=""></div>
+                  <div class="actions">
+                    <button mat-raised-button color="primary" (click)="selectFerry(single)">
+                      <span>{{selectAction}}</span>
+                    </button>
+                  </div>
                 </div>
-            </div>
 
+              </div>
+            </ng-container>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+    <div class="ferry_page_right">
+      <div *ngIf="selectedFerry">
+        <!--                <span>Boat</span>-->
+        <p>Boat</p>
+        <div class="company_name_line"></div>
+        <!--            <div class="ferry_page_right_images">-->
+        <ng-container *ngIf="ferryData">
+
+          <ngx-gallery [options]="galleryOptions" [images]="ferryData.images"
+                       class="ferryGallery"></ngx-gallery>
+          <!--            </div>-->
+          <p class="boat_name">Boat: <strong>{{ferryData.name}}</strong></p>
+          <p class="boat_name">Company: <strong>{{ferryData.company.name}}</strong></p>
+        </ng-container>
+
+        <!--                <p class="ferry_page_right_text">Lorem Ipsum is simply dummy text of the printing and typesetting-->
+        <!--                    industry.-->
+        <!--                    Lorem Ipsum has-->
+        <!--                    been the industry's standard dummy text ever since the</p>-->
+        <div class="ferry_page_right_face">
+          <span>Driver</span>
+          <div class="company_name_line"></div>
+          <div class="ferry_page_right_face_img"><img src="" alt=""></div>
         </div>
+      </div>
+
     </div>
-    <div *ngIf="!auth.loggedIn()">
-        <h1 class="loginMsg">Please log in to view ferries on the map</h1>
-    </div>
+  </div>
+  <div *ngIf="!auth.loggedIn()">
+    <h1 class="loginMsg">Please log in to view ferries on the map</h1>
+  </div>
 </section>
 
 

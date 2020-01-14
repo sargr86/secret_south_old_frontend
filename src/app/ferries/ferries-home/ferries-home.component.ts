@@ -59,7 +59,6 @@ export class FerriesHomeComponent implements OnInit {
 
     // Saving social auth access token to local storage
     const token = this.route.snapshot.queryParams.token;
-    console.log(jwtDecode(token))
     if (token) {
       localStorage.setItem('token', token);
     }
