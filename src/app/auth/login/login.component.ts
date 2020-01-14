@@ -75,6 +75,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     return `${API_URL}auth/google`;
   }
 
+  getFbAuthUrl() {
+    return `${API_URL}auth/facebook`;
+  }
+
   /**
    * E-mail field getter
    */
