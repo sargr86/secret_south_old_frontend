@@ -8,77 +8,84 @@ import {Subscription} from 'rxjs';
 import {MainService} from '../../home/services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {Options} from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
-    selector: 'app-accommodations-header',
-    templateUrl: './accommodations-header.component.html',
-    styleUrls: ['./accommodations-header.component.scss']
+  selector: 'app-accommodations-header',
+  templateUrl: './accommodations-header.component.html',
+  styleUrls: ['./accommodations-header.component.scss']
 })
 export class AccommodationsHeaderComponent implements OnInit {
-    mainSections = MAIN_SECTIONS;
-    mapForm: FormGroup;
+  mainSections = MAIN_SECTIONS;
+  mapForm: FormGroup;
 
-    subscriptions: Subscription[] = [];
-    routerUrl: string;
-    selectedSection = 'Accommodations';
-    responsiveMode: boolean;
-    countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+  subscriptions: Subscription[] = [];
+  routerUrl: string;
+  selectedSection = 'Accommodations';
+  responsiveMode: boolean;
+  countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES as Options;
 
-    @Output() toggle = new EventEmitter();
+  @Output() toggle = new EventEmitter();
 
-    personsCount = 2;
+  personsCount = 2;
 
-    constructor(
-        public router: Router,
-        public auth: AuthService,
-        private _fb: FormBuilder,
-        private main: MainService,
-        private subject: SubjectService
-    ) {
+  constructor(
+    public router: Router,
+    public auth: AuthService,
+    private _fb: FormBuilder,
+    private main: MainService,
+    private subject: SubjectService
+  ) {
 
-    }
+  }
 
-    ngOnInit() {
+  private myVar;
 
-        // Checking for responsive mode and initializing map form
-        this.responsiveMode = IsResponsive.check();
-        this.mapForm = this._fb.group({
-            type: ['']
-        });
-    }
+  ngOnInit() {
 
-    toggleSidebar() {
-        this.toggle.emit();
-    }
+    // Checking for responsive mode and initializing map form
+    this.responsiveMode = IsResponsive.check();
+    this.mapForm = this._fb.group({
+      type: ['']
+    });
+  }
 
+  toggleSidebar() {
+    this.toggle.emit();
+  }
 
-    logout() {
-        localStorage.removeItem('token');
-        this.router.navigate(['/']);
-    }
+  getPicker(p) {
+    return p as MatDatepicker<string>;
+  }
 
-    /**
-     * Navigates to the user dashboard
-     */
-    navigateToDashboard() {
-        const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
-        this.router.navigate([`${role}/dashboard/show`]);
-    }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
 
-    getStartDate() {
+  /**
+   * Navigates to the user dashboard
+   */
+  navigateToDashboard() {
+    const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
+    this.router.navigate([`${role}/dashboard/show`]);
+  }
 
-    }
+  getStartDate() {
 
-    dateChanged() {
+  }
 
-    }
+  dateChanged() {
 
-    searchAccommodations() {
-        this.router.navigate(['accommodations/list']);
-    }
+  }
 
-    personsCountChanged(e) {
+  searchAccommodations() {
+    this.router.navigate(['accommodations/list']);
+  }
 
-    }
+  personsCountChanged(e) {
+
+  }
 
 }
