@@ -10,7 +10,7 @@
 
   h3 {
     text-align: center;
-    text-transform:capitalize;
+    text-transform: capitalize;
   }
 
   form {
@@ -22,29 +22,56 @@
     .actions {
       display: flex;
       justify-content: center;
-      button{
+      flex-direction: column;
+
+      a, button {
+        width: 100%;
         text-transform: uppercase;
-        mat-icon{
+        margin-top: 20px;
+        text-align: center;
+        color: #ffffff;
+
+        mat-icon {
           margin-top: -3px;
+        }
+      }
+
+      .facebookLoginBtn {
+        background-color: #3b5998;
+
+        span {
+          margin-left: 5px;
+        }
+
+      }
+
+      .googleLoginBtn {
+        background-color: #dd4b39;
+
+        span {
+          margin-left: 5px;
         }
       }
     }
   }
 }
+
 .mat-toolbar {
-  position:absolute;
+  position: absolute;
   background-color: #062845;
   display: flex;
   justify-content: space-between;
   //text-transform: uppercase;
-  margin-bottom:20px;
+  margin-bottom: 20px;
+
   div {
     span {
       color: $white;
       cursor: pointer;
     }
   }
-  .homeBtn{
+
+  .homeBtn {
     @include noBgBtn;
   }
 

@@ -22,17 +22,20 @@
       <!-- Login/ navigate-to-register page buttons -->
       <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
       <div class="actions">
-        <a mat-icon-button [href]="getGoogleAuthUrl()" class="googleLoginBtn">
-          <i class="fab fa-google"></i>
-        </a>
         <button mat-raised-button color="primary" (click)="login()"
                 [disabled]="!loginForm.valid || common.formProcessing">
-          Log in
+          Sign in
           <mat-icon>arrow_forward</mat-icon>
         </button>
-        <a mat-icon-button [href]="getFbAuthUrl()" class="facebookLoginBtn">
-          <i class="fab fa-facebook-square"></i>
+        <a mat-raised-button [href]="getGoogleAuthUrl()" class="googleLoginBtn">
+          <i class="fab fa-google"></i>
+          <span>Sign in with Google</span>
         </a>
+        <a mat-raised-button [href]="getFbAuthUrl()" class="facebookLoginBtn">
+          <i class="fab fa-facebook-square"></i>
+          <span>Sign in with Facebook</span>
+        </a>
+
       </div>
     </form>
   </div>
