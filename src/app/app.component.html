@@ -1,7 +1,7 @@
 <mat-sidenav-container>
     <mat-sidenav [mode]="getMode(sidenav)" #sidenav
                  id="sidenav" [opened]="checkDashboardPage()">
-        <app-sidebar (toggle)="closeSidenav(sidenav)"
+        <app-sidebar *ngIf="checkDashboardPage()" (toggle)="closeSidenav(sidenav)"
         ></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content>
