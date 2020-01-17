@@ -65,6 +65,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       const currentRole = this._auth.userData.role.name_en.toLowerCase();
       const userType = USER_TYPES.find(d => d.role === currentRole);
 
+      if (userType.label === 'drivers') userType.label = 'employees'; // temporarily drivers as employees
+
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
 
