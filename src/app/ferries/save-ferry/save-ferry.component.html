@@ -131,7 +131,7 @@
                 Save
             </button>
 
-            <div class="coverToggler">
+            <div class="coverToggler" *ngIf="editCase">
                 <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
                     <small>Show cover</small>
                 </mat-slide-toggle>
