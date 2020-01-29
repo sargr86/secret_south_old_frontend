@@ -510,7 +510,7 @@ mat-progress-bar .mat-progress-bar-buffer {
   }
 
   .mat-calendar-body-label, .mat-calendar-body-cell-content, .mat-icon-button {
-    color: $white;
+    color: $white !important;
   }
 }
 
