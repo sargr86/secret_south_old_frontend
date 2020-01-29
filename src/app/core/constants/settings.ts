@@ -115,6 +115,13 @@ export const DASHBOARD_LINKS = [
       {name: 'Show'},
     ]
   },
+  {
+    name: 'Contacts',
+    children: [
+      {name: 'Requests'},
+      {name: 'Invitations'}
+    ]
+  },
   // {
   //   name: 'Partners',
   //   children: [
