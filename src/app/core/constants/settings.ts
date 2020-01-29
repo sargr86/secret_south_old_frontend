@@ -122,15 +122,15 @@ export const DASHBOARD_LINKS = [
       {name: 'Invitations'}
     ]
   },
-  // {
-  //   name: 'Partners',
-  //   children: [
-  //     {name: 'Add'},
-  //     {name: 'Show'},
-  //     // {name: 'Add types'},
-  //     // {name: 'Show types'}
-  //   ]
-  // },
+  {
+    name: 'Partners',
+    children: [
+      {name: 'Add'},
+      {name: 'Show'},
+      // {name: 'Add types'},
+      // {name: 'Show types'}
+    ]
+  },
   {
     name: 'Employees',
     children: [
