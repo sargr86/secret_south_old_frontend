@@ -9,120 +9,124 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
-    {
-        path: 'dashboard/show', component: DashboardComponent, data: {
-            title: 'Dashboard',
-            expectedRole: 'admin'
-        },
-
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'dashboard/edit', component: EditProfileComponent, data: {
-            title: 'Edit profile',
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard],
-        resolve: {
-            user: UserResolverService
-        },
-    },
-    {
-        path: 'employees',
-        loadChildren: '../employees/employees.module#EmployeesModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'customers',
-        loadChildren: '../customers/customers.module#CustomersModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'ferries',
-        loadChildren: '../ferries/ferries.module#FerriesModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'tours',
-        loadChildren: '../tours/tours.module#ToursModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'food-drink',
-        loadChildren: '../food-drink/food-drink.module#FoodDrinkModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'partners',
-        loadChildren: '../partners/partners.module#PartnersModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
-    {
-        path: 'companies',
-        canActivate: [AuthGuard, RoleGuard],
-        data: {
-            expectedRole: 'admin'
-        },
-        loadChildren: '../companies/companies.module#CompaniesModule'
+  {
+    path: 'dashboard/show', component: DashboardComponent, data: {
+      title: 'Dashboard',
+      expectedRole: 'admin'
     },
 
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'dashboard/edit', component: EditProfileComponent, data: {
+      title: 'Edit profile',
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard],
+    resolve: {
+      user: UserResolverService
+    },
+  },
+  {
+    path: 'employees',
+    loadChildren: '../employees/employees.module#EmployeesModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'customers',
+    loadChildren: '../customers/customers.module#CustomersModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'ferries',
+    loadChildren: '../ferries/ferries.module#FerriesModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'tours',
+    loadChildren: '../tours/tours.module#ToursModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'food-drink',
+    loadChildren: '../food-drink/food-drink.module#FoodDrinkModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'partners',
+    loadChildren: '../partners/partners.module#PartnersModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'contacts',
+    loadChildren: '../contacts/contacts.module#ContactsModule'
+  },
+  {
+    path: 'companies',
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: 'admin'
+    },
+    loadChildren: '../companies/companies.module#CompaniesModule'
+  },
 
-    {
-        path: 'accommodations',
-        loadChildren: '../accommodation/accommodation.module#AccommodationModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
-    },
 
-    {
-        path: 'activities',
-        loadChildren: '../activities/activities.module#ActivitiesModule',
-        data: {
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+  {
+    path: 'accommodations',
+    loadChildren: '../accommodation/accommodation.module#AccommodationModule',
+    data: {
+      expectedRole: 'admin'
     },
-    {
-        path: 'jobs',
-        loadChildren: '../jobs/jobs.module#JobsModule',
-        data: {
-            // expectedRole: 'employee' RoleGuard
-        },
-        canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard]
+  },
+
+  {
+    path: 'activities',
+    loadChildren: '../activities/activities.module#ActivitiesModule',
+    data: {
+      expectedRole: 'admin'
     },
-    {
-        path: 'add_locations', component: GpsLocationComponent,
-        data: {
-            title: 'Add GPS locations',
-            expectedRole: 'admin'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'jobs',
+    loadChildren: '../jobs/jobs.module#JobsModule',
+    data: {
+      // expectedRole: 'employee' RoleGuard
     },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add_locations', component: GpsLocationComponent,
+    data: {
+      title: 'Add GPS locations',
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class AdminRoutingModule {
 }
