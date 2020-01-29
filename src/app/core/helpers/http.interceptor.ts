@@ -39,7 +39,7 @@ export class RequestInterceptor implements HttpInterceptor {
           this.toastr.error(err.error.db_error, 'Unable to connect to database');
 
           // Server connection error
-        } else if (err.status === 200 || err.status === 0 || err.error.hasOwnProperty('conn_error') || err.status !== 304) {
+        } else if (err.status === 200 || err.status === 0 || err.error.hasOwnProperty('conn_error') && err.status !== 304) {
           this.toastr.error('Please check server connection.', 'Unable to connect to server');
         } else {
           if (err.error.hasOwnProperty('msg')) {
