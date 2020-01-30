@@ -17,138 +17,140 @@ import {ActivitiesService} from '@core/services/activities.service';
 import {ActivityTypesService} from '@core/services/activity-types.service';
 import {AuthService} from '@core/services/auth.service';
 import {CompaniesService} from '@core/services/companies.service';
+import {ContactsService} from '@core/services/contacts.service';
 
 @Component({
-    selector: 'app-mat-table',
-    templateUrl: './mat-reusable-table.component.html',
-    styleUrls: ['./mat-reusable-table.component.scss']
+  selector: 'app-mat-table',
+  templateUrl: './mat-reusable-table.component.html',
+  styleUrls: ['./mat-reusable-table.component.scss']
 })
 export class MatReusableTableComponent implements OnInit, OnDestroy {
 
-    @Input() dataObs;
-    @Input() cols;
-    @Input() item;
+  @Input() dataObs;
+  @Input() cols;
+  @Input() item;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-    displayedColumns;
-    spinnerDiameter = SPINNER_DIAMETER;
-    paginationValues = MAT_TABLE_PAGINATION_VALUES;
-    dataSource;
-    filteredData;
-    subscriptions: Subscription[] = [];
+  displayedColumns;
+  spinnerDiameter = SPINNER_DIAMETER;
+  paginationValues = MAT_TABLE_PAGINATION_VALUES;
+  dataSource;
+  filteredData;
+  subscriptions: Subscription[] = [];
 
-    constructor(
-        private _ferries: FerryService,
-        private _partners: PartnerService,
-        private _tour: ToursService,
-        private _tour_type: TourTypeService,
-        private _food_drink: FoodDrinkService,
-        private _accommodations: AccommodationsService,
-        private _activities: ActivitiesService,
-        private _activity_type: ActivityTypesService,
-        private dataSrc: GetTableDataSourcePipe,
-        private _companies: CompaniesService,
-        private dialog: MatDialog,
-        public router: Router,
-        private toastr: ToastrService,
-        public common: CommonService,
-        public auth: AuthService
-    ) {
-    }
+  constructor(
+    private _ferries: FerryService,
+    private _contacts: ContactsService,
+    private _partners: PartnerService,
+    private _tour: ToursService,
+    private _tour_type: TourTypeService,
+    private _food_drink: FoodDrinkService,
+    private _accommodations: AccommodationsService,
+    private _activities: ActivitiesService,
+    private _activity_type: ActivityTypesService,
+    private dataSrc: GetTableDataSourcePipe,
+    private _companies: CompaniesService,
+    private dialog: MatDialog,
+    public router: Router,
+    private toastr: ToastrService,
+    public common: CommonService,
+    public auth: AuthService
+  ) {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-        this.item = this.item.replace(/_/g, '-');
-        this.displayedColumns = this.cols;
-        this.getData(this.dataObs);
-    }
+    this.item = this.item.replace(/_/g, '-');
+    this.displayedColumns = this.cols;
+    this.getData(this.dataObs);
+  }
 
-    getData(dataObs, remove = false) {
-        this.common.dataLoading = true;
-
-
-        this.subscriptions.push(dataObs.subscribe(dt => {
-            if (dt.hasOwnProperty('result')) {
-                dt = dt['result'];
-            }
-
-            // Saving data with sorting and pagination
-            this.dataSource = this.dataSrc.transform(dt);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.common.dataLoading = false;
-
-            if (remove) {
-                this.toastr.success(`The  ${this.item.replace(/_/g, ' ')} info has been removed successfully.`, 'Removed!');
-            }
-
-            // Adjusting sort setting here
-            this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
-
-                // Numeric values sorting
-                if (sortHeaderId === 'max_people' || sortHeaderId === 'min_people') {
-                    data[sortHeaderId] = +data[sortHeaderId];
-                    // Non case-sensitive sorting
-                } else {
-                    if (typeof data[sortHeaderId] === 'string') {
-                        return data[sortHeaderId].toLocaleLowerCase();
-                    }
-                }
-
-                return data[sortHeaderId];
-            };
+  getData(dataObs, remove = false) {
+    this.common.dataLoading = true;
 
 
-        }));
-    }
+    this.subscriptions.push(dataObs.subscribe(dt => {
+      if (dt.hasOwnProperty('result')) {
+        dt = dt['result'];
+      }
 
-    /**
-     * Handles searching
-     * @param filterValue search term for filtering table values
-     */
-    applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+      // Saving data with sorting and pagination
+      this.dataSource = this.dataSrc.transform(dt);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.common.dataLoading = false;
 
-        if (this.dataSource.paginator) {
-            this.dataSource.paginator.firstPage();
+      if (remove) {
+        this.toastr.success(`The  ${this.item.replace(/_/g, ' ')} info has been removed successfully.`, 'Removed!');
+      }
+
+      // Adjusting sort setting here
+      this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+
+        // Numeric values sorting
+        if (sortHeaderId === 'max_people' || sortHeaderId === 'min_people') {
+          data[sortHeaderId] = +data[sortHeaderId];
+          // Non case-sensitive sorting
+        } else {
+          if (typeof data[sortHeaderId] === 'string') {
+            return data[sortHeaderId].toLocaleLowerCase();
+          }
         }
-        this.filteredData = this.dataSource.filteredData;
-        // console.log(this.dataSource)
+
+        return data[sortHeaderId];
+      };
+
+
+    }));
+  }
+
+  /**
+   * Handles searching
+   * @param filterValue search term for filtering table values
+   */
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
+    this.filteredData = this.dataSource.filteredData;
+    // console.log(this.dataSource)
+  }
 
 
-    /**
-     * Handles column names normal appearance
-     * @param col current column name
-     * @returns column normalized name
-     */
-    normalizeColName(col): string {
-        col = `${col[0].toUpperCase()}${col.slice(1)}`;
-        return col.replace(/_/g, ' ');
-    }
+  /**
+   * Handles column names normal appearance
+   * @param col current column name
+   * @returns column normalized name
+   */
+  normalizeColName(col): string {
+    col = `${col[0].toUpperCase()}${col.slice(1)}`;
+    return col.replace(/_/g, ' ');
+  }
 
-    /**
-     * Removes a data row
-     * @param row current row data object
-     */
-    remove(row) {
-        // Setting dialog properties
-        const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
+  /**
+   * Removes a data row
+   * @param row current row data object
+   */
+  remove(row) {
+    // Setting dialog properties
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS);
 
-        // Post-confirming actions
-        this.subscriptions.push(dialogRef.afterClosed().subscribe(
-            result => {
-                if (result) {
-                    this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
-                }
-            }
-        ));
-    }
+    // Post-confirming actions
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
+        }
+      }
+    ));
+  }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(s => s.unsubscribe());
-    }
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 
 }
