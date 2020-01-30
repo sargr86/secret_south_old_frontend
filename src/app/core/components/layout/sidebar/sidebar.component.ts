@@ -11,6 +11,8 @@ import {SubjectService} from '@core/services/subject.service';
 import {filter} from 'rxjs/operators';
 import {Section} from '@shared/models/Section';
 import * as jwtDecode from 'jwt-decode';
+import IsResponsive from '@core/helpers/is-responsive';
+import IsAuthDashboardPage from '@core/helpers/is-auth-dashboard-page';
 
 /**
  * Food data with nested structure.
@@ -45,6 +47,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   lat = 0;
   lng = 0;
   userData = jwtDecode(localStorage.getItem('token'));
+  routerUrl;
+
+
+  sidebarOpen = true;
+  responsiveMode;
 
 
   @Output() toggle = new EventEmitter();
@@ -61,15 +68,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   treeFlattener = new MatTreeFlattener(
     this.transformer, node => node.level, node => node.expandable, node => node.children);
-
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  sidebarOpen = true;
-
   @Output() toggleSide = new EventEmitter();
-  routerUrl;
 
   constructor(
     private _partner: PartnerService,
@@ -81,13 +84,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     private subject: SubjectService,
     private route: ActivatedRoute
   ) {
+
+
   }
 
   ngOnInit() {
     this.getSidebarDataSrc();
+    this.responsiveMode = IsResponsive.check();
 
-
-    // this.toggle.emit();
     this.mapForm = this._fb.group({
       type: ['']
     });
@@ -137,6 +141,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     MENU_ITEM_ICONS.map(mi => {
       if (childNode.includes('add')) {
         icon = 'fa-plus';
+      } else if (childNode.includes('invite')) {
+        icon = 'fa-envelope';
       } else if (childNode.includes('edit')) {
         icon = 'fa-edit';
       } else if (parentNode === mi['item']) {
@@ -254,6 +260,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   // Expanding necessary tree parent node
   ngAfterViewInit() {
+
+    // Expanding sidebar links on page refresh
+    this.routerUrl = this.router.url;
+    this.expandLinks();
+
+    // Expanding sidebar links on navigation change
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((dt: Data) => {
@@ -265,6 +277,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   expandLinks() {
+
     if (this.routerUrl) {
       const routerUrl = this.routerUrl.replace('_', ' ');
       for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
@@ -273,18 +286,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.treeControl.collapse(node);
         if (routerUrl.includes(treeItem)) {
           this.treeControl.expand(node);
-          // this.cdr.detectChanges();
+          this.cdr.detectChanges();
         }
       }
     }
   }
 
-  get responsiveMode() {
-
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  }
-
   checkIfAuthDashboardPage() {
-    return /auth|admin|partner|customers|employee/.test(this.router.url);
+    return IsAuthDashboardPage.check(this.router.url);
   }
 }
