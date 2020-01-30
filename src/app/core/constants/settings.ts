@@ -125,7 +125,7 @@ export const DASHBOARD_LINKS = [
   {
     name: 'Partners',
     children: [
-      {name: 'Add'},
+      {name: 'Invite'},
       {name: 'Show'},
       // {name: 'Add types'},
       // {name: 'Show types'}

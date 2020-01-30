@@ -10,103 +10,103 @@ import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile
 
 
 const routes: Routes = [
-    {
-        path: 'show',
-        component: ShowPartnersComponent
-    },
-    {
-        path: 'add',
-        component: SavePartnerComponent,
-        data: {
-            title: 'Invite a partner',
-            user_type: 'partner',
-            expectedRole: 'admin'
-        }
-    },
+  {
+    path: 'show',
+    component: ShowPartnersComponent
+  },
+  {
+    path: 'invite',
+    component: SavePartnerComponent,
+    data: {
+      title: 'Invite a partner',
+      user_type: 'partner',
+      expectedRole: 'admin'
+    }
+  },
 
-    {
-        path: 'dashboard/show',
-        component: ShowProfileComponent,
+  {
+    path: 'dashboard/show',
+    component: ShowProfileComponent,
+  },
+  {
+    path: 'dashboard/edit', component: EditProfileComponent, data: {
+      title: 'Edit profile',
+      expectedRole: 'partner'
     },
-    {
-        path: 'dashboard/edit', component: EditProfileComponent, data: {
-            title: 'Edit profile',
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard],
-        resolve: {
-            user: UserResolverService
-        },
+    canActivate: [AuthGuard, RoleGuard],
+    resolve: {
+      user: UserResolverService
     },
-    {
-        path: 'employees',
-        loadChildren: '../employees/employees.module#EmployeesModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'employees',
+    loadChildren: '../employees/employees.module#EmployeesModule',
+    data: {
+      expectedRole: 'partner'
     },
+    canActivate: [AuthGuard, RoleGuard]
+  },
 
-    {
-        path: 'ferries',
-        loadChildren: '../ferries/ferries.module#FerriesModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [RoleGuard]
+  {
+    path: 'ferries',
+    loadChildren: '../ferries/ferries.module#FerriesModule',
+    data: {
+      expectedRole: 'partner'
     },
-    {
-        path: 'tours',
-        loadChildren: '../tours/tours.module#ToursModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+    canActivate: [RoleGuard]
+  },
+  {
+    path: 'tours',
+    loadChildren: '../tours/tours.module#ToursModule',
+    data: {
+      expectedRole: 'partner'
     },
-    {
-        path: 'food-drink',
-        loadChildren: '../food-drink/food-drink.module#FoodDrinkModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'food-drink',
+    loadChildren: '../food-drink/food-drink.module#FoodDrinkModule',
+    data: {
+      expectedRole: 'partner'
     },
+    canActivate: [AuthGuard, RoleGuard]
+  },
 
-    {
-        path: 'accommodations',
-        loadChildren: '../accommodation/accommodation.module#AccommodationModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+  {
+    path: 'accommodations',
+    loadChildren: '../accommodation/accommodation.module#AccommodationModule',
+    data: {
+      expectedRole: 'partner'
     },
+    canActivate: [AuthGuard, RoleGuard]
+  },
 
-    {
-        path: 'activities',
-        loadChildren: '../activities/activities.module#ActivitiesModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+  {
+    path: 'activities',
+    loadChildren: '../activities/activities.module#ActivitiesModule',
+    data: {
+      expectedRole: 'partner'
     },
-    {
-        path: 'jobs',
-        loadChildren: '../jobs/jobs.module#JobsModule',
-        data: {
-            expectedRole: 'partner'
-        },
-        canActivate: [AuthGuard, RoleGuard]
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: 'jobs',
+    loadChildren: '../jobs/jobs.module#JobsModule',
+    data: {
+      expectedRole: 'partner'
     },
-    {
-        path: ':id',
-        component: SavePartnerComponent
-    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: ':id',
+    component: SavePartnerComponent
+  },
 
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class PartnersRoutingModule {
 }
