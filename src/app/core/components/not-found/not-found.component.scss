@@ -2,7 +2,7 @@
 header {
   width: 100%;
   min-height: 98vh;
-  background-image: url("assets/images/Aerial-Cork-Harbour.jpg");
+  //background-image: url("assets/images/Aerial-Cork-Harbour.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -21,7 +21,7 @@ header {
 
   .container {
     text-align: center;
-    color: #fff;
+    color: rgba(0, 0, 0, 0.4);
     width: 500px;
     height: 100px;
 
@@ -39,6 +39,7 @@ header {
 
     p {
       font-size: 40px;
+      color: rgba(0, 0, 0, 0.4);
     }
   }
 }
