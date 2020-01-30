@@ -5,7 +5,14 @@ import {AuthGuard} from '@core/guards/auth.guard';
 import {RoleGuard} from '@core/guards/role.guard';
 
 const routes: Routes = [
-  {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+    data: {
+      expectedRole: 'admin'
+    },
+    canActivate: [AuthGuard, RoleGuard]
+  },
   {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   {
     path: '',
