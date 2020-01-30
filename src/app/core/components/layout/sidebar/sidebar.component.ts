@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewRef} from '@angular/core';
 import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS, USER_TYPES} from '@core/constants/settings';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
@@ -286,7 +286,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.treeControl.collapse(node);
         if (routerUrl.includes(treeItem)) {
           this.treeControl.expand(node);
-          this.cdr.detectChanges();
+          if (this.cdr && !(this.cdr as ViewRef).destroyed) {
+            this.cdr.detectChanges();
+          }
         }
       }
     }
