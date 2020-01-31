@@ -42,4 +42,8 @@ export class FoodDrinkService {
   remove(params) {
     return this.http.delete(`${API_URL}food-drink/remove`, {params: params});
   }
+
+  removeImage(params) {
+    return this.http.delete(`${API_URL}food-drink/remove-image`, {params: params});
+  }
 }
