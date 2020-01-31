@@ -1,4 +1,4 @@
-export default class SelectImageToMakeCover {
+export default class SelectImageToMakeCoverOnPageLoad {
   static set(event) {
     // Removing previous selected cover
     const selectedCover = document.querySelector('.selected');
