@@ -145,7 +145,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     const el = event.target;
     el.classList.add('coverStar');
 
-
+    this.coverShown = true;
     const image = this.foodDrinkData.images.find((img, ind) => ind === index);
     if (image) {
       this.imgPath = image['big'];

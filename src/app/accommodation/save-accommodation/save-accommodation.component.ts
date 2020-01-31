@@ -142,6 +142,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     const currentImg = this.basename.transform(this.accommodationData.images[index].big);
     this.accommodationForm.patchValue({img: currentImg});
     this.imgPath = this.accommodationData.images[index].big;
+    this.coverShown = true;
     // console.log(event)
     // this.save(this.searchAddress);
   }
