@@ -1,6 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {ACCOMMODATIONS_FOLDER, EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER} from '@core/constants/settings';
+import {
+  ACCOMMODATIONS_FOLDER,
+  CONFIRM_DIALOG_SETTINGS,
+  EDIT_FORM_GALLERY_OPTIONS,
+  SPINNER_DIAMETER
+} from '@core/constants/settings';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
@@ -20,6 +25,9 @@ import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Accommodation} from '@shared/models/Accommodation';
 
 @Component({
   selector: 'app-save-accommodation',
@@ -46,11 +54,13 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
   imgPath: string;
   countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
 
+  coverShown = true;
+
   dropzoneConfig = {
     maxFiles: 10
   };
 
-  accommodationData;
+  accommodationData: Accommodation;
   galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
   constructor(
@@ -70,6 +80,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     private basename: GetFileBasenamePipe,
     private elRef: ElementRef,
     private markCover: MarkSelectedCoverImagePipe,
+    private dialog: MatDialog
   ) {
 
   }
@@ -85,6 +96,12 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
           SelectImageToMakeCoverOnPageLoad.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
+      },
+      {
+        icon: 'fa fa-times-circle',
+        onClick: (event: Event, index: number) => {
+          this.deleteImage(event, index);
+        }, titleText: 'delete'
       }
     ];
 
@@ -100,6 +117,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
         this.editFormPreparations(dt.accommodation);
       }
 
+      this.coverShown = !this.editCase || !!this.imgPath;
       this.common.dataLoading = false;
 
     }));
@@ -126,6 +144,21 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.imgPath = this.accommodationData.images[index].big;
     // console.log(event)
     // this.save(this.searchAddress);
+  }
+
+  deleteImage(event, index) {
+
+    this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+      if (r) {
+        const currentImg = this.accommodationData.images[index].big;
+        this.accommodationData.images = this.accommodationData.images.filter(i => i['big'] !== currentImg);
+        this._accommodation.removeImage({filename: currentImg}).subscribe(dt => {
+
+        });
+      }
+    });
+
+
   }
 
   onChange(e) {

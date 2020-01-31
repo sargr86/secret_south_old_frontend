@@ -88,7 +88,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.ferryForm = this.fb.group(this.ferryFields);
     this.common.dataLoading = true;
-    this.coverShown = this.editCase;
+    this.coverShown = !this.editCase || !!this.imgPath;
 
     this.galleryOptions[0].thumbnailActions = [
       {
