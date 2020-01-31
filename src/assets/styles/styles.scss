@@ -630,3 +630,23 @@ mat-progress-bar .mat-progress-bar-buffer {
 .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
   background-color: rgba(22, 69, 71, .54);
 }
+
+
+// Edit item(ferries, etc.) form gallery
+.editFormGallery {
+  margin-left: 235px !important;
+}
+
+.savedImgContainer {
+  height: 450px;
+  margin-top: 15px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.coverToggler {
+  float: right;
+}
