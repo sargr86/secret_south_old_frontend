@@ -254,10 +254,10 @@ dropzone.single {
     padding: 0 5px;
   }
 
-  .savedImg:hover {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-  }
+  //.ngx-gallery-thumbnail:hover {
+  //  -webkit-filter: grayscale(1)!important;
+  //  filter: grayscale(1)!important;
+  //}
 
 
   ngx-dropzone {
