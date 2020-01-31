@@ -102,14 +102,13 @@
 
   <!-- Drop zone -->
   <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
-
     <div class="savedImgContainer" *ngIf="imgPath && coverShown">
       <img [src]="imgPath" class="savedImg">
     </div>
 
     <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
               (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
-              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+              *ngIf="!editCase||(editCase && !coverShown)"></dropzone>
   </div>
 
   <ng-container *ngIf="foodDrinkData">

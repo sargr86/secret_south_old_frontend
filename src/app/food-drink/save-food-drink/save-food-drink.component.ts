@@ -2,7 +2,13 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {FoodDrinkService} from '@core/services/food-drink.service';
 import {CommonService} from '@core/services/common.service';
-import {EDIT_FORM_GALLERY_OPTIONS, FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {
+  CONFIRM_DIALOG_SETTINGS,
+  EDIT_FORM_GALLERY_OPTIONS,
+  FERRIES_FOLDER,
+  FOOD_DRINK_FOLDER,
+  SPINNER_DIAMETER
+} from '@core/constants/settings';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
@@ -19,6 +25,8 @@ import {NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-save-food-drink',
@@ -65,7 +73,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     private formData: BuildFormDataPipe,
     private subject: SubjectService,
     private elRef: ElementRef,
-    private markCover: MarkSelectedCoverImagePipe
+    private markCover: MarkSelectedCoverImagePipe,
+    private matDialog: MatDialog
   ) {
 
     this.foodDrinkForm = this._fb.group(this.formFields);
@@ -75,6 +84,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
       this.prepareEditForm(dt);
 
       this.formAction = this.editCase ? 'update' : 'add';
+      this.coverShown = !this.editCase || !!this.imgPath;
       this.common.dataLoading = false;
     }));
   }
@@ -85,9 +95,14 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
           SelectImageToMakeCoverOnPageLoad.set(event);
-          console.log('make cover')
           this.makeCover(event, index);
         }, titleText: 'cover'
+      },
+      {
+        icon: 'fa fa-times-circle',
+        onClick: (event: Event, index: number) => {
+          this.deleteImage(event, index);
+        }, titleText: 'delete'
       }
     ];
 
@@ -142,6 +157,21 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
+  deleteImage(event, index) {
+
+    this.matDialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+      if (r) {
+        const currentImg = this.foodDrinkData.images[index].big;
+        this.foodDrinkData.images = this.foodDrinkData.images.filter(i => i['big'] !== currentImg);
+        this._foodDrink.removeImage({filename: currentImg}).subscribe(dt => {
+
+        });
+      }
+    });
+
+
+  }
+
   /**
    * Resets address and reloads maps api to allow user to select from drop down again
    */
@@ -169,10 +199,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
    * @param address food-drink address
    */
   save(address) {
-    // if (!this.editCase) {
-    //   this.foodDrinkForm.patchValue({folder: FOOD_DRINK_FOLDER });
-    //
-    // }
 
     // if (this.foodDrinkForm.valid) {
     this.common.formProcessing = true;
@@ -235,7 +261,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngAfterViewInit() {
-    console.log(this.imgPath)
     // Marks the cover image on page load
     this.markCover.transform(this.imgPath, this.elRef);
   }

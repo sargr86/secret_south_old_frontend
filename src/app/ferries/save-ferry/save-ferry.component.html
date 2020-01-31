@@ -147,7 +147,6 @@
         <div class="savedImgContainer" *ngIf="imgPath && coverShown">
             <img [src]="imgPath" class="savedImg">
         </div>
-        <!--        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
         <dropzone [message]="'Click or drag images here to upload'" [config]="dropzoneIndividualConfig"
                   (addedFile)="getFiles($event)" class="multiple"
                   *ngIf="(!editCase||(editCase)) && !coverShown"></dropzone>
