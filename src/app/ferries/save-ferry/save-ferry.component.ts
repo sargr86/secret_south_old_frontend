@@ -231,7 +231,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     const el = event.target;
     el.classList.add('coverStar');
 
-
+    this.coverShown = true;
     const image = this.ferryData.images.find((img, ind) => ind === index);
     if (image) {
       this.imgPath = image['big'];
