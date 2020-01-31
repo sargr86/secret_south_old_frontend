@@ -4,7 +4,7 @@ import {PartnerService} from '@core/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
-  ALLOWED_COUNTRIES,
+  ALLOWED_COUNTRIES, CONFIRM_DIALOG_SETTINGS,
   DEFAULT_COUNTRY, EDIT_FORM_GALLERY_OPTIONS,
   FERRIES_FOLDER,
   SPINNER_DIAMETER
@@ -28,6 +28,8 @@ import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -78,7 +80,8 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     private subject: SubjectService,
     private basename: GetFileBasenamePipe,
     private elRef: ElementRef,
-    private markCover: MarkSelectedCoverImagePipe
+    private markCover: MarkSelectedCoverImagePipe,
+    private dialog: MatDialog
   ) {
   }
 
@@ -93,6 +96,12 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
           SelectImageToMakeCoverOnPageLoad.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
+      },
+      {
+        icon: 'fa fa-times-circle',
+        onClick: (event: Event, index: number) => {
+          this.deleteImage(event, index);
+        }, titleText: 'delete'
       }
     ];
 
@@ -166,6 +175,21 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   getFiles(e) {
     this.dropZoneFiles.push(e);
+  }
+
+  deleteImage(event, index) {
+
+    this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+      if (r) {
+        const currentImg = this.ferryData.images[index].big;
+        this.ferryData.images = this.ferryData.images.filter(i => i['big'] !== currentImg);
+        this._ferries.removeImage({filename: currentImg}).subscribe(dt => {
+
+        });
+      }
+    });
+
+
   }
 
 
