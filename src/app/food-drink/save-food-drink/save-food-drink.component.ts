@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {FoodDrinkService} from '@core/services/food-drink.service';
 import {CommonService} from '@core/services/common.service';
-import {FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
@@ -36,6 +36,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     maxFiles: 10
   };
   imgPath;
+  realFolder;
 
   // Address search
   @ViewChild('searchAddress')
@@ -70,6 +71,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(FOOD_DRINK_FOLDER)
   }
 
   /**
@@ -79,13 +81,14 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
   prepareEditForm(dt): void {
     if (this.route.snapshot.paramMap.get('id')) {
       this.foodDrinkData = dt['foodDrink'];
+      this.foodDrinkData['oldName'] = dt['foodDrink']['name'];
       this.formFields['id'] = '';
       this.foodDrinkForm = this._fb.group(this.formFields);
       this.foodDrinkForm.patchValue(this.foodDrinkData);
       this.editCase = true;
       this.addressCtrl.disable();
       if (this.foodDrinkData['img']) {
-        this.imgPath =  this.foodDrinkData['realFolder'] + '/' + + this.foodDrinkData['img'];
+        this.imgPath = this.foodDrinkData['realFolder'] + '/' + +this.foodDrinkData['img'];
       }
     }
   }
@@ -117,8 +120,11 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
    * @param address food-drink address
    */
   save(address) {
+    // if (!this.editCase) {
+    //   this.foodDrinkForm.patchValue({folder: FOOD_DRINK_FOLDER });
+    //
+    // }
 
-console.log(this.foodDrinkForm.value)
     // if (this.foodDrinkForm.valid) {
     this.common.formProcessing = true;
     const formData = this.formData.transform({
@@ -129,7 +135,6 @@ console.log(this.foodDrinkForm.value)
     this.subscriptions.push(this._foodDrink[this.formAction](formData).subscribe(() => {
       this._formMsg.transform('food/drink', this.editCase, this.redirectUrl);
     }));
-
 
     // }
   }
@@ -150,6 +155,10 @@ console.log(this.foodDrinkForm.value)
     this.imgPath = '';
     this.foodDrinkForm.patchValue({'img': ''});
     this.dropZoneFiles = null;
+  }
+
+  get nameCtrl() {
+    return this.foodDrinkForm.get('name');
   }
 
   get latCtrl() {
