@@ -211,7 +211,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     const image = this.ferryData.images.find((img, ind) => ind === index);
     if (image) {
       this.imgPath = image['big'];
-      let p = this.imgPath.split('/').pop();
+      const p = this.imgPath.split('/').pop();
       this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
       });
@@ -264,6 +264,8 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+
+    // Marks the cover image on page load
     this.markCover.transform(this.imgPath, this.elRef);
   }
 

@@ -1,103 +1,119 @@
 <div class="formContainer">
 
-    <form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm" *ngIf="!common.dataLoading && companies.length > 0">
+  <form [formGroup]="foodDrinkForm" class="saveFoodDrinkForm" *ngIf="!common.dataLoading && companies.length > 0">
 
-        <app-form-title [editCase]="editCase" [item]="'food/drink'"></app-form-title>
+    <app-form-title [editCase]="editCase" [item]="'food/drink'"></app-form-title>
 
-        <!-- Food/drink field -->
-        <mat-form-field>
-            <input matInput formControlName="name" placeholder="Name" required>
-        </mat-form-field>
+    <!-- Food/drink field -->
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Name" required>
+    </mat-form-field>
 
-        <!-- Description field -->
-        <mat-form-field>
+    <!-- Description field -->
+    <mat-form-field>
             <textarea matInput formControlName="description" placeholder="Description" #searchAddress
                       required></textarea>
-            <mat-error *ngIf="descCtrl.hasError('required')">
-                Description is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
+      <mat-error *ngIf="descCtrl.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-        <!-- Food/drink latitude field -->
-        <mat-form-field>
-            <input matInput formControlName="lat" placeholder="Latitude" required>
-            <mat-error *ngIf="latCtrl.hasError('required')">
-                Latitude is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
-                Latitude is <strong>invalid</strong>
-            </mat-error>
-        </mat-form-field>
+    <!-- Food/drink latitude field -->
+    <mat-form-field>
+      <input matInput formControlName="lat" placeholder="Latitude" required>
+      <mat-error *ngIf="latCtrl.hasError('required')">
+        Latitude is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
+        Latitude is <strong>invalid</strong>
+      </mat-error>
+    </mat-form-field>
 
 
-        <!-- Food/drink longitude field -->
-        <mat-form-field>
-            <input matInput formControlName="lng" placeholder="Longitude" required>
-            <mat-error *ngIf="lngCtrl.hasError('required')">
-                Longitude is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
-                Longitude is <strong>invalid</strong>
-            </mat-error>
-        </mat-form-field>
+    <!-- Food/drink longitude field -->
+    <mat-form-field>
+      <input matInput formControlName="lng" placeholder="Longitude" required>
+      <mat-error *ngIf="lngCtrl.hasError('required')">
+        Longitude is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
+        Longitude is <strong>invalid</strong>
+      </mat-error>
+    </mat-form-field>
 
-        <!-- Address field -->
-        <div class="addressContainer">
-            <mat-form-field>
-                <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address"
-                       placeholder="Address"
-                       [options]='options' #searchAddress="ngx-places" required/>
-                <mat-error *ngIf="addressCtrl.hasError('required')">
-                    Address is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <button (click)="resetAddress()" class="resetAddress">
-                <mat-icon>replay</mat-icon>
-            </button>
-        </div>
-
-        <!-- Company drop down field for admin-->
-        <ng-container *ngIf="auth.checkRoles('admin')">
-            <mat-form-field>
-                <mat-select formControlName="company_id" placeholder="Company" required>
-                    <mat-option>Please choose</mat-option>
-                    <mat-option *ngFor="let c of companies" [value]="c['id']">
-                        {{c['name']}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </ng-container>
-
-        <!-- Company name required error -->
-        <ng-container *ngIf="!auth.checkRoles('admin')">
-            <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
-        </ng-container>
-
-        <!-- Company hidden field for partners -->
-        <ng-container *ngIf="auth.checkRoles('partner')">
-            <input type="hidden" formControlName="company_id">
-        </ng-container>
-
-        <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
-
-        <!-- Action buttons -->
-        <div class="actions">
-
-            <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" (click)="save(searchAddress)">
-                Save
-            </button>
-        </div>
-    </form>
-
-    <!-- Drop zone -->
-    <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
-        <img *ngIf="imgPath" [src]="imgPath" class="savedImg">
-        <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>
-        <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
-                  (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
-                  *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+    <!-- Address field -->
+    <div class="addressContainer">
+      <mat-form-field>
+        <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address"
+               placeholder="Address"
+               [options]='options' #searchAddress="ngx-places" required/>
+        <mat-error *ngIf="addressCtrl.hasError('required')">
+          Address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button (click)="resetAddress()" class="resetAddress">
+        <mat-icon>replay</mat-icon>
+      </button>
     </div>
+
+    <!-- Company drop down field for admin-->
+    <ng-container *ngIf="auth.checkRoles('admin')">
+      <mat-form-field>
+        <mat-select formControlName="company_id" placeholder="Company" required>
+          <mat-option>Please choose</mat-option>
+          <mat-option *ngFor="let c of companies" [value]="c['id']">
+            {{c['name']}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <!-- Company name required error -->
+    <ng-container *ngIf="!auth.checkRoles('admin')">
+      <mat-error [hidden]="!companyCtrl.hasError('required')">Company is <strong>required</strong></mat-error>
+    </ng-container>
+
+    <!-- Company hidden field for partners -->
+    <ng-container *ngIf="auth.checkRoles('partner')">
+      <input type="hidden" formControlName="company_id">
+    </ng-container>
+
+    <mat-spinner *ngIf="common.formProcessing" [diameter]="spinnerDiameter"></mat-spinner>
+
+    <!-- Action buttons -->
+    <div class="actions">
+
+      <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="save(searchAddress)">
+        Save
+      </button>
+
+      <div class="coverToggler" *ngIf="editCase">
+        <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
+          <small>Show cover</small>
+        </mat-slide-toggle>
+      </div>
+
+    </div>
+    <mat-divider></mat-divider>
+  </form>
+
+  <!-- Drop zone -->
+  <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
+
+    <div class="savedImgContainer" *ngIf="imgPath && coverShown">
+      <img [src]="imgPath" class="savedImg">
+    </div>
+
+    <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
+              (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
+              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+  </div>
+
+  <ng-container *ngIf="foodDrinkData">
+    <ngx-gallery [options]="galleryOptions" [images]="foodDrinkData.images" class="editFormGallery"
+                 (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
+  </ng-container>
 </div>

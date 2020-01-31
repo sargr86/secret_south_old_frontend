@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {FoodDrinkService} from '@core/services/food-drink.service';
 import {CommonService} from '@core/services/common.service';
-import {FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {EDIT_FORM_GALLERY_OPTIONS, FERRIES_FOLDER, FOOD_DRINK_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
@@ -15,22 +15,28 @@ import {FOOD_DRINK_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
+import {NgxGalleryOptions} from 'ngx-gallery';
+import {SubjectService} from '@core/services/subject.service';
+import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
+import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 
 @Component({
   selector: 'app-save-food-drink',
   templateUrl: './save-food-drink.component.html',
   styleUrls: ['./save-food-drink.component.scss']
 })
-export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
+export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit {
   foodDrinkForm: FormGroup;
   spinnerDiameter = SPINNER_DIAMETER;
   foodDrinkData: FoodDrink;
   formFields = FOOD_DRINK_FIELDS;
+  galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
   companies: Company[] = [];
   redirectUrl = this.getRedirectUrl.transform('food-drink');
   subscriptions: Subscription[] = [];
   editCase = false;
   formAction: string;
+  coverShown = true;
   dropZoneFiles = [];
   dropzoneConfig = {
     maxFiles: 10
@@ -56,7 +62,10 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private getRedirectUrl: RedirectUrlGeneratorPipe,
     private _formMsg: ShowFormMessagePipe,
-    private formData: BuildFormDataPipe
+    private formData: BuildFormDataPipe,
+    private subject: SubjectService,
+    private elRef: ElementRef,
+    private markCover: MarkSelectedCoverImagePipe
   ) {
 
     this.foodDrinkForm = this._fb.group(this.formFields);
@@ -71,8 +80,19 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(FOOD_DRINK_FOLDER)
+
+    this.galleryOptions[0].thumbnailActions = [
+      {
+        icon: 'fa fa-star', onClick: (event: Event, index: number) => {
+          SelectImageToMakeCoverOnPageLoad.set(event);
+          console.log('make cover')
+          this.makeCover(event, index);
+        }, titleText: 'cover'
+      }
+    ];
+
   }
+
 
   /**
    * Prepares edit form fields & data
@@ -88,8 +108,37 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
       this.editCase = true;
       this.addressCtrl.disable();
       if (this.foodDrinkData['img']) {
-        this.imgPath = this.foodDrinkData['realFolder'] + '/' + +this.foodDrinkData['img'];
+        this.imgPath = this.foodDrinkData['realFolder'] + '/' + this.foodDrinkData['img'];
       }
+    }
+  }
+
+  /**
+   * Marks the selected image as cover
+   * @param event
+   * @param index
+   */
+  makeCover(event, index) {
+
+    // Removing previous images marked as cover
+    const coverImg = document.querySelector('.coverStar');
+    if (coverImg) {
+      coverImg.classList.remove('coverStar');
+    }
+
+    // Getting current star icon and marking it as selected
+    const el = event.target;
+    el.classList.add('coverStar');
+
+
+    const image = this.foodDrinkData.images.find((img, ind) => ind === index);
+    if (image) {
+      this.imgPath = image['big'];
+      const p = this.imgPath.split('/').pop();
+      this.foodDrinkForm.patchValue({img: p});
+      this._foodDrink.makeCover({img: p, id: this.foodDrinkData.id}).subscribe(dt => {
+        this.toastr.success('The selected image was set as cover successfully');
+      });
     }
   }
 
@@ -157,6 +206,10 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
     this.dropZoneFiles = null;
   }
 
+  toggleSidebar(action) {
+    this.subject.setSidebarAction(action);
+  }
+
   get nameCtrl() {
     return this.foodDrinkForm.get('name');
   }
@@ -179,6 +232,12 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy {
 
   get companyCtrl() {
     return this.foodDrinkForm.get('company_id');
+  }
+
+  ngAfterViewInit() {
+    console.log(this.imgPath)
+    // Marks the cover image on page load
+    this.markCover.transform(this.imgPath, this.elRef);
   }
 
   ngOnDestroy() {
