@@ -19,7 +19,7 @@ import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
-import SelectImageToMakeCover from '@core/helpers/select-image-to-make-cover';
+import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 
 @Component({
   selector: 'app-save-accommodation',
@@ -82,7 +82,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.galleryOptions[0].thumbnailActions = [
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
-          SelectImageToMakeCover.set(event);
+          SelectImageToMakeCoverOnPageLoad.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
       }
@@ -141,6 +141,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.setFormFields();
     this.addressCtrl.disable();
     this.accommodationData = dt;
+    this.accommodationData['oldName'] = dt['name'];
     this.accommodationForm.patchValue(dt);
     if (dt['img']) {
       this.imgPath = dt.realFolder + '/' + dt['img'];

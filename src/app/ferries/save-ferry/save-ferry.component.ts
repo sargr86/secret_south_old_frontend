@@ -27,7 +27,7 @@ import {NgxGalleryOptions} from 'ngx-gallery';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
-import SelectImageToMakeCover from '@core/helpers/select-image-to-make-cover';
+import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 
 
 @Component({
@@ -90,7 +90,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.galleryOptions[0].thumbnailActions = [
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
-          SelectImageToMakeCover.set(event);
+          SelectImageToMakeCoverOnPageLoad.set(event);
           this.makeCover(event, index);
         }, titleText: 'cover'
       }
@@ -101,6 +101,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCompanies();
       if (this.route.snapshot.paramMap.get('id')) {
         this.ferryData = dt['oneFerry'];
+        this.ferryData['oldName'] = dt['oneFerry']['name'];
         this.ferryFields['id'] = '';
         this.ferryForm = this.fb.group(this.ferryFields);
         this.editCase = true;
