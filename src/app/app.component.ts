@@ -10,99 +10,103 @@ import {SubjectService} from '@core/services/subject.service';
 
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-    title = 'Secret South';
-    routeSubscription: Subscription;
-    pageTitle: string;
-    @ViewChild('sidenav') sidenav: MatSidenav;
+  title = 'Secret South';
+  routeSubscription: Subscription;
+  pageTitle: string;
+  @ViewChild('sidenav') sidenav: MatSidenav;
 
-    constructor(
-        public Admin: AdminService,
-        public router: Router,
-        private route: ActivatedRoute,
-        private _title: Title,
-        public _auth: AuthService,
-        private subject: SubjectService,
-        private cdr: ChangeDetectorRef
-    ) {
-
-
-        // Getting current page title
-        this.routeSubscription = this.router.events.pipe(map(() => {
-            let child = this.route.firstChild;
-            while (child) {
-                if (child.firstChild) {
-                    child = child.firstChild;
-                } else if (child.snapshot.data && child.snapshot.data['title']) {
-                    return child.snapshot.data['title'];
-                } else {
-                    return null;
-                }
-            }
-            return null;
-        })).subscribe(title => {
-            this.pageTitle = title;
-            this.setPageTitle();
-            // this.sidenav.toggle();
-            // this._subject.setPageTitle(title)
-        });
+  constructor(
+    public Admin: AdminService,
+    public router: Router,
+    private route: ActivatedRoute,
+    private _title: Title,
+    public _auth: AuthService,
+    private subject: SubjectService,
+    private cdr: ChangeDetectorRef
+  ) {
 
 
-    }
-
-    ngOnInit(): void {
-        this.subject.getSidebarAction().subscribe(action => {
-
-            this.sidenav.toggle();
-            this.closeSidenav(this.sidenav);
-
-        });
-    }
-
-
-    /**
-     * Sets current page title
-     */
-    setPageTitle() {
-        if (this.pageTitle) {
-            this._title.setTitle(this.pageTitle);
-        }
-    }
-
-    getMode(sidenav) {
-
-        // sidenav.toggle();
-        if (this.responsiveMode && screen.width < 1060 && !this.router.url.includes('auth')) {
-            return 'over';
+    // Getting current page title
+    this.routeSubscription = this.router.events.pipe(map(() => {
+      let child = this.route.firstChild;
+      while (child) {
+        if (child.firstChild) {
+          child = child.firstChild;
+        } else if (child.snapshot.data && child.snapshot.data['title']) {
+          return child.snapshot.data['title'];
         } else {
-            return 'side';
+          return null;
         }
+      }
+      return null;
+    })).subscribe(title => {
+      this.pageTitle = title;
+      this.setPageTitle();
+      // this.sidenav.toggle();
+      // this._subject.setPageTitle(title)
+    });
+
+
+  }
+
+  ngOnInit(): void {
+    this.subject.getSidebarAction().subscribe(action => {
+      // this.closeSidenav(this.sidenav);
+      // this.sidenav.toggle();
+      if (this.sidenav.opened) {
+        this.sidenav.close();
+      } else {
+        this.sidenav.open();
+      }
+
+    });
+  }
+
+
+  /**
+   * Sets current page title
+   */
+  setPageTitle() {
+    if (this.pageTitle) {
+      this._title.setTitle(this.pageTitle);
     }
+  }
 
-    checkDashboardPage() {
-        return /admin|partner|employee|customers/.test(this.router.url);
+  getMode(sidenav) {
+
+    // sidenav.toggle();
+    if (this.responsiveMode && screen.width < 1060 && !this.router.url.includes('auth')) {
+      return 'over';
+    } else {
+      return 'side';
     }
+  }
 
-    get responsiveMode() {
+  checkDashboardPage() {
+    return /admin|partner|employee|customers/.test(this.router.url);
+  }
 
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  get responsiveMode() {
+
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  closeSidenav(sidenav) {
+    if (this.responsiveMode) {
+      sidenav.close();
     }
+  }
 
-    closeSidenav(sidenav) {
-        if (this.responsiveMode) {
-            sidenav.close();
-        }
+
+  ngOnDestroy() {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
     }
-
-
-    ngOnDestroy() {
-        if (this.routeSubscription) {
-            this.routeSubscription.unsubscribe();
-        }
-    }
+  }
 }

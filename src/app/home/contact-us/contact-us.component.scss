@@ -1,3 +1,6 @@
+@import '_variables';
+@import '_mixins';
+
 .contactForm {
   display: flex;
   flex-direction: column;
@@ -150,5 +153,9 @@ header {
 }
 
 .login {
+  cursor: pointer;
+}
+.sidebarToggler {
+  @include noBgBtn;
   cursor: pointer;
 }
