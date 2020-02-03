@@ -39,7 +39,7 @@
         <!--                <i class="fa fa-map-marker-alt"></i>-->
         <mat-icon>place</mat-icon>
         <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-               [options]="countryRestrictredPlaces"
+               [options]="countryRestrictedPlaces"
                #searchAddress="ngx-places" placeholder="Your location">
       </div>
 
@@ -47,7 +47,7 @@
         <!--                <i class="fa fa-map-marker-alt"></i>-->
         <mat-icon>place</mat-icon>
         <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-               [options]="countryRestrictredPlaces"
+               [options]="countryRestrictedPlaces"
                #searchAddress="ngx-places" placeholder="Direction">
       </div>
 
@@ -57,15 +57,6 @@
                           [buttonsOrientation]="'v'" [placeholder]="'Guests'"
                           (valueChange)="personsCountChanged($event)"></ng-number-picker>
       </div>
-
-      <!--            <div class="checkOut">-->
-      <!--                <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"-->
-      <!--                       [matDatepicker]="checkOutPicker" class="Check_out_inp">-->
-      <!--                <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>-->
-      <!--                <mat-datepicker #checkOutPicker startView="year"-->
-      <!--                                [startAt]="getStartDate()"></mat-datepicker>-->
-      <!--            </div>-->
-
 
       <div class="searchBtn">
         <button type="button" name="button" (click)="searchFerries()">Search</button>

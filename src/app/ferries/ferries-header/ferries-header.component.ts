@@ -25,7 +25,7 @@ export class FerriesHeaderComponent implements OnInit {
     routerUrl: string;
     selectedSection = 'Ferries';
     responsiveMode: boolean;
-    countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+    countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES as any;
     personsCount = 2;
 
     @Output() toggle = new EventEmitter();
