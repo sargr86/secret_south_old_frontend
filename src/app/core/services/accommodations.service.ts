@@ -32,6 +32,10 @@ export class AccommodationsService {
     return this.http.put(`${API_URL}accommodations/update`, params);
   }
 
+  makeCover(params) {
+    return this.http.put(`${API_URL}accommodations/make-cover`, params);
+  }
+
   remove(params) {
     return this.http.delete(`${API_URL}accommodations/remove`, {params: params});
   }
