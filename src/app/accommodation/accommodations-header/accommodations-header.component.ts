@@ -52,6 +52,7 @@ export class AccommodationsHeaderComponent implements OnInit {
   }
 
   toggleSidebar() {
+    this.subject.setSidebarAction('toggle');
     this.toggle.emit();
   }
 

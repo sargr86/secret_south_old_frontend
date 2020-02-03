@@ -11,113 +11,114 @@ import IsResponsive from '../../core/helpers/is-responsive';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 
 @Component({
-    selector: 'app-food-drink-header',
-    templateUrl: './food-drink-header.component.html',
-    styleUrls: ['./food-drink-header.component.scss']
+  selector: 'app-food-drink-header',
+  templateUrl: './food-drink-header.component.html',
+  styleUrls: ['./food-drink-header.component.scss']
 })
 export class FoodDrinkHeaderComponent implements OnInit {
-    mainSections = MAIN_SECTIONS;
-    mapForm: FormGroup;
-    latlng: any = [];
-    lat = 0;
-    lng = 0;
-    subscriptions: Subscription[] = [];
-    routerUrl: string;
-    selectedSection = 'Food/Drink';
-    responsiveMode: boolean;
-    countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
-    personsCount = 2;
+  mainSections = MAIN_SECTIONS;
+  mapForm: FormGroup;
+  latlng: any = [];
+  lat = 0;
+  lng = 0;
+  subscriptions: Subscription[] = [];
+  routerUrl: string;
+  selectedSection = 'Food/Drink';
+  responsiveMode: boolean;
+  countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
+  personsCount = 2;
 
 
-    @Output() toggle = new EventEmitter();
+  @Output() toggle = new EventEmitter();
 
 
-    timepickerTheme = TIMEPICKER_THEME;
+  timepickerTheme = TIMEPICKER_THEME;
 
-    constructor(
-        public router: Router,
-        public auth: AuthService,
-        private _fb: FormBuilder,
-        private main: MainService,
-        private subject: SubjectService
-    ) {
+  constructor(
+    public router: Router,
+    public auth: AuthService,
+    private _fb: FormBuilder,
+    private main: MainService,
+    private subject: SubjectService
+  ) {
 
-    }
+  }
 
-    ngOnInit() {
-        // Checking for responsive mode and initializing map form
-        this.responsiveMode = IsResponsive.check();
-        this.mapForm = this._fb.group({
-            type: ['']
+  ngOnInit() {
+    // Checking for responsive mode and initializing map form
+    this.responsiveMode = IsResponsive.check();
+    this.mapForm = this._fb.group({
+      type: ['']
+    });
+  }
+
+  toggleSidebar() {
+    this.subject.setSidebarAction('toggle');
+    this.toggle.emit();
+  }
+
+  changePlace(section) {
+    this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
+
+      this.latlng = [];
+
+      if (r && r.length > 0) {
+
+        r.map((latlngs) => {
+          latlngs.lat = parseFloat(latlngs.lat);
+          latlngs.lng = parseFloat(latlngs.lng);
+          this.latlng.push(latlngs);
         });
+
+        this.lat = parseFloat(this.latlng[0].lat);
+        this.lng = parseFloat(this.latlng[0].lng);
+
+
+      }
+
+      this.subject.setMapData({
+        section: section,
+        lat: this.lat,
+        lng: this.lng,
+        list: r
+      });
+      this.selectedSection = section;
+    });
+  }
+
+  changeSection(section) {
+    if (section === 'Accommodations') {
+      this.mapForm.patchValue({type: section});
+      this.router.navigate([section.toLowerCase()]);
+      this.changePlace(section);
     }
+  }
 
-    toggleSidebar() {
-        this.toggle.emit();
-    }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
 
-    changePlace(section) {
-        this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
+  navigateToDashboard() {
+    const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
+    this.router.navigate([`${role}/dashboard/show`]);
+  }
 
-            this.latlng = [];
+  getStartDate() {
 
-            if (r && r.length > 0) {
+  }
 
-                r.map((latlngs) => {
-                    latlngs.lat = parseFloat(latlngs.lat);
-                    latlngs.lng = parseFloat(latlngs.lng);
-                    this.latlng.push(latlngs);
-                });
+  dateChanged() {
 
-                this.lat = parseFloat(this.latlng[0].lat);
-                this.lng = parseFloat(this.latlng[0].lng);
+  }
 
+  searchAccommodations() {
+    this.router.navigate(['food-drink/list']);
+  }
 
-            }
+  personsCountChanged(e) {
 
-            this.subject.setMapData({
-                section: section,
-                lat: this.lat,
-                lng: this.lng,
-                list: r
-            });
-            this.selectedSection = section;
-        });
-    }
-
-    changeSection(section) {
-        if (section === 'Accommodations') {
-            this.mapForm.patchValue({type: section});
-            this.router.navigate([section.toLowerCase()]);
-            this.changePlace(section);
-        }
-    }
-
-    logout() {
-        localStorage.removeItem('token');
-        this.router.navigate(['/']);
-    }
-
-    navigateToDashboard() {
-        const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
-        this.router.navigate([`${role}/dashboard/show`]);
-    }
-
-    getStartDate() {
-
-    }
-
-    dateChanged() {
-
-    }
-
-    searchAccommodations() {
-        this.router.navigate(['food-drink/list']);
-    }
-
-    personsCountChanged(e) {
-
-    }
+  }
 
 
 }
