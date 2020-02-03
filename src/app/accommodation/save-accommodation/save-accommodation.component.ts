@@ -28,6 +28,8 @@ import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Accommodation} from '@shared/models/Accommodation';
+import SetImageAsCover from '@core/helpers/set-image-as-cover';
+import CheckIfCoverImageWhenRemoving from '@core/helpers/check-if-cover-image-when-removing';
 
 @Component({
   selector: 'app-save-accommodation',
@@ -123,41 +125,36 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     }));
   }
 
-  // selectSetCover(event: Event, index: number) {
-  //
-  //   // Removing previous selected cover
-  //   const selectedCover = document.querySelector('.selected');
-  //   if (selectedCover) {
-  //     selectedCover.classList.remove('selected');
-  //   }
-  //
-  //   // Marking selected image as cover by star icon
-  //   const target = event.target as HTMLElement;
-  //   target.classList.add('selected');
-  //
-  // }
-
   makeCover(event, index) {
-    console.log(this.accommodationData.images)
-    const currentImg = this.basename.transform(this.accommodationData.images[index].big);
-    this.accommodationForm.patchValue({img: currentImg});
-    this.imgPath = this.accommodationData.images[index].big;
+
+    const cover = SetImageAsCover.set(event, index, this.accommodationData.images);
     this.coverShown = true;
-    // console.log(event)
-    // this.save(this.searchAddress);
+
+    if (cover) {
+      this.accommodationForm.patchValue({img: cover});
+      this.imgPath = cover.big;
+      const p = this.basename.transform(this.imgPath);
+      this.subscriptions.push(this._accommodation.makeCover({img: p, id: this.accommodationData.id}).subscribe(dt => {
+        this.toastr.success('The selected image was set as cover successfully');
+      }));
+    }
   }
 
   deleteImage(event, index) {
 
-    this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+    this.subscriptions.push(this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.accommodationData.images[index].big;
-        this.accommodationData.images = this.accommodationData.images.filter(i => i['big'] !== currentImg);
-        this._accommodation.removeImage({filename: currentImg}).subscribe(dt => {
-
-        });
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+          this.accommodationData.images = this.accommodationData.images.filter(i => i['big'] !== currentImg);
+          this.subscriptions.push(this._accommodation.removeImage({filename: currentImg}).subscribe(dt => {
+            this.toastr.success('The selected image was removed successfully');
+          }));
+        } else {
+          this.toastr.error('Please change the cover first.', 'This is the cover image.');
+        }
       }
-    });
+    }));
 
 
   }
@@ -220,9 +217,9 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
       address: address.el.nativeElement.value
     }, this.dropZoneFiles);
 
-    this._accommodation[this.formAction](formData).subscribe(() => {
+    this.subscriptions.push(this._accommodation[this.formAction](formData).subscribe(() => {
       this._formMsg.transform('accommodation', this.editCase, this.redirectUrl);
-    });
+    }));
     // }
   }
 
@@ -244,10 +241,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     console.log(e)
   }
 
-  ngAfterViewInit() {
-    this.markCover.transform(this.imgPath, this.elRef);
-  }
-
   get nameCtrl(): AbstractControl {
     return this.accommodationForm.get('lat');
   }
@@ -262,6 +255,10 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
 
   get addressCtrl(): AbstractControl {
     return this.accommodationForm.get('address');
+  }
+
+  ngAfterViewInit() {
+    this.markCover.transform(this.imgPath, this.elRef);
   }
 
   ngOnDestroy(): void {
