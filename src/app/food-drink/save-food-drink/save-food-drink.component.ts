@@ -27,6 +27,9 @@ import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import SetImageAsCover from '@core/helpers/set-image-as-cover';
+import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
+import CheckIfCoverImageWhenRemoving from '@core/helpers/check-if-cover-image-when-removing';
 
 @Component({
   selector: 'app-save-food-drink',
@@ -74,7 +77,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     private subject: SubjectService,
     private elRef: ElementRef,
     private markCover: MarkSelectedCoverImagePipe,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private basename: GetFileBasenamePipe,
   ) {
 
     this.foodDrinkForm = this._fb.group(this.formFields);
@@ -135,39 +139,34 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
    */
   makeCover(event, index) {
 
-    // Removing previous images marked as cover
-    const coverImg = document.querySelector('.coverStar');
-    if (coverImg) {
-      coverImg.classList.remove('coverStar');
-    }
-
-    // Getting current star icon and marking it as selected
-    const el = event.target;
-    el.classList.add('coverStar');
-
+    const cover = SetImageAsCover.set(event, index, this.foodDrinkData.images);
     this.coverShown = true;
-    const image = this.foodDrinkData.images.find((img, ind) => ind === index);
-    if (image) {
-      this.imgPath = image['big'];
-      const p = this.imgPath.split('/').pop();
+
+    if (cover) {
+      this.imgPath = cover['big'];
+      const p = this.basename.transform(this.imgPath);
       this.foodDrinkForm.patchValue({img: p});
-      this._foodDrink.makeCover({img: p, id: this.foodDrinkData.id}).subscribe(dt => {
+      this.subscriptions.push(this._foodDrink.makeCover({img: p, id: this.foodDrinkData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
-      });
+      }));
     }
   }
 
   deleteImage(event, index) {
 
-    this.matDialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+    this.subscriptions.push(this.matDialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.foodDrinkData.images[index].big;
-        this.foodDrinkData.images = this.foodDrinkData.images.filter(i => i['big'] !== currentImg);
-        this._foodDrink.removeImage({filename: currentImg}).subscribe(dt => {
-
-        });
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+          this.foodDrinkData.images = this.foodDrinkData.images.filter(i => i['big'] !== currentImg);
+          this.subscriptions.push(this._foodDrink.removeImage({filename: currentImg}).subscribe(dt => {
+            this.toastr.success('The selected image was removed successfully');
+          }));
+        } else {
+          this.toastr.error('Please change the cover first.', 'This is the cover image.');
+        }
       }
-    });
+    }));
 
 
   }

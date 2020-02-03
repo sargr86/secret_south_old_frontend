@@ -30,6 +30,8 @@ import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-imag
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import SetImageAsCover from '@core/helpers/set-image-as-cover';
+import CheckIfCoverImageWhenRemoving from '@core/helpers/check-if-cover-image-when-removing';
 
 
 @Component({
@@ -182,10 +184,14 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.ferryData.images[index].big;
-        this.ferryData.images = this.ferryData.images.filter(i => i['big'] !== currentImg);
-        this._ferries.removeImage({filename: currentImg}).subscribe(dt => {
-
-        });
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+          this.ferryData.images = this.ferryData.images.filter(i => i['big'] !== currentImg);
+          this._ferries.removeImage({filename: currentImg}).subscribe(dt => {
+            this.toastr.success('The selected image was removed successfully');
+          });
+        } else {
+          this.toastr.error('Please change the cover first.', 'This is the cover image.');
+        }
       }
     });
 
@@ -203,15 +209,23 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   removeImage(event, index): void {
     // this.ferryData.images.splice(index, 1);
-    const image = this.ferryData.images.find((img, ind) => ind === index);
+    const currentImg = this.ferryData.images.find((img, ind) => ind === index);
 
-    this._ferries.removeImage({
-      id: this.ferryData.id,
-      folder: this.ferryData.folder,
-      file: image['big'].split('/').pop()
-    }).subscribe(d => {
-      this.ferryData = d;
-    });
+    console.log(currentImg)
+
+    // if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+    //
+    //   this.subscriptions.push(this._ferries.removeImage({
+    //     id: this.ferryData.id,
+    //     folder: this.ferryData.folder,
+    //     file: currentImg['big'].split('/').pop()
+    //   }).subscribe(d => {
+    //     this.ferryData = d;
+    //   }));
+    // } else {
+    //   this.toastr.error('Please change the cover first.', 'This is the cover image.');
+    // }
+
   }
 
   /**
@@ -221,20 +235,10 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   makeCover(event, index) {
 
-    // Removing previous images marked as cover
-    const coverImg = document.querySelector('.coverStar');
-    if (coverImg) {
-      coverImg.classList.remove('coverStar');
-    }
-
-    // Getting current star icon and marking it as selected
-    const el = event.target;
-    el.classList.add('coverStar');
-
+    const cover = SetImageAsCover.set(event, index, this.ferryData.images);
     this.coverShown = true;
-    const image = this.ferryData.images.find((img, ind) => ind === index);
-    if (image) {
-      this.imgPath = image['big'];
+    if (cover) {
+      this.imgPath = cover['big'];
       const p = this.imgPath.split('/').pop();
       this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
