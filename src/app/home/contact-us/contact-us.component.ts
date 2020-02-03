@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import IsResponsive from '@core/helpers/is-responsive';
 import {ContactsService} from '@core/services/contacts.service';
 import {ToastrService} from 'ngx-toastr';
+import {SubjectService} from '@core/services/subject.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -21,7 +22,8 @@ export class ContactUsComponent implements OnInit {
     public auth: AuthService,
     public router: Router,
     private _contactsService: ContactsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private subject: SubjectService
   ) {
     this.contactForm = this.fb.group({
       company_name: ['', Validators.required],
@@ -44,6 +46,10 @@ export class ContactUsComponent implements OnInit {
       this.toastr.success('Please wait for invitation email arrival.', 'The contact has been requested successfully.');
       this.router.navigate(['/']);
     });
+  }
+
+  toggleSidebar() {
+    this.subject.setSidebarAction('toggle');
   }
 
 }

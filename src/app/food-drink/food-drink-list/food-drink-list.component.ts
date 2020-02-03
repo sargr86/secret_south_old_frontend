@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class FoodDrinkListComponent implements OnInit {
 
     foodDrinkObjects: FoodDrink[];
-    countryRestrictredPlaces = COUNTRY_RESTRICTED_PLACES;
+    countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
     personsCount = 2;
     timepickerTheme = TIMEPICKER_THEME;
     foodDrinkFolder = FOOD_DRINK_FOLDER;
