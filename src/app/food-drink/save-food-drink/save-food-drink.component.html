@@ -90,7 +90,7 @@
         Save
       </button>
 
-      <div class="coverToggler" *ngIf="editCase">
+      <div class="coverToggler" *ngIf="!!coverPath">
         <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
           <small>Show cover</small>
         </mat-slide-toggle>
@@ -102,13 +102,13 @@
 
   <!-- Drop zone -->
   <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0">
-    <div class="savedImgContainer" *ngIf="imgPath && coverShown">
-      <img [src]="imgPath" class="savedImg">
+    <div class="savedImgContainer" *ngIf="coverPath && coverShown">
+      <img [src]="coverPath" class="savedImg">
     </div>
 
     <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
               (addedFile)="getFile($event)" (removedFile)="removeSavedImg()"
-              *ngIf="!editCase||(editCase && !coverShown)"></dropzone>
+              *ngIf="!coverShown"></dropzone>
   </div>
 
   <ng-container *ngIf="foodDrinkData">

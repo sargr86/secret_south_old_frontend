@@ -52,7 +52,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   options = {types: ['geocode']};
   ferryFields = FERRY_FIELDS;
   dropZoneFiles = [];
-  imgPath;
+  coverPath;
   formAction: string;
   dropzoneIndividualConfig = {maxFiles: 5};
   coverShown = true;
@@ -90,7 +90,6 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.ferryForm = this.fb.group(this.ferryFields);
     this.common.dataLoading = true;
-    this.coverShown = !this.editCase || !!this.imgPath;
 
     this.galleryOptions[0].thumbnailActions = [
       {
@@ -122,10 +121,11 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         if (this.ferryData['img']) {
-          this.imgPath = this.ferryData['realFolder'] + '/' + this.ferryData['img'];
+          this.coverPath = this.ferryData['realFolder'] + '/' + this.ferryData['img'];
         }
       }
       this.formAction = this.editCase ? 'update' : 'add';
+      this.coverShown = !!this.coverPath;
       this.common.dataLoading = false;
     }));
 
@@ -184,7 +184,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.ferryData.images[index].big;
-        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
           this.ferryData.images = this.ferryData.images.filter(i => i['big'] !== currentImg);
           this._ferries.removeImage({filename: currentImg}).subscribe(dt => {
             this.toastr.success('The selected image was removed successfully');
@@ -203,7 +203,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
    * Removes saved drop zone image
    */
   removeSavedImg() {
-    this.imgPath = '';
+    this.coverPath = '';
     this.ferryForm.patchValue({'img': ''});
   }
 
@@ -213,7 +213,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log(currentImg)
 
-    // if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+    // if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
     //
     //   this.subscriptions.push(this._ferries.removeImage({
     //     id: this.ferryData.id,
@@ -238,8 +238,8 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
     const cover = SetImageAsCover.set(event, index, this.ferryData.images);
     this.coverShown = true;
     if (cover) {
-      this.imgPath = cover['big'];
-      const p = this.imgPath.split('/').pop();
+      this.coverPath = cover['big'];
+      const p = this.coverPath.split('/').pop();
       this._ferries.makeCover({img: p, id: this.ferryData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
       });
@@ -294,7 +294,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
 
     // Marks the cover image on page load
-    this.markCover.transform(this.imgPath, this.elRef);
+    this.markCover.transform(this.coverPath, this.elRef);
   }
 
   getSelectedCover(e, index) {

@@ -52,7 +52,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
   dropzoneConfig = {
     maxFiles: 10
   };
-  imgPath;
+  coverPath;
   realFolder;
 
   // Address search
@@ -88,13 +88,12 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
       this.prepareEditForm(dt);
 
       this.formAction = this.editCase ? 'update' : 'add';
-      this.coverShown = !this.editCase || !!this.imgPath;
+      this.coverShown = !this.editCase || !!this.coverPath;
       this.common.dataLoading = false;
     }));
   }
 
   ngOnInit() {
-
     this.galleryOptions[0].thumbnailActions = [
       {
         icon: 'fa fa-star', onClick: (event: Event, index: number) => {
@@ -109,7 +108,6 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
         }, titleText: 'delete'
       }
     ];
-
   }
 
 
@@ -127,8 +125,9 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
       this.editCase = true;
       this.addressCtrl.disable();
       if (this.foodDrinkData['img']) {
-        this.imgPath = this.foodDrinkData['realFolder'] + '/' + this.foodDrinkData['img'];
+        this.coverPath = this.foodDrinkData['realFolder'] + '/' + this.foodDrinkData['img'];
       }
+      this.coverShown = !!this.coverPath;
     }
   }
 
@@ -143,8 +142,8 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     this.coverShown = true;
 
     if (cover) {
-      this.imgPath = cover['big'];
-      const p = this.basename.transform(this.imgPath);
+      this.coverPath = cover['big'];
+      const p = this.basename.transform(this.coverPath);
       this.foodDrinkForm.patchValue({img: p});
       this.subscriptions.push(this._foodDrink.makeCover({img: p, id: this.foodDrinkData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
@@ -157,7 +156,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
     this.subscriptions.push(this.matDialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.foodDrinkData.images[index].big;
-        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
           this.foodDrinkData.images = this.foodDrinkData.images.filter(i => i['big'] !== currentImg);
           this.subscriptions.push(this._foodDrink.removeImage({filename: currentImg}).subscribe(dt => {
             this.toastr.success('The selected image was removed successfully');
@@ -226,7 +225,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
    * Removes saved drop zone image
    */
   removeSavedImg() {
-    this.imgPath = '';
+    this.coverPath = '';
     this.foodDrinkForm.patchValue({'img': ''});
     this.dropZoneFiles = null;
   }
@@ -261,7 +260,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit() {
     // Marks the cover image on page load
-    this.markCover.transform(this.imgPath, this.elRef);
+    this.markCover.transform(this.coverPath, this.elRef);
   }
 
   ngOnDestroy() {
