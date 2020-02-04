@@ -664,7 +664,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 // -----------------Header
 /* header */
-header {
+header:not(.timepicker__header) {
   width: 100%;
   min-height: 98vh;
   background-repeat: no-repeat;
@@ -751,6 +751,7 @@ header {
 
       > div {
         position: relative;
+        margin:10px !important;
 
         mat-icon, i {
           position: absolute;
@@ -766,4 +767,7 @@ header {
     }
   }
 
+}
+.guests input{
+  width: 1% !important;
 }
