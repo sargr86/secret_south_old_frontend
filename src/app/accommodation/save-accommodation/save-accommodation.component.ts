@@ -53,7 +53,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
   options = {types: ['geocode']};
 
   dropZoneFiles: File[] = [];
-  imgPath: string;
+  coverPath: string;
   countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
 
   coverShown = true;
@@ -119,7 +119,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
         this.editFormPreparations(dt.accommodation);
       }
 
-      this.coverShown = !this.editCase || !!this.imgPath;
+      this.coverShown =  !!this.coverPath;
+      console.log(this.coverShown)
       this.common.dataLoading = false;
 
     }));
@@ -132,8 +133,8 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
 
     if (cover) {
       this.accommodationForm.patchValue({img: cover});
-      this.imgPath = cover.big;
-      const p = this.basename.transform(this.imgPath);
+      this.coverPath = cover.big;
+      const p = this.basename.transform(this.coverPath);
       this.subscriptions.push(this._accommodation.makeCover({img: p, id: this.accommodationData.id}).subscribe(dt => {
         this.toastr.success('The selected image was set as cover successfully');
       }));
@@ -145,7 +146,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.subscriptions.push(this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
       if (r) {
         const currentImg = this.accommodationData.images[index].big;
-        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.imgPath)) {
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
           this.accommodationData.images = this.accommodationData.images.filter(i => i['big'] !== currentImg);
           this.subscriptions.push(this._accommodation.removeImage({filename: currentImg}).subscribe(dt => {
             this.toastr.success('The selected image was removed successfully');
@@ -175,7 +176,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
     this.accommodationData['oldName'] = dt['name'];
     this.accommodationForm.patchValue(dt);
     if (dt['img']) {
-      this.imgPath = dt.realFolder + '/' + dt['img'];
+      this.coverPath = dt.realFolder + '/' + dt['img'];
     }
   }
 
@@ -228,7 +229,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   removeSavedImg(): void {
-    this.imgPath = '';
+    this.coverPath = '';
     this.accommodationForm.patchValue({'img': ''});
   }
 
@@ -258,7 +259,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
-    this.markCover.transform(this.imgPath, this.elRef);
+    this.markCover.transform(this.coverPath, this.elRef);
   }
 
   ngOnDestroy(): void {
