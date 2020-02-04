@@ -1,6 +1,6 @@
 @media screen and (max-width: 1230px) {
 
-  header {
+  header:not(.timepicker__header) {
     min-height: 98vh;
   }
   .header_top {
@@ -28,7 +28,7 @@
     font-size: 17px;
   }
   .header_main {
-    width: 70%!important;
+    width: 70% !important;
     max-width: unset;
   }
   .header_main_box {
@@ -60,7 +60,10 @@
   }
   .header_main_box .guests {
     width: 30%;
-    margin: 0 5px
+    margin: 0 5px;
+    .mat-icon{
+      margin-top: 10px!important;
+    }
   }
   .header_main_box select {
     width: 100%;
@@ -70,11 +73,11 @@
 
   }
 
-  .header_main_box button {
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
-  }
+  //.header_main_box button {
+  //  width: 100px;
+  //  height: 40px;
+  //  font-size: 18px;
+  //}
   .header_bottom {
     width: 95%;
     max-width: unset;
@@ -160,7 +163,7 @@
     margin: 0 !important;
   }
   .searchBtn {
-    width: 100%!important;
+    width: 100% !important;
     margin: 0 !important;
   }
   .checkInIcon {
@@ -206,22 +209,35 @@
     justify-content: center;
   }
   .header_main_box {
-    height: auto!important;
+    height: auto !important;
     width: auto;
     flex-direction: column;
     padding: 15px;
   }
   .header_main_box input {
     width: 100% !important;
+
+  }
+  .header_main_box .checkOut input {
     margin: 5px 0
   }
   .header_main_box select {
     width: 200px !important;
     margin: 5px 0
   }
-  .header_main_box button {
-    width: 100% !important;
-    margin-top: 5px
+  //.header_main_box button {
+  //  width: 100% !important;
+  //
+  //}
+  .searchBtn {
+    button {
+      width: 100% !important;
+    }
+  }
+  .checkIn {
+    button {
+      margin-top: -3px;
+    }
   }
   .tourTypes {
     width: 100% !important;
