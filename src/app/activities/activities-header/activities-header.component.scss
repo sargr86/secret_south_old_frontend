@@ -24,47 +24,6 @@ header {
   justify-content: space-between;
 }
 
-.header_top {
-  width: 1200px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-}
-
-.header_top_left {
-  display: flex;
-  align-items: center;
-}
-
-.header_top_logo {
-  margin-right: 60px;
-  img{
-    object-fit: cover;
-  }
-}
-
-.header_top_left ul {
-  display: flex;
-  list-style-type: none;
-}
-
-.header_top_left ul li {
-  margin-right: 35px;
-  font-size: 18px;
-}
-
-.header_top_right {
-  display: flex;
-
-  p {
-    cursor: pointer;
-    margin: 0 10px;
-    font-size: 18px;
-  }
-}
-
 
 .header_main {
   width: 1200px;
@@ -130,26 +89,6 @@ header {
   border: none;
 }
 
-.header_bottom {
-  width: 1200px;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  margin: 0 auto 70px auto;
-}
-
-.header_bottom_box {
-  display: flex;
-  align-items: center;
-}
-
-.header_bottom_box p {
-  margin-left: 8px;
-  font-size: 16px;
-  margin-bottom: 0;
-}
-
 .login {
   cursor: pointer;
 }
@@ -176,11 +115,6 @@ header {
   }
 }
 
-.sidebarToggler {
-  @include noBgBtn;
-  cursor: pointer;
-}
-
 .guests {
 
   mat-icon {
@@ -191,7 +125,5 @@ header {
 .activityTypes {
   width: 370px;
 }
-
-
 
 @import "media";

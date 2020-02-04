@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'mixins';
+
+
+.header_bottom {
+  width: 1200px;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin: 0 auto 70px auto;
+}
+
+.header_bottom_box {
+  display: flex;
+  align-items: center;
+}
+
+.header_bottom_box p {
+  margin-left: 8px;
+  font-size: 16px;
+  margin-bottom: 0;
+}
