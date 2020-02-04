@@ -9,23 +9,23 @@ import {NotFoundComponent} from '@core/components/not-found/not-found.component'
 
 
 @NgModule({
-    declarations: [
-        NavbarComponent,
-        HeaderComponent,
-        SidebarComponent,
-        FooterComponent,
-        NotFoundComponent
-    ],
-    imports: [
-        CommonModule,
-        SharedModule
-    ],
-    exports: [
-        NavbarComponent,
-        HeaderComponent,
-        SidebarComponent,
-        FooterComponent
-    ]
+  declarations: [
+    NavbarComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent,
+    NotFoundComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedModule
+  ],
+  exports: [
+    NavbarComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent,
+  ]
 })
 export class CoreModule {
 }

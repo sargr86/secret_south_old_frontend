@@ -33,6 +33,8 @@ import {ProgressBarModule} from 'angular-progress-bar';
 import {FiltersBarComponent} from './components/filters-bar/filters-bar.component';
 import {GetFileBasenamePipe} from './pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe';
+import {HeaderTopComponent} from '@shared/components/header-top/header-top.component';
+import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe
     CarouselHolderComponent,
     MainSectionsComponent,
     FiltersBarComponent,
+    HeaderTopComponent,
+    HeaderBottomComponent,
     GetFileBasenamePipe,
     MarkSelectedCoverImagePipe
   ],
@@ -115,6 +119,8 @@ import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe
     CarouselHolderComponent,
     MainSectionsComponent,
     FiltersBarComponent,
+    HeaderTopComponent,
+    HeaderBottomComponent,
     GetFileBasenamePipe
   ],
   entryComponents: [
