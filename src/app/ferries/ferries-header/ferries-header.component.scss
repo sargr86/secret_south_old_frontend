@@ -12,89 +12,17 @@
 
 /* header */
 header {
-  width: 100%;
-  min-height: 98vh;
   background-image: url("assets/images/Aerial-Cork-Harbour.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding-top: 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 
-
-
-.header_main {
-  width: 1200px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-}
-
-.header_main_box {
-  height: 108px;
-  opacity: 0.9;
-  background-color: #164547;
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-
-  input {
-    width: 300px;
-    height: 44px;
-    border: solid 1px #ffffff;
-    font-size: 16px;
-    font-weight: 600;
-    background: transparent;
-    color: #fff !important
-  }
-
-  input::placeholder {
-    //padding-left: 27px;
-    color: #fff !important
-  }
-}
 
 
 .Check_out_inp {
   width: 180px !important;
 }
 
-.header_main_box select {
-  width: 288px;
-  height: 47px;
-  border: solid 1px #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  background: transparent;
-  color: #fff !important;
-  padding-left: 25px;
-}
 
-.header_main_box select option {
-  background-color: #164547;
-  padding: 10px 0
-}
-
-.header_main_box button {
-  width: 120px;
-  height: 46px;
-  border-radius: 4px;
-  background-image: linear-gradient(to right, #0b9194, #08c1c6);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  border: none;
-}
-
-.login {
-  cursor: pointer;
-}
 
 
 

@@ -28,7 +28,7 @@
     font-size: 17px;
   }
   .header_main {
-    width: 70%;
+    width: 70%!important;
     max-width: unset;
   }
   .header_main_box {
@@ -160,7 +160,7 @@
     margin: 0 !important;
   }
   .searchBtn {
-    width: 100%;
+    width: 100%!important;
     margin: 0 !important;
   }
   .checkInIcon {
@@ -206,7 +206,7 @@
     justify-content: center;
   }
   .header_main_box {
-    height: auto;
+    height: auto!important;
     width: auto;
     flex-direction: column;
     padding: 15px;
