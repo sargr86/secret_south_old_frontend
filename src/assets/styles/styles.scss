@@ -693,7 +693,7 @@ header:not(.timepicker__header) {
       align-items: center;
       padding: 0 16px;
 
-      input {
+      input:not(.timepicker-dial__control ) {
         width: 300px;
         height: 44px;
         border: solid 1px #ffffff;
