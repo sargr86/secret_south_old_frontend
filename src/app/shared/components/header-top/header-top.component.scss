@@ -1,0 +1,46 @@
+@import 'variables';
+@import 'mixins';
+
+
+.header_top {
+  width: 1200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.header_top_left {
+  display: flex;
+  align-items: center;
+}
+
+.header_top_logo {
+  margin-right: 60px;
+}
+
+.header_top_left ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.header_top_left ul li {
+  margin-right: 35px;
+  font-size: 18px;
+}
+
+.header_top_right {
+  display: flex;
+
+  p {
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 18px;
+  }
+}
+.sidebarToggler {
+  @include noBgBtn;
+  cursor: pointer;
+}
+@import "media";

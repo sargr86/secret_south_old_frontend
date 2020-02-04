@@ -101,71 +101,12 @@ header {
   border: none;
 }
 
-.header_bottom {
-  width: 1200px;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  margin: 0 auto 70px auto;
-}
-
-.header_bottom_box {
-  display: flex;
-  align-items: center;
-}
-
-.header_bottom_box p {
-  margin-left: 8px;
-  font-size: 16px;
-  margin-bottom: 0;
-}
-
-
 .logo {
   background-image: url("assets/images/logo.png");
   width: 89px;
   height: 91px;
   background-size: cover;
   cursor: pointer;
-}
-
-.header_top {
-  width: 1200px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-}
-
-.header_top_left {
-  display: flex;
-  align-items: center;
-}
-
-.header_top_logo {
-  margin-right: 60px;
-}
-
-.header_top_left ul {
-  display: flex;
-  list-style-type: none;
-}
-
-.header_top_left ul li {
-  margin-right: 35px;
-  font-size: 18px;
-}
-
-.header_top_right {
-  display: flex;
-
-  p {
-    cursor: pointer;
-    margin: 0 10px;
-    font-size: 18px;
-  }
 }
 
 .sidebarToggler {

@@ -12,7 +12,7 @@ import {SubjectService} from '@core/services/subject.service';
   styleUrls: ['./activities-header.component.scss'],
 })
 export class ActivitiesHeaderComponent implements OnInit {
-  countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
+  countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES as any;
   personsCount = 2;
   selectedSection = 'Activities';
   responsiveMode: boolean;
