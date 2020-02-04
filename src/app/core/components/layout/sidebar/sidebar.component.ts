@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   latlng: any = [];
   lat = 0;
   lng = 0;
-  userData = jwtDecode(localStorage.getItem('token'));
+  userData = '';
   routerUrl;
 
 
@@ -91,6 +91,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getSidebarDataSrc();
     this.responsiveMode = IsResponsive.check();
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.userData = jwtDecode(token);
+    }
+
 
     this.mapForm = this._fb.group({
       type: ['']

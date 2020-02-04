@@ -1,42 +1,43 @@
 <header>
   <app-header-top [section]="'Activities'"></app-header-top>
 
-  <div class="">
-    <div class="header_main">
-      <div class="header_main_box">
-        <div class="location">
-          <!--                <i class="fa fa-map-marker-alt"></i>-->
-          <mat-icon>place</mat-icon>
-          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-                 [options]="countryRestrictedPlaces"
-                 #searchAddress="ngx-places" placeholder="Location">
-        </div>
-        <div class="checkIn">
-          <input placeholder="Date" required name="bookingDate" (dateChange)="dateChanged()"
-                 [matDatepicker]="checkInPicker" class="Check_out_inp">
-          <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
-          <mat-datepicker #checkInPicker startView="year"
-                          [startAt]="getStartDate()"></mat-datepicker>
-        </div>
+  <div class="header_main">
+    <div class="header_main_box">
+      <div class="location">
+        <!--                <i class="fa fa-map-marker-alt"></i>-->
+        <mat-icon>place</mat-icon>
+        <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
+               [options]="countryRestrictedPlaces"
+               #searchAddress="ngx-places" placeholder="Location">
+      </div>
+      <div class="checkIn">
+        <input placeholder="Date" required name="bookingDate" (dateChange)="dateChanged()"
+               [matDatepicker]="checkInPicker" class="Check_out_inp">
+        <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>
+        <mat-datepicker #checkInPicker startView="year"
+                        [startAt]="getStartDate()"></mat-datepicker>
+      </div>
 
-        <!--                <select>-->
-        <!--                    <option value="" *ngFor="let type of activityTypes">{{type['name']}}</option>-->
-        <!--                </select>-->
+      <!--                <select>-->
+      <!--                    <option value="" *ngFor="let type of activityTypes">{{type['name']}}</option>-->
+      <!--                </select>-->
 
-        <div class="activityTypes">
-          <ng-select [items]="activityTypes" [multiple]="true"
-                     bindLabel="name" placeholder="Activity type *">
+      <div class="activityTypes">
+        <ng-select [items]="activityTypes" [multiple]="true"
+                   bindLabel="name" placeholder="Activity type *">
 
-          </ng-select>
-        </div>
+        </ng-select>
+      </div>
 
-        <div class="guests">
-          <mat-icon>person</mat-icon>
-          <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
-                            [buttonsOrientation]="'v'"
-                            (valueChange)="personsCountChanged($event)"></ng-number-picker>
-        </div>
-        <button type="button" name="button" class="searchBtn" (click)="searchActivities()">Search</button>
+      <div class="guests">
+        <mat-icon>person</mat-icon>
+        <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                          [buttonsOrientation]="'v'"
+                          (valueChange)="personsCountChanged($event)"></ng-number-picker>
+      </div>
+      <div class="searchBtn">
+
+        <button type="button" name="button" (click)="searchActivities()">Search</button>
       </div>
     </div>
   </div>
