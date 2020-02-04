@@ -22,7 +22,7 @@ import {CoreModule} from '@core/core.module';
 
 // Token getter for JWT module
 export function tokenGetter() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') || '';
 }
 
 @NgModule({
