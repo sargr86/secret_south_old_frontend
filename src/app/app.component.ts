@@ -70,23 +70,23 @@ export class AppComponent implements OnInit, OnDestroy, DoCheck {
     });
   }
 
-  ngDoCheck(): void {
-
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      const decoded = jwtDecode(token);
-      const dateEnd = decoded.exp;
-      const dateNow = Date.now();
-
-      if (dateEnd < dateNow / 1000) {
-        this.toastr.error('Your session has been expired');
-        this.router.navigate(['/']);
-        localStorage.removeItem('usr');
-      }
-
-    }
-  }
+  // ngDoCheck(): void {
+  //
+  //   const token = localStorage.getItem('token');
+  //
+  //   if (token) {
+  //     const decoded = jwtDecode(token);
+  //     const dateEnd = decoded.exp;
+  //     const dateNow = Date.now();
+  //
+  //     if (dateEnd < dateNow / 1000) {
+  //       this.toastr.error('Your session has been expired');
+  //       this.router.navigate(['/']);
+  //       localStorage.removeItem('token');
+  //     }
+  //
+  //   }
+  // }
 
 
   /**
