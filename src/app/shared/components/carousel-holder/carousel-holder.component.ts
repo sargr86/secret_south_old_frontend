@@ -46,11 +46,11 @@ export class CarouselHolderComponent implements OnInit {
 
   ngOnInit() {
     this.responsiveMode = IsResponsive.check();
-    // console.log(this.items)
   }
 
   getPath(item, folder) {
-    return folder + '/' + decodeURIComponent(item.name.replace(/ /g , '_')) + '/' + item.img;
+    const name = item.name.replace(/ /g, '_').replace(/&/g, '')
+    return folder + '/' + decodeURIComponent(name) + '/' + item.img;
   }
 
 }

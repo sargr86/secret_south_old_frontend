@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, DoCheck, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from './admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -7,7 +7,8 @@ import {Title} from '@angular/platform-browser';
 import {AuthService} from '@core/services/auth.service';
 import {MatSidenav} from '@angular/material';
 import {SubjectService} from '@core/services/subject.service';
-
+import {ToastrService} from 'ngx-toastr';
+import * as jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import {SubjectService} from '@core/services/subject.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, DoCheck {
   title = 'Secret South';
   routeSubscription: Subscription;
   pageTitle: string;
@@ -28,7 +29,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _title: Title,
     public _auth: AuthService,
     private subject: SubjectService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {
 
 
@@ -66,6 +68,24 @@ export class AppComponent implements OnInit, OnDestroy {
       }
 
     });
+  }
+
+  ngDoCheck(): void {
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decoded = jwtDecode(token);
+      const dateEnd = decoded.exp;
+      const dateNow = Date.now();
+
+      if (dateEnd < dateNow / 1000) {
+        this.toastr.error('Your session has been expired');
+        this.router.navigate(['/']);
+        localStorage.removeItem('usr');
+      }
+
+    }
   }
 
 
