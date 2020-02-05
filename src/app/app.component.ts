@@ -16,7 +16,7 @@ import * as jwtDecode from 'jwt-decode';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, OnDestroy, DoCheck {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Secret South';
   routeSubscription: Subscription;
   pageTitle: string;
