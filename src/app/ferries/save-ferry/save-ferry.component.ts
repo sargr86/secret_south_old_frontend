@@ -198,6 +198,14 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  /**
+   * Removed a drop zone file
+   * @param e event
+   */
+  removeDropzoneImg(e) {
+    this.dropZoneFiles = this.dropZoneFiles.filter(f => e.name !== f.name);
+  }
+
 
   /**
    * Removes saved drop zone image
@@ -205,27 +213,6 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
   removeSavedImg() {
     this.coverPath = '';
     this.ferryForm.patchValue({'img': ''});
-  }
-
-  removeImage(event, index): void {
-    // this.ferryData.images.splice(index, 1);
-    const currentImg = this.ferryData.images.find((img, ind) => ind === index);
-
-    console.log(currentImg)
-
-    // if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
-    //
-    //   this.subscriptions.push(this._ferries.removeImage({
-    //     id: this.ferryData.id,
-    //     folder: this.ferryData.folder,
-    //     file: currentImg['big'].split('/').pop()
-    //   }).subscribe(d => {
-    //     this.ferryData = d;
-    //   }));
-    // } else {
-    //   this.toastr.error('Please change the cover first.', 'This is the cover image.');
-    // }
-
   }
 
   /**

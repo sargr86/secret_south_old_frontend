@@ -160,6 +160,14 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
 
   }
 
+  /**
+   * Removed a drop zone file
+   * @param e event
+   */
+  removeDropzoneImg(e) {
+    this.dropZoneFiles = this.dropZoneFiles.filter(f => e.name !== f.name);
+  }
+
   onChange(e) {
     console.log(e)
   }
