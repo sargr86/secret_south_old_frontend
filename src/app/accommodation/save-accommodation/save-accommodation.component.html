@@ -98,7 +98,7 @@
     </div>
 
     <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
-              (addedFile)="getFile($event)"
+              (addedFile)="getFile($event)" (removedFile)="removeDropzoneImg($event)"
               *ngIf="!coverShown"></dropzone>
   </div>
 

@@ -148,7 +148,7 @@
             <img [src]="coverPath" class="savedImg">
         </div>
         <dropzone [message]="'Click or drag images here to upload'" [config]="dropzoneIndividualConfig"
-                  (addedFile)="getFiles($event)" class="multiple"
+                  (addedFile)="getFiles($event)" class="multiple" (removedFile)="removeDropzoneImg($event)"
                   *ngIf="!coverShown"></dropzone>
 
 
