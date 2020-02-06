@@ -171,6 +171,14 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   /**
+   * Removed a drop zone file
+   * @param e event
+   */
+  removeDropzoneImg(e) {
+    this.dropZoneFiles = this.dropZoneFiles.filter(f => e.name !== f.name);
+  }
+
+  /**
    * Resets address and reloads maps api to allow user to select from drop down again
    */
   resetAddress() {
