@@ -101,8 +101,8 @@
     </form>
     <div class="dropzoneContainer"
          *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">
-        <img *ngIf="activityData && imgPath" [src]="imgPath" class="savedImg" [alt]="activityData.name">
+        <img *ngIf="activityData && coverPath" [src]="coverPath" class="savedImg" [alt]="activityData.name">
         <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
-                  *ngIf="!editCase||(editCase && !imgPath)"></dropzone>
+                  *ngIf="!coverShown"></dropzone>
     </div>
 </div>
