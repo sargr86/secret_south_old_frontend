@@ -103,6 +103,8 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
   getRouteData(dt) {
     if (this.editCase) {
       this.activityFields['id'] = '';
+      dt['oldName'] = dt['name'];
+      console.log(dt, this.activityFields)
       this.saveActivityForm = this._fb.group(this.activityFields);
       this.saveActivityForm.patchValue(dt);
       this.saveActivityForm.controls['address'].disable();
@@ -150,6 +152,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
       fd.append('lat', data.lat);
       fd.append('lng', data.lng);
       fd.append('name', data.name);
+      fd.append('oldName', data.oldName);
       fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
       fd.append('company_id', data.company_id ? data.company_id : '');
       fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
