@@ -43,12 +43,14 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
 
   dropZoneFile: File;
   activityData;
-  imgPath;
+  coverPath;
 
   options = {types: ['geocode']};
   companies;
   subscriptions: Subscription[] = [];
   formAction = this.editCase ? 'update' : 'add';
+
+  coverShown = true;
 
   constructor(
     private _activities: ActivitiesService,
@@ -78,6 +80,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         this.activityData['oldName'] = dt['activity']['name'];
         this.getRouteData(dt['activity']);
       }
+      this.coverShown =  !!this.coverPath;
       this.common.dataLoading = false;
     }));
 
@@ -109,7 +112,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
       this.saveActivityForm.patchValue(dt);
       this.saveActivityForm.controls['address'].disable();
       if (dt['img']) {
-        this.imgPath = ACTIVITIES_FOLDER + dt['img'];
+        this.coverPath = ACTIVITIES_FOLDER + dt['img'];
       }
     }
     this.common.dataLoading = false;
@@ -157,10 +160,10 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
       fd.append('company_id', data.company_id ? data.company_id : '');
       fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
       fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-      if (!this.imgPath) {
+      if (!this.coverPath) {
         fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
       }
-      fd.append('img_path', this.imgPath ? this.imgPath : '');
+      fd.append('img_path', this.coverPath ? this.coverPath : '');
 
       if (this.editCase) {
         fd.append('id', data['id']);
@@ -181,7 +184,7 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
   }
 
   removeSavedImg() {
-    this.imgPath = '';
+    this.coverPath = '';
   }
 
   get nameCtrl() {
