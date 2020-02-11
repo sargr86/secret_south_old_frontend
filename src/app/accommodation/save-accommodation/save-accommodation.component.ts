@@ -120,7 +120,6 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
       }
 
       this.coverShown =  !!this.coverPath;
-      console.log(this.coverShown)
       this.common.dataLoading = false;
 
     }));
