@@ -3,54 +3,66 @@ import {HttpClient} from '@angular/common/http';
 import {API_URL} from '../constants/settings';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ActivitiesService {
 
-    constructor(
-        private http: HttpClient
-    ) {
-    }
+  constructor(
+    private http: HttpClient
+  ) {
+  }
 
-    get() {
-        return this.http.get(`${API_URL}activities/get`);
-    }
+  get() {
+    return this.http.get(`${API_URL}activities/get`);
+  }
 
-    getOne(params) {
-        return this.http.get(`${API_URL}activities/getOne`, {params: params});
-    }
+  getOne(params) {
+    return this.http.get(`${API_URL}activities/getOne`, {params: params});
+  }
 
-    add(params) {
-        return this.http.post(`${API_URL}activities/add`, params);
-    }
+  add(params) {
+    return this.http.post(`${API_URL}activities/add`, params);
+  }
 
-    update(params) {
-        return this.http.put(`${API_URL}activities/update`, params);
-    }
+  update(params) {
+    return this.http.put(`${API_URL}activities/update`, params);
+  }
 
-    remove(params) {
-        return this.http.delete(`${API_URL}activities/remove`, {params: params});
-    }
+  makeCover(params) {
+    return this.http.put(`${API_URL}activities/make-cover`, params);
+  }
 
-    getPartners() {
-        return this.http.get(API_URL + 'activities/get-partners');
-    }
+  remove(params) {
+    return this.http.delete(`${API_URL}activities/remove`, {params: params});
+  }
 
-    addType(data) {
+  removeImage(params) {
+    return this.http.delete(`${API_URL}activities/remove-image`, {params: params});
+  }
 
-        return this.http.post(`${API_URL}activity_types/add`, data);
-    }
+  getPartners() {
+    return this.http.get(API_URL + 'activities/get-partners');
+  }
 
-    getTypes() {
+  addType(data) {
 
-        return this.http.get(`${API_URL}activity_types/get`);
-    }
+    return this.http.post(`${API_URL}activity_types/add`, data);
+  }
 
-    updateType(params) {
-        return this.http.put(`${API_URL}activity_types/update`, params);
-    }
+  getTypes() {
 
-    getOneType(params) {
-        return this.http.get(`${API_URL}activity_types/getOne`, {params: params});
-    }
+    return this.http.get(`${API_URL}activity_types/get`);
+  }
+
+  updateType(params) {
+    return this.http.put(`${API_URL}activity_types/update`, params);
+  }
+
+  getOneType(params) {
+    return this.http.get(`${API_URL}activity_types/getOne`, {params: params});
+  }
+
+
+
+
 }
