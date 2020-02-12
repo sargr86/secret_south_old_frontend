@@ -3,7 +3,12 @@ import {Partner} from '@shared/models/Partner';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {patternValidator} from '@core/helpers/pattern-validator';
 import {LATITUDE_PATTERN, LONGITUDE_PATTERN} from '@core/constants/patterns';
-import {ACTIVITIES_FOLDER, SPINNER_DIAMETER} from '@core/constants/settings';
+import {
+  ACTIVITIES_FOLDER,
+  CONFIRM_DIALOG_SETTINGS,
+  EDIT_FORM_GALLERY_OPTIONS,
+  SPINNER_DIAMETER
+} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -14,6 +19,15 @@ import {ActivitiesService} from '@core/services/activities.service';
 import {CompaniesService} from '@core/services/companies.service';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {ActivityType} from '@shared/models/ActivityType';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
+import {NgxGalleryOptions} from 'ngx-gallery';
+import {SubjectService} from '@core/services/subject.service';
+import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
+import SetImageAsCover from '@core/helpers/set-image-as-cover';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import CheckIfCoverImageWhenRemoving from '@core/helpers/check-if-cover-image-when-removing';
+import {MatDialog} from '@angular/material/dialog';
+import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 
 @Component({
   selector: 'app-save-activity',
@@ -35,13 +49,15 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
     'address': ['', Validators.required],
     'activity_type_id': ['', Validators.required],
-    'company_id': [this.getCompany(), Validators.required]
+    'company_id': [this.getCompany(), Validators.required],
+    folder: ['activities']
   };
   editCase = !!this.route.snapshot.paramMap.get('id');
   spinnerDiameter = SPINNER_DIAMETER;
   redirectUrl = (this.auth.checkRoles('admin') ? 'admin' : 'partners') + '/activities/show';
 
-  dropZoneFile: File;
+  dropZoneFiles: File[] = [];
+
   activityData;
   coverPath;
 
@@ -51,6 +67,12 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
   formAction = this.editCase ? 'update' : 'add';
 
   coverShown = true;
+
+  dropzoneConfig = {
+    maxFiles: 10
+  };
+
+  galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
   constructor(
     private _activities: ActivitiesService,
@@ -63,10 +85,29 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     private _companies: CompaniesService,
     public auth: AuthService,
     private _formMsg: ShowFormMessagePipe,
+    private formData: BuildFormDataPipe,
+    private subject: SubjectService,
+    private dialog: MatDialog,
+    private basename: GetFileBasenamePipe,
   ) {
 
     this.getActivityType();
     this.getCompanies();
+
+    this.galleryOptions[0].thumbnailActions = [
+      {
+        icon: 'fa fa-star', onClick: (event: Event, index: number) => {
+          SelectImageToMakeCoverOnPageLoad.set(event);
+          this.makeCover(event, index);
+        }, titleText: 'cover'
+      },
+      {
+        icon: 'fa fa-times-circle',
+        onClick: (event: Event, index: number) => {
+          this.deleteImage(event, index);
+        }, titleText: 'delete'
+      }
+    ];
 
 
   }
@@ -80,13 +121,47 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
         this.activityData['oldName'] = dt['activity']['name'];
         this.getRouteData(dt['activity']);
       }
-      this.coverShown =  !!this.coverPath;
+      this.coverShown = !!this.coverPath;
       this.common.dataLoading = false;
     }));
 
     if (!this.editCase) {
       this.saveActivityForm = this._fb.group(this.activityFields);
     }
+  }
+
+  makeCover(event, index) {
+
+    const cover = SetImageAsCover.set(event, index, this.activityData.images);
+    this.coverShown = true;
+
+    if (cover) {
+      this.saveActivityForm.patchValue({img: cover});
+      this.coverPath = cover.big;
+      const p = this.basename.transform(this.coverPath);
+      this.subscriptions.push(this._activities.makeCover({img: p, id: this.activityData.id}).subscribe(dt => {
+        this.toastr.success('The selected image was set as cover successfully');
+      }));
+    }
+  }
+
+  deleteImage(event, index) {
+
+    this.subscriptions.push(this.dialog.open(ConfirmationDialogComponent, CONFIRM_DIALOG_SETTINGS).afterClosed().subscribe(r => {
+      if (r) {
+        const currentImg = this.activityData.images[index].big;
+        if (!CheckIfCoverImageWhenRemoving.check(currentImg, this.coverPath)) {
+          this.activityData.images = this.activityData.images.filter(i => i['big'] !== currentImg);
+          this.subscriptions.push(this._activities.removeImage({filename: currentImg}).subscribe(dt => {
+            this.toastr.success('The selected image was removed successfully');
+          }));
+        } else {
+          this.toastr.error('Please change the cover first.', 'This is the cover image.');
+        }
+      }
+    }));
+
+
   }
 
   /**
@@ -107,12 +182,11 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     if (this.editCase) {
       this.activityFields['id'] = '';
       dt['oldName'] = dt['name'];
-      console.log(dt, this.activityFields)
       this.saveActivityForm = this._fb.group(this.activityFields);
       this.saveActivityForm.patchValue(dt);
       this.saveActivityForm.controls['address'].disable();
       if (dt['img']) {
-        this.coverPath = ACTIVITIES_FOLDER + dt['img'];
+        this.coverPath = dt.realFolder + '/'  +dt['img'];
       }
     }
     this.common.dataLoading = false;
@@ -152,25 +226,30 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
       this.common.formProcessing = true;
       const data = this.saveActivityForm.value;
       const fd = new FormData();
-      fd.append('lat', data.lat);
-      fd.append('lng', data.lng);
-      fd.append('name', data.name);
-      fd.append('oldName', data.oldName);
-      fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
-      fd.append('company_id', data.company_id ? data.company_id : '');
-      fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
-      fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-      if (!this.coverPath) {
-        fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
-      }
-      fd.append('img_path', this.coverPath ? this.coverPath : '');
+      // fd.append('lat', data.lat);
+      // fd.append('lng', data.lng);
+      // fd.append('name', data.name);
+      // fd.append('oldName', data.oldName);
+      // fd.append('activity_type_id', data.activity_type_id ? data.activity_type_id : '');
+      // fd.append('company_id', data.company_id ? data.company_id : '');
+      // fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
+      // fd.append('upload_images', this.dropZoneFiles ? this.dropZoneFiles : '');
+      // if (!this.coverPath) {
+      //   fd.append('img', this.dropZoneFiles ? this.dropZoneFiles.name : '');
+      // }
+      // fd.append('img_path', this.coverPath ? this.coverPath : '');
+      //
+      // if (this.editCase) {
+      //   fd.append('id', data['id']);
+      // }
 
-      if (this.editCase) {
-        fd.append('id', data['id']);
-      }
+      const formData = this.formData.transform({
+        ...this.saveActivityForm.value,
+        address: searchAddress.el.nativeElement.value
+      }, this.dropZoneFiles);
 
 
-      this.subscriptions.push(this._activities[this.formAction](fd).subscribe(() => {
+      this.subscriptions.push(this._activities[this.formAction](formData).subscribe(() => {
         this._formMsg.transform('activity info', this.editCase, this.redirectUrl);
       }));
       // }
@@ -179,8 +258,8 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
   }
 
 
-  getFile(e) {
-    this.dropZoneFile = e;
+  getFile(e): void {
+    this.dropZoneFiles.push(e);
   }
 
   removeSavedImg() {
@@ -207,6 +286,13 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     return this.saveActivityForm.get('company_id');
   }
 
+  toggleSidebar(action) {
+    this.subject.setSidebarAction(action);
+  }
+
+  onChange(e) {
+    console.log(e)
+  }
 
   getCompany() {
     return this.auth.checkRoles('admin') ? '' : this.auth.userData.company.id;
