@@ -51,6 +51,12 @@
   padding: 20px;
 }
 
+.galleryContainer {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 1360px) {
   .saveActivityForm {
     max-width: 370px;

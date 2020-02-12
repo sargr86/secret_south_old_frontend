@@ -97,12 +97,27 @@
                     (click)="saveActivity(searchAddress)">
                 Save
             </button>
+
+          <div class="coverToggler" *ngIf="!!coverPath">
+            <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
+              <small>Show cover</small>
+            </mat-slide-toggle>
+          </div>
         </div>
     </form>
     <div class="dropzoneContainer"
          *ngIf="!common.dataLoading && companies && companies.length > 0 && activityTypes.length > 0">
-        <img *ngIf="activityData && coverPath" [src]="coverPath" class="savedImg" [alt]="activityData.name">
-        <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)"
+        <img *ngIf="activityData && coverShown" [src]="coverPath" class="savedImg" [alt]="activityData.name">
+        <dropzone class="multiple" [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)" [config]="dropzoneConfig"
                   *ngIf="!coverShown"></dropzone>
     </div>
+</div>
+<div class="galleryContainer">
+  <ng-container *ngIf="activityData">
+
+    <ngx-gallery [options]="galleryOptions" [images]="activityData.images" (change)="onChange($event)"
+                 (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"
+                 class="accommodationGallery"></ngx-gallery>
+
+  </ng-container>
 </div>
