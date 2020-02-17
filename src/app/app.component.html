@@ -6,6 +6,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
+      <mat-spinner [diameter]="30" *ngIf="common.dataLoading"></mat-spinner>
 <!--        <app-header (toggle)="sidenav.toggle()"></app-header>-->
         <router-outlet></router-outlet>
         <app-footer *ngIf="!checkDashboardPage() && !router.url.includes('auth')"></app-footer>

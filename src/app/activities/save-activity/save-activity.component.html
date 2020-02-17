@@ -54,13 +54,12 @@
 
         <!-- Activity type field -->
         <mat-form-field>
-            <mat-select placeholder="Activity Type" formControlName="activity_type_id" required>
-                <mat-option>Please choose</mat-option>
+            <mat-select placeholder="Activity Type" formControlName="activity_types" required multiple>
                 <mat-option *ngFor="let t of activityTypes" [value]="t['id']">
                     {{t['name']}}
                 </mat-option>
             </mat-select>
-            <mat-error *ngIf="saveActivityForm.get('activity_type_id').hasError('required')">
+            <mat-error *ngIf="saveActivityForm.get('activity_types').hasError('required')">
                 Activity type is <strong>required</strong>
             </mat-error>
         </mat-form-field>
