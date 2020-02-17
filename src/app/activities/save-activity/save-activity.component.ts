@@ -48,7 +48,8 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
     'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
     'address': ['', Validators.required],
-    'activity_type_id': ['', Validators.required],
+    // 'activity_type_id': ['', Validators.required],
+    'activity_types': [[], Validators.required],
     'company_id': [this.getCompany(), Validators.required],
     folder: ['activities']
   };
@@ -182,11 +183,12 @@ export class SaveActivityComponent implements OnInit, OnDestroy {
     if (this.editCase) {
       this.activityFields['id'] = '';
       dt['oldName'] = dt['name'];
+      dt['activity_types'] = dt['activity_types'].map(t => t['id']);
       this.saveActivityForm = this._fb.group(this.activityFields);
       this.saveActivityForm.patchValue(dt);
       this.saveActivityForm.controls['address'].disable();
       if (dt['img']) {
-        this.coverPath = dt.realFolder + '/'  +dt['img'];
+        this.coverPath = dt.realFolder + '/' + dt['img'];
       }
     }
     this.common.dataLoading = false;
