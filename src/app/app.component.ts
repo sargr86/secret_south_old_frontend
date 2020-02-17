@@ -1,4 +1,13 @@
-import {ChangeDetectorRef, Component, DoCheck, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {AdminService} from './admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -9,6 +18,7 @@ import {MatSidenav} from '@angular/material';
 import {SubjectService} from '@core/services/subject.service';
 import {ToastrService} from 'ngx-toastr';
 import * as jwtDecode from 'jwt-decode';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +26,7 @@ import * as jwtDecode from 'jwt-decode';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   title = 'Secret South';
   routeSubscription: Subscription;
   pageTitle: string;
@@ -30,9 +40,12 @@ export class AppComponent implements OnInit, OnDestroy {
     public _auth: AuthService,
     private subject: SubjectService,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public common: CommonService,
+    private cdref : ChangeDetectorRef
   ) {
 
+    this.common.dataLoading = true;
 
     // Getting current page title
     this.routeSubscription = this.router.events.pipe(map(() => {
@@ -68,6 +81,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }
 
     });
+  }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
   }
 
   // ngDoCheck(): void {
