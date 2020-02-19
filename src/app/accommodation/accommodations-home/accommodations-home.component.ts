@@ -3,6 +3,7 @@ import {SubjectService} from '@core/services/subject.service';
 import {ACCOMMODATIONS_FOLDER} from '@core/constants/settings';
 import {MainService} from '../../home/services/main.service';
 import {Router} from '@angular/router';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-accommodations-home',
@@ -17,13 +18,15 @@ export class AccommodationsHomeComponent implements OnInit {
   constructor(
     private subject: SubjectService,
     private main: MainService,
-    public router: Router
+    public router: Router,
+    public common: CommonService
   ) {
   }
 
   ngOnInit() {
 
     this.routerUrl = this.router.url;
+    this.common.dataLoading = false;
 
     this.getObjects();
 
