@@ -9,6 +9,7 @@ import {NgxGalleryOptions} from 'ngx-gallery';
 import {AuthService} from '@core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-ferries-home',
@@ -48,7 +49,8 @@ export class FerriesHomeComponent implements OnInit {
     private _ferries: FerryService,
     public auth: AuthService,
     public router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private common: CommonService
   ) {
   }
 
@@ -56,6 +58,7 @@ export class FerriesHomeComponent implements OnInit {
     this.getFerryLocation();
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
+    this.common.dataLoading = false;
 
     // Saving social auth access token to local storage
     const token = this.route.snapshot.queryParams.token;

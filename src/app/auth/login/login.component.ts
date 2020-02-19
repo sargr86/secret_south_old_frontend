@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       }),
       password: ['', Validators.required],
     });
+
+    this.common.dataLoading = false;
   }
 
   /**
