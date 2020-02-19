@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
     selector: 'app-tours-home',
@@ -9,11 +10,13 @@ import {Router} from '@angular/router';
 export class ToursHomeComponent implements OnInit {
 
     constructor(
-        public router: Router
+        public router: Router,
+        public common: CommonService
     ) {
     }
 
     ngOnInit() {
+      this.common.dataLoading = false;
     }
 
 }
