@@ -56,6 +56,10 @@ const routes: Routes = [
     path: 'accommodations',
     loadChildren: '../accommodation/accommodation.module#AccommodationModule',
   },
+  {
+    path: 'orders',
+    loadChildren: '../orders/orders.module#OrdersModule'
+  },
 
   {
     path: 'activities',

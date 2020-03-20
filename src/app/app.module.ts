@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AdminService} from './admin.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 // import {AgmCoreModule} from '@agm/core';
 
@@ -49,7 +48,6 @@ export function tokenGetter() {
         }),
     ],
     providers: [
-        AdminService,
         JwtHelperService,
         {
             provide: HTTP_INTERCEPTORS,

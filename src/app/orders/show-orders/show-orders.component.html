@@ -1,0 +1,17 @@
+<mat-tab-group animationDuration="0ms" mat-align-tabs="center" (selectedTabChange)="tabChanged($event)">
+  <mat-tab label="Pending">
+    <app-mat-orders-table [status]="'pending'"></app-mat-orders-table>
+  </mat-tab>
+  <mat-tab label="Ongoing">
+    <app-mat-orders-table [status]="'ongoing'"></app-mat-orders-table>
+  </mat-tab>
+  <mat-tab label="Finished">
+    <app-mat-orders-table [status]="'finished'"></app-mat-orders-table>
+  </mat-tab>
+  <mat-tab label="Cancelled">
+    <app-mat-orders-table [status]="'cancelled'"></app-mat-orders-table>
+  </mat-tab>
+  <mat-tab label="All">
+    <app-mat-orders-table [status]="'all'"></app-mat-orders-table>
+  </mat-tab>
+</mat-tab-group>
