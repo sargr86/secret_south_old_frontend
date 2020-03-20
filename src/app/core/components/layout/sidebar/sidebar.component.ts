@@ -121,9 +121,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         } else if (customerRole) {
           return l.name === 'Dashboard';
         }
+          // else if (opertorRole) {
+        //   return l.name === 'Dashboard' || l.name === 'Orders';
+        // }
 
         // Showing dashboard and current partner type links
-        const linksShown = l.name === 'Dashboard' || l.name === currentPartnerType || l.name === 'Jobs';
+        const linksShown = l.name === 'Dashboard' || l.name === currentPartnerType || l.name === 'Orders';
 
         return employeeRole ? linksShown : linksShown || l.name === 'Employees';
 
