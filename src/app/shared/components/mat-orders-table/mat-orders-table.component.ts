@@ -48,6 +48,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.ordersService.get({status: this.status}).subscribe(dt => {
       this.common.dataLoading = false;
       this.dataSource = dt;
+      console.log(this.dataSource)
     }));
   }
 
