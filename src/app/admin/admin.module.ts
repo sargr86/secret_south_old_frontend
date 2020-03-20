@@ -12,7 +12,8 @@ import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {PartnersModule} from '../partners/partners.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
-const config: SocketIoConfig = {url: 'http://localhost:3000', options: {}};
+import {API_URL} from '@core/constants/settings';
+const config: SocketIoConfig = {url: API_URL, options: {}};
 
 @NgModule({
   declarations: [

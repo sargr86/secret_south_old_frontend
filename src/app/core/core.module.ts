@@ -7,7 +7,8 @@ import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.componen
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
-const config: SocketIoConfig = {url: 'http://localhost:3000', options: {}};
+import {API_URL} from '@core/constants/settings';
+const config: SocketIoConfig = {url: API_URL, options: {}};
 
 @NgModule({
   declarations: [
