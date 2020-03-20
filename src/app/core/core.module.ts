@@ -6,7 +6,8 @@ import {NavbarComponent} from '@core/components/layout/navbar/navbar.component';
 import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.component';
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
-
+import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+const config: SocketIoConfig = {url: 'http://localhost:3000', options: {}};
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {NotFoundComponent} from '@core/components/not-found/not-found.component'
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    SocketIoModule.forRoot(config)
   ],
   exports: [
     NavbarComponent,

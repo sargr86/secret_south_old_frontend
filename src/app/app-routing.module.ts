@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: './activities/activities.module#ActivitiesModule'
   },
   {
+    path: 'orders',
+    loadChildren: './orders/orders.module#OrdersModule'
+  },
+  {
     path: 'food-drink',
     loadChildren: './food-drink/food-drink.module#FoodDrinkModule'
   },

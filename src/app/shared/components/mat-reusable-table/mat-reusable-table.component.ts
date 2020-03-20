@@ -18,6 +18,7 @@ import {ActivityTypesService} from '@core/services/activity-types.service';
 import {AuthService} from '@core/services/auth.service';
 import {CompaniesService} from '@core/services/companies.service';
 import {ContactsService} from '@core/services/contacts.service';
+import {OrdersService} from '@core/services/orders.service';
 
 @Component({
   selector: 'app-mat-table',
@@ -52,6 +53,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     private _activity_type: ActivityTypesService,
     private dataSrc: GetTableDataSourcePipe,
     private _companies: CompaniesService,
+    private _orders: OrdersService,
     private dialog: MatDialog,
     public router: Router,
     private toastr: ToastrService,
