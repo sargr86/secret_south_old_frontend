@@ -7,7 +7,7 @@
 
 <!-- Nav bar for users dashboard -->
 <mat-toolbar
-  *ngIf="!common.showOverlay  && checkIfAuthDashboardPage() && routerUrl!=='/'|| routerUrl.includes('list') ||  routerUrl.includes('single')">
+  *ngIf="!common.showOverlay  && (checkIfAuthDashboardPage() && !routerUrl.includes('orders')) && routerUrl!=='/'|| routerUrl.includes('list') ||  routerUrl.includes('single')">
 
   <!-- Left group of nav bar items -->
   <div class="leftGroup">
@@ -64,3 +64,6 @@
 
   </div>
 </mat-toolbar>
+
+
+

@@ -6,7 +6,8 @@ import {Router} from '@angular/router';
 // JWT helper
 import {JwtHelperService} from '@auth0/angular-jwt';
 import * as jwtDecode from 'jwt-decode';
-import {User} from '../../shared/models/User';
+import {User} from '@shared/models/User';
+import {Socket} from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private jwtHelper: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private socket: Socket,
   ) {
     // Receiving user data from here!!!!
     if (this.loggedIn()) {
@@ -59,7 +61,9 @@ export class AuthService {
    */
   checkRoles(role: string, userData = null) {
 
-    if (userData) this.userData = userData;
+    if (userData) {
+      this.userData = userData;
+    }
     if (this.loggedIn() && this.userData) {
       if ('role' in this.userData) {
         return this.userData.role['name_en'].toLowerCase() === role;
@@ -78,6 +82,7 @@ export class AuthService {
    */
   logout() {
     localStorage.removeItem('token');
+    this.socket.disconnect();
     this.router.navigate(['/']);
   }
 

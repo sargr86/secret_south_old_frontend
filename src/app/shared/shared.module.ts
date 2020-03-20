@@ -35,6 +35,7 @@ import {GetFileBasenamePipe} from './pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe';
 import {HeaderTopComponent} from '@shared/components/header-top/header-top.component';
 import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
+import { MatOrdersTableComponent } from './mat-orders-table/mat-orders-table.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bot
     HeaderTopComponent,
     HeaderBottomComponent,
     GetFileBasenamePipe,
-    MarkSelectedCoverImagePipe
+    MarkSelectedCoverImagePipe,
+    MatOrdersTableComponent
   ],
   imports: [
     CommonModule,
@@ -113,6 +115,7 @@ import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bot
     GetTableDataSourcePipe,
     GetImageUrlPipe,
     MatReusableTableComponent,
+    MatOrdersTableComponent,
     InvitationFormComponent,
     EditProfileComponent,
     FormTitleComponent,

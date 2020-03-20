@@ -8,7 +8,6 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {AdminService} from './admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -33,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   constructor(
-    public Admin: AdminService,
     public router: Router,
     private route: ActivatedRoute,
     private _title: Title,
