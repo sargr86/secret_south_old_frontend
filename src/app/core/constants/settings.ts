@@ -1,6 +1,6 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '../../../environments/environment';
-import {Section} from '../../shared/models/Section';
+import {Section} from '@shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery';
 
