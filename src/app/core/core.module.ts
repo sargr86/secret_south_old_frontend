@@ -8,6 +8,8 @@ import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {API_URL} from '@core/constants/settings';
+import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
+
 const config: SocketIoConfig = {url: API_URL, options: {}};
 
 @NgModule({
@@ -17,6 +19,7 @@ const config: SocketIoConfig = {url: API_URL, options: {}};
     SidebarComponent,
     FooterComponent,
     NotFoundComponent,
+    DriverAssignmentDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,9 @@ const config: SocketIoConfig = {url: API_URL, options: {}};
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+  ],
+  entryComponents: [
+    DriverAssignmentDialogComponent
   ]
 })
 export class CoreModule {

@@ -12,7 +12,7 @@ import {SubjectService} from '@core/services/subject.service';
 })
 export class ShowOrdersComponent implements OnInit {
   orders;
-  links = ['pending', 'ongoing', 'cancelled'];
+  tabs = ['Pending', 'Assigned', 'Ongoing', 'Cancelled', 'Finished', 'All'];
   selectedTab = 'Pending';
 
 
@@ -28,11 +28,11 @@ export class ShowOrdersComponent implements OnInit {
   }
 
   tabChanged(e) {
-    this.selectedTab = e.tab.textLabel.toLowerCase();
-    this.subject.setOrderTypeData(this.selectedTab);
-    // this.getOrders({status: this.selectedTab});
+    this.selectedTab = e.tab.textLabel;
+    this.subject.setOrderTypeData(this.selectedTab.toLowerCase());
   }
 
-  getOrders(status) {
+  getStatusName(tab) {
+    return tab.toLowerCase();
   }
 }

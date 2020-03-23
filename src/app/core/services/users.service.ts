@@ -15,4 +15,8 @@ export class UsersService {
     getUserById(params) {
         return this.http.get(`${API_URL}users/getById`, {params: params});
     }
+
+    getUsersByRole(params){
+      return this.http.get(`${API_URL}users/get-by-role`, {params: params});
+    }
 }
