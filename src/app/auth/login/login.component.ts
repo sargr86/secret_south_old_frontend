@@ -63,6 +63,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Gets current user data
       this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
+      console.log(this._auth.userData)
+
       // Getting redirect url part matching current user role
       const currentRole = this._auth.userData.role.name_en.toLowerCase();
       const userType = USER_TYPES.find(d => d.role === currentRole);

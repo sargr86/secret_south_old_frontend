@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   responsiveMode: boolean;
 
 
-
   @Output() toggleSide = new EventEmitter();
 
   constructor(
@@ -58,7 +57,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         )
         .subscribe((dt: Data) => {
           this.routerUrl = dt.url;
-console.log(this.routerUrl.includes('orders'))
+
           // Getting partner types (section names) and setting 'Ferries' section as selected one
           this.subscriptions.push(this._partner.getTypes().subscribe((d: PartnerType[]) => {
             this.mapForm.patchValue({type: d.filter(t => t['name'] === 'Ferries')});

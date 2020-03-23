@@ -1,0 +1,14 @@
+<form [formGroup]="driverAssignmentForm">
+  <h4 mat-dialog-title>Order N{{driverAssignmentForm.get('order_id').value}}</h4>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Select a driver</mat-label>
+      <mat-select formControlName="driver" (selectionChange)="changeDriver($event)">
+        <mat-option *ngFor="let driver of drivers" [value]="driver">
+          {{driver.full_name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="assignDriver()">Assign</button>
+  </mat-dialog-content>
+</form>
