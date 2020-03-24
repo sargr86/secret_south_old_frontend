@@ -770,8 +770,28 @@ header:not(.timepicker__header) {
   width: 1% !important;
 }
 
-.mat-badge-content{
-  width: 16px!important;
-  height: 16px!important;
-  line-height: 19px!important;
+.mat-badge-content {
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 19px !important;
+  background-color: $green !important;
+}
+
+
+.mat-tab-label {
+  opacity: 1 !important;
+}
+
+.mat-tab-label-active {
+  .mat-tab-label-content {
+    color: $red !important;
+  }
+
+  .mat-badge-content {
+    background-color: $red !important;
+  }
+}
+
+.mat-ink-bar {
+  background-color: $red !important;
 }

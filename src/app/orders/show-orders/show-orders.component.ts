@@ -50,19 +50,21 @@ export class ShowOrdersComponent implements OnInit {
   }
 
   getAllOrders() {
-    // const sendData = {status: 'all'}
-    this.subscriptions.push(this.ordersService.getStatusCounts().subscribe((dt: any) => {
-      console.log(dt)
-      console.log(this.tabs)
-      let counter = 0;
+    const sendData = {};
+    if (!this.isOperator) {
+      sendData['driverEmail'] = this.authUser.email;
+    }
+    this.subscriptions.push(this.ordersService.getStatusCounts(sendData).subscribe((dt: any) => {
       this.tabs.map(tab => {
-        dt.map(d => {
-          if (d._id === tab.name) {
-            this.tabs[counter].count = d.count;
+        dt.statuses.map(d => {
+          const tabName = tab.name.toLowerCase()
+          if (d.name === tabName) {
+            tab.count = d.count;
+          } else if (tabName === 'all') {
+            tab.count = dt.count;
           }
-          ++counter;
         });
-      })
+      });
 
       this.common.dataLoading = false;
     }));
