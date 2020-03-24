@@ -16,5 +16,9 @@ export class OrdersService {
     return this.httpClient.get(`${API_URL}orders/get`, {params: params});
   }
 
+  getStatusCounts() {
+    return this.httpClient.get(`${API_URL}orders/get-counts`);
+  }
+
 
 }

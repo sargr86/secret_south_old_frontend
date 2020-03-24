@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DriverAssignmentDialogComponent} from '@core/components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
-
+import * as jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-mat-orders-table',
@@ -22,6 +22,10 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   dataSource;
   filteredData;
   subscriptions: Subscription[] = [];
+  authUser;
+  isOperator;
+  orderTaken = false;
+  orderStarted = false;
 
   constructor(
     private ordersService: OrdersService,
@@ -37,6 +41,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.getUserType();
     this.getOrders();
 
     // Getting orders of the changed tab
@@ -45,6 +50,15 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.getOrders();
     });
 
+    this.socket.on('driverAssignmentFinished', (res) => {
+      if (!this.isOperator) {
+        this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
+            has been assigned to <strong>${res.driver.full_name}</strong>`,
+          '', {enableHtml: true});
+        this.getOrders();
+        console.log('driver assigned');
+      }
+    });
 
     this.socket.on('orderCreated', (data) => {
       const customer = data.order.client;
@@ -55,18 +69,55 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       }
     });
 
+
     this.socket.on('orderTakenFinished', (data) => {
       console.log('order taken finished')
+      console.log(data)
+
+      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+            has been taken by <strong>${data.driver.full_name}</strong>`,
+        '', {enableHtml: true})
+      this.getOrders();
+    });
+    this.socket.on('arrivedToOrderFinished', (data) => {
+      this.toastr.success(`<strong>${data.driver.full_name}</strong>
+        is arrived to the location of <strong>${data.client.first_name} ${data.client.last_name}</strong>`,
+        '', {enableHtml: true})
+      this.getOrders();
+    });
+
+    this.socket.on('orderStarted', (data) => {
+      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+            has been started by <strong>${data.driver.full_name}</strong>`,
+        '', {enableHtml: true})
+      this.getOrders();
+    });
+
+    this.socket.on('orderFinished', (data) => {
+      console.log('order finished')
+      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+            has been finished by <strong>${data.driver.full_name}</strong>`,
+        '', {enableHtml: true});
       this.getOrders();
     });
   }
 
+  getUserType() {
+    this.authUser = jwtDecode(localStorage.getItem('token'));
+    this.isOperator = this.authUser.position ? /Operator|Director/i.test(this.authUser.position.name) : false;
+  }
+
   getOrders() {
-    this.subscriptions.push(this.ordersService.get({status: this.status}).subscribe(dt => {
+    const sendData = {status: this.status};
+    if (!this.isOperator) {
+      sendData['driverEmail'] = this.authUser.email;
+    }
+    this.subscriptions.push(this.ordersService.get(sendData).subscribe(dt => {
       this.common.dataLoading = false;
       this.dataSource = dt;
     }));
   }
+
 
   normalizeColName(col): string {
     col = `${col[0].toUpperCase()}${col.slice(1)}`;
@@ -89,18 +140,46 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       width: '500px',
       height: '400px'
     }).afterClosed().subscribe(dt => {
-      const client = row.client;
-      row['driver'] = dt.driver;
-      this.socket.emit('driverAssigned', {driverOrder: dt, selectedOrder: row});
-      this.socket.on('driverAssignmentFinished', (res) => {
-        if (res) {
-          this.toastr.success(`The order of customer <strong>${client.first_name} ${client.last_name}</strong>
+      if (dt) {
+        const client = row.client;
+        row['driver'] = dt.driver;
+        this.socket.emit('driverAssigned', {driverOrder: dt, selectedOrder: row});
+
+        this.socket.on('driverAssignmentFinished', (res) => {
+          if (res) {
+            this.toastr.success(`The order of customer <strong>${client.first_name} ${client.last_name}</strong>
             has been assigned to <strong>${dt.driver.full_name}</strong>`,
-            '', {enableHtml: true})
-          this.getOrders();
-        }
-      });
+              '', {enableHtml: true})
+            this.getOrders();
+          }
+        });
+      }
     });
+  }
+
+
+  takeOrder(order) {
+    this.orderTaken = true;
+    this.socket.emit('orderTaken', order);
+    this.getOrders();
+    console.log(order)
+  }
+
+  arrivedToOrder(order) {
+    this.socket.emit('arrivedToOrder', order);
+    this.getOrders();
+  }
+
+  startOrder(order) {
+    this.orderStarted = true;
+    this.socket.emit('startOrder', order);
+    this.getOrders();
+  }
+
+  finishOrder(order) {
+    this.orderTaken = false;
+    this.socket.emit('finishOrder', order);
+    this.getOrders();
   }
 
   ngOnDestroy() {

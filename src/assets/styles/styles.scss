@@ -31,14 +31,6 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 }
 
 
-
-
-
-
-
-
-
-
 p {
   margin-bottom: 0 !important;
 }
@@ -64,7 +56,7 @@ p {
   margin: 20px auto;
 }
 
-.removeBtn {
+.removeBtn, .finishOrderBtn {
   @include noBgBtn;
   color: $red;
 }
@@ -77,6 +69,11 @@ p {
 .assignBtn {
   @include noBgBtn;
   color: $silver;
+}
+
+.orderBtn {
+  @include noBgBtn;
+  color: $green;
 }
 
 table.mat-table {
@@ -671,10 +668,9 @@ header:not(.timepicker__header) {
   background-position: center;
   background-size: cover;
   padding-top: 14px;
-  display: flex!important;
+  display: flex !important;
   flex-direction: column;
   justify-content: space-between;
-
 
 
   .header_main {
@@ -733,6 +729,7 @@ header:not(.timepicker__header) {
         font-size: 20px;
         font-weight: 600;
         border: none;
+
         button {
           width: 120px;
           height: 46px;
@@ -751,7 +748,7 @@ header:not(.timepicker__header) {
 
       > div {
         position: relative;
-        margin:10px !important;
+        margin: 10px !important;
 
         mat-icon, i {
           position: absolute;
@@ -768,6 +765,13 @@ header:not(.timepicker__header) {
   }
 
 }
-.guests input{
+
+.guests input {
   width: 1% !important;
+}
+
+.mat-badge-content{
+  width: 16px!important;
+  height: 16px!important;
+  line-height: 19px!important;
 }
