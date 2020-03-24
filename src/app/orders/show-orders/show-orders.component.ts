@@ -17,8 +17,7 @@ export class ShowOrdersComponent implements OnInit {
   orders;
   authUser;
   isOperator;
-  tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
-;
+  tabs;
   selectedTab;
   subscriptions: Subscription[] = [];
 
@@ -42,7 +41,7 @@ export class ShowOrdersComponent implements OnInit {
     this.authUser = jwtDecode(localStorage.getItem('token'));
     this.isOperator = this.authUser.position ? /Operator|Director/i.test(this.authUser.position.name) : false;
     this.selectedTab = this.isOperator ? 'Pending' : 'Assigned';
-    // this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
+    this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
   }
 
   tabChanged(e) {

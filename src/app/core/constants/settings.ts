@@ -241,4 +241,12 @@ export const OPERATOR_ORDER_TABS = [
   {name: 'Finished', count: 0},
   {name: 'All'}
 ];
-export const DRIVER_ORDER_TABS = OPERATOR_ORDER_TABS.filter(n => n.name !== 'Pending');
+export const DRIVER_ORDER_TABS = [
+  {name: 'Assigned', count: 0},
+  {name: 'Ongoing', count: 0},
+  {name: 'Arrived', count: 0},
+  {name: 'Started', count: 0},
+  {name: 'Cancelled', count: 0},
+  {name: 'Finished', count: 0},
+  {name: 'All'}
+];
