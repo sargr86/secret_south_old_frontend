@@ -1,5 +1,5 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
-import {environment} from '../../../environments/environment';
+import {environment} from '@env';
 import {Section} from '@shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery';
@@ -229,3 +229,16 @@ export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
   {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
   // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
 ];
+
+
+export const OPERATOR_ORDER_TABS = [
+  {name: 'Pending', count: 0},
+  {name: 'Assigned', count: 0},
+  {name: 'Ongoing', count: 0},
+  {name: 'Arrived', count: 0},
+  {name: 'Started', count: 0},
+  {name: 'Cancelled', count: 0},
+  {name: 'Finished', count: 0},
+  {name: 'All'}
+];
+export const DRIVER_ORDER_TABS = OPERATOR_ORDER_TABS.filter(n => n.name !== 'Pending');
