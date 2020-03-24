@@ -1,10 +1,13 @@
-<mat-tab-group animationDuration="0ms" mat-align-tabs="center" (selectedTabChange)="tabChanged($event)">
-  <ng-container *ngFor="let tab of tabs">
-    <mat-tab label="{{tab.name}}">
-      <ng-template mat-tab-label>
-        <span matBadge="{{tab.count}}" matBadgeOverlap="false">{{tab.name}}</span>
-      </ng-template>
-      <app-mat-orders-table [status]="getStatusName(tab.name)" *ngIf="selectedTab === tab.name"></app-mat-orders-table>
-    </mat-tab>
-  </ng-container>
-</mat-tab-group>
+<div class="tabs-container">
+  <mat-tab-group animationDuration="0ms" mat-align-tabs="center" (selectedTabChange)="tabChanged($event)">
+    <ng-container *ngFor="let tab of tabs">
+      <mat-tab label="{{tab.name}}">
+        <ng-template mat-tab-label>
+          <span matBadge="{{tab.count}}" matBadgeOverlap="false">{{tab.name}}</span>
+        </ng-template>
+        <app-mat-orders-table [status]="getStatusName(tab.name)"
+                              *ngIf="selectedTab === tab.name"></app-mat-orders-table>
+      </mat-tab>
+    </ng-container>
+  </mat-tab-group>
+</div>
