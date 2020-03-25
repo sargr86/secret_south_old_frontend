@@ -63,16 +63,19 @@ export class ShowOrdersComponent implements OnInit {
       });
     }
     this.subscriptions.push(this.ordersService.getStatusCounts(sendData).subscribe((dt: any) => {
-      dt.statuses.map(d => {
-        this.tabs.map(tab => {
-          const tabName = tab.name.toLowerCase();
-          if (d.name === tabName) {
-            tab.count = d.count;
-          } else if (tabName === 'all') {
-            tab.count = dt.count;
-          }
+      if (dt) {
+
+        dt.statuses.map(d => {
+          this.tabs.map(tab => {
+            const tabName = tab.name.toLowerCase();
+            if (d.name === tabName) {
+              tab.count = d.count;
+            } else if (tabName === 'all') {
+              tab.count = dt.count;
+            }
+          });
         });
-      });
+      }
 
 
       this.common.dataLoading = false;
