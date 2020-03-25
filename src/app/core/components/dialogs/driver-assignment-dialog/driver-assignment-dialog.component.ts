@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {UsersService} from '@core/services/users.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
@@ -21,7 +21,8 @@ export class DriverAssignmentDialogComponent implements OnInit {
   ) {
     this.driverAssignmentForm = this.fb.group({
       order_id: [data.order_id],
-      driver: ['', Validators.required]
+      driver: ['', Validators.required],
+      ferry: new FormControl({value: '', disabled: true}, Validators.required),
     });
   }
 
@@ -32,12 +33,17 @@ export class DriverAssignmentDialogComponent implements OnInit {
   }
 
   changeDriver(e) {
-    // console.log(e)
+    console.log(e)
+    if (e.value.ferry) {
+      this.driverAssignmentForm.patchValue({ferry: e.value.ferry.name})
+      console.log(this.driverAssignmentForm.value)
+    }
   }
 
+  // The driver will be assigned after closing the current dialog!!!!
   assignDriver() {
     if (this.driverAssignmentForm.valid) {
-      this.dialogRef.close( this.driverAssignmentForm.value);
+      this.dialogRef.close(this.driverAssignmentForm.value);
     }
   }
 
