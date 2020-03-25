@@ -53,6 +53,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('driverAssignmentFinished', (res) => {
+      console.log(res)
       if (!this.isOperator) {
         this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
             has been assigned to <strong>${res.driver.full_name}</strong>`,
@@ -149,6 +150,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       if (dt) {
         const client = row.client;
         row['driver'] = dt.driver;
+        row['ferry'] = dt.ferry;
         this.socket.emit('driverAssigned', {driverOrder: dt, selectedOrder: row});
 
         this.socket.on('driverAssignmentFinished', (res) => {
