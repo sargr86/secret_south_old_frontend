@@ -47,17 +47,25 @@ export class ShowOrdersComponent implements OnInit {
   tabChanged(e) {
     this.selectedTab = e.tab.textLabel;
     this.subject.setOrderTypeData(this.selectedTab.toLowerCase());
+    this.getAllOrders();
   }
 
-  getAllOrders() {
+  getAllOrders(socketChanged = false) {
     const sendData = {};
     if (!this.isOperator) {
       sendData['driverEmail'] = this.authUser.email;
     }
-    this.subscriptions.push(this.ordersService.getStatusCounts(sendData).subscribe((dt: any) => {
+    // Resetting all counts if socket changed
+    if (socketChanged) {
+      this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
       this.tabs.map(tab => {
-        dt.statuses.map(d => {
-          const tabName = tab.name.toLowerCase()
+        tab.count = 0;
+      });
+    }
+    this.subscriptions.push(this.ordersService.getStatusCounts(sendData).subscribe((dt: any) => {
+      dt.statuses.map(d => {
+        this.tabs.map(tab => {
+          const tabName = tab.name.toLowerCase();
           if (d.name === tabName) {
             tab.count = d.count;
           } else if (tabName === 'all') {
@@ -65,6 +73,7 @@ export class ShowOrdersComponent implements OnInit {
           }
         });
       });
+
 
       this.common.dataLoading = false;
     }));

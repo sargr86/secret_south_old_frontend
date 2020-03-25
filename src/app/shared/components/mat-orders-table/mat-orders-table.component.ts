@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {OrdersService} from '@core/services/orders.service';
 import {CommonService} from '@core/services/common.service';
 import {Subscription} from 'rxjs';
@@ -18,6 +18,7 @@ import * as jwtDecode from 'jwt-decode';
 })
 export class MatOrdersTableComponent implements OnInit, OnDestroy {
   @Input() status;
+  @Output() socketStateChanged = new EventEmitter();
   displayedColumns = ['_id', 'client_full_name', 'phone', 'email', 'start_point', 'end_point', 'time', 'status', 'actions'];
   dataSource;
   filteredData;
@@ -26,6 +27,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   isOperator;
   orderTaken = false;
   orderStarted = false;
+
 
   constructor(
     private ordersService: OrdersService,
@@ -55,9 +57,9 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
         this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
             has been assigned to <strong>${res.driver.full_name}</strong>`,
           '', {enableHtml: true});
-        this.getOrders();
-        console.log('driver assigned');
       }
+      this.getOrders();
+      this.socketStateChanged.emit();
     });
 
     this.socket.on('orderCreated', (data) => {
@@ -65,8 +67,9 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       if (customer) {
         this.toastr.success(`A new order has been created by: <strong>${customer.first_name}  ${customer.last_name}</strong>`,
           'Order created!', {enableHtml: true});
-        this.getOrders();
       }
+      this.socketStateChanged.emit();
+      this.getOrders();
     });
 
 
@@ -76,28 +79,31 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
       this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been taken by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true})
+        '', {enableHtml: true});
+      this.socketStateChanged.emit();
       this.getOrders();
     });
     this.socket.on('arrivedToOrderFinished', (data) => {
       this.toastr.success(`<strong>${data.driver.full_name}</strong>
         is arrived to the location of <strong>${data.client.first_name} ${data.client.last_name}</strong>`,
-        '', {enableHtml: true})
+        '', {enableHtml: true});
+      this.socketStateChanged.emit();
       this.getOrders();
     });
 
     this.socket.on('orderStarted', (data) => {
       this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been started by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true})
+        '', {enableHtml: true});
+      this.socketStateChanged.emit();
       this.getOrders();
     });
 
     this.socket.on('orderFinished', (data) => {
-      console.log('order finished')
       this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been finished by <strong>${data.driver.full_name}</strong>`,
         '', {enableHtml: true});
+      this.socketStateChanged.emit();
       this.getOrders();
     });
   }
