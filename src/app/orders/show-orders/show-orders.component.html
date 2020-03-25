@@ -5,7 +5,7 @@
         <ng-template mat-tab-label>
           <span matBadge="{{tab.count}}" matBadgeOverlap="false">{{tab.name}}</span>
         </ng-template>
-        <app-mat-orders-table [status]="getStatusName(tab.name)"
+        <app-mat-orders-table [status]="getStatusName(tab.name)" (socketStateChanged)="getAllOrders(true)"
                               *ngIf="selectedTab === tab.name"></app-mat-orders-table>
       </mat-tab>
     </ng-container>
