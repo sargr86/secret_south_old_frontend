@@ -56,11 +56,11 @@
                     <i class="fas fa-thumbs-up"></i>
                   </button>
 
-                  <button (click)="arrivedToOrder(row)" *ngIf="row.status==='ongoing'">
+                  <button (click)="arrivedToOrder(row)" *ngIf="row.status==='ongoing'" class="arrivedToOrder">
                     <i class="fas fa-clock"></i>
                   </button>
 
-                  <button (click)="startOrder(row)" *ngIf="row.status==='arrived'">
+                  <button (click)="startOrder(row)" *ngIf="row.status==='arrived'" class="startOrder">
                     <i class="fas fa-play"></i>
                   </button>
 

@@ -65,13 +65,17 @@ p {
   @include noBgBtn;
   color: $yellow;
 }
+.arrivedToOrder{
+  @include noBgBtn;
+  color: $orange;
+}
 
 .assignBtn {
   @include noBgBtn;
   color: $silver;
 }
 
-.orderBtn {
+.orderBtn,.startOrder {
   @include noBgBtn;
   color: $green;
 }
