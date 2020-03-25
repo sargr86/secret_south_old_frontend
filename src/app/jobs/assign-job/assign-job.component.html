@@ -1,15 +1,26 @@
 <div class="formContainer">
 
-    <form [formGroup]="assignFerryForm" class="assignFerryForm" *ngIf="jobCategory==='ferries'">
-        <mat-form-field>
-            <input matInput formControlName="full_name">
-        </mat-form-field>
+  <form [formGroup]="assignFerryForm" class="assignFerryForm" *ngIf="jobCategory==='ferries'">
+    <!--        <mat-form-field>-->
+    <!--            <input matInput formControlName="full_name">-->
+    <!--        </mat-form-field>-->
 
-        <ng-select [items]="ferriesList" (change)="changeFerry($event)"
-                   bindLabel="name" bindValue="id" formControlName="ferry_id" placeholder="Ferry *">
-        </ng-select>
+    <mat-form-field>
+      <mat-label>Select a driver</mat-label>
+      <mat-select formControlName="driver_id" (selectionChange)="changeDriver($event)">
+        <mat-option *ngFor="let driver of driversList" [value]="driver.id" >{{driver.full_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Select a ferry</mat-label>
+      <mat-select formControlName="ferry_id" (selectionChange)="changeFerry($event)">
+        <mat-option *ngFor="let ferry of ferriesList"
+                    [value]="ferry.id">{{ferry.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
-        <button mat-raised-button color="primary">Assign</button>
-    </form>
+    <button mat-raised-button color="primary" (click)="assignDriverToFerry()">Assign</button>
+  </form>
 </div>
