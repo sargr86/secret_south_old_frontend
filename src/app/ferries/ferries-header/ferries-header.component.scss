@@ -16,8 +16,6 @@ header {
 }
 
 
-
-
 .Check_out_inp {
   width: 180px !important;
 }
@@ -38,6 +36,7 @@ header {
   @include noBgBtn;
   cursor: pointer;
 }
+
 
 
 @import "media";
