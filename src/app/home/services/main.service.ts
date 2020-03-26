@@ -10,16 +10,20 @@ export class MainService {
     constructor(private http: HttpClient) {
     }
 
-    public getFerryLocation() {
+    getFerryLocation() {
         return this.http.get(`${API_URL}home/get_places`);
     }
 
-    public changePlace(data) {
+    changePlace(data) {
         if (data.type) {
             // console.log(data.type)
             const type = data.type.toLowerCase().replace('/', '-');
             return this.http.get(`${API_URL}${type}/get`);
         }
+    }
+
+    getDirections(){
+      return this.http.get(`${API_URL}ferries/get-directions`);
     }
 
     getRealLocations() {
