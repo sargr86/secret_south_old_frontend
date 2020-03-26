@@ -40,8 +40,10 @@ export class ShowOrdersComponent implements OnInit {
   setUserTabs() {
     this.authUser = jwtDecode(localStorage.getItem('token'));
     this.isOperator = this.authUser.position ? /Operator|Director/i.test(this.authUser.position.name) : false;
-    this.selectedTab = this.isOperator ? 'Pending' : 'Assigned';
-    this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
+    // this.selectedTab =  'Pending' : 'Assigned';
+    this.selectedTab =  'Pending' ;
+    // this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
+    this.tabs = OPERATOR_ORDER_TABS;
   }
 
   tabChanged(e) {
@@ -52,9 +54,9 @@ export class ShowOrdersComponent implements OnInit {
 
   getAllOrders(socketChanged = false) {
     const sendData = {};
-    if (!this.isOperator) {
-      sendData['driverEmail'] = this.authUser.email;
-    }
+    // if (!this.isOperator) {
+    //   sendData['driverEmail'] = this.authUser.email;
+    // }
     // Resetting all counts if socket changed
     if (socketChanged) {
       this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
