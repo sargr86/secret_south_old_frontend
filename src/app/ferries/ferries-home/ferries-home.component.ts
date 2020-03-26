@@ -22,6 +22,9 @@ export class FerriesHomeComponent implements OnInit {
   lng = -8.294371;
   latlng = [];
   ferryPositions: any = {lat: 0, lng: 0};
+  ferryDirections;
+  selectedFerryDirections = {startPoint: null, endPoint: null};
+  lines = [];
   mapStyles;
   host = API_URL;
   selectedFerry = null;
@@ -55,7 +58,8 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFerryLocation();
+    this.getFerryLocations();
+    this.getFerryDirections();
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
@@ -67,7 +71,7 @@ export class FerriesHomeComponent implements OnInit {
     }
   }
 
-  getFerryLocation() {
+  getFerryLocations() {
 
     this.main.getFerryLocation().subscribe((r: any) => {
       if (r.status === 0) {
@@ -84,6 +88,12 @@ export class FerriesHomeComponent implements OnInit {
 
         this.ferryPositions = arr;
       }
+    });
+  }
+
+  getFerryDirections() {
+    this.main.getDirections().subscribe(dt => {
+      this.ferryDirections = dt;
     });
   }
 
@@ -117,6 +127,10 @@ export class FerriesHomeComponent implements OnInit {
     return 'assets/icons/ferry.svg';
   }
 
+  getDirectionIcon() {
+    return 'assets/icons/green_circle_small.png';
+  }
+
   selectFerry(ferry) {
 
     this.selectedFerry = this.selectAction === 'Select' ? ferry : null;
@@ -130,4 +144,15 @@ export class FerriesHomeComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
 
+  selectDirection(direction) {
+    this.lines.push({lat: +direction.lat, lng: +direction.lng});
+  }
+
+  removeDirection(direction) {
+    this.lines = this.lines.filter(l => {
+      const dirLat = +direction.lat;
+      const dirLng = +direction.lng;
+      return l.lng !== dirLng && l.lat !== dirLat;
+    });
+  }
 }
