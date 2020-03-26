@@ -810,3 +810,27 @@ header:not(.timepicker__header) {
     border: 1px solid $white !important;
   }
 }
+
+
+.order-form {
+  .mat-checkbox {
+    margin-left: 8px !important;
+
+    .mat-checkbox-frame {
+      border: 1px solid #88bf4a !important;
+      border-radius: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+      background-color: #88bf4a !important;
+    }
+
+    .mat-checkbox-background {
+      background-color: unset !important;
+      top: 2px !important;
+
+      .mat-checkbox-checkmark {
+        left: 2px !important;
+      }
+    }
+  }
+}
