@@ -23,7 +23,7 @@
         </div>
 
         <div class="checkIn">
-          <input [ngxTimepicker]="picker" class="Check_out_inp" [format]="24" placeholder="Time" readonly>
+          <input [ngxTimepicker]="picker" class="Check_out_inp" [format]="24" placeholder="Time"  readonly>
           <ngx-material-timepicker #picker (timeSet)="timeChanged($event)" [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>
 <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
 <!--                 class="Check_out_inp" >-->
