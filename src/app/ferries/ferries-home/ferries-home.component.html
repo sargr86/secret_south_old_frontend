@@ -69,31 +69,7 @@
         </agm-polyline>
       </agm-map>
     </div>
-    <div class="ferry_page_right">
-      <div *ngIf="selectedFerry">
-        <!--                <span>Boat</span>-->
-        <p>Boat</p>
-        <div class="company_name_line"></div>
-        <!--            <div class="ferry_page_right_images">-->
-        <ng-container *ngIf="ferryData">
-
-          <ngx-gallery [options]="galleryOptions" [images]="ferryData.images"
-                       class="ferryGallery"></ngx-gallery>
-          <!--            </div>-->
-          <p class="boat_name">Boat: <strong>{{ferryData.name}}</strong></p>
-          <p class="boat_name">Company: <strong>{{ferryData.company.name}}</strong></p>
-        </ng-container>
-
-        <!--                <p class="ferry_page_right_text">Lorem Ipsum is simply dummy text of the printing and typesetting-->
-        <!--                    industry.-->
-        <!--                    Lorem Ipsum has-->
-        <!--                    been the industry's standard dummy text ever since the</p>-->
-        <div class="ferry_page_right_face">
-          <span>Driver</span>
-          <div class="company_name_line"></div>
-          <div class="ferry_page_right_face_img"><img src="" alt=""></div>
-        </div>
-      </div>
+    <div class="ferry-page-right">
 
     </div>
   </div>
