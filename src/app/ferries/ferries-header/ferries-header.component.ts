@@ -28,16 +28,23 @@ export class FerriesHeaderComponent implements OnInit {
   countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES as any;
   personsCount = 2;
   timepickerTheme = TIMEPICKER_THEME;
+  orderFerryForm: FormGroup;
 
   @Output() toggle = new EventEmitter();
 
   constructor(
     public router: Router,
     public auth: AuthService,
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
     private main: MainService,
     private subject: SubjectService
   ) {
+    this.orderFerryForm = this.fb.group({
+      startPoint: [''],
+      endPoint: [''],
+      time: [''],
+      oneWay: [true]
+    });
 
   }
 
@@ -45,7 +52,7 @@ export class FerriesHeaderComponent implements OnInit {
 
     // Checking for responsive mode and initializing map form
     this.responsiveMode = IsResponsive.check();
-    this.mapForm = this._fb.group({
+    this.mapForm = this.fb.group({
       type: ['']
     });
   }
@@ -53,43 +60,6 @@ export class FerriesHeaderComponent implements OnInit {
   toggleSidebar() {
     this.subject.setSidebarAction('toggle');
     this.toggle.emit();
-  }
-
-  changePlace(section) {
-    this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
-
-      this.latlng = [];
-
-      if (r && r.length > 0) {
-
-        r.map((latlngs) => {
-          latlngs.lat = parseFloat(latlngs.lat);
-          latlngs.lng = parseFloat(latlngs.lng);
-          this.latlng.push(latlngs);
-        });
-
-        this.lat = parseFloat(this.latlng[0].lat);
-        this.lng = parseFloat(this.latlng[0].lng);
-
-
-      }
-
-      this.subject.setMapData({
-        section: section,
-        lat: this.lat,
-        lng: this.lng,
-        list: r
-      });
-      this.selectedSection = section;
-    });
-  }
-
-  changeSection(section) {
-    if (section === 'Accommodations') {
-      this.mapForm.patchValue({type: section});
-      this.router.navigate([section.toLowerCase()]);
-      this.changePlace(section);
-    }
   }
 
   logout() {
@@ -106,12 +76,15 @@ export class FerriesHeaderComponent implements OnInit {
 
   }
 
-  dateChanged() {
-
+  timeChanged(time) {
+    this.orderFerryForm.patchValue({time});
   }
 
   searchFerries() {
-    // this.router.navigate(['ferries/list']);
+    console.log(this.orderFerryForm.value)
+    setInterval(() => {
+      document.getElementById('order-info-container').scrollIntoView({behavior: 'smooth'});
+    }, 500);
   }
 
   personsCountChanged(e) {
