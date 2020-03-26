@@ -65,7 +65,8 @@ p {
   @include noBgBtn;
   color: $yellow;
 }
-.arrivedToOrder{
+
+.arrivedToOrder {
   @include noBgBtn;
   color: $orange;
 }
@@ -75,7 +76,7 @@ p {
   color: $silver;
 }
 
-.orderBtn,.startOrder {
+.orderBtn, .startOrder {
   @include noBgBtn;
   color: $green;
 }
@@ -798,4 +799,14 @@ header:not(.timepicker__header) {
 
 .mat-ink-bar {
   background-color: $red !important;
+}
+
+.order-ferry-form {
+  .mat-checkbox-label {
+    color: $white !important;
+  }
+
+  .mat-checkbox-frame {
+    border: 1px solid $white !important;
+  }
 }
