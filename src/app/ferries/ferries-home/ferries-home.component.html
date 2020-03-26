@@ -2,13 +2,13 @@
 
 <section class="ferry_page">
   <div class="ferry_page_size" *ngIf="auth.loggedIn()">
-    <div class="ferry_page_left" [hidden]="!showFilters">
-      <app-filters-bar [section]="'ferries'"></app-filters-bar>
-    </div>
+<!--    <div class="ferry_page_left" [hidden]="!showFilters">-->
+<!--      <app-filters-bar [section]="'ferries'"></app-filters-bar>-->
+<!--    </div>-->
     <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">
-      <div class="filterToggler">
-        <i class="fa fa-filter" (click)="toggleFilters()"></i>
-      </div>
+<!--      <div class="filterToggler">-->
+<!--        <i class="fa fa-filter" (click)="toggleFilters()"></i>-->
+<!--      </div>-->
       <div class="infoToggler" *ngIf="selectedFerry">
         <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
       </div>
@@ -16,43 +16,57 @@
                [mapTypeControl]="true" (mapClick)="mapClick($event)"
                [rotateControl]="true"
                [styles]="mapStyles">
-        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"
-                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">
-          <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">
+        <!--        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"-->
+        <!--                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">-->
+        <!--          <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">-->
 
-            <ng-container>
-              <div class="infoContainer">
-                <!--                                <div class="image">-->
-                <!--                                    <img *ngIf="single.img" class="infowindowImg"-->
-                <!--                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"-->
-                <!--                                         alt="">-->
-                <!--                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">-->
-                <!--                                </div>-->
-                <div class="info">
-                  <h4>{{single.name}}</h4>
-                  <ul>
-                    <li>
-                      <small>Max: {{single.max_people}} people</small>
-                    </li>
-                    <li>
-                      <small>Min: {{single.min_people}} people</small>
-                    </li>
-                    <li>
-                      <!--                            <small>Tel: {{single.phone}}</small>-->
-                    </li>
-                  </ul>
+        <!--            <ng-container>-->
+        <!--              <div class="infoContainer">-->
+        <!--                &lt;!&ndash;                                <div class="image">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <img *ngIf="single.img" class="infowindowImg"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                         alt="">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </div>&ndash;&gt;-->
+        <!--                <div class="info">-->
+        <!--                  <h4>{{single.name}}</h4>-->
+        <!--                  <ul>-->
+        <!--                    <li>-->
+        <!--                      <small>Max: {{single.max_people}} people</small>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                      <small>Min: {{single.min_people}} people</small>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                      &lt;!&ndash;                            <small>Tel: {{single.phone}}</small>&ndash;&gt;-->
+        <!--                    </li>-->
+        <!--                  </ul>-->
 
-                  <div class="actions">
-                    <button mat-raised-button color="primary" (click)="selectFerry(single)">
-                      <span>{{selectAction}}</span>
-                    </button>
-                  </div>
-                </div>
+        <!--                  <div class="actions">-->
+        <!--                    <button mat-raised-button color="primary" (click)="selectFerry(single)">-->
+        <!--                      <span>{{selectAction}}</span>-->
+        <!--                    </button>-->
+        <!--                  </div>-->
+        <!--                </div>-->
 
-              </div>
-            </ng-container>
+        <!--              </div>-->
+        <!--            </ng-container>-->
+        <!--          </agm-info-window>-->
+        <!--        </agm-marker>-->
+
+        <agm-marker *ngFor="let direction of ferryDirections" [latitude]="direction.lat" [longitude]="direction.lng"
+                    [openInfoWindow]="true" [iconUrl]="getDirectionIcon()" (markerClick)="selectDirection(direction)">
+          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeDirection(direction)">
+            <h3>{{direction.name}}</h3>
           </agm-info-window>
         </agm-marker>
+
+        <agm-polyline [editable]="true" [strokeColor]="'#88bf4a'">
+          <agm-polyline-point *ngFor="let data of lines"
+                              [latitude]="data.lat"
+                              [longitude]="data.lng">
+          </agm-polyline-point>
+        </agm-polyline>
       </agm-map>
     </div>
     <div class="ferry_page_right">
