@@ -53,6 +53,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
 
+    this.common.dataLoading = false;
+
     if (!this.customerRegistration) {
       this.formFields['field_type'] = ['', Validators.required];
     }

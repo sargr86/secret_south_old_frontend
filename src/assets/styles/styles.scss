@@ -141,7 +141,7 @@ table.mat-table {
 }
 
 mat-label {
-  color: #807d7dc9;
+  //color: #807d7dc9;
 }
 
 .phone_error {
@@ -809,6 +809,24 @@ header:not(.timepicker__header) {
   .mat-checkbox-frame {
     border: 1px solid $white !important;
   }
+}
+
+.order-ferry-form {
+  mat-label, .mat-select-arrow {
+    color: $white !important;
+  }
+
+  mat-label {
+    margin-left: 25px;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: bold;
+  }
+
+  .mat-form-field-underline {
+    background-color: $white !important;
+  }
+
 }
 
 

@@ -29,6 +29,7 @@ export class FerriesHeaderComponent implements OnInit {
   personsCount = 2;
   timepickerTheme = TIMEPICKER_THEME;
   orderFerryForm: FormGroup;
+  ferryDirections;
 
   @Output() toggle = new EventEmitter();
 
@@ -50,12 +51,17 @@ export class FerriesHeaderComponent implements OnInit {
 
   ngOnInit() {
 
+    this.main.getDirections().subscribe(dt => {
+      this.ferryDirections = dt;
+    });
+
     // Checking for responsive mode and initializing map form
     this.responsiveMode = IsResponsive.check();
     this.mapForm = this.fb.group({
       type: ['']
     });
   }
+
 
   toggleSidebar() {
     this.subject.setSidebarAction('toggle');
