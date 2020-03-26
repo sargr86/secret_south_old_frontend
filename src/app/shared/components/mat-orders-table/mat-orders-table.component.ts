@@ -107,6 +107,10 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.socketStateChanged.emit();
       this.getOrders();
     });
+
+    this.socket.on('ratedDriver', (data) => {
+      console.log(data)
+    });
   }
 
   getUserType() {
