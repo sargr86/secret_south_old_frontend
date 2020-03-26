@@ -10,6 +10,8 @@ import {AuthService} from '@core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
+import {SubjectService} from '@core/services/subject.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-ferries-home',
@@ -32,6 +34,9 @@ export class FerriesHomeComponent implements OnInit {
   showFilters = true;
   ferryData: Ferry;
   previous;
+  orderTableCols = ['value', 'title'];
+  orderData;
+  orderForm;
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -53,22 +58,39 @@ export class FerriesHomeComponent implements OnInit {
     public auth: AuthService,
     public router: Router,
     private route: ActivatedRoute,
-    private common: CommonService
+    private common: CommonService,
+    private subject: SubjectService,
+    private fb: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
     this.getFerryLocations();
     this.getFerryDirections();
+    this.getOrderData();
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
+
+    this.orderForm = this.fb.group({
+      startPoint: [''],
+      endPoint: [''],
+      time: [''],
+      oneWay: [true]
+    });
 
     // Saving social auth access token to local storage
     const token = this.route.snapshot.queryParams.token;
     if (token) {
       localStorage.setItem('token', token);
     }
+  }
+
+  getOrderData() {
+    this.subject.getOrderData().subscribe(dt => {
+      this.orderData = dt;
+      this.orderForm.patchValue(dt);
+    });
   }
 
   getFerryLocations() {

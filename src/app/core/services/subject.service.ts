@@ -8,6 +8,7 @@ export class SubjectService {
   public mapData = new Subject<any>();
   public sidebarActions = new Subject<any>();
   public orderTypeData = new Subject<any>();
+  public orderData = new Subject<any>();
 
   constructor() {
   }
@@ -34,5 +35,13 @@ export class SubjectService {
 
   getOrderTypeData(): Observable<any> {
     return this.orderTypeData.asObservable();
+  }
+
+  setOrderData(value) {
+    this.orderData.next(value);
+  }
+
+  getOrderData(): Observable<any> {
+    return this.orderData.asObservable();
   }
 }
