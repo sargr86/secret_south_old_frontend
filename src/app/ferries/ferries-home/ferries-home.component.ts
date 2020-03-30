@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {API_URL} from '@core/constants/settings';
+import {API_URL, TIMEPICKER_THEME} from '@core/constants/settings';
 import {FerryService} from '@core/services/ferry.service';
 import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery';
@@ -11,7 +11,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Socket} from 'ngx-socket-io';
 
 @Component({
   selector: 'app-ferries-home',
@@ -25,6 +26,7 @@ export class FerriesHomeComponent implements OnInit {
   latlng = [];
   ferryPositions: any = {lat: 0, lng: 0};
   ferryDirections;
+  ferryMapDirections;
   selectedFerryDirections = {startPoint: null, endPoint: null};
   lines = [];
   mapStyles;
@@ -36,7 +38,13 @@ export class FerriesHomeComponent implements OnInit {
   previous;
   orderTableCols = ['value', 'title'];
   orderData;
-  orderForm;
+  orderFerryForm: FormGroup;
+  timepickerTheme = TIMEPICKER_THEME;
+  personsCount = 2;
+  oneWayTrip = true;
+  authUser;
+  selectedStartPoint;
+  selectedEndPoint;
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -60,38 +68,81 @@ export class FerriesHomeComponent implements OnInit {
     private route: ActivatedRoute,
     private common: CommonService,
     private subject: SubjectService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public socket: Socket,
   ) {
+    this.authUser = jwtDecode(localStorage.getItem('token'));
   }
 
   ngOnInit(): void {
     this.getFerryLocations();
     this.getFerryDirections();
-    this.getOrderData();
+    this.getFerryMapDirections();
+    this.initOrderForm();
+    this.saveSocialAuthToken();
+    this.handleSocketEvents();
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
 
-    this.orderForm = this.fb.group({
+    console.log(this.authUser)
+  }
+
+  handleSocketEvents() {
+    this.socket.on('orderCreated', (data) => {
+      const customer = data.order.client;
+      if (customer) {
+        this.toastr.success(`The order has been created successfully!`,
+          'Order created!', {enableHtml: true});
+      }
+    });
+
+    this.socket.on('orderTakenFinished', (data) => {
+      console.log('order taken finished')
+      console.log(data)
+
+      this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
+        '', {enableHtml: true});
+    });
+    this.socket.on('arrivedToOrderFinished', (data) => {
+      this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
+        '', {enableHtml: true});
+    });
+
+    this.socket.on('orderFinished', (data) => {
+      this.toastr.success(`The boat reached to the final destination. Thank you for choosing our company`,
+        '', {enableHtml: true});
+    });
+  }
+
+  initOrderForm() {
+    this.orderFerryForm = this.fb.group({
       startPoint: [''],
       endPoint: [''],
       time: [''],
-      oneWay: [true]
+      wayType: [1],
+      more: this.createMoreFormGroup(),
+      payment: [1],
+      status: ['pending']
     });
+  }
 
-    // Saving social auth access token to local storage
+  // Saving social auth access token to local storage
+  saveSocialAuthToken() {
     const token = this.route.snapshot.queryParams.token;
     if (token) {
       localStorage.setItem('token', token);
     }
   }
 
-  getOrderData() {
-    this.subject.getOrderData().subscribe(dt => {
-      this.orderData = dt;
-      this.orderForm.patchValue(dt);
-    });
+  createMoreFormGroup(): FormGroup {
+    return this.fb.group({
+        children: ['', [Validators.required]],
+        bike: ['', [Validators.pattern('^[0-9].*$')]],
+      }
+    );
   }
+
 
   getFerryLocations() {
 
@@ -114,8 +165,14 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   getFerryDirections() {
-    this.main.getDirections().subscribe(dt => {
+    this.main.getDirections({dropdown: true}).subscribe(dt => {
       this.ferryDirections = dt;
+    });
+  }
+
+  getFerryMapDirections() {
+    this.main.getDirections().subscribe(dt => {
+      this.ferryMapDirections = dt;
     });
   }
 
@@ -167,6 +224,7 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   selectDirection(direction) {
+    console.log(direction)
     this.lines.push({lat: +direction.lat, lng: +direction.lng});
   }
 
@@ -176,5 +234,47 @@ export class FerriesHomeComponent implements OnInit {
       const dirLng = +direction.lng;
       return l.lng !== dirLng && l.lat !== dirLat;
     });
+  }
+
+  sourceChanged(e) {
+    this.orderFerryForm.patchValue({startPoint: e.value});
+    this.selectedStartPoint = e.value;
+  }
+
+  destinationChanged(e) {
+    this.orderFerryForm.patchValue({endPoint: e.value});
+    this.selectedEndPoint = e.value;
+  }
+
+  personsCountChanged(count) {
+    this.orderFerryForm.get('more').patchValue({children: count});
+  }
+
+  timeChanged(time) {
+    this.orderFerryForm.patchValue({time});
+  }
+
+  bikeChanged(e) {
+    this.oneWayTrip = e.checked;
+    this.orderFerryForm.get('more').patchValue({bike: this.oneWayTrip});
+  }
+
+
+  wayTypeChanged(e) {
+    this.oneWayTrip = e.target.checked;
+  }
+
+  orderFerry() {
+    const formValue = this.orderFerryForm.value;
+    formValue.client = {
+      first_name: this.authUser.first_name,
+      last_name: this.authUser.last_name,
+      phone: this.authUser.phone,
+      email: this.authUser.phone
+    };
+
+    console.log(formValue)
+
+    this.socket.emit('createOrder', JSON.stringify(formValue));
   }
 }

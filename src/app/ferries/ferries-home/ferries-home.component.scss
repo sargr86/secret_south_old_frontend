@@ -25,9 +25,13 @@
 }
 
 .ferry_page_left, .ferry-page-right {
-  width: 440px;
+  width: 500px;
   //border: 1px solid red;
   padding: 20px;
+
+  .order-form {
+
+  }
 }
 
 .ferry-page-right {
@@ -92,8 +96,94 @@
   text-align: center;
 }
 
-.order-form {
+.order-ferry-form {
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+
   mat-icon {
     color: #88bf4a;
+  }
+
+  .way-type {
+    display: flex;
+
+    p {
+      width: 75px;
+      margin-top: 4px;
+    }
+  }
+
+  .times {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    mat-icon {
+      position: absolute;
+      top: 20px;
+    }
+
+    mat-label {
+      margin-left: 30px;
+    }
+
+    .start-time, .end-time {
+      width: 130px;
+    }
+
+    .start-time {
+      margin-left: 28px;
+    }
+
+    .end-time {
+      margin-left: 30px;
+    }
+
+    .ngx-material-timepicker-toggle {
+      margin-top: -10px !important;
+    }
+  }
+
+  .guest-count-container {
+    display: flex;
+    align-items: baseline;
+
+    p {
+      margin-left: 20px;
+    }
+  }
+
+  .way-type {
+    mat-icon {
+      cursor: pointer;
+    }
+
+    label {
+      display: flex;
+      cursor: pointer;
+    }
+  }
+
+  .bikes-container {
+    margin-left: 20px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+
+    .order-btn {
+      background-color: #88bf4a;
+      color: #fff;
+      width: 130px;
+      border: none;
+      outline: none;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 4px;
+    }
   }
 }

@@ -45,6 +45,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
     this.getUserType();
     this.getOrders();
+    this.handleSocketEvents();
 
     // Getting orders of the changed tab
     this.subject.getOrderTypeData().subscribe(status => {
@@ -52,6 +53,10 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.getOrders();
     });
 
+
+  }
+
+  handleSocketEvents() {
     this.socket.on('driverAssignmentFinished', (res) => {
       console.log(res)
       if (!this.isOperator) {

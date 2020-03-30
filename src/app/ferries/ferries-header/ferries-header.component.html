@@ -1,75 +1,76 @@
 <header>
   <app-header-top [section]="'Ferries'"></app-header-top>
 
-  <form [formGroup]="orderFerryForm" class="order-ferry-form">
+  <!--  <form [formGroup]="orderFerryForm" class="order-ferry-form">-->
 
-    <div class="header_main">
-      <div class="header_main_box">
+  <!--    <div class="header_main">-->
+  <!--      <div class="header_main_box">-->
 
-        <div class="location">
-          <!--                <i class="fa fa-map-marker-alt"></i>-->
-          <mat-icon>place</mat-icon>
-          <!--          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete-->
-          <!--                 [options]="countryRestrictedPlaces" formControlName="startPoint"-->
-          <!--                 #searchAddress="ngx-places" placeholder="Your location">-->
-          <mat-form-field>
-            <mat-label>Your location</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let direction of ferryDirections" [value]="direction">{{direction.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+  <!--        <div class="location">-->
+  <!--          &lt;!&ndash;                <i class="fa fa-map-marker-alt"></i>&ndash;&gt;-->
+  <!--          <mat-icon>place</mat-icon>-->
+  <!--          &lt;!&ndash;          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete&ndash;&gt;-->
+  <!--          &lt;!&ndash;                 [options]="countryRestrictedPlaces" formControlName="startPoint"&ndash;&gt;-->
+  <!--          &lt;!&ndash;                 #searchAddress="ngx-places" placeholder="Your location">&ndash;&gt;-->
+  <!--          <mat-form-field>-->
+  <!--            <mat-label>Your location</mat-label>-->
+  <!--            <mat-select (selectionChange)="sourceChanged($event)">-->
+  <!--              <mat-option *ngFor="let direction of ferryDirections" [value]="direction">{{direction.name}}</mat-option>-->
+  <!--            </mat-select>-->
+  <!--          </mat-form-field>-->
+  <!--        </div>-->
 
-        <div class="location">
-          <!--                <i class="fa fa-map-marker-alt"></i>-->
-          <mat-icon>place</mat-icon>
-<!--          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete-->
-<!--                 [options]="countryRestrictedPlaces" formControlName="endPoint"-->
-<!--                 #searchAddress="ngx-places" placeholder="Direction">-->
-          <mat-form-field>
-            <mat-label>Direction</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let direction of ferryDirections" [value]="direction">{{direction.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+  <!--        <div class="location">-->
+  <!--          &lt;!&ndash;                <i class="fa fa-map-marker-alt"></i>&ndash;&gt;-->
+  <!--          <mat-icon>place</mat-icon>-->
+  <!--&lt;!&ndash;          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete&ndash;&gt;-->
+  <!--&lt;!&ndash;                 [options]="countryRestrictedPlaces" formControlName="endPoint"&ndash;&gt;-->
+  <!--&lt;!&ndash;                 #searchAddress="ngx-places" placeholder="Direction">&ndash;&gt;-->
+  <!--          <mat-form-field>-->
+  <!--            <mat-label>Direction</mat-label>-->
+  <!--            <mat-select (selectionChange)="destinationChanged($event)">-->
+  <!--              <mat-option *ngFor="let direction of ferryDirections" [value]="direction">{{direction.name}}</mat-option>-->
+  <!--            </mat-select>-->
+  <!--          </mat-form-field>-->
+  <!--        </div>-->
 
-        <div class="checkIn">
-          <input [ngxTimepicker]="picker" class="Check_out_inp" [format]="24" placeholder="Time" readonly>
-          <ngx-material-timepicker #picker (timeSet)="timeChanged($event)"
-                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>
-          <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
-          <!--                 class="Check_out_inp" >-->
-          <ngx-material-timepicker-toggle [for]="picker">
-            <!--                <mat-icon>access_time</mat-icon>-->
-            <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
-            <!--                         ngxMaterialTimepickerToggleIcon>-->
-            <!--                        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
-            <!--                    </svg>-->
-          </ngx-material-timepicker-toggle>
-          <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-          <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-          <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-          <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-          <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
-        </div>
+  <!--        <div class="checkIn">-->
+  <!--          <input [ngxTimepicker]="picker" class="Check_out_inp" [format]="24" placeholder="Time" readonly>-->
+  <!--          <ngx-material-timepicker #picker (timeSet)="timeChanged($event)"-->
+  <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
+  <!--          &lt;!&ndash;          <input  name="bookingDate" [ngxTimepicker]="timepicker"&ndash;&gt;-->
+  <!--          &lt;!&ndash;                 class="Check_out_inp" >&ndash;&gt;-->
+  <!--          <ngx-material-timepicker-toggle [for]="picker">-->
+  <!--            &lt;!&ndash;                <mat-icon>access_time</mat-icon>&ndash;&gt;-->
+  <!--            &lt;!&ndash;                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"&ndash;&gt;-->
+  <!--            &lt;!&ndash;                         ngxMaterialTimepickerToggleIcon>&ndash;&gt;-->
+  <!--            &lt;!&ndash;                        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>&ndash;&gt;-->
+  <!--            &lt;!&ndash;                    </svg>&ndash;&gt;-->
+  <!--          </ngx-material-timepicker-toggle>-->
+  <!--          &lt;!&ndash;          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"&ndash;&gt;-->
+  <!--          &lt;!&ndash;                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;&ndash;&gt;-->
+  <!--          &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;&ndash;&gt;-->
+  <!--          &lt;!&ndash;          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;&ndash;&gt;-->
+  <!--        </div>-->
 
-        <!--        <div class="guests">-->
-        <!--          <mat-icon>group</mat-icon>-->
-        <!--          <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"-->
-        <!--                            [buttonsOrientation]="'v'" [placeholder]="'Guests'"-->
-        <!--                            (valueChange)="personsCountChanged($event)"></ng-number-picker>-->
-        <!--        </div>-->
+<!--                  <div class="guests">-->
+<!--                    <mat-icon>group</mat-icon>-->
+<!--                    <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"-->
+<!--                                      [buttonsOrientation]="'v'" [placeholder]="'Guests'"-->
+<!--                                      (valueChange)="personsCountChanged($event)"></ng-number-picker>-->
+<!--                  </div>-->
 
-        <div>
-          <mat-checkbox [checked]="true" color="primary" formControlName="oneWay">One way</mat-checkbox>
-        </div>
+  <!--        <div>-->
+  <!--          <mat-checkbox [checked]="true" color="primary" formControlName="oneWay">One way</mat-checkbox>-->
+  <!--        </div>        -->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </form>-->
 
-        <div class="searchBtn">
-          <button type="button" name="button" (click)="searchFerries()">Search</button>
-        </div>
-      </div>
-    </div>
-  </form>
+
+  <div class="orderNow">
+    <button type="button" class="orderNowBtn" (click)="orderFerryNow()">ORDER NOW</button>
+  </div>
   <app-header-bottom></app-header-bottom>
 </header>

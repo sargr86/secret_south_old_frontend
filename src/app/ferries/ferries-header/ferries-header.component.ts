@@ -86,12 +86,10 @@ export class FerriesHeaderComponent implements OnInit {
     this.orderFerryForm.patchValue({time});
   }
 
-  searchFerries() {
-    console.log(this.orderFerryForm.value)
-    setInterval(() => {
-      document.getElementById('order-info-container').scrollIntoView({behavior: 'smooth'});
-      this.subject.setOrderData(this.orderFerryForm.value)
-    }, 500);
+
+
+  orderFerryNow() {
+    document.getElementById('order-info-container').scrollIntoView({behavior: 'smooth'});
   }
 
   personsCountChanged(e) {
