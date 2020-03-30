@@ -187,13 +187,14 @@
         </mat-list>
 
         <div class="actions">
+          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
         </div>
       </form>
     </div>
   </div>
   <div *ngIf="!auth.loggedIn()">
-    <h1 class="loginMsg">Please log in to view ferries on the map</h1>
+    <h1 class="loginMsg">Please log in to view directions on the map</h1>
   </div>
 </section>
 

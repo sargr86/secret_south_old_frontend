@@ -13,6 +13,8 @@ import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Socket} from 'ngx-socket-io';
+import {OrdersService} from '@core/services/orders.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-ferries-home',
@@ -70,8 +72,13 @@ export class FerriesHomeComponent implements OnInit {
     private subject: SubjectService,
     private fb: FormBuilder,
     public socket: Socket,
+    private ordersService: OrdersService
   ) {
-    this.authUser = jwtDecode(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authUser = jwtDecode(token);
+    }
+    this.getUserTodaysOrders();
   }
 
   ngOnInit(): void {
@@ -84,17 +91,22 @@ export class FerriesHomeComponent implements OnInit {
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
-
-    console.log(this.authUser)
   }
 
   handleSocketEvents() {
     this.socket.on('orderCreated', (data) => {
       const customer = data.order.client;
       if (customer) {
+        this.router.navigate(['ferries/orders/show']).then(n => n);
         this.toastr.success(`The order has been created successfully!`,
           'Order created!', {enableHtml: true});
       }
+    });
+
+    this.socket.on('driverAssignmentFinished', (res) => {
+      console.log(res)
+      this.toastr.success(`Your order has been assigned to <strong>${res.driver.full_name}</strong>`,
+        '', {enableHtml: true, disableTimeOut: true});
     });
 
     this.socket.on('orderTakenFinished', (data) => {
@@ -102,16 +114,16 @@ export class FerriesHomeComponent implements OnInit {
       console.log(data)
 
       this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true});
+        '', {enableHtml: true, disableTimeOut: true});
     });
     this.socket.on('arrivedToOrderFinished', (data) => {
       this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
-        '', {enableHtml: true});
+        '', {enableHtml: true, disableTimeOut: true});
     });
 
     this.socket.on('orderFinished', (data) => {
-      this.toastr.success(`The boat reached to the final destination. Thank you for choosing our company`,
-        '', {enableHtml: true});
+      this.toastr.success(`The boat reached to the final destination. Thank you for choosing our company.`,
+        '', {enableHtml: true, disableTimeOut: true});
     });
   }
 
@@ -270,11 +282,21 @@ export class FerriesHomeComponent implements OnInit {
       first_name: this.authUser.first_name,
       last_name: this.authUser.last_name,
       phone: this.authUser.phone,
-      email: this.authUser.phone
+      email: this.authUser.email
     };
 
     console.log(formValue)
 
     this.socket.emit('createOrder', JSON.stringify(formValue));
+  }
+
+  getUserTodaysOrders() {
+    if (this.authUser) {
+
+      const sendData = {email: this.authUser.email, dateVal: moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]')}
+      this.ordersService.getUserActiveOrders(sendData).subscribe(dt => {
+
+      });
+    }
   }
 }

@@ -20,5 +20,9 @@ export class OrdersService {
     return this.httpClient.get(`${API_URL}orders/get-counts`, {params});
   }
 
+  getUserActiveOrders(params){
+    return this.httpClient.get(`${API_URL}orders/get-active-orders`, {params});
+  }
+
 
 }

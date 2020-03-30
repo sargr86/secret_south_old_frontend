@@ -175,8 +175,7 @@
     display: flex;
     justify-content: center;
 
-    .order-btn {
-      background-color: #88bf4a;
+    button{
       color: #fff;
       width: 130px;
       border: none;
@@ -184,6 +183,15 @@
       font-weight: bold;
       padding: 10px;
       border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .order-btn {
+      background-color: #88bf4a;
+
+    }
+    .cancel-order-btn{
+      background-color: $silver;
     }
   }
 }
