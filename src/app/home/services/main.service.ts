@@ -3,30 +3,30 @@ import {HttpClient} from '@angular/common/http';
 import {API_URL} from '@core/constants/settings';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class MainService {
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    getFerryLocation() {
-        return this.http.get(`${API_URL}home/get_places`);
-    }
+  getFerryLocation() {
+    return this.http.get(`${API_URL}home/get_places`);
+  }
 
-    changePlace(data) {
-        if (data.type) {
-            // console.log(data.type)
-            const type = data.type.toLowerCase().replace('/', '-');
-            return this.http.get(`${API_URL}${type}/get`);
-        }
+  changePlace(data) {
+    if (data.type) {
+      // console.log(data.type)
+      const type = data.type.toLowerCase().replace('/', '-');
+      return this.http.get(`${API_URL}${type}/get`);
     }
+  }
 
-    getDirections(){
-      return this.http.get(`${API_URL}ferries/get-directions`);
-    }
+  getDirections(params = {}) {
+    return this.http.get(`${API_URL}ferries/get-directions`, {params});
+  }
 
-    getRealLocations() {
-        return this.http.get(`${API_URL}ferries/get_real_locations`);
-    }
+  getRealLocations() {
+    return this.http.get(`${API_URL}ferries/get_real_locations`);
+  }
 }
