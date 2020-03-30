@@ -407,11 +407,104 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .timepicker__header, .clock-face__number span.active {
-  background-color: #164547 !important;
+  //background-color: #164547 !important;
 }
 
 .timepicker-dial__item_active {
   outline: 1px solid #c0c0c05c;
+}
+
+.guestsCount {
+  input {
+    border: 1px solid white !important;
+    border-radius: unset !important;
+    background: transparent !important;
+    padding-left: 28px;
+    color: $white;
+    font-weight: bold;
+    height: 42px;
+  }
+
+  input:focus {
+    color: $white;
+  }
+
+  .input-group {
+    height: 41px;
+    margin-top: -1px;
+
+    .input-group-text {
+      background-color: transparent;
+      color: $white;
+      border-radius: unset;
+    }
+  }
+}
+
+.order-ferry-form {
+  .ngx-material-timepicker-toggle {
+    position: absolute !important;
+    top: 0 !important;
+
+    svg {
+      fill: #88bf4a !important;
+    }
+  }
+
+  .timepicker__header { //.clock-face__number span.active
+    background-color: #88bf4a !important;
+  }
+
+  .guests {
+    width: 70px;
+    margin-left: 10px;
+
+    mat-icon {
+      position: absolute !important;
+      top: 5px !important;
+    }
+
+    .guestsCount {
+
+      input {
+        border-radius: unset !important;
+        background: transparent !important;
+        color: #000000 !important;
+        border: none !important;
+        border-bottom: 1px solid silver !important;
+        padding-left: 28px;
+        font-weight: bold;
+        height: 42px;
+        outline: none !important;
+      }
+
+      //input:focus {
+      //  color: $white;
+      //}
+
+      .input-group {
+        height: 41px;
+        margin-top: -1px;
+
+        .input-group-text {
+          background-color: transparent;
+          border: none !important;
+          border-bottom: 1px solid silver !important;
+          //border-right: 1px solid silver!important;
+          border-radius: unset;
+          color: #000000 !important;
+
+          span:first-child {
+            font-size: 20px !important;
+          }
+
+          span:last-child {
+            font-size: 30px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -475,33 +568,6 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 .mat-calendar-body-today.mat-calendar-body-selected {
   box-shadow: none;
-}
-
-.guestsCount {
-  input {
-    border: 1px solid white !important;
-    border-radius: unset !important;
-    background: transparent !important;
-    padding-left: 28px;
-    color: $white;
-    font-weight: bold;
-    height: 42px;
-  }
-
-  input:focus {
-    color: $white;
-  }
-
-  .input-group {
-    height: 41px;
-    margin-top: -1px;
-
-    .input-group-text {
-      background-color: transparent;
-      color: $white;
-      border-radius: unset;
-    }
-  }
 }
 
 
@@ -765,6 +831,10 @@ header:not(.timepicker__header) {
           //font-size: 18px;
         }
 
+        mat-icon {
+          left: -3px !important;
+        }
+
       }
     }
   }
@@ -803,7 +873,11 @@ header:not(.timepicker__header) {
 
 .order-ferry-form {
   .mat-checkbox-label {
-    color: $white !important;
+    //color: $white !important;
+  }
+
+  .mat-list-item {
+    margin: 0 0 24px 0 !important;
   }
 
   .mat-checkbox-frame {
@@ -811,26 +885,24 @@ header:not(.timepicker__header) {
   }
 }
 
-.order-ferry-form {
-  mat-label, .mat-select-arrow {
-    color: $white !important;
-  }
+.orderNow {
+  display: flex;
+  justify-content: center;
 
-  mat-label {
-    margin-left: 25px;
-    font-size: 14px;
-    font-family: Roboto;
-    font-weight: bold;
+  .orderNowBtn {
+    width: 181px;
+    height: 50px;
+    border-radius: 4px;
+    background-image: linear-gradient(to right, #0b9194, #08c1c6);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    outline: none;
   }
-
-  .mat-form-field-underline {
-    background-color: $white !important;
-  }
-
 }
 
-
-.order-form {
+.order-ferry-form {
   .mat-checkbox {
     margin-left: 8px !important;
 
