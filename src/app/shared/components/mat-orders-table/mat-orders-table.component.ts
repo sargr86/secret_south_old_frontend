@@ -10,6 +10,7 @@ import {AuthService} from '@core/services/auth.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DriverAssignmentDialogComponent} from '@core/components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import * as jwtDecode from 'jwt-decode';
+import {ORDERS_TABLE_COLUMNS} from '@core/constants/settings';
 
 @Component({
   selector: 'app-mat-orders-table',
@@ -19,7 +20,7 @@ import * as jwtDecode from 'jwt-decode';
 export class MatOrdersTableComponent implements OnInit, OnDestroy {
   @Input() status;
   @Output() socketStateChanged = new EventEmitter();
-  displayedColumns = ['_id', 'client_full_name', 'phone', 'email', 'start_point', 'end_point', 'time', 'status', 'actions'];
+  displayedColumns = ORDERS_TABLE_COLUMNS;
   dataSource;
   filteredData;
   subscriptions: Subscription[] = [];
@@ -27,6 +28,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   isOperator;
   orderTaken = false;
   orderStarted = false;
+  userPosition;
 
 
   constructor(
@@ -44,6 +46,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.getUserType();
+    this.getColumnsByUserPosition();
     this.getOrders();
     this.handleSocketEvents();
 
@@ -54,6 +57,15 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     });
 
 
+  }
+
+  getColumnsByUserPosition() {
+    const position = this.authUser.position.name;
+
+    if (position === 'Customer') {
+      this.displayedColumns = this.displayedColumns.filter(col => !/_id|client_full_name|phone|email|actions/i.test(col));
+    } else if (position === 'Director' || position === 'Operator') {
+    }
   }
 
   handleSocketEvents() {
@@ -119,14 +131,21 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   }
 
   getUserType() {
-    this.authUser = jwtDecode(localStorage.getItem('token'));
-    this.isOperator = this.authUser.position ? /Operator|Director/i.test(this.authUser.position.name) : false;
+    const token = localStorage.getItem('token');
+    if (token) {
+
+      this.authUser = jwtDecode(token);
+      this.isOperator = /Operator|Director/i.test(this.authUser.position.name);
+      this.userPosition = this.authUser.position.name;
+    }
   }
 
   getOrders() {
     const sendData = {status: this.status};
-    if (!this.isOperator) {
+    if (this.userPosition === 'Driver') {
       sendData['driverEmail'] = this.authUser.email;
+    } else if (this.userPosition === 'Customer') {
+      sendData['customerEmail'] = this.authUser.email;
     }
     this.subscriptions.push(this.ordersService.get(sendData).subscribe(dt => {
       this.common.dataLoading = false;

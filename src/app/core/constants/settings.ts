@@ -231,7 +231,7 @@ export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
 ];
 
 
-export const OPERATOR_ORDER_TABS = [
+export const ALL_ORDER_TABS = [
   {name: 'Pending', count: 0},
   {name: 'Assigned', count: 0},
   {name: 'Ongoing', count: 0},
@@ -241,12 +241,6 @@ export const OPERATOR_ORDER_TABS = [
   {name: 'Finished', count: 0},
   {name: 'All', count: 0}
 ];
-export const DRIVER_ORDER_TABS = [
-  {name: 'Assigned', count: 0},
-  {name: 'Ongoing', count: 0},
-  {name: 'Arrived', count: 0},
-  {name: 'Started', count: 0},
-  {name: 'Cancelled', count: 0},
-  {name: 'Finished', count: 0},
-  {name: 'All', count: 0}
-];
+export const DRIVER_ORDER_TABS = ALL_ORDER_TABS.filter(t => t.name !== 'Pending');
+
+export const ORDERS_TABLE_COLUMNS = ['_id', 'client_full_name', 'phone', 'email', 'driver_full_name', 'driver_phone', 'driver_email', 'start_point', 'end_point', 'time', 'status', 'actions'];

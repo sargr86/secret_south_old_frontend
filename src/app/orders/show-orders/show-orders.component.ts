@@ -4,7 +4,7 @@ import {OrdersService} from '@core/services/orders.service';
 import {SubjectService} from '@core/services/subject.service';
 import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
-import {DRIVER_ORDER_TABS, OPERATOR_ORDER_TABS} from '@core/constants/settings';
+import {DRIVER_ORDER_TABS, ALL_ORDER_TABS} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
 import {count} from 'rxjs/operators';
 
@@ -16,10 +16,11 @@ import {count} from 'rxjs/operators';
 export class ShowOrdersComponent implements OnInit {
   orders;
   authUser;
-  isOperator;
+  isDriver;
   tabs;
   selectedTab;
   subscriptions: Subscription[] = [];
+  userPosition;
 
 
   constructor(
@@ -34,32 +35,38 @@ export class ShowOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.setUserTabs();
-    this.getAllOrders();
+    this.getStatusCounts();
   }
 
   setUserTabs() {
-    this.authUser = jwtDecode(localStorage.getItem('token'));
-    this.isOperator = this.authUser.position ? /Operator|Director/i.test(this.authUser.position.name) : false;
-    // this.selectedTab =  'Pending' : 'Assigned';
-    this.selectedTab =  'Pending' ;
-    // this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
-    this.tabs = OPERATOR_ORDER_TABS;
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authUser = jwtDecode(token);
+    }
+    this.userPosition = this.authUser.position.name;
+    this.isDriver = this.userPosition === 'Driver';
+    this.selectedTab = this.isDriver ? 'Assigned' : 'Pending';
+    this.tabs = this.isDriver ? DRIVER_ORDER_TABS : ALL_ORDER_TABS;
   }
 
   tabChanged(e) {
     this.selectedTab = e.tab.textLabel;
     this.subject.setOrderTypeData(this.selectedTab.toLowerCase());
-    this.getAllOrders();
+    this.getStatusCounts();
   }
 
-  getAllOrders(socketChanged = false) {
+  getStatusCounts(socketChanged = false) {
     const sendData = {};
-    // if (!this.isOperator) {
-    //   sendData['driverEmail'] = this.authUser.email;
-    // }
+
+    // For driver role sending his email
+    if (this.isDriver) {
+      sendData['driverEmail'] = this.authUser.email;
+    } else if (this.userPosition === 'Customer') {
+      sendData['customerEmail'] = this.authUser.email;
+    }
     // Resetting all counts if socket changed
     if (socketChanged) {
-      this.tabs = this.isOperator ? OPERATOR_ORDER_TABS : DRIVER_ORDER_TABS;
+      this.tabs = this.isDriver ? DRIVER_ORDER_TABS : ALL_ORDER_TABS;
       this.tabs.map(tab => {
         tab.count = 0;
       });
