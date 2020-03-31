@@ -16,7 +16,7 @@
             <td mat-cell *matCellDef="let row">
               <ng-container *ngIf="colIndex < 3">
                 <span *ngIf="col==='client_full_name'">
-                  {{row['client']['first_name'] + ' ' + row['client']['first_name']}}
+                  {{row['client']['first_name'] + ' ' + row['client']['last_name']}}
                 </span>
                 <span *ngIf="col==='email'">{{row['client']['email']}}</span>
                 <span *ngIf="col==='phone'">{{row['client']['phone']}}</span>

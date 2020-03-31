@@ -119,9 +119,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         if (employeeRole && l.children) {
           l.children = l.children.filter(sl => !sl.name.includes('Add'));
         } else if (customerRole) {
-          return l.name === 'Dashboard';
+          return l.name === 'Dashboard' || l.name === 'Orders';
         }
-          // else if (opertorRole) {
+        // else if (opertorRole) {
         //   return l.name === 'Dashboard' || l.name === 'Orders';
         // }
 
