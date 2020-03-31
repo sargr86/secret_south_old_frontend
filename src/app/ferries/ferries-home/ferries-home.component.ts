@@ -93,11 +93,13 @@ export class FerriesHomeComponent implements OnInit {
     this.common.dataLoading = false;
   }
 
-  handleSocketEvents() {
-    this.socket.on('orderCreated', (data) => {
+   handleSocketEvents() {
+    this.socket.on('orderCreated', async(data) => {
+      console.log('order created')
+      console.log(data)
       const customer = data.order.client;
       if (customer) {
-        this.router.navigate(['ferries/orders/show']).then(n => n);
+        await this.router.navigate(['customers/orders/show']);
         this.toastr.success(`The order has been created successfully!`,
           'Order created!', {enableHtml: true});
       }
