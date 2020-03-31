@@ -93,8 +93,8 @@ export class FerriesHomeComponent implements OnInit {
     this.common.dataLoading = false;
   }
 
-   handleSocketEvents() {
-    this.socket.on('orderCreated', async(data) => {
+  handleSocketEvents() {
+    this.socket.on('orderCreated', async (data) => {
       console.log('order created')
       console.log(data)
       const customer = data.order.client;
@@ -106,21 +106,24 @@ export class FerriesHomeComponent implements OnInit {
     });
 
     this.socket.on('driverAssignmentFinished', (res) => {
-      console.log(res)
-      this.toastr.success(`Your order has been assigned to <strong>${res.driver.full_name}</strong>`,
-        '', {enableHtml: true, disableTimeOut: true});
+      if (this.authUser.position.name === 'Customer') {
+        this.toastr.success(`Your order has been assigned to <strong>${res.driver.full_name}</strong>`,
+          '', {enableHtml: true, disableTimeOut: true});
+      }
     });
 
     this.socket.on('orderTakenFinished', (data) => {
-      console.log('order taken finished')
-      console.log(data)
-
-      this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true, disableTimeOut: true});
-    });
+        if (this.authUser.position.name === 'Customer') {
+          this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
+            '', {enableHtml: true, disableTimeOut: true});
+        }
+      }
+    );
     this.socket.on('arrivedToOrderFinished', (data) => {
-      this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
-        '', {enableHtml: true, disableTimeOut: true});
+      if (this.authUser.position.name === 'Customer') {
+        this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
+          '', {enableHtml: true, disableTimeOut: true});
+      }
     });
 
     this.socket.on('orderFinished', (data) => {

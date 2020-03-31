@@ -70,19 +70,26 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
   handleSocketEvents() {
     this.socket.on('driverAssignmentFinished', (res) => {
-      console.log(res)
-      if (!this.isOperator) {
+      if (this.isOperator) {
         this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
             has been assigned to <strong>${res.driver.full_name}</strong>`,
           '', {enableHtml: true});
+      } else if (this.authUser.position.name === 'Customer') {
+        this.toastr.success(`Your order has been assigned to <strong>${res.driver.full_name}</strong>`,
+          '', {enableHtml: true, disableTimeOut: true});
+      } else if (this.authUser.position.name === 'Driver') {
+        this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
+            has been assigned to you</strong>`,
+          '', {enableHtml: true});
       }
+
       this.getOrders();
       this.socketStateChanged.emit();
     });
 
     this.socket.on('orderCreated', (data) => {
       const customer = data.order.client;
-      if (customer) {
+      if (customer && this.isOperator) {
         this.toastr.success(`A new order has been created by: <strong>${customer.first_name}  ${customer.last_name}</strong>`,
           'Order created!', {enableHtml: true});
       }
@@ -92,35 +99,48 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
 
     this.socket.on('orderTakenFinished', (data) => {
-      console.log('order taken finished')
-      console.log(data)
-
-      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+      if (this.isOperator) {
+        this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been taken by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true});
+          '', {enableHtml: true});
+      } else if (this.authUser.position.name === 'Customer') {
+        this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
+          '', {enableHtml: true, disableTimeOut: true});
+      }
+
       this.socketStateChanged.emit();
       this.getOrders();
     });
     this.socket.on('arrivedToOrderFinished', (data) => {
-      this.toastr.success(`<strong>${data.driver.full_name}</strong>
+      if (this.isOperator) {
+        this.toastr.success(`<strong>${data.driver.full_name}</strong>
         is arrived to the location of <strong>${data.client.first_name} ${data.client.last_name}</strong>`,
-        '', {enableHtml: true});
+          '', {enableHtml: true});
+      } else if (this.authUser.position.name === 'Customer') {
+        this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
+          '', {enableHtml: true, disableTimeOut: true});
+      }
       this.socketStateChanged.emit();
       this.getOrders();
     });
 
     this.socket.on('orderStarted', (data) => {
-      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+        if (this.isOperator) {
+          this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been started by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true});
-      this.socketStateChanged.emit();
-      this.getOrders();
-    });
+            '', {enableHtml: true});
+        }
+        this.socketStateChanged.emit();
+        this.getOrders();
+      }
+    );
 
     this.socket.on('orderFinished', (data) => {
-      this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
-            has been finished by <strong>${data.driver.full_name}</strong>`,
-        '', {enableHtml: true});
+      if (this.isOperator) {
+        this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+              has been finished by <strong>${data.driver.full_name}</strong>`,
+          '', {enableHtml: true});
+      }
       this.socketStateChanged.emit();
       this.getOrders();
     });

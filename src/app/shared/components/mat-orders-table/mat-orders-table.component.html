@@ -18,8 +18,17 @@
                 <span *ngIf="col==='client_full_name'">
                   {{row['client']['first_name'] + ' ' + row['client']['last_name']}}
                 </span>
+
                 <span *ngIf="col==='email'">{{row['client']['email']}}</span>
                 <span *ngIf="col==='phone'">{{row['client']['phone']}}</span>
+              </ng-container>
+
+              <ng-container *ngIf="colIndex >= 4 && colIndex <= 6 && row['driver']">
+              <span *ngIf="col==='driver_full_name'">
+                  {{row['driver']['full_name']}}
+                </span>
+                <span *ngIf="col==='driver_email'">{{row['driver']['email']}}</span>
+                <span *ngIf="col==='driver_phone'">{{row['driver']['phone']}}</span>
               </ng-container>
 
               <span *ngIf="col==='start_point'">{{row['startPoint']['name']}}</span>
