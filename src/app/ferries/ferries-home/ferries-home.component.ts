@@ -95,40 +95,11 @@ export class FerriesHomeComponent implements OnInit {
 
   handleSocketEvents() {
     this.socket.on('orderCreated', async (data) => {
-      console.log('order created')
-      console.log(data)
       const customer = data.order.client;
       if (customer) {
         await this.router.navigate(['customers/orders/show']);
-        this.toastr.success(`The order has been created successfully!`,
-          'Order created!', {enableHtml: true});
-      }
-    });
 
-    this.socket.on('driverAssignmentFinished', (res) => {
-      if (this.authUser.position.name === 'Customer') {
-        this.toastr.success(`Your order has been assigned to <strong>${res.driver.full_name}</strong>`,
-          '', {enableHtml: true, disableTimeOut: true});
       }
-    });
-
-    this.socket.on('orderTakenFinished', (data) => {
-        if (this.authUser.position.name === 'Customer') {
-          this.toastr.success(`Your order has been taken by <strong>${data.driver.full_name}</strong>`,
-            '', {enableHtml: true, disableTimeOut: true});
-        }
-      }
-    );
-    this.socket.on('arrivedToOrderFinished', (data) => {
-      if (this.authUser.position.name === 'Customer') {
-        this.toastr.success(`The boat is arrived. Please get on the board and have a nice trip! Thank you!`,
-          '', {enableHtml: true, disableTimeOut: true});
-      }
-    });
-
-    this.socket.on('orderFinished', (data) => {
-      this.toastr.success(`The boat reached to the final destination. Thank you for choosing our company.`,
-        '', {enableHtml: true, disableTimeOut: true});
     });
   }
 

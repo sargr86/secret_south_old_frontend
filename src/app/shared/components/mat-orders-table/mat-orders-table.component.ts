@@ -69,6 +69,20 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   }
 
   handleSocketEvents() {
+
+    this.socket.on('orderCreated', (data) => {
+      const customer = data.order.client;
+      if (customer && this.isOperator) {
+        this.toastr.success(`A new order has been created by: <strong>${customer.first_name}  ${customer.last_name}</strong>`,
+          'Order created!', {enableHtml: true});
+      } else if (this.authUser.position.name === 'Customer' && this.authUser.email === customer.email) {
+        this.toastr.success(`The order has been created successfully!`,
+          'Order created!', {enableHtml: true});
+      }
+      this.socketStateChanged.emit();
+      this.getOrders();
+    });
+
     this.socket.on('driverAssignmentFinished', (res) => {
       if (this.isOperator) {
         this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
@@ -85,16 +99,6 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
       this.getOrders();
       this.socketStateChanged.emit();
-    });
-
-    this.socket.on('orderCreated', (data) => {
-      const customer = data.order.client;
-      if (customer && this.isOperator) {
-        this.toastr.success(`A new order has been created by: <strong>${customer.first_name}  ${customer.last_name}</strong>`,
-          'Order created!', {enableHtml: true});
-      }
-      this.socketStateChanged.emit();
-      this.getOrders();
     });
 
 
