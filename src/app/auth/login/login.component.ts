@@ -10,6 +10,7 @@ import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {API_URL, SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
+import {Socket} from 'ngx-socket-io';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     public _auth: AuthService,
     private _fb: FormBuilder,
     public route: ActivatedRoute,
-    public common: CommonService
+    public common: CommonService,
+    private socket: Socket
   ) {
   }
 
@@ -63,14 +65,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Gets current user data
       this._auth.userData = jwtDecode(localStorage.getItem('token'));
 
-      console.log(this._auth.userData)
-
       // Getting redirect url part matching current user role
       const currentRole = this._auth.userData.role.name_en.toLowerCase();
       const userType = USER_TYPES.find(d => d.role === currentRole);
 
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
+
+      this.socket.connect();
+      this.socket.emit('newUser', this._auth.userData.socket_nickname);
 
     }));
   }

@@ -150,7 +150,10 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('ratedDriver', (data) => {
-      console.log(data)
+      // if (this.isOperator) {
+        this.toastr.success(`The customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+            rated <strong>${data.driver.full_name}</strong> with ${data.rating.driver_rating}`);
+      // }
     });
   }
 

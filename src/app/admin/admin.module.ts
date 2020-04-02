@@ -11,9 +11,7 @@ import {FoodDrinkModule} from '../food-drink/food-drink.module';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {PartnersModule} from '../partners/partners.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {API_URL} from '@core/constants/settings';
-const config: SocketIoConfig = {url: API_URL, options: {}};
 
 @NgModule({
   declarations: [
@@ -31,7 +29,6 @@ const config: SocketIoConfig = {url: API_URL, options: {}};
     ActivitiesModule,
     FoodDrinkModule,
     PartnersModule,
-    SocketIoModule.forRoot(config)
   ]
 })
 export class AdminModule {
