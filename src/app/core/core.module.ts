@@ -10,7 +10,7 @@ import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {API_URL} from '@core/constants/settings';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 
-const config: SocketIoConfig = {url: API_URL, options: {}};
+const config: SocketIoConfig = {url: API_URL, options: {'pingTimeout': 7000, 'pingInterval': 3000}};
 
 @NgModule({
   declarations: [

@@ -33,10 +33,8 @@ export class DriverAssignmentDialogComponent implements OnInit {
   }
 
   changeDriver(e) {
-    console.log(e)
     if (e.value.ferry) {
       this.driverAssignmentForm.patchValue({ferry: e.value.ferry.name})
-      console.log(this.driverAssignmentForm.value)
     }
   }
 

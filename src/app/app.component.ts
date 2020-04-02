@@ -18,6 +18,7 @@ import {SubjectService} from '@core/services/subject.service';
 import {ToastrService} from 'ngx-toastr';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
+import {Socket} from 'ngx-socket-io';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   title = 'Secret South';
   routeSubscription: Subscription;
   pageTitle: string;
+  authUser;
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   constructor(
@@ -40,10 +42,16 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
     public common: CommonService,
-    private cdref : ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private socket: Socket
   ) {
 
     this.common.dataLoading = true;
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authUser = jwtDecode(token);
+    }
 
     // Getting current page title
     this.routeSubscription = this.router.events.pipe(map(() => {
@@ -69,6 +77,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   ngOnInit(): void {
+
+    if (this._auth.loggedIn()) {
+      this.socket.connect();
+      this.socket.emit('newUser', this.authUser.socket_nickname);
+    }
+
     this.subject.getSidebarAction().subscribe(action => {
       // this.closeSidenav(this.sidenav);
       // this.sidenav.toggle();
