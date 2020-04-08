@@ -15,6 +15,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Socket} from 'ngx-socket-io';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
+import {ChatService} from '@core/services/chat.service';
 
 @Component({
   selector: 'app-ferries-home',
@@ -41,12 +42,15 @@ export class FerriesHomeComponent implements OnInit {
   orderTableCols = ['value', 'title'];
   orderData;
   orderFerryForm: FormGroup;
+  chatForm: FormGroup;
   timepickerTheme = TIMEPICKER_THEME;
   personsCount = 2;
   oneWayTrip = true;
   authUser;
   selectedStartPoint;
   selectedEndPoint;
+  messages = [];
+  roomName;
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -72,16 +76,18 @@ export class FerriesHomeComponent implements OnInit {
     private subject: SubjectService,
     private fb: FormBuilder,
     public socket: Socket,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private chatService: ChatService
   ) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.authUser = jwtDecode(token);
-    }
+
     this.getUserTodaysOrders();
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authUser = jwtDecode(token);
+    }
     this.getFerryLocations();
     this.getFerryDirections();
     this.getFerryMapDirections();
@@ -91,15 +97,34 @@ export class FerriesHomeComponent implements OnInit {
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
+
   }
 
   handleSocketEvents() {
-    this.socket.on('orderCreated', async (data) => {
-      const customer = data.order.client;
-      if (customer) {
-        await this.router.navigate(['customers/orders/show']);
 
+
+    this.socket.on('orderCreated', async (data) => {
+      console.log('order created!!!!!!!!!')
+      const customer = data.order.client;
+      console.log(customer)
+      // if (customer) {
+      await this.router.navigate(['customers/orders/show']);
+      // }
+    });
+
+    this.socket.on('messageSent', data => {
+      console.log('message sent', data)
+      // this.sender = data.from;
+      this.messages.push(data);
+    });
+
+    this.socket.on('joinedRoom', roomName => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.authUser = jwtDecode(token);
       }
+      this.authUser.roomName = roomName;
+      console.log('room name: ' + roomName);
     });
   }
 
@@ -113,6 +138,7 @@ export class FerriesHomeComponent implements OnInit {
       payment: [1],
       status: ['pending']
     });
+    this.chatForm = this.fb.group({message: ['', Validators.required]});
   }
 
   // Saving social auth access token to local storage
@@ -168,11 +194,11 @@ export class FerriesHomeComponent implements OnInit {
 
   }
 
-  markerClick(infowindow) {
+  markerClick(infoWindow) {
     if (this.previous) {
       this.previous.close();
     }
-    this.previous = infowindow;
+    this.previous = infoWindow;
     this.selectedFerry = null;
     this.selectAction = 'Select';
   }
@@ -213,13 +239,13 @@ export class FerriesHomeComponent implements OnInit {
 
   selectDirection(direction) {
     console.log(direction)
-    this.lines.push({lat: +direction.lat, lng: +direction.lng});
+    this.lines.push({lat: +direction.latitude, lng: +direction.longitude});
   }
 
   removeDirection(direction) {
     this.lines = this.lines.filter(l => {
-      const dirLat = +direction.lat;
-      const dirLng = +direction.lng;
+      const dirLat = +direction.latitude;
+      const dirLng = +direction.longitude;
       return l.lng !== dirLng && l.lat !== dirLat;
     });
   }
@@ -254,11 +280,13 @@ export class FerriesHomeComponent implements OnInit {
 
   orderFerry() {
     const formValue = this.orderFerryForm.value;
+    formValue.operatorId =  localStorage.getItem('operatorId');
     formValue.client = {
       first_name: this.authUser.first_name,
       last_name: this.authUser.last_name,
       phone: this.authUser.phone,
-      email: this.authUser.email
+      email: this.authUser.email,
+
     };
 
     console.log(formValue)
@@ -273,6 +301,41 @@ export class FerriesHomeComponent implements OnInit {
       this.ordersService.getUserActiveOrders(sendData).subscribe(dt => {
 
       });
+    }
+  }
+
+  openForm() {
+    document.getElementById('chatForm').style.display = 'block';
+    this.loadMessages();
+  }
+
+  closeForm() {
+    document.getElementById('chatForm').style.display = 'none';
+  }
+
+  loadMessages() {
+    console.log(this.messages)
+    this.chatService.loadMessages({email: this.authUser.email}).subscribe((dt: any) => {
+      this.messages = dt;
+    });
+  }
+
+  sendMessage() {
+    if (this.chatForm.valid) {
+      const sendData = {
+        from: this.auth.userData.socket_nickname,
+        to: 'Operator',
+        msg: this.chatForm.value['message'],
+        from_email: this.auth.userData.email,
+        to_email: '',
+        operatorId: localStorage.getItem('operatorId'),
+        roomName: localStorage.getItem('room')
+      };
+      console.log(sendData)
+      this.socket.emit('sendMessage', sendData);
+      this.chatForm.patchValue({message: ''});
+      sendData.from = 'You';
+      this.messages.push(sendData);
     }
   }
 }
