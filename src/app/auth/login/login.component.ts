@@ -80,6 +80,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         const sendData = {socket_nickname: 'Operator', email: this._auth.userData.email};
         this.socket.connect();
         this.socket.emit('newUser', sendData);
+        // this.socket.on('update-usernames', users => {
+        //   console.log('connected users!!!!')
+        // });
       } else {
         this.socket.emit('newUser', this._auth.userData);
       }
