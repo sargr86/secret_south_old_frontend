@@ -175,7 +175,7 @@
     display: flex;
     justify-content: center;
 
-    button{
+    button {
       color: #fff;
       width: 130px;
       border: none;
@@ -190,8 +190,11 @@
       background-color: #88bf4a;
 
     }
-    .cancel-order-btn{
+
+    .cancel-order-btn {
       background-color: $silver;
     }
   }
 }
+
+
