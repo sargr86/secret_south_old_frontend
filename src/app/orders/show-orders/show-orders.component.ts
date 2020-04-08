@@ -119,13 +119,17 @@ export class ShowOrdersComponent implements OnInit {
 
   handleSocketEvents() {
 
+    this.socket.emit('get-connected-users');
+
     this.socket.on('messageSent', data => {
       console.log('message sent', data)
       this.sender = data.from;
       this.messages.push(data);
     });
     this.socket.on('update-usernames', users => {
+      console.log('connected users!!!!')
       this.connectedUsers = users;
+      console.log(this.connectedUsers)
     });
 
     this.socket.on('joinedRoom', roomName => {
