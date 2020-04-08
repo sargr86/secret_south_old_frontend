@@ -113,7 +113,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
 
 
     this.socket.on('your-socket-id', socketId => {
-      console.log("SOCKETID: " + socketId)
+      console.log('SOCKETID: ' + socketId)
     });
     this.socket.on('joinedRoom', roomName => {
       localStorage.setItem('room', roomName);
