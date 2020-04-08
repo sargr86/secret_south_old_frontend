@@ -76,15 +76,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
 
-
       if (this.isOperator) {
-        this.socket.emit('newUser', {socket_nickname: 'Operator', email: this._auth.userData.email});
+        const sendData = {socket_nickname: 'Operator', email: this._auth.userData.email};
+        this.socket.connect();
+        this.socket.emit('newUser', sendData);
       } else {
         this.socket.emit('newUser', this._auth.userData);
-        this.socket.on('onlineOperatorId', operatorId => {
-          localStorage.setItem('operatorId', operatorId)
-          console.log('OPERATOR ID: ' + operatorId);
-        });
       }
 
     }));

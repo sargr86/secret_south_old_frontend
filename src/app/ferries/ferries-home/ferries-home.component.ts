@@ -102,6 +102,11 @@ export class FerriesHomeComponent implements OnInit {
 
   handleSocketEvents() {
 
+    this.socket.on('onlineOperatorId', operatorId => {
+      localStorage.setItem('operatorId', operatorId)
+      console.log('OPERATOR ID: ' + operatorId);
+    });
+
 
     this.socket.on('orderCreated', async (data) => {
       console.log('order created!!!!!!!!!')
