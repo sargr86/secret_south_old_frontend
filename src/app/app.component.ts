@@ -31,6 +31,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   routeSubscription: Subscription;
   pageTitle: string;
   authUser;
+  userPosition;
+  isDriver;
+  isOperator;
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   constructor(
@@ -51,6 +54,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     const token = localStorage.getItem('token');
     if (token) {
       this.authUser = jwtDecode(token);
+      this.userPosition = this.authUser.position.name;
+      this.isDriver = this.userPosition === 'Driver';
+      this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
     }
 
     // Getting current page title
@@ -79,8 +85,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   ngOnInit(): void {
 
     if (this._auth.loggedIn()) {
-      this.socket.connect();
-      this.socket.emit('newUser', this.authUser.socket_nickname);
+      if (this.isOperator) {
+        this.socket.emit('newUser', {socket_nickname: 'Operator', email: this.authUser.email});
+      } else {
+        this.socket.emit('newUser', this.authUser);
+        this.handleSocketEvents();
+      }
     }
 
     this.subject.getSidebarAction().subscribe(action => {
@@ -92,6 +102,21 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
         this.sidenav.open();
       }
 
+    });
+  }
+
+  handleSocketEvents() {
+    this.socket.on('onlineOperatorId', operatorId => {
+      localStorage.setItem('operatorId', operatorId)
+      console.log('OPERATOR ID: ' + operatorId);
+    });
+
+
+    this.socket.on('your-socket-id', socketId => {
+      console.log("SOCKETID: " + socketId)
+    });
+    this.socket.on('joinedRoom', roomName => {
+      localStorage.setItem('room', roomName);
     });
   }
 

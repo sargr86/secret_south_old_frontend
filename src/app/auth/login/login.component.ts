@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   userType: string;
   spinnerDiameter = SPINNER_DIAMETER;
+  isOperator;
+  userPosition;
 
   subscriptions: Subscription[] = [];
 
@@ -64,6 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       // Gets current user data
       this._auth.userData = jwtDecode(localStorage.getItem('token'));
+      this.userPosition = this._auth.userData.position.name;
+      this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
 
       // Getting redirect url part matching current user role
       const currentRole = this._auth.userData.role.name_en.toLowerCase();
@@ -72,8 +76,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
 
-      this.socket.connect();
-      this.socket.emit('newUser', this._auth.userData.socket_nickname);
+
+      if (this.isOperator) {
+        this.socket.emit('newUser', {socket_nickname: 'Operator', email: this._auth.userData.email});
+      } else {
+        this.socket.emit('newUser', this._auth.userData);
+      }
 
     }));
   }

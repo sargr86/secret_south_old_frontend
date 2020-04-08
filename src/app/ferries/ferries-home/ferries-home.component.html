@@ -55,7 +55,8 @@
         <!--          </agm-info-window>-->
         <!--        </agm-marker>-->
 
-        <agm-marker *ngFor="let direction of ferryMapDirections" [latitude]="direction.lat" [longitude]="direction.lng"
+        <agm-marker *ngFor="let direction of ferryMapDirections" [latitude]="direction.latitude"
+                    [longitude]="direction.longitude"
                     [openInfoWindow]="true" [iconUrl]="getDirectionIcon()" (markerClick)="selectDirection(direction)">
           <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeDirection(direction)">
             <h3>{{direction.name}}</h3>
@@ -187,7 +188,7 @@
         </mat-list>
 
         <div class="actions">
-<!--          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>-->
+          <!--          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>-->
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
         </div>
       </form>
@@ -199,3 +200,31 @@
 </section>
 
 
+<div class="chat-window-container">
+
+  <button class="open-button" (click)="openForm()">
+    <span [matBadge]="messages.length.toString()" [matBadgeHidden]="messages.length ===0">Chat</span>
+  </button>
+
+
+  <div class="chat-popup" id="chatForm">
+    <form class="form-container" [formGroup]="chatForm">
+      <!--      <h1>Support</h1>-->
+
+      <b>Support</b>
+      <ul class="messages">
+        <li *ngFor="let message of messages">
+          <strong>{{message.from + ':'}}</strong>
+          <span>{{message.msg}}</span>
+        </li>
+      </ul>
+
+      <input formControlName="message" class="message-input">
+
+      <div class="actions">
+        <button type="submit" class="send-btn" (click)="sendMessage()">Send</button>
+        <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
