@@ -85,6 +85,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   ngOnInit(): void {
 
     if (this._auth.loggedIn()) {
+      this.socket.connect();
       if (this.isOperator) {
         this.socket.emit('newUser', {socket_nickname: 'Operator', email: this.authUser.email});
       } else {

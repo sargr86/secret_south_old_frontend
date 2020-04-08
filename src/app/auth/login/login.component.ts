@@ -76,9 +76,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
 
+      this.socket.connect();
       if (this.isOperator) {
         const sendData = {socket_nickname: 'Operator', email: this._auth.userData.email};
-        this.socket.connect();
         this.socket.emit('newUser', sendData);
         // this.socket.on('update-usernames', users => {
         //   console.log('connected users!!!!')
