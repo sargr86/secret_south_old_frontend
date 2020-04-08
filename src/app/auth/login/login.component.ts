@@ -81,6 +81,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.socket.emit('newUser', {socket_nickname: 'Operator', email: this._auth.userData.email});
       } else {
         this.socket.emit('newUser', this._auth.userData);
+        this.socket.on('onlineOperatorId', operatorId => {
+          localStorage.setItem('operatorId', operatorId)
+          console.log('OPERATOR ID: ' + operatorId);
+        });
       }
 
     }));
