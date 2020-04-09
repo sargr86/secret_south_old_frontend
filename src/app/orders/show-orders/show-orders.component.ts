@@ -119,7 +119,7 @@ export class ShowOrdersComponent implements OnInit {
 
   handleSocketEvents() {
 
-    this.socket.emit('get-connected-users');
+    this.socket.emit('update-connected-users');
 
     this.socket.on('messageSent', data => {
       console.log('message sent', data)
@@ -143,8 +143,8 @@ export class ShowOrdersComponent implements OnInit {
         from: 'Operator',
         to: this.selectedUser.username,
         msg: this.chatForm.value['message'],
-        from_email: this.auth.userData.email,
-        to_email: this.selectedUser.email,
+        from_user_id: this.auth.userData.id,
+        to_user_id: this.selectedUser.id,
         roomName: this.selectedUser.email + '->Admin'
       };
 
@@ -172,7 +172,7 @@ export class ShowOrdersComponent implements OnInit {
 
   loadMessages() {
     console.log({email: this.authUser.email})
-    this.chatService.loadMessages({email: this.selectedUser.email}).subscribe((dt: any) => {
+    this.chatService.loadMessages({user_id: this.selectedUser.id}).subscribe((dt: any) => {
       this.messages = dt;
     });
   }

@@ -9,6 +9,7 @@ import * as jwtDecode from 'jwt-decode';
 import {PartnerService} from '@core/services/partner.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
+import {Socket} from 'ngx-socket-io';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +48,8 @@ export class RegisterComponent implements OnInit {
     private _partner: PartnerService,
     private route: ActivatedRoute,
     private jwtHelper: JwtHelperService,
-    private buildFormData: BuildFormDataPipe
+    private buildFormData: BuildFormDataPipe,
+    private socket: Socket
   ) {
   }
 
@@ -92,6 +94,9 @@ export class RegisterComponent implements OnInit {
 
       // Gets current user data
       this.auth.userData = jwtDecode(localStorage.getItem('token'));
+
+      this.socket.connect();
+      this.socket.emit('newUser', this.auth.userData);
 
       // Navigate to the home page
       this.router.navigate([this.auth.checkRoles('admin') ? 'admin/dashboard/show' : (this.auth.checkRoles('partner')) ? 'partners/dashboard/show' : 'employees/dashboard/show']);
