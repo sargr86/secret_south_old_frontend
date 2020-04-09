@@ -337,6 +337,7 @@ export class FerriesHomeComponent implements OnInit {
         roomName: localStorage.getItem('room')
       };
       console.log(sendData)
+      this.socket.connect();
       this.socket.emit('sendMessage', sendData);
       this.chatForm.patchValue({message: ''});
       sendData.from = 'You';
