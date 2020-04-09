@@ -129,7 +129,6 @@ export class ShowOrdersComponent implements OnInit {
     this.socket.on('update-usernames', users => {
       console.log('connected users!!!!')
       this.connectedUsers = users;
-      console.log(this.connectedUsers)
     });
 
     this.socket.on('joinedRoom', roomName => {
@@ -139,7 +138,6 @@ export class ShowOrdersComponent implements OnInit {
 
   sendMessage() {
     if (this.chatForm.valid && this.selectedUser) {
-      console.log(this.selectedUser)
       const msg = this.chatForm.value['message'];
       const sendData = {
         from: 'Operator',

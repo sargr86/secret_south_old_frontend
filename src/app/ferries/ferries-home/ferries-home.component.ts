@@ -285,10 +285,11 @@ export class FerriesHomeComponent implements OnInit {
 
   orderFerry() {
     const formValue = this.orderFerryForm.value;
-    formValue.operatorId =  localStorage.getItem('operatorId');
+    formValue.operatorId = localStorage.getItem('operatorId');
     formValue.client = {
       first_name: this.authUser.first_name,
       last_name: this.authUser.last_name,
+      socket_nickname: this.authUser.socket_nickname,
       phone: this.authUser.phone,
       email: this.authUser.email,
 
