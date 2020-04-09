@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         // });
       } else {
         this.socket.emit('newUser', this._auth.userData);
-        this.socket.emit('get-connected-users');
+        this.socket.emit('update-connected-users');
       }
 
     }));
