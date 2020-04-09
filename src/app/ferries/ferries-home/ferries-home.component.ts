@@ -285,7 +285,7 @@ export class FerriesHomeComponent implements OnInit {
 
   orderFerry() {
     const formValue = this.orderFerryForm.value;
-    formValue.operatorId = localStorage.getItem('operatorId');
+    // formValue.operatorId = localStorage.getItem('operatorId');
     formValue.client = {
       first_name: this.authUser.first_name,
       last_name: this.authUser.last_name,
@@ -332,10 +332,10 @@ export class FerriesHomeComponent implements OnInit {
         from: this.auth.userData.socket_nickname,
         to: 'Operator',
         msg: this.chatForm.value['message'],
-        from_email: this.auth.userData.email,
-        to_email: '',
-        operatorId: localStorage.getItem('operatorId'),
-        roomName: localStorage.getItem('room')
+        from_user_id: this.auth.userData.id,
+        to_user_id: '',
+        // operatorId: localStorage.getItem('operatorId'),
+        // roomName: localStorage.getItem('room')
       };
       console.log(sendData)
       this.socket.connect();
