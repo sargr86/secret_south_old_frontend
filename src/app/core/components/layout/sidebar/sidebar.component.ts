@@ -6,7 +6,7 @@ import {AuthService} from '@core/services/auth.service';
 import {PartnerService} from '@core/services/partner.service';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MainService} from '../../../../home/services/main.service';
+import {MainService} from '../../../services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import {filter} from 'rxjs/operators';
 import {Section} from '@shared/models/Section';

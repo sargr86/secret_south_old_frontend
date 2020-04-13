@@ -5,7 +5,7 @@ import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '@core/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {AgmInfoWindow, MapsAPILoader} from '@agm/core';
-import {MainService} from '../services/main.service';
+import {MainService} from '@core/services/main.service';
 import {Router} from '@angular/router';
 import {PartnerService} from '@core/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
