@@ -39,6 +39,9 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.handleSocketEvents();
     this.handleUserData();
+    if (this.isOperator) {
+      this.openForm();
+    }
   }
 
   handleUserData() {
@@ -61,47 +64,62 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
       this.newMessages = this.receivedMessages.filter(d => !d.seen);
     });
-    
+
     this.socket.on('update-usernames', users => {
-      this.connectedUsers = users;
+      users.map(user => {
+        user.username = this.getUsername(user.username);
+        if (!this.connectedUsers.find(u => u.email === user.email)) {
+
+          this.connectedUsers.push(user);
+        }
+      });
     });
 
   }
 
-  sendMessage() {
-    const sendData: any = {
-      msg: this.chatForm.value['message'],
-      from_user_id: this.auth.userData.id,
-      seen: false
-    };
-    if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
-      if (this.isOperator) {
-        sendData.from = 'Operator';
-        sendData.to = this.selectedUser.username;
-        sendData.to_user_id = this.selectedUser.id;
-      } else {
-        sendData.from = this.auth.userData.socket_nickname;
-        sendData.to = 'Operator';
-        sendData.to_user_id = '';
+  sendMessage(e) {
+    if (e.which === 13) {
+      const sendData: any = {
+        msg: this.chatForm.value['message'],
+        from_user_id: this.auth.userData.id,
+        seen: false
+      };
+      if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
+        if (this.isOperator) {
+          sendData.from = 'Operator';
+          sendData.to = this.selectedUser.username;
+          sendData.to_user_id = this.selectedUser.id;
+        } else {
+          sendData.from = this.auth.userData.socket_nickname;
+          sendData.to = 'Operator';
+          sendData.to_user_id = '';
+        }
+        this.socket.emit('sendMessage', sendData);
+        this.chatForm.patchValue({message: ''});
+        sendData.from = 'You';
+        this.messages.push(sendData);
       }
-      this.socket.emit('sendMessage', sendData);
-      this.chatForm.patchValue({message: ''});
-      sendData.from = 'You';
-      this.messages.push(sendData);
     }
   }
 
   selectUser(user) {
     this.selectedUser = user;
     this.loadMessages();
+    // if (this.isOperator) {
+    //   // this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
+    // } else {
+    //
+    //   // this.socket.emit('newUser', this.auth.userData);
+    // }
 
-    if (this.isOperator) {
-      this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
+  }
+
+  getUsername(username) {
+    if (username === this.authUser.socket_nickname) {
+      return 'You';
     } else {
-
-      this.socket.emit('newUser', this.auth.userData);
+      return username ? username.replace(/_/g, ' ') : '';
     }
-
   }
 
   loadMessages() {
