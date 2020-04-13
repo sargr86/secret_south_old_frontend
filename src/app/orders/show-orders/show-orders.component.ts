@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '@core/services/common.service';
 import {OrdersService} from '@core/services/orders.service';
 import {SubjectService} from '@core/services/subject.service';
@@ -16,7 +16,7 @@ import {ChatService} from '@core/services/chat.service';
   templateUrl: './show-orders.component.html',
   styleUrls: ['./show-orders.component.scss']
 })
-export class ShowOrdersComponent implements OnInit {
+export class ShowOrdersComponent implements OnInit, AfterViewChecked{
   orders;
   authUser;
   isDriver;
@@ -30,6 +30,7 @@ export class ShowOrdersComponent implements OnInit {
   sender;
   selectedUser;
   connectedUsers = [];
+  @ViewChild('messagesList') private messagesList: ElementRef;
 
 
   constructor(
@@ -175,6 +176,17 @@ export class ShowOrdersComponent implements OnInit {
     this.chatService.loadMessages({user_id: this.selectedUser.id}).subscribe((dt: any) => {
       this.messages = dt;
     });
+  }
+
+  scrollMsgsToBottom() {
+    try {
+      this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
+    } catch (err) {
+    }
+  }
+
+  ngAfterViewChecked() {
+    this.scrollMsgsToBottom();
   }
 
   disconnectAll() {

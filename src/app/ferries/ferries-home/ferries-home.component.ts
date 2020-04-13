@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MainService} from '../../home/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
@@ -22,7 +22,7 @@ import {ChatService} from '@core/services/chat.service';
   templateUrl: './ferries-home.component.html',
   styleUrls: ['./ferries-home.component.scss']
 })
-export class FerriesHomeComponent implements OnInit {
+export class FerriesHomeComponent implements OnInit, AfterViewChecked {
 
   lat = 51.797999;
   lng = -8.294371;
@@ -51,6 +51,9 @@ export class FerriesHomeComponent implements OnInit {
   selectedEndPoint;
   messages = [];
   roomName;
+  receivedMessages = [];
+  newMessages = [];
+  @ViewChild('messagesList') private messagesList: ElementRef;
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -94,6 +97,7 @@ export class FerriesHomeComponent implements OnInit {
     this.initOrderForm();
     this.saveSocialAuthToken();
     this.handleSocketEvents();
+    this.scrollMsgsToBottom();
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
@@ -111,6 +115,8 @@ export class FerriesHomeComponent implements OnInit {
     this.socket.on('messageSent', data => {
       // this.sender = data.from;
       this.messages.push(data);
+      this.receivedMessages =  this.messages.filter(d => d.from === 'Operator');
+      this.newMessages = this.receivedMessages.filter(d => !d.seen);
     });
   }
 
@@ -299,10 +305,20 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   loadMessages() {
-    console.log(this.messages)
     this.chatService.loadMessages({user_id: this.authUser.id}).subscribe((dt: any) => {
       this.messages = dt;
+      this.receivedMessages = dt.filter(d => d.from === 'Operator');
+      this.newMessages = this.receivedMessages.filter(d => !d.seen);
+      console.log(this.messages)
+      console.log(this.receivedMessages)
     });
+  }
+
+  scrollMsgsToBottom() {
+    try {
+      this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
+    } catch (err) {
+    }
   }
 
   sendMessage() {
@@ -324,5 +340,9 @@ export class FerriesHomeComponent implements OnInit {
       sendData.from = 'You';
       this.messages.push(sendData);
     }
+  }
+
+  ngAfterViewChecked() {
+    this.scrollMsgsToBottom();
   }
 }
