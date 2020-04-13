@@ -107,12 +107,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   handleSocketEvents() {
-    this.socket.on('onlineOperatorId', operatorId => {
-      localStorage.setItem('operatorId', operatorId)
-      console.log('OPERATOR ID: ' + operatorId);
-    });
-
-
     this.socket.on('your-socket-id', socketId => {
       console.log('SOCKETID: ' + socketId)
     });
