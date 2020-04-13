@@ -276,8 +276,6 @@ export class FerriesHomeComponent implements OnInit {
       id: this.authUser.id
     };
 
-    console.log(formValue)
-
     this.socket.emit('createOrder', JSON.stringify(formValue));
   }
 
