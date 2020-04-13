@@ -967,8 +967,9 @@ header:not(.timepicker__header) {
     margin: 5px 0 22px 0;
     border: none;
     background: #f1f1f1;
-    resize: none;
-    min-height: 200px;
+    max-height: 200px;
+    min-height: 150px;
+    overflow-y: scroll;
   }
 
   /* When the textarea gets focus, do something */
