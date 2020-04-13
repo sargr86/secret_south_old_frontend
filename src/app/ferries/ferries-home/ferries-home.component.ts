@@ -102,34 +102,15 @@ export class FerriesHomeComponent implements OnInit {
 
   handleSocketEvents() {
 
-    // this.socket.on('onlineOperatorId', operatorId => {
-    //   localStorage.setItem('operatorId', operatorId)
-    //   console.log('OPERATOR ID: ' + operatorId);
-    // });
-
-
     this.socket.on('orderCreated', async (data) => {
-      console.log('order created!!!!!!!!!')
-      const customer = data.order.client;
-      console.log(customer)
-      // if (customer) {
-      await this.router.navigate(['customers/orders/show']);
-      // }
+      if (this.authUser.position.name === 'Customer') {
+        await this.router.navigate(['customers/orders/show']);
+      }
     });
 
     this.socket.on('messageSent', data => {
-      console.log('message sent', data)
       // this.sender = data.from;
       this.messages.push(data);
-    });
-
-    this.socket.on('joinedRoom', roomName => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        this.authUser = jwtDecode(token);
-      }
-      this.authUser.roomName = roomName;
-      console.log('room name: ' + roomName);
     });
   }
 
