@@ -127,7 +127,7 @@ export class ShowOrdersComponent implements OnInit {
       this.messages.push(data);
     });
     this.socket.on('update-usernames', users => {
-      console.log('connected users!!!!')
+      // console.log('connected users!!!!')
       this.connectedUsers = users;
     });
 
@@ -145,7 +145,7 @@ export class ShowOrdersComponent implements OnInit {
         msg: this.chatForm.value['message'],
         from_user_id: this.auth.userData.id,
         to_user_id: this.selectedUser.id,
-        roomName: this.selectedUser.email + '->Admin'
+        seen: false
       };
 
       this.socket.emit('sendMessage', sendData);

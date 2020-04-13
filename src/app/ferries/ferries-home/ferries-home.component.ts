@@ -102,10 +102,10 @@ export class FerriesHomeComponent implements OnInit {
 
   handleSocketEvents() {
 
-    this.socket.on('onlineOperatorId', operatorId => {
-      localStorage.setItem('operatorId', operatorId)
-      console.log('OPERATOR ID: ' + operatorId);
-    });
+    // this.socket.on('onlineOperatorId', operatorId => {
+    //   localStorage.setItem('operatorId', operatorId)
+    //   console.log('OPERATOR ID: ' + operatorId);
+    // });
 
 
     this.socket.on('orderCreated', async (data) => {
@@ -292,7 +292,7 @@ export class FerriesHomeComponent implements OnInit {
       socket_nickname: this.authUser.socket_nickname,
       phone: this.authUser.phone,
       email: this.authUser.email,
-
+      id: this.authUser.id
     };
 
     console.log(formValue)
@@ -321,7 +321,7 @@ export class FerriesHomeComponent implements OnInit {
 
   loadMessages() {
     console.log(this.messages)
-    this.chatService.loadMessages({email: this.authUser.email}).subscribe((dt: any) => {
+    this.chatService.loadMessages({user_id: this.authUser.id}).subscribe((dt: any) => {
       this.messages = dt;
     });
   }
@@ -334,6 +334,7 @@ export class FerriesHomeComponent implements OnInit {
         msg: this.chatForm.value['message'],
         from_user_id: this.auth.userData.id,
         to_user_id: '',
+        seen: false
         // operatorId: localStorage.getItem('operatorId'),
         // roomName: localStorage.getItem('room')
       };
