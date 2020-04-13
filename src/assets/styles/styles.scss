@@ -21,6 +21,10 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
+* {
+  outline: none;
+}
+
 .mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
   transform: none !important;
 }
@@ -951,16 +955,79 @@ header:not(.timepicker__header) {
     position: fixed;
     bottom: 0;
     right: 15px;
-    border: 3px solid #f1f1f1;
     z-index: 9;
-    width: 300px;
+    background-color: $white;
+    height: 380px;
+
+    .all-container {
+      display: flex;
+      height: 100%;
+
+      .chat-itself {
+        width: 300px;
+      }
+
+      .contacts {
+        width: 200px;
+
+        .search-users-container {
+          display: flex;
+          margin-top: 20px;
+          padding: 2px;
+          justify-content: center;
+          align-items: center;
+
+          input {
+            width: 170px;
+          }
+        }
+      }
+    }
+  }
+
+  .chat-top {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: $white;
+    justify-content: space-between;
+    padding-left: 12px;
+    height: 36px;
+
+    .close-chat-window {
+      @include noBgBtn;
+
+      mat-icon {
+        color: $white;
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .operator-chat {
+    background-color: $white;
+    color: rgba(0, 0, 0, 0.6);
+
+    mat-icon {
+      color: rgba(0, 0, 0, 0.6) !important;
+      font-size: 25px !important;
+    }
   }
 
   /* Add styles to the form container */
   .form-container {
     max-width: 300px;
-    padding: 10px;
     background-color: white;
+  }
+
+  .messages-container {
+    padding: 0 10px;
+    height: 300px;
+
+    .messages {
+      height: 100%;
+    }
   }
 
   /* Full-width textarea */
@@ -970,9 +1037,23 @@ header:not(.timepicker__header) {
     margin: 5px 0 22px 0;
     border: none;
     background: #f1f1f1;
-    max-height: 200px;
+    height: 257px;
     min-height: 150px;
     overflow-y: scroll;
+  }
+
+  .contacts {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+
+    .users {
+      margin-top: 50px;
+      margin-left: 24px;
+    }
+
+    .selected-user {
+      font-weight: bold;
+    }
   }
 
   /* When the textarea gets focus, do something */
@@ -981,25 +1062,22 @@ header:not(.timepicker__header) {
     outline: none;
   }
 
-  .send-btn {
-    background-image: linear-gradient(to right, #0b9194, #08c1c6);
-  }
 
   /* Set a style for the submit/send button */
-  .form-container button {
+  .form-container .send-btn {
     color: white;
+    background-image: linear-gradient(to right, #0b9194, #08c1c6);
     padding: 16px 20px;
     border: none;
     cursor: pointer;
     width: 100%;
     margin-bottom: 10px;
     opacity: 0.8;
+    border-radius: 4px;
   }
 
   /* Add a red background color to the cancel button */
-  .form-container .cancel {
-    background-color: silver;
-  }
+
 
   /* Add some hover effects to buttons */
   .form-container .btn:hover {
@@ -1008,6 +1086,7 @@ header:not(.timepicker__header) {
 
   .message-input {
     width: 100%;
+    margin-top: 10px;
   }
 
   .actions {
