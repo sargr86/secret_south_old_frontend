@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectService} from '@core/services/subject.service';
 import {ACCOMMODATIONS_FOLDER} from '@core/constants/settings';
-import {MainService} from '../../home/services/main.service';
+import {MainService} from '@core/services/main.service';
 import {Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
 

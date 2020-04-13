@@ -850,8 +850,11 @@ header:not(.timepicker__header) {
   height: 16px !important;
   line-height: 19px !important;
   background-color: $green !important;
+  opacity: 1 !important;
 }
 
+.mat-badge-content .mat-badge-active {
+}
 
 .mat-tab-label {
   opacity: 1 !important;
@@ -1007,7 +1010,7 @@ header:not(.timepicker__header) {
     width: 100%;
   }
 
-  .actions{
+  .actions {
     margin-top: 20px;
   }
 }

@@ -199,32 +199,4 @@
   </div>
 </section>
 
-
-<div class="chat-window-container">
-
-  <button class="open-button" (click)="openForm()">
-    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Chat</span>
-  </button>
-
-
-  <div class="chat-popup" id="chatForm">
-    <form class="form-container" [formGroup]="chatForm">
-      <!--      <h1>Support</h1>-->
-
-      <b>Support</b>
-      <ul class="messages" #messagesList>
-        <li *ngFor="let message of messages">
-          <strong>{{message.from + ':'}}</strong>
-          <span>{{message.msg}}</span>
-        </li>
-      </ul>
-
-      <input formControlName="message" class="message-input">
-
-      <div class="actions">
-        <button type="submit" class="send-btn" (click)="sendMessage()">Send</button>
-        <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
-      </div>
-    </form>
-  </div>
-</div>
+<app-chat-window></app-chat-window>
