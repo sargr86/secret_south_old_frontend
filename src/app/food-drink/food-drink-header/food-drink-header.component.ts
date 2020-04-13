@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
-import {MainService} from '../../home/services/main.service';
+import {MainService} from '@core/services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import IsResponsive from '../../core/helpers/is-responsive';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';

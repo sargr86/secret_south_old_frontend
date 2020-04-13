@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MainService} from '../../home/services/main.service';
+import {MainService} from '@core/services/main.service';
 import {FoodDrink} from '@shared/models/FoodDrink';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {FOOD_DRINK_FOLDER, TIMEPICKER_THEME} from '@core/constants/settings';

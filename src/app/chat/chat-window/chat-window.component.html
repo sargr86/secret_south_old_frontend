@@ -1,0 +1,42 @@
+<div class="chat-window-container">
+
+    <button class="open-button" (click)="openForm()">
+      <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Chat</span>
+    </button>
+
+
+  <div class="chat-popup" id="chatPopup">
+
+    <form class="form-container" [formGroup]="chatForm" id="chatForm">
+      <!--        <h1>Support</h1>-->
+      <ng-container *ngIf="isOperator">
+
+        <b>Users</b>
+        <ul>
+          <ng-container *ngFor="let user of connectedUsers">
+            <li (click)="selectUser(user)" *ngIf="user.username!== 'Operator'" class="username">
+              <span [class.selected]="selectedUser && user.username === selectedUser.username">{{user.username}}</span>
+            </li>
+          </ng-container>
+        </ul>
+      </ng-container>
+
+
+      <b>Support</b>
+      <ul class="messages" #messagesList>
+        <li *ngFor="let message of messages">
+          <strong>{{message.from.replace('_', ' ') + ':'}}</strong>
+          <span>{{' ' + message.msg}}</span>
+        </li>
+      </ul>
+
+      <input formControlName="message" class="message-input">
+
+      <div class="actions">
+        <button type="submit" class="send-btn" (click)="sendMessage()">Send</button>
+        <!--        <button (click)="disconnectAll()">Disconnect all</button>-->
+        <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>

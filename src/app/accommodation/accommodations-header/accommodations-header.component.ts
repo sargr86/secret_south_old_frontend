@@ -4,7 +4,7 @@ import {AuthService} from '@core/services/auth.service';
 import {MAIN_SECTIONS} from '@core/constants/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {MainService} from '../../home/services/main.service';
+import {MainService} from '@core/services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {MatDatepicker} from '@angular/material/datepicker';

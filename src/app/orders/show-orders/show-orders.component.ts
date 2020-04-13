@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '@core/services/common.service';
 import {OrdersService} from '@core/services/orders.service';
 import {SubjectService} from '@core/services/subject.service';
@@ -16,7 +16,7 @@ import {ChatService} from '@core/services/chat.service';
   templateUrl: './show-orders.component.html',
   styleUrls: ['./show-orders.component.scss']
 })
-export class ShowOrdersComponent implements OnInit, AfterViewChecked{
+export class ShowOrdersComponent implements OnInit, OnDestroy {
   orders;
   authUser;
   isDriver;
@@ -25,12 +25,8 @@ export class ShowOrdersComponent implements OnInit, AfterViewChecked{
   selectedTab;
   subscriptions: Subscription[] = [];
   userPosition;
-  chatForm: FormGroup;
-  messages = [];
-  sender;
-  selectedUser;
-  connectedUsers = [];
-  @ViewChild('messagesList') private messagesList: ElementRef;
+
+
 
 
   constructor(
@@ -42,8 +38,6 @@ export class ShowOrdersComponent implements OnInit, AfterViewChecked{
     private fb: FormBuilder,
     private chatService: ChatService
   ) {
-
-    this.chatForm = this.fb.group({message: ['', Validators.required]});
   }
 
   ngOnInit() {
@@ -110,86 +104,13 @@ export class ShowOrdersComponent implements OnInit, AfterViewChecked{
     return tab.toLowerCase();
   }
 
-  openForm() {
-    document.getElementById('chatPopup').style.display = 'block';
-  }
-
-  closeForm() {
-    document.getElementById('chatPopup').style.display = 'none';
-  }
 
   handleSocketEvents() {
 
-    this.socket.emit('update-connected-users');
-
-    this.socket.on('messageSent', data => {
-      console.log('message sent', data)
-      this.sender = data.from;
-      this.messages.push(data);
-    });
-    this.socket.on('update-usernames', users => {
-      // console.log('connected users!!!!')
-      this.connectedUsers = users;
-    });
-
-    this.socket.on('joinedRoom', roomName => {
-      console.log('room name:' + roomName);
-    });
-  }
-
-  sendMessage() {
-    if (this.chatForm.valid && this.selectedUser) {
-      const msg = this.chatForm.value['message'];
-      const sendData = {
-        from: 'Operator',
-        to: this.selectedUser.username,
-        msg: this.chatForm.value['message'],
-        from_user_id: this.auth.userData.id,
-        to_user_id: this.selectedUser.id,
-        seen: false
-      };
-
-      this.socket.emit('sendMessage', sendData);
-      this.chatForm.patchValue({message: ''});
-      sendData.from = 'You';
-      this.messages.push(sendData);
-    }
-  }
-
-  selectUser(user) {
-    this.selectedUser = user;
-    this.loadMessages();
-    console.log(user)
-
-    if (this.isOperator) {
-      console.log(this.isOperator)
-      this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
-    } else {
-
-      this.socket.emit('newUser', this.auth.userData);
-    }
 
   }
 
-  loadMessages() {
-    console.log({email: this.authUser.email})
-    this.chatService.loadMessages({user_id: this.selectedUser.id}).subscribe((dt: any) => {
-      this.messages = dt;
-    });
-  }
-
-  scrollMsgsToBottom() {
-    try {
-      this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
-    } catch (err) {
-    }
-  }
-
-  ngAfterViewChecked() {
-    this.scrollMsgsToBottom();
-  }
-
-  disconnectAll() {
-    this.socket.emit('disconnect-all');
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

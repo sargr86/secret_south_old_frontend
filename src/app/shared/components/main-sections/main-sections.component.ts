@@ -3,7 +3,7 @@ import {Section} from '@shared/models/Section';
 import IsResponsive from '@core/helpers/is-responsive';
 import {MAIN_SECTIONS} from '@core/constants/settings';
 import {Data, NavigationEnd, Router} from '@angular/router';
-import {MainService} from '../../../home/services/main.service';
+import {MainService} from '@core/services/main.service';
 import {filter} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 
