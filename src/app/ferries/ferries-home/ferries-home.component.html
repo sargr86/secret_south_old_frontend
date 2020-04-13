@@ -203,7 +203,7 @@
 <div class="chat-window-container">
 
   <button class="open-button" (click)="openForm()">
-    <span [matBadge]="messages.length.toString()" [matBadgeHidden]="messages.length ===0">Chat</span>
+    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Chat</span>
   </button>
 
 
@@ -212,7 +212,7 @@
       <!--      <h1>Support</h1>-->
 
       <b>Support</b>
-      <ul class="messages">
+      <ul class="messages" #messagesList>
         <li *ngFor="let message of messages">
           <strong>{{message.from + ':'}}</strong>
           <span>{{message.msg}}</span>

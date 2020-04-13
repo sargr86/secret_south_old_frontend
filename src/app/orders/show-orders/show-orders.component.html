@@ -34,7 +34,7 @@
 
 
         <b>Support</b>
-        <ul class="messages">
+        <ul class="messages" #messagesList>
           <li *ngFor="let message of messages">
             <strong>{{message.from.replace('_', ' ') + ':'}}</strong>
             <span>{{' ' + message.msg}}</span>
