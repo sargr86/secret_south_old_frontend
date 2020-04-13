@@ -206,7 +206,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
         const client = row.client;
         row['driver'] = dt.driver;
         row['ferry'] = dt.ferry;
-        this.socket.emit('driverAssigned', {driverOrder: dt, selectedOrder: row});
+        this.socket.emit('driverAssigned', row); // {driverOrder: dt, selectedOrder: row}
 
         this.socket.on('driverAssignmentFinished', (res) => {
           if (res) {
