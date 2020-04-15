@@ -48,10 +48,10 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     const token = localStorage.getItem('token');
     if (token) {
       this.authUser = jwtDecode(token);
+      this.userPosition = this.authUser.position.name;
+      this.isDriver = this.userPosition === 'Driver';
+      this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
     }
-    this.userPosition = this.authUser.position.name;
-    this.isDriver = this.userPosition === 'Driver';
-    this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
   }
 
 
@@ -97,7 +97,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
         this.socket.emit('sendMessage', sendData);
         this.chatForm.patchValue({message: ''});
         sendData.from = 'You';
-        this.messages.push(sendData);
+        // this.messages.push(sendData);
       }
     }
   }
@@ -105,12 +105,12 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   selectUser(user) {
     this.selectedUser = user;
     this.loadMessages();
-    // if (this.isOperator) {
-    //   // this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
-    // } else {
-    //
-    //   // this.socket.emit('newUser', this.auth.userData);
-    // }
+    if (this.isOperator) {
+      this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
+    } else {
+
+      // this.socket.emit('newUser', this.auth.userData);
+    }
 
   }
 

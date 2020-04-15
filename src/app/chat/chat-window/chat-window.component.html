@@ -1,7 +1,7 @@
 <div class="chat-window-container">
 
   <button class="open-button" (click)="openForm()">
-    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Chat</span>
+    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Support</span>
   </button>
 
 
@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="chat-itself">
-        <div class="chat-top" [class.operator-chat]="isOperator">
+        <div class="chat-top" [class.operator-chat]="isOperator" (click)="closeForm()">
           <b>{{isOperator ? (selectedUser ? getUsername(selectedUser.username) : '') : 'Support'}}</b>
           <button type="button" class="close-chat-window" (click)="closeForm()">
             <mat-icon *ngIf="!isOperator">clear</mat-icon>
