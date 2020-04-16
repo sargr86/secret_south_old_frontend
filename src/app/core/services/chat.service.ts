@@ -8,16 +8,16 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ChatService {
 
-
+  socket;
   constructor(
-    private socket: Socket,
+    // private socket: Socket,
     private httpClient: HttpClient
   ) {
   }
 
-  sendMessage(msg: string) {
-    this.socket.emit('message', msg);
-  }
+  // sendMessage(msg: string) {
+  //   this.socket.emit('message', msg);
+  // }
 
   getMessage() {
     // return this.socket

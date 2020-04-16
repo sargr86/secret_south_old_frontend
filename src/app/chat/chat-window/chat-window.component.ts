@@ -4,6 +4,7 @@ import {Socket} from 'ngx-socket-io';
 import {ChatService} from '@core/services/chat.service';
 import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-chat-window',
@@ -30,6 +31,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     private fb: FormBuilder,
     private socket: Socket,
     private chatService: ChatService,
+    private websocketService: WebSocketService,
     public auth: AuthService
   ) {
     this.chatForm = this.fb.group({message: ['', Validators.required]});
@@ -56,23 +58,31 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
 
   handleSocketEvents() {
-    this.socket.emit('update-connected-users');
-
-    this.socket.on('messageSent', data => {
+    this.websocketService.emit('update-connected-users');
+    this.websocketService.on('messageSent').subscribe((data: any) => {
       this.sender = data.from;
-      this.messages.push(data);
-      this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
-      this.newMessages = this.receivedMessages.filter(d => !d.seen);
+      console.log(data)
+      console.log(this.messages)
+      if (data.from_user_id !== this.authUser.id) {
+        console.log('here')
+        this.messages.push(data);
+        this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
+        this.newMessages = this.receivedMessages.filter(d => !d.seen);
+      }
     });
 
-    this.socket.on('update-usernames', users => {
-      users.map(user => {
-        user.username = this.getUsername(user.username);
-        if (!this.connectedUsers.find(u => u.email === user.email)) {
 
+    this.websocketService.on('update-usernames').subscribe((users: any) => {
+      this.connectedUsers = [];
+      users.map(user => {
+        if (!this.connectedUsers.find(u => u.email === user.email)) {
           this.connectedUsers.push(user);
         }
       });
+      // console.log(users);
+      // console.log('CONNECTED');
+      // console.log(this.connectedUsers);
+
     });
 
   }
@@ -87,16 +97,22 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
         if (this.isOperator) {
           sendData.from = 'Operator';
-          sendData.to = this.selectedUser.username;
+          sendData.to = this.selectedUser.socket_nickname;
           sendData.to_user_id = this.selectedUser.id;
         } else {
           sendData.from = this.auth.userData.socket_nickname;
           sendData.to = 'Operator';
           sendData.to_user_id = '';
         }
-        this.socket.emit('sendMessage', sendData);
+        this.websocketService.emit('sendMessage', sendData);
         this.chatForm.patchValue({message: ''});
         sendData.from = 'You';
+
+
+        this.messages.push(sendData);
+        this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
+        this.newMessages = this.receivedMessages.filter(d => !d.seen);
+
         // this.messages.push(sendData);
       }
     }
@@ -106,20 +122,11 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.selectedUser = user;
     this.loadMessages();
     if (this.isOperator) {
-      this.socket.emit('newUser', {socket_nickname: 'Operator', email: user.email});
+      this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: user.email});
     } else {
-
-      // this.socket.emit('newUser', this.auth.userData);
+      this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: ''});
     }
 
-  }
-
-  getUsername(username) {
-    if (username === this.authUser.socket_nickname) {
-      return 'You';
-    } else {
-      return username ? username.replace(/_/g, ' ') : '';
-    }
   }
 
   loadMessages() {
@@ -133,6 +140,15 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  getUsername(username) {
+    if (this.authUser && username === this.authUser.socket_nickname) {
+      return 'You';
+    } else {
+      return username ? username.replace(/_/g, ' ') : '';
+    }
+  }
+
+
   scrollMsgsToBottom() {
     try {
       this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
@@ -144,6 +160,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     document.getElementById('chatPopup').style.display = 'block';
     if (!this.isOperator) {
       this.loadMessages();
+      this.selectUser(this.authUser);
     }
   }
 
