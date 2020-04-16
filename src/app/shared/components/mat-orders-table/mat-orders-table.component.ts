@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DriverAssignmentDialogComponent} from '@core/components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import * as jwtDecode from 'jwt-decode';
 import {ORDERS_TABLE_COLUMNS} from '@core/constants/settings';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-mat-orders-table',
@@ -30,7 +31,6 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
   orderStarted = false;
   userPosition;
 
-
   constructor(
     private ordersService: OrdersService,
     public common: CommonService,
@@ -39,7 +39,8 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     public socket: Socket,
     public router: Router,
     public auth: AuthService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private webSocketService: WebSocketService
   ) {
   }
 
@@ -70,7 +71,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
   handleSocketEvents() {
 
-    this.socket.on('orderCreated', (data) => {
+    this.webSocketService.on('orderCreated').subscribe((data: any) => {
       const customer = data.order.client;
       if (customer && this.isOperator) {
         this.toastr.success(`A new order has been created by: <strong>${customer.first_name}  ${customer.last_name}</strong>`,
@@ -83,7 +84,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.getOrders();
     });
 
-    this.socket.on('driverAssignmentFinished', (res) => {
+    this.webSocketService.on('driverAssignmentFinished').subscribe((res: any) => {
       if (this.isOperator) {
         this.toastr.success(`The order of customer <strong>${res.client.first_name} ${res.client.last_name}</strong>
             has been assigned to <strong>${res.driver.full_name}</strong>`,
@@ -102,7 +103,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     });
 
 
-    this.socket.on('orderTakenFinished', (data) => {
+    this.webSocketService.on('orderTakenFinished').subscribe((data: any) => {
       if (this.isOperator) {
         this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been taken by <strong>${data.driver.full_name}</strong>`,
@@ -115,7 +116,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.socketStateChanged.emit();
       this.getOrders();
     });
-    this.socket.on('arrivedToOrderFinished', (data) => {
+    this.webSocketService.on('arrivedToOrderFinished').subscribe((data: any) => {
       if (this.isOperator) {
         this.toastr.success(`<strong>${data.driver.full_name}</strong>
         is arrived to the location of <strong>${data.client.first_name} ${data.client.last_name}</strong>`,
@@ -128,7 +129,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.getOrders();
     });
 
-    this.socket.on('orderStarted', (data) => {
+    this.webSocketService.on('orderStarted').subscribe((data: any) => {
         if (this.isOperator) {
           this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             has been started by <strong>${data.driver.full_name}</strong>`,
@@ -139,7 +140,7 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.socket.on('orderFinished', (data) => {
+    this.webSocketService.on('orderFinished').subscribe((data: any) => {
       if (this.isOperator) {
         this.toastr.success(`The order of customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
               has been finished by <strong>${data.driver.full_name}</strong>`,
@@ -149,9 +150,9 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
       this.getOrders();
     });
 
-    this.socket.on('ratedDriver', (data) => {
+    this.webSocketService.on('ratedDriver').subscribe((data: any) => {
       // if (this.isOperator) {
-        this.toastr.success(`The customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
+      this.toastr.success(`The customer <strong>${data.client.first_name} ${data.client.last_name}</strong>
             rated <strong>${data.driver.full_name}</strong> with ${data.rating.driver_rating}`);
       // }
     });
@@ -206,9 +207,9 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
         const client = row.client;
         row['driver'] = dt.driver;
         row['ferry'] = dt.ferry;
-        this.socket.emit('driverAssigned', row); // {driverOrder: dt, selectedOrder: row}
+        this.webSocketService.emit('driverAssigned', row); // {driverOrder: dt, selectedOrder: row}
 
-        this.socket.on('driverAssignmentFinished', (res) => {
+        this.webSocketService.on('driverAssignmentFinished').subscribe((res) => {
           if (res) {
             this.toastr.success(`The order of customer <strong>${client.first_name} ${client.last_name}</strong>
             has been assigned to <strong>${dt.driver.full_name}</strong>`,
@@ -223,25 +224,25 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
 
   takeOrder(order) {
     this.orderTaken = true;
-    this.socket.emit('orderTaken', order);
+    this.webSocketService.emit('orderTaken', order);
     this.getOrders();
     console.log(order)
   }
 
   arrivedToOrder(order) {
-    this.socket.emit('arrivedToOrder', order);
+    this.webSocketService.emit('arrivedToOrder', order);
     this.getOrders();
   }
 
   startOrder(order) {
     this.orderStarted = true;
-    this.socket.emit('startOrder', order);
+    this.webSocketService.emit('startOrder', order);
     this.getOrders();
   }
 
   finishOrder(order) {
     this.orderTaken = false;
-    this.socket.emit('finishOrder', order);
+    this.webSocketService.emit('finishOrder', order);
     this.getOrders();
   }
 
