@@ -15,7 +15,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Socket} from 'ngx-socket-io';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
-import {ChatService} from '@core/services/chat.service';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-ferries-home',
@@ -77,6 +77,7 @@ export class FerriesHomeComponent implements OnInit {
     private fb: FormBuilder,
     public socket: Socket,
     private ordersService: OrdersService,
+    private webSocketService: WebSocketService
   ) {
 
     this.getUserTodaysOrders();
@@ -101,7 +102,7 @@ export class FerriesHomeComponent implements OnInit {
 
   handleSocketEvents() {
 
-    this.socket.on('orderCreated', async (data) => {
+    this.webSocketService.on('orderCreated').subscribe(async (data) => {
       if (this.authUser.position.name === 'Customer') {
         await this.router.navigate(['customers/orders/show']);
       }
@@ -220,7 +221,6 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   selectDirection(direction) {
-    console.log(direction)
     this.lines.push({lat: +direction.latitude, lng: +direction.longitude});
   }
 
@@ -272,7 +272,7 @@ export class FerriesHomeComponent implements OnInit {
       id: this.authUser.id
     };
 
-    this.socket.emit('createOrder', JSON.stringify(formValue));
+    this.webSocketService.emit('createOrder', JSON.stringify(formValue));
   }
 
   getUserTodaysOrders() {

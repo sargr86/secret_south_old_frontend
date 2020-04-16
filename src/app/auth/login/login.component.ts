@@ -10,7 +10,7 @@ import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {API_URL, SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
-import {Socket} from 'ngx-socket-io';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +26,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  socket;
+
   constructor(
     public _router: Router,
     public _auth: AuthService,
     private _fb: FormBuilder,
     public route: ActivatedRoute,
     public common: CommonService,
-    private socket: Socket
+    private websocketService: WebSocketService
   ) {
+
   }
 
   ngOnInit() {
@@ -76,16 +79,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Navigate to the dashboard page
       this._router.navigate([`${userType ? userType.label : 'admin'}/dashboard/show`]);
 
-      this.socket.connect();
       if (this.isOperator) {
         const sendData = {socket_nickname: 'Operator', email: this._auth.userData.email};
-        this.socket.emit('newUser', sendData);
-        // this.socket.on('update-usernames', users => {
-        //   console.log('connected users!!!!')
-        // });
+        this.websocketService.emit('newUser', sendData);
       } else {
-        this.socket.emit('newUser', this._auth.userData);
-        this.socket.emit('update-connected-users');
+        this.websocketService.emit('newUser', this._auth.userData);
+        this.websocketService.emit('update-connected-users');
       }
 
     }));

@@ -8,6 +8,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import * as jwtDecode from 'jwt-decode';
 import {User} from '@shared/models/User';
 import {Socket} from 'ngx-socket-io';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
     private httpClient: HttpClient,
     private jwtHelper: JwtHelperService,
     private router: Router,
-    private socket: Socket,
+    // private socket: Socket,
+    private websocketService: WebSocketService
   ) {
     // Receiving user data from here!!!!
     if (this.loggedIn()) {
@@ -82,7 +84,9 @@ export class AuthService {
    */
   logout() {
     localStorage.removeItem('token');
-    this.socket.disconnect();
+    // this.socket.disconnect();
+    // this.socket.emit()
+    this.websocketService.emit('logout' );
     this.router.navigate(['/']);
   }
 

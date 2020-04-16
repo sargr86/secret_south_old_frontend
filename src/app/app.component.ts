@@ -19,6 +19,7 @@ import {ToastrService} from 'ngx-toastr';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {Socket} from 'ngx-socket-io';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     private toastr: ToastrService,
     public common: CommonService,
     private cdref: ChangeDetectorRef,
-    private socket: Socket
+    // private socket: Socket
+    private webSocketService: WebSocketService
   ) {
 
     this.common.dataLoading = true;
@@ -85,11 +87,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   ngOnInit(): void {
 
     if (this._auth.loggedIn()) {
-      this.socket.connect();
+      // this.socket.connect();
       if (this.isOperator) {
-        this.socket.emit('newUser', {socket_nickname: 'Operator', email: this.authUser.email});
+        this.webSocketService.emit('newUser', {socket_nickname: 'Operator', email: this.authUser.email});
       } else {
-        this.socket.emit('newUser', this.authUser);
+        this.webSocketService.emit('newUser', this.authUser);
         this.handleSocketEvents();
       }
     }
@@ -107,12 +109,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   handleSocketEvents() {
-    this.socket.on('your-socket-id', socketId => {
-      console.log('SOCKETID: ' + socketId)
-    });
-    this.socket.on('joinedRoom', roomName => {
-      localStorage.setItem('room', roomName);
-    });
   }
 
   ngAfterContentChecked() {
