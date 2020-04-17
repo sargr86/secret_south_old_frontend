@@ -26,16 +26,24 @@
 
 .ferry_page_left, .ferry-page-right {
   width: 500px;
-  //border: 1px solid red;
+  margin-left: 20px;
   padding: 20px;
+  //border: 1px solid red;
+  //padding: 20px;
 
-  .order-form {
-
+  .order-ferry-form {
+    .fields-row {
+      width: 100% !important;
+      align-items: center !important;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
   }
 }
 
 .ferry-page-right {
-  padding: 0 23px;
+  //padding: 0 23px;
 }
 
 .boat_name {
@@ -98,6 +106,26 @@
 
 .order-ferry-form {
   width: 100%;
+
+
+  .location-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .add-location {
+    @include namedBtn;
+  }
+  .check-route{
+    @include noBgBtn;
+  }
+
+  .remove-location-icon {
+    font-size: 20px;
+    margin-left: 5px;
+    color: $red;
+    cursor: pointer;
+  }
 
   mat-form-field {
     width: 100%;
@@ -196,5 +224,6 @@
     }
   }
 }
+
 
 
