@@ -55,10 +55,10 @@
         <!--          </agm-info-window>-->
         <!--        </agm-marker>-->
 
-        <agm-marker *ngFor="let direction of ferryMapDirections" [latitude]="direction.latitude"
+        <agm-marker *ngFor="let direction of ferryMapDirections;let ind = index" [latitude]="direction.latitude"
                     [longitude]="direction.longitude"
-                    [openInfoWindow]="true" [iconUrl]="getDirectionIcon()" (markerClick)="selectDirection(direction)">
-          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeDirection(direction)">
+                    [openInfoWindow]="true" [iconUrl]="getLocationIcon()" (markerClick)="selectLocation(direction)">
+          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">
             <h3>{{direction.name}}</h3>
           </agm-info-window>
         </agm-marker>
@@ -73,96 +73,116 @@
     </div>
     <div class="ferry-page-right">
       <form [formGroup]="orderFerryForm" class="order-ferry-form">
-        <mat-list role="list">
-          <mat-list-item role="listitem">
-            <mat-icon matListIcon class="departure-icon">fiber_manual_record</mat-icon>
-            <mat-form-field>
-              <mat-label>Your location</mat-label>
-              <mat-select (selectionChange)="sourceChanged($event)" formControlName="startPoint">
-                <mat-option *ngFor="let direction of ferryDirections"
-                            [value]="direction">{{direction.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-list-item>
-          <mat-list-item role="listitem">
-            <mat-icon matListIcon class="arrival-icon">fiber_manual_record</mat-icon>
-            <mat-form-field>
-              <mat-label>Direction</mat-label>
-              <mat-select (selectionChange)="destinationChanged($event)" formControlName="endPoint">
-                <mat-option *ngFor="let direction of ferryDirections"
-                            [value]="direction">{{direction.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-list-item>
-          <mat-list-item>
-            <div class="way-type">
-              <label for="way-type">
-                <ng-container *ngIf="!oneWayTrip">
-                  <mat-icon matListIcon>swap_vert</mat-icon>
-                  <p>Two Ways</p>
-                </ng-container>
-                <ng-container *ngIf="oneWayTrip">
-                  <mat-icon matListIcon>arrow_upward</mat-icon>
-                  <p>One Way</p>
-                </ng-container>
-              </label>
 
-              <input type="checkbox" id="way-type" formControlName="wayType" [checked]="oneWayTrip"
-                     [hidden]="true" (change)="wayTypeChanged($event)">
-            </div>
+        <div class="locations-group" formArrayName="locations">
 
-            <div class="times">
-
-
-              <div class="start-time">
-                <!--                <mat-icon>schedule</mat-icon>-->
+          <ng-container *ngFor="let c of locations.controls;let ind = index">
+            <ng-container [formGroupName]="ind.toString()">
+              <div class="location-input">
+                <div class="location-icon-container">
+                  <mat-icon matListIcon class="departure-icon">fiber_manual_record</mat-icon>
+                </div>
                 <mat-form-field>
-                  <!--                <div>-->
-                  <!--                </div>-->
-                  <mat-label>Start time</mat-label>
-                  <input matInput [ngxTimepicker]="picker1" class="Check_out_inp" [format]="24"
-                         formControlName="time" readonly>
-                  <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"
-                  ></ngx-material-timepicker>
-                  <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
-                  <!--                 class="Check_out_inp" >-->
-                  <ngx-material-timepicker-toggle [for]="picker1">
-                    <!--                    <mat-icon>access_time</mat-icon>-->
-                  </ngx-material-timepicker-toggle>
-                  <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-                  <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-                  <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-                  <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-                  <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
+                  <mat-label>{{getPlaceholderText(ind)}}</mat-label>
+                  <mat-select (selectionChange)="sourceChanged($event, ind)" formControlName="name">
+                    <mat-option *ngFor="let direction of ferryDirections"
+                                [value]="direction.name">{{direction.name}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
+                <i *ngIf="ind >= 2"
+                   class="remove-location-icon material-icons"
+                   (click)="removeLocationInput(ind)">cancel</i>
+                <mat-error
+                  *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
+                  The company name is <strong>required</strong></mat-error>
+                <button *ngIf="ind === locations.controls.length -1 && ind >= 2" class="check-route">
+                  <mat-icon [matTooltip]="'Check if route exists in price list'">autorenew</mat-icon>
+                </button>
               </div>
-              <div class="end-time">
-                <!--                <mat-icon>schedule</mat-icon>-->
-                <mat-form-field>
-                  <mat-label>End time</mat-label>
-                  <input matInput [ngxTimepicker]="picker2" class="Check_out_inp" [format]="24" placeholder="Time"
-                         formControlName="time" readonly>
-                  <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"></ngx-material-timepicker>
-                  <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
-                  <!--                 class="Check_out_inp" >-->
-                  <ngx-material-timepicker-toggle [for]="picker2">
-                    <!--                                    <mat-icon>access_time</mat-icon>-->
-                    <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
-                    <!--                         ngxMaterialTimepickerToggleIcon>-->
-                    <!--                      <path-->
-                    <!--                        d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
-                    <!--                    </svg>-->
-                  </ngx-material-timepicker-toggle>
-                  <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-                  <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-                  <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-                  <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-                  <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
-                </mat-form-field>
-              </div>
+            </ng-container>
+          </ng-container>
+          <div>
+            <a class="add-location" (click)="addLocation()" *ngIf="locations.controls.length < maxLocationsChoices">+
+              Add location</a>
+          </div>
+        </div>
+        <div class="fields-row">
+
+          <div class="way-type">
+            <label for="way-type">
+              <ng-container *ngIf="!oneWayTrip">
+                <div>
+                  <mat-icon>swap_vert</mat-icon>
+                </div>
+                <p>Two Ways</p>
+              </ng-container>
+              <ng-container *ngIf="oneWayTrip">
+                <div>
+                  <mat-icon>arrow_upward</mat-icon>
+                </div>
+                <p>One Way</p>
+              </ng-container>
+            </label>
+
+            <input type="checkbox" id="way-type" formControlName="wayType" [checked]="oneWayTrip"
+                   [hidden]="true" (change)="wayTypeChanged($event)">
+          </div>
+
+          <div class="times">
+
+
+            <div class="start-time">
+              <!--                <mat-icon>schedule</mat-icon>-->
+              <mat-form-field>
+                <!--                <div>-->
+                <!--                </div>-->
+                <mat-label>Start time</mat-label>
+                <input matInput [ngxTimepicker]="picker1" class="Check_out_inp" [format]="24"
+                       formControlName="time" readonly>
+                <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"
+                ></ngx-material-timepicker>
+                <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
+                <!--                 class="Check_out_inp" >-->
+                <ngx-material-timepicker-toggle [for]="picker1">
+                  <!--                    <mat-icon>access_time</mat-icon>-->
+                </ngx-material-timepicker-toggle>
+                <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
+                <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
+                <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
+                <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
+                <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
+              </mat-form-field>
             </div>
-          </mat-list-item>
-          <mat-list-item role="listitem" [formGroupName]="'more'">
+            <div class="end-time">
+              <!--                <mat-icon>schedule</mat-icon>-->
+              <mat-form-field>
+                <mat-label>End time</mat-label>
+                <input matInput [ngxTimepicker]="picker2" class="Check_out_inp" [format]="24" placeholder="Time"
+                       formControlName="time" readonly>
+                <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"></ngx-material-timepicker>
+                <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
+                <!--                 class="Check_out_inp" >-->
+                <ngx-material-timepicker-toggle [for]="picker2">
+                  <!--                                    <mat-icon>access_time</mat-icon>-->
+                  <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
+                  <!--                         ngxMaterialTimepickerToggleIcon>-->
+                  <!--                      <path-->
+                  <!--                        d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
+                  <!--                    </svg>-->
+                </ngx-material-timepicker-toggle>
+                <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
+                <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
+                <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
+                <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
+                <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="fields-row">
+
+          <ng-container formGroupName="more">
 
             <div class="guest-count-container">
               <div class="guests">
@@ -175,18 +195,15 @@
               <p>Children count</p>
             </div>
             <div class="bikes-container">
-              <mat-checkbox formControlName="bike" (change)="bikeChanged($event)">Bike</mat-checkbox>
+              <mat-checkbox formControlName="bike" (change)="bikeChanged($event)" [disableRipple]="true">Bike
+              </mat-checkbox>
             </div>
-          </mat-list-item>
+          </ng-container>
+          <!--          <mat-icon matListIcon>euro</mat-icon>-->
+          <!--          Cash-->
+          <!--          <mat-slide-toggle>Card</mat-slide-toggle>-->
 
-          <mat-list-item>
-            <mat-icon matListIcon>euro</mat-icon>
-            Cash
-            <mat-slide-toggle>Card</mat-slide-toggle>
-          </mat-list-item>
-
-        </mat-list>
-
+        </div>
         <div class="actions">
           <!--          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>-->
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
