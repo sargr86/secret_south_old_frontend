@@ -31,8 +31,20 @@
                 <span *ngIf="col==='driver_phone'">{{row['driver']['phone']}}</span>
               </ng-container>
 
-              <span *ngIf="col==='start_point'">{{row['startPoint']['name']}}</span>
-              <span *ngIf="col==='end_point'">{{row['endPoint']['name']}}</span>
+              <span *ngIf="col==='start_point'">{{row['locations'][0]['name']}}</span>
+              <span *ngIf="col==='end_point' && row['locations'].length === 2">{{row['locations'][1]['name']}}</span>
+
+              <ng-container *ngIf="row['locations'].length === 3">
+                <span *ngIf="col==='stop_1' ">{{row['locations'][1]['name']}}</span>
+                <span *ngIf="col==='end_point'">{{row['locations'][2]['name']}}</span>
+              </ng-container>
+
+              <ng-container *ngIf="row['locations'].length === 4">
+                <span *ngIf="col==='stop_1' ">{{row['locations'][1]['name']}}</span>
+                <span *ngIf="col==='stop_2'">{{row['locations'][2]['name']}}</span>
+                <span *ngIf="col==='end_point'">{{row['locations'][3]['name']}}</span>
+              </ng-container>
+
 
               <span *ngIf="col==='status'|| col==='time'||col==='_id'">{{row[col]}}</span>
 

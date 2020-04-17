@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MainService} from '@core/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {API_URL, TIMEPICKER_THEME} from '@core/constants/settings';
+import {API_URL, MAX_LOCATION_CHOICES, TIMEPICKER_THEME} from '@core/constants/settings';
 import {FerryService} from '@core/services/ferry.service';
 import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery';
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Socket} from 'ngx-socket-io';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
@@ -50,6 +50,8 @@ export class FerriesHomeComponent implements OnInit {
   selectedStartPoint;
   selectedEndPoint;
   roomName;
+  maxLocationsChoices = MAX_LOCATION_CHOICES;
+  selectedLocations = [];
   @ViewChild('messagesList') private messagesList: ElementRef;
 
   galleryOptions: NgxGalleryOptions[] = [
@@ -103,6 +105,7 @@ export class FerriesHomeComponent implements OnInit {
   handleSocketEvents() {
 
     this.webSocketService.on('orderCreated').subscribe(async (data) => {
+      console.log(data)
       if (this.authUser.position.name === 'Customer') {
         await this.router.navigate(['customers/orders/show']);
       }
@@ -113,14 +116,18 @@ export class FerriesHomeComponent implements OnInit {
 
   initOrderForm() {
     this.orderFerryForm = this.fb.group({
-      startPoint: [''],
-      endPoint: [''],
+      locations: this.fb.array([
+        this.createLocationsFormGroup(),
+        this.createLocationsFormGroup()
+      ]),
       time: [''],
       wayType: [1],
       more: this.createMoreFormGroup(),
       payment: [1],
       status: ['pending']
     });
+
+    console.log(this.orderFerryForm.value)
     this.chatForm = this.fb.group({message: ['', Validators.required]});
   }
 
@@ -130,6 +137,15 @@ export class FerriesHomeComponent implements OnInit {
     if (token) {
       localStorage.setItem('token', token);
     }
+  }
+
+  createLocationsFormGroup(): FormGroup {
+    return this.fb.group({
+        name: ['', Validators.required],
+        latitude: ['', Validators.required],
+        longitude: ['', Validators.required],
+      }
+    );
   }
 
   createMoreFormGroup(): FormGroup {
@@ -203,7 +219,7 @@ export class FerriesHomeComponent implements OnInit {
     return 'assets/icons/ferry.svg';
   }
 
-  getDirectionIcon() {
+  getLocationIcon() {
     return 'assets/icons/green_circle_small.png';
   }
 
@@ -220,27 +236,80 @@ export class FerriesHomeComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
 
-  selectDirection(direction) {
-    this.lines.push({lat: +direction.latitude, lng: +direction.longitude});
+  getPlaceholderText(i) {
+    const text = 'Start Point';
+    const locationsLen = this.locations.length;
+    if (i === 0) {
+      return text;
+    } else if (i === locationsLen - 1) {
+      return 'End Point';
+    }
+    if (locationsLen === 3) {
+      return i === 1 ? 'Stop 1' : 'End point';
+    } else if (locationsLen === 4) {
+      return i === 1 ? 'Stop 1' : 'Stop 2';
+    }
   }
 
-  removeDirection(direction) {
-    this.lines = this.lines.filter(l => {
-      const dirLat = +direction.latitude;
-      const dirLng = +direction.longitude;
-      return l.lng !== dirLng && l.lat !== dirLat;
-    });
+
+  sourceChanged(e, i) {
+    this.locations.controls[i].patchValue(e.value);
+    const location = this.ferryMapDirections.find(d => d.name === e.value);
+    this.selectLocation(location, true);
   }
 
-  sourceChanged(e) {
-    this.orderFerryForm.patchValue({startPoint: e.value});
-    this.selectedStartPoint = e.value;
+  selectLocation(location, dropdown = false) {
+    this.selectedLocations.push(location);
+    const selectedLocationsLen = this.selectedLocations.length;
+
+    if (selectedLocationsLen > 2 && selectedLocationsLen <= MAX_LOCATION_CHOICES &&
+      selectedLocationsLen !== this.locations.controls.length) {
+      this.addLocation();
+    }
+
+    if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+
+      const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+      firstEmptyControl.patchValue(location);
+
+    }
+    if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+
+      this.lines.push({lat: +location.latitude, lng: +location.longitude});
+    }
   }
 
-  destinationChanged(e) {
-    this.orderFerryForm.patchValue({endPoint: e.value});
-    this.selectedEndPoint = e.value;
+
+  addLocation() {
+    const companyNameChoiceCountsLen = this.locations.length;
+    if (companyNameChoiceCountsLen < MAX_LOCATION_CHOICES) {
+      this.locations.controls.push(this.createLocationsFormGroup());
+    }
   }
+
+  removeLocation(direction) {
+    if (this.selectedLocations.length > 2) {
+      let i = 0;
+      this.selectedLocations.map(l => {
+        if (l.name === direction.name) {
+          this.selectedLocations.splice(i, 1);
+          this.removeLocationInput(i);
+        }
+        ++i;
+      });
+
+      this.lines = this.lines.filter(l => {
+        const dirLat = +direction.latitude;
+        const dirLng = +direction.longitude;
+        return l.lng !== dirLng && l.lat !== dirLat;
+      });
+    }
+  }
+
+  removeLocationInput(i) {
+    this.locations.removeAt(i);
+  }
+
 
   personsCountChanged(count) {
     this.orderFerryForm.get('more').patchValue({children: count});
@@ -251,8 +320,7 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   bikeChanged(e) {
-    this.oneWayTrip = e.checked;
-    this.orderFerryForm.get('more').patchValue({bike: this.oneWayTrip});
+    this.orderFerryForm.get('more').patchValue({bike: e.checked});
   }
 
 
@@ -261,18 +329,19 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   orderFerry() {
-    const formValue = this.orderFerryForm.value;
-    // formValue.operatorId = localStorage.getItem('operatorId');
-    formValue.client = {
-      first_name: this.authUser.first_name,
-      last_name: this.authUser.last_name,
-      socket_nickname: this.authUser.socket_nickname,
-      phone: this.authUser.phone,
-      email: this.authUser.email,
-      id: this.authUser.id
-    };
-
-    this.webSocketService.emit('createOrder', JSON.stringify(formValue));
+    const formValue = this.orderFerryForm.getRawValue();
+    console.log(formValue)
+    // // formValue.operatorId = localStorage.getItem('operatorId');
+    // formValue.client = {
+    //   first_name: this.authUser.first_name,
+    //   last_name: this.authUser.last_name,
+    //   socket_nickname: this.authUser.socket_nickname,
+    //   phone: this.authUser.phone,
+    //   email: this.authUser.email,
+    //   id: this.authUser.id
+    // };
+    //
+    // this.webSocketService.emit('createOrder', JSON.stringify(formValue));
   }
 
   getUserTodaysOrders() {
@@ -283,6 +352,10 @@ export class FerriesHomeComponent implements OnInit {
 
       });
     }
+  }
+
+  get locations(): FormArray {
+    return this.orderFerryForm.get('locations') as FormArray;
   }
 
 }
