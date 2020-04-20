@@ -24,6 +24,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   messages = [];
   receivedMessages = [];
   newMessages = [];
+  typingMsg = '';
 
   @ViewChild('messagesList') private messagesList: ElementRef;
 
@@ -59,12 +60,22 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   handleSocketEvents() {
     this.websocketService.emit('update-connected-users');
+    this.websocketService.on('typingBack').subscribe((data: any) => {
+      console.log('typing console')
+      console.log(data)
+      if (this.authUser.id !== data.from_user_id) {
+        if (data.msg) {
+          this.typingMsg = this.getUsername(data.from) + ' is typing...';
+        } else {
+          this.typingMsg = '';
+        }
+      }
+    });
     this.websocketService.on('messageSent').subscribe((data: any) => {
       this.sender = data.from;
-      console.log(data)
-      console.log(this.messages)
+      this.typingMsg = '';
+
       if (data.from_user_id !== this.authUser.id) {
-        console.log('here')
         this.messages.push(data);
         this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
         this.newMessages = this.receivedMessages.filter(d => !d.seen);
@@ -74,58 +85,69 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
     this.websocketService.on('update-usernames').subscribe((users: any) => {
       this.connectedUsers = [];
+      this.typingMsg = '';
       users.map(user => {
         if (!this.connectedUsers.find(u => u.email === user.email)) {
           this.connectedUsers.push(user);
         }
       });
-      // console.log(users);
-      // console.log('CONNECTED');
-      // console.log(this.connectedUsers);
 
     });
 
   }
 
+  sendTyping() {
+    console.log('send typing')
+    const sendData = this.getSendData();
+    this.websocketService.emit('typing', sendData);
+  }
+
   sendMessage(e) {
+
     if (e.which === 13) {
-      const sendData: any = {
-        msg: this.chatForm.value['message'],
-        from_user_id: this.auth.userData.id,
-        seen: false
-      };
-      if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
-        if (this.isOperator) {
-          sendData.from = 'Operator';
-          sendData.to = this.selectedUser.socket_nickname;
-          sendData.to_user_id = this.selectedUser.id;
-        } else {
-          sendData.from = this.auth.userData.socket_nickname;
-          sendData.to = 'Operator';
-          sendData.to_user_id = '';
-        }
-        this.websocketService.emit('sendMessage', sendData);
-        this.chatForm.patchValue({message: ''});
-        sendData.from = 'You';
 
+      const sendData = this.getSendData();
+      this.websocketService.emit('sendMessage', sendData);
+      this.chatForm.patchValue({message: ''});
 
-        this.messages.push(sendData);
-        this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
-        this.newMessages = this.receivedMessages.filter(d => !d.seen);
-
-        // this.messages.push(sendData);
-      }
+      sendData.from = 'You';
+      this.messages.push(sendData);
+      this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
+      this.newMessages = this.receivedMessages.filter(d => !d.seen);
+    } else {
+      this.sendTyping();
     }
   }
+
+  getSendData() {
+    const sendData: any = {
+      msg: this.chatForm.value['message'],
+      from_user_id: this.auth.userData.id,
+      seen: false
+    };
+    if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
+      if (this.isOperator) {
+        sendData.from = 'Operator';
+        sendData.to = this.selectedUser.socket_nickname;
+        sendData.to_user_id = this.selectedUser.id;
+      } else {
+        sendData.from = this.auth.userData.socket_nickname;
+        sendData.to = 'Operator';
+        sendData.to_user_id = '';
+      }
+    }
+    return sendData;
+  }
+
 
   selectUser(user) {
     this.selectedUser = user;
     this.loadMessages();
-    if (this.isOperator) {
-      this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: user.email});
-    } else {
-      this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: ''});
-    }
+    // if (this.isOperator) {
+    //   this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: user.email});
+    // } else {
+    //   this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: ''});
+    // }
 
   }
 
