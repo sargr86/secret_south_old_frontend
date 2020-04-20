@@ -332,16 +332,16 @@ export class FerriesHomeComponent implements OnInit {
     const formValue = this.orderFerryForm.getRawValue();
     console.log(formValue)
     // // formValue.operatorId = localStorage.getItem('operatorId');
-    // formValue.client = {
-    //   first_name: this.authUser.first_name,
-    //   last_name: this.authUser.last_name,
-    //   socket_nickname: this.authUser.socket_nickname,
-    //   phone: this.authUser.phone,
-    //   email: this.authUser.email,
-    //   id: this.authUser.id
-    // };
-    //
-    // this.webSocketService.emit('createOrder', JSON.stringify(formValue));
+    formValue.client = {
+      first_name: this.authUser.first_name,
+      last_name: this.authUser.last_name,
+      socket_nickname: this.authUser.socket_nickname,
+      phone: this.authUser.phone,
+      email: this.authUser.email,
+      id: this.authUser.id
+    };
+
+    this.webSocketService.emit('createOrder', JSON.stringify(formValue));
   }
 
   getUserTodaysOrders() {
