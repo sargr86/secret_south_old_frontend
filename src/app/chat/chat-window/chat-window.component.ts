@@ -63,6 +63,13 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.websocketService.on('typingBack').subscribe((data: any) => {
       console.log('typing console')
       console.log(data)
+
+      // Hide "typing" message after 5 seconds
+      setTimeout(() => {
+        this.typingMsg = '';
+      }, 5000);
+
+      // Show the "typing" message for the receiver only
       if (this.authUser.id !== data.from_user_id) {
         if (data.msg) {
           this.typingMsg = this.getUsername(data.from) + ' is typing...';
