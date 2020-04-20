@@ -16,7 +16,7 @@
           <ng-container *ngFor="let user of connectedUsers">
             <li (click)="selectUser(user)" *ngIf="user.username!== 'Operator'" class="username">
                 <span
-                  [class.selected-user]="selectedUser && user.username === selectedUser.username">{{user.username}}</span>
+                  [class.selected-user]="selectedUser && user.username === selectedUser.username">{{getUsername(user.username)}}</span>
             </li>
           </ng-container>
         </ul>
@@ -44,6 +44,9 @@
             </ul>
           </div>
 
+          <div class="typing">
+            <small><em *ngIf="typingMsg">{{typingMsg}}</em></small>
+          </div>
           <input formControlName="message" class="message-input" (keyup)="sendMessage($event)">
         </form>
       </div>
