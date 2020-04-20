@@ -104,7 +104,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   sendMessage(e) {
 
-    if (e.which === 13) {
+    if (e.which === 13 && this.chatForm.valid) {
 
       const sendData = this.getSendData();
       this.websocketService.emit('sendMessage', sendData);
