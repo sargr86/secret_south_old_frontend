@@ -1033,19 +1033,31 @@ header:not(.timepicker__header) {
 
     .messages {
       height: 100%;
+      background-color: #f1f1f163;
+
+      li {
+        word-break: break-word;
+        margin-top: 10px;
+
+        .msg-container {
+          display: flex;
+          align-items: center;
+
+        }
+      }
     }
   }
 
   /* Full-width textarea */
   .form-container ul {
     width: 100%;
-    padding: 15px;
+    padding: 10px 0;
     margin: 5px 0 22px 0;
     border: none;
-    background: #f1f1f1;
     height: 257px;
     min-height: 150px;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .contacts {

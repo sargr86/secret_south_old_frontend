@@ -25,6 +25,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   receivedMessages = [];
   newMessages = [];
   typingMsg = '';
+  seenAvatar = false;
 
   @ViewChild('messagesList') private messagesList: ElementRef;
 
@@ -44,6 +45,9 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.handleUserData();
     if (this.isOperator) {
       this.openForm();
+    } else {
+
+      this.loadMessages();
     }
   }
 
@@ -61,13 +65,11 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   handleSocketEvents() {
     this.websocketService.emit('update-connected-users');
     this.websocketService.on('typingBack').subscribe((data: any) => {
-      console.log('typing console')
-      console.log(data)
 
-      // Hide "typing" message after 5 seconds
+      // Hide "typing" message after 10 seconds
       setTimeout(() => {
         this.typingMsg = '';
-      }, 5000);
+      }, 10000);
 
       // Show the "typing" message for the receiver only
       if (this.authUser.id !== data.from_user_id) {
@@ -78,9 +80,15 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
         }
       }
     });
+    this.websocketService.on('msgsSeen').subscribe((data) => {
+      this.seenAvatar = true;
+      console.log('seen')
+      console.log(data)
+    });
     this.websocketService.on('messageSent').subscribe((data: any) => {
       this.sender = data.from;
       this.typingMsg = '';
+      this.seenAvatar = false;
 
       if (data.from_user_id !== this.authUser.id) {
         this.messages.push(data);
@@ -117,7 +125,6 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       this.websocketService.emit('sendMessage', sendData);
       this.chatForm.patchValue({message: ''});
 
-      sendData.from = 'You';
       this.messages.push(sendData);
       this.receivedMessages = this.messages.filter(d => d.from === 'Operator');
       this.newMessages = this.receivedMessages.filter(d => !d.seen);
@@ -126,11 +133,11 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  getSendData() {
+  getSendData(seen = false) {
     const sendData: any = {
       msg: this.chatForm.value['message'],
       from_user_id: this.auth.userData.id,
-      seen: false
+      seen: seen
     };
     if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
       if (this.isOperator) {
@@ -150,6 +157,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   selectUser(user) {
     this.selectedUser = user;
     this.loadMessages();
+    this.markAllMsgsAsSeen();
     // if (this.isOperator) {
     //   this.websocketService.emit('newUser', {socket_nickname: 'Operator', email: user.email});
     // } else {
@@ -166,6 +174,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       this.messages = dt;
       this.receivedMessages = dt.filter(d => d.from === 'Operator');
       this.newMessages = this.receivedMessages.filter(d => !d.seen);
+      console.log(this.newMessages)
     });
   }
 
@@ -177,6 +186,13 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  getMsgsClass(msg) {
+    if (msg.from_user_id === this.authUser.id) {
+      return 'my-message';
+    } else {
+      return 'sender-message'
+    }
+  }
 
   scrollMsgsToBottom() {
     try {
@@ -190,7 +206,17 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     if (!this.isOperator) {
       this.loadMessages();
       this.selectUser(this.authUser);
+      this.markAllMsgsAsSeen();
     }
+  }
+
+  markAllMsgsAsSeen() {
+    const sendData = this.getSendData(true);
+    this.chatService.updateSeen(sendData).subscribe(() => {
+      this.newMessages = [];
+      this.websocketService.emit('msgsSeen', sendData);
+
+    });
   }
 
   closeForm() {

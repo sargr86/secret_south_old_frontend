@@ -1,5 +1,80 @@
+@import 'variables';
+
 .typing {
   padding-left: 10px;
   color: #a29f9f;
   height: 24px;
+}
+
+.contacts {
+  li {
+    cursor: pointer;
+  }
+}
+
+
+.my-message {
+  .msg-container {
+    background: #a6a6a661;
+    padding: 10px;
+    border-radius: 7px;
+  }
+}
+
+.sender-message {
+  border-radius: 7px;
+
+  .message {
+    background-color: $white;
+    padding: 5px;
+    margin-left: 7px;
+    position: relative;
+  }
+}
+
+.avatar {
+  img {
+    width: 50px;
+    border-radius: 20px;
+  }
+
+  .temp-customer {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    justify-content: space-evenly;
+    font-weight: 400;
+    color: $white;
+    background-image: linear-gradient(to right, #0b9194, #08c1c6);
+  }
+}
+
+.seen {
+  display: inline-block;
+  float: right;
+
+  .seen-avatar {
+    img {
+      width: 20px;
+      border-radius: 20px;
+    }
+
+    .temp-customer {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      border-radius: 50px;
+      justify-content: space-evenly;
+      font-weight: 400;
+      color: $white;
+      background-image: linear-gradient(to right, #0b9194, #08c1c6);
+
+      span {
+        font-size: 12px !important;
+      }
+    }
+  }
 }
