@@ -127,7 +127,6 @@ export class FerriesHomeComponent implements OnInit {
       status: ['pending']
     });
 
-    console.log(this.orderFerryForm.value)
     this.chatForm = this.fb.group({message: ['', Validators.required]});
   }
 
