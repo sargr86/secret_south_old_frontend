@@ -9,23 +9,18 @@ import {HttpClient} from '@angular/common/http';
 export class ChatService {
 
   socket;
+
   constructor(
     // private socket: Socket,
     private httpClient: HttpClient
   ) {
   }
 
-  // sendMessage(msg: string) {
-  //   this.socket.emit('message', msg);
-  // }
-
-  getMessage() {
-    // return this.socket
-    //   .fromEvent('message')
-    //   .map(data => data.msg);
-  }
-
   loadMessages(params) {
     return this.httpClient.get(`${API_URL}chat/load-messages`, {params});
+  }
+
+  updateSeen(params) {
+    return this.httpClient.put(`${API_URL}chat/update-seen`, params);
   }
 }
