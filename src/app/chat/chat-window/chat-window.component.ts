@@ -5,6 +5,7 @@ import {ChatService} from '@core/services/chat.service';
 import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
 import {WebSocketService} from '@core/services/websocket.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-chat-window',
@@ -99,6 +100,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
 
     this.websocketService.on('update-usernames').subscribe((users: any) => {
+      console.log(users)
       this.connectedUsers = [];
       this.typingMsg = '';
       users.map(user => {
@@ -139,15 +141,22 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       from_user_id: this.auth.userData.id,
       seen: seen
     };
+
+    if (seen) {
+      sendData.seen_at = moment().format('YYYY-MM-DD, h:mm:ss a');
+    }
+
+
     if (this.selectedUser || !this.isOperator) { // this.chatForm.valid &&
       if (this.isOperator) {
         sendData.from = 'Operator';
         sendData.to = this.selectedUser.socket_nickname;
         sendData.to_user_id = this.selectedUser.id;
       } else {
+        const operator = this.connectedUsers.find(u => u.socket_nickname === 'Operator');
         sendData.from = this.auth.userData.socket_nickname;
         sendData.to = 'Operator';
-        sendData.to_user_id = '';
+        sendData.to_user_id = operator ? operator.id : '';
       }
     }
     return sendData;
@@ -190,7 +199,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     if (msg.from_user_id === this.authUser.id) {
       return 'my-message';
     } else {
-      return 'sender-message'
+      return 'sender-message';
     }
   }
 
@@ -212,6 +221,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   markAllMsgsAsSeen() {
     const sendData = this.getSendData(true);
+    console.log(sendData)
     this.chatService.updateSeen(sendData).subscribe(() => {
       this.newMessages = [];
       this.websocketService.emit('msgsSeen', sendData);
