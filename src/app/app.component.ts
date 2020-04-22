@@ -89,7 +89,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     if (this._auth.loggedIn()) {
       // this.socket.connect();
       if (this.isOperator) {
-        this.webSocketService.emit('newUser', {socket_nickname: 'Operator', email: this.authUser.email});
+        this.webSocketService.emit('newUser', {
+          socket_nickname: 'Operator',
+          id: this.authUser.id,
+          email: this.authUser.email
+        });
       } else {
         this.webSocketService.emit('newUser', this.authUser);
         this.handleSocketEvents();
