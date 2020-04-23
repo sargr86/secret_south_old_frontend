@@ -189,7 +189,8 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   mapClick(e) {
-
+    console.log('map clicked')
+    console.log(e)
   }
 
   markerClick(infoWindow) {
