@@ -81,10 +81,12 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
         }
       }
     });
-    this.websocketService.on('msgsSeen').subscribe((data) => {
+    this.websocketService.on('msgsSeen').subscribe((data: any) => {
       this.seenAvatar = true;
-      console.log('seen')
       console.log(data)
+      if (data && this.selectedUser) {
+        this.messages[this.messages.length - 1]['seen_at'] = moment(new Date(data.seen_at)).format('ddd, h:mm A');
+      }
     });
     this.websocketService.on('messageSent').subscribe((data: any) => {
       this.sender = data.from;
@@ -100,7 +102,6 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
 
     this.websocketService.on('update-usernames').subscribe((users: any) => {
-      console.log(users)
       this.connectedUsers = [];
       this.typingMsg = '';
       users.map(user => {
@@ -220,6 +221,9 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   }
 
   markAllMsgsAsSeen() {
+    let msgs = this.messages.find(m => !m.seen);
+    console.log(msgs)
+
     const sendData = this.getSendData(true);
     console.log(sendData)
     this.chatService.updateSeen(sendData).subscribe(() => {
