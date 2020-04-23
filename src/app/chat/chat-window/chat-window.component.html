@@ -55,7 +55,8 @@
                 <div class="seen">
                   <div class="seen-avatar" *ngIf="ind === messages.length -1 && seenAvatar">
                     <ng-container *ngIf="message.to_user_id !== authUser.id">
-                      <img *ngIf="message.to === 'Operator' && !isOperator" [src]="'assets/images/logo.png'" [matTooltip]="message.seen_at">
+                      <img *ngIf="message.to === 'Operator' && !isOperator" [src]="'assets/images/logo.png'"
+                           [matTooltip]="message.seen_at">
                       <div *ngIf="message.to !== 'Operator'" class="temp-customer" [matTooltip]="message.seen_at">
                         <span>C</span>
                       </div>

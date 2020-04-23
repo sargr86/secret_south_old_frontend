@@ -86,6 +86,25 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   ngOnInit(): void {
 
+    this.socketNewUser();
+
+    // setInterval(() => {
+    //   this.socketNewUser(true);
+    // }, 1800000)
+
+    this.subject.getSidebarAction().subscribe(action => {
+      // this.closeSidenav(this.sidenav);
+      // this.sidenav.toggle();
+      if (this.sidenav.opened) {
+        this.sidenav.close();
+      } else {
+        this.sidenav.open();
+      }
+
+    });
+  }
+
+  socketNewUser(refresh = false) {
     if (this._auth.loggedIn()) {
       // this.socket.connect();
       if (this.isOperator) {
@@ -99,17 +118,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
         this.handleSocketEvents();
       }
     }
-
-    this.subject.getSidebarAction().subscribe(action => {
-      // this.closeSidenav(this.sidenav);
-      // this.sidenav.toggle();
-      if (this.sidenav.opened) {
-        this.sidenav.close();
-      } else {
-        this.sidenav.open();
-      }
-
-    });
   }
 
   handleSocketEvents() {
