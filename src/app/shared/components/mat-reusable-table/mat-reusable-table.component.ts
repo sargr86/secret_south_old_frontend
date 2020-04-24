@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '@core/constants/settings';
-import {FerryService} from '@core/services/ferry.service';
+import {FerriesService} from '@core/services/ferries.service';
 import {GetTableDataSourcePipe} from '../../pipes/get-table-data-source.pipe';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
@@ -42,7 +42,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private _ferries: FerryService,
+    private _ferries: FerriesService,
     private _contacts: ContactsService,
     private _partners: PartnerService,
     private _tour: ToursService,

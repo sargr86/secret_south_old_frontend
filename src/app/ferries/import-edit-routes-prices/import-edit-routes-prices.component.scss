@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  padding: 20px;
+  justify-content: space-evenly;
+
+  .actions {
+    display: flex;
+    width: 300px;
+    justify-content: space-around;
+  }
+}

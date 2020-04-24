@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MapLoaderService} from '../../maps/map.loader';
-import {FerryService} from '@core/services/ferry.service';
+import {FerriesService} from '@core/services/ferries.service';
 import {Router} from '@angular/router';
 import {GpsLocationService} from '@core/services/gps-location.service';
 import * as mapStylesData from '../../maps/map_styles2.json';
@@ -24,7 +24,7 @@ export class GpsLocationComponent implements OnInit {
     mapStyles;
 
     constructor(
-        private ferry: FerryService,
+        private ferry: FerriesService,
         private router: Router,
         private gpsServises: GpsLocationService,
         private mapsAPILoader: MapsAPILoader

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FerryService} from '@core/services/ferry.service';
+import {FerriesService} from '@core/services/ferries.service';
 import {PartnerService} from '@core/services/partner.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -67,7 +67,7 @@ export class SaveFerryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private _ferries: FerryService,
+    private _ferries: FerriesService,
     private _partner: PartnerService,
     private router: Router,
     private route: ActivatedRoute,

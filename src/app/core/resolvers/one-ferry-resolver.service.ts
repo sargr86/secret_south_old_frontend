@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {FerryService} from '../services/ferry.service';
+import { ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {FerriesService} from '../services/ferries.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,8 +8,7 @@ import {FerryService} from '../services/ferry.service';
 export class OneFerryResolverService implements Resolve<any> {
 
     constructor(
-        private _ferries: FerryService,
-        private route: ActivatedRoute
+        private _ferries: FerriesService,
     ) {
     }
 

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FerryService} from '../../core/services/ferry.service';
-import {Ferry} from '../../shared/models/Ferry';
+import {FerriesService} from '@core/services/ferries.service';
+import {Ferry} from '@shared/models/Ferry';
 import {Observable} from 'rxjs/internal/Observable';
-import {CommonService} from '../../core/services/common.service';
-import {AuthService} from '../../core/services/auth.service';
-import {FERRIES_TABLE_COLUMNS, SPINNER_DIAMETER} from '../../core/constants/settings';
+import {CommonService} from '@core/services/common.service';
+import {AuthService} from '@core/services/auth.service';
+import {FERRIES_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
 
 @Component({
     selector: 'app-show-ferries',
@@ -17,7 +17,7 @@ export class ShowFerriesComponent implements OnInit {
     ferries: Observable<Ferry>;
 
     constructor(
-        private _ferry: FerryService,
+        private _ferry: FerriesService,
         public common: CommonService,
         public auth: AuthService
     ) {
