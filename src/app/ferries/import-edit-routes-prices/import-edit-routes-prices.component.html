@@ -1,0 +1,19 @@
+<div class="routes-prices-form">
+
+  <form>
+    <h3>Import routes file</h3>
+    <input #routesFileEl type="file" (change)="onRoutesFileChanged($event,'routes')">
+    <div class="actions">
+      <button (click)="importRoutes()" mat-raised-button color="primary">Import</button>
+      <button type="reset" (click)="routesFileEl.value = ''" mat-raised-button>Reset</button>
+    </div>
+  </form>
+  <form>
+    <h3>Import prices file</h3>
+    <input #pricesFileEl type="file" (change)="onPricesFileChanged($event,'prices')">
+    <div class="actions">
+      <button (click)="importPrices()" mat-raised-button color="primary">Import</button>
+      <button type="reset" (click)="pricesFileEl.value = ''" mat-raised-button>Reset</button>
+    </div>
+  </form>
+</div>
