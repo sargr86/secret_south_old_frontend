@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {FerryService} from '../services/ferry.service';
+import {FerriesService} from '../services/ferries.service';
 import {PartnerService} from '../services/partner.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import {PartnerService} from '../services/partner.service';
 export class PartnerTypeResolverService implements Resolve<any> {
 
   constructor(
-      private _ferries: FerryService,
+      private _ferries: FerriesService,
       private _partners: PartnerService
   ) { }
 

@@ -6,7 +6,7 @@ import {API_URL} from '../constants/settings';
 @Injectable({
   providedIn: 'root'
 })
-export class FerryService {
+export class FerriesService {
 
   constructor(private http: HttpClient) {
   }
@@ -51,4 +51,13 @@ export class FerryService {
   assignDriver(params) {
     return this.http.put(`${API_URL}ferries/assign-driver`, params);
   }
+
+  importRoutesFile(params) {
+    return this.http.post(`${API_URL}ferries/import-routes-file`, params);
+  }
+
+  importPricesFile(params) {
+    return this.http.post(`${API_URL}ferries/import-prices-file`, params);
+  }
+
 }

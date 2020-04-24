@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {FerryService} from '@core/services/ferry.service';
+import {FerriesService} from '@core/services/ferries.service';
 import {UsersService} from '@core/services/users.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonService} from '@core/services/common.service';
@@ -25,7 +25,7 @@ export class AssignJobComponent implements OnInit {
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private _ferries: FerryService,
+    private _ferries: FerriesService,
     private _users: UsersService,
     private _fb: FormBuilder,
     public common: CommonService,
@@ -63,7 +63,6 @@ export class AssignJobComponent implements OnInit {
   }
 
   assignDriverToFerry() {
-    console.log(this.assignFerryForm.value)
     this._ferries.assignDriver(this.assignFerryForm.value).subscribe(dt => {
       this.toastr.success(`<strong>${this.selectedDriver}</strong> will drive
         <strong>${this.selectedFerry}</strong>`, 'Success!', {enableHtml: true});
