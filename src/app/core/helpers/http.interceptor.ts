@@ -43,6 +43,9 @@ export class RequestInterceptor implements HttpInterceptor {
           this.toastr.error('Please check server connection.', 'Unable to connect to server');
         } else {
           if (err.error.hasOwnProperty('msg')) {
+            if (err.status === 444) {
+              this.common.showPrice = false;
+            }
             this.toastr.error('', err.error.msg);
           } else if (message) {
             this.toastr.error(message.replace(/<(.|\n)*?>/g, ''));

@@ -3,7 +3,7 @@ import {MainService} from '@core/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {API_URL, MAX_LOCATION_CHOICES, TIMEPICKER_THEME} from '@core/constants/settings';
-import {FerryService} from '@core/services/ferry.service';
+import {FerriesService} from '@core/services/ferries.service';
 import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery';
 import {AuthService} from '@core/services/auth.service';
@@ -16,6 +16,7 @@ import {Socket} from 'ngx-socket-io';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-ferries-home',
@@ -29,7 +30,7 @@ export class FerriesHomeComponent implements OnInit {
   latlng = [];
   ferryPositions: any = {lat: 0, lng: 0};
   ferryDirections;
-  ferryMapDirections;
+  ferryMapDirections = [];
   selectedFerryDirections = {startPoint: null, endPoint: null};
   lines = [];
   mapStyles;
@@ -44,7 +45,8 @@ export class FerriesHomeComponent implements OnInit {
   orderFerryForm: FormGroup;
   chatForm: FormGroup;
   timepickerTheme = TIMEPICKER_THEME;
-  personsCount = 2;
+  adultsCount = 2;
+  childrenCount = 2;
   oneWayTrip = true;
   authUser;
   selectedStartPoint;
@@ -52,6 +54,9 @@ export class FerriesHomeComponent implements OnInit {
   roomName;
   maxLocationsChoices = MAX_LOCATION_CHOICES;
   selectedLocations = [];
+  routePrice;
+  locationSelected = false;
+  markerIconUrl = 'assets/icons/green_circle_small.png';
   @ViewChild('messagesList') private messagesList: ElementRef;
 
   galleryOptions: NgxGalleryOptions[] = [
@@ -70,7 +75,7 @@ export class FerriesHomeComponent implements OnInit {
   constructor(
     private main: MainService,
     private toastr: ToastrService,
-    private _ferries: FerryService,
+    private _ferries: FerriesService,
     public auth: AuthService,
     public router: Router,
     private route: ActivatedRoute,
@@ -149,6 +154,7 @@ export class FerriesHomeComponent implements OnInit {
 
   createMoreFormGroup(): FormGroup {
     return this.fb.group({
+        adults: ['', Validators.required],
         children: ['', [Validators.required]],
         bike: ['', [Validators.pattern('^[0-9].*$')]],
       }
@@ -183,8 +189,11 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   getFerryMapDirections() {
-    this.main.getDirections().subscribe(dt => {
-      this.ferryMapDirections = dt;
+    this.main.getDirections().subscribe((dt: any) => {
+      dt.map(d => {
+        d.markerIconUrl = this.markerIconUrl;
+        this.ferryMapDirections.push(d);
+      });
     });
   }
 
@@ -219,9 +228,6 @@ export class FerriesHomeComponent implements OnInit {
     return 'assets/icons/ferry.svg';
   }
 
-  getLocationIcon() {
-    return 'assets/icons/green_circle_small.png';
-  }
 
   selectFerry(ferry) {
 
@@ -252,31 +258,103 @@ export class FerriesHomeComponent implements OnInit {
   }
 
 
-  sourceChanged(e, i) {
+  locationChanged(e, i) {
+
+    // Patching drop down value
     this.locations.controls[i].patchValue(e.value);
-    const location = this.ferryMapDirections.find(d => d.name === e.value);
-    this.selectLocation(location, true);
+
+    this.updateMapLocations();
+
+    const validRoute = !this.locations.controls.find(c => c.value.name === '');
+    if (validRoute) {
+      this.locationSelected = true;
+      this.getRoutePrice();
+    }
+  }
+
+  updateMapLocations() {
+
+    // Saving selected locations
+    this.selectedLocations = [];
+    this.locations.controls.map(c => {
+      if (c.value.name !== '') {
+        this.selectedLocations.push(c.value);
+      }
+    });
+
+    console.log(this.selectedLocations)
+
+    // Marking selected location on the map
+    this.ferryMapDirections.map(sl => {
+
+      // Retrieve current location object
+      const location = this.selectedLocations.find(d => d.name === sl.name);
+      sl.markerIconUrl = 'assets/icons/' + (location ? 'red' : 'green') + '_circle_small.png';
+    });
+  }
+
+  getRoutePrice() {
+    const selectedLocations = this.orderFerryForm.getRawValue()['locations'];
+
+    this._ferries.getRoutePrice(selectedLocations).subscribe((dt: any) => {
+      this.updatePriceOnCountsChange(dt);
+      this.common.showPrice = true;
+      this.lines = [];
+
+      dt.coordinates.map(c => {
+        this.lines.push({lat: c.lat, lng: c.lng});
+      });
+    });
+  }
+
+  adultsCountChanged(count) {
+    this.adultsCount = count;
+    this.orderFerryForm.get('more').patchValue({adults: count});
+    this.updatePriceOnCountsChange(this.routePrice);
+  }
+
+  childrenCountChanged(count) {
+    this.childrenCount = count;
+    this.orderFerryForm.get('more').patchValue({children: count});
+    this.updatePriceOnCountsChange(this.routePrice);
+  }
+
+  updatePriceOnCountsChange(dt) {
+    this.routePrice = {total: (this.adultsCount + this.childrenCount) * dt.single, single: dt.single};
   }
 
   selectLocation(location, dropdown = false) {
-    this.selectedLocations.push(location);
-    const selectedLocationsLen = this.selectedLocations.length;
+    if (!this.selectedLocations.find(sl => sl.name === location.name)) {
+      this.selectedLocations.push(location);
 
-    if (selectedLocationsLen > 2 && selectedLocationsLen <= MAX_LOCATION_CHOICES &&
-      selectedLocationsLen !== this.locations.controls.length) {
-      this.addLocation();
+      const selectedLocationsLen = this.selectedLocations.length;
+
+      if (selectedLocationsLen > 2 && selectedLocationsLen <= MAX_LOCATION_CHOICES &&
+        selectedLocationsLen !== this.locations.controls.length) {
+        this.addLocation();
+      }
+
+      if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+
+        const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+        if (firstEmptyControl) {
+          firstEmptyControl.patchValue(location);
+        }
+
+      }
+      if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+        console.log(location.markerIconUrl.includes('red'))
+        location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
+        // this.updateMapLocations();
+        console.log(location)
+        this.getRoutePrice();
+        // this.lines.push({lat: +location.latitude, lng: +location.longitude});
+      }
+    } else {
+      const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
+      console.log(this.locations.controls)
     }
 
-    if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
-
-      const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
-      firstEmptyControl.patchValue(location);
-
-    }
-    if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
-
-      this.lines.push({lat: +location.latitude, lng: +location.longitude});
-    }
   }
 
 
@@ -294,6 +372,7 @@ export class FerriesHomeComponent implements OnInit {
         if (l.name === direction.name) {
           this.selectedLocations.splice(i, 1);
           this.removeLocationInput(i);
+          direction.markerIconUrl = this.markerIconUrl;
         }
         ++i;
       });
@@ -308,6 +387,7 @@ export class FerriesHomeComponent implements OnInit {
 
   removeLocationInput(i) {
     this.locations.removeAt(i);
+    this.updateMapLocations();
   }
 
 

@@ -116,7 +116,8 @@
   .add-location {
     @include namedBtn;
   }
-  .check-route{
+
+  .check-route {
     @include noBgBtn;
   }
 
@@ -202,6 +203,7 @@
   .actions {
     display: flex;
     justify-content: center;
+    margin-top: 40px;
 
     button {
       color: #fff;
@@ -226,4 +228,32 @@
 }
 
 
+.guest-count-container {
+  justify-content: center;
 
+  .adults, .children {
+    position: relative;
+    display: flex;
+    height: 38px;
+
+    mat-icon {
+      position: absolute;
+      top: 10px;
+      z-index: 3;
+    }
+
+
+  }
+}
+
+.route-price {
+  margin-top: 20px;
+
+  .route-price-value {
+    color: $green;
+  }
+}
+
+.route-not-supported {
+  color: $red;
+}
