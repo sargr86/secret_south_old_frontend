@@ -343,11 +343,14 @@ export class FerriesHomeComponent implements OnInit {
 
       }
       if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
-        console.log(location.markerIconUrl.includes('red'))
+        console.log(this.selectedLocations.length)
         location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
         // this.updateMapLocations();
         console.log(location)
-        this.getRoutePrice();
+        const validRoute = !this.locations.controls.find(c => c.value.name === '');
+        if (validRoute) {
+          this.getRoutePrice();
+        }
         // this.lines.push({lat: +location.latitude, lng: +location.longitude});
       }
     } else {
