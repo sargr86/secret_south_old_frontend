@@ -57,17 +57,22 @@
 
         <agm-marker *ngFor="let direction of ferryMapDirections;let ind = index" [latitude]="direction.latitude"
                     [longitude]="direction.longitude"
-                    [openInfoWindow]="true" [iconUrl]="getLocationIcon()" (markerClick)="selectLocation(direction)">
-          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">
-            <h3>{{direction.name}}</h3>
-          </agm-info-window>
+                    [openInfoWindow]="true" [iconUrl]="direction.markerIconUrl"
+                    (markerClick)="selectLocation(direction)">
+          <!--          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">-->
+          <!--            <strong>{{direction.name}}</strong>-->
+          <!--          </agm-info-window>-->
         </agm-marker>
 
-        <agm-polyline [editable]="true" [strokeColor]="'#88bf4a'">
+        <agm-polyline [editable]="true" [strokeColor]="'#8B0000'" [strokeWeight]="4" [strokeOpacity]="1"
+                      *ngIf="common.showPrice">
           <agm-polyline-point *ngFor="let data of lines"
                               [latitude]="data.lat"
                               [longitude]="data.lng">
           </agm-polyline-point>
+          <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"
+                             [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
+          </agm-icon-sequence>
         </agm-polyline>
       </agm-map>
     </div>
@@ -84,7 +89,7 @@
                 </div>
                 <mat-form-field>
                   <mat-label>{{getPlaceholderText(ind)}}</mat-label>
-                  <mat-select (selectionChange)="sourceChanged($event, ind)" formControlName="name">
+                  <mat-select (selectionChange)="locationChanged($event, ind)" formControlName="name">
                     <mat-option *ngFor="let direction of ferryDirections"
                                 [value]="direction.name">{{direction.name}}</mat-option>
                   </mat-select>
@@ -95,8 +100,9 @@
                 <mat-error
                   *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
                   The company name is <strong>required</strong></mat-error>
-                <button *ngIf="ind === locations.controls.length -1 && ind >= 2" class="check-route">
-                  <mat-icon [matTooltip]="'Check if route exists in price list'">autorenew</mat-icon>
+                <button *ngIf="ind === locations.controls.length -1 && ind >= 1" class="check-route"
+                        (click)="getRoutePrice()">
+                  <mat-icon [matTooltip]="'Check if route exists in price list'">arrow_forward</mat-icon>
                 </button>
               </div>
             </ng-container>
@@ -185,12 +191,20 @@
           <ng-container formGroupName="more">
 
             <div class="guest-count-container">
-              <div class="guests">
+              <div class="adults">
+                <mat-icon>group</mat-icon>
+                <input formControlName="adults" [hidden]="true">
+                <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="adultsCount"
+                                  [buttonsOrientation]="'v'" [placeholder]="'Adults'"
+                                  (valueChange)="adultsCountChanged($event)"></ng-number-picker>
+                <p>Adults count</p>
+              </div>
+              <div class="children">
                 <mat-icon>group</mat-icon>
                 <input formControlName="children" [hidden]="true">
-                <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="childrenCount"
                                   [buttonsOrientation]="'v'" [placeholder]="'Children'"
-                                  (valueChange)="personsCountChanged($event)"></ng-number-picker>
+                                  (valueChange)="childrenCountChanged($event)"></ng-number-picker>
               </div>
               <p>Children count</p>
             </div>
@@ -204,7 +218,15 @@
           <!--          <mat-slide-toggle>Card</mat-slide-toggle>-->
 
         </div>
+        <div class="route-price">
+          <ng-container *ngIf="routePrice && common.showPrice">
+            <span>Total Price: </span>
+            <strong class="route-price-value">&euro;{{routePrice.total}}</strong>
+          </ng-container>
+          <span *ngIf="!common.showPrice && locationSelected" class="route-not-supported">We don't have this route in our price list</span>
+        </div>
         <div class="actions">
+
           <!--          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>-->
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
         </div>

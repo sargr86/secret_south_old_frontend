@@ -9,6 +9,7 @@ export class CommonService {
     formProcessing = false;
     dataLoading = false;
     showOverlay = false;
+    showPrice = false;
 
     constructor(
         private router: Router

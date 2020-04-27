@@ -60,4 +60,8 @@ export class FerriesService {
     return this.http.post(`${API_URL}ferries/import-prices-file`, params);
   }
 
+  getRoutePrice(params) {
+    return this.http.post(`${API_URL}ferries/get-route-price`,  params);
+  }
+
 }
