@@ -419,6 +419,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .guestsCount {
+
   input {
     border: 1px solid white !important;
     border-radius: unset !important;
@@ -440,6 +441,31 @@ mat-progress-bar .mat-progress-bar-buffer {
     .input-group-text {
       background-color: transparent;
       color: $white;
+      border-radius: unset;
+    }
+  }
+}
+
+.childrenCount, .adultsCount {
+  input {
+    width: 50px !important;
+    padding-left: 20px !important;
+  }
+
+  input:focus {
+    border: 1px solid silver !important;
+    background: unset !important;
+    outline: none !important;
+    outline-width: 0;
+  }
+
+
+  .input-group {
+    height: 41px;
+    margin-top: -1px;
+
+    .input-group-text {
+      background-color: transparent;
       border-radius: unset;
     }
   }
