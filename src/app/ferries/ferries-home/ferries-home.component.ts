@@ -18,6 +18,8 @@ import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
 import {HttpParams} from '@angular/common/http';
 
+declare const google: any;
+
 @Component({
   selector: 'app-ferries-home',
   templateUrl: './ferries-home.component.html',
@@ -58,6 +60,7 @@ export class FerriesHomeComponent implements OnInit {
   locationSelected = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
   @ViewChild('messagesList') private messagesList: ElementRef;
+
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -105,6 +108,27 @@ export class FerriesHomeComponent implements OnInit {
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
 
+  }
+
+  onMapReady(map) {
+    this.initDrawingManager(map);
+  }
+
+  initDrawingManager(map: any) {
+    const options: any = {
+      drawingControl: true,
+      drawingControlOptions: {
+        drawingModes: ['polygon']
+      },
+      polygonOptions: {
+        draggable: true,
+        editable: true
+      },
+      drawingMode: 'polygon'
+    };
+// console.log(google.maps)
+//     const drawingManager = new google.maps.drawing.DrawingManager(options);
+//     drawingManager.setMap(map);
   }
 
   handleSocketEvents() {
@@ -259,7 +283,7 @@ export class FerriesHomeComponent implements OnInit {
 
 
   locationChanged(e, i) {
-
+    console.log(e.value)
     // Patching drop down value
     this.locations.controls[i].patchValue(e.value);
 
@@ -277,13 +301,12 @@ export class FerriesHomeComponent implements OnInit {
     // Saving selected locations
     this.selectedLocations = [];
     this.locations.controls.map(c => {
-      if (c.value.name !== '') {
+      if (c.value.name) {
         this.selectedLocations.push(c.value);
       }
     });
 
     console.log(this.selectedLocations)
-
     // Marking selected location on the map
     this.ferryMapDirections.map(sl => {
 
@@ -302,7 +325,7 @@ export class FerriesHomeComponent implements OnInit {
       this.lines = [];
 
       dt.coordinates.map(c => {
-        this.lines.push({lat: c.lat, lng: c.lng});
+        this.lines.push({name: dt.name, lat: c.lat, lng: c.lng});
       });
     });
   }
@@ -320,10 +343,13 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   updatePriceOnCountsChange(dt) {
-    this.routePrice = {total: (this.adultsCount + this.childrenCount) * dt.single, single: dt.single};
+    if (dt) {
+      this.routePrice = {total: (this.adultsCount + this.childrenCount) * dt.single, single: dt.single};
+    }
   }
 
   selectLocation(location, dropdown = false) {
+    console.log(this.selectedLocations)
     if (!this.selectedLocations.find(sl => sl.name === location.name)) {
       this.selectedLocations.push(location);
 
@@ -336,7 +362,7 @@ export class FerriesHomeComponent implements OnInit {
 
       if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
 
-        const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+        const firstEmptyControl = this.locations.controls.find(c => !c.value.name);
         if (firstEmptyControl) {
           firstEmptyControl.patchValue(location);
         }
@@ -347,7 +373,7 @@ export class FerriesHomeComponent implements OnInit {
         location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
         // this.updateMapLocations();
         console.log(location)
-        const validRoute = !this.locations.controls.find(c => c.value.name === '');
+        const validRoute = !this.locations.controls.find(c => !c.value.name);
         if (validRoute) {
           this.getRoutePrice();
         }
@@ -355,42 +381,43 @@ export class FerriesHomeComponent implements OnInit {
       }
     } else {
       const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
-      console.log(this.locations.controls)
+      location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
+      console.log(location)
+      if (correspondingControl) {
+        correspondingControl.patchValue({name: ''});
+      } else {
+        const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+        if (firstEmptyControl) {
+          firstEmptyControl.patchValue(location);
+        }
+      }
+
+      console.log(this.lines)
+      this.lines = this.lines.filter(l => {
+        console.log(l.name, location.name)
+        // const dirLat = +location.latitude;
+        // const dirLng = +location.longitude;
+        // return l.lng !== dirLng && l.lat !== dirLat;
+        return !l.name.includes(location.name);
+      });
+      this.getRoutePrice();
+      console.log(this.lines)
     }
 
   }
 
 
   addLocation() {
-    const companyNameChoiceCountsLen = this.locations.length;
-    if (companyNameChoiceCountsLen < MAX_LOCATION_CHOICES) {
+    const locationsLen = this.locations.length;
+    if (locationsLen < MAX_LOCATION_CHOICES) {
       this.locations.controls.push(this.createLocationsFormGroup());
-    }
-  }
-
-  removeLocation(direction) {
-    if (this.selectedLocations.length > 2) {
-      let i = 0;
-      this.selectedLocations.map(l => {
-        if (l.name === direction.name) {
-          this.selectedLocations.splice(i, 1);
-          this.removeLocationInput(i);
-          direction.markerIconUrl = this.markerIconUrl;
-        }
-        ++i;
-      });
-
-      this.lines = this.lines.filter(l => {
-        const dirLat = +direction.latitude;
-        const dirLng = +direction.longitude;
-        return l.lng !== dirLng && l.lat !== dirLat;
-      });
     }
   }
 
   removeLocationInput(i) {
     this.locations.removeAt(i);
     this.updateMapLocations();
+    this.getRoutePrice();
   }
 
 
@@ -425,6 +452,13 @@ export class FerriesHomeComponent implements OnInit {
     };
 
     this.webSocketService.emit('createOrder', JSON.stringify(formValue));
+  }
+
+  resetForm() {
+    this.orderFerryForm.reset();
+    this.selectedLocations = [];
+    this.lines = [];
+    this.updateMapLocations();
   }
 
   getUserTodaysOrders() {
