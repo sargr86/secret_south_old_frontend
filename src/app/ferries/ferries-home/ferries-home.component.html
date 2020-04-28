@@ -15,7 +15,7 @@
       </div>
       <agm-map [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
                [mapTypeControl]="true" (mapClick)="mapClick($event)"
-               [rotateControl]="true"
+               [rotateControl]="true" (mapReady)="onMapReady($event)"
                [styles]="mapStyles">
         <!--        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"-->
         <!--                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">-->
@@ -74,6 +74,8 @@
                              [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
           </agm-icon-sequence>
         </agm-polyline>
+
+
       </agm-map>
     </div>
     <div class="ferry-page-right">
@@ -227,7 +229,7 @@
         </div>
         <div class="actions">
 
-          <!--          <button class="cancel-order-btn" (click)="orderFerry()">CANCEL</button>-->
+          <button class="cancel-order-btn" (click)="resetForm()">RESET</button>
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
         </div>
       </form>
