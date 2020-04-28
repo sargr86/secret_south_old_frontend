@@ -56,9 +56,17 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     const token = localStorage.getItem('token');
     if (token) {
       this.authUser = jwtDecode(token);
-      this.userPosition = this.authUser.position.name;
-      this.isDriver = this.userPosition === 'Driver';
-      this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
+
+      // Checking if saved token expired
+      if (Date.now() >= this.authUser.exp * 1000) {
+        this.toastr.error('Please log in again.', 'The session has been expired');
+      } else {
+        this.userPosition = this.authUser.position.name;
+        this.isDriver = this.userPosition === 'Driver';
+        this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
+      }
+
+
     }
 
     // Getting current page title
