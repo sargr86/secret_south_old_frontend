@@ -45,7 +45,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.handleSocketEvents();
     this.handleUserData();
     if (this.isOperator) {
-      this.openForm();
+      // this.openForm();
     } else {
 
       this.loadMessages();
