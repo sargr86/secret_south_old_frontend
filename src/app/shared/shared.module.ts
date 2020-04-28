@@ -76,7 +76,7 @@ import { MatOrdersTableComponent } from './components/mat-orders-table/mat-order
     CarouselModule,
     AgmCoreModule.forRoot({
       apiKey: GOOGLE_API_KEY,
-      libraries: ['places', 'geometry'],
+      libraries: ['places', 'geometry', 'drawing'],
     }),
     AgmDirectionModule,
     Ng5SliderModule,
