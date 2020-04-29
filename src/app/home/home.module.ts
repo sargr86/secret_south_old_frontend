@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {HomeRoutingModule} from './home-routing.module';
 import {MainComponent} from './main/main.component';
-import {AgmCoreModule} from '@agm/core';
+// import {AgmCoreModule} from '@agm/core';
 
 import {SharedModule} from '@shared/shared.module';
 import {GOOGLE_API_KEY} from '@core/constants/settings';
@@ -17,10 +17,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
         SharedModule,
         CommonModule,
         HomeRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: GOOGLE_API_KEY,
-            libraries: ['places', 'geometry'],
-        }),
+        // AgmCoreModule.forRoot({
+        //     apiKey: GOOGLE_API_KEY,
+        //     libraries: ['places', 'geometry'],
+        // }),
         AgmDirectionModule
 
     ],

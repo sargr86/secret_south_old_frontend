@@ -35,7 +35,8 @@ import {GetFileBasenamePipe} from './pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe';
 import {HeaderTopComponent} from '@shared/components/header-top/header-top.component';
 import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
-import { MatOrdersTableComponent } from './components/mat-orders-table/mat-orders-table.component';
+import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-table.component';
+// import {AgmDrawingModule} from '@agm/drawing';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MatOrdersTableComponent } from './components/mat-orders-table/mat-order
       libraries: ['places', 'geometry', 'drawing'],
     }),
     AgmDirectionModule,
+    // AgmDrawingModule,
     Ng5SliderModule,
     ProgressBarModule
   ],
@@ -110,6 +112,7 @@ import { MatOrdersTableComponent } from './components/mat-orders-table/mat-order
     CarouselModule,
     AgmCoreModule,
     AgmDirectionModule,
+    // AgmDrawingModule,
     Ng5SliderModule,
     ProgressBarModule,
     GetTableDataSourcePipe,
