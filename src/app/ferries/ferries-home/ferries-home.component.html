@@ -63,7 +63,7 @@
           <!--          </agm-info-window>-->
         </agm-marker>
 
-        <agm-polyline [editable]="true" [strokeColor]="'#8B0000'" [strokeWeight]="4"
+        <agm-polyline [editable]="false" [strokeColor]="'#8B0000'" [strokeWeight]="4"
                       *ngIf="common.showPrice">
           <agm-polyline-point *ngFor="let data of lines"
                               [latitude]="data.lat"
