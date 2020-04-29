@@ -248,3 +248,6 @@ export const ORDERS_TABLE_COLUMNS = ['_id', 'client_full_name', 'phone', 'email'
 
 
 export const MAX_LOCATION_CHOICES = 4;
+
+
+export const MAP_CENTER_COORDINATES = {lat: 51.797999, lng: -8.294371};

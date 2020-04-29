@@ -7,7 +7,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 // Form
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StorageServiceModule} from 'angular-webstorage-service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import 'hammerjs';
@@ -34,7 +33,6 @@ export function tokenGetter() {
         HttpClientModule,
         CoreModule,
         ReactiveFormsModule,
-        StorageServiceModule,
         MaterialModule,
         ToastrModule.forRoot({
             preventDuplicates: true

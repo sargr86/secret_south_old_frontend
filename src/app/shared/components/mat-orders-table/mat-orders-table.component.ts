@@ -3,7 +3,6 @@ import {OrdersService} from '@core/services/orders.service';
 import {CommonService} from '@core/services/common.service';
 import {Subscription} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
-import {Socket} from 'ngx-socket-io';
 import {SubjectService} from '@core/services/subject.service';
 import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
@@ -36,7 +35,6 @@ export class MatOrdersTableComponent implements OnInit, OnDestroy {
     public common: CommonService,
     private toastr: ToastrService,
     private subject: SubjectService,
-    public socket: Socket,
     public router: Router,
     public auth: AuthService,
     private matDialog: MatDialog,
