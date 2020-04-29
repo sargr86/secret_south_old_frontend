@@ -17,6 +17,7 @@ import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
 import {HttpParams} from '@angular/common/http';
+import {AgmMap} from '@agm/core';
 
 declare const google: any;
 
@@ -61,6 +62,76 @@ export class FerriesHomeComponent implements OnInit {
   markerIconUrl = 'assets/icons/green_circle_small.png';
   @ViewChild('messagesList') private messagesList: ElementRef;
 
+
+  @ViewChild(AgmMap) map: any;
+  mapReady = false;
+  paths = [
+    {
+      'lat': 51.804713,
+      'lng': -8.298334
+    },
+    {
+      'lat': 51.8442234,
+      'lng': -8.2284701
+    },
+    {
+      'lat': 51.845922,
+      'lng': -8.209558
+    },
+    {
+      'lat': 51.848841,
+      'lng': -8.297425
+    },
+    {
+      'lat': 51.841616,
+      'lng': -8.2918512
+    },
+    {
+      'lat': 51.836737,
+      'lng': -8.2937395
+    },
+    {
+      'lat': 51.8102374,
+      'lng': -8.2910498
+    },
+    {
+      'lat': 51.804713,
+      'lng': -8.298334
+    },
+  ];
+
+
+  lineSymbol = {
+    path: 'M 0,-1 0,1', strokeWeight: 1.5, scale: 2
+  }
+  polylineOptions = {
+    // strokeColor: '#8B0000',
+    // strokeWeight: 4,
+    // strokeOpacity: 1,
+    // // icons: [{
+    // //   icon: this.lineSymbol,
+    // //   offset: '0',
+    // //   repeat: '20px',
+    // //   path: 'M 0,-1 0,1'
+    // // }, {
+    // //   icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+    // //   offset: '100%'
+    // // }],
+    // geodesic: true,
+  }
+  fwd = google.maps.SymbolPath.FORWARD_OPEN_ARROW;
+
+  polygonOptions = {
+    strokeOpacity: 0,
+    icons: [{
+      icon: this.lineSymbol,
+      offset: '0',
+      repeat: '20px'
+    }, {
+      icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+      offset: '100%'
+    }],
+  }
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -111,11 +182,15 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   onMapReady(map) {
-    this.initDrawingManager(map);
+    this.map = map;
+    this.mapReady = true;
+
+    // this.initDrawingManager(map);
   }
 
   initDrawingManager(map: any) {
-    const options: any = {
+    console.log(google.maps)
+    const options = {
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: ['polygon']
@@ -124,17 +199,17 @@ export class FerriesHomeComponent implements OnInit {
         draggable: true,
         editable: true
       },
-      drawingMode: 'polygon'
+      drawingMode: google.maps.drawing.OverlayType.POLYGON
     };
-// console.log(google.maps)
-//     const drawingManager = new google.maps.drawing.DrawingManager(options);
-//     drawingManager.setMap(map);
+
+
+    const drawingManager = new google.maps.drawing.DrawingManager(options as any);
+    drawingManager.setMap(map);
   }
 
   handleSocketEvents() {
 
     this.webSocketService.on('orderCreated').subscribe(async (data) => {
-      console.log(data)
       if (this.authUser.position.name === 'Customer') {
         await this.router.navigate(['customers/orders/show']);
       }
@@ -215,6 +290,8 @@ export class FerriesHomeComponent implements OnInit {
   getFerryMapDirections() {
     this.main.getDirections().subscribe((dt: any) => {
       dt.map(d => {
+        d.latitude = +d.latitude;
+        d.longitude = +d.longitude;
         d.markerIconUrl = this.markerIconUrl;
         this.ferryMapDirections.push(d);
       });
@@ -283,13 +360,13 @@ export class FerriesHomeComponent implements OnInit {
 
 
   locationChanged(e, i) {
-    console.log(e.value)
+
     // Patching drop down value
     this.locations.controls[i].patchValue(e.value);
 
     this.updateMapLocations();
 
-    const validRoute = !this.locations.controls.find(c => c.value.name === '');
+    const validRoute = !this.locations.controls.find(c => !c.value.name);
     if (validRoute) {
       this.locationSelected = true;
       this.getRoutePrice();
@@ -297,16 +374,15 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   updateMapLocations() {
-
     // Saving selected locations
     this.selectedLocations = [];
     this.locations.controls.map(c => {
       if (c.value.name) {
-        this.selectedLocations.push(c.value);
+        const location = this.ferryMapDirections.find(fd => fd.name === c.value.name);
+        this.selectedLocations.push(location);
       }
     });
 
-    console.log(this.selectedLocations)
     // Marking selected location on the map
     this.ferryMapDirections.map(sl => {
 
@@ -323,10 +399,21 @@ export class FerriesHomeComponent implements OnInit {
       this.updatePriceOnCountsChange(dt);
       this.common.showPrice = true;
       this.lines = [];
+      if (dt) {
+        if (dt.geometry_type === 'LineString') {
+          dt.coordinates.map(c => {
+            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+          });
+        } else if (dt.geometry_type === 'Polygon') {
+          Object.values(dt.coordinates[0]).reverse().map((c: any) => {
+            if (c.lat) {
+              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+            }
 
-      dt.coordinates.map(c => {
-        this.lines.push({name: dt.name, lat: c.lat, lng: c.lng});
-      });
+          });
+        }
+
+      }
     });
   }
 
@@ -343,7 +430,7 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   updatePriceOnCountsChange(dt) {
-    if (dt) {
+    if (dt && !isNaN(dt.single)) {
       this.routePrice = {total: (this.adultsCount + this.childrenCount) * dt.single, single: dt.single};
     }
   }
@@ -369,10 +456,8 @@ export class FerriesHomeComponent implements OnInit {
 
       }
       if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
-        console.log(this.selectedLocations.length)
         location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
         // this.updateMapLocations();
-        console.log(location)
         const validRoute = !this.locations.controls.find(c => !c.value.name);
         if (validRoute) {
           this.getRoutePrice();
@@ -382,7 +467,6 @@ export class FerriesHomeComponent implements OnInit {
     } else {
       const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
       location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
-      console.log(location)
       if (correspondingControl) {
         correspondingControl.patchValue({name: ''});
       } else {
@@ -392,7 +476,6 @@ export class FerriesHomeComponent implements OnInit {
         }
       }
 
-      console.log(this.lines)
       this.lines = this.lines.filter(l => {
         console.log(l.name, location.name)
         // const dirLat = +location.latitude;
@@ -401,7 +484,6 @@ export class FerriesHomeComponent implements OnInit {
         return !l.name.includes(location.name);
       });
       this.getRoutePrice();
-      console.log(this.lines)
     }
 
   }

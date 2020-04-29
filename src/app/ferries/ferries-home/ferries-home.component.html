@@ -1,5 +1,4 @@
 <app-ferries-header></app-ferries-header>
-
 <section class="ferry_page" id="order-info-container">
   <div class="ferry_page_size" *ngIf="auth.loggedIn()">
     <!--    <div class="ferry_page_left" [hidden]="!showFilters">-->
@@ -64,7 +63,7 @@
           <!--          </agm-info-window>-->
         </agm-marker>
 
-        <agm-polyline [editable]="true" [strokeColor]="'#8B0000'" [strokeWeight]="4" [strokeOpacity]="1"
+        <agm-polyline [editable]="true" [strokeColor]="'#8B0000'" [strokeWeight]="4"
                       *ngIf="common.showPrice">
           <agm-polyline-point *ngFor="let data of lines"
                               [latitude]="data.lat"
@@ -73,9 +72,31 @@
           <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"
                              [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
           </agm-icon-sequence>
+          <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"
+                             [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">
+          </agm-icon-sequence>
+
         </agm-polyline>
 
 
+<!--        <agm-drawing-manager #drawing="agmDrawingManager"-->
+<!--                             [polygonOptions]="polygonOptions"></agm-drawing-manager>-->
+<!--&lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;-->
+<!--&lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;-->
+<!--          <agm-polyline>-->
+<!--            <agm-polyline-point *ngFor="let data of paths"-->
+<!--                                [latitude]="data.lat"-->
+<!--                                [longitude]="data.lng">-->
+<!--            </agm-polyline-point>-->
+<!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"-->
+<!--                               [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
+<!--            </agm-icon-sequence>-->
+<!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"-->
+<!--                               [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 2,5 -2,5 0,0 z'">-->
+<!--            </agm-icon-sequence>-->
+
+<!--          </agm-polyline>-->
+<!--        </agm-polygon>-->
       </agm-map>
     </div>
     <div class="ferry-page-right">
@@ -101,7 +122,7 @@
                    (click)="removeLocationInput(ind)">cancel</i>
                 <mat-error
                   *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
-                  The company name is <strong>required</strong></mat-error>
+                  The point is <strong>required</strong></mat-error>
                 <button *ngIf="ind === locations.controls.length -1 && ind >= 1" class="check-route"
                         (click)="getRoutePrice()">
                   <mat-icon [matTooltip]="'Check if route exists in price list'">arrow_forward</mat-icon>
