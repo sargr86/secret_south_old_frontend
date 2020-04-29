@@ -1,6 +1,5 @@
 import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Socket} from 'ngx-socket-io';
 import {ChatService} from '@core/services/chat.service';
 import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
@@ -32,7 +31,6 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private fb: FormBuilder,
-    private socket: Socket,
     private chatService: ChatService,
     private websocketService: WebSocketService,
     public auth: AuthService

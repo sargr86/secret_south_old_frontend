@@ -6,11 +6,9 @@ import {NavbarComponent} from '@core/components/layout/navbar/navbar.component';
 import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.component';
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {API_URL} from '@core/constants/settings';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 
-const config: SocketIoConfig = {url: API_URL, options: {'pingTimeout': 7000, 'pingInterval': 3000}};
 
 @NgModule({
   declarations: [
@@ -24,7 +22,6 @@ const config: SocketIoConfig = {url: API_URL, options: {'pingTimeout': 7000, 'pi
   imports: [
     CommonModule,
     SharedModule,
-    SocketIoModule.forRoot(config)
   ],
   exports: [
     NavbarComponent,

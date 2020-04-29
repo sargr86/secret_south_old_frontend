@@ -6,8 +6,6 @@ import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
 import {DRIVER_ORDER_TABS, ALL_ORDER_TABS} from '@core/constants/settings';
 import {Subscription} from 'rxjs';
-import {count} from 'rxjs/operators';
-import {Socket} from 'ngx-socket-io';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChatService} from '@core/services/chat.service';
 
@@ -34,7 +32,6 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
     private ordersService: OrdersService,
     private subject: SubjectService,
     public auth: AuthService,
-    private socket: Socket,
     private fb: FormBuilder,
     private chatService: ChatService
   ) {

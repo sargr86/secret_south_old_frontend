@@ -15,6 +15,10 @@ export class FerriesService {
     return this.http.get(API_URL + 'ferries/get-partners');
   }
 
+  getLocations(params = {}) {
+    return this.http.get(`${API_URL}ferries/get-directions`, {params});
+  }
+
   add(data) {
 
     return this.http.post(`${API_URL}ferries/add`, data);

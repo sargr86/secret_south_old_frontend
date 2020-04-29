@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import * as jwtDecode from 'jwt-decode';
 import {User} from '@shared/models/User';
-import {Socket} from 'ngx-socket-io';
 import {WebSocketService} from '@core/services/websocket.service';
 
 @Injectable({

@@ -36,6 +36,7 @@ import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe
 import {HeaderTopComponent} from '@shared/components/header-top/header-top.component';
 import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
 import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-table.component';
+import { MapControlsComponent } from './components/map-controls/map-controls.component';
 // import {AgmDrawingModule} from '@agm/drawing';
 
 @NgModule({
@@ -60,7 +61,8 @@ import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-
     HeaderBottomComponent,
     GetFileBasenamePipe,
     MarkSelectedCoverImagePipe,
-    MatOrdersTableComponent
+    MatOrdersTableComponent,
+    MapControlsComponent
   ],
   imports: [
     CommonModule,
@@ -127,7 +129,8 @@ import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-
     FiltersBarComponent,
     HeaderTopComponent,
     HeaderBottomComponent,
-    GetFileBasenamePipe
+    GetFileBasenamePipe,
+    MapControlsComponent
   ],
   entryComponents: [
     ConfirmationDialogComponent,
