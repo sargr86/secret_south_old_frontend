@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Socket} from 'ngx-socket-io';
 import {API_URL} from '@core/constants/settings';
 import {HttpClient} from '@angular/common/http';
 
@@ -11,7 +10,6 @@ export class ChatService {
   socket;
 
   constructor(
-    // private socket: Socket,
     private httpClient: HttpClient
   ) {
   }

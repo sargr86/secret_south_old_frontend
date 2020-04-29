@@ -12,7 +12,6 @@ import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Socket} from 'ngx-socket-io';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
@@ -65,60 +64,13 @@ export class FerriesHomeComponent implements OnInit {
 
   @ViewChild(AgmMap) map: any;
   mapReady = false;
-  paths = [
-    {
-      'lat': 51.804713,
-      'lng': -8.298334
-    },
-    {
-      'lat': 51.8442234,
-      'lng': -8.2284701
-    },
-    {
-      'lat': 51.845922,
-      'lng': -8.209558
-    },
-    {
-      'lat': 51.848841,
-      'lng': -8.297425
-    },
-    {
-      'lat': 51.841616,
-      'lng': -8.2918512
-    },
-    {
-      'lat': 51.836737,
-      'lng': -8.2937395
-    },
-    {
-      'lat': 51.8102374,
-      'lng': -8.2910498
-    },
-    {
-      'lat': 51.804713,
-      'lng': -8.298334
-    },
-  ];
+
 
 
   lineSymbol = {
     path: 'M 0,-1 0,1', strokeWeight: 1.5, scale: 2
   }
-  polylineOptions = {
-    // strokeColor: '#8B0000',
-    // strokeWeight: 4,
-    // strokeOpacity: 1,
-    // // icons: [{
-    // //   icon: this.lineSymbol,
-    // //   offset: '0',
-    // //   repeat: '20px',
-    // //   path: 'M 0,-1 0,1'
-    // // }, {
-    // //   icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
-    // //   offset: '100%'
-    // // }],
-    // geodesic: true,
-  }
+
   fwd = google.maps.SymbolPath.FORWARD_OPEN_ARROW;
 
   polygonOptions = {
@@ -156,7 +108,6 @@ export class FerriesHomeComponent implements OnInit {
     private common: CommonService,
     private subject: SubjectService,
     private fb: FormBuilder,
-    public socket: Socket,
     private ordersService: OrdersService,
     private webSocketService: WebSocketService
   ) {

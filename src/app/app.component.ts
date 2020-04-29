@@ -18,7 +18,6 @@ import {SubjectService} from '@core/services/subject.service';
 import {ToastrService} from 'ngx-toastr';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
-import {Socket} from 'ngx-socket-io';
 import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({

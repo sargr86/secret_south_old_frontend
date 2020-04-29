@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Socket} from 'ngx-socket-io';
 import {CommonService} from '@core/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {WebSocketService} from '@core/services/websocket.service';
@@ -12,7 +11,6 @@ import {WebSocketService} from '@core/services/websocket.service';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    public socket: Socket,
     public common: CommonService,
     private toastr: ToastrService,
     private webSocketService: WebSocketService
