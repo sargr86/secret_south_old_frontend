@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewRef} from '@angular/core';
 import {DASHBOARD_LINKS, MAIN_SECTIONS, MENU_ITEM_ICONS, USER_TYPES} from '@core/constants/settings';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {AuthService} from '@core/services/auth.service';
 import {PartnerService} from '@core/services/partner.service';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';

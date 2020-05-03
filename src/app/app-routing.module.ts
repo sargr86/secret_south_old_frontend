@@ -7,13 +7,16 @@ import {RoleGuard} from '@core/guards/role.guard';
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     data: {
       expectedRole: 'admin'
     },
     canActivate: [AuthGuard, RoleGuard]
   },
-  {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  },
   {
     path: '',
     redirectTo: 'ferries',
@@ -21,50 +24,53 @@ const routes: Routes = [
   },
   {
     path: 'accommodations',
-    loadChildren: './accommodation/accommodation.module#AccommodationModule'
+    loadChildren: () => import('./accommodation/accommodation.module').then(m => m.AccommodationModule),
   },
   {
     path: 'activities',
-    loadChildren: './activities/activities.module#ActivitiesModule'
+    loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule),
   },
   {
     path: 'orders',
-    loadChildren: './orders/orders.module#OrdersModule'
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
   },
   {
     path: 'food-drink',
-    loadChildren: './food-drink/food-drink.module#FoodDrinkModule'
+    loadChildren: () => import('./food-drink/food-drink.module').then(m => m.FoodDrinkModule),
   },
   {
     path: 'ferries',
-    loadChildren: './ferries/ferries.module#FerriesModule'
+    loadChildren: () => import('./ferries/ferries.module').then(m => m.FerriesModule),
   },
   {
     path: 'tours',
-    loadChildren: './tours/tours.module#ToursModule'
+    loadChildren: () => import('./tours/tours.module').then(m => m.ToursModule),
   },
-  {path: '', loadChildren: './home/home.module#HomeModule'},
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+  },
   {
     path: 'partners',
     data: {
       expectedRole: 'partner'
     },
     canActivate: [AuthGuard, RoleGuard],
-    loadChildren: './partners/partners.module#PartnersModule'
+    loadChildren: () => import('./partners/partners.module').then(m => m.PartnersModule),
   },
   {
     path: 'employees',
     canActivate: [AuthGuard],
-    loadChildren: './employees/employees.module#EmployeesModule'
+    loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule),
   },
   {
     path: 'customers',
     canActivate: [AuthGuard],
-    loadChildren: './customers/customers.module#CustomersModule'
+    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomeModule'
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
   },
   {path: '**', component: NotFoundComponent},
 ];

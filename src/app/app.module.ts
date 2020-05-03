@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import {MaterialModule} from '@core/modules/material.module';
-import {ToastrModule} from 'ngx-toastr';
 import {RequestInterceptor} from '@core/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
@@ -34,9 +33,6 @@ export function tokenGetter() {
         CoreModule,
         ReactiveFormsModule,
         MaterialModule,
-        ToastrModule.forRoot({
-            preventDuplicates: true
-        }),
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,

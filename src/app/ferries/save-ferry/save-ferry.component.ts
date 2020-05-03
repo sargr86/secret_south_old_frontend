@@ -23,7 +23,7 @@ import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 import {FERRY_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {DropzoneConfig} from 'ngx-dropzone-wrapper';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';

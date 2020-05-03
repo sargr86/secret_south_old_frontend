@@ -2,7 +2,7 @@ import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '@env';
 import {Section} from '@shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
