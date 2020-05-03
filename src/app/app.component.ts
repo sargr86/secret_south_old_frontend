@@ -13,12 +13,13 @@ import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
 import {AuthService} from '@core/services/auth.service';
-import {MatSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material/sidenav';
 import {SubjectService} from '@core/services/subject.service';
 import {ToastrService} from 'ngx-toastr';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {WebSocketService} from '@core/services/websocket.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     private toastr: ToastrService,
     public common: CommonService,
     private cdref: ChangeDetectorRef,
+    private jwtHelper: JwtHelperService,
     // private socket: Socket
     private webSocketService: WebSocketService
   ) {
@@ -57,7 +59,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
       this.authUser = jwtDecode(token);
 
       // Checking if saved token expired
-      if (Date.now() >= this.authUser.exp * 1000) {
+      // if (Date.now() >= this.authUser.exp * 1000) {
+      if(this.jwtHelper.isTokenExpired(token)){
         this.toastr.error('Please log in again.', 'The session has been expired');
       } else {
         this.userPosition = this.authUser.position.name;

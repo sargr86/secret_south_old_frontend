@@ -5,6 +5,7 @@ import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
 import {WebSocketService} from '@core/services/websocket.service';
 import moment from 'moment';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-chat-window',
@@ -33,7 +34,8 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     private fb: FormBuilder,
     private chatService: ChatService,
     private websocketService: WebSocketService,
-    public auth: AuthService
+    public auth: AuthService,
+    private jwtHelper: JwtHelperService
   ) {
     this.chatForm = this.fb.group({message: ['', Validators.required]});
 
@@ -52,7 +54,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   handleUserData() {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
       this.authUser = jwtDecode(token);
       this.userPosition = this.authUser.position.name;
       this.isDriver = this.userPosition === 'Driver';
@@ -175,15 +177,18 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   }
 
   loadMessages() {
-    const userData = {
-      user_id: this.isOperator ? this.selectedUser.id : this.authUser.id
-    };
-    this.chatService.loadMessages(userData).subscribe((dt: any) => {
-      this.messages = dt;
-      this.receivedMessages = dt.filter(d => d.from === 'Operator');
-      this.newMessages = this.receivedMessages.filter(d => !d.seen);
-      console.log(this.newMessages)
-    });
+    if (this.auth.loggedIn()) {
+
+      const userData = {
+        user_id: this.isOperator ? this.selectedUser.id : this.authUser.id
+      };
+      this.chatService.loadMessages(userData).subscribe((dt: any) => {
+        this.messages = dt;
+        this.receivedMessages = dt.filter(d => d.from === 'Operator');
+        this.newMessages = this.receivedMessages.filter(d => !d.seen);
+        console.log(this.newMessages)
+      });
+    }
   }
 
   getUsername(username) {

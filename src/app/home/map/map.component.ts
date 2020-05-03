@@ -11,7 +11,7 @@ import {PartnerService} from '@core/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-map',

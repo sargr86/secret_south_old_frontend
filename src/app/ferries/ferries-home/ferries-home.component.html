@@ -12,7 +12,7 @@
       <div class="infoToggler" *ngIf="selectedFerry">
         <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
       </div>
-      <agm-map [latitude]="mapCenterCoordinateslat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+      <agm-map [latitude]="mapCenterCoordinates" [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
                [mapTypeControl]="true" (mapClick)="mapClick($event)"
                [rotateControl]="true" (mapReady)="onMapReady($event)"
                [styles]="mapStyles">

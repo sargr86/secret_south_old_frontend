@@ -21,7 +21,7 @@ import {FOOD_DRINK_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';

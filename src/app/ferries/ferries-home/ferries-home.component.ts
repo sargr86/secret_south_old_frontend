@@ -2,10 +2,10 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MainService} from '@core/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {API_URL, MAX_LOCATION_CHOICES, TIMEPICKER_THEME} from '@core/constants/settings';
+import {API_URL, MAP_CENTER_COORDINATES, MAX_LOCATION_CHOICES, TIMEPICKER_THEME} from '@core/constants/settings';
 import {FerriesService} from '@core/services/ferries.service';
 import {Ferry} from '@shared/models/Ferry';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {AuthService} from '@core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
@@ -59,6 +59,7 @@ export class FerriesHomeComponent implements OnInit {
   routePrice;
   locationSelected = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
+  mapCenterCoordinates = MAP_CENTER_COORDINATES;
   @ViewChild('messagesList') private messagesList: ElementRef;
 
 
