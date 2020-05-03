@@ -20,7 +20,7 @@ import {CompaniesService} from '@core/services/companies.service';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {ActivityType} from '@shared/models/ActivityType';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
-import {NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
 import SelectImageToMakeCoverOnPageLoad from '@core/helpers/select-image-to-make-cover-on-page-load';
 import SetImageAsCover from '@core/helpers/set-image-as-cover';

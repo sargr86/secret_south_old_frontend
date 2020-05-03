@@ -4,6 +4,8 @@ import {GpsLocationComponent} from './gps-location/gps-location.component';
 import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
 import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {AuthGuard} from '@core/guards/auth.guard';
+import {RoleGuard} from '@core/guards/role.guard';
 
 
 const routes: Routes = [
@@ -21,53 +23,55 @@ const routes: Routes = [
     },
   },
   {
-    path: 'employees',
-    loadChildren: '../employees/employees.module#EmployeesModule',
-  },
-  {
-    path: 'customers',
-    loadChildren: '../customers/customers.module#CustomersModule',
-  },
-  {
-    path: 'ferries',
-    loadChildren: '../ferries/ferries.module#FerriesModule',
-  },
-  {
-    path: 'tours',
-    loadChildren: '../tours/tours.module#ToursModule',
-  },
-  {
-    path: 'food-drink',
-    loadChildren: '../food-drink/food-drink.module#FoodDrinkModule',
-  },
-  {
-    path: 'partners',
-    loadChildren: '../partners/partners.module#PartnersModule',
-  },
-  {
-    path: 'contacts',
-    loadChildren: '../contacts/contacts.module#ContactsModule',
-  },
-  {
-    path: 'companies',
-    loadChildren: '../companies/companies.module#CompaniesModule'
-  },
-  {
     path: 'accommodations',
-    loadChildren: '../accommodation/accommodation.module#AccommodationModule',
+    loadChildren: () => import('../accommodation/accommodation.module').then(m => m.AccommodationModule)
+  },
+  {
+    path: 'activities',
+    loadChildren: () => import('../activities/activities.module').then(m => m.ActivitiesModule)
   },
   {
     path: 'orders',
-    loadChildren: '../orders/orders.module#OrdersModule'
+    loadChildren: () => import('../orders/orders.module').then(m => m.OrdersModule)
+  },
+  {
+    path: 'food-drink',
+    loadChildren: () => import('../food-drink/food-drink.module').then(m => m.FoodDrinkModule)
+  },
+  {
+    path: 'ferries',
+    loadChildren: () => import('../ferries/ferries.module').then(m => m.FerriesModule)
+  },
+  {
+    path: 'tours',
+    loadChildren: () => import('../tours/tours.module').then(m => m.ToursModule)
+  },
+  {
+    path: 'employees',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('../employees/employees.module').then(m => m.EmployeesModule)
+  },
+  {
+    path: 'customers',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('../customers/customers.module').then(m => m.CustomersModule)
+  },
+  {
+    path: 'partners',
+    loadChildren: () => import('../partners/partners.module').then(m => m.PartnersModule)
   },
 
   {
-    path: 'activities',
-    loadChildren: '../activities/activities.module#ActivitiesModule',
+    path: 'contacts',
+    loadChildren: () => import('../contacts/contacts.module').then(m => m.ContactsModule)
+  },
+  {
+    path: 'companies',
+    loadChildren: () => import('../companies/companies.module').then(m => m.CompaniesModule)
   },
   {
     path: 'jobs',
-    loadChildren: '../jobs/jobs.module#JobsModule',
+    loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule),
   },
   {
     path: 'add_locations', component: GpsLocationComponent,

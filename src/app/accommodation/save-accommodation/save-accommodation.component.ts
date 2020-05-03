@@ -20,7 +20,7 @@ import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 import {ACCOMMODATION_FIELDS} from '@core/helpers/form-fields-getter';
 import {RedirectUrlGeneratorPipe} from '@shared/pipes/redirect-url-generator.pipe';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
-import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryAction, NgxGalleryOptions} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
 import {GetFileBasenamePipe} from '@shared/pipes/get-file-basename.pipe';
 import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';

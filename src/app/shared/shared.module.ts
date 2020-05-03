@@ -22,7 +22,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RedirectUrlGeneratorPipe} from './pipes/redirect-url-generator.pipe';
 import {DropzoneComponent} from './components/dropzone/dropzone.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {NgxGalleryModule} from 'ngx-gallery';
+import {NgxGalleryModule} from 'ngx-gallery-9';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import {CarouselHolderComponent} from './components/carousel-holder/carousel-holder.component';
 import {AgmCoreModule} from '@agm/core';
