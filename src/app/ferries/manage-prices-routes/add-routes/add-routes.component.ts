@@ -1,30 +1,28 @@
 import {Component, OnInit} from '@angular/core';
-import {FerriesService} from '@core/services/ferries.service';
-import {CommonService} from '@core/services/common.service';
+import {ManageRoutesComponent} from '@app/ferries/manage-routes/manage-routes.component';
 import {ToastrService} from 'ngx-toastr';
-import * as XLSX from 'xlsx';
+import {FerriesService} from '@core/services/ferries.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-import-edit-routes-prices',
-  templateUrl: './import-edit-routes-prices.component.html',
-  styleUrls: ['./import-edit-routes-prices.component.scss']
+  selector: 'app-add-routes',
+  templateUrl: './add-routes.component.html',
+  styleUrls: ['./add-routes.component.scss']
 })
-export class ImportEditRoutesPricesComponent implements OnInit {
+export class AddRoutesComponent implements OnInit {
   selectedFile;
   ferryRoutesData = [];
-  ferryPricesData = [];
+  addMethod = 'map';
 
   constructor(
+    private toastr: ToastrService,
     private ferriesService: FerriesService,
-    public common: CommonService,
-    private toastr: ToastrService
+    private dialog: MatDialog
   ) {
-    this.common.dataLoading = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
-
 
   onRoutesFileChanged(e, type) {
     this.selectedFile = e.target.files[0];
@@ -95,37 +93,6 @@ export class ImportEditRoutesPricesComponent implements OnInit {
     };
   }
 
-  onPricesFileChanged(ev) {
-    let workBook = null;
-    let jsonData = null;
-    const reader = new FileReader();
-    const file = ev.target.files[0];
-    reader.onload = (event) => {
-      const data = reader.result;
-      workBook = XLSX.read(data, {type: 'binary'});
-      jsonData = workBook.SheetNames.reduce((initial, name) => {
-        const sheet = workBook.Sheets[name];
-
-
-        if (name === 'Pricing') {
-          const json = XLSX.utils.sheet_to_json(sheet);
-          let str = JSON.stringify(json);
-          json.map(j => {
-            Object.keys(j).map(k => {
-              str = str.replace(k, k.replace(/ /g, '_').toLowerCase());
-            });
-          });
-
-          initial = JSON.parse(str);
-
-        }
-        return initial;
-      }, {});
-      this.ferryPricesData = jsonData;
-      const dataString = JSON.stringify(jsonData);
-    };
-    reader.readAsBinaryString(file);
-  }
 
   importRoutes() {
     this.ferriesService.importRoutesFile(this.ferryRoutesData).subscribe(dt => {
@@ -133,9 +100,10 @@ export class ImportEditRoutesPricesComponent implements OnInit {
     });
   }
 
-  importPrices() {
-    this.ferriesService.importPricesFile(this.ferryPricesData).subscribe(dt => {
-      this.toastr.success('Ferries prices data imported succcessfully');
-    });
+
+  openMap() {
+    this.addMethod = 'map';
+    this.dialog.open(ManageRoutesComponent, {data: {}, width: '900px'});
   }
+
 }
