@@ -9,6 +9,7 @@ import {NotFoundComponent} from '@core/components/not-found/not-found.component'
 import {API_URL} from '@core/constants/settings';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import {ToastrModule} from 'ngx-toastr';
+import { SaveRouteDialogComponent } from './components/dialogs/save-route-dialog/save-route-dialog.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {ToastrModule} from 'ngx-toastr';
     FooterComponent,
     NotFoundComponent,
     DriverAssignmentDialogComponent,
+    SaveRouteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import {ToastrModule} from 'ngx-toastr';
     FooterComponent,
   ],
   entryComponents: [
-    DriverAssignmentDialogComponent
+    DriverAssignmentDialogComponent,
+    SaveRouteDialogComponent
   ]
 })
 export class CoreModule {

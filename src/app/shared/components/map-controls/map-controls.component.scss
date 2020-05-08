@@ -1,0 +1,35 @@
+@import 'variables';
+
+#map {
+  position: relative;
+
+  #routes-floating-panel {
+    position: absolute;
+    top: 76px;
+    z-index: 3;
+    left: 10px;
+    background: $white;
+    width: 350px;
+
+    span {
+      color: #82c644;
+    }
+
+    .remove-route {
+      cursor: pointer;
+      color: #949494 !important;
+    }
+
+    i {
+      color: #82c644;
+    }
+  }
+}
+
+.selectedRoute {
+  color: #82c644;
+
+  .route-icon, span {
+    color: #8B0000 !important;
+  }
+}

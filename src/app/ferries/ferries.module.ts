@@ -8,7 +8,11 @@ import {SharedModule} from '@shared/shared.module';
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
 import {FerriesHeaderComponent} from './ferries-header/ferries-header.component';
 import {ChatModule} from '@app/chat/chat.module';
-import {ImportEditRoutesPricesComponent} from './import-edit-routes-prices/import-edit-routes-prices.component';
+import { ManageRoutesComponent } from './manage-routes/manage-routes.component';
+import { ManagePricesRoutesComponent } from './manage-prices-routes/manage-prices-routes.component';
+import { CheckRoutesInfoComponent } from './manage-prices-routes/check-routes-info/check-routes-info.component';
+import { AddRoutesComponent } from './manage-prices-routes/add-routes/add-routes.component';
+import { AddPricesComponent } from './manage-prices-routes/add-prices/add-prices.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import {ImportEditRoutesPricesComponent} from './import-edit-routes-prices/impor
     ShowFerriesComponent,
     FerriesHomeComponent,
     FerriesHeaderComponent,
-    ImportEditRoutesPricesComponent
+    ManageRoutesComponent,
+    ManagePricesRoutesComponent,
+    CheckRoutesInfoComponent,
+    AddRoutesComponent,
+    AddPricesComponent
   ],
   imports: [
     CommonModule,

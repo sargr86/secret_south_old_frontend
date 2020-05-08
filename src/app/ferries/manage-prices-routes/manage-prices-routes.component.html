@@ -1,0 +1,37 @@
+<form [formGroup]="manageRoutesPricesForm">
+  <mat-horizontal-stepper [linear]="true" labelPosition="bottom" #stepper [selectedIndex]="currentStep-1"
+                          (selectionChange)="stepChanged($event)">
+
+    <!-- 'Step passed' sign-->
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+
+    <!--  Step 1 -->
+    <mat-step [stepControl]="manageRoutesPricesForm.get('previousDataInfo')">
+      <ng-template matStepLabel>Checking info</ng-template>
+      <app-check-routes-info></app-check-routes-info>
+    </mat-step>
+
+    <!--  Step 2 -->
+    <mat-step [stepControl]="manageRoutesPricesForm.get('routesData')">
+      <ng-template matStepLabel>Routes</ng-template>
+      <app-add-routes></app-add-routes>
+    </mat-step>
+
+    <!--  Step 3 -->
+    <mat-step [stepControl]="manageRoutesPricesForm.get('pricesData')">
+      <ng-template matStepLabel>Prices</ng-template>
+      <app-add-prices></app-add-prices>
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+</form>
+
+
+<!--<div class="mapContainer">-->
+<!--  <app-map-controls></app-map-controls>-->
+<!--</div>-->
+
+

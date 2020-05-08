@@ -155,6 +155,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         icon = 'fa-envelope';
       } else if (childNode.includes('edit')) {
         icon = 'fa-edit';
+      } else if (childNode.includes('price')) {
+        icon = 'fa-dollar-sign';
+      } else if (childNode.includes('route')) {
+        icon = 'fa-directions';
       } else if (parentNode === mi['item']) {
         icon = mi['icon'];
       } else if (parentNode.includes(mi['item'])) {

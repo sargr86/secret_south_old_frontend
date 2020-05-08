@@ -1137,3 +1137,7 @@ header:not(.timepicker__header) {
     margin-top: 20px;
   }
 }
+
+.mat-list-text span {
+  cursor: pointer;
+}
