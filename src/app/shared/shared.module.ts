@@ -37,7 +37,7 @@ import {HeaderTopComponent} from '@shared/components/header-top/header-top.compo
 import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
 import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-table.component';
 import { MapControlsComponent } from './components/map-controls/map-controls.component';
-// import {AgmDrawingModule} from '@agm/drawing';
+import {AgmDrawingModule} from '@agm/drawing';
 
 @NgModule({
   declarations: [
@@ -82,7 +82,7 @@ import { MapControlsComponent } from './components/map-controls/map-controls.com
       libraries: ['places', 'geometry', 'drawing'],
     }),
     AgmDirectionModule,
-    // AgmDrawingModule,
+    AgmDrawingModule,
     Ng5SliderModule,
     ProgressBarModule
   ],
@@ -114,7 +114,7 @@ import { MapControlsComponent } from './components/map-controls/map-controls.com
     CarouselModule,
     AgmCoreModule,
     AgmDirectionModule,
-    // AgmDrawingModule,
+    AgmDrawingModule,
     Ng5SliderModule,
     ProgressBarModule,
     GetTableDataSourcePipe,

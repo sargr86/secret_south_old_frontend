@@ -2,6 +2,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MAP_CENTER_COORDINATES, MAX_LOCATION_CHOICES} from '@core/constants/settings';
 import * as mapStylesData from '@app/maps/map_styles2.json';
 import {FerriesService} from '@core/services/ferries.service';
+import {DrawingControlOptions, OverlayType} from '@agm/drawing';
+import {PolylineOptions} from '@agm/core/services/google-maps-types';
+import {MatDialog} from '@angular/material/dialog';
+import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-map-controls',
@@ -17,69 +22,85 @@ export class MapControlsComponent implements OnInit {
 
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
   mapStyles = mapStylesData;
+  drawingEnabled = true;
   ferryMapLocations = [];
   selectedLocations = [];
   lines = [];
+  linesArr = [];
   markerIconUrl = 'assets/icons/green_circle_small.png';
-
-  polylineOptions = {
-    strokeColor: '#8B0000',
-    strokeWeight: 4,
-    strokeOpacity: 1,
-    // icons: [{
-    //   icon: this.lineSymbol,
-    //   offset: '0',
-    //   repeat: '20px',
-    //   path: 'M 0,-1 0,1'
-    // }, {
-    //   icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
-    //   offset: '100%'
-    // }],
-    geodesic: true,
+  drawnLines = [];
+  lineSymbol = {
+    path: 'M 0,-1 0,1', strokeWeight: 1.5, scale: 2, strokeOpacity: 100
   };
+  arrowSymbol = {
+    path: 'M 0,0 1,4 -1,4 0,0 z', strokeOpacity: 1, strokeWeight: 1, fillOpacity: 100
+  };
+  drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE, OverlayType.MARKER]};
 
-  paths = [
-    {
-      'lat': 51.804713,
-      'lng': -8.298334
-    },
-    {
-      'lat': 51.8442234,
-      'lng': -8.2284701
-    },
-    {
-      'lat': 51.845922,
-      'lng': -8.209558
-    },
-    {
-      'lat': 51.848841,
-      'lng': -8.297425
-    },
-    {
-      'lat': 51.841616,
-      'lng': -8.2918512
-    },
-    {
-      'lat': 51.836737,
-      'lng': -8.2937395
-    },
-    {
-      'lat': 51.8102374,
-      'lng': -8.2910498
-    },
-    {
-      'lat': 51.804713,
-      'lng': -8.298334
-    },
-  ];
+  polylineOptions: PolylineOptions = {
+    strokeColor: '#8B0000',
+    editable: true,
+    draggable: true,
+    strokeOpacity: 2,
+    icons: [{
+      icon: this.lineSymbol,
+      offset: '0',
+      repeat: '10px',
+
+    }, {
+      icon: this.arrowSymbol,
+      offset: '100%',
+      repeat: '100px',
+    }],
+  };
+  strokesColor;
+  selectedRoute;
 
   constructor(
-    private ferriesService: FerriesService
+    private ferriesService: FerriesService,
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {
   }
 
   ngOnInit() {
     this.getFerryMapLocations();
+    if (this.drawingEnabled) {
+      this.getAllRoutes();
+    }
+    this.strokesColor = this.drawingEnabled ? '#80b446' : '#8B0000';
+  }
+
+  getAllRoutes() {
+    this.linesArr = [];
+    this.ferriesService.getAllRoutes().subscribe((data: any) => {
+      // this.linesArr = data;
+      if (data) {
+        data.map(dt => {
+
+          if (dt.geometry_type === 'LineString') {
+            dt.strokeColor = '#80b446';
+            this.linesArr.push(dt);
+          } else if (dt.geometry_type === 'Polygon') {
+            const coordinates = [];
+            Object.values(dt.coordinates[0]).reverse().map((c: any) => {
+              if (c.lat) {
+                coordinates.push({lat: +c.lat, lng: +c.lng});
+              }
+            });
+            this.linesArr.push({
+              coordinates: coordinates,
+              name: dt.name,
+              geometry_type: dt.geometry_type,
+              strokeColor: '#80b446'
+            });
+          }
+        });
+
+      }
+      // this.linesArr.push(this.lines)
+      // console.log(this.linesArr)
+    });
   }
 
   mapReady(e) {
@@ -108,8 +129,10 @@ export class MapControlsComponent implements OnInit {
     const selectedLocationsLen = this.selectedLocations.length;
     if (selectedLocationsLen < MAX_LOCATION_CHOICES) {
 
-      // Saving selected locations
-      this.selectedLocations.push(location);
+      // Saving selected locations if not the same location point
+      if (!this.selectedLocations.find(loc => loc === location)) {
+        this.selectedLocations.push(location);
+      }
 
       // Marking selected location with red color on the map
       this.ferryMapLocations.map(sl => {
@@ -136,24 +159,83 @@ export class MapControlsComponent implements OnInit {
   getRouteLines() {
 
     this.ferriesService.getRoutePrice(this.selectedLocations).subscribe((dt: any) => {
+      this.linesArr = [];
       this.lines = [];
       if (dt) {
         if (dt.geometry_type === 'LineString') {
           dt.coordinates.map(c => {
-            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'});
           });
         } else if (dt.geometry_type === 'Polygon') {
           Object.values(dt.coordinates[0]).reverse().map((c: any) => {
             if (c.lat) {
-              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'});
             }
 
           });
         }
 
       }
+      this.linesArr.push(this.lines)
       this.routeSelected.emit({selectedLocations: this.selectedLocations, routePriceData: dt});
     });
+  }
+
+  lineDragEnd(e, line) {
+    console.log('drag end')
+    let cs = [];
+    console.log(line)
+    // const coordinatesArray = e.getPath().getArray();
+    // coordinatesArray.forEach((position) => {
+    //   console.log('lat', position.lat());
+    //   console.log('lng', position.lng());
+    //   cs.push({latitude: position.lat(), longitude: position.lng()});
+    // });
+    // console.log(cs)
+  }
+
+
+  overlayComplete(e) {
+    console.log(e)
+    const coordinatesArray = e.overlay.getPath().getArray();
+    const coordinates = [];
+    coordinatesArray.forEach((position) => {
+      console.log('lat', position.lat());
+      console.log('lng', position.lng());
+      coordinates.push({lat: position.lat(), lng: position.lng()});
+    });
+    this.drawnLines.push(e.overlay);
+    this.dialog.open(SaveRouteDialogComponent, {
+      data: {coordinates},
+      width: '700px',
+      height: '500px'
+    }).afterClosed().subscribe((dt) => {
+      this.linesArr = dt;
+      this.removeDrawn();
+      // this.getAllRoutes();
+    });
+  }
+
+  selectRoute(route) {
+    this.selectedRoute = route;
+  }
+
+
+  removeRoute(route) {
+    this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
+      this.linesArr = dt;
+      // this.getAllRoutes();
+      this.removeDrawn();
+      this.toastr.success('Route and its details removed successfully!');
+    });
+  }
+
+
+  removeDrawn() {
+    this.drawnLines.map(overlay => {
+      overlay.setMap(null);
+    });
+    this.drawnLines = [];
   }
 
 }

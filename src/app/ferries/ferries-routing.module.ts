@@ -5,7 +5,8 @@ import {SaveFerryComponent} from './save-ferry/save-ferry.component';
 import {OneFerryResolverService} from '@core/resolvers/one-ferry-resolver.service';
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
 import {AuthGuard} from '@core/guards/auth.guard';
-import {ImportEditRoutesPricesComponent} from '@app/ferries/import-edit-routes-prices/import-edit-routes-prices.component';
+import {ManageRoutesComponent} from '@app/ferries/manage-routes/manage-routes.component';
+import {ManagePricesRoutesComponent} from '@app/ferries/manage-prices-routes/manage-prices-routes.component';
 
 const routes: Routes = [
   {
@@ -22,8 +23,12 @@ const routes: Routes = [
     component: SaveFerryComponent,
   },
   {
-    path: 'add-routes-prices',
-    component: ImportEditRoutesPricesComponent,
+    path: 'manage-routes',
+    component: ManageRoutesComponent,
+  },
+  {
+    path: 'manage-prices',
+    component: ManagePricesRoutesComponent
   },
   {
     path: ':id',
