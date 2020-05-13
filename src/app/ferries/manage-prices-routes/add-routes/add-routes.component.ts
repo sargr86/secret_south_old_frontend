@@ -12,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class AddRoutesComponent implements OnInit {
   selectedFile;
   ferryRoutesData = [];
-  addMethod = 'map';
+  addMethod;
 
   constructor(
     private toastr: ToastrService,

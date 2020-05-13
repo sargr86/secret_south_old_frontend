@@ -12,7 +12,8 @@
       <div class="infoToggler" *ngIf="selectedFerry">
         <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
       </div>
-      <agm-map [latitude]="mapCenterCoordinates" [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10" [fullscreenControl]="true"
+      <agm-map [latitude]="mapCenterCoordinates" [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10"
+               [fullscreenControl]="true"
                [mapTypeControl]="true" (mapClick)="mapClick($event)"
                [rotateControl]="true" (mapReady)="onMapReady($event)"
                [styles]="mapStyles">
@@ -72,31 +73,32 @@
           <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"
                              [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
           </agm-icon-sequence>
-          <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"
-                             [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">
-      </agm-icon-sequence>
+          <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100" [repeat]="'100px'"
+                             [strokeWeight]="1"
+                             [offset]="'100%'" [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">
+          </agm-icon-sequence>
 
-      </agm-polyline>
+        </agm-polyline>
 
 
-      <!--        <agm-drawing-manager #drawing="agmDrawingManager"-->
-      <!--                             [polygonOptions]="polygonOptions"></agm-drawing-manager>-->
-      <!--&lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;-->
-      <!--&lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;-->
-      <!--          <agm-polyline>-->
-      <!--            <agm-polyline-point *ngFor="let data of paths"-->
-      <!--                                [latitude]="data.lat"-->
-      <!--                                [longitude]="data.lng">-->
-      <!--            </agm-polyline-point>-->
-      <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"-->
-      <!--                               [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
-      <!--            </agm-icon-sequence>-->
-      <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"-->
-      <!--                               [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 2,5 -2,5 0,0 z'">-->
-      <!--            </agm-icon-sequence>-->
+        <!--        <agm-drawing-manager #drawing="agmDrawingManager"-->
+        <!--                             [polygonOptions]="polygonOptions"></agm-drawing-manager>-->
+        <!--&lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;-->
+        <!--&lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;-->
+        <!--          <agm-polyline>-->
+        <!--            <agm-polyline-point *ngFor="let data of paths"-->
+        <!--                                [latitude]="data.lat"-->
+        <!--                                [longitude]="data.lng">-->
+        <!--            </agm-polyline-point>-->
+        <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"-->
+        <!--                               [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
+        <!--            </agm-icon-sequence>-->
+        <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"-->
+        <!--                               [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 2,5 -2,5 0,0 z'">-->
+        <!--            </agm-icon-sequence>-->
 
-      <!--          </agm-polyline>-->
-      <!--        </agm-polygon>-->
+        <!--          </agm-polyline>-->
+        <!--        </agm-polygon>-->
       </agm-map>
     </div>
     <div class="ferry-page-right">
@@ -248,8 +250,9 @@
           </ng-container>
           <span *ngIf="!common.showPrice && locationSelected" class="route-not-supported">We don't have this route in our price list</span>
         </div>
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
         <div class="actions">
-
+          <button (click)="buy()">BUY</button>
           <button class="cancel-order-btn" (click)="resetForm()">RESET</button>
           <button class="order-btn" (click)="orderFerry()">ORDER</button>
         </div>

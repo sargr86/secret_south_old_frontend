@@ -2,7 +2,13 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MainService} from '@core/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
-import {API_URL, MAP_CENTER_COORDINATES, MAX_LOCATION_CHOICES, TIMEPICKER_THEME} from '@core/constants/settings';
+import {
+  API_URL,
+  MAP_CENTER_COORDINATES,
+  MAX_LOCATION_CHOICES,
+  STRIPE_CARD_OPTIONS,
+  TIMEPICKER_THEME
+} from '@core/constants/settings';
 import {FerriesService} from '@core/services/ferries.service';
 import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
@@ -17,6 +23,8 @@ import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
 import {HttpParams} from '@angular/common/http';
 import {AgmMap} from '@agm/core';
+import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
+import {UsersService} from '@core/services/users.service';
 
 declare const google: any;
 
@@ -60,12 +68,16 @@ export class FerriesHomeComponent implements OnInit {
   locationSelected = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
+
+  // Stripe
+  cardOptions: ElementOptions = STRIPE_CARD_OPTIONS;
+  elementsOptions: ElementsOptions = {locale: 'en'};
   @ViewChild('messagesList') private messagesList: ElementRef;
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
 
   @ViewChild(AgmMap) map: any;
   mapReady = false;
-
 
 
   lineSymbol = {
@@ -110,7 +122,9 @@ export class FerriesHomeComponent implements OnInit {
     private subject: SubjectService,
     private fb: FormBuilder,
     private ordersService: OrdersService,
-    private webSocketService: WebSocketService
+    private webSocketService: WebSocketService,
+    private stripeService: StripeService,
+    private usersService: UsersService
   ) {
 
     this.getUserTodaysOrders();
@@ -504,6 +518,30 @@ export class FerriesHomeComponent implements OnInit {
       });
     }
   }
+
+  buy() {
+    const name = 'Jane Doe';
+    this.stripeService
+      .createToken(this.card.getCard(), {name})
+      .subscribe(result => {
+        console.log(result)
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token.id);
+          this.usersService.createStripeCard({
+            stripeToken: result.token.id,
+            stripeEmail: this.authUser.email
+          }).subscribe(dt => {
+
+          });
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
+  }
+
 
   get locations(): FormArray {
     return this.orderFerryForm.get('locations') as FormArray;

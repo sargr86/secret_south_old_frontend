@@ -1,5 +1,10 @@
 <div id="map">
-  <div id="routes-floating-panel">
+  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">
+    <div class="collapse-button">
+      <button mat-icon-button color="accent" [disableRipple]="true" (click)="toggleRoutesListPanel()">
+        <mat-icon>{{routesListPanelClosed ? 'arrow_forward' : 'arrow_backward'}}</mat-icon>
+      </button>
+    </div>
     <mat-list *ngIf="linesArr && linesArr.length > 0">
       <ng-container *ngFor="let line of linesArr">
         <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">

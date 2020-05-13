@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {SPINNER_DIAMETER, STRIPE_CARD_OPTIONS} from '@core/constants/settings';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
 import {AuthService} from '@core/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
+import {UsersService} from '@core/services/users.service';
+import * as jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -20,6 +23,12 @@ export class EditProfileComponent implements OnInit {
   spinnerDiameter = SPINNER_DIAMETER;
   redirectUrl;
   dropzoneConfig = DROPZONE_CONFIG;
+  authUser;
+
+  // Stripe
+  cardOptions: ElementOptions = STRIPE_CARD_OPTIONS;
+  elementsOptions: ElementsOptions = {locale: 'en'};
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -27,7 +36,9 @@ export class EditProfileComponent implements OnInit {
     public common: CommonService,
     public router: Router,
     public auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private stripeService: StripeService,
+    private usersService: UsersService
   ) {
     this.profileForm = this._fb.group({
       'first_name': ['', Validators.required],
@@ -42,12 +53,20 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
 
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.authUser = jwtDecode(token);
+    }
+
     this.common.dataLoading = false;
 
     // Setting all the received fields of the form
     this.setFormFields();
 
     this.getRedirectUrl();
+
+    this.getUserCards();
   }
 
   /**
@@ -112,11 +131,46 @@ export class EditProfileComponent implements OnInit {
     this.profileForm.controls['profile_img'].patchValue('');
   }
 
+  addUserWithCard() {
+    const fullName = this.authUser.full_name;
+    this.stripeService
+      .createToken(this.card.getCard(), {name: fullName})
+      .subscribe(result => {
+        console.log(result)
+        if (result.token) {
+          const cardData = result.token.card;
+          console.log(result.token.id);
+          this.usersService.createStripeCard({
+            stripeToken: result.token.id,
+            stripeEmail: this.authUser.email,
+            holderName: fullName,
+            user_id: this.authUser.id,
+            exp_month: cardData.exp_month,
+            exp_year: cardData.exp_year,
+            last4: cardData.last4,
+            brand: cardData.brand,
+            country: cardData.country
+          }).subscribe(dt => {
+
+          });
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
+  }
+
   /**
    * Gets selected image file
    */
   onAddedFile(e) {
     this.dropzoneFile = e;
+  }
+
+  getUserCards() {
+    this.usersService.getUserCards({user_id: this.authUser.id}).subscribe(dt => {
+
+    });
   }
 
   /**
