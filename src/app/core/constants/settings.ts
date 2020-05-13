@@ -3,6 +3,7 @@ import {environment} from '@env';
 import {Section} from '@shared/models/Section';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
+import {ElementOptions} from 'ngx-stripe';
 
 export const LIVE_URL = 'http://myworks.site/dev/secret_south';
 export const API_URL = environment.apiUrl;
@@ -33,8 +34,27 @@ export const CONFIRM_DIALOG_SETTINGS = {autoFocus: true, width: '300px'};
 export const BOOKING_DIALOG_SETTINGS = {autoFocus: true, width: '500px'};
 
 
-// GOOGLE API KEY
+// Google API key
 export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
+
+// Stripe public key
+export const STRIPE_PUBLIC_KEY = 'pk_test_MyqMApfCZgjMQywNsw85PsVl00Ys4ByBYE';
+
+export const STRIPE_CARD_OPTIONS: ElementOptions = {
+  style: {
+    base: {
+      iconColor: '#666EE8',
+      color: '#31325F',
+      lineHeight: '40px',
+      fontWeight: 300,
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSize: '18px',
+      '::placeholder': {
+        color: '#CFD7E0'
+      }
+    }
+  }
+};
 
 export const USER_TYPES = [
   {label: 'partners', role: 'partner'},
