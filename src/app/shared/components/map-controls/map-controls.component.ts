@@ -36,6 +36,7 @@ export class MapControlsComponent implements OnInit {
     path: 'M 0,0 1,4 -1,4 0,0 z', strokeOpacity: 1, strokeWeight: 1, fillOpacity: 100
   };
   drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE, OverlayType.MARKER]};
+  routesListPanelClosed = false;
 
   polylineOptions: PolylineOptions = {
     strokeColor: '#8B0000',
@@ -218,6 +219,13 @@ export class MapControlsComponent implements OnInit {
 
   selectRoute(route) {
     this.selectedRoute = route;
+    this.ferryMapLocations.map(location => {
+      if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
+        location.markerIconUrl = 'assets/icons/red_circle_small.png';
+      } else {
+        location.markerIconUrl = 'assets/icons/green_circle_small.png';
+      }
+    });
   }
 
 
@@ -236,6 +244,14 @@ export class MapControlsComponent implements OnInit {
       overlay.setMap(null);
     });
     this.drawnLines = [];
+  }
+
+  toggleRoutesListPanel() {
+    this.routesListPanelClosed = !this.routesListPanelClosed;
+    this.selectedRoute = null;
+    this.ferryMapLocations.map(location => {
+      location.markerIconUrl = 'assets/icons/green_circle_small.png';
+    });
   }
 
 }

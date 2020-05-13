@@ -6,7 +6,7 @@ import {GetTableDataSourcePipe} from './pipes/get-table-data-source.pipe';
 import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reusable-table.component';
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
-import {DEFAULT_DROPZONE_CONFIG, GOOGLE_API_KEY} from '@core/constants/settings';
+import {DEFAULT_DROPZONE_CONFIG, GOOGLE_API_KEY, STRIPE_PUBLIC_KEY} from '@core/constants/settings';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';
@@ -36,8 +36,9 @@ import {MarkSelectedCoverImagePipe} from './pipes/mark-selected-cover-image.pipe
 import {HeaderTopComponent} from '@shared/components/header-top/header-top.component';
 import {HeaderBottomComponent} from '@shared/components/header-bottom/header-bottom.component';
 import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-table.component';
-import { MapControlsComponent } from './components/map-controls/map-controls.component';
+import {MapControlsComponent} from './components/map-controls/map-controls.component';
 import {AgmDrawingModule} from '@agm/drawing';
+import {NgxStripeModule} from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import {AgmDrawingModule} from '@agm/drawing';
       apiKey: GOOGLE_API_KEY,
       libraries: ['places', 'geometry', 'drawing'],
     }),
+    NgxStripeModule.forRoot(STRIPE_PUBLIC_KEY),
     AgmDirectionModule,
     AgmDrawingModule,
     Ng5SliderModule,
@@ -117,6 +119,7 @@ import {AgmDrawingModule} from '@agm/drawing';
     AgmDrawingModule,
     Ng5SliderModule,
     ProgressBarModule,
+    NgxStripeModule,
     GetTableDataSourcePipe,
     GetImageUrlPipe,
     MatReusableTableComponent,

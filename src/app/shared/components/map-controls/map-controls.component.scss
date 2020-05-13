@@ -33,3 +33,17 @@
     color: #8B0000 !important;
   }
 }
+
+.collapse-button {
+  text-align: right;
+  color: #8B0000 !important;
+}
+
+.closed {
+  width: 38px!important;
+  //background: transparent!important;
+
+  mat-list {
+    display: none;
+  }
+}
