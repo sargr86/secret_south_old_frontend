@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
@@ -10,6 +10,7 @@ import {FerriesService} from '@core/services/ferries.service';
 })
 export class AddPricesComponent implements OnInit {
   ferryPricesData = [];
+  @Output('updated') pricesUpdated = new EventEmitter();
 
   constructor(
     private toastr: ToastrService,
@@ -54,7 +55,8 @@ export class AddPricesComponent implements OnInit {
 
   importPrices() {
     this.ferriesService.importPricesFile(this.ferryPricesData).subscribe(dt => {
-      this.toastr.success('Ferries prices data imported succcessfully');
+      this.toastr.success('Ferries prices data imported successfully');
+      this.pricesUpdated.emit();
     });
   }
 

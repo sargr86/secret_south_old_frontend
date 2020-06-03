@@ -11,6 +11,12 @@
     background: $white;
     width: 350px;
 
+    .default-content-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     span {
       color: #82c644;
     }
@@ -22,6 +28,11 @@
 
     i {
       color: #82c644;
+    }
+
+    .no-routes {
+      padding-left: 10px;
+      color: $red;
     }
   }
 }
@@ -40,7 +51,7 @@
 }
 
 .closed {
-  width: 38px!important;
+  width: 38px !important;
   //background: transparent!important;
 
   mat-list {

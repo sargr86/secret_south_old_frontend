@@ -60,9 +60,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
 
       // Checking if saved token expired
       // if (Date.now() >= this.authUser.exp * 1000) {
-      if(this.jwtHelper.isTokenExpired(token)){
+      if (this.jwtHelper.isTokenExpired(token)) {
         this.toastr.error('Please log in again.', 'The session has been expired');
       } else {
+        console.log(this.authUser)
         this.userPosition = this.authUser.position.name;
         this.isDriver = this.userPosition === 'Driver';
         this.isOperator = this.userPosition === 'Operator' || this.userPosition === 'Director';
