@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
+import {FERRY_PRICES_FILE_DROPZONE_CONFIG} from '@core/constants/settings';
 
 @Component({
   selector: 'app-add-prices',
@@ -10,6 +11,7 @@ import {FerriesService} from '@core/services/ferries.service';
 })
 export class AddPricesComponent implements OnInit {
   ferryPricesData = [];
+  dropzoneConfig = FERRY_PRICES_FILE_DROPZONE_CONFIG;
   @Output('updated') pricesUpdated = new EventEmitter();
 
   constructor(
@@ -25,7 +27,7 @@ export class AddPricesComponent implements OnInit {
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
-    const file = ev.target.files[0];
+    const file = ev;
     reader.onload = (event) => {
       const data = reader.result;
       workBook = XLSX.read(data, {type: 'binary'});
@@ -49,6 +51,7 @@ export class AddPricesComponent implements OnInit {
       }, {});
       this.ferryPricesData = jsonData;
       const dataString = JSON.stringify(jsonData);
+      this.importPrices();
     };
     reader.readAsBinaryString(file);
   }
