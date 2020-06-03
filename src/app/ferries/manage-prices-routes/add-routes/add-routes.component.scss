@@ -1,3 +1,33 @@
 mat-radio-button {
   display: block !important;
 }
+
+.routes-container {
+  display: flex;
+  width: 80%;
+  margin: auto;
+
+  .add-route-variants {
+    width: 20%;
+
+    .export-to-json-container {
+      .export-to-json {
+        text-align: center;
+      }
+    }
+  }
+
+  .map-container, .import-routes-file {
+    width: 80%;
+  }
+
+  .import-routes-file {
+    display: flex;
+    align-items: center;
+
+    form {
+      display: flex;
+      margin: auto;
+    }
+  }
+}
