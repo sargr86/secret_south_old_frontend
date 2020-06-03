@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MAP_CENTER_COORDINATES, MAX_LOCATION_CHOICES} from '@core/constants/settings';
 import * as mapStylesData from '@app/maps/map_styles2.json';
 import {FerriesService} from '@core/services/ferries.service';
@@ -7,6 +7,7 @@ import {PolylineOptions} from '@agm/core/services/google-maps-types';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ToastrService} from 'ngx-toastr';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-map-controls',
@@ -27,6 +28,7 @@ export class MapControlsComponent implements OnInit {
   selectedLocations = [];
   lines = [];
   linesArr = [];
+  filteredLinesArr = [];
   markerIconUrl = 'assets/icons/green_circle_small.png';
   drawnLines = [];
   lineSymbol = {
@@ -56,6 +58,8 @@ export class MapControlsComponent implements OnInit {
   };
   strokesColor;
   selectedRoute;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private ferriesService: FerriesService,
@@ -99,6 +103,7 @@ export class MapControlsComponent implements OnInit {
         });
 
       }
+      this.filteredLinesArr = this.linesArr;
       // this.linesArr.push(this.lines)
       // console.log(this.linesArr)
     });
@@ -161,6 +166,7 @@ export class MapControlsComponent implements OnInit {
 
     this.ferriesService.getRoutePrice(this.selectedLocations).subscribe((dt: any) => {
       this.linesArr = [];
+      this.filteredLinesArr = [];
       this.lines = [];
       if (dt) {
         if (dt.geometry_type === 'LineString') {
@@ -178,6 +184,8 @@ export class MapControlsComponent implements OnInit {
 
       }
       this.linesArr.push(this.lines)
+      this.filteredLinesArr = this.linesArr;
+      console.log(this.filteredLinesArr)
       this.routeSelected.emit({selectedLocations: this.selectedLocations, routePriceData: dt});
     });
   }
@@ -252,6 +260,12 @@ export class MapControlsComponent implements OnInit {
     this.ferryMapLocations.map(location => {
       location.markerIconUrl = 'assets/icons/green_circle_small.png';
     });
+  }
+
+
+  handle(e) {
+    this.filteredLinesArr = this.linesArr.slice(e.pageIndex * e.pageSize,
+      e.pageIndex * e.pageSize + e.pageSize);
   }
 
 }

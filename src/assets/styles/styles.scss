@@ -85,6 +85,14 @@ p {
   color: $green;
 }
 
+.green {
+  color: $green;
+}
+
+.red {
+  color: $red;
+}
+
 table.mat-table {
   @include matTable;
 }

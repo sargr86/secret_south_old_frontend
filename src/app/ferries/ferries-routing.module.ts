@@ -27,7 +27,7 @@ const routes: Routes = [
     component: ManageRoutesComponent,
   },
   {
-    path: 'manage-prices',
+    path: 'manage-all',
     component: ManagePricesRoutesComponent
   },
   {

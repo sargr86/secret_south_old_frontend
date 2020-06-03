@@ -1,19 +1,34 @@
 <div id="map">
   <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">
-    <div class="collapse-button">
-      <button mat-icon-button color="accent" [disableRipple]="true" (click)="toggleRoutesListPanel()">
-        <mat-icon>{{routesListPanelClosed ? 'arrow_forward' : 'arrow_backward'}}</mat-icon>
-      </button>
+    <div class="default-content-container">
+
+      <div class="no-routes">
+        <strong [hidden]="filteredLinesArr.length !==0 || routesListPanelClosed">No routes found</strong>
+      </div>
+      <div class="collapse-button">
+        <button mat-icon-button color="accent" [disableRipple]="true" (click)="toggleRoutesListPanel()">
+          <mat-icon>{{routesListPanelClosed ? 'arrow_forward' : 'arrow_backward'}}</mat-icon>
+        </button>
+      </div>
     </div>
-    <mat-list *ngIf="linesArr && linesArr.length > 0">
-      <ng-container *ngFor="let line of linesArr">
+    <mat-list *ngIf="filteredLinesArr.length > 0">
+      <ng-container *ngFor="let line of filteredLinesArr">
         <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">
           <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
           <span matLine (click)="selectRoute(line)">{{line.name}}</span>
           <i class="fa fa-times remove-route" (click)="removeRoute(line)"></i>
         </mat-list-item>
       </ng-container>
+      <div>
+        <mat-paginator *ngIf="filteredLinesArr.length > 0 && !routesListPanelClosed" (page)="handle($event)" #paginator
+                       [length]="linesArr.length"
+                       [pageSize]="5" [hidePageSize]="true"
+                       [pageSizeOptions]="[2,5,10,25,100]">
+        </mat-paginator>
+      </div>
     </mat-list>
+
+
   </div>
   <agm-map [latitude]="mapCenterCoordinates.lat" [longitude]="mapCenterCoordinates.lng" style="height:600px;"
            [zoom]="10"

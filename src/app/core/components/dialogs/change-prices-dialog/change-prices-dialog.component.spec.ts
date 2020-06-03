@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CheckRoutesInfoComponent } from './check-routes-info.component';
+import { ChangePricesDialogComponent } from './change-prices-dialog.component';
 
-describe('CheckRoutesInfoComponent', () => {
-  let component: CheckRoutesInfoComponent;
-  let fixture: ComponentFixture<CheckRoutesInfoComponent>;
+describe('ChangePricesDialogComponent', () => {
+  let component: ChangePricesDialogComponent;
+  let fixture: ComponentFixture<ChangePricesDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckRoutesInfoComponent ]
+      declarations: [ ChangePricesDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckRoutesInfoComponent);
+    fixture = TestBed.createComponent(ChangePricesDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
