@@ -192,6 +192,15 @@ export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   addRemoveLinks: true
 };
 
+export const FERRY_ROUTES_FILE_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  url: '{no_url}',
+  maxFilesize: 50,
+  maxFiles: 1,
+  acceptedFiles: 'application/json',
+  // autoProcessQueue: false,
+  addRemoveLinks: true
+};
+
 // ngx-phone-number countries
 export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
 export const DEFAULT_COUNTRY = 'ie';
