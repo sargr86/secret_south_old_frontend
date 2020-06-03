@@ -1,13 +1,13 @@
 <div class="routes-container">
 
   <div class="add-route-variants">
-    <label>How you want to add the routes?</label>
+    <strong>How you want to add the routes?</strong>
     <mat-radio-button [checked]="addMethod === 'map'" (change)="addMethod = 'map'">Add routes on map</mat-radio-button>
     <mat-radio-button (change)="addMethod = 'file'" [checked]="addMethod === 'file'">Import routes from a file
     </mat-radio-button>
 
     <div class="export-to-json-container">
-      <label>Export routes to json file</label>
+      <strong>Export routes to json file</strong>
       <mat-checkbox [checked]="true">With prices</mat-checkbox>
       <div class="export-to-json">
         <a mat-raised-button (click)="exportDataToJson()" [href]="downloadJsonHref" download="download.json">
@@ -23,20 +23,10 @@
   </div>
 
   <div *ngIf="addMethod === 'file'" class="import-routes-file">
-    <form>
-      <input #routesFileEl type="file" (change)="onRoutesFileChanged($event,'routes')">
-      <div class="actions">
-        <button (click)="importRoutes()" mat-raised-button color="primary">Import</button>
-        <button type="reset" (click)="routesFileEl.value = ''" mat-raised-button>Reset</button>
-        <button (click)="addMethod = 'map'" mat-icon-button>
-          <mat-icon>arrow_backward</mat-icon>
-        </button>
-      </div>
-    </form>
+    <dropzone [message]="'Drag & drop  routes file here'" [config]="dropzoneConfig" class="single" (addedFile)="onRoutesFileChanged($event)"></dropzone>
   </div>
 
 </div>
-<!--<button mat-raised-button color="primary" matStepperNext>Next</button>-->
 
 
 
