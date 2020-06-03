@@ -1,10 +1,21 @@
-.import-prices-file{
+@import "variables";
+
+.import-prices-file {
   display: flex;
-  align-items: center;
-  form{
-    margin: auto;
-    display: block;
-    width: 40%;
-    text-align: center;
+  width: 80%;
+  margin: auto;
+  //form{
+  //  margin: auto;
+  //  display: block;
+  //  width: 40%;
+  //  text-align: center;
+  //}
+  .prices-info {
+    width: 20%;
+    color: $red;
+  }
+
+  .prices-dropzone {
+    width: 80%;
   }
 }
