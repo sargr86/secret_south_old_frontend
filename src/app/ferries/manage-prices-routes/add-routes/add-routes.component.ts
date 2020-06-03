@@ -4,6 +4,7 @@ import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
+import {FERRY_ROUTES_FILE_DROPZONE_CONFIG} from '@core/constants/settings';
 
 @Component({
   selector: 'app-add-routes',
@@ -16,6 +17,7 @@ export class AddRoutesComponent implements OnInit {
   addMethod = 'map';
   downloadJsonHref;
   allRoutesPrices;
+  dropzoneConfig = FERRY_ROUTES_FILE_DROPZONE_CONFIG;
 
   @Output('updated') routesUpdated = new EventEmitter();
 
@@ -29,21 +31,22 @@ export class AddRoutesComponent implements OnInit {
 
   ngOnInit(): void {
     this.ferriesService.getAllRoutes().subscribe((data: any) => {
-      console.log(data)
       this.allRoutesPrices = data;
     });
   }
 
-  onRoutesFileChanged(e, type) {
-    this.selectedFile = e.target.files[0];
+  onRoutesFileChanged(e, type = '') {
+    console.log(e)
+    this.selectedFile = e;
     const fileReader = new FileReader();
-    console.log('aaaa')
     fileReader.readAsText(this.selectedFile, 'UTF-8');
     fileReader.onload = async () => {
 
 
       const json = JSON.parse(fileReader['result'] as any);
+      console.log(json)
 
+      // For geojson file
       if (json.hasOwnProperty('features')) {
 
 
@@ -102,7 +105,7 @@ export class AddRoutesComponent implements OnInit {
 
       } else {
         this.ferryRoutesData = json;
-        console.log(json)
+        this.importRoutes();
       }
     };
     fileReader.onerror = (error) => {
