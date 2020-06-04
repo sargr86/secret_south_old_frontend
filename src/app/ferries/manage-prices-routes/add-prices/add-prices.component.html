@@ -1,16 +1,7 @@
 <div class="import-prices-file">
   <div class="prices-info">
-    <p>The file should have *xls or *xlsx format</p>
+    <p>The file should have *xlsx format</p>
   </div>
-  <!--  <form>-->
-  <!--    <h3>Import prices file</h3>-->
-  <!--    <input #pricesFileEl type="file" (change)="onPricesFileChanged($event)">-->
-  <!--    <div class="actions">-->
-
-  <!--      <button (click)="importPrices()" mat-raised-button color="primary">Import</button>-->
-  <!--      <button type="reset" (click)="pricesFileEl.value = ''" mat-raised-button>Reset</button>-->
-  <!--    </div>-->
-  <!--  </form>-->
   <div class="prices-dropzone">
     <dropzone [message]="'Drag & drop prices file here'" [config]="dropzoneConfig" class="single"
               (addedFile)="onPricesFileChanged($event)"></dropzone>
