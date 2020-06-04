@@ -16,7 +16,7 @@
         <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">
           <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
           <span matLine (click)="selectRoute(line)">{{line.name}}</span>
-          <i class="fa fa-times remove-route" (click)="removeRoute(line)"></i>
+          <mat-icon (click)="removeRoute(line)" class="remove-route">clear</mat-icon>
         </mat-list-item>
       </ng-container>
       <div>

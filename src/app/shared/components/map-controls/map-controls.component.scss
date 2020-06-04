@@ -22,8 +22,14 @@
     }
 
     .remove-route {
+      font-size: 18px !important;
+      font-weight: bold !important;
       cursor: pointer;
-      color: #949494 !important;
+      color: $dark_gray;
+    }
+
+    .remove-route:hover {
+      color: #8B0000 !important;
     }
 
     i {
@@ -43,11 +49,17 @@
   .route-icon, span {
     color: #8B0000 !important;
   }
+
+
 }
 
 .collapse-button {
   text-align: right;
   color: #8B0000 !important;
+
+  button {
+    margin-left: -8px !important;
+  }
 }
 
 .closed {
