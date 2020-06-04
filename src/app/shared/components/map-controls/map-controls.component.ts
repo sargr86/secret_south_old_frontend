@@ -205,7 +205,6 @@ export class MapControlsComponent implements OnInit {
 
 
   overlayComplete(e) {
-    console.log(e)
     const coordinatesArray = e.overlay.getPath().getArray();
     const coordinates = [];
     coordinatesArray.forEach((position) => {
@@ -214,6 +213,7 @@ export class MapControlsComponent implements OnInit {
       coordinates.push({lat: position.lat(), lng: position.lng()});
     });
     this.drawnLines.push(e.overlay);
+    this.closeFullscreen();
     this.dialog.open(SaveRouteDialogComponent, {
       data: {coordinates},
       width: '700px',
@@ -221,8 +221,15 @@ export class MapControlsComponent implements OnInit {
     }).afterClosed().subscribe((dt) => {
       this.linesArr = dt;
       this.removeDrawn();
-      // this.getAllRoutes();
+      this.getAllRoutes();
     });
+  }
+
+  /* Close fullscreen */
+  closeFullscreen() {
+    if (document.exitFullscreen && document.fullscreenElement !== null) {
+      document.exitFullscreen();
+    }
   }
 
   selectRoute(route) {
@@ -240,7 +247,7 @@ export class MapControlsComponent implements OnInit {
   removeRoute(route) {
     this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
       this.linesArr = dt;
-      // this.getAllRoutes();
+      this.getAllRoutes();
       this.removeDrawn();
       this.toastr.success('Route and its details removed successfully!');
     });

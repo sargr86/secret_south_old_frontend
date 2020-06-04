@@ -84,6 +84,10 @@ export class FerriesService {
     return this.http.delete(`${API_URL}ferries/remove-route-price`, {params});
   }
 
+  removeAllRoutesPrices(params) {
+    return this.http.delete(`${API_URL}ferries/remove-all-routes-prices`, {params});
+  }
+
   updateRoutePrice(params) {
     return this.http.post(`${API_URL}ferries/update-route-price`, params);
   }
