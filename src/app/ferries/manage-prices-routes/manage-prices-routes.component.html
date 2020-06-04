@@ -1,13 +1,15 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="0">
   <mat-tab label="Routes">
+<!--    <ng-template mat-tab-label>-->
+<!--      <span matBadge="{{tab.count}}" matBadgeOverlap="false">{{tab.name}}</span>-->
+<!--    </ng-template>-->
     <app-add-routes (updated)="getAllRoutesPrices()"></app-add-routes>
   </mat-tab>
   <mat-tab label="Prices">
     <app-add-prices (updated)="getAllRoutesPrices()"></app-add-prices>
   </mat-tab>
   <mat-tab label="Summary">
-
-    <div class="mat-elevation-z8 table-container">
+    <div class="mat-elevation-z8 table-container" *ngIf="dataSource && dataSource.data.length!==0">
 
       <div class="table_responsive">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -51,13 +53,19 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;">
           </tr>
         </table>
+        <div class="remove-all-container">
+          <button mat-raised-button color="accent" (click)="removeAllRoutesPrices()">Remove all</button>
+        </div>
         <mat-paginator [pageSizeOptions]="paginationValues"
                        [hidden]="common.dataLoading || !dataSource"></mat-paginator>
       </div>
+
       <div class="min-people-count-hint">
         <mat-hint>*Minimum people count for all kinds of routes: 6</mat-hint>
       </div>
     </div>
-
+    <div class="no-routes-price" *ngIf="dataSource && dataSource.data.length==0">
+      <strong>No routes and prices found.</strong>
+    </div>
   </mat-tab>
 </mat-tab-group>

@@ -22,6 +22,8 @@ export class ManagePricesRoutesComponent implements OnInit {
   displayedColumns = ROUTES_PRICES_TABLE_COLUMNS;
   dataSource;
   paginationValues = [10, 25, 100];
+  onlyRoutesLen = 0;
+  routesWithPricesLen = 0;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -51,19 +53,28 @@ export class ManagePricesRoutesComponent implements OnInit {
   }
 
   getAllRoutesPrices() {
-    this.ferriesService.getAllRoutesPrices().subscribe(dt => {
+    this.ferriesService.getAllRoutesPrices().subscribe((dt: any) => {
       this.dataSource = this.dataSrc.transform(dt);
+      let routesOnly = dt.filter(d => d.hasOwnProperty('single'));
+      console.log(routesOnly.length)
       this.dataSource.paginator = this.paginator;
     });
   }
-m
+
   editPrices(row) {
     this.dialog.open(ChangePricesDialogComponent, {data: row, width: '400px'});
   }
 
   removeRoutePrice(row) {
-    this.ferriesService.removeRoutePrice({id: row._id}).subscribe(dt => {
-      this.toastr.success('The route has been removed successfully from the map');
+    this.ferriesService.removeRoutePrice({id: row._id}).subscribe(() => {
+      this.toastr.success('The route info has been removed successfully from the map');
+      this.getAllRoutesPrices();
+    });
+  }
+
+  removeAllRoutesPrices() {
+    this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
+      this.toastr.success('All routes and their info have been removed successfully from the map');
       this.getAllRoutesPrices();
     });
   }
