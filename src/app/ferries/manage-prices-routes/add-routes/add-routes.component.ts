@@ -1,5 +1,4 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ManageRoutesComponent} from '@app/ferries/manage-routes/manage-routes.component';
 import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
 import {MatDialog} from '@angular/material/dialog';
@@ -120,12 +119,6 @@ export class AddRoutesComponent implements OnInit {
       this.toastr.success('Ferries routes data imported successfully');
       this.routesUpdated.emit();
     });
-  }
-
-
-  openMap() {
-    this.addMethod = 'map';
-    this.dialog.open(ManageRoutesComponent, {data: {}, width: '900px'});
   }
 
   exportDataToJson() {
