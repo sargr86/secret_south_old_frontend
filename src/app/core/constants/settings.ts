@@ -115,7 +115,6 @@ export const DASHBOARD_LINKS = [
     name: 'Ferries',
     children: [
       {name: 'Add'},
-      {name: 'Manage routes'},
       {name: 'Manage all'},
       {name: 'Show'},
     ]

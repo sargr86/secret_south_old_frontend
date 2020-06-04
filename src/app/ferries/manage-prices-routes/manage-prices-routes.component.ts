@@ -2,15 +2,12 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FerriesService} from '@core/services/ferries.service';
 import {CommonService} from '@core/services/common.service';
 import {ToastrService} from 'ngx-toastr';
-import * as XLSX from 'xlsx';
 import {MatDialog} from '@angular/material/dialog';
-import {ManageRoutesComponent} from '@app/ferries/manage-routes/manage-routes.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {MAT_TABLE_PAGINATION_VALUES, ORDERS_TABLE_COLUMNS, ROUTES_PRICES_TABLE_COLUMNS} from '@core/constants/settings';
+import {FormBuilder} from '@angular/forms';
+import {ROUTES_PRICES_TABLE_COLUMNS} from '@core/constants/settings';
 import {MatPaginator} from '@angular/material/paginator';
 import {GetTableDataSourcePipe} from '@shared/pipes/get-table-data-source.pipe';
-import {MatTabGroup, MatTabNav} from '@angular/material/tabs';
-import {Route, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
 import {ChangePricesDialogComponent} from '@core/components/dialogs/change-prices-dialog/change-prices-dialog.component';
 
@@ -59,15 +56,15 @@ export class ManagePricesRoutesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
-
+m
   editPrices(row) {
-    console.log('OK')
     this.dialog.open(ChangePricesDialogComponent, {data: row, width: '400px'});
   }
 
   removeRoutePrice(row) {
     this.ferriesService.removeRoutePrice({id: row._id}).subscribe(dt => {
-
+      this.toastr.success('The route has been removed successfully from the map');
+      this.getAllRoutesPrices();
     });
   }
 
