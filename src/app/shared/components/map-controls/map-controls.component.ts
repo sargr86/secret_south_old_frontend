@@ -222,24 +222,28 @@ export class MapControlsComponent implements OnInit {
 
 
   overlayComplete(e) {
-    const coordinatesArray = e.overlay.getPath().getArray();
-    const coordinates = [];
-    coordinatesArray.forEach((position) => {
-      console.log('lat', position.lat());
-      console.log('lng', position.lng());
-      coordinates.push({lat: position.lat(), lng: position.lng()});
-    });
-    this.drawnLines.push(e.overlay);
-    this.closeFullscreen();
-    this.dialog.open(SaveRouteDialogComponent, {
-      data: {coordinates},
-      width: '700px',
-      height: '500px'
-    }).afterClosed().subscribe((dt) => {
-      this.linesArr = dt;
-      this.removeDrawn();
-      this.getAllRoutes();
-    });
+    console.log(e.overlay)
+    if (e.overlay) {
+
+      const coordinatesArray = e.overlay.getPath().getArray();
+      const coordinates = [];
+      coordinatesArray.forEach((position) => {
+        console.log('lat', position.lat());
+        console.log('lng', position.lng());
+        coordinates.push({lat: position.lat(), lng: position.lng()});
+      });
+      this.drawnLines.push(e.overlay);
+      this.closeFullscreen();
+      this.dialog.open(SaveRouteDialogComponent, {
+        data: {coordinates},
+        width: '700px',
+        height: '500px'
+      }).afterClosed().subscribe((dt) => {
+        this.linesArr = dt;
+        this.removeDrawn();
+        this.getAllRoutes();
+      });
+    }
   }
 
   /* Close fullscreen */

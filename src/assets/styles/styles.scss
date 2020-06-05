@@ -1150,6 +1150,7 @@ header:not(.timepicker__header) {
   cursor: pointer;
 }
 
+// Mat error, invalid field styles override
 .mat-error, .mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
   color: $red !important;
 }
@@ -1159,6 +1160,6 @@ header:not(.timepicker__header) {
   color: $red !important;
 }
 
-.mat-form-field.mat-form-field-invalid .mat-form-field-label{
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
   color: $red !important;
 }
