@@ -13,6 +13,7 @@ export class SaveRouteDialogComponent implements OnInit {
   saveRouteForm: FormGroup;
   locations;
   isSubmitted = false;
+  routeName;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,10 +22,10 @@ export class SaveRouteDialogComponent implements OnInit {
     private dialog: MatDialogRef<SaveRouteDialogComponent>
   ) {
     this.saveRouteForm = this.fb.group({
-      name: ['', Validators.required],
+      name: [{value: ''}, Validators.required],
       start_point: ['', Validators.required],
-      stop_1: ['', Validators.required],
-      stop_2: ['', Validators.required],
+      stop_1: [''],
+      stop_2: [''],
       end_point: ['', Validators.required],
       geometry_type: ['LineString'],
       // price: [''],
@@ -47,12 +48,21 @@ export class SaveRouteDialogComponent implements OnInit {
     }
   }
 
+  generateRouteName() {
+    const startPoint = this.startPoint.value;
+    const stop1 = this.stop_1.value;
+    const stop2 = this.stop_2.value;
+    const endPoint = this.endPoint.value;
+    this.routeName = `${startPoint ? startPoint : ''}${stop1 ? ' - ' + stop1 : ''}${stop2 ? ' - ' + stop2 : ''}${endPoint ? ' - ' + endPoint : ''}`;
+    this.saveRouteForm.patchValue({name: this.routeName});
+  }
+
   get startPoint(): AbstractControl {
     return this.saveRouteForm.get('start_point');
   }
 
   get endPoint(): AbstractControl {
-    return this.saveRouteForm.get('start_point');
+    return this.saveRouteForm.get('end_point');
   }
 
   get stop_1(): AbstractControl {
