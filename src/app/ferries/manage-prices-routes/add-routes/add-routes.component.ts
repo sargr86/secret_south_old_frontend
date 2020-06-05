@@ -35,7 +35,6 @@ export class AddRoutesComponent implements OnInit {
   }
 
   onRoutesFileChanged(e, type = '') {
-    console.log(e)
     this.selectedFile = e;
     const fileReader = new FileReader();
     fileReader.readAsText(this.selectedFile, 'UTF-8');
@@ -43,7 +42,6 @@ export class AddRoutesComponent implements OnInit {
 
 
       const json = JSON.parse(fileReader['result'] as any);
-      console.log(json)
 
       // For geojson file
       if (json.hasOwnProperty('features')) {
