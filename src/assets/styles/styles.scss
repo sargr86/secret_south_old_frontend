@@ -1149,3 +1149,16 @@ header:not(.timepicker__header) {
 .mat-list-text span {
   cursor: pointer;
 }
+
+.mat-error, .mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+  color: $red !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+  background-color: $red !important;
+  color: $red !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label{
+  color: $red !important;
+}

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FerriesService} from '@core/services/ferries.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class SaveRouteDialogComponent implements OnInit {
 
   saveRouteForm: FormGroup;
   locations;
+  isSubmitted = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,9 +39,28 @@ export class SaveRouteDialogComponent implements OnInit {
   }
 
   saveRoute() {
-    this.ferriesService.addRoutePrice(this.saveRouteForm.value).subscribe(dt => {
-      this.dialog.close(dt);
-    });
+    this.isSubmitted = true;
+    if (this.saveRouteForm.valid) {
+      this.ferriesService.addRoutePrice(this.saveRouteForm.value).subscribe(dt => {
+        this.dialog.close(dt);
+      });
+    }
+  }
+
+  get startPoint(): AbstractControl {
+    return this.saveRouteForm.get('start_point');
+  }
+
+  get endPoint(): AbstractControl {
+    return this.saveRouteForm.get('start_point');
+  }
+
+  get stop_1(): AbstractControl {
+    return this.saveRouteForm.get('stop_1');
+  }
+
+  get stop_2(): AbstractControl {
+    return this.saveRouteForm.get('stop_2');
   }
 
 }
