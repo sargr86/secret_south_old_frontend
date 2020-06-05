@@ -103,7 +103,7 @@ export class MapControlsComponent implements OnInit {
         });
 
       }
-      this.filteredLinesArr = this.linesArr;
+      this.filteredLinesArr = this.linesArr.slice(0, 5);
       // this.linesArr.push(this.lines)
       // console.log(this.linesArr)
     });

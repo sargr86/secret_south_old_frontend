@@ -210,7 +210,6 @@ export const FERRY_PRICES_FILE_DROPZONE_CONFIG: DropzoneConfigInterface = {
 };
 
 
-
 // ngx-phone-number countries
 export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
 export const DEFAULT_COUNTRY = 'ie';
@@ -285,7 +284,7 @@ export const ALL_ORDER_TABS = [
 export const DRIVER_ORDER_TABS = ALL_ORDER_TABS.filter(t => t.name !== 'Pending');
 
 export const ORDERS_TABLE_COLUMNS = ['_id', 'client_full_name', 'phone', 'email', 'driver_full_name', 'driver_phone', 'driver_email', 'start_point', 'stop_1', 'stop_2', 'end_point', 'time', 'status', 'actions'];
-export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', 'end_point', 'has_coordinates_on_map', 'single', 'return', 'total', 'actions'];
+export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', 'end_point', 'has_coordinates_on_map', 'has_price', 'single', 'return', 'total', 'actions'];
 
 export const MAX_LOCATION_CHOICES = 4;
 
