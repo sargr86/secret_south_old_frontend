@@ -149,29 +149,33 @@ export class MapControlsComponent implements OnInit {
 
   selectLocationOnMap(location) {
 
-    const selectedLocationsLen = this.selectedLocations.length;
-    if (selectedLocationsLen < MAX_LOCATION_CHOICES) {
+    if (!this.drawingEnabled) {
 
-      // Saving selected locations if not the same location point
-      if (!this.selectedLocations.find(loc => loc === location)) {
-        this.selectedLocations.push(location);
+
+      const selectedLocationsLen = this.selectedLocations.length;
+      if (selectedLocationsLen < MAX_LOCATION_CHOICES) {
+
+        // Saving selected locations if not the same location point
+        if (!this.selectedLocations.find(loc => loc === location)) {
+          this.selectedLocations.push(location);
+        }
+
+        // Marking selected location with red color on the map
+        this.ferryMapLocations.map(sl => {
+
+          // Retrieve current location object
+          const selectedLocation = this.selectedLocations.find(d => d.name === sl.name);
+          sl.markerIconUrl = 'assets/icons/' + (selectedLocation ? 'red' : 'green') + '_circle_small.png';
+
+        });
+
+        if (this.selectedRouteValid) {
+          this.getRouteLines();
+        }
+
+        this.locationSelected.emit({selectedLocations: this.selectedLocations});
+
       }
-
-      // Marking selected location with red color on the map
-      this.ferryMapLocations.map(sl => {
-
-        // Retrieve current location object
-        const selectedLocation = this.selectedLocations.find(d => d.name === sl.name);
-        sl.markerIconUrl = 'assets/icons/' + (selectedLocation ? 'red' : 'green') + '_circle_small.png';
-
-      });
-
-      if (this.selectedRouteValid) {
-        this.getRouteLines();
-      }
-
-      this.locationSelected.emit({selectedLocations: this.selectedLocations});
-
     }
   }
 
