@@ -2,7 +2,7 @@
   <mat-tab label="Coordinates">
     <ng-template mat-tab-label>
       <span matBadge="{{routesOnMap}}" matBadgeOverlap="false"
-            [matTooltip]="'Count of routes without assigned prices'">Coordinates</span>
+            [matTooltip]="'Count of routes with map coordinates'">Coordinates</span>
     </ng-template>
     <app-add-routes (updated)="getAllRoutesPrices()"></app-add-routes>
   </mat-tab>

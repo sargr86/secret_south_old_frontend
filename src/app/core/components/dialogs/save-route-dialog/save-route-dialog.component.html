@@ -8,8 +8,12 @@
         <mat-option *ngFor="let location of locations" [value]="location.name">
           {{location.name}}
         </mat-option>
+
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="isSubmitted && startPoint.hasError('required')">
+      Start point is <strong>required</strong>
+    </mat-error>
     <mat-form-field>
       <mat-select formControlName="end_point" placeholder="End point">
         <mat-option *ngFor="let location of locations" [value]="location.name">
@@ -17,6 +21,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="isSubmitted && endPoint.hasError('required')">
+      End point is <strong>required</strong>
+    </mat-error>
     <mat-form-field>
       <mat-select formControlName="stop_1" placeholder="1st stop">
         <mat-option *ngFor="let location of locations" [value]="location.name">
@@ -36,9 +43,9 @@
       <input matInput formControlName="name" placeholder="Route name">
     </mat-form-field>
 
-<!--    <mat-form-field>-->
-<!--      <input matInput formControlName="price" placeholder="Price for single person">-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field>-->
+    <!--      <input matInput formControlName="price" placeholder="Price for single person">-->
+    <!--    </mat-form-field>-->
 
     <button mat-raised-button color="primary" (click)="saveRoute()">Save</button>
   </ng-container>
