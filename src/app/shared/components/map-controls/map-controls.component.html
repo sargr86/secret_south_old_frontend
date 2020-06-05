@@ -21,8 +21,8 @@
       </ng-container>
       <div>
         <mat-paginator *ngIf="filteredLinesArr.length > 0 && !routesListPanelClosed" (page)="handle($event)" #paginator
-                       [length]="linesArr.length"
-                       [pageSize]="5" [hidePageSize]="true"
+                       [length]="linesArr.length" [pageIndex]="pageIndex"
+                       [pageSize]="pageSize" [hidePageSize]="true"
                        [pageSizeOptions]="[2,5,10,25,100]">
         </mat-paginator>
       </div>

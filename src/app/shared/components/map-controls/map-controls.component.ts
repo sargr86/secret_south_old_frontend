@@ -59,6 +59,9 @@ export class MapControlsComponent implements OnInit {
   strokesColor;
   selectedRoute;
 
+  public pageSize = 5;
+  public pageIndex = 0;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -97,16 +100,30 @@ export class MapControlsComponent implements OnInit {
               coordinates: coordinates,
               name: dt.name,
               geometry_type: dt.geometry_type,
-              strokeColor: '#80b446'
+              strokeColor: '#80b446',
+              _id: dt._id
             });
           }
         });
 
       }
-      this.filteredLinesArr = this.linesArr.slice(0, 5);
-      // this.linesArr.push(this.lines)
-      // console.log(this.linesArr)
+
+      if (this.filteredLinesArr.length === 1) {
+        --this.pageIndex;
+      }
+      this.filterRoutes();
     });
+  }
+
+  handle(e) {
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.filterRoutes();
+  }
+
+  filterRoutes() {
+    this.filteredLinesArr = this.linesArr.slice(this.pageIndex * this.pageSize,
+      this.pageIndex * this.pageSize + this.pageSize);
   }
 
   mapReady(e) {
@@ -245,6 +262,7 @@ export class MapControlsComponent implements OnInit {
 
 
   removeRoute(route) {
+    // console.log(route)
     this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
       this.linesArr = dt;
       this.getAllRoutes();
@@ -269,10 +287,5 @@ export class MapControlsComponent implements OnInit {
     });
   }
 
-
-  handle(e) {
-    this.filteredLinesArr = this.linesArr.slice(e.pageIndex * e.pageSize,
-      e.pageIndex * e.pageSize + e.pageSize);
-  }
 
 }
