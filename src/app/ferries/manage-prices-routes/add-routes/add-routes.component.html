@@ -23,7 +23,13 @@
   </div>
 
   <div *ngIf="addMethod === 'file'" class="import-routes-file">
-    <dropzone [message]="'Drag & drop  routes file here'" [config]="dropzoneConfig" class="single" (addedFile)="onRoutesFileChanged($event)"></dropzone>
+    <dropzone [message]="'Drag & drop  routes file here'" [config]="dropzoneConfig" class="single"
+              (addedFile)="onRoutesFileChanged($event)"></dropzone>
+    <div>
+      <button mat-icon-button (click)="addMethod = 'map'">
+        <mat-icon>arrow_backward</mat-icon>
+      </button>
+    </div>
   </div>
 
 </div>

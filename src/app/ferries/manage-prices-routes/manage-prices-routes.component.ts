@@ -22,8 +22,9 @@ export class ManagePricesRoutesComponent implements OnInit {
   displayedColumns = ROUTES_PRICES_TABLE_COLUMNS;
   dataSource;
   paginationValues = [10, 25, 100];
-  onlyRoutesLen = 0;
+  routesWithNoPriceLen = 0;
   routesWithPricesLen = 0;
+  routesOnMap;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -55,10 +56,12 @@ export class ManagePricesRoutesComponent implements OnInit {
   getAllRoutesPrices() {
     this.ferriesService.getAllRoutesPrices().subscribe((dt: any) => {
       this.dataSource = this.dataSrc.transform(dt);
-      const routesOnly = dt.filter(d => !d.hasOwnProperty('single'));
-      this.onlyRoutesLen = routesOnly.length;
-      const routesWithPrices = dt.filter(d => d.hasOwnProperty('single'));
+      const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
+      this.routesWithNoPriceLen = routesOnly.length;
+      const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
       this.routesWithPricesLen = routesWithPrices.length;
+      const routesOnTheMap = dt.filter(d => d.coordinates.length !== 0);
+      this.routesOnMap = routesOnTheMap.length;
       this.dataSource.paginator = this.paginator;
     });
   }
