@@ -55,8 +55,10 @@ export class ManagePricesRoutesComponent implements OnInit {
   getAllRoutesPrices() {
     this.ferriesService.getAllRoutesPrices().subscribe((dt: any) => {
       this.dataSource = this.dataSrc.transform(dt);
-      let routesOnly = dt.filter(d => d.hasOwnProperty('single'));
-      console.log(routesOnly.length)
+      const routesOnly = dt.filter(d => !d.hasOwnProperty('single'));
+      this.onlyRoutesLen = routesOnly.length;
+      const routesWithPrices = dt.filter(d => d.hasOwnProperty('single'));
+      this.routesWithPricesLen = routesWithPrices.length;
       this.dataSource.paginator = this.paginator;
     });
   }
