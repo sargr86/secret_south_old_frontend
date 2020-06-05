@@ -26,12 +26,10 @@ mat-radio-button {
   }
 
   .import-routes-file {
-    display: flex;
-    align-items: center;
+    text-align: center;
 
-    form {
-      display: flex;
-      margin: auto;
+    mat-icon {
+      color: $red;
     }
   }
 }
