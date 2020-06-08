@@ -226,14 +226,14 @@ export class MapControlsComponent implements OnInit {
 
 
   overlayComplete(e) {
-    console.log(e.overlay)
+    // console.log(e.overlay)
     if (e.overlay) {
 
       const coordinatesArray = e.overlay.getPath().getArray();
       const coordinates = [];
       coordinatesArray.forEach((position) => {
-        console.log('lat', position.lat());
-        console.log('lng', position.lng());
+        // console.log('lat', position.lat());
+        // console.log('lng', position.lng());
         coordinates.push({lat: position.lat(), lng: position.lng()});
       });
       this.drawnLines.push(e.overlay);

@@ -22,6 +22,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="stop_1.hasError('duplicateLocation')">
+      <strong>Duplicate</strong> location
+    </mat-error>
     <mat-form-field>
       <mat-select formControlName="stop_2" placeholder="2nd stop" (selectionChange)="generateRouteName()">
         <mat-option *ngFor="let location of locations" [value]="location.name">
@@ -29,6 +32,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-error *ngIf="stop_2.hasError('duplicateLocation')">
+      <strong>Duplicate</strong> location
+    </mat-error>
 
     <mat-form-field>
       <mat-select formControlName="end_point" placeholder="End point" (selectionChange)="generateRouteName()">
@@ -40,17 +46,13 @@
     <mat-error *ngIf="isSubmitted && endPoint.hasError('required')">
       End point is <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="endPoint.hasError('duplicateLocation')">
+      <strong>Duplicate</strong> location
+    </mat-error>
     <div *ngIf="routeName" class="route-name">
       <span>Route name:</span>
       <strong [class.green]="saveRouteForm.valid">{{routeName}}</strong>
     </div>
-    <!--    <mat-form-field>-->
-    <!--      <input matInput formControlName="name" placeholder="Route name">-->
-    <!--    </mat-form-field>-->
-
-    <!--    <mat-form-field>-->
-    <!--      <input matInput formControlName="price" placeholder="Price for single person">-->
-    <!--    </mat-form-field>-->
 
     <button mat-raised-button color="primary" (click)="saveRoute()">Save</button>
   </ng-container>
