@@ -39,71 +39,8 @@ export class AddRoutesComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.readAsText(this.selectedFile, 'UTF-8');
     fileReader.onload = async () => {
-
-
-      const json = JSON.parse(fileReader['result'] as any);
-
-      // For geojson file
-      if (json.hasOwnProperty('features')) {
-
-
-        json.features.map(async (feature) => {
-          const geometryType = feature.geometry.type;
-          if (geometryType !== 'Point') {
-            const routeName = feature.properties.Name;
-            const routeNameParts = routeName.split('-').map(function (item) {
-              return item.trim();
-            });
-            const coordinates = feature.geometry.coordinates;
-            if (geometryType === 'LineString') {
-              const cs = [];
-              coordinates.map(c => {
-                cs.push({lat: c[1], lng: c[0]});
-              });
-
-              this.ferryRoutesData.push({
-                name: routeName,
-                start_point: routeNameParts[0],
-                stop_1: '',
-                stop_2: '',
-                end_point: routeNameParts[1],
-                geometry_type: geometryType,
-                coordinates: cs,
-                // single: '',
-                // total: '',
-                // min_people: 6
-              });
-            } else if (geometryType === 'Polygon') {
-              const cs = [];
-              coordinates.map(coordinate => {
-                const polygonCoordinates = [];
-                coordinate.map(c => {
-                  polygonCoordinates.push({lat: c[1], lng: c[0]});
-                });
-                cs.push(polygonCoordinates);
-              });
-              this.ferryRoutesData.push({
-                name: routeName,
-                start_point: routeNameParts[0],
-                stop_1: routeNameParts[1] ? routeNameParts[1] : '',
-                stop_2: routeNameParts[2] ? routeNameParts[2] : '',
-                end_point: routeNameParts[3] ? routeNameParts[3] : '',
-                geometry_type: geometryType,
-                coordinates: cs,
-                // single: '',
-                // total: '',
-                // min_people: 6
-              });
-            }
-
-          }
-
-        });
-
-      } else {
-        this.ferryRoutesData = json;
-        this.importRoutes();
-      }
+      this.ferryRoutesData = JSON.parse(fileReader['result'] as any);
+      this.importRoutes();
     };
     fileReader.onerror = (error) => {
       // this.toastr.error(error)
