@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FerriesService} from '@core/services/ferries.service';
+import {preventDuplicateLocations} from '@core/helpers/prevent-duplicate-locations';
 
 @Component({
   selector: 'app-save-route-dialog',
@@ -28,9 +29,8 @@ export class SaveRouteDialogComponent implements OnInit {
       stop_2: [''],
       end_point: ['', Validators.required],
       geometry_type: ['LineString'],
-      // price: [''],
       coordinates: [data.coordinates]
-    });
+    }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
   }
 
   ngOnInit(): void {
