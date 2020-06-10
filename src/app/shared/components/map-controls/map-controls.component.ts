@@ -19,6 +19,7 @@ export class MapControlsComponent implements OnInit {
 
   @Output('locationSelected') locationSelected = new EventEmitter();
   @Output('routeSelected') routeSelected = new EventEmitter();
+  @Output('refreshRoutes') refreshRoutes = new EventEmitter();
 
 
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
@@ -110,8 +111,11 @@ export class MapControlsComponent implements OnInit {
 
       if (this.filteredLinesArr.length === 1) {
         --this.pageIndex;
+        if (this.pageIndex < 0) this.pageIndex = 0;
       }
+
       this.filterRoutes();
+      this.refreshRoutes.emit();
     });
   }
 
@@ -239,7 +243,7 @@ export class MapControlsComponent implements OnInit {
       this.drawnLines.push(e.overlay);
       this.closeFullscreen();
       this.dialog.open(SaveRouteDialogComponent, {
-        data: {coordinates},
+        data: {coordinates, map: true},
         width: '700px',
         height: '500px'
       }).afterClosed().subscribe((dt) => {
@@ -258,14 +262,19 @@ export class MapControlsComponent implements OnInit {
   }
 
   selectRoute(route) {
-    this.selectedRoute = route;
-    this.ferryMapLocations.map(location => {
-      if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
-        location.markerIconUrl = 'assets/icons/red_circle_small.png';
-      } else {
-        location.markerIconUrl = 'assets/icons/green_circle_small.png';
-      }
-    });
+    if (route === this.selectedRoute) {
+      this.selectedRoute = null;
+    } else {
+
+      this.selectedRoute = route;
+      this.ferryMapLocations.map(location => {
+        if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
+          location.markerIconUrl = 'assets/icons/red_circle_small.png';
+        } else {
+          location.markerIconUrl = 'assets/icons/green_circle_small.png';
+        }
+      });
+    }
   }
 
 

@@ -1,9 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FERRY_ROUTES_FILE_DROPZONE_CONFIG} from '@core/constants/settings';
+import {SubjectService} from '@core/services/subject.service';
+import {MapControlsComponent} from '@shared/components/map-controls/map-controls.component';
 
 @Component({
   selector: 'app-add-routes',
@@ -19,19 +21,27 @@ export class AddRoutesComponent implements OnInit {
   dropzoneConfig = FERRY_ROUTES_FILE_DROPZONE_CONFIG;
 
   @Output('updated') routesUpdated = new EventEmitter();
+  @ViewChild('mapControls') mapComponent: MapControlsComponent;
 
   constructor(
     private toastr: ToastrService,
     private ferriesService: FerriesService,
     private dialog: MatDialog,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) {
   }
 
   ngOnInit(): void {
+
+
     this.ferriesService.getAllRoutes().subscribe((data: any) => {
       this.allRoutesPrices = data;
     });
+  }
+
+  refresh() {
+    this.mapComponent.getAllRoutes();
+    console.log('refresh')
   }
 
   onRoutesFileChanged(e, type = '') {

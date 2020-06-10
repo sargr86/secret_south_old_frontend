@@ -19,7 +19,7 @@
   </div>
 
   <div class="map-container" *ngIf="addMethod === 'map'">
-    <app-map-controls></app-map-controls>
+    <app-map-controls (refreshRoutes)="routesUpdated.emit()" #mapControls></app-map-controls>
   </div>
 
   <div *ngIf="addMethod === 'file'" class="import-routes-file">

@@ -33,6 +33,16 @@
     </mat-form-field>
 
 
+    <mat-form-field *ngIf="coordinates.value.length === 0">
+      <mat-select formControlName="coordinates" placeholder="Use coordinates of..."
+                  (selectionChange)="useRouteCoordinates($event)">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let route of allRoutes" [value]="route.coordinates">
+          {{route.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field>
       <input matInput formControlName="single" placeholder="Price for single person">
     </mat-form-field>
