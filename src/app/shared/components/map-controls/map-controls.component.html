@@ -86,17 +86,17 @@
     <ng-container *ngIf="linesArr && linesArr.length > 0">
       <agm-polyline #line *ngFor="let line of linesArr" [editable]="false"
                     [strokeColor]="selectedRoute && selectedRoute._id === line._id ? '#8B0000':'#80b446'"
-                    [strokeWeight]="2" (lineMouseUp)="lineDragEnd($event,'')">
+                    [strokeWeight]="1" (lineMouseUp)="lineDragEnd($event,'')">
         <agm-polyline-point *ngFor="let point of line.coordinates"
                             [latitude]="point.lat"
                             [longitude]="point.lng">
         </agm-polyline-point>
 
 
-        <!--        <agm-icon-sequence [strokeColor]="selectedRoute && selectedRoute._id === line._id ? 'orange':'blue'"-->
-        <!--                           [repeat]="'10px'" [offset]="'0'" [strokeWeight]="1.5" [scale]="2"-->
-        <!--                           [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
-        <!--        </agm-icon-sequence>-->
+        <agm-icon-sequence *ngIf="!selectedRoute || selectedRoute._id !== line._id" [strokeColor]="'#80b446'"
+                           [repeat]="'8px'" [offset]="'0'" [strokeWeight]="1" [scale]="2"
+                           [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
+        </agm-icon-sequence>
         <!--        <agm-icon-sequence [strokeColor]="selectedRoute && selectedRoute._id === line._id ? 'orange':'blue'"-->
         <!--                           [fillColor]="selectedRoute && selectedRoute._id === line._id ? 'orange':'blue'"-->
         <!--                           [fillOpacity]="100"-->

@@ -7,6 +7,7 @@ export function preventDuplicateLocations(start: string, stop_1: string, stop_2:
     const stop2 = group.controls[stop_2];
     const endPoint = group.controls[end];
 
+    // If there is 'required' or other errors on specified controls returning back
     if (startPoint.errors && !startPoint.errors.duplicateLocation
       && endPoint.errors && !endPoint.errors.duplicateLocation
     ) {
@@ -27,7 +28,11 @@ export function preventDuplicateLocations(start: string, stop_1: string, stop_2:
       if (val !== '' && ownIndex !== lastOccurIndex) {
 
         const controlName = Object.keys(points)[lastOccurIndex];
-        group.controls[controlName].setErrors({duplicateLocation: true});
+        if (controlName === 'end_point' && stop1.value !== '' && points.start_point === points.end_point) {
+          group.controls[controlName].setErrors(null);
+        } else {
+          group.controls[controlName].setErrors({duplicateLocation: true});
+        }
       }
     }
 

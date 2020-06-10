@@ -93,6 +93,10 @@ p {
   color: $red !important;
 }
 
+.yellow {
+  color: $orange;
+}
+
 table.mat-table {
   @include matTable;
 }
