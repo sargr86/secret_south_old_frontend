@@ -10,6 +10,8 @@ import {GetTableDataSourcePipe} from '@shared/pipes/get-table-data-source.pipe';
 import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
 import {ChangePricesDialogComponent} from '@core/components/dialogs/change-prices-dialog/change-prices-dialog.component';
+import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
+import {AddRoutesComponent} from '@app/ferries/manage-prices-routes/add-routes/add-routes.component';
 
 @Component({
   selector: 'app-manage-prices',
@@ -26,6 +28,7 @@ export class ManagePricesRoutesComponent implements OnInit {
   routesWithPricesLen = 0;
   routesOnMap;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('mapTab') mapsComponent: AddRoutesComponent;
 
   constructor(
     private ferriesService: FerriesService,
@@ -35,7 +38,7 @@ export class ManagePricesRoutesComponent implements OnInit {
     public router: Router,
     public auth: AuthService,
     private dataSrc: GetTableDataSourcePipe,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.common.dataLoading = false;
 
@@ -48,6 +51,12 @@ export class ManagePricesRoutesComponent implements OnInit {
     // }, 0);
   }
 
+  tabChanged(e) {
+    if (e.index === 0) {
+      this.mapsComponent.refresh();
+    }
+  }
+
   normalizeColName(col): string {
     col = `${col[0].toUpperCase()}${col.slice(1)}`;
     return col.replace(/_/g, ' ');
@@ -55,15 +64,21 @@ export class ManagePricesRoutesComponent implements OnInit {
 
   getAllRoutesPrices() {
     this.ferriesService.getAllRoutesPrices().subscribe((dt: any) => {
+      this.generateTableList(dt);
+    });
+  }
+
+  generateTableList(dt) {
+    if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
       const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
       this.routesWithNoPriceLen = routesOnly.length;
       const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
       this.routesWithPricesLen = routesWithPrices.length;
-      const routesOnTheMap = dt.filter(d => d.coordinates.length !== 0);
+      const routesOnTheMap = dt.filter(d => d.coordinates && d.coordinates.length !== 0);
       this.routesOnMap = routesOnTheMap.length;
       this.dataSource.paginator = this.paginator;
-    });
+    }
   }
 
   editPrices(row) {
@@ -84,4 +99,20 @@ export class ManagePricesRoutesComponent implements OnInit {
     });
   }
 
+  checkForCorrespondingRoute(row) {
+    if (row['coordinates'] && row['coordinates'].length > 0) {
+      return {status: 'yes', className: 'green'};
+    }
+
+    return {status: 'no', className: 'red'};
+  }
+
+  addNewRouteWithoutMap() {
+    this.dialog.open(SaveRouteDialogComponent, {
+      data: {map: false},
+      width: '400px'
+    }).afterClosed().subscribe((dt: any) => {
+      this.generateTableList(dt);
+    });
+  }
 }

@@ -15,6 +15,8 @@ export class SaveRouteDialogComponent implements OnInit {
   locations;
   isSubmitted = false;
   routeName;
+  allRoutes;
+  fromMap = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -22,6 +24,13 @@ export class SaveRouteDialogComponent implements OnInit {
     private ferriesService: FerriesService,
     private dialog: MatDialogRef<SaveRouteDialogComponent>
   ) {
+
+    this.fromMap = data.map;
+
+    if (!this.fromMap) {
+      data.coordinates = [];
+    }
+
     this.saveRouteForm = this.fb.group({
       name: [{value: ''}, Validators.required],
       start_point: ['', Validators.required],
@@ -29,13 +38,20 @@ export class SaveRouteDialogComponent implements OnInit {
       stop_2: [''],
       end_point: ['', Validators.required],
       geometry_type: ['LineString'],
-      coordinates: [data.coordinates]
+      coordinates: [data.coordinates], // Validators.required,
+      map: this.fromMap
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
+
+
   }
 
   ngOnInit(): void {
     this.ferriesService.getLocations().subscribe(dt => {
       this.locations = dt;
+    });
+
+    this.ferriesService.getAllRoutes().subscribe(dt => {
+      this.allRoutes = dt;
     });
   }
 
@@ -57,6 +73,12 @@ export class SaveRouteDialogComponent implements OnInit {
     this.saveRouteForm.patchValue({name: this.routeName});
   }
 
+  useRouteCoordinates(e) {
+    const routeName = e.source.selected._element.nativeElement.innerText;
+    const selectedRoute = this.allRoutes.find(r => r.name === routeName);
+    this.saveRouteForm.patchValue({coordinates: selectedRoute.coordinates});
+  }
+
   get startPoint(): AbstractControl {
     return this.saveRouteForm.get('start_point');
   }
@@ -71,6 +93,10 @@ export class SaveRouteDialogComponent implements OnInit {
 
   get stop_2(): AbstractControl {
     return this.saveRouteForm.get('stop_2');
+  }
+
+  get coordinates(): AbstractControl {
+    return this.saveRouteForm.get('coordinates');
   }
 
 }
