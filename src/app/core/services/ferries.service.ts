@@ -76,8 +76,8 @@ export class FerriesService {
     return this.http.get(`${API_URL}ferries/get-all-routes-prices`);
   }
 
-  addRoutePrice(params) {
-    return this.http.post(`${API_URL}ferries/add-route-price`, params);
+  saveRoutePrice(params) {
+    return this.http.post(`${API_URL}ferries/save-route-price`, params);
   }
 
   removeRoutePrice(params) {
@@ -89,7 +89,7 @@ export class FerriesService {
   }
 
   updateRoutePrice(params) {
-    return this.http.post(`${API_URL}ferries/update-route-price`, params);
+    return this.http.put(`${API_URL}ferries/update-route-price`, params);
   }
 
 }

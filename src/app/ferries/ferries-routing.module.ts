@@ -6,6 +6,7 @@ import {OneFerryResolverService} from '@core/resolvers/one-ferry-resolver.servic
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
 import {AuthGuard} from '@core/guards/auth.guard';
 import {ManagePricesRoutesComponent} from '@app/ferries/manage-prices-routes/manage-prices-routes.component';
+import {ManageAllComponent} from '@app/ferries/manage-all/manage-all.component';
 
 const routes: Routes = [
   {
@@ -22,8 +23,12 @@ const routes: Routes = [
     component: SaveFerryComponent,
   },
   {
-    path: 'manage-all',
+    path: 'manage-routes-prices',
     component: ManagePricesRoutesComponent
+  },
+  {
+    path: 'manage-all',
+    component: ManageAllComponent
   },
   {
     path: ':id',

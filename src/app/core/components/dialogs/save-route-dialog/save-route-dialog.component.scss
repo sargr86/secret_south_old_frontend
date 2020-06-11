@@ -6,3 +6,28 @@
     color: $red;
   }
 }
+
+form {
+  .form-fields-container {
+    display: flex;
+    justify-content: space-between;
+
+    .left-side {
+      width: 50%;
+
+      .total-price {
+        strong {
+          color: $green;
+        }
+      }
+    }
+
+    .right-side {
+      width: 40%;
+    }
+
+    .route-info {
+      //text-align: center;
+    }
+  }
+}
