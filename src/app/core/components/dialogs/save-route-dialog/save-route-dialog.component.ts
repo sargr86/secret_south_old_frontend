@@ -17,6 +17,7 @@ export class SaveRouteDialogComponent implements OnInit {
   routeName;
   allRoutes;
   fromMap = false;
+  totalPrice: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,10 +27,14 @@ export class SaveRouteDialogComponent implements OnInit {
   ) {
 
     this.fromMap = data.map;
+    const routeData = data.route;
+    //
+    //
+    if (this.fromMap) {
 
-    if (!this.fromMap) {
-      data.coordinates = [];
     }
+
+    console.log(data)
 
     this.saveRouteForm = this.fb.group({
       name: [{value: ''}, Validators.required],
@@ -39,8 +44,19 @@ export class SaveRouteDialogComponent implements OnInit {
       end_point: ['', Validators.required],
       geometry_type: ['LineString'],
       coordinates: [data.coordinates], // Validators.required,
-      map: this.fromMap
+      map: this.fromMap,
+      single: ['', Validators.required],
+      return: ['', Validators.required],
+      total: new FormControl({value: '', disabled: true}, Validators.required),
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
+
+
+    // Edit route case
+    if (routeData) {
+      this.totalPrice = routeData.total;
+      this.routeName = routeData.name;
+      this.saveRouteForm.patchValue(routeData);
+    }
 
 
   }
@@ -58,7 +74,7 @@ export class SaveRouteDialogComponent implements OnInit {
   saveRoute() {
     this.isSubmitted = true;
     if (this.saveRouteForm.valid) {
-      this.ferriesService.addRoutePrice(this.saveRouteForm.value).subscribe(dt => {
+      this.ferriesService.saveRoutePrice(this.saveRouteForm.value).subscribe(dt => {
         this.dialog.close(dt);
       });
     }

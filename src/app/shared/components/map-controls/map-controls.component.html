@@ -16,7 +16,12 @@
         <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">
           <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
           <span matLine (click)="selectRoute(line)">{{line.name}}</span>
-          <mat-icon (click)="removeRoute(line)" class="remove-route">clear</mat-icon>
+          <mat-icon *ngIf="line.coordinates.length > 0" class="route-coordinates-exist"
+                    [matTooltip]="'Has line coordinates on the map'">directions
+          </mat-icon>
+          <mat-icon *ngIf="line.coordinates.length > 0" (click)="removeRouteLine(line)" class="remove-route" [matTooltip]="'Removes only route line'">
+            clear
+          </mat-icon>
         </mat-list-item>
       </ng-container>
       <div>

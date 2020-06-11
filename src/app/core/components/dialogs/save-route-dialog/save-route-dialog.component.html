@@ -1,81 +1,116 @@
 <h3 mat-dialog-title>Add route details</h3>
-<form [formGroup]="saveRouteForm" mat-dialog-content>
-  <ng-container *ngIf="locations">
+<div mat-dialog-content>
 
-    <mat-form-field>
+  <form [formGroup]="saveRouteForm">
+    <ng-container *ngIf="locations">
+      <div class="form-fields-container">
 
-      <mat-select formControlName="start_point" placeholder="Start point" (selectionChange)="generateRouteName()">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let location of locations" [value]="location.name">
-          {{location.name}}
-        </mat-option>
+        <div class="left-side">
 
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="isSubmitted && startPoint.hasError('required')">
-      Start point is <strong>required</strong>
-    </mat-error>
+          <mat-form-field>
 
-    <mat-form-field>
-      <mat-select formControlName="stop_1" placeholder="1st stop" (selectionChange)="generateRouteName()">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let location of locations" [value]="location.name">
-          {{location.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="stop_1.hasError('duplicateLocation')">
-      <strong>Duplicate</strong> location
-    </mat-error>
-    <mat-form-field>
-      <mat-select formControlName="stop_2" placeholder="2nd stop" (selectionChange)="generateRouteName()">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let location of locations" [value]="location.name">
-          {{location.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="stop_2.hasError('duplicateLocation')">
-      <strong>Duplicate</strong> location
-    </mat-error>
+            <mat-select formControlName="start_point" placeholder="Start point" (selectionChange)="generateRouteName()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location.name">
+                {{location.name}}
+              </mat-option>
 
-    <mat-form-field>
-      <mat-select formControlName="end_point" placeholder="End point" (selectionChange)="generateRouteName()">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let location of locations" [value]="location.name">
-          {{location.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="isSubmitted && endPoint.hasError('required')">
-      End point is <strong>required</strong>
-    </mat-error>
-    <mat-error *ngIf="endPoint.hasError('duplicateLocation')">
-      <strong>Duplicate</strong> location
-    </mat-error>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="isSubmitted && startPoint.hasError('required')">
+            Start point is <strong>required</strong>
+          </mat-error>
 
-    <ng-container *ngIf="!fromMap">
 
-    <mat-form-field>
-      <mat-select formControlName="coordinates" placeholder="Use coordinates of..."
-                  (selectionChange)="useRouteCoordinates($event)">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let route of allRoutes" [value]="route.coordinates">
-          {{route.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="coordinates.hasError('required')">
-      Please assign coordinates <strong>coordinates</strong>
-    </mat-error>
+          <mat-form-field>
+            <mat-select formControlName="end_point" placeholder="End point" (selectionChange)="generateRouteName()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location.name">
+                {{location.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="isSubmitted && endPoint.hasError('required')">
+            End point is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="endPoint.hasError('duplicateLocation')">
+            <strong>Duplicate</strong> location
+          </mat-error>
+
+
+
+
+          <ng-container *ngIf="!fromMap">
+
+            <mat-form-field>
+              <mat-select formControlName="coordinates" placeholder="Use coordinates of..."
+                          (selectionChange)="useRouteCoordinates($event)">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let route of allRoutes" [value]="route.coordinates">
+                  {{route.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="coordinates.hasError('required')">
+              Please assign coordinates <strong>coordinates</strong>
+            </mat-error>
+          </ng-container>
+
+          <div class="route-info">
+            <div *ngIf="routeName" class="route-name">
+              <span>Route name:</span>
+              <strong [class.green]="startPoint.valid && endPoint.valid">{{routeName}}</strong>
+            </div>
+
+            <div class="total-price">
+              <span>Total price for minimum 6 people: </span>
+              <strong>{{totalPrice}}</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="right-side">
+
+          <mat-form-field>
+            <mat-select formControlName="stop_1" placeholder="1st stop" (selectionChange)="generateRouteName()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location.name">
+                {{location.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="stop_1.hasError('duplicateLocation')">
+            <strong>Duplicate</strong> location
+          </mat-error>
+
+
+          <mat-form-field>
+            <mat-select formControlName="stop_2" placeholder="2nd stop" (selectionChange)="generateRouteName()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location.name">
+                {{location.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="stop_2.hasError('duplicateLocation')">
+            <strong>Duplicate</strong> location
+          </mat-error>
+
+          <mat-form-field>
+            <input matInput formControlName="single" placeholder="Price for single person">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput formControlName="return" placeholder="Price for two-way route">
+          </mat-form-field>
+
+
+        </div>
+      </div>
+
+
+      <button mat-raised-button color="primary" (click)="saveRoute()">Save</button>
     </ng-container>
-
-
-    <div *ngIf="routeName" class="route-name">
-      <span>Route name:</span>
-      <strong [class.green]="saveRouteForm.valid">{{routeName}}</strong>
-    </div>
-
-    <button mat-raised-button color="primary" (click)="saveRoute()">Save</button>
-  </ng-container>
-</form>
+  </form>
+</div>
