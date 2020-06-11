@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ToastrService} from 'ngx-toastr';
 import {MatPaginator} from '@angular/material/paginator';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-map-controls',
@@ -82,7 +83,8 @@ export class MapControlsComponent implements OnInit {
 
   getAllRoutes() {
     this.linesArr = [];
-    this.ferriesService.getAllRoutes().subscribe((data: any) => {
+    this.ferriesService.getAllRoutesPrices().subscribe((data: any) => {
+
       // this.linesArr = data;
       if (data) {
         data.map(dt => {
@@ -92,23 +94,30 @@ export class MapControlsComponent implements OnInit {
             this.linesArr.push(dt);
           } else if (dt.geometry_type === 'Polygon') {
             const coordinates = [];
-            Object.values(dt.coordinates[0]).reverse().map((c: any) => {
-              if (c.lat) {
-                coordinates.push({lat: +c.lat, lng: +c.lng});
-              }
-            });
+            if (dt.coordinates[0]) {
+              Object.values(dt.coordinates[0]).reverse().map((c: any) => {
+                if (c.lat) {
+                  coordinates.push({lat: +c.lat, lng: +c.lng});
+                }
+              });
+            }
             this.linesArr.push({
               coordinates: coordinates,
               name: dt.name,
               geometry_type: dt.geometry_type,
               strokeColor: '#80b446',
-              _id: dt._id
+              _id: dt._id,
+              start_point: dt.start_point,
+              end_point: dt.end_point,
+              stop_1: dt.stop_1,
+              stop_2: dt.stop_2,
             });
+          } else {
+            this.linesArr.push(dt);
           }
         });
 
       }
-
       if (this.filteredLinesArr.length === 1) {
         --this.pageIndex;
         if (this.pageIndex < 0) this.pageIndex = 0;
@@ -201,7 +210,9 @@ export class MapControlsComponent implements OnInit {
         } else if (dt.geometry_type === 'Polygon') {
           Object.values(dt.coordinates[0]).reverse().map((c: any) => {
             if (c.lat) {
-              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'});
+              this.lines.push({
+                name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'
+              });
             }
 
           });
@@ -209,6 +220,7 @@ export class MapControlsComponent implements OnInit {
 
       }
       this.linesArr.push(this.lines)
+      console.log(this.linesArr)
       this.filteredLinesArr = this.linesArr;
       console.log(this.filteredLinesArr)
       this.routeSelected.emit({selectedLocations: this.selectedLocations, routePriceData: dt});
@@ -230,6 +242,7 @@ export class MapControlsComponent implements OnInit {
 
 
   overlayComplete(e) {
+    console.log(this.selectedRoute)
     // console.log(e.overlay)
     if (e.overlay) {
 
@@ -242,16 +255,50 @@ export class MapControlsComponent implements OnInit {
       });
       this.drawnLines.push(e.overlay);
       this.closeFullscreen();
-      this.dialog.open(SaveRouteDialogComponent, {
-        data: {coordinates, map: true},
-        width: '700px',
-        height: '500px'
-      }).afterClosed().subscribe((dt) => {
-        this.linesArr = dt;
-        this.removeDrawn();
-        this.getAllRoutes();
-      });
+
+
+      if (this.selectedRoute) {
+
+
+        if (this.selectedRoute.coordinates.length !== 0) {
+
+          this.dialog.open(ConfirmationDialogComponent, {
+            data: {
+              text1: 'This route already has coordinates on map',
+              text2: 'Are you sure you want to edit its details anyway?',
+              yes: 'Yes',
+              no: 'No'
+            }
+          }).afterClosed().subscribe(result => {
+            if (result) {
+
+              console.log(this.selectedRoute)
+              this.selectedRoute.coordinates = coordinates;
+              this.openRouteDetailsDialog(coordinates);
+            }
+          });
+        } else {
+          this.selectedRoute.coordinates = coordinates;
+          this.openRouteDetailsDialog(coordinates);
+        }
+      } else {
+        this.openRouteDetailsDialog(coordinates);
+      }
+
     }
+  }
+
+
+  openRouteDetailsDialog(coordinates) {
+    this.dialog.open(SaveRouteDialogComponent, {
+      data: {coordinates, map: true, route: this.selectedRoute},
+      width: '700px',
+      height: '500px'
+    }).afterClosed().subscribe((dt) => {
+      this.linesArr = dt;
+      this.removeDrawn();
+      this.getAllRoutes();
+    });
   }
 
   /* Close fullscreen */
@@ -278,14 +325,26 @@ export class MapControlsComponent implements OnInit {
   }
 
 
-  removeRoute(route) {
-    // console.log(route)
-    this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
-      this.linesArr = dt;
-      this.getAllRoutes();
-      this.removeDrawn();
-      this.toastr.success('Route and its details removed successfully!');
-    });
+  removeRouteLine(route) {
+    const foundRoute = this.linesArr.find(l => l.name === route.name);
+
+    if (foundRoute) {
+      route.coordinates = [];
+      this.ferriesService.saveRoutePrice(route).subscribe((dt: any) => {
+        this.linesArr = dt;
+        this.getAllRoutes();
+        this.removeDrawn();
+        this.toastr.success('Route line removed successfully!');
+      });
+    }
+
+
+    // this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
+    //   this.linesArr = dt;
+    //   this.getAllRoutes();
+    //   this.removeDrawn();
+    //   this.toastr.success('Route and its details removed successfully!');
+    // });
   }
 
 

@@ -34,9 +34,9 @@ export class ChangePricesDialogComponent implements OnInit {
       stop_1: ['', Validators.required],
       stop_2: ['', Validators.required],
       end_point: ['', Validators.required],
+      coordinates: [null],
       single: ['', Validators.required],
       return: ['', Validators.required],
-      coordinates: [null],
       total: new FormControl({value: '', disabled: true}, Validators.required),
     });
     this.changePricesForm.patchValue(data);
@@ -49,7 +49,7 @@ export class ChangePricesDialogComponent implements OnInit {
 
   saveRouteDetails() {
     console.log(this.changePricesForm.value)
-    this.ferriesService.addRoutePrice(this.changePricesForm.value).subscribe(dt => {
+    this.ferriesService.saveRoutePrice(this.changePricesForm.value).subscribe(dt => {
       this.dialog.close(dt);
     });
   }

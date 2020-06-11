@@ -22,8 +22,8 @@ export class ManagePricesRoutesComponent implements OnInit {
 
 
   displayedColumns = ROUTES_PRICES_TABLE_COLUMNS;
-  dataSource;
   paginationValues = [10, 25, 100];
+  dataSource;
   routesWithNoPriceLen = 0;
   routesWithPricesLen = 0;
   routesOnMap;

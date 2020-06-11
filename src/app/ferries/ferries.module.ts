@@ -11,6 +11,9 @@ import {ChatModule} from '@app/chat/chat.module';
 import { ManagePricesRoutesComponent } from './manage-prices-routes/manage-prices-routes.component';
 import { AddRoutesComponent } from './manage-prices-routes/add-routes/add-routes.component';
 import { AddPricesComponent } from './manage-prices-routes/add-prices/add-prices.component';
+import { ManageAllComponent } from './manage-all/manage-all.component';
+import { ImportFromFileComponent } from './manage-all/import-from-file/import-from-file.component';
+import { RoutesPricesTableComponent } from './manage-all/routes-prices-table/routes-prices-table.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { AddPricesComponent } from './manage-prices-routes/add-prices/add-prices
     FerriesHeaderComponent,
     ManagePricesRoutesComponent,
     AddRoutesComponent,
-    AddPricesComponent
+    AddPricesComponent,
+    ManageAllComponent,
+    ImportFromFileComponent,
+    RoutesPricesTableComponent
   ],
   imports: [
     CommonModule,
