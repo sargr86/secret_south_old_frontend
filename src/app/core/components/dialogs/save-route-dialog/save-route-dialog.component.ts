@@ -15,9 +15,10 @@ export class SaveRouteDialogComponent implements OnInit {
   locations;
   isSubmitted = false;
   routeName;
-  allRoutes;
+  suggestedRoutes;
   fromMap = false;
   totalPrice: number;
+  routeData;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,7 +28,7 @@ export class SaveRouteDialogComponent implements OnInit {
   ) {
 
     this.fromMap = data.map;
-    const routeData = data.route;
+    this.routeData = data.route;
     //
     //
     if (this.fromMap) {
@@ -35,6 +36,8 @@ export class SaveRouteDialogComponent implements OnInit {
     }
 
     console.log(data)
+
+    this.getSuggestedRoutes();
 
     this.saveRouteForm = this.fb.group({
       name: [{value: ''}, Validators.required],
@@ -45,17 +48,19 @@ export class SaveRouteDialogComponent implements OnInit {
       geometry_type: ['LineString'],
       coordinates: [data.coordinates], // Validators.required,
       map: this.fromMap,
-      single: ['', Validators.required],
-      return: ['', Validators.required],
+      single: [''],
+      return: [''],
       total: new FormControl({value: '', disabled: true}, Validators.required),
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
 
 
     // Edit route case
-    if (routeData) {
-      this.totalPrice = routeData.total;
-      this.routeName = routeData.name;
-      this.saveRouteForm.patchValue(routeData);
+    if (this.routeData) {
+      this.totalPrice = this.routeData.total;
+      this.routeName = this.routeData.name;
+      this.saveRouteForm.patchValue(this.routeData);
+      console.log('here')
+
     }
 
 
@@ -66,8 +71,15 @@ export class SaveRouteDialogComponent implements OnInit {
       this.locations = dt;
     });
 
-    this.ferriesService.getAllRoutes().subscribe(dt => {
-      this.allRoutes = dt;
+
+  }
+
+  getSuggestedRoutes() {
+    this.ferriesService.getAllRoutes().subscribe((dt: any) => {
+      this.suggestedRoutes = dt;
+      this.filterSuggestedRoutes(this.startPoint.value, this.endPoint.value, this.stop_1.value, this.stop_2.value);
+      // .filter(d => d.stop_1 === '' && d.stop_2 === '');
+      // console.log(this.allRoutes)
     });
   }
 
@@ -87,11 +99,27 @@ export class SaveRouteDialogComponent implements OnInit {
     const endPoint = this.endPoint.value;
     this.routeName = `${startPoint ? startPoint : ''}${stop1 ? ' - ' + stop1 : ''}${stop2 ? ' - ' + stop2 : ''}${endPoint ? ' - ' + endPoint : ''}`;
     this.saveRouteForm.patchValue({name: this.routeName});
+    this.filterSuggestedRoutes(startPoint, endPoint, stop1, stop2)
+  }
+
+  filterSuggestedRoutes(startPoint, endPoint, stop1, stop2) {
+    console.log(startPoint, endPoint)
+    console.log(this.suggestedRoutes)
+    // this.suggestedRoutes = this.suggestedRoutes.filter(sr => {
+    //   if (sr.start_point === startPoint && sr.end_point === endPoint) {
+    //     if (startPoint !== endPoint) {
+    //       return true;
+    //     } else if (!sr.stop2 && stop1 === sr.end_point) {
+    //       return true;
+    //     }
+    //   }
+    // });
+    console.log(this.suggestedRoutes)
   }
 
   useRouteCoordinates(e) {
     const routeName = e.source.selected._element.nativeElement.innerText;
-    const selectedRoute = this.allRoutes.find(r => r.name === routeName);
+    const selectedRoute = this.suggestedRoutes.find(r => r.name === routeName);
     this.saveRouteForm.patchValue({coordinates: selectedRoute.coordinates});
   }
 

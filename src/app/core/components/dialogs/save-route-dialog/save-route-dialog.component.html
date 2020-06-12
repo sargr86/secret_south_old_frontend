@@ -38,15 +38,13 @@
           </mat-error>
 
 
-
-
-          <ng-container *ngIf="!fromMap">
+          <ng-container *ngIf="!fromMap && routeData.coordinates.length === 0">
 
             <mat-form-field>
               <mat-select formControlName="coordinates" placeholder="Use coordinates of..."
                           (selectionChange)="useRouteCoordinates($event)">
                 <mat-option>None</mat-option>
-                <mat-option *ngFor="let route of allRoutes" [value]="route.coordinates">
+                <mat-option *ngFor="let route of suggestedRoutes" [value]="route.coordinates">
                   {{route.name}}
                 </mat-option>
               </mat-select>
@@ -98,11 +96,13 @@
           </mat-error>
 
           <mat-form-field>
-            <input matInput formControlName="single" placeholder="Price for single person">
+            <input matInput formControlName="single" placeholder="Price for one-way route">
+            <mat-hint align="end">One person price</mat-hint>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput formControlName="return" placeholder="Price for two-way route">
+            <mat-hint align="end">One person price</mat-hint>
           </mat-form-field>
 
 
