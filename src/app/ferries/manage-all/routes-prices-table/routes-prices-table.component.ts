@@ -76,7 +76,21 @@ export class RoutesPricesTableComponent implements OnInit {
     });
   }
 
+  removeAllRoutesPrices() {
+    this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
+      this.toastr.success('All routes and their info have been removed successfully from the map');
+      this.getAllRoutesPrices();
+    });
+  }
+
+
   editRoutePrices(row) {
-    this.dialog.open(SaveRouteDialogComponent, {data: {route: row, map: false}, width: '800px'});
+    this.dialog.open(SaveRouteDialogComponent, {
+      data: {route: row, map: false},
+      width: '800px'
+    }).afterClosed().subscribe(() => {
+      this.toastr.success('The route details have been updated successfully');
+      this.getAllRoutesPrices();
+    });
   }
 }
