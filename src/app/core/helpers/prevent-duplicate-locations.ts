@@ -28,7 +28,7 @@ export function preventDuplicateLocations(start: string, stop_1: string, stop_2:
       if (val !== '' && ownIndex !== lastOccurIndex) {
 
         const controlName = Object.keys(points)[lastOccurIndex];
-        if (controlName === 'end_point' && stop1.value !== '' && points.start_point === points.end_point) {
+        if (controlName === 'end_point' && (stop1.value !== '' || stop2.value !== '' || (stop1.value !== '' && stop2.value !== '')) && points.start_point === points.end_point) {
           group.controls[controlName].setErrors(null);
         } else {
           group.controls[controlName].setErrors({duplicateLocation: true});
