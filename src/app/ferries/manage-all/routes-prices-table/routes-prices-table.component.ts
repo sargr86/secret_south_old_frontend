@@ -83,13 +83,24 @@ export class RoutesPricesTableComponent implements OnInit {
     });
   }
 
+  addNewRouteWithoutMap() {
+    this.dialog.open(SaveRouteDialogComponent, {
+      data: {map: false, coordinates: []},
+      width: '700px'
+    }).afterClosed().subscribe((dt: any) => {
+      this.generateTableList(dt);
+    });
+  }
+
 
   editRoutePrices(row) {
     this.dialog.open(SaveRouteDialogComponent, {
       data: {route: row, map: false},
       width: '800px'
-    }).afterClosed().subscribe(() => {
-      this.toastr.success('The route details have been updated successfully');
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        this.toastr.success('The route details have been updated successfully');
+      }
       this.getAllRoutesPrices();
     });
   }

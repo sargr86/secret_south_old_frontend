@@ -1,4 +1,4 @@
-<h3 mat-dialog-title>Add route details</h3>
+<h3 mat-dialog-title>Add/edit route details</h3>
 <div mat-dialog-content>
 
   <form [formGroup]="saveRouteForm">
@@ -38,7 +38,7 @@
           </mat-error>
 
 
-          <ng-container *ngIf="!fromMap && routeData.coordinates.length === 0">
+          <ng-container *ngIf="!fromMap && routeData && routeData.coordinates.length === 0">
 
             <mat-form-field>
               <mat-select formControlName="coordinates" placeholder="Use coordinates of..."

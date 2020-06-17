@@ -13,6 +13,7 @@ import {SaveRouteDialogComponent} from './components/dialogs/save-route-dialog/s
 import {ChangePricesDialogComponent} from './components/dialogs/change-prices-dialog/change-prices-dialog.component';
 import {SaveRouteDetailsDialogComponent} from './components/dialogs/save-route-details-dialog/save-route-details-dialog.component';
 import {ConfirmationDialogComponent} from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {ConfirmationDialogComponent} from './components/dialogs/confirmation-dia
     SharedModule,
     ToastrModule.forRoot({
       preventDuplicates: true
-    })
+    }),
+    NgxMatSelectSearchModule
   ],
   exports: [
     NavbarComponent,
