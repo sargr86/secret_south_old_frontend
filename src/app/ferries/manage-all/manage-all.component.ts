@@ -4,6 +4,7 @@ import {ToastrService} from 'ngx-toastr';
 import {FerriesService} from '@core/services/ferries.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 
 @Component({
   selector: 'app-manage-all',
@@ -15,9 +16,9 @@ export class ManageAllComponent implements OnInit {
   importMethod: string;
   mapAction: string;
   allRoutesPrices;
-  downloadJsonHref: SafeUrl;
+  downloadJsonHref: SafeUrl
   viewSummary = true;
-
+;
   constructor(
     public common: CommonService,
     private toastr: ToastrService,
@@ -29,6 +30,10 @@ export class ManageAllComponent implements OnInit {
 
   ngOnInit(): void {
     this.common.dataLoading = false;
+
+    this.ferriesService.getAllRoutes().subscribe((data: any) => {
+      this.allRoutesPrices = data;
+    });
   }
 
   changeImportMethod(method) {
@@ -49,8 +54,11 @@ export class ManageAllComponent implements OnInit {
     this.mapAction = null;
   }
 
+
+
   exportDataToJson() {
     const theJSON = JSON.stringify(this.allRoutesPrices);
+    console.log(theJSON)
     this.downloadJsonHref = this.sanitizer.bypassSecurityTrustUrl('data:text/json;charset=UTF-8,' + encodeURIComponent(theJSON));
   }
 
