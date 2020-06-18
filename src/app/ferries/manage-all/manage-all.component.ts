@@ -16,9 +16,9 @@ export class ManageAllComponent implements OnInit {
   importMethod: string;
   mapAction: string;
   allRoutesPrices;
-  downloadJsonHref: SafeUrl
+  downloadJsonHref: SafeUrl;
   viewSummary = true;
-;
+
   constructor(
     public common: CommonService,
     private toastr: ToastrService,
