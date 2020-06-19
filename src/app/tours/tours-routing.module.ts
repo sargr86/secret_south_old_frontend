@@ -6,51 +6,60 @@ import {OneTourResolverService} from '@core/resolvers/one-tour-resolver.service'
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import {ToursHomeComponent} from './tours-home/tours-home.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
+import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: ToursHomeComponent
+  {
+    path: '',
+    component: ToursHomeComponent,
+    canActivate: [AdminPagesGuardGuard]
+  },
+  {
+    path: 'show', component: ShowToursComponent, data: {
+      title: 'All tours',
     },
-    {
-        path: 'show', component: ShowToursComponent, data: {
-            title: 'All tours',
-        },
+  },
+  {
+    path: 'add', component: SaveTourComponent, data: {
+      title: 'Add a new tour',
     },
-    {
-        path: 'add', component: SaveTourComponent, data: {
-            title: 'Add a new tour',
-        },
+  },
+  {
+    path: 'tour/:id', component: SaveTourComponent, data: {
+      title: 'Edit a tour info',
     },
-    {
-        path: 'tour/:id', component: SaveTourComponent, data: {
-            title: 'Edit a tour info',
-        },
-        resolve: {
-            oneTour: OneTourResolverService
-        }
+    resolve: {
+      oneTour: OneTourResolverService
     },
-    {
-        path: 'show-types', component: ShowTourTypesComponent, data: {
-            title: 'All tour types',
-        },
+    canActivate: [
+      NumericIdGuard
+    ]
+  },
+  {
+    path: 'show-types', component: ShowTourTypesComponent, data: {
+      title: 'All tour types',
     },
-    {
-        path: 'tour-type/:id', component: SaveTourTypeComponent, data: {
-            title: 'Edit a tour type info',
-        },
+  },
+  {
+    path: 'tour-type/:id', component: SaveTourTypeComponent, data: {
+      title: 'Edit a tour type info',
     },
-    {
-        path: 'add-types', component: SaveTourTypeComponent, data: {
-            title: 'Add a new tour type',
-        },
-    }
+    canActivate: [
+      NumericIdGuard
+    ]
+  },
+  {
+    path: 'add-types', component: SaveTourTypeComponent, data: {
+      title: 'Add a new tour type',
+    },
+  }
 
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class ToursRoutingModule {
 }

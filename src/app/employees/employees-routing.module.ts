@@ -7,8 +7,13 @@ import {AuthGuard} from '@core/guards/auth.guard';
 import {RoleGuard} from '@core/guards/role.guard';
 import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'show'
+  },
   {
     path: 'show',
     component: ShowEmployeesComponent
@@ -54,6 +59,9 @@ const routes: Routes = [
     resolve: {
       user: UserResolverService
     },
+    canActivate: [
+      NumericIdGuard
+    ]
   }
 ];
 
