@@ -5,10 +5,13 @@ import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile
 import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuard} from '@core/guards/auth.guard';
-import {RoleGuard} from '@core/guards/role.guard';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dashboard/show'
+  },
   {
     path: 'dashboard/show', component: DashboardComponent, data: {
       title: 'Dashboard',

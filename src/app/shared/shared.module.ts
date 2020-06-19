@@ -39,6 +39,7 @@ import {MatOrdersTableComponent} from './components/mat-orders-table/mat-orders-
 import {MapControlsComponent} from './components/map-controls/map-controls.component';
 import {AgmDrawingModule} from '@agm/drawing';
 import {NgxStripeModule} from 'ngx-stripe';
+import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {NgxStripeModule} from 'ngx-stripe';
     GetFileBasenamePipe,
     MarkSelectedCoverImagePipe,
     MatOrdersTableComponent,
-    MapControlsComponent
+    MapControlsComponent,
+    GetAuthUserPipe
   ],
   imports: [
     CommonModule,
@@ -97,6 +99,7 @@ import {NgxStripeModule} from 'ngx-stripe';
     GetFileBasenamePipe,
     RedirectUrlGeneratorPipe,
     MarkSelectedCoverImagePipe,
+    GetAuthUserPipe,
     {
       provide: DROPZONE_CONFIG,
       useValue: DEFAULT_DROPZONE_CONFIG
