@@ -7,9 +7,15 @@ import {ShowPartnersComponent} from './show-partners/show-partners.component';
 import {SavePartnerComponent} from './save-partner/save-partner.component';
 import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
+import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    canActivate: [AdminPagesGuardGuard]
+  },
   {
     path: 'show',
     component: ShowPartnersComponent
@@ -99,7 +105,10 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: SavePartnerComponent
+    component: SavePartnerComponent,
+    canActivate: [
+      NumericIdGuard
+    ]
   },
 
 ];

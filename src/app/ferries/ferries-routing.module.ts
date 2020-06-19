@@ -5,13 +5,15 @@ import {SaveFerryComponent} from './save-ferry/save-ferry.component';
 import {OneFerryResolverService} from '@core/resolvers/one-ferry-resolver.service';
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
 import {AuthGuard} from '@core/guards/auth.guard';
-import {ManagePricesRoutesComponent} from '@app/ferries/manage-prices-routes/manage-prices-routes.component';
 import {ManageAllComponent} from '@app/ferries/manage-all/manage-all.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
+import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: FerriesHomeComponent
+    component: FerriesHomeComponent,
+    canActivate: [AdminPagesGuardGuard]
   },
   {
     path: 'show',
@@ -24,10 +26,6 @@ const routes: Routes = [
   },
   {
     path: 'manage-routes-prices',
-    component: ManagePricesRoutesComponent
-  },
-  {
-    path: 'manage-all',
     component: ManageAllComponent
   },
   {
@@ -36,6 +34,7 @@ const routes: Routes = [
     resolve: {
       oneFerry: OneFerryResolverService
     },
+    canActivate: [NumericIdGuard]
   },
 ];
 

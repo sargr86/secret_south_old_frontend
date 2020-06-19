@@ -7,6 +7,10 @@ import {UserResolverService} from '@core/resolvers/user-resolver.service';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'show'
+  },
+  {
     path: 'show',
     component: ShowCustomersComponent
   },

@@ -6,31 +6,44 @@ import {OneFoodDrinkResolverService} from '@core/resolvers/one-food-drink-resolv
 import {FoodDrinkHomeComponent} from './food-drink-home/food-drink-home.component';
 import {FoodDrinkListComponent} from './food-drink-list/food-drink-list.component';
 import {FoodDrinkSingleComponent} from './food-drink-single/food-drink-single.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
+import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
 
 const routes: Routes = [
-    {path: '', component: FoodDrinkHomeComponent},
-    {path: 'list', component: FoodDrinkListComponent},
-    {path: 'single/:id', component: FoodDrinkSingleComponent},
-    {path: 'show', component: ShowFoodDrinkComponent},
-    {
-        path: 'add', component: SaveFoodDrinkComponent, data: {
-            title: 'Add a new food/drink place',
-        },
+  {
+    path: '', component: FoodDrinkHomeComponent,
+    canActivate: [AdminPagesGuardGuard]
+  },
+  {path: 'list', component: FoodDrinkListComponent},
+  {
+    path: 'single/:id', component: FoodDrinkSingleComponent,
+    canActivate: [
+      NumericIdGuard
+    ]
+  },
+  {path: 'show', component: ShowFoodDrinkComponent},
+  {
+    path: 'add', component: SaveFoodDrinkComponent, data: {
+      title: 'Add a new food/drink place',
     },
+  },
 
-    {
-        path: ':id', component: SaveFoodDrinkComponent, data: {
-            title: 'Edit a food/drink info',
-        },
-        resolve: {
-            foodDrink: OneFoodDrinkResolverService
-        }
+  {
+    path: ':id', component: SaveFoodDrinkComponent, data: {
+      title: 'Edit a food/drink info',
     },
+    resolve: {
+      foodDrink: OneFoodDrinkResolverService
+    },
+    canActivate: [
+      NumericIdGuard
+    ]
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class FoodDrinkRoutingModule {
 }

@@ -3,15 +3,25 @@ import {Routes, RouterModule} from '@angular/router';
 import {ShowRequestsComponent} from '@app/contacts/show-requests/show-requests.component';
 import {ShowInvitationsComponent} from '@app/contacts/show-invitations/show-invitations.component';
 import {ShowRequestBodyComponent} from '@app/contacts/show-request-body/show-request-body.component';
+import {NumericIdGuard} from '@core/guards/numeric-id.guard';
+import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: ShowRequestsComponent,
+    canActivate: [AdminPagesGuardGuard]
+  },
   {
     path: 'requests',
     component: ShowRequestsComponent
   },
   {
     path: ':id',
-    component: ShowRequestBodyComponent
+    component: ShowRequestBodyComponent,
+    canActivate: [
+      NumericIdGuard
+    ]
   },
   {
     path: 'invitations',
