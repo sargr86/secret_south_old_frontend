@@ -8,13 +8,13 @@ import {SavePartnerComponent} from './save-partner/save-partner.component';
 import {UserResolverService} from '@core/resolvers/user-resolver.service';
 import {EditProfileComponent} from '@shared/components/edit-profile/edit-profile.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {
     path: 'show',

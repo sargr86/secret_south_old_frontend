@@ -7,13 +7,13 @@ import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.componen
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import {ToursHomeComponent} from './tours-home/tours-home.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ToursHomeComponent,
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {
     path: 'show', component: ShowToursComponent, data: {
