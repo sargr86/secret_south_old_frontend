@@ -7,12 +7,12 @@ import {AccommodationsHomeComponent} from './accommodations-home/accommodations-
 import {AccommodationsListComponent} from './accommodations-list/accommodations-list.component';
 import {AccommodationSingleComponent} from './accommodation-single/accommodation-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 const routes: Routes = [
   {
     path: '', component: AccommodationsHomeComponent,
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {
     path: 'single/:id', component: AccommodationSingleComponent,

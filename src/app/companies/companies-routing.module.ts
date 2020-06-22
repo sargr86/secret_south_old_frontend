@@ -4,13 +4,13 @@ import {ShowCompaniesComponent} from './show-companies/show-companies.component'
 import {SaveCompanyComponent} from './save-company/save-company.component';
 import {CompanyResolverService} from '@core/resolvers/company-resolver.service';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ShowCompaniesComponent,
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {
     path: 'show',

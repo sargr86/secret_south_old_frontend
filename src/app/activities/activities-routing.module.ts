@@ -9,13 +9,13 @@ import {ActivitiesHomeComponent} from './activities-home/activities-home.compone
 import {ActivitiesListComponent} from './activities-list/activities-list.component';
 import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ActivitiesHomeComponent,
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {
     path: 'show',
