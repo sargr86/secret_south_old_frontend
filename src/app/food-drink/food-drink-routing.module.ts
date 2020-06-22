@@ -7,12 +7,12 @@ import {FoodDrinkHomeComponent} from './food-drink-home/food-drink-home.componen
 import {FoodDrinkListComponent} from './food-drink-list/food-drink-list.component';
 import {FoodDrinkSingleComponent} from './food-drink-single/food-drink-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
-import {AdminPagesGuardGuard} from '@core/guards/admin-pages-guard.guard';
+import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 
 const routes: Routes = [
   {
     path: '', component: FoodDrinkHomeComponent,
-    canActivate: [AdminPagesGuardGuard]
+    canActivate: [AdminPagesGuard]
   },
   {path: 'list', component: FoodDrinkListComponent},
   {
