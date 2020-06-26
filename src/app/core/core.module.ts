@@ -14,6 +14,7 @@ import {ChangePricesDialogComponent} from './components/dialogs/change-prices-di
 import {SaveRouteDetailsDialogComponent} from './components/dialogs/save-route-details-dialog/save-route-details-dialog.component';
 import {ConfirmationDialogComponent} from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {SaveLocationDialogComponent} from './components/dialogs/save-location-dialog/save-location-dialog.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
     ChangePricesDialogComponent,
     SaveRouteDetailsDialogComponent,
     ConfirmationDialogComponent,
+    SaveLocationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
     DriverAssignmentDialogComponent,
     SaveRouteDialogComponent,
     SaveRouteDetailsDialogComponent,
+    SaveLocationDialogComponent,
     ConfirmationDialogComponent
   ]
 })

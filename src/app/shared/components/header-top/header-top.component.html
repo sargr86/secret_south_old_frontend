@@ -1,4 +1,6 @@
 <div class="header_top">
+
+  <!-- Left-side links -->
   <div class="header_top_left">
     <div class="header_top_logo">
       <!-- Website logo -->
@@ -8,6 +10,8 @@
     <!-- Nav bar section links -->
     <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
   </div>
+
+  <!-- Right-side links-->
   <div class="header_top_right">
     <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
       <mat-icon>menu</mat-icon>
