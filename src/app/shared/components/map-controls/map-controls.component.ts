@@ -9,6 +9,7 @@ import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dial
 import {ToastrService} from 'ngx-toastr';
 import {MatPaginator} from '@angular/material/paginator';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {SaveLocationDialogComponent} from '@core/components/dialogs/save-location-dialog/save-location-dialog.component';
 
 @Component({
   selector: 'app-map-controls',
@@ -39,7 +40,7 @@ export class MapControlsComponent implements OnInit {
   arrowSymbol = {
     path: 'M 0,0 1,4 -1,4 0,0 z', strokeOpacity: 1, strokeWeight: 1, fillOpacity: 100
   };
-  drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE, OverlayType.MARKER]};
+  drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE]};
   routesListPanelClosed = false;
 
   polylineOptions: PolylineOptions = {
@@ -120,7 +121,9 @@ export class MapControlsComponent implements OnInit {
       }
       if (this.filteredLinesArr.length === 1) {
         --this.pageIndex;
-        if (this.pageIndex < 0) this.pageIndex = 0;
+        if (this.pageIndex < 0) {
+          this.pageIndex = 0;
+        }
       }
 
       this.filterRoutes();
@@ -145,6 +148,23 @@ export class MapControlsComponent implements OnInit {
 
   mapClick(e) {
 
+    if (this.drawingEnabled) {
+
+      this.dialog.open(SaveLocationDialogComponent, {
+        data: {
+          latitude: e.coords.lat,
+          longitude: e.coords.lng,
+          edit: false
+        }, width: '500px'
+      }).afterClosed().subscribe((dt) => {
+        // this.ferryMapLocations.push({
+        //   latitude: e.coords.lat,
+        //   longitude: e.coords.lng,
+        //   markerIconUrl: this.markerIconUrl
+        // });
+        this.getFerryMapLocations();
+      });
+    }
   }
 
   onMapReady(e) {
@@ -152,6 +172,7 @@ export class MapControlsComponent implements OnInit {
 
 
   getFerryMapLocations() {
+    this.ferryMapLocations = [];
     this.ferriesService.getLocations().subscribe((dt: any) => {
       dt.map(d => {
         d.markerIconUrl = this.markerIconUrl;
@@ -161,6 +182,7 @@ export class MapControlsComponent implements OnInit {
   }
 
   selectLocationOnMap(location) {
+    console.log('marker click')
 
     if (!this.drawingEnabled) {
 
@@ -189,6 +211,13 @@ export class MapControlsComponent implements OnInit {
         this.locationSelected.emit({selectedLocations: this.selectedLocations});
 
       }
+    } else {
+      this.dialog.open(SaveLocationDialogComponent, {
+        data: {...location, ...{edit: true}},
+        width: '500px'
+      }).afterClosed().subscribe(refresh => {
+        this.getFerryMapLocations();
+      });
     }
   }
 
@@ -243,7 +272,7 @@ export class MapControlsComponent implements OnInit {
 
   overlayComplete(e) {
     console.log(this.selectedRoute)
-    // console.log(e.overlay)
+    console.log(e.overlay)
     if (e.overlay) {
 
       const coordinatesArray = e.overlay.getPath().getArray();

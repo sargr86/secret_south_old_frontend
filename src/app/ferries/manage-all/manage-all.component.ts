@@ -55,7 +55,6 @@ export class ManageAllComponent implements OnInit {
   }
 
 
-
   exportDataToJson() {
     const theJSON = JSON.stringify(this.allRoutesPrices);
     console.log(theJSON)

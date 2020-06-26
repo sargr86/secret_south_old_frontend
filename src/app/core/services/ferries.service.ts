@@ -19,6 +19,18 @@ export class FerriesService {
     return this.http.get(`${API_URL}ferries/get-directions`, {params});
   }
 
+  addLocation(params) {
+    return this.http.post(`${API_URL}ferries/add-location`, params);
+  }
+
+  updateLocation(params) {
+    return this.http.put(`${API_URL}ferries/update-location`, params);
+  }
+
+  removeLocation(params) {
+    return this.http.delete(`${API_URL}ferries/remove-location`, {params});
+  }
+
   add(data) {
 
     return this.http.post(`${API_URL}ferries/add`, data);
