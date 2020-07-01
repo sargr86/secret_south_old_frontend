@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {UPLOADS_FOLDER} from '@core/constants/settings';
+import {UPLOADS_FOLDER} from '@core/constants/global';
 
 @Pipe({
     name: 'getImageUrl'

@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {AuthService} from '@core/services/auth.service';
 import {CommonService} from '@core/services/common.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/global';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import * as jwtDecode from 'jwt-decode';
 import {PartnerService} from '@core/services/partner.service';

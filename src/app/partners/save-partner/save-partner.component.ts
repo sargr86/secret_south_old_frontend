@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartnerService} from '@core/services/partner.service';
 import {ToastrService} from 'ngx-toastr';
-import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '@core/constants/settings';
+import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, SPINNER_DIAMETER} from '@core/constants/global';
 import {CommonService} from '@core/services/common.service';
 import {patternValidator} from '@core/helpers/pattern-validator';
 import {EMAIL_PATTERN} from '@core/constants/patterns';

@@ -1,9 +1,15 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {MAP_CENTER_COORDINATES, MAX_LOCATION_CHOICES} from '@core/constants/settings';
+import {MAX_LOCATION_CHOICES} from '@core/constants/global';
+import {
+  MAP_CENTER_COORDINATES,
+  MAP_GREEN_COLOR,
+  MAP_MARKER_ICON_URL,
+  MAP_POLYLINE_OPTIONS,
+  MAP_RED_COLOR
+} from '@core/constants/map';
 import * as mapStylesData from '@app/maps/map_styles2.json';
 import {FerriesService} from '@core/services/ferries.service';
 import {DrawingControlOptions, OverlayType} from '@agm/drawing';
-import {PolylineOptions} from '@agm/core/services/google-maps-types';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ToastrService} from 'ngx-toastr';
@@ -25,40 +31,21 @@ export class MapControlsComponent implements OnInit {
 
 
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
+  markerIconUrl = MAP_MARKER_ICON_URL;
   mapStyles = mapStylesData;
-  drawingEnabled = true;
+
   ferryMapLocations = [];
   selectedLocations = [];
   lines = [];
   linesArr = [];
   filteredLinesArr = [];
-  markerIconUrl = 'assets/icons/green_circle_small.png';
   drawnLines = [];
-  lineSymbol = {
-    path: 'M 0,-1 0,1', strokeWeight: 1.5, scale: 2, strokeOpacity: 100
-  };
-  arrowSymbol = {
-    path: 'M 0,0 1,4 -1,4 0,0 z', strokeOpacity: 1, strokeWeight: 1, fillOpacity: 100
-  };
+
+  drawingEnabled = true;
   drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE]};
   routesListPanelClosed = false;
 
-  polylineOptions: PolylineOptions = {
-    strokeColor: '#8B0000',
-    editable: true,
-    draggable: true,
-    strokeOpacity: 2,
-    icons: [{
-      icon: this.lineSymbol,
-      offset: '0',
-      repeat: '10px',
-
-    }, {
-      icon: this.arrowSymbol,
-      offset: '100%',
-      repeat: '100px',
-    }],
-  };
+  polylineOptions = MAP_POLYLINE_OPTIONS;
   strokesColor;
   selectedRoute;
 
@@ -79,7 +66,7 @@ export class MapControlsComponent implements OnInit {
     if (this.drawingEnabled) {
       this.getAllRoutes();
     }
-    this.strokesColor = this.drawingEnabled ? '#80b446' : '#8B0000';
+    this.strokesColor = this.drawingEnabled ? MAP_GREEN_COLOR : MAP_RED_COLOR;
   }
 
   getAllRoutes() {
@@ -89,33 +76,8 @@ export class MapControlsComponent implements OnInit {
       // this.linesArr = data;
       if (data) {
         data.map(dt => {
-
-          if (dt.geometry_type === 'LineString') {
-            dt.strokeColor = '#80b446';
-            this.linesArr.push(dt);
-          } else if (dt.geometry_type === 'Polygon') {
-            const coordinates = [];
-            if (dt.coordinates[0]) {
-              Object.values(dt.coordinates[0]).reverse().map((c: any) => {
-                if (c.lat) {
-                  coordinates.push({lat: +c.lat, lng: +c.lng});
-                }
-              });
-            }
-            this.linesArr.push({
-              coordinates: coordinates,
-              name: dt.name,
-              geometry_type: dt.geometry_type,
-              strokeColor: '#80b446',
-              _id: dt._id,
-              start_point: dt.start_point,
-              end_point: dt.end_point,
-              stop_1: dt.stop_1,
-              stop_2: dt.stop_2,
-            });
-          } else {
-            this.linesArr.push(dt);
-          }
+          dt.strokeColor = MAP_GREEN_COLOR;
+          this.linesArr.push(dt);
         });
 
       }
@@ -157,11 +119,6 @@ export class MapControlsComponent implements OnInit {
           edit: false
         }, width: '500px'
       }).afterClosed().subscribe((dt) => {
-        // this.ferryMapLocations.push({
-        //   latitude: e.coords.lat,
-        //   longitude: e.coords.lng,
-        //   markerIconUrl: this.markerIconUrl
-        // });
         this.getFerryMapLocations();
       });
     }
@@ -234,13 +191,13 @@ export class MapControlsComponent implements OnInit {
       if (dt) {
         if (dt.geometry_type === 'LineString') {
           dt.coordinates.map(c => {
-            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'});
+            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR});
           });
         } else if (dt.geometry_type === 'Polygon') {
           Object.values(dt.coordinates[0]).reverse().map((c: any) => {
             if (c.lat) {
               this.lines.push({
-                name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: '#80b446'
+                name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR
               });
             }
 
@@ -254,19 +211,6 @@ export class MapControlsComponent implements OnInit {
       console.log(this.filteredLinesArr)
       this.routeSelected.emit({selectedLocations: this.selectedLocations, routePriceData: dt});
     });
-  }
-
-  lineDragEnd(e, line) {
-    console.log('drag end')
-    let cs = [];
-    console.log(line)
-    // const coordinatesArray = e.getPath().getArray();
-    // coordinatesArray.forEach((position) => {
-    //   console.log('lat', position.lat());
-    //   console.log('lng', position.lng());
-    //   cs.push({latitude: position.lat(), longitude: position.lng()});
-    // });
-    // console.log(cs)
   }
 
 
@@ -341,7 +285,6 @@ export class MapControlsComponent implements OnInit {
     if (route === this.selectedRoute) {
       this.selectedRoute = null;
     } else {
-
       this.selectedRoute = route;
       this.ferryMapLocations.map(location => {
         if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
@@ -388,7 +331,7 @@ export class MapControlsComponent implements OnInit {
     this.routesListPanelClosed = !this.routesListPanelClosed;
     this.selectedRoute = null;
     this.ferryMapLocations.map(location => {
-      location.markerIconUrl = 'assets/icons/green_circle_small.png';
+      location.markerIconUrl = MAP_MARKER_ICON_URL;
     });
   }
 

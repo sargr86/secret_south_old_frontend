@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {SPINNER_DIAMETER} from '@core/constants/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
 import {ToastrService} from 'ngx-toastr';

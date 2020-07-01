@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TOURS_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
+import {TOURS_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/global';
 import {Observable} from 'rxjs/internal/Observable';
 import {ToursService} from '@core/services/tours.service';
 import {Tour} from '@shared/models/Tour';

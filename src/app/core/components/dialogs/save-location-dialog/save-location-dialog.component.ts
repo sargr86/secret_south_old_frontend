@@ -54,7 +54,7 @@ export class SaveLocationDialogComponent implements OnInit {
   }
 
   remove() {
-    this.ferriesService.removeLocation({id: this.editData.id}).subscribe(() => {
+    this.ferriesService.removeLocation({id: this.editData.id, name: this.editData.name}).subscribe(() => {
       this.dialog.close(true);
       this.toastr.success('The location has been removed successfully');
     });

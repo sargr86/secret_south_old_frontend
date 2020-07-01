@@ -6,7 +6,7 @@ import {NavbarComponent} from '@core/components/layout/navbar/navbar.component';
 import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.component';
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
-import {API_URL} from '@core/constants/settings';
+import {API_URL} from '@core/constants/global';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import {ToastrModule} from 'ngx-toastr';
 import {SaveRouteDialogComponent} from './components/dialogs/save-route-dialog/save-route-dialog.component';

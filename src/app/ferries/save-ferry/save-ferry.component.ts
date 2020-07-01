@@ -8,7 +8,7 @@ import {
   DEFAULT_COUNTRY, EDIT_FORM_GALLERY_OPTIONS,
   FERRIES_FOLDER,
   SPINNER_DIAMETER
-} from '@core/constants/settings';
+} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
 import {Ferry} from '@shared/models/Ferry';

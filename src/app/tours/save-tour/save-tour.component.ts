@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {ToursService} from '@core/services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/settings';
+import {SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
 import {patternValidator} from '@core/helpers/pattern-validator';

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeesService} from '@core/services/employees.service';
-import {EMPLOYEES_TABLE_COLUMNS} from '@core/constants/settings';
+import {EMPLOYEES_TABLE_COLUMNS} from '@core/constants/global';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
 
