@@ -4,7 +4,7 @@ import {Ferry} from '@shared/models/Ferry';
 import {Observable} from 'rxjs/internal/Observable';
 import {CommonService} from '@core/services/common.service';
 import {AuthService} from '@core/services/auth.service';
-import {FERRIES_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
+import {FERRIES_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/global';
 
 @Component({
     selector: 'app-show-ferries',

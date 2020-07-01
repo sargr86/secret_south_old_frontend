@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Section} from '@shared/models/Section';
 import IsResponsive from '@core/helpers/is-responsive';
-import {MAIN_SECTIONS} from '@core/constants/settings';
+import {MAIN_SECTIONS} from '@core/constants/global';
 import {Data, NavigationEnd, Router} from '@angular/router';
 import {MainService} from '@core/services/main.service';
 import {filter} from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {BookingFormComponent} from '@shared/components/booking-form/booking-form.component';
-import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '@core/constants/settings';
+import {API_URL, MAIN_SECTIONS, UPLOADS_FOLDER} from '@core/constants/global';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {AgmInfoWindow, MapsAPILoader} from '@agm/core';

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
-import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {SPINNER_DIAMETER} from '@core/constants/global';
 import {AuthService} from '@core/services/auth.service';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 

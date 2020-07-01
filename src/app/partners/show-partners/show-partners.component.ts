@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PartnerService} from '@core/services/partner.service';
-import {PARTNERS_TABLE_COLUMNS} from '@core/constants/settings';
+import {PARTNERS_TABLE_COLUMNS} from '@core/constants/global';
 
 @Component({
     selector: 'app-show-partners',

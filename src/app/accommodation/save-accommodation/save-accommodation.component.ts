@@ -5,7 +5,7 @@ import {
   CONFIRM_DIALOG_SETTINGS,
   EDIT_FORM_GALLERY_OPTIONS,
   SPINNER_DIAMETER
-} from '@core/constants/settings';
+} from '@core/constants/global';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';

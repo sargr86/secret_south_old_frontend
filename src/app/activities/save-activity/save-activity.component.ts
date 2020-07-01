@@ -8,7 +8,7 @@ import {
   CONFIRM_DIALOG_SETTINGS,
   EDIT_FORM_GALLERY_OPTIONS,
   SPINNER_DIAMETER
-} from '@core/constants/settings';
+} from '@core/constants/global';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';

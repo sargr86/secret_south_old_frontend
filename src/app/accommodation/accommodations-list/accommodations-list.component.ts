@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MainService} from '@core/services/main.service';
-import {ACCOMMODATIONS_FOLDER} from '@core/constants/settings';
+import {ACCOMMODATIONS_FOLDER} from '@core/constants/global';
 import {Accommodation} from '@shared/models/Accommodation';
 import {Router} from '@angular/router';
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ACCOMMODATIONS_TABLE_COLUMNS} from '@core/constants/settings';
+import {ACCOMMODATIONS_TABLE_COLUMNS} from '@core/constants/global';
 import {Observable} from 'rxjs';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import {Accommodation} from '@shared/models/Accommodation';

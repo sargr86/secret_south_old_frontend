@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {SPINNER_DIAMETER} from '@core/constants/global';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';

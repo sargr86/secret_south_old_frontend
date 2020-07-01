@@ -9,7 +9,7 @@ import {AuthService} from '@core/services/auth.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DriverAssignmentDialogComponent} from '@core/components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import * as jwtDecode from 'jwt-decode';
-import {ORDERS_TABLE_COLUMNS} from '@core/constants/settings';
+import {ORDERS_TABLE_COLUMNS} from '@core/constants/global';
 import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({

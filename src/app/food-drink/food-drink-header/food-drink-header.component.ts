@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MAIN_SECTIONS, TIMEPICKER_THEME} from '@core/constants/settings';
+import {MAIN_SECTIONS, TIMEPICKER_THEME} from '@core/constants/global';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';

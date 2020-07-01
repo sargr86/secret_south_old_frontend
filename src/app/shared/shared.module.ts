@@ -6,7 +6,7 @@ import {GetTableDataSourcePipe} from './pipes/get-table-data-source.pipe';
 import {MatReusableTableComponent} from './components/mat-reusable-table/mat-reusable-table.component';
 import {InternationalPhoneNumberModule} from 'ngx-international-phone-number';
 import {DROPZONE_CONFIG, DropzoneModule} from 'ngx-dropzone-wrapper';
-import {DEFAULT_DROPZONE_CONFIG, GOOGLE_API_KEY, STRIPE_PUBLIC_KEY} from '@core/constants/settings';
+import {DEFAULT_DROPZONE_CONFIG, GOOGLE_API_KEY, STRIPE_PUBLIC_KEY} from '@core/constants/global';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {CheckFormDataPipe} from './pipes/check-form-data.pipe';

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivitiesService} from '@core/services/activities.service';
-import {ACTIVITIES_TABLE_COLUMNS} from '@core/constants/settings';
+import {ACTIVITIES_TABLE_COLUMNS} from '@core/constants/global';
 
 @Component({
     selector: 'app-show-activities',

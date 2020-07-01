@@ -8,7 +8,7 @@ import {EMAIL_PATTERN} from '@core/constants/patterns';
 
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
-import {API_URL, SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
+import {API_URL, SPINNER_DIAMETER, USER_TYPES} from '@core/constants/global';
 import {Subscription} from 'rxjs';
 import {WebSocketService} from '@core/services/websocket.service';
 

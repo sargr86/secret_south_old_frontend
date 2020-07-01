@@ -290,4 +290,3 @@ export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', '
 export const MAX_LOCATION_CHOICES = 4;
 
 
-export const MAP_CENTER_COORDINATES = {lat: 51.797999, lng: -8.294371};

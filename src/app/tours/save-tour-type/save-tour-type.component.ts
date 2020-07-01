@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToursService} from '@core/services/tours.service';
 import {CommonService} from '@core/services/common.service';
-import {SPINNER_DIAMETER} from '@core/constants/settings';
+import {SPINNER_DIAMETER} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '@core/services/auth.service';
 
