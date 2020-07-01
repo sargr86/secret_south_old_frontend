@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FOOD_DRINK_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/settings';
+import {FOOD_DRINK_TABLE_COLUMNS, SPINNER_DIAMETER} from '@core/constants/global';
 import {Observable} from 'rxjs';
 import {FoodDrinkService} from '@core/services/food-drink.service';
 import {AuthService} from '@core/services/auth.service';

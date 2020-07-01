@@ -4,11 +4,10 @@ import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {
   API_URL,
-  MAP_CENTER_COORDINATES,
   MAX_LOCATION_CHOICES,
   STRIPE_CARD_OPTIONS,
   TIMEPICKER_THEME
-} from '@core/constants/settings';
+} from '@core/constants/global';
 import {FerriesService} from '@core/services/ferries.service';
 import {Ferry} from '@shared/models/Ferry';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
@@ -25,6 +24,7 @@ import {HttpParams} from '@angular/common/http';
 import {AgmMap} from '@agm/core';
 import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
 import {UsersService} from '@core/services/users.service';
+import {MAP_CENTER_COORDINATES} from '@core/constants/map';
 
 declare const google: any;
 

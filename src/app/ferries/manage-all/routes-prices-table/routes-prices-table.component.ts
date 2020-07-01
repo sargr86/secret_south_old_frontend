@@ -3,7 +3,7 @@ import {GetTableDataSourcePipe} from '@shared/pipes/get-table-data-source.pipe';
 import {FerriesService} from '@core/services/ferries.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {CommonService} from '@core/services/common.service';
-import {ROUTES_PRICES_TABLE_COLUMNS} from '@core/constants/settings';
+import {ROUTES_PRICES_TABLE_COLUMNS} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';

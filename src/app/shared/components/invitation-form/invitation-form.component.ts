@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '@core/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/settings';
+import {SPINNER_DIAMETER, USER_TYPES} from '@core/constants/global';
 import {AuthService} from '@core/services/auth.service';
 import {PartnerService} from '@core/services/partner.service';
 import {EmployeesService} from '@core/services/employees.service';

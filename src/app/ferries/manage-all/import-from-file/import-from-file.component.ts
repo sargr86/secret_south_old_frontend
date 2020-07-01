@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {FERRY_PRICES_FILE_DROPZONE_CONFIG, FERRY_ROUTES_FILE_DROPZONE_CONFIG} from '@core/constants/settings';
+import {FERRY_PRICES_FILE_DROPZONE_CONFIG, FERRY_ROUTES_FILE_DROPZONE_CONFIG} from '@core/constants/global';
 import {FerriesService} from '@core/services/ferries.service';
 import {ToastrService} from 'ngx-toastr';
 import * as XLSX from 'xlsx';

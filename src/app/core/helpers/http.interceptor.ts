@@ -41,6 +41,8 @@ export class RequestInterceptor implements HttpInterceptor {
           // Server connection error
         } else if (err.status === 200 || err.status === 0 || err.error.hasOwnProperty('conn_error') && err.status !== 304) {
           this.toastr.error('Please check server connection.', 'Unable to connect to server');
+        } else if (err.error.hasOwnProperty('main')) {
+          this.toastr.error(err.error.msg, err.error.main);
         } else {
           if (err.error.hasOwnProperty('msg')) {
             if (err.status === 444) {

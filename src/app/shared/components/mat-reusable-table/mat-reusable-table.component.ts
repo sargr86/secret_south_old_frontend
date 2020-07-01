@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '@core/constants/settings';
+import {CONFIRM_DIALOG_SETTINGS, MAT_TABLE_PAGINATION_VALUES, SPINNER_DIAMETER} from '@core/constants/global';
 import {FerriesService} from '@core/services/ferries.service';
 import {GetTableDataSourcePipe} from '../../pipes/get-table-data-source.pipe';
 import {MatDialog} from '@angular/material/dialog';

@@ -8,7 +8,7 @@ import {
   FERRIES_FOLDER,
   FOOD_DRINK_FOLDER,
   SPINNER_DIAMETER
-} from '@core/constants/settings';
+} from '@core/constants/global';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';

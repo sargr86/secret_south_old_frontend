@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '@core/services/auth.service';
-import {MAIN_SECTIONS} from '@core/constants/settings';
+import {MAIN_SECTIONS} from '@core/constants/global';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {MainService} from '@core/services/main.service';

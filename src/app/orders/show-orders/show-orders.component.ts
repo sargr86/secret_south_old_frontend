@@ -4,7 +4,7 @@ import {OrdersService} from '@core/services/orders.service';
 import {SubjectService} from '@core/services/subject.service';
 import {AuthService} from '@core/services/auth.service';
 import * as jwtDecode from 'jwt-decode';
-import {DRIVER_ORDER_TABS, ALL_ORDER_TABS} from '@core/constants/settings';
+import {DRIVER_ORDER_TABS, ALL_ORDER_TABS} from '@core/constants/global';
 import {Subscription} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChatService} from '@core/services/chat.service';

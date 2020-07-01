@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CUSTOMERS_TABLE_COLUMNS} from '@core/constants/settings';
+import {CUSTOMERS_TABLE_COLUMNS} from '@core/constants/global';
 import {Observable} from 'rxjs';
 import {User} from '@shared/models/User';
 import {CustomersService} from '@core/services/customers.service';
