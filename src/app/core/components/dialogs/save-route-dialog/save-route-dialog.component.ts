@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FerriesService} from '@core/services/ferries.service';
 import {preventDuplicateLocations} from '@core/helpers/prevent-duplicate-locations';
+import {MIN_PEOPLE_ON_FERRY} from '@core/constants/global';
 
 @Component({
   selector: 'app-save-route-dialog',
@@ -101,6 +102,11 @@ export class SaveRouteDialogComponent implements OnInit {
     const routeName = e.source.selected._element.nativeElement.innerText;
     const selectedRoute = this.suggestedRoutes.find(r => r.name === routeName);
     this.saveRouteForm.patchValue({coordinates: selectedRoute.coordinates});
+  }
+
+  countTotalPrice(ctrl) {
+    const changedPrice = this.saveRouteForm.value[ctrl];
+    this.totalPrice = MIN_PEOPLE_ON_FERRY * changedPrice;
   }
 
   get startPoint(): AbstractControl {

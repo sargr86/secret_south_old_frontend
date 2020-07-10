@@ -288,5 +288,6 @@ export const ORDERS_TABLE_COLUMNS = ['_id', 'client_full_name', 'phone', 'email'
 export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', 'end_point', 'has_coordinates_on_map', 'has_price', 'single', 'return', 'total', 'actions'];
 
 export const MAX_LOCATION_CHOICES = 4;
+export const MIN_PEOPLE_ON_FERRY = 6;
 
 
