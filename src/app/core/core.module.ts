@@ -6,12 +6,10 @@ import {NavbarComponent} from '@core/components/layout/navbar/navbar.component';
 import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.component';
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
-import {API_URL} from '@core/constants/global';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
 import {ToastrModule} from 'ngx-toastr';
 import {SaveRouteDialogComponent} from './components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ChangePricesDialogComponent} from './components/dialogs/change-prices-dialog/change-prices-dialog.component';
-import {SaveRouteDetailsDialogComponent} from './components/dialogs/save-route-details-dialog/save-route-details-dialog.component';
 import {ConfirmationDialogComponent} from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {SaveLocationDialogComponent} from './components/dialogs/save-location-dialog/save-location-dialog.component';
@@ -27,7 +25,6 @@ import {SaveLocationDialogComponent} from './components/dialogs/save-location-di
     DriverAssignmentDialogComponent,
     SaveRouteDialogComponent,
     ChangePricesDialogComponent,
-    SaveRouteDetailsDialogComponent,
     ConfirmationDialogComponent,
     SaveLocationDialogComponent,
   ],
@@ -48,7 +45,6 @@ import {SaveLocationDialogComponent} from './components/dialogs/save-location-di
   entryComponents: [
     DriverAssignmentDialogComponent,
     SaveRouteDialogComponent,
-    SaveRouteDetailsDialogComponent,
     SaveLocationDialogComponent,
     ConfirmationDialogComponent
   ]
