@@ -189,9 +189,9 @@ export class MapControlsComponent implements OnInit {
       this.filteredLinesArr = [];
       this.lines = [];
       if (dt) {
-          dt.coordinates.map(c => {
-            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR});
-          });
+        dt.coordinates.map(c => {
+          this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR});
+        });
       }
       this.linesArr.push(this.lines);
       this.filteredLinesArr = this.linesArr;
@@ -280,25 +280,23 @@ export class MapControlsComponent implements OnInit {
 
 
   removeRouteLine(route) {
-    const foundRoute = this.linesArr.find(l => l.name === route.name);
 
-    if (foundRoute) {
-      route.coordinates = [];
-      this.ferriesService.saveRoutePrice(route).subscribe((dt: any) => {
-        this.linesArr = dt;
-        this.getAllRoutes();
-        this.removeDrawn();
-        this.toastr.success('Route line removed successfully!');
-      });
-    }
+    this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        const foundRoute = this.linesArr.find(l => l.name === route.name);
 
+        if (foundRoute) {
+          route.coordinates = [];
+          this.ferriesService.saveRoutePrice(route).subscribe((dt: any) => {
+            this.linesArr = dt;
+            this.getAllRoutes();
+            this.removeDrawn();
+            this.toastr.success('Route line removed successfully!');
+          });
+        }
+      }
 
-    // this.ferriesService.removeRoutePrice({id: route._id}).subscribe((dt: any) => {
-    //   this.linesArr = dt;
-    //   this.getAllRoutes();
-    //   this.removeDrawn();
-    //   this.toastr.success('Route and its details removed successfully!');
-    // });
+    });
   }
 
 
