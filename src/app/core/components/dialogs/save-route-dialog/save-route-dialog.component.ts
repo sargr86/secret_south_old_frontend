@@ -19,6 +19,7 @@ export class SaveRouteDialogComponent implements OnInit {
   fromMap = false;
   totalPrice: number;
   routeData;
+  edit = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,11 +27,10 @@ export class SaveRouteDialogComponent implements OnInit {
     private ferriesService: FerriesService,
     private dialog: MatDialogRef<SaveRouteDialogComponent>
   ) {
-
+    console.log(data)
     this.fromMap = data.map;
     this.routeData = data.route;
-    //
-    //
+    this.edit = !!this.routeData;
     if (this.fromMap) {
 
     }
@@ -39,7 +39,7 @@ export class SaveRouteDialogComponent implements OnInit {
     this.getSuggestedRoutes();
 
     this.saveRouteForm = this.fb.group({
-      name: [{value: ''}, Validators.required],
+      name: ['', Validators.required],
       start_point: ['', Validators.required],
       stop_1: [''],
       stop_2: [''],
@@ -47,8 +47,8 @@ export class SaveRouteDialogComponent implements OnInit {
       geometry_type: ['LineString'],
       coordinates: [data.coordinates], // Validators.required,
       map: this.fromMap,
-      single: [''],
-      return: [''],
+      single: ['0'],
+      return: ['0'],
       total: new FormControl({value: '', disabled: true}, Validators.required),
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
 
@@ -57,6 +57,7 @@ export class SaveRouteDialogComponent implements OnInit {
     if (this.routeData) {
       this.totalPrice = this.routeData.total;
       this.routeName = this.routeData.name;
+      this.saveRouteForm.addControl('_id', new FormControl('', Validators.required));
       this.saveRouteForm.patchValue(this.routeData);
     }
 
@@ -74,8 +75,6 @@ export class SaveRouteDialogComponent implements OnInit {
   getSuggestedRoutes() {
     this.ferriesService.getAllRoutes().subscribe((dt: any) => {
       this.suggestedRoutes = dt;
-      // .filter(d => d.stop_1 === '' && d.stop_2 === '');
-      // console.log(this.allRoutes)
     });
   }
 
@@ -94,6 +93,7 @@ export class SaveRouteDialogComponent implements OnInit {
     const stop2 = this.stop_2.value;
     const endPoint = this.endPoint.value;
     this.routeName = `${startPoint ? startPoint : ''}${stop1 ? ' - ' + stop1 : ''}${stop2 ? ' - ' + stop2 : ''}${endPoint ? ' - ' + endPoint : ''}`;
+    console.log(this.routeName)
     this.saveRouteForm.patchValue({name: this.routeName});
   }
 
