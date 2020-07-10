@@ -189,41 +189,23 @@ export class MapControlsComponent implements OnInit {
       this.filteredLinesArr = [];
       this.lines = [];
       if (dt) {
-        if (dt.geometry_type === 'LineString') {
           dt.coordinates.map(c => {
             this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR});
           });
-        } else if (dt.geometry_type === 'Polygon') {
-          Object.values(dt.coordinates[0]).reverse().map((c: any) => {
-            if (c.lat) {
-              this.lines.push({
-                name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR
-              });
-            }
-
-          });
-        }
-
       }
-      this.linesArr.push(this.lines)
-      console.log(this.linesArr)
+      this.linesArr.push(this.lines);
       this.filteredLinesArr = this.linesArr;
-      console.log(this.filteredLinesArr)
       this.routeSelected.emit({selectedLocations: this.selectedLocations, routePriceData: dt});
     });
   }
 
 
   overlayComplete(e) {
-    console.log(this.selectedRoute)
-    console.log(e.overlay)
     if (e.overlay) {
 
       const coordinatesArray = e.overlay.getPath().getArray();
       const coordinates = [];
       coordinatesArray.forEach((position) => {
-        // console.log('lat', position.lat());
-        // console.log('lng', position.lng());
         coordinates.push({lat: position.lat(), lng: position.lng()});
       });
       this.drawnLines.push(e.overlay);
