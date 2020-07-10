@@ -28,7 +28,6 @@ export class SaveRouteDialogComponent implements OnInit {
     private ferriesService: FerriesService,
     private dialog: MatDialogRef<SaveRouteDialogComponent>
   ) {
-    console.log(data)
     this.fromMap = data.map;
     this.routeData = data.route;
     this.edit = !!this.routeData;

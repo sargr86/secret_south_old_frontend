@@ -7,6 +7,7 @@ import {ROUTES_PRICES_TABLE_COLUMNS} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
+import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-routes-prices-table',
@@ -70,17 +71,27 @@ export class RoutesPricesTableComponent implements OnInit {
   }
 
   removeRoutePrice(row) {
-    this.ferriesService.removeRoutePrice({id: row._id}).subscribe(() => {
-      this.toastr.success('The route info has been removed successfully from the map');
-      this.getAllRoutesPrices();
+    this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.ferriesService.removeRoutePrice({id: row._id}).subscribe(() => {
+          this.toastr.success('The route info has been removed successfully from the map');
+          this.getAllRoutesPrices();
+        });
+      }
     });
+
   }
 
   removeAllRoutesPrices() {
-    this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
-      this.toastr.success('All routes and their info have been removed successfully from the map');
-      this.getAllRoutesPrices();
+    this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
+          this.toastr.success('All routes and their info have been removed successfully from the map');
+          this.getAllRoutesPrices();
+        });
+      }
     });
+
   }
 
   addNewRouteWithoutMap() {
