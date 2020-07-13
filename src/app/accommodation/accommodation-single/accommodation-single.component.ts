@@ -9,7 +9,7 @@ import {CommonService} from '@core/services/common.service';
   styleUrls: ['./accommodation-single.component.scss']
 })
 export class AccommodationSingleComponent implements OnInit {
-  accommodation;
+  accommodationProvider;
 
   constructor(
     private _accommodations: AccommodationsService,
@@ -25,7 +25,7 @@ export class AccommodationSingleComponent implements OnInit {
     const accommodation_id = this.route.snapshot.params.id;
 
     this._accommodations.getOne({id: accommodation_id}).subscribe(dt => {
-      this.accommodation = dt;
+      this.accommodationProvider = dt;
     });
   }
 

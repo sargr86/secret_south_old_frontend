@@ -1,256 +1,255 @@
 <app-header-top [section]="'Food/Drink'"></app-header-top>
 <section class="accommodations">
 
-    <div class="accommodations_main main_content">
-        <div class="accommodations_main_left">
-            <div class="accommodations_main_left_top_box">
-                <p class="Change_Search">Change Search</p>
-                <hr>
-                <input type="text" name="" value="" placeholder="Cork" class="Cork_inp">
-                <div class="accommodations_main_left_top_box_inpts">
-                    <input type="text" name="" value="" placeholder="Date">
-                    <input type="text" name="" value="" placeholder="Time">
-                </div>
-                <select class="" name="">
-                    <option value="">Guests</option>
-                    <option value=""></option>
-                </select>
-                <div class="accommodations_main_left_top_box_btn">
-                    <button type="button" name="button">Search</button>
-                </div>
-            </div>
-            <div class="map_box">
-                <div id="map-container-google-1" class="z-depth-1-half map-container map_area">
-<!--                    <iframe src="https://maps.google.com/maps?q=cork&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"-->
-<!--                            frameborder="0" style="border:0" allowfullscreen=""></iframe>-->
-                </div>
-<!--                <div class="show_on_map">-->
-<!--                    <button>Show On Map</button>-->
-<!--                </div>-->
-            </div>
-            <div class="guests">
-                <h2>What 1332 People Are Saying</h2>
-                <div class="bottom_line"></div>
-                <h2>Overall ratings and reviews</h2>
-                <p>Reviews can only be made by diners who have eaten at this restaurant</p>
-                <div class="stars">
-                    <img src="assets/images/star.svg">
-                    <img src="assets/images/star.svg">
-                    <img src="assets/images/star.svg">
-                    <img src="assets/images/star.svg">
-                    <img src="assets/images/star.svg">
-                    <p>5 based on recent ratings</p>
-                </div>
-                <div class="ratings_line">
-                    <div class="ratings">
-                        <p>4.4</p>
-                        <p>Food</p>
-                    </div>
-                    <div class="ratings">
-                        <p>4.6</p>
-                        <p>Service</p>
-                    </div>
-                    <div class="ratings">
-                        <p>5</p>
-                        <p>Ambience</p>
-                    </div>
-                    <div class="ratings">
-                        <p>5</p>
-                        <p>Value</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="noise_like">
-                        <img src="assets/images/noisy-megaphone.svg">
-                        <p>Noise · Moderate</p>
-                    </div>
-                    <div class="noise_like">
-                        <img src="assets/images/like.svg">
-                        <p>90% of people would recommend it to a friend</p>
-                    </div>
-                </div>
-                <h2>What guests loved the most:</h2>
-                <div class="bottom_line"></div>
-                <ul>
-                    <li>
-                        <div class="name_area">
-                            <div class="usere_image">
-                                <img src="assets/images/4.png">
-                            </div>
-                            <div class="surname">
-
-                                <h2>Name Surname</h2>
-                                <img src="assets/images/united-states-of-america.png">
-                                <span>“USA</span>
-                            </div>
-                        </div>
-                        <p>“Excellent service and excellent food! Just make your wi-fi connection better :-)</p>
-
-
-                    </li>
-                    <li>
-                        <div class="name_area">
-                            <div class="usere_image">
-                                <img src="assets/images/d5jA8OZv.png">
-                            </div>
-                            <div class="surname">
-
-                                <h2>Name Surname</h2>
-                                <img src="assets/images/italy.png">
-                                <span>“Italy</span>
-                            </div>
-                        </div>
-                        <p>“The Cottage was big enough and well cleaned
-                            The Receiption staff were very friendly and cooperative
-                            The food was perfect with great choices”</p>
-
-
-                    </li>
-                </ul>
-            </div>
+  <div class="accommodations_main main_content">
+    <div class="accommodations_main_left">
+      <div class="accommodations_main_left_top_box">
+        <p class="Change_Search">Change Search</p>
+        <hr>
+        <input type="text" name="" value="" placeholder="Cork" class="Cork_inp">
+        <div class="accommodations_main_left_top_box_inpts">
+          <input type="text" name="" value="" placeholder="Date">
+          <input type="text" name="" value="" placeholder="Time">
         </div>
-        <div class="accommodations_main_right">
-            <div class="right_image_home">
-                <img src="assets/images/_a1a8429 (1).png">
-            </div>
-            <div class="content_image_line">
-                <div class="photo">
-                    <img src="assets/images/csm_PWH_7635_2bcb7ca580 (1).png">
-                </div>
-                <div class="photo">
-                    <img src="assets/images/czlmc-restaurant-0025-hor-feat.png">
-                </div>
-                <div class="photo">
-                    <img src="assets/images/0219_Elmwood_0016 (2).png">
-                </div>
-            </div>
-            <div class="right_text">
-                <div class="second_left_block">
-                    <div class="text">
-                        <h2>{{foodDrinkProvider?.name}}</h2>
-                        <p>{{foodDrinkProvider?.description}}
-                        </p>
-                    </div>
-                    <div class="credit_card_box">
-                        <img src="assets/images/credit-card.svg">
-                        <span>No credit card needed to book.</span>
-                        <p> We'll send you an email
-                            confirming your reservation.</p>
-
-                    </div>
-                    <div class="credit_card_box">
-                        <img src="assets/images/check.svg">
-                        <span>Tip: Stay flexible</span>
-                        <p>Tip: Stay flexible
-                            Since your dates are a while away, choose free cancellation
-                            to stay flexible. A change of plans is no problem when you
-                            have free cancellation!</p>
-                    </div>
-
-                </div>
-                <div class="second_right_block">
-
-
-                    <div class="include_box">
-                        <h3>Details</h3>
-                        <div class="right_box_options">
-                            <img src="assets/images/street.svg">
-                            <p>Cross Street</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>
-                                Lorem
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/location-pointer.svg">
-                            <p>Area</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>
-                                Lorem
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/clock-with-white-face.svg">
-                            <p>Hours of Operation</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Brunch</li>
-                            <li>Sun 10:00–15:00</li>
-                            <li>Dinner</li>
-                            <li> Mon, Sun 17:00–01:00</li>
-                            <li>Tue–Sat 17:00–02:00</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/spoon-and-fork-crossed.svg">
-                            <p>Cuisines</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Contemporary American,
-                                American
-                            </li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/dining-meal-covered.svg">
-                            <p>Dining Style</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Casual Elegant</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/dress.svg">
-                            <p>Dress Code</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Smart Casual</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/bus.svg">
-                            <p>Public Transit</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Universal City</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/credit-card (1).svg">
-                            <p>Payment Options</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>AMEX, Discover,</li>
-                            <li> MasterCard, Visa</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/clapperboard.svg">
-                            <p>Entertainment</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>The Joshua Payne</li>
-                            <li> Orchestra - Modern Jazz</li>
-                            <li>every Monday Night</li>
-                            <li>DJs Fridays and</li>
-                            <li>Saturday Nights</li>
-                        </ul>
-                        <div class="right_box_options">
-                            <img src="assets/images/add-document.svg">
-                            <p>Additional</p>
-                        </div>
-                        <ul class="option_box">
-                            <li>Bar/Lounge, Beer, BYO Wine,</li>
-                            <li>Cocktails, Corkage Fee,</li>
-                            <li> Entertainment, Fireplace,</li>
-                            <li> Full Bar, Gender Neutral</li>
-                            <li>Restroom, Late Night,</li>
-                            <li>Outdoor dining ,</li>
-                            <li>Patio/Outdoor Dining,</li>
-                            <li> View, Weekend Brunch,</li>
-                            <li>Wheelchair Access, Wine</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
+        <select class="" name="">
+          <option value="">Guests</option>
+          <option value=""></option>
+        </select>
+        <div class="accommodations_main_left_top_box_btn">
+          <button type="button" name="button">Search</button>
         </div>
+      </div>
+      <div class="map_box">
+        <div id="map-container-google-1" class="z-depth-1-half map-container map_area">
+          <agm-map [latitude]="+foodDrinkProvider.lat" [longitude]="+foodDrinkProvider.lng" [zoom]="16"
+                   *ngIf="foodDrinkProvider" style="height:390px;" [fullscreenControl]="true">
+            <agm-marker [latitude]="foodDrinkProvider.lat" [longitude]="foodDrinkProvider.lng"></agm-marker>
+          </agm-map>
+        </div>
+      </div>
+      <div class="guests">
+        <h2>What 1332 People Are Saying</h2>
+        <div class="bottom_line"></div>
+        <h2>Overall ratings and reviews</h2>
+        <p>Reviews can only be made by diners who have eaten at this restaurant</p>
+        <div class="stars">
+          <img src="assets/images/star.svg">
+          <img src="assets/images/star.svg">
+          <img src="assets/images/star.svg">
+          <img src="assets/images/star.svg">
+          <img src="assets/images/star.svg">
+          <p>5 based on recent ratings</p>
+        </div>
+        <div class="ratings_line">
+          <div class="ratings">
+            <p>4.4</p>
+            <p>Food</p>
+          </div>
+          <div class="ratings">
+            <p>4.6</p>
+            <p>Service</p>
+          </div>
+          <div class="ratings">
+            <p>5</p>
+            <p>Ambience</p>
+          </div>
+          <div class="ratings">
+            <p>5</p>
+            <p>Value</p>
+          </div>
+        </div>
+        <div>
+          <div class="noise_like">
+            <img src="assets/images/noisy-megaphone.svg">
+            <p>Noise · Moderate</p>
+          </div>
+          <div class="noise_like">
+            <img src="assets/images/like.svg">
+            <p>90% of people would recommend it to a friend</p>
+          </div>
+        </div>
+        <h2>What guests loved the most:</h2>
+        <div class="bottom_line"></div>
+        <ul>
+          <li>
+            <div class="name_area">
+              <div class="usere_image">
+                <img src="assets/images/4.png">
+              </div>
+              <div class="surname">
+
+                <h2>Name Surname</h2>
+                <img src="assets/images/united-states-of-america.png">
+                <span>“USA</span>
+              </div>
+            </div>
+            <p>“Excellent service and excellent food! Just make your wi-fi connection better :-)</p>
+
+
+          </li>
+          <li>
+            <div class="name_area">
+              <div class="usere_image">
+                <img src="assets/images/d5jA8OZv.png">
+              </div>
+              <div class="surname">
+
+                <h2>Name Surname</h2>
+                <img src="assets/images/italy.png">
+                <span>“Italy</span>
+              </div>
+            </div>
+            <p>“The Cottage was big enough and well cleaned
+              The Receiption staff were very friendly and cooperative
+              The food was perfect with great choices”</p>
+
+
+          </li>
+        </ul>
+      </div>
     </div>
+    <div class="accommodations_main_right">
+      <div class="right_image_home">
+        <img src="assets/images/_a1a8429 (1).png">
+      </div>
+      <div class="content_image_line">
+        <div class="photo">
+          <img src="assets/images/csm_PWH_7635_2bcb7ca580 (1).png">
+        </div>
+        <div class="photo">
+          <img src="assets/images/czlmc-restaurant-0025-hor-feat.png">
+        </div>
+        <div class="photo">
+          <img src="assets/images/0219_Elmwood_0016 (2).png">
+        </div>
+      </div>
+      <div class="right_text">
+        <div class="second_left_block">
+          <div class="text">
+            <h2>{{foodDrinkProvider?.name}}</h2>
+            <p>{{foodDrinkProvider?.description}}
+            </p>
+          </div>
+          <div class="credit_card_box">
+            <img src="assets/images/credit-card.svg">
+            <span>No credit card needed to book.</span>
+            <p> We'll send you an email
+              confirming your reservation.</p>
+
+          </div>
+          <div class="credit_card_box">
+            <img src="assets/images/check.svg">
+            <span>Tip: Stay flexible</span>
+            <p>Tip: Stay flexible
+              Since your dates are a while away, choose free cancellation
+              to stay flexible. A change of plans is no problem when you
+              have free cancellation!</p>
+          </div>
+
+        </div>
+        <div class="second_right_block">
+
+
+          <div class="include_box">
+            <h3>Details</h3>
+            <div class="right_box_options">
+              <img src="assets/images/street.svg">
+              <p>Cross Street</p>
+            </div>
+            <ul class="option_box">
+              <li>
+                Lorem
+              </li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/location-pointer.svg">
+              <p>Area</p>
+            </div>
+            <ul class="option_box">
+              <li>
+                Lorem
+              </li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/clock-with-white-face.svg">
+              <p>Hours of Operation</p>
+            </div>
+            <ul class="option_box">
+              <li>Brunch</li>
+              <li>Sun 10:00–15:00</li>
+              <li>Dinner</li>
+              <li> Mon, Sun 17:00–01:00</li>
+              <li>Tue–Sat 17:00–02:00</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/spoon-and-fork-crossed.svg">
+              <p>Cuisines</p>
+            </div>
+            <ul class="option_box">
+              <li>Contemporary American,
+                American
+              </li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/dining-meal-covered.svg">
+              <p>Dining Style</p>
+            </div>
+            <ul class="option_box">
+              <li>Casual Elegant</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/dress.svg">
+              <p>Dress Code</p>
+            </div>
+            <ul class="option_box">
+              <li>Smart Casual</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/bus.svg">
+              <p>Public Transit</p>
+            </div>
+            <ul class="option_box">
+              <li>Universal City</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/credit-card (1).svg">
+              <p>Payment Options</p>
+            </div>
+            <ul class="option_box">
+              <li>AMEX, Discover,</li>
+              <li> MasterCard, Visa</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/clapperboard.svg">
+              <p>Entertainment</p>
+            </div>
+            <ul class="option_box">
+              <li>The Joshua Payne</li>
+              <li> Orchestra - Modern Jazz</li>
+              <li>every Monday Night</li>
+              <li>DJs Fridays and</li>
+              <li>Saturday Nights</li>
+            </ul>
+            <div class="right_box_options">
+              <img src="assets/images/add-document.svg">
+              <p>Additional</p>
+            </div>
+            <ul class="option_box">
+              <li>Bar/Lounge, Beer, BYO Wine,</li>
+              <li>Cocktails, Corkage Fee,</li>
+              <li> Entertainment, Fireplace,</li>
+              <li> Full Bar, Gender Neutral</li>
+              <li>Restroom, Late Night,</li>
+              <li>Outdoor dining ,</li>
+              <li>Patio/Outdoor Dining,</li>
+              <li> View, Weekend Brunch,</li>
+              <li>Wheelchair Access, Wine</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
