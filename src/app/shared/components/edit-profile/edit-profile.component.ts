@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
 import {AuthService} from '@core/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
-import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
+import { StripeCardComponent, StripeService} from 'ngx-stripe';
 import {UsersService} from '@core/services/users.service';
 import * as jwtDecode from 'jwt-decode';
 
@@ -26,8 +26,8 @@ export class EditProfileComponent implements OnInit {
   authUser;
 
   // Stripe
-  cardOptions: ElementOptions = STRIPE_CARD_OPTIONS;
-  elementsOptions: ElementsOptions = {locale: 'en'};
+  cardOptions = STRIPE_CARD_OPTIONS;
+  elementsOptions = {locale: 'en'};
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
   constructor(

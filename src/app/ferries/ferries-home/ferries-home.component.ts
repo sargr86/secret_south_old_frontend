@@ -22,7 +22,7 @@ import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
 import {HttpParams} from '@angular/common/http';
 import {AgmMap} from '@agm/core';
-import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
+import {StripeCardComponent, StripeService} from 'ngx-stripe';
 import {UsersService} from '@core/services/users.service';
 import {MAP_CENTER_COORDINATES} from '@core/constants/map';
 
@@ -70,8 +70,8 @@ export class FerriesHomeComponent implements OnInit {
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
 
   // Stripe
-  cardOptions: ElementOptions = STRIPE_CARD_OPTIONS;
-  elementsOptions: ElementsOptions = {locale: 'en'};
+  cardOptions = STRIPE_CARD_OPTIONS;
+  elementsOptions = {locale: 'en'};
   @ViewChild('messagesList') private messagesList: ElementRef;
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
