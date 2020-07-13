@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FoodDrinkService} from '@core/services/food-drink.service';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
     selector: 'app-food-drink-single',
@@ -13,8 +14,10 @@ export class FoodDrinkSingleComponent implements OnInit {
     constructor(
         private _food_drink: FoodDrinkService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public common: CommonService
     ) {
+      this.common.dataLoading = false;
     }
 
     ngOnInit() {
