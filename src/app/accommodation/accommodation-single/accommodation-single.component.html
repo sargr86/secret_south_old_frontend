@@ -21,11 +21,10 @@
       </div>
       <div class="map_box">
         <div id="map-container-google-1" class="z-depth-1-half map-container map_area">
-          <iframe src="https://maps.google.com/maps?q=cork&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
-                  style="border:0" allowfullscreen=""></iframe>
-        </div>
-        <div class="show_on_map">
-          <button>Show On Map</button>
+          <agm-map [latitude]="+accommodationProvider.lat" [longitude]="+accommodationProvider.lng" [zoom]="16"
+                   *ngIf="accommodationProvider" style="height:390px;" [fullscreenControl]="true">
+            <agm-marker [latitude]="accommodationProvider.lat" [longitude]="accommodationProvider.lng"></agm-marker>
+          </agm-map>
         </div>
       </div>
       <div class="guests">
@@ -132,8 +131,8 @@
       <div class="right_text">
         <div class="second_left_block">
           <div class="text">
-            <h2>{{accommodation?.name}}</h2>
-            <p>{{accommodation?.description}}</p>
+            <h2>{{accommodationProvider?.name}}</h2>
+            <p>{{accommodationProvider?.description}}</p>
           </div>
           <div class="credit_card_box">
             <img src="assets/images/credit-card.svg">
