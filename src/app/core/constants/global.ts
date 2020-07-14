@@ -37,8 +37,8 @@ export const BOOKING_DIALOG_SETTINGS = {autoFocus: true, width: '500px'};
 export const GOOGLE_API_KEY = 'AIzaSyDGnTNMKk7nklAM7Z3dWTV5_JV_auarQVs';
 
 // Stripe public key
-// export const STRIPE_PUBLIC_KEY = 'pk_test_MyqMApfCZgjMQywNsw85PsVl00Ys4ByBYE';
-export const STRIPE_PUBLIC_KEY = 'pk_live_79SLhLfYlUvFHoHHUxkmrMhV00WIYqhoXo';
+export const STRIPE_PUBLIC_KEY = 'pk_test_MyqMApfCZgjMQywNsw85PsVl00Ys4ByBYE';
+// export const STRIPE_PUBLIC_KEY = 'pk_live_79SLhLfYlUvFHoHHUxkmrMhV00WIYqhoXo';
 
 export const STRIPE_CARD_OPTIONS = {
   style: {
