@@ -4,6 +4,10 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '
 import {FerriesService} from '@core/services/ferries.service';
 import {preventDuplicateLocations} from '@core/helpers/prevent-duplicate-locations';
 import {MIN_PEOPLE_ON_FERRY} from '@core/constants/global';
+import {CommonService} from '@core/services/common.service';
+import {patternValidator} from '@core/helpers/pattern-validator';
+import {NUMBERS_ONLY_PATTERN} from '@core/constants/patterns';
+import {distinct} from 'rxjs/operators';
 
 @Component({
   selector: 'app-save-route-dialog',
@@ -26,7 +30,8 @@ export class SaveRouteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private ferriesService: FerriesService,
-    private dialog: MatDialogRef<SaveRouteDialogComponent>
+    private dialog: MatDialogRef<SaveRouteDialogComponent>,
+    public common: CommonService
   ) {
     this.fromMap = data.map;
     this.routeData = data.route;
@@ -47,8 +52,8 @@ export class SaveRouteDialogComponent implements OnInit {
       geometry_type: ['LineString'],
       coordinates: [data.coordinates], // Validators.required,
       map: this.fromMap,
-      single: ['0'],
-      return: ['0'],
+      single: ['0', patternValidator(NUMBERS_ONLY_PATTERN)],
+      return: ['0', patternValidator(NUMBERS_ONLY_PATTERN)],
       total: new FormControl({value: '', disabled: true}, Validators.required),
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
 
@@ -69,7 +74,20 @@ export class SaveRouteDialogComponent implements OnInit {
       this.locations = dt;
     });
 
+    this.changePricesFormat('single');
+    this.changePricesFormat('return');
 
+
+  }
+
+  changePricesFormat(priceCtrl) {
+    const control = this.saveRouteForm.get(priceCtrl);
+    control.valueChanges
+      .pipe(distinct())
+      .subscribe(value => {
+        console.log(+value)
+        control.setValue(+value || 0);
+      });
   }
 
   getSuggestedRoutes() {
@@ -81,7 +99,9 @@ export class SaveRouteDialogComponent implements OnInit {
   saveRoute() {
     this.isSubmitted = true;
     if (this.saveRouteForm.valid) {
+      this.common.formProcessing = true;
       this.ferriesService.saveRoutePrice(this.saveRouteForm.value).subscribe(dt => {
+        this.common.formProcessing = false;
         this.dialog.close(dt);
       });
     }
@@ -93,7 +113,6 @@ export class SaveRouteDialogComponent implements OnInit {
     const stop2 = this.stop_2.value;
     const endPoint = this.endPoint.value;
     this.routeName = `${startPoint ? startPoint : ''}${stop1 ? ' - ' + stop1 : ''}${stop2 ? ' - ' + stop2 : ''}${endPoint ? ' - ' + endPoint : ''}`;
-    console.log(this.routeName)
     this.saveRouteForm.patchValue({name: this.routeName});
   }
 
@@ -104,7 +123,7 @@ export class SaveRouteDialogComponent implements OnInit {
   }
 
   countTotalPrice(ctrl) {
-    const changedPrice = this.saveRouteForm.value[ctrl];
+    const changedPrice = +this.saveRouteForm.value[ctrl] || 0;
     this.totalPrice = MIN_PEOPLE_ON_FERRY * changedPrice;
   }
 
@@ -126,6 +145,14 @@ export class SaveRouteDialogComponent implements OnInit {
 
   get coordinates(): AbstractControl {
     return this.saveRouteForm.get('coordinates');
+  }
+
+  get singlePrice(): AbstractControl {
+    return this.saveRouteForm.get('single');
+  }
+
+  get returnPrice(): AbstractControl {
+    return this.saveRouteForm.get('single');
   }
 
 }

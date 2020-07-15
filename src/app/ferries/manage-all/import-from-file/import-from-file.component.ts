@@ -15,6 +15,7 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
   pricesOnly;
   dropzoneConfig;
   dropzoneMsg;
+  dropzoneError;
 
   constructor(
     private ferriesService: FerriesService,
@@ -33,18 +34,18 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
   }
 
   onFileAdded(e) {
-    if (this.pricesOnly) {
-      this.importPricesOnly(e);
-    } else {
-      this.importRoutesPrices(e);
-    }
-
+      if (this.pricesOnly) {
+        this.importPricesOnly(e);
+      } else {
+        this.importRoutesPrices(e);
+      }
   }
 
   importRoutesPrices(e) {
     const fileReader = new FileReader();
     fileReader.readAsText(e, 'UTF-8');
     fileReader.onload = async () => {
+      console.log(typeof fileReader['result'])
       this.ferriesService.importRoutesFile(JSON.parse(fileReader['result'] as any)).subscribe(() => {
         this.toastr.success('Ferries routes data imported successfully');
         // this.routesUpdated.emit();
