@@ -99,12 +99,15 @@
             <input matInput formControlName="single" placeholder="Price for one-way route"
                    (keyup)="countTotalPrice('single')">
             <mat-hint align="end">One person price</mat-hint>
+            <mat-error *ngIf="saveRouteForm.get('single').hasError('patternInvalid')">The price should be in number format</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput formControlName="return" placeholder="Price for two-way route"
                    (keyup)="countTotalPrice('return')">
+
             <mat-hint align="end">One person price</mat-hint>
+            <mat-error *ngIf="saveRouteForm.get('return').hasError('patternInvalid')">The price should be in number format</mat-error>
           </mat-form-field>
 
 
@@ -113,6 +116,7 @@
 
 
       <button mat-raised-button color="primary" (click)="saveRoute()">Save</button>
+      <mat-spinner [diameter]="15" *ngIf="common.formProcessing"></mat-spinner>
     </ng-container>
   </form>
 </div>
