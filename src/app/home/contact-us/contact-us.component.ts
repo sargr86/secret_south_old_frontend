@@ -6,6 +6,7 @@ import IsResponsive from '@core/helpers/is-responsive';
 import {ContactsService} from '@core/services/contacts.service';
 import {ToastrService} from 'ngx-toastr';
 import {SubjectService} from '@core/services/subject.service';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -23,7 +24,8 @@ export class ContactUsComponent implements OnInit {
     public router: Router,
     private _contactsService: ContactsService,
     private toastr: ToastrService,
-    private subject: SubjectService
+    private subject: SubjectService,
+    public common: CommonService
   ) {
     this.contactForm = this.fb.group({
       company_name: ['', Validators.required],
@@ -33,6 +35,7 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.common.dataLoading = false;
   }
 
 
