@@ -46,7 +46,6 @@ export class CarouselHolderComponent implements OnInit {
 
   ngOnInit() {
     this.responsiveMode = IsResponsive.check();
-    console.log(this.items)
   }
 
   getPath(item, folder) {

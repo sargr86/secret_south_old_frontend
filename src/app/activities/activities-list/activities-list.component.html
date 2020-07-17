@@ -69,6 +69,7 @@
                         <option value="">Sort: Price (low to high)</option>
                     </select>
                     <button type="button" name="button">Choose on map</button>
+
                 </div>
                 <div class="accommodations_main_right_top_right">
                     <p class="accommodations_main_right_top_right_view">View:</p>
@@ -89,7 +90,7 @@
                             <!--                            <div class="accommodations_main_right_main_block_img_2">-->
                             <!--                                <img src="assets/images/face2.png" alt="">-->
                             <!--                            </div>-->
-                            <img *ngIf="obj.img" [src]="activityFolder+ obj.img" alt=""
+                            <img *ngIf="obj.img" [src]="getPath(obj, activityFolder)" alt=""
                                  class="accommodations_main_right_main_block_img_photo">
                             <div *ngIf="!obj.img" class="no_image"></div>
                         </div>

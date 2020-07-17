@@ -109,19 +109,24 @@
       </div>
     </div>
     <div class="accommodations_main_right">
+
       <div class="right_image_home">
-        <img src="assets/images/_a1a8429 (1).png">
-      </div>
-      <div class="content_image_line">
-        <div class="photo">
-          <img src="assets/images/csm_PWH_7635_2bcb7ca580 (1).png">
-        </div>
-        <div class="photo">
-          <img src="assets/images/czlmc-restaurant-0025-hor-feat.png">
-        </div>
-        <div class="photo">
-          <img src="assets/images/0219_Elmwood_0016 (2).png">
-        </div>
+        <ng-container *ngIf="foodDrinkProvider && foodDrinkProvider.images.length !==0 ">
+          <ngx-gallery [options]="galleryOptions" [images]="getImages()" class="single-page-gallery"></ngx-gallery>
+        </ng-container>
+        <img src="assets/images/no_image_slider.jpg" *ngIf="foodDrinkProvider && foodDrinkProvider.images.length ===0" class="no-images">
+        <!--        <img src="assets/images/_a1a8429 (1).png">-->
+        <!--      </div>-->
+        <!--      <div class="content_image_line">-->
+        <!--        <div class="photo">-->
+        <!--          <img src="assets/images/csm_PWH_7635_2bcb7ca580 (1).png">-->
+        <!--        </div>-->
+        <!--        <div class="photo">-->
+        <!--          <img src="assets/images/czlmc-restaurant-0025-hor-feat.png">-->
+        <!--        </div>-->
+        <!--        <div class="photo">-->
+        <!--          <img src="assets/images/0219_Elmwood_0016 (2).png">-->
+        <!--        </div>-->
       </div>
       <div class="right_text">
         <div class="second_left_block">
@@ -148,8 +153,6 @@
 
         </div>
         <div class="second_right_block">
-
-
           <div class="include_box">
             <h3>Details</h3>
             <div class="right_box_options">
@@ -246,10 +249,8 @@
               <li>Wheelchair Access, Wine</li>
             </ul>
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 </section>

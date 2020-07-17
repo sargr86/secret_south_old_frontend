@@ -1167,3 +1167,15 @@ header:not(.timepicker__header) {
 .mat-form-field.mat-form-field-invalid .mat-form-field-label {
   color: $red !important;
 }
+
+.owl-carousel .owl-item img {
+  height: 250px !important;
+}
+
+.single-page-gallery {
+  width: 100% !important;
+}
+
+.no-images {
+  height: 343px;
+}
