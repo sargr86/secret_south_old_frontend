@@ -46,7 +46,7 @@ export const STRIPE_CARD_OPTIONS = {
       color: '#31325F',
       // lineHeight: '40px',
       fontWeight: 300,
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontFamily: 'Helvetica Neue, Helvetica, sans-serif',
       fontSize: '18px',
       '::placeholder': {
         color: '#CFD7E0'
@@ -267,6 +267,20 @@ export const EDIT_FORM_GALLERY_OPTIONS: NgxGalleryOptions[] = [
   },
   {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
   // {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
+];
+
+export const SINGLE_PAGE_GALLERY_OPTIONS = [
+  {
+    'image': false, 'height': '100px',
+    'previewFullscreen': true,
+    'width': '50%',
+    'previewKeyboardNavigation': true,
+    'imageDescription': true,
+    'previewCloseOnEsc': true,
+  },
+  {},
+  { 'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3 },
+  { 'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2 }
 ];
 
 

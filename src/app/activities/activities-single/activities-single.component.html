@@ -26,9 +26,9 @@
             <agm-marker [latitude]="activitiesProvider.lat" [longitude]="activitiesProvider.lng"></agm-marker>
           </agm-map>
         </div>
-<!--        <div class="show_on_map">-->
-<!--          <button>Show On Map</button>-->
-<!--        </div>-->
+        <!--        <div class="show_on_map">-->
+        <!--          <button>Show On Map</button>-->
+        <!--        </div>-->
       </div>
       <div class="guests">
         <h2>What 1332 People Are Saying</h2>
@@ -113,18 +113,11 @@
     </div>
     <div class="accommodations_main_right">
       <div class="right_image_home">
-        <img src="assets/images/1-10@3x.png">
-      </div>
-      <div class="content_image_line">
-        <div class="photo">
-          <img src="assets/images/shutterstock-1446108023.svg">
-        </div>
-        <div class="photo">
-          <img src="assets/images/shutterstock-1446108023.svg">
-        </div>
-        <div class="photo">
-          <img src="assets/images/shutterstock-1446108023.svg">
-        </div>
+        <ng-container *ngIf="activitiesProvider && activitiesProvider.images.length !==0 ">
+          <ngx-gallery [options]="galleryOptions" [images]="getImages()" class="single-page-gallery"></ngx-gallery>
+        </ng-container>
+        <img src="assets/images/no_image_slider.jpg"
+             *ngIf="activitiesProvider && activitiesProvider.images.length ===0" class="no-images">
       </div>
       <div class="right_text">
         <div class="second_left_block">

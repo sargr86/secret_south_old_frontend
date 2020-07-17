@@ -46,4 +46,9 @@ export class ActivitiesListComponent implements OnInit {
 
   }
 
+  getPath(item, folder) {
+    const name = item.name.replace(/ /g, '_').replace(/&/g, '')
+    return folder + '/' + decodeURIComponent(name) + '/' + item.img;
+  }
+
 }
