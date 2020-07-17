@@ -45,7 +45,7 @@
     <div class="addressContainer">
       <mat-form-field>
         <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address"
-               placeholder="Address"
+               placeholder="Address" id="searchAddress"
                [options]='options' #searchAddress="ngx-places" required/>
         <mat-error *ngIf="addressCtrl.hasError('required')">
           Address is <strong>required</strong>

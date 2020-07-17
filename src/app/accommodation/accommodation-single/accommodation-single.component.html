@@ -120,13 +120,13 @@
       </div>
     </div>
     <div class="accommodations_main_right">
+
       <div class="right_image_home">
-        <img src="assets/images/Montenotte-Aug-2017-1046ENF-.png">
-      </div>
-      <div class="content_image_line">
-        <img src="assets/images/montenotte-rooms-011.png">
-        <img src="assets/images/suite-6_1544175479.png">
-        <img src="assets/images/dodgerstadiumsuite-dodgersgame.png">
+        <ng-container *ngIf="accommodationProvider && accommodationProvider.images.length !==0 ">
+          <ngx-gallery [options]="galleryOptions" [images]="getImages()" class="single-page-gallery"></ngx-gallery>
+        </ng-container>
+        <img src="assets/images/no_image_slider.jpg"
+             *ngIf="accommodationProvider && accommodationProvider.images.length ===0" class="no-images">
       </div>
       <div class="right_text">
         <div class="second_left_block">

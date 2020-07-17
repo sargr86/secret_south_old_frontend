@@ -108,6 +108,7 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
         }, titleText: 'delete'
       }
     ];
+
   }
 
 
@@ -205,12 +206,11 @@ export class SaveFoodDrinkComponent implements OnInit, OnDestroy, AfterViewInit 
    * @param address food-drink address
    */
   save(address) {
-
     // if (this.foodDrinkForm.valid) {
     this.common.formProcessing = true;
     const formData = this.formData.transform({
       ...this.foodDrinkForm.value,
-      address: address.el.nativeElement.value
+      address: (<HTMLInputElement>document.querySelector('#searchAddress')).value
     }, this.dropZoneFiles);
 
     this.subscriptions.push(this._foodDrink[this.formAction](formData).subscribe(() => {
