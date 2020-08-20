@@ -16,7 +16,7 @@ import IsAuthDashboardPage from '@core/helpers/is-auth-dashboard-page';
 
 /**
  * Food data with nested structure.
- * Each node has a name and an optiona list of children.
+ * Each node has a name and an optional list of children.
  */
 interface TreeNode {
   name: string;
@@ -163,7 +163,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         icon = mi['icon'];
       } else if (parentNode.includes(mi['item'])) {
         icon = mi['icon'];
+      } else if (childNode.includes('order')) {
+        icon = 'fa-sticky-note';
       }
+
     });
     return icon;
   }
