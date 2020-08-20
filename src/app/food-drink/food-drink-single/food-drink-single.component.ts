@@ -5,6 +5,7 @@ import {CommonService} from '@core/services/common.service';
 import {SINGLE_PAGE_GALLERY_OPTIONS} from '@core/constants/global';
 import {SubjectService} from '@core/services/subject.service';
 import {NgxGalleryImage} from 'ngx-gallery-9';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-food-drink-single',
@@ -13,17 +14,32 @@ import {NgxGalleryImage} from 'ngx-gallery-9';
 })
 export class FoodDrinkSingleComponent implements OnInit {
   foodDrinkProvider;
+  foodDrinkForm: FormGroup;
   location;
   galleryOptions = SINGLE_PAGE_GALLERY_OPTIONS;
+  personsCount = 2;
 
   constructor(
     private _food_drink: FoodDrinkService,
     private router: Router,
     private route: ActivatedRoute,
     public common: CommonService,
-    private subject: SubjectService
+    private subject: SubjectService,
+    private fb: FormBuilder
   ) {
     this.common.dataLoading = false;
+
+    this.foodDrinkForm = this.fb.group({
+      location: ['', [Validators.required]],
+      guests: [this.personsCount, [Validators.required]],
+      date: ['', [Validators.required]],
+      time: ['', [Validators.required]]
+    });
+
+    this.subject.getFoodDrinkOrderData().subscribe(dt => {
+      console.log(dt)
+      // this.foodDrinkForm.patchValue(dt);
+    });
 
   }
 

@@ -34,6 +34,7 @@ button {
 .accommodations_main {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .accommodations_main_left {
@@ -64,11 +65,16 @@ button {
   font-size: 16px;
   color: #fff;
   margin: 8px 0;
-  background: transparent
+  background: transparent;
+  padding-left: 30px;
 }
 
-.accommodations_main_left_top_box input::placeholder {
+.accommodations_main_left_top_box input::placeholder:not(.address input::placeholder) {
   padding-left: 20px;
+  color: #fff;
+}
+
+.address input::placeholder{
   color: #fff;
 }
 
@@ -92,7 +98,7 @@ button {
   background: transparent
 }
 
-.accommodations_main_left_top_box button {
+.accommodations_main_left_top_box .search-btn {
   width: 120px;
   height: 44px;
   border-radius: 24px;
@@ -114,12 +120,31 @@ button {
   border: solid 1px #cecece;
 }
 
-.address, .guests {
+.guests {
   position: relative !important;
 
   mat-icon {
     position: absolute;
     top: 18px;
+  }
+}
+
+.address {
+  position: relative !important;
+
+  > mat-icon {
+    position: absolute;
+    left: 0;
+    top: 18px;
+  }
+
+  input {
+    width: 100%;
+  }
+  .clear-location {
+    position: absolute;
+    right: -7px;
+    top: 9px;
   }
 }
 
@@ -185,7 +210,7 @@ button {
   padding-left: 15px;
 }
 
-.accommodations_main_right_top_left button {
+.accommodations_main_right_top_left .search-btn {
   width: 176px;
   height: 48px;
   background-color: #0b9194;
@@ -222,7 +247,7 @@ button {
 .accommodations_main_right_main_block {
   width: 393px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  margin: 8px 0;
+  //margin: 8px 0;
 }
 
 .accommodations_main_right_main_block_img {
@@ -233,6 +258,7 @@ button {
 .accommodations_main_right_main_block_img_photo {
   width: 100%;
   object-fit: cover;
+  height: 256px;
 }
 
 .accommodations_main_right_main_block_img_2 {
@@ -345,14 +371,7 @@ button {
   display: none;
 }
 
-.address {
-  position: relative;
 
-  mat-icon {
-    position: absolute;
-    top: 19px;
-  }
-}
 
 @media screen and (max-width: 1230px) {
   #header {
@@ -518,7 +537,7 @@ button {
 
 .address {
   input {
-    padding-left: 5px;
+    //padding-left: 5px;
   }
 }
 
@@ -547,6 +566,35 @@ button {
     padding-left: 20px;
   }
 }
+
+.booking-hours {
+  border-top: 1px solid #cecece;
+  padding-top: 10px;
+  margin-top: 10px;
+
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+
+    li {
+      background-color: #0b9194;
+      font-weight: bold;
+      color: $white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.time {
+  width: 100px;
+
+  input {
+    width: 100%;
+  }
+}
+
 
 @media screen and (max-width: 840px) {
   .filter_block_tittle {

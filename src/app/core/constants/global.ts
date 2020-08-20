@@ -116,6 +116,7 @@ export const DASHBOARD_LINKS = [
       {name: 'Add'},
       {name: 'Manage routes prices'},
       {name: 'Show'},
+      {name: 'Orders'}
     ]
   },
   {
@@ -123,6 +124,7 @@ export const DASHBOARD_LINKS = [
     children: [
       {name: 'Add'},
       {name: 'Show'},
+      {name: 'Orders'}
     ]
   },
   {
@@ -279,8 +281,8 @@ export const SINGLE_PAGE_GALLERY_OPTIONS = [
     'previewCloseOnEsc': true,
   },
   {},
-  { 'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3 },
-  { 'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2 }
+  {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+  {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2}
 ];
 
 
@@ -302,4 +304,4 @@ export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', '
 export const MAX_LOCATION_CHOICES = 4;
 export const MIN_PEOPLE_ON_FERRY = 6;
 
-
+export const RESTAURANT_BOOKING_HOURS = ['6:30', '7:00', '7:30', '8:00'];

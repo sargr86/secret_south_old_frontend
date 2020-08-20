@@ -8,6 +8,8 @@ import {FoodDrinkListComponent} from './food-drink-list/food-drink-list.componen
 import {FoodDrinkSingleComponent} from './food-drink-single/food-drink-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
+import {ShowOrdersComponent} from '@app/food-drink/show-orders/show-orders.component';
+import {FoodDrinkOrderFormComponent} from '@app/food-drink/food-drink-order-form/food-drink-order-form.component';
 
 const routes: Routes = [
   {
@@ -27,7 +29,14 @@ const routes: Routes = [
       title: 'Add a new food/drink place',
     },
   },
-
+  {
+    path: 'book-a-table',
+    component: FoodDrinkOrderFormComponent
+  },
+  {
+    path: 'orders',
+    component: ShowOrdersComponent
+  },
   {
     path: ':id', component: SaveFoodDrinkComponent, data: {
       title: 'Edit a food/drink info',
@@ -38,7 +47,8 @@ const routes: Routes = [
     canActivate: [
       NumericIdGuard
     ]
-  },
+  }
+
 ];
 
 @NgModule({

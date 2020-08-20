@@ -630,6 +630,10 @@ mat-progress-bar .mat-progress-bar-buffer {
   }
 
   .mat-calendar-body-label, .mat-calendar-body-cell-content, .mat-icon-button {
+    color: $white;
+  }
+
+  .mat-calendar-previous-button, .mat-calendar-next-button {
     color: $white !important;
   }
 }
@@ -810,7 +814,8 @@ header:not(.timepicker__header) {
         font-size: 16px;
         font-weight: 600;
         background: transparent;
-        color: #fff !important
+        color: #fff !important;
+        display: block !important;
       }
 
       input::placeholder {
@@ -1178,4 +1183,25 @@ header:not(.timepicker__header) {
 
 .no-images {
   height: 343px;
+}
+
+.table-book-form {
+  .dropbtn, input {
+    background-color: unset !important;
+  }
+
+  .flagInput {
+    margin-top: -7px;
+  }
+
+  .form-control {
+    //height: 20px;
+    margin-top: -17px;
+    padding-top: 11px;
+  }
+}
+
+.main-page-error {
+  color: $white !important;
+  position: absolute !important;
 }

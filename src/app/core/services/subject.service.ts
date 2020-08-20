@@ -9,6 +9,7 @@ export class SubjectService {
   public sidebarActions = new Subject<any>();
   public orderTypeData = new Subject<any>();
   public orderData = new Subject<any>();
+  public foodDrinkOrderData = new Subject<any>();
 
   constructor() {
   }
@@ -37,11 +38,11 @@ export class SubjectService {
     return this.orderTypeData.asObservable();
   }
 
-  setOrderData(value) {
-    this.orderData.next(value);
+  setFoodDrinkOrderData(value) {
+    this.foodDrinkOrderData.next(value);
   }
 
-  getOrderData(): Observable<any> {
-    return this.orderData.asObservable();
+  getFoodDrinkOrderData(): Observable<any> {
+    return this.foodDrinkOrderData.asObservable();
   }
 }

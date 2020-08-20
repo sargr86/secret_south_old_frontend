@@ -1,0 +1,66 @@
+<form [formGroup]="tableBookForm" class="table-book-form">
+  <h3>You're almost done!</h3>
+  <div class="search-info">
+    <div class="search-image">
+      <img *ngIf="search.img" [src]="getPath(search, foodDrinkFolder)" alt="">
+      <div *ngIf="!search.img" class="no_image"></div>
+    </div>
+    <div class="search-details">
+      <div class="name-location">
+        <p>{{search.name}}</p>
+        <span>{{search.location}}</span>
+      </div>
+      <div class="guests-count">
+        <mat-icon>groups</mat-icon>
+        <p>{{search.guests}}</p>
+      </div>
+      <div class="date">
+        <mat-icon>event</mat-icon>
+        <p>{{getDate()}}</p>
+      </div>
+      <div class="time">
+        <mat-icon>schedule</mat-icon>
+        <p>{{search.time}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fields-container">
+
+    <div class="left">
+
+      <mat-form-field>
+        <input matInput placeholder="First name" formControlName="first_name">
+      </mat-form-field>
+
+      <div class="phoneField">
+
+        <!-- Phone field-->
+        <mat-label>Phone</mat-label>
+        <international-phone-number placeholder="Phone number" [maxlength]="20" formControlName="phone"
+                                    [defaultCountry]="defaultCountry" [required]="true"
+                                    [allowedCountries]="allowedCountries"></international-phone-number>
+      </div>
+
+
+    </div>
+    <div class="right">
+
+      <mat-form-field>
+        <input matInput placeholder="Last name" formControlName="last_name">
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <input matInput placeholder="E-mail" formControlName="email">
+      </mat-form-field>
+    </div>
+
+  </div>
+  <div class="actions">
+    <button class="back" mat-icon-button (click)="router.navigate(['food-drink/list'])">
+      <mat-icon>arrow_backward</mat-icon>
+    </button>
+    <button class="complete-reservation">Complete reservation</button>
+  </div>
+</form>

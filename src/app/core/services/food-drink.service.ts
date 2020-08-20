@@ -23,11 +23,15 @@ export class FoodDrinkService {
   }
 
   getOneFoodDrink(params) {
-    return this.http.get(`${API_URL}food-drink/getOne`, {params: params});
+    return this.http.get(`${API_URL}food-drink/getOne`, {params});
   }
 
   getPartners() {
     return this.http.get(`${API_URL}food-drink/get-partners`);
+  }
+
+  getByAddress(params) {
+    return this.http.get(`${API_URL}food-drink/get-by-address`, {params});
   }
 
   makeCover(params) {

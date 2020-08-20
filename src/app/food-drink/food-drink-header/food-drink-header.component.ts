@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MAIN_SECTIONS, TIMEPICKER_THEME} from '@core/constants/global';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {COUNTRY_RESTRICTED_PLACES} from '@core/helpers/google-one-country-places-getter';
 import {Router} from '@angular/router';
@@ -9,6 +9,10 @@ import {MainService} from '@core/services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import IsResponsive from '../../core/helpers/is-responsive';
 import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
+import moment from 'moment';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {map, startWith} from 'rxjs/operators';
+import {FoodDrinkService} from '@core/services/food-drink.service';
 
 @Component({
   selector: 'app-food-drink-header',
@@ -16,7 +20,9 @@ import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
   styleUrls: ['./food-drink-header.component.scss']
 })
 export class FoodDrinkHeaderComponent implements OnInit {
+  foodDrinkForm: FormGroup;
   mainSections = MAIN_SECTIONS;
+  todayDate = Date.now()
   mapForm: FormGroup;
   latlng: any = [];
   lat = 0;
@@ -27,29 +33,72 @@ export class FoodDrinkHeaderComponent implements OnInit {
   responsiveMode: boolean;
   countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
   personsCount = 2;
+  isSubmitted = false;
+  minPeopleCountReached = false;
+  locationControl = new FormControl();
+  foodDrinkObjects;
+  filteredLocations;
 
 
   @Output() toggle = new EventEmitter();
 
+  @ViewChild('searchAddress') searchAddress;
+
 
   timepickerTheme = TIMEPICKER_THEME;
+  previousDatesFilter = (d: Date | null): boolean => {
+    return moment(d).isSameOrAfter(moment(), 'day');
+  }
 
   constructor(
     public router: Router,
     public auth: AuthService,
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
     private main: MainService,
-    private subject: SubjectService
+    private subject: SubjectService,
+    private foodDrinkService: FoodDrinkService
   ) {
+    this.foodDrinkForm = this.fb.group({
+      location: ['', [Validators.required]],
+      guests: [this.personsCount, [Validators.required]],
+      date: ['', [Validators.required]],
+      time: ['', [Validators.required]]
+    });
+
+    console.log(COUNTRY_RESTRICTED_PLACES)
 
   }
 
   ngOnInit() {
     // Checking for responsive mode and initializing map form
     this.responsiveMode = IsResponsive.check();
-    this.mapForm = this._fb.group({
+    this.mapForm = this.fb.group({
       type: ['']
     });
+
+    this.foodDrinkService.getFoodDrink({}).subscribe(dt => {
+      this.foodDrinkObjects = dt;
+      console.log(this.foodDrinkObjects)
+      this.filteredLocations = this.locationControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    });
+
+
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    const f = this.foodDrinkObjects.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
+
+    // removing duplicates
+    const fs = f.filter((thing, index, self) =>
+      index === self.findIndex((t) => (
+        t.address === thing.address
+      ))
+    );
+    return fs;
   }
 
   toggleSidebar() {
@@ -57,67 +106,41 @@ export class FoodDrinkHeaderComponent implements OnInit {
     this.toggle.emit();
   }
 
-  changePlace(section) {
-    this.main.changePlace(this.mapForm.value).subscribe((r: any) => {
-
-      this.latlng = [];
-
-      if (r && r.length > 0) {
-
-        r.map((latlngs) => {
-          latlngs.lat = parseFloat(latlngs.lat);
-          latlngs.lng = parseFloat(latlngs.lng);
-          this.latlng.push(latlngs);
-        });
-
-        this.lat = parseFloat(this.latlng[0].lat);
-        this.lng = parseFloat(this.latlng[0].lng);
-
-
-      }
-
-      this.subject.setMapData({
-        section: section,
-        lat: this.lat,
-        lng: this.lng,
-        list: r
-      });
-      this.selectedSection = section;
-    });
-  }
-
-  changeSection(section) {
-    if (section === 'Accommodations') {
-      this.mapForm.patchValue({type: section});
-      this.router.navigate([section.toLowerCase()]);
-      this.changePlace(section);
-    }
-  }
-
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/']);
-  }
-
-  navigateToDashboard() {
-    const role = this.auth.checkRoles('admin') ? 'admin' : (this.auth.checkRoles('partner') ? 'partners' : 'employees');
-    this.router.navigate([`${role}/dashboard/show`]);
   }
 
   getStartDate() {
 
   }
 
-  dateChanged() {
+  dateChanged(e: MatDatepickerInputEvent<string>) {
+    this.foodDrinkForm.patchValue({date: e.value});
+  }
 
+  locationChanged(e) {
+    this.foodDrinkForm.patchValue({location: e});
   }
 
   searchAccommodations() {
-    this.router.navigate(['food-drink/list']);
+    // this.foodDrinkForm.value['location'] = this.searchAddress.el.nativeElement.value;
+    console.log(this.searchAddress)
+    console.log(this.foodDrinkForm.value)
+    this.isSubmitted = true;
+    if (this.foodDrinkForm.valid) {
+      localStorage.setItem('foodDrinkSearch', JSON.stringify(this.foodDrinkForm.value))
+      this.router.navigate(['food-drink/list']);
+    }
   }
 
   personsCountChanged(e) {
+    console.log(e)
+    this.foodDrinkForm.patchValue({guests: e});
+  }
 
+  minReached() {
+    console.log('min')
   }
 
 
