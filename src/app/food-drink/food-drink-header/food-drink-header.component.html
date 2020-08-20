@@ -1,51 +1,82 @@
 <header>
   <app-header-top [section]="'Food/Drink'"></app-header-top>
-  <div class="header_main">
-    <div class="header_main_box">
-      <div class="location">
-        <!--                <i class="fa fa-map-marker-alt"></i>-->
-        <mat-icon>place</mat-icon>
-        <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete
-               [options]="countryRestrictedPlaces"
-               #searchAddress="ngx-places" placeholder="Location">
-      </div>
-
-      <div class="guests">
-        <mat-icon>group</mat-icon>
-        <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
-                          [buttonsOrientation]="'v'" [placeholder]="'Guests'"
-                          (valueChange)="personsCountChanged($event)"></ng-number-picker>
-      </div>
-
-      <div class="checkIn">
-        <input placeholder="Time" name="bookingDate" (dateChange)="dateChanged()" [ngxTimepicker]="timepicker"
-               class="Check_out_inp">
-        <ngx-material-timepicker-toggle [for]="timepicker">
-          <!--                <mat-icon>access_time</mat-icon>-->
-          <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
-          <!--                         ngxMaterialTimepickerToggleIcon>-->
-          <!--                        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
-          <!--                    </svg>-->
-        </ngx-material-timepicker-toggle>
-        <ngx-material-timepicker #timepicker
-                                 [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>
-        <!--                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>-->
-        <!--                <mat-datepicker #checkInPicker startView="year"-->
-        <!--                                [startAt]="getStartDate()"></mat-datepicker>-->
-      </div>
-      <div class="checkOut">
-        <input placeholder="Date" name="bookingDate" (dateChange)="dateChanged()"
-               [matDatepicker]="checkOutPicker" class="Check_out_inp">
-        <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
-        <mat-datepicker #checkOutPicker startView="year"
-                        [startAt]="getStartDate()"></mat-datepicker>
-      </div>
+  <form [formGroup]="foodDrinkForm">
+    <div class="header_main">
+      <div class="header_main_box">
 
 
-      <div class="searchBtn">
-        <button type="button" name="button" (click)="searchAccommodations()">Search</button>
+        <div class="location">
+          <!--                <i class="fa fa-map-marker-alt"></i>-->
+          <mat-icon>place</mat-icon>
+          <!--          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete [hidden]="true"-->
+          <!--                 [options]="countryRestrictedPlaces" formControlName="location" (change)="addressChanged($event)"-->
+          <!--                 #searchAddress="ngx-places" placeholder="Location">-->
+          <!--          <mat-form-field>-->
+
+          <input type="text" #locationInput
+                 placeholder="Location"
+                 aria-label="Number"
+                 [formControl]="locationControl"
+                 [matAutocomplete]="auto">
+          <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" >
+            <mat-icon
+                      (click)="locationInput.value=''">close</mat-icon>
+          </button>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                            (optionSelected)="locationChanged($event.option.value)">
+            <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
+              {{loc.address}}
+            </mat-option>
+          </mat-autocomplete>
+          <!--          </mat-form-field>-->
+          <span class="main-page-error" *ngIf="isSubmitted && foodDrinkForm.get('location').hasError('required')">
+            Location is required</span>
+        </div>
+
+        <div class="guests">
+          <mat-icon>group</mat-icon>
+          <input type="hidden" formControlName="guests" class="hidden">
+          <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
+                            [buttonsOrientation]="'v'" [min]="2" (minReached)="minReached()"
+                            (valueChange)="personsCountChanged($event)"></ng-number-picker>
+
+        </div>
+
+        <div class="checkIn">
+          <input placeholder="Time" name="bookingDate" [ngxTimepicker]="timepicker"
+                 class="Check_out_inp" formControlName="time">
+          <span class="main-page-error" *ngIf="isSubmitted && foodDrinkForm.get('time').hasError('required')">
+            Booking time is required</span>
+          <ngx-material-timepicker-toggle [for]="timepicker">
+            <!--                <mat-icon>access_time</mat-icon>-->
+            <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
+            <!--                         ngxMaterialTimepickerToggleIcon>-->
+            <!--                        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
+            <!--                    </svg>-->
+          </ngx-material-timepicker-toggle>
+          <ngx-material-timepicker #timepicker
+                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>
+          <!--                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>-->
+          <!--                <mat-datepicker #checkInPicker startView="year"-->
+          <!--                                [startAt]="getStartDate()"></mat-datepicker>-->
+        </div>
+        <div class="checkOut">
+          <input placeholder="Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                 (dateChange)="dateChanged($event)" formControlName="date"
+                 [matDatepicker]="checkOutPicker" class="Check_out_inp">
+          <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
+          <mat-datepicker #checkOutPicker startView="year"
+                          [startAt]="getStartDate()"></mat-datepicker>
+          <span class="main-page-error" *ngIf="isSubmitted && foodDrinkForm.get('date').hasError('required')">
+            Booking date is required</span>
+        </div>
+
+
+        <div class="searchBtn">
+          <button type="button" name="button" (click)="searchAccommodations()">Search</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
   <app-header-bottom></app-header-bottom>
 </header>
