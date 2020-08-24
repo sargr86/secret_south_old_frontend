@@ -3,12 +3,19 @@
 
 .search-info {
   display: flex;
-  width: 77%;
+  //width: 77%;
   padding: 40px 0;
   align-items: center;
 
-  .search-image img {
-    width: 100px;
+  .search-image {
+    img {
+      width: 100px;
+    }
+
+    .no_image {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   .search-details {
