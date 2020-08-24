@@ -1,112 +1,54 @@
-<div class="tableContainer" *ngIf="dataSource && dataSource.length!==0">
-  <mat-form-field *ngIf="!common.dataLoading && dataSource">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
+<!--<div class="tableContainer" *ngIf="dataSource && dataSource.length!==0">-->
+<mat-form-field *ngIf="!common.dataLoading && dataSource">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
 
-  <div class="mat-elevation-z8">
+<div class="mat-elevation-z8" *ngIf="dataSource.data.length > 0">
 
-    <div class="table_responsive">
-      <table mat-table [dataSource]="dataSource" matSort>
+  <div class="table_responsive">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container *ngFor="let col of displayedColumns;let colIndex = index">
+      <ng-container *ngFor="let col of displayedColumns">
 
-          <!-- Regular columns-->
-          <ng-container [matColumnDef]="col" *ngIf="col!='actions'">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{normalizeColName(col)}}</th>
-            <td mat-cell *matCellDef="let row">
-              <ng-container *ngIf="colIndex < 3">
-                <span *ngIf="col==='client_full_name'">
-                  {{row['client']['first_name'] + ' ' + row['client']['last_name']}}
-                </span>
-
-                <span *ngIf="col==='email'">{{row['client']['email']}}</span>
-                <span *ngIf="col==='phone'">{{row['client']['phone']}}</span>
-              </ng-container>
-
-              <ng-container *ngIf="colIndex >= 4 && colIndex <= 6 && row['driver']">
-              <span *ngIf="col==='driver_full_name'">
-                  {{row['driver']['full_name']}}
-                </span>
-                <span *ngIf="col==='driver_email'">{{row['driver']['email']}}</span>
-                <span *ngIf="col==='driver_phone'">{{row['driver']['phone']}}</span>
-              </ng-container>
-
-              <span *ngIf="col==='start_point'">{{row['locations'][0]['name']}}</span>
-              <span *ngIf="col==='end_point' && row['locations'].length === 2">{{row['locations'][1]['name']}}</span>
-
-              <ng-container *ngIf="row['locations'].length === 3">
-                <span *ngIf="col==='stop_1' ">{{row['locations'][1]['name']}}</span>
-                <span *ngIf="col==='end_point'">{{row['locations'][2]['name']}}</span>
-              </ng-container>
-
-              <ng-container *ngIf="row['locations'].length === 4">
-                <span *ngIf="col==='stop_1' ">{{row['locations'][1]['name']}}</span>
-                <span *ngIf="col==='stop_2'">{{row['locations'][2]['name']}}</span>
-                <span *ngIf="col==='end_point'">{{row['locations'][3]['name']}}</span>
-              </ng-container>
-
-
-              <span *ngIf="col==='status'|| col==='time'||col==='_id'">{{row[col]}}</span>
-
-            </td>
-          </ng-container>
-
-          <!-- Action column -->
-          <ng-container matColumnDef="actions" class="actions" *ngIf="col=='actions'">
-            <th mat-header-cell *matHeaderCellDef> Actions</th>
-            <td mat-cell *matCellDef="let row">
-              <div class="flex_container">
-
-                <!--                          <button class="editBtn" [matTooltip]="'Edit'"-->
-                <!--                                  (click)="router.navigate([auth.checkRoles('admin')?'admin/'+item+'/'+row.id:'partners/'+item+'/'+row.id],{state:{id:row.id}})">-->
-                <!--                            <mat-icon>edit</mat-icon>-->
-                <!--                          </button>-->
-                <button class="removeBtn" [matTooltip]="'Remove'" (click)="remove(row)" *ngIf="isOperator">
-                  <mat-icon>delete</mat-icon>
-                </button>
-
-                <!-- DRIVER ACTION BUTTONS-->
-                <ng-container *ngIf="!isOperator">
-
-                  <button (click)="takeOrder(row)" class="orderBtn" *ngIf="!orderTaken && row.status==='assigned'">
-                    <i class="fas fa-thumbs-up"></i>
-                  </button>
-
-                  <button (click)="arrivedToOrder(row)" *ngIf="row.status==='ongoing'" class="arrivedToOrder">
-                    <i class="fas fa-clock"></i>
-                  </button>
-
-                  <button (click)="startOrder(row)" *ngIf="row.status==='arrived'" class="startOrder">
-                    <i class="fas fa-play"></i>
-                  </button>
-
-                  <button (click)="finishOrder(row)" class="finishOrderBtn" *ngIf="row.status==='started'">
-                    <i class="fa fa-anchor"></i>
-                  </button>
-                </ng-container>
-              </div>
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="{{col}}" *ngIf="col==='full_name' && col!=='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}} </th>
+          <td mat-cell *matCellDef="let el"> {{el['first_name'] + ' ' + el['last_name']}} </td>
         </ng-container>
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="{{col}}" *ngIf="col!=='full_name' &&  col!=='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-        </tr>
-      </table>
-    </div>
+        <!-- Action Column -->
+        <ng-container matColumnDef="{{col}}" *ngIf="col!=='full_name' && col==='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}}</th>
+          <td mat-cell *matCellDef="let el">
+            <button mat-icon-button (click)="acceptOrder(el)"><mat-icon>check</mat-icon></button>
+            <button mat-icon-button (click)="rejectOrder(el)"><mat-icon>close</mat-icon></button>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
 
-    <div class="no_table_items_found">
-      <small *ngIf="(filteredData && filteredData.length ===0) && !common.dataLoading">No items found</small>
-    </div>
-    <!--    <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>-->
-    <!--    <mat-paginator [pageSizeOptions]="paginationValues"-->
-    <!--                   [hidden]="common.dataLoading || !dataSource"></mat-paginator>-->
   </div>
 
 
+  <!--    <div class="no_table_items_found">-->
+  <!--      <small *ngIf="(filteredData && filteredData.length ===0) && !common.dataLoading">No items found</small>-->
+  <!--    </div>-->
+  <!--    <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>-->
+  <!--    <mat-paginator [pageSizeOptions]="paginationValues"-->
+  <!--                   [hidden]="common.dataLoading || !dataSource"></mat-paginator>-->
 </div>
-<small class="no_data" *ngIf="!dataSource || dataSource.length === 0">
-  There are no orders here
-</small>
+
+
+<!--</div>-->
+<!--<small class="no_data" *ngIf="!dataSource || dataSource.length === 0">-->
+<!--  There are no orders here-->
+<!--</small>-->

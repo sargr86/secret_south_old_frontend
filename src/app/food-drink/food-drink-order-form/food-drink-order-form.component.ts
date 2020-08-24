@@ -4,6 +4,7 @@ import {CommonService} from '@core/services/common.service';
 import {ALLOWED_COUNTRIES, DEFAULT_COUNTRY, FOOD_DRINK_FOLDER} from '@core/constants/global';
 import {Router} from '@angular/router';
 import moment from 'moment';
+import {WebSocketService} from '@core/services/websocket.service';
 
 @Component({
   selector: 'app-food-drink-order-form',
@@ -22,12 +23,14 @@ export class FoodDrinkOrderFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public common: CommonService,
-    public router: Router
+    public router: Router,
+    private websocketService: WebSocketService
   ) {
     this.common.dataLoading = false;
     this.tableBookForm = this.fb.group({
       location: ['', [Validators.required]],
       guests: [this.personsCount, [Validators.required]],
+      name: ['', [Validators.required]],
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
       first_name: ['aaa', Validators.required],
@@ -53,6 +56,10 @@ export class FoodDrinkOrderFormComponent implements OnInit {
 
   getDate() {
     return moment(this.search.date).format('ddd, DD MMM');
+  }
+
+  bookTable() {
+    this.websocketService.emit('book-a-table', this.tableBookForm.value);
   }
 
 }
