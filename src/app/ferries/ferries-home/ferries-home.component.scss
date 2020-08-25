@@ -1,259 +1,352 @@
 @import 'mixins';
 @import 'variables';
 
-
-#order-info-container {
-  width: 100%;
-  margin-top: -20px;
-  padding-top: 50px;
+#map {
+  width: 95%;
+  margin: 100px auto
 }
 
-.mapContainer {
-  width: 500px;
-  //margin: 0 auto;
-}
-
-.ferry_page {
-  width: 100%;
-}
-
-.ferry_page_size {
-  width: 1200px;
-  margin: 50px auto;
+form {
+  width: 90%;
   display: flex;
-  justify-content: flex-start;
+  margin: auto;
 }
 
-.ferry_page_left, .ferry-page-right {
-  width: 500px;
-  margin-left: 20px;
-  padding: 20px;
-  //border: 1px solid red;
-  //padding: 20px;
+.left-group {
+  width: 28%;
 
-  .order-ferry-form {
-    .fields-row {
-      width: 100% !important;
-      align-items: center !important;
+  .locations-group {
+
+
+    #start-point, #end-point {
+      float: left;
+      margin-bottom: 16px;
+
+      select {
+        width: 200px;
+      }
+    }
+
+    #end-point {
+      margin-left: 76px;
+    }
+
+    #stop-1, #stop-2 {
       display: flex;
-      justify-content: center;
-      margin-top: 20px;
+      align-items: center;
+      clear: both;
+      margin-top: 16px;
+
+      select {
+        width: 93%;
+      }
+    }
+
+    .location-selector {
+
+      .from-to-label {
+        margin-bottom: 16px;
+      }
+
+      select {
+        border: none;
+        height: 51px;
+        box-shadow: 0 0 6px #00000014;
+        font: normal normal 300 16px Roboto;
+        color: #D2D2D2;
+      }
+
+      option:first-of-type {
+
+      }
+
+      .remove-location-icon {
+        color: #0000005c;
+        font-size: 21px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    }
+
+    #add-location-btn {
+      clear: both;
+      margin-top: 16px;
+
+      .add-location {
+        width: 476px;
+        height: 51px;
+        background: #084F93 0 0 no-repeat padding-box;
+        box-shadow: 0 0 6px #00000014;
+        color: white;
+        border: none;
+        font: normal normal bold 15px Roboto;
+      }
     }
   }
 }
 
-.ferry-page-right {
-  //padding: 0 23px;
-}
+.right-group {
+  width: 433px;
+  margin-left: 219px;
 
-.boat_name {
-  font-size: 16px;
-  margin-bottom: 13px;
-}
-
-.ferry-page-right-images {
-  width: 100%;
-  height: 340px;
-  border: 1px solid green;
-}
-
-.company_name {
-  font-size: 24px;
-  margin-top: 25px;
-}
-
-.company_name_line {
-  width: 180px;
-  height: 1px;
-  background: #000;
-  margin: 5px 0 20px 0;
-}
-
-.ferry-page-right-text {
-  text-align: justify;
-  font-size: 18px;
-}
-
-.filterToggler {
-  float: left;
-
-  i {
-    font-size: 20px;
-    color: #00253c;
-    cursor: pointer;
+  .summary-box {
+    background: #F5F5F5 0 0 no-repeat padding-box;
+    height: 614px;
   }
 }
 
-.infoToggler {
-  float: right;
-
-  i {
-    font-size: 20px;
-    color: #00253c;
-    cursor: pointer;
-  }
-}
-
-
-.ferryGallery {
-  width: 100% !important;
-}
-
-.loginMsg {
-  color: $silver;
-  text-align: center;
-}
-
-.order-ferry-form {
-  width: 100%;
-
-
-  .location-input {
-    display: flex;
-    align-items: center;
-  }
-
-  .add-location {
-    @include namedBtn;
-  }
-
-  .check-route {
-    @include noBgBtn;
-  }
-
-  .remove-location-icon {
-    font-size: 20px;
-    margin-left: 5px;
-    color: $red;
-    cursor: pointer;
-  }
-
-  mat-form-field {
-    width: 100%;
-  }
-
-  mat-icon {
-    color: #88bf4a;
-  }
-
-  .way-type {
-    display: flex;
-
-    p {
-      width: 75px;
-      margin-top: 4px;
-    }
-  }
-
-  .times {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-    mat-icon {
-      position: absolute;
-      top: 20px;
-    }
-
-    mat-label {
-      margin-left: 30px;
-    }
-
-    .start-time, .end-time {
-      width: 130px;
-    }
-
-    .start-time {
-      margin-left: 28px;
-    }
-
-    .end-time {
-      margin-left: 30px;
-    }
-
-    .ngx-material-timepicker-toggle {
-      margin-top: -10px !important;
-    }
-  }
-
-  .guest-count-container {
-    display: flex;
-    align-items: baseline;
-
-    p {
-      margin-left: 20px;
-    }
-  }
-
-  .way-type {
-    mat-icon {
-      cursor: pointer;
-    }
-
-    label {
-      display: flex;
-      cursor: pointer;
-    }
-  }
-
-  .bikes-container {
-    margin-left: 20px;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-
-    button {
-      color: #fff;
-      width: 130px;
-      border: none;
-      outline: none;
-      font-weight: bold;
-      padding: 10px;
-      border-radius: 4px;
-      margin-left: 10px;
-    }
-
-    .order-btn {
-      background-color: #88bf4a;
-
-    }
-
-    .cancel-order-btn {
-      background-color: $silver;
-    }
-  }
-}
-
-
-.guest-count-container {
-  justify-content: center;
-
-  .adults, .children {
-    position: relative;
-    display: flex;
-    height: 38px;
-
-    mat-icon {
-      position: absolute;
-      top: 10px;
-      z-index: 3;
-    }
-
-
-  }
-}
-
-.route-price {
-  margin-top: 20px;
-
-  .route-price-value {
-    color: $green;
-  }
-}
-
-.route-not-supported {
-  color: $red;
-}
+//#order-info-container {
+//  width: 100%;
+//  margin-top: -20px;
+//  padding-top: 50px;
+//}
+//
+//.mapContainer {
+//  width: 500px;
+//  //margin: 0 auto;
+//}
+//
+//.ferry_page {
+//  width: 100%;
+//}
+//
+//.ferry_page_size {
+//  width: 1200px;
+//  margin: 50px auto;
+//  display: flex;
+//  justify-content: flex-start;
+//}
+//
+//.ferry_page_left, .ferry-page-right {
+//  width: 500px;
+//  margin-left: 20px;
+//  padding: 20px;
+//  //border: 1px solid red;
+//  //padding: 20px;
+//
+//  .order-ferry-form {
+//    .fields-row {
+//      width: 100% !important;
+//      align-items: center !important;
+//      display: flex;
+//      justify-content: center;
+//      margin-top: 20px;
+//    }
+//  }
+//}
+//
+//.ferry-page-right {
+//  //padding: 0 23px;
+//}
+//
+//.boat_name {
+//  font-size: 16px;
+//  margin-bottom: 13px;
+//}
+//
+//.ferry-page-right-images {
+//  width: 100%;
+//  height: 340px;
+//  border: 1px solid green;
+//}
+//
+//.company_name {
+//  font-size: 24px;
+//  margin-top: 25px;
+//}
+//
+//.company_name_line {
+//  width: 180px;
+//  height: 1px;
+//  background: #000;
+//  margin: 5px 0 20px 0;
+//}
+//
+//.ferry-page-right-text {
+//  text-align: justify;
+//  font-size: 18px;
+//}
+//
+//.filterToggler {
+//  float: left;
+//
+//  i {
+//    font-size: 20px;
+//    color: #00253c;
+//    cursor: pointer;
+//  }
+//}
+//
+//.infoToggler {
+//  float: right;
+//
+//  i {
+//    font-size: 20px;
+//    color: #00253c;
+//    cursor: pointer;
+//  }
+//}
+//
+//
+//.ferryGallery {
+//  width: 100% !important;
+//}
+//
+//.loginMsg {
+//  color: $silver;
+//  text-align: center;
+//}
+//
+//.order-ferry-form {
+//  width: 100%;
+//
+//
+//  .location-input {
+//    display: flex;
+//    align-items: center;
+//  }
+//
+//  .add-location {
+//    @include namedBtn;
+//  }
+//
+//  .check-route {
+//    @include noBgBtn;
+//  }
+//
+//  .remove-location-icon {
+//    font-size: 20px;
+//    margin-left: 5px;
+//    color: $red;
+//    cursor: pointer;
+//  }
+//
+//  mat-form-field {
+//    width: 100%;
+//  }
+//
+//  mat-icon {
+//    color: #88bf4a;
+//  }
+//
+//  .way-type {
+//    display: flex;
+//
+//    p {
+//      width: 75px;
+//      margin-top: 4px;
+//    }
+//  }
+//
+//  .times {
+//    display: flex;
+//    align-items: center;
+//    justify-content: space-evenly;
+//
+//    mat-icon {
+//      position: absolute;
+//      top: 20px;
+//    }
+//
+//    mat-label {
+//      margin-left: 30px;
+//    }
+//
+//    .start-time, .end-time {
+//      width: 130px;
+//    }
+//
+//    .start-time {
+//      margin-left: 28px;
+//    }
+//
+//    .end-time {
+//      margin-left: 30px;
+//    }
+//
+//    .ngx-material-timepicker-toggle {
+//      margin-top: -10px !important;
+//    }
+//  }
+//
+//  .guest-count-container {
+//    display: flex;
+//    align-items: baseline;
+//
+//    p {
+//      margin-left: 20px;
+//    }
+//  }
+//
+//  .way-type {
+//    mat-icon {
+//      cursor: pointer;
+//    }
+//
+//    label {
+//      display: flex;
+//      cursor: pointer;
+//    }
+//  }
+//
+//  .bikes-container {
+//    margin-left: 20px;
+//  }
+//
+//  .actions {
+//    display: flex;
+//    justify-content: center;
+//    margin-top: 40px;
+//
+//    button {
+//      color: #fff;
+//      width: 130px;
+//      border: none;
+//      outline: none;
+//      font-weight: bold;
+//      padding: 10px;
+//      border-radius: 4px;
+//      margin-left: 10px;
+//    }
+//
+//    .order-btn {
+//      background-color: #88bf4a;
+//
+//    }
+//
+//    .cancel-order-btn {
+//      background-color: $silver;
+//    }
+//  }
+//}
+//
+//
+//.guest-count-container {
+//  justify-content: center;
+//
+//  .adults, .children {
+//    position: relative;
+//    display: flex;
+//    height: 38px;
+//
+//    mat-icon {
+//      position: absolute;
+//      top: 10px;
+//      z-index: 3;
+//    }
+//
+//
+//  }
+//}
+//
+//.route-price {
+//  margin-top: 20px;
+//
+//  .route-price-value {
+//    color: $green;
+//  }
+//}
+//
+//.route-not-supported {
+//  color: $red;
+//}
