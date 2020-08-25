@@ -96,7 +96,7 @@ export class FerriesHomeComponent implements OnInit {
       icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
       offset: '100%'
     }],
-  }
+  };
 
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -110,6 +110,10 @@ export class FerriesHomeComponent implements OnInit {
     {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
 
   ];
+
+  previousDatesFilter = (d: Date | null): boolean => {
+    return moment(d).isSameOrAfter(moment(), 'day');
+  };
 
   constructor(
     private main: MainService,
@@ -194,6 +198,8 @@ export class FerriesHomeComponent implements OnInit {
       wayType: [1],
       more: this.createMoreFormGroup(),
       payment: [1],
+      adults: [],
+      children: [],
       status: ['pending']
     });
 
@@ -309,18 +315,39 @@ export class FerriesHomeComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
 
+  getLabelText(i) {
+    if (i === 0) {
+      return 'From';
+    } else if (i === 1) {
+      return 'To';
+    }
+  }
+
   getPlaceholderText(i) {
-    const text = 'Start Point';
+    const text = 'Departure port';
     const locationsLen = this.locations.length;
     if (i === 0) {
       return text;
-    } else if (i === locationsLen - 1) {
-      return 'End Point';
-    }
-    if (locationsLen === 3) {
-      return i === 1 ? 'Stop 1' : 'End point';
+    } else if (i === 1) {
+      return 'Arrival port';
+    } else if (locationsLen === 3) {
+      return 'Stop 1';
     } else if (locationsLen === 4) {
-      return i === 1 ? 'Stop 1' : 'Stop 2';
+      return i === 2 ? 'Stop 1' : 'Stop 2';
+    }
+  }
+
+  getLocationId(i) {
+    const id = 'start-point';
+    const locationsLen = this.locations.length;
+    if (i === 0) {
+      return id;
+    } else if (i === 1) {
+      return 'end-point';
+    } else if (locationsLen === 3) {
+      return 'stop-1';
+    } else if (locationsLen === 4) {
+      return i === 2 ? 'stop-1' : 'stop-2';
     }
   }
 
@@ -340,6 +367,7 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   updateMapLocations() {
+
     // Saving selected locations
     this.selectedLocations = [];
     this.locations.controls.map(c => {
@@ -460,12 +488,21 @@ export class FerriesHomeComponent implements OnInit {
     if (locationsLen < MAX_LOCATION_CHOICES) {
       this.locations.controls.push(this.createLocationsFormGroup());
     }
+    console.log(this.orderFerryForm.getRawValue())
   }
 
   removeLocationInput(i) {
     this.locations.removeAt(i);
     this.updateMapLocations();
     this.getRoutePrice();
+  }
+
+  getStartDate() {
+
+  }
+
+  dateChanged(e) {
+
   }
 
 

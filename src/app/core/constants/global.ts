@@ -1,7 +1,7 @@
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {environment} from '@env';
 import {Section} from '@shared/models/Section';
-import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
+// import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
 
 export const API_URL = environment.apiUrl;
@@ -226,7 +226,7 @@ export const MAIN_SECTIONS: Section[] = [
 ];
 
 
-export const TIMEPICKER_THEME: NgxMaterialTimepickerTheme = {
+export const TIMEPICKER_THEME = {
   container: {
     bodyBackgroundColor: '#424242',
     buttonColor: '#fff'
