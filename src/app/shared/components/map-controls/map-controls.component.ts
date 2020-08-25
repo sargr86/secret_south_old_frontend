@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MAX_LOCATION_CHOICES} from '@core/constants/global';
 import {
   MAP_CENTER_COORDINATES,
@@ -29,6 +29,8 @@ export class MapControlsComponent implements OnInit {
   @Output('routeSelected') routeSelected = new EventEmitter();
   @Output('refreshRoutes') refreshRoutes = new EventEmitter();
 
+  @Input('drawingEnabled') drawingEnabled = false;
+
 
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
   markerIconUrl = MAP_MARKER_ICON_URL;
@@ -41,7 +43,6 @@ export class MapControlsComponent implements OnInit {
   filteredLinesArr = [];
   drawnLines = [];
 
-  drawingEnabled = true;
   drawingControlOptions: DrawingControlOptions = {drawingModes: [OverlayType.POLYLINE]};
   routesListPanelClosed = false;
 

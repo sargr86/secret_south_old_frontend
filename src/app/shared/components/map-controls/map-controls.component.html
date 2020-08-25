@@ -1,9 +1,9 @@
 <div id="map">
-  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">
+  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed" *ngIf="drawingEnabled">
     <div class="default-content-container">
 
       <!-- No-routes-found message -->
-      <div class="no-routes">
+      <div class="no-routes" >
         <strong [hidden]="filteredLinesArr.length !==0 || routesListPanelClosed">No routes found</strong>
       </div>
 
@@ -51,7 +51,7 @@
   </div>
 
   <!-- Map itself-->
-  <agm-map [latitude]="mapCenterCoordinates.lat" [longitude]="mapCenterCoordinates.lng" style="height:600px;"
+  <agm-map [latitude]="mapCenterCoordinates.lat" [longitude]="mapCenterCoordinates.lng"
            [zoom]="10"
            [fullscreenControl]="true"
            [mapTypeControl]="true" (mapClick)="mapClick($event)"

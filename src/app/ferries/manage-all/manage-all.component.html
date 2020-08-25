@@ -55,7 +55,7 @@
   <!-- RIGHT SIDE SECTION -->
   <div class="right-section">
     <app-import-from-file [importMethod]="importMethod" *ngIf="importMethod"></app-import-from-file>
-    <app-map-controls *ngIf="mapAction"></app-map-controls>
+    <app-map-controls *ngIf="mapAction" [drawingEnabled]="true"></app-map-controls>
     <app-routes-prices-table *ngIf="viewSummary"></app-routes-prices-table>
   </div>
 </div>

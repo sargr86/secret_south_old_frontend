@@ -1,5 +1,117 @@
 <app-ferries-header></app-ferries-header>
-<section class="ferry_page" id="order-info-container">
+
+<section id="map">
+  <app-map-controls></app-map-controls>
+</section>
+
+<section id="order-form">
+  <form [formGroup]="orderFerryForm" class="order-ferry-form">
+
+    <div class="left-group">
+
+      <div class="locations-group" formArrayName="locations">
+        <ng-container *ngFor="let c of locations.controls;let ind = index">
+          <ng-container [formGroupName]="ind.toString()">
+            <div class="location-selector" [id]="getLocationId(ind)">
+              <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
+              <select>
+                <option selected disabled>{{getPlaceholderText(ind)}}</option>
+                <option *ngFor="let direction of ferryDirections"
+                        [value]="direction.name">{{direction.name}}
+                <option>
+              </select>
+              <!--            <mat-form-field>-->
+              <!--              <mat-label>{{getPlaceholderText(ind)}}</mat-label>-->
+              <!--              <mat-select (selectionChange)="locationChanged($event, ind)" formControlName="name">-->
+              <!--                <mat-option *ngFor="let direction of ferryDirections"-->
+              <!--                            [value]="direction.name">{{direction.name}}</mat-option>-->
+              <!--              </mat-select>-->
+              <!--            </mat-form-field>-->
+              <i *ngIf="ind >= 2"
+                 class="remove-location-icon material-icons"
+                 (click)="removeLocationInput(ind)">cancel</i>
+              <mat-error
+                *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
+                The point is <strong>required</strong></mat-error>
+
+            </div>
+          </ng-container>
+        </ng-container>
+        <div id="add-location-btn">
+          <button class="add-location" (click)="addLocation()" *ngIf="locations.controls.length < maxLocationsChoices">+
+            Add location
+          </button>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="times-row">
+          <div class="start-time">
+
+            <mat-label>Start time</mat-label>
+            <mat-form-field>
+              <input matInput [ngxTimepicker]="picker1" id="start-time" [format]="24"
+                     formControlName="time" readonly>
+              <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"
+              ></ngx-material-timepicker>
+              <ngx-material-timepicker-toggle [for]="picker1">
+                <mat-icon>access_time</mat-icon>
+              </ngx-material-timepicker-toggle>
+              <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
+              <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
+              <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
+              <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
+              <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
+            </mat-form-field>
+          </div>
+          <div class="end-time">
+
+            <mat-label>End time</mat-label>
+            <mat-form-field>
+              <input matInput [ngxTimepicker]="picker2" id="end-time" [format]="24"
+                     formControlName="time" readonly>
+              <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"
+              ></ngx-material-timepicker>
+              <ngx-material-timepicker-toggle [for]="picker2">
+                <mat-icon>access_time</mat-icon>
+              </ngx-material-timepicker-toggle>
+              <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
+              <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
+              <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
+              <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
+              <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="counts-row">
+          <div class="adults-count">
+            <mat-label>Adults count</mat-label>
+            <mat-icon>group</mat-icon>
+            <input formControlName="adults" [hidden]="true">
+            <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="adultsCount"
+                              [buttonsOrientation]="'v'" [placeholder]="'Adults'"
+                              (valueChange)="adultsCountChanged($event)"></ng-number-picker>
+          </div>
+          <div class="children-count">
+            <mat-icon>group</mat-icon>
+            <mat-label>Children count</mat-label>
+            <input formControlName="children" [hidden]="true">
+            <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="childrenCount"
+                              [buttonsOrientation]="'v'" [placeholder]="'Children'"
+                              (valueChange)="childrenCountChanged($event)"></ng-number-picker>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-group">
+      <div class="summary-box">
+
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="ferry_page" id="order-info-container" [hidden]="true">
   <div class="ferry_page_size" *ngIf="auth.loggedIn()">
     <!--    <div class="ferry_page_left" [hidden]="!showFilters">-->
     <!--      <app-filters-bar [section]="'ferries'"></app-filters-bar>-->
