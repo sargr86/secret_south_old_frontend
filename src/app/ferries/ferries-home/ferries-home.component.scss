@@ -6,10 +6,49 @@
   margin: 100px auto
 }
 
+
+#route-points {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  position: relative;
+  padding-top: 70px;
+
+  .point {
+
+    .point-info {
+      position: absolute;
+      top: 15px;
+
+      .point-name {
+        font: normal normal 300 16px/15px Roboto;
+        color: #7BC447;
+      }
+    }
+
+    .point-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 28px;
+      //background-color: #7BC447;
+      background-color: #DBDBDB;
+    }
+  }
+
+  .line {
+    width: 249px;
+    height: 1px;
+    background-color: #B1B1B1;
+  }
+}
+
 form {
   width: 90%;
   display: flex;
-  margin: auto;
+  margin: 56px auto;
+
+
 }
 
 .left-group {
@@ -91,7 +130,70 @@ form {
 
   .summary-box {
     background: #F5F5F5 0 0 no-repeat padding-box;
+    padding-top: 104px;
+    padding-left: 32px;
     height: 614px;
+
+    .locations-row {
+      i {
+        margin: 0 10px;
+      }
+    }
+
+    .time-row {
+      display: flex;
+      align-items: center;
+
+      font: normal normal 300 16px/15px Roboto;
+      color: #707070;
+
+      span {
+        margin-left: 8px;
+      }
+    }
+
+    .counts-row {
+      margin-top: 17px;
+
+      span {
+        font: normal normal 300 16px/15px Roboto;
+        color: #707070;
+      }
+
+      strong {
+        font: normal normal bold 16px/15px Roboto;
+        color: #084F93;
+
+      }
+
+      p:first-of-type strong {
+        margin-left: 38px;
+      }
+
+      p:last-child strong {
+        margin-left: 25px;
+      }
+    }
+
+    .price-row {
+      font: normal normal 300 24px/15px Roboto;
+      color: #414141;
+      margin-top: 61px;
+
+      .route-price-value {
+        font: normal normal bold 32px Roboto;
+        color: #7BC447;
+        margin-left: 24px;
+      }
+    }
+
+    .card-row {
+      width: 368px;
+
+      .mat-form-field-underline {
+        background-color: #D6D6D6 !important;
+      }
+    }
   }
 }
 

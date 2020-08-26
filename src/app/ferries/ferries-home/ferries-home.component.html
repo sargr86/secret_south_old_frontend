@@ -5,6 +5,46 @@
 </section>
 
 <section id="order-form">
+  <div id="route-points">
+    <ng-container
+      [ngTemplateOutlet]="pointTemplate"
+      [ngTemplateOutletContext]="{name:locations.controls[0].value?.name, title: 'Start'}">
+    </ng-container>
+
+    <div class="line"></div>
+
+    <ng-container
+      [ngTemplateOutlet]="pointTemplate"
+      [ngTemplateOutletContext]="{name:locations.controls[2]?.value?.name, title: 'Stop 1'}">
+    </ng-container>
+
+    <div class="line"></div>
+    <ng-container
+      [ngTemplateOutlet]="pointTemplate"
+      [ngTemplateOutletContext]="{name:locations.controls[3]?.value?.name, title: 'Stop 2'}">
+    </ng-container>
+    <div class="line"></div>
+
+    <ng-container
+      [ngTemplateOutlet]="pointTemplate"
+      [ngTemplateOutletContext]="{name:locations.controls[1].value?.name, title: 'End'}">
+    </ng-container>
+
+  </div>
+
+  <ng-template #pointTemplate let-name='name' let-title="title">
+    <div class="point">
+      <div class="point-info">
+        <p class="point-desc">{{title}}</p>
+        <p class="point-name">{{name}}</p>
+      </div>
+      <div class="point-dot">
+
+      </div>
+    </div>
+  </ng-template>
+
+
   <form [formGroup]="orderFerryForm" class="order-ferry-form">
 
     <div class="left-group">
@@ -14,24 +54,17 @@
           <ng-container [formGroupName]="ind.toString()">
             <div class="location-selector" [id]="getLocationId(ind)">
               <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
-              <select>
+              <select (change)="locationChanged($event, ind)">
                 <option selected disabled>{{getPlaceholderText(ind)}}</option>
                 <option *ngFor="let direction of ferryDirections"
                         [value]="direction.name">{{direction.name}}
                 <option>
               </select>
-              <!--            <mat-form-field>-->
-              <!--              <mat-label>{{getPlaceholderText(ind)}}</mat-label>-->
-              <!--              <mat-select (selectionChange)="locationChanged($event, ind)" formControlName="name">-->
-              <!--                <mat-option *ngFor="let direction of ferryDirections"-->
-              <!--                            [value]="direction.name">{{direction.name}}</mat-option>-->
-              <!--              </mat-select>-->
-              <!--            </mat-form-field>-->
               <i *ngIf="ind >= 2"
                  class="remove-location-icon material-icons"
                  (click)="removeLocationInput(ind)">cancel</i>
               <mat-error
-                *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
+                *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
                 The point is <strong>required</strong></mat-error>
 
             </div>
@@ -50,17 +83,12 @@
             <mat-label>Start time</mat-label>
             <mat-form-field>
               <input matInput [ngxTimepicker]="picker1" id="start-time" [format]="24"
-                     formControlName="time" readonly>
-              <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"
+                     formControlName="start_time" readonly>
+              <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event, 'start_time')"
               ></ngx-material-timepicker>
               <ngx-material-timepicker-toggle [for]="picker1">
                 <mat-icon>access_time</mat-icon>
               </ngx-material-timepicker-toggle>
-              <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-              <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-              <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-              <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-              <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
             </mat-form-field>
           </div>
           <div class="end-time">
@@ -68,17 +96,12 @@
             <mat-label>End time</mat-label>
             <mat-form-field>
               <input matInput [ngxTimepicker]="picker2" id="end-time" [format]="24"
-                     formControlName="time" readonly>
-              <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"
+                     formControlName="end_time" readonly>
+              <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event, 'end_time')"
               ></ngx-material-timepicker>
               <ngx-material-timepicker-toggle [for]="picker2">
                 <mat-icon>access_time</mat-icon>
               </ngx-material-timepicker-toggle>
-              <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-              <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-              <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-              <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-              <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
             </mat-form-field>
           </div>
         </div>
@@ -104,14 +127,68 @@
     </div>
     <div class="right-group">
       <div class="summary-box">
+        <div class="locations-row">
+          <span>{{locations.controls[0].value?.name}}</span>
+          <ng-container *ngIf="locations.controls[2]?.value?.name">
+            <i class="fa fa-arrow-right"></i>
+            <span>{{locations.controls[2].value.name}}</span>
+          </ng-container>
+          <ng-container *ngIf="locations.controls[3]?.value?.name">
+            <i class="fa fa-arrow-right"></i>
+            <span>{{locations.controls[3].value.name}}</span>
+          </ng-container>
+          <ng-container *ngIf="locations.controls[1].value?.name">
+            <i class="fa fa-arrow-right"></i>
+            <span>{{locations.controls[1].value.name}}</span>
+          </ng-container>
+        </div>
+        <div class="time-row" *ngIf="startTime.touched || endTime.touched">
+          <mat-icon>access_time</mat-icon>
+          <span *ngIf="startTime.touched">{{startTime.value}}</span>
+          <span *ngIf="endTime.touched">{{ '- ' + endTime.value}}</span>
+        </div>
+        <div class="counts-row">
+          <p>
+            <span>Adults count:</span>
+            <strong>{{adultsCount}}</strong>
+          </p>
+          <p>
+            <span>Children count:</span>
+            <strong>{{childrenCount}}</strong>
+          </p>
+        </div>
+        <div class="price-row">
+          <ng-container> <!-- *ngIf="routePrice && common.showPrice" -->
+            <span>Total Price: </span>
+            <strong class="route-price-value">&euro;{{routePrice.total}}</strong>
+          </ng-container>
+          <!--          <span *ngIf="!common.showPrice && locationSelected" class="route-not-supported">We don't have this route in our price list</span>-->
+        </div>
 
+        <div class="card-row">
+          <mat-form-field>
+            <input matInput placeholder="Cardholder name">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Card number">
+          </mat-form-field>
+          <div class="date-cvv">
+            <mat-form-field>
+              <input matInput placeholder="MM/YY" class="card-expiry-date-input">
+            </mat-form-field>
+            <mat-form-field class="cvv-input-field">
+              <input matInput placeholder="CVV">
+            </mat-form-field>
+          </div>
+          <button>Order</button>
+        </div>
       </div>
     </div>
   </form>
 </section>
 
 
-<section class="ferry_page" id="order-info-container" [hidden]="true">
+<section class="ferry_page" id="order-info-container" *ngIf="false">
   <div class="ferry_page_size" *ngIf="auth.loggedIn()">
     <!--    <div class="ferry_page_left" [hidden]="!showFilters">-->
     <!--      <app-filters-bar [section]="'ferries'"></app-filters-bar>-->
