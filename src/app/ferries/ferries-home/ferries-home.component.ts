@@ -68,7 +68,7 @@ export class FerriesHomeComponent implements OnInit {
   locationSelected = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
-  sortedLocations = []
+  sortedLocations = [];
 
   // Stripe
   cardOptions = STRIPE_CARD_OPTIONS;
@@ -196,13 +196,11 @@ export class FerriesHomeComponent implements OnInit {
         this.createLocationsFormGroup('Start'),
         this.createLocationsFormGroup('End')
       ]),
-      start_time: ['09:00'],
-      end_time: ['16:00'],
+      start_time: ['00:00'],
+      end_time: ['00:00'],
       wayType: [1],
       more: this.createMoreFormGroup(),
       payment: [1],
-      adults: [],
-      children: [],
       status: ['pending']
     });
 
@@ -535,7 +533,8 @@ export class FerriesHomeComponent implements OnInit {
 
 
   wayTypeChanged(e) {
-    this.oneWayTrip = e.target.checked;
+    this.oneWayTrip = e.value === 1;
+    this.orderFerryForm.patchValue({wayType: e.value});
   }
 
   orderFerry() {
@@ -552,7 +551,7 @@ export class FerriesHomeComponent implements OnInit {
       id: this.authUser.id
     };
 
-    this.webSocketService.emit('createOrder', JSON.stringify(formValue));
+    // this.webSocketService.emit('createOrder', JSON.stringify(formValue));
   }
 
   resetForm() {

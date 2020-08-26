@@ -31,8 +31,10 @@
       width: 28px;
       height: 28px;
       border-radius: 28px;
-      //background-color: #7BC447;
       background-color: #DBDBDB;
+    }
+    .selected-point-dot{
+      background-color: #7BC447;
     }
   }
 
@@ -54,8 +56,14 @@ form {
 .left-group {
   width: 28%;
 
-  .locations-group {
+  .route-type {
+    .two-way {
+      margin-left: 32px;
+    }
+  }
 
+  .locations-group {
+    margin-top: 27px;
 
     #start-point, #end-point {
       float: left;
@@ -63,6 +71,7 @@ form {
 
       select {
         width: 200px;
+        padding-left:32px;
       }
     }
 
@@ -78,6 +87,7 @@ form {
 
       select {
         width: 93%;
+        padding-left:32px;
       }
     }
 
@@ -143,7 +153,7 @@ form {
     .time-row {
       display: flex;
       align-items: center;
-
+      margin-top: 40px;
       font: normal normal 300 16px/15px Roboto;
       color: #707070;
 
