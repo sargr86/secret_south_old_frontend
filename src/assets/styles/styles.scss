@@ -1347,3 +1347,19 @@ header:not(.timepicker__header) {
 agm-map {
   height: 435px !important;
 }
+
+
+.route-type {
+  .mat-radio-inner-circle, .mat-ripple-element {
+    background-color: $green !important;
+  }
+
+  .mat-radio-outer-circle {
+    border-color: $green !important;
+  }
+
+  .mat-radio-label-content {
+    font: normal normal 300 16px/15px Roboto;
+    color: #707070;
+  }
+}
