@@ -38,9 +38,7 @@
         <p class="point-desc">{{title}}</p>
         <p class="point-name">{{name}}</p>
       </div>
-      <div class="point-dot">
-
-      </div>
+      <div class="point-dot" [class.selected-point-dot]="!!name"></div>
     </div>
   </ng-template>
 
@@ -48,6 +46,11 @@
   <form [formGroup]="orderFerryForm" class="order-ferry-form">
 
     <div class="left-group">
+
+      <div class="route-type">
+        <mat-radio-button class="one-way" (change)="wayTypeChanged($event)" [value]="1">One-way route</mat-radio-button>
+        <mat-radio-button class="two-way" (change)="wayTypeChanged($event)" [value]="2">Return trip</mat-radio-button>
+      </div>
 
       <div class="locations-group" formArrayName="locations">
         <ng-container *ngFor="let c of locations.controls;let ind = index">
@@ -105,7 +108,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="counts-row">
+        <div class="counts-row" formGroupName="more">
           <div class="adults-count">
             <mat-label>Adults count</mat-label>
             <mat-icon>group</mat-icon>
@@ -130,15 +133,15 @@
         <div class="locations-row">
           <span>{{locations.controls[0].value?.name}}</span>
           <ng-container *ngIf="locations.controls[2]?.value?.name">
-            <i class="fa fa-arrow-right"></i>
+            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
             <span>{{locations.controls[2].value.name}}</span>
           </ng-container>
           <ng-container *ngIf="locations.controls[3]?.value?.name">
-            <i class="fa fa-arrow-right"></i>
+            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
             <span>{{locations.controls[3].value.name}}</span>
           </ng-container>
           <ng-container *ngIf="locations.controls[1].value?.name">
-            <i class="fa fa-arrow-right"></i>
+            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
             <span>{{locations.controls[1].value.name}}</span>
           </ng-container>
         </div>
@@ -180,7 +183,7 @@
               <input matInput placeholder="CVV">
             </mat-form-field>
           </div>
-          <button>Order</button>
+          <button (click)="orderFerry()">Order</button>
         </div>
       </div>
     </div>
