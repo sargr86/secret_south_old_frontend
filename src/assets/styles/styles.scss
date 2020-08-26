@@ -487,6 +487,7 @@ mat-progress-bar .mat-progress-bar-buffer {
   .ngx-material-timepicker-toggle {
     position: absolute !important;
     top: 0 !important;
+    width: 25px;
 
     svg {
       fill: #D2D2D2 !important;
@@ -499,81 +500,134 @@ mat-progress-bar .mat-progress-bar-buffer {
     display: block;
   }
 
-  .times-row {
-    display: flex;
-    justify-content: space-between;
+  .left-group {
 
-    .start-time, .end-time {
-      width: 200px !important;
 
-      mat-label {
-        display: block;
-        margin-top: 40px;
+    .times-row {
+      display: flex;
+      justify-content: space-between;
+
+      .start-time, .end-time {
+        width: 200px !important;
+
+        mat-label {
+          display: block;
+          margin-top: 40px;
+        }
+
+        .mat-form-field-underline {
+          display: none !important;
+        }
+
+        .ngx-material-timepicker-toggle {
+          margin-top: 14px !important;
+        }
+
+        input {
+          color: #D2D2D2;
+        }
+      }
+    }
+
+    .counts-row {
+      display: flex;
+
+      .adults-count, .children-count {
+
+        position: relative;
+        width: 123px !important;
+
+
+        mat-label {
+          margin-bottom: 16px;
+        }
+
+        mat-icon {
+          position: absolute;
+          top: 47px;
+          left: 6px;
+          font-size: 16px;
+          z-index: 5;
+          color: #D2D2D2;
+        }
+
+        input {
+          font: normal normal 300 16px/15px Roboto;
+          color: #D2D2D2;
+          border: none;
+          height: 51px;
+          padding-left: 40px !important;
+          box-shadow: 0 0 6px #00000014;
+          outline: none !important;
+        }
+
+        input:focus {
+          border: none !important;
+          background-color: $white !important;
+        }
+
+        .input-group-text {
+          border: none;
+          box-shadow: 0 0 6px #00000014;
+          background: #F2F2F2;
+
+          > span {
+            width: 25px;
+            height: 25px;
+            display: block;
+            padding-top: 5px;
+            color: #949494;
+          }
+        }
+      }
+
+      .children-count {
+        margin-left: 20px;
+      }
+    }
+
+    #start-time, #end-time {
+      padding-left: 32px !important;
+      box-shadow: 0 0 6px #00000014;
+      width: 200px;
+      height: 51px;
+    }
+  }
+
+  .right-group {
+    .card-row {
+      .mat-form-field-label {
+        font: normal normal 300 16px/15px Roboto !important;
+        color: #D3D3D3 !important;
       }
 
       .mat-form-field-underline {
-        display: none !important;
+        background-color: #D6D6D6 !important;
       }
 
-      .ngx-material-timepicker-toggle {
-        margin-top: 14px !important;
-      }
-    }
-  }
+      .date-cvv {
+        display: flex;
 
-  .counts-row {
-    display: flex;
+        .card-expiry-date-input, .cvv-input-field {
+          width: 168px !important;
+        }
 
-    .adults-count, .children-count {
-
-      position: relative;
-      width: 123px !important;
-
-
-      mat-label {
-        margin-bottom: 16px;
+        .cvv-input-field {
+          margin-left: 32px;
+        }
       }
 
-      mat-icon {
-        position: absolute;
-        top: 43px;
-        left: 6px;
-        z-index: 5;
-        color: #D2D2D2;
-      }
-
-      input {
-        font: normal normal 300 16px/15px Roboto;
-        color: #D2D2D2;
-        border: none;
+      button {
+        width: 370px;
         height: 51px;
-        padding-left: 40px !important;
+        background: #7BC447 0 0 no-repeat padding-box;
         box-shadow: 0 0 6px #00000014;
-        outline: none !important;
-      }
-
-      input:focus {
-        border: none !important;
-        background-color: $white !important;
-      }
-
-      .input-group-text {
         border: none;
-        box-shadow: 0 0 6px #00000014;
-        background: white;
+        font: normal normal bold 16px/15px Roboto;
+        color: #FFFFFF;
+        text-transform: uppercase;
       }
     }
-
-    .children-count {
-      margin-left: 20px;
-    }
-  }
-
-  #start-time, #end-time {
-    padding-left: 32px !important;
-    box-shadow: 0 0 6px #00000014;
-    width: 200px;
-    height: 51px;
   }
 
   .timepicker__header { //.clock-face__number span.active

@@ -16,7 +16,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
-import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
@@ -64,10 +64,11 @@ export class FerriesHomeComponent implements OnInit {
   roomName;
   maxLocationsChoices = MAX_LOCATION_CHOICES;
   selectedLocations = [];
-  routePrice;
+  routePrice = {total: 0, single: 0};
   locationSelected = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
+  sortedLocations = []
 
   // Stripe
   cardOptions = STRIPE_CARD_OPTIONS;
@@ -149,6 +150,7 @@ export class FerriesHomeComponent implements OnInit {
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
 
+    // this.sortLocations();
   }
 
   onMapReady(map) {
@@ -191,10 +193,11 @@ export class FerriesHomeComponent implements OnInit {
   initOrderForm() {
     this.orderFerryForm = this.fb.group({
       locations: this.fb.array([
-        this.createLocationsFormGroup(),
-        this.createLocationsFormGroup()
+        this.createLocationsFormGroup('Start'),
+        this.createLocationsFormGroup('End')
       ]),
-      time: [''],
+      start_time: ['09:00'],
+      end_time: ['16:00'],
       wayType: [1],
       more: this.createMoreFormGroup(),
       payment: [1],
@@ -204,6 +207,8 @@ export class FerriesHomeComponent implements OnInit {
     });
 
     this.chatForm = this.fb.group({message: ['', Validators.required]});
+    // this.sortLocations();
+    // this.sortedLocations = this.locations.controls;
   }
 
   // Saving social auth access token to local storage
@@ -214,11 +219,12 @@ export class FerriesHomeComponent implements OnInit {
     }
   }
 
-  createLocationsFormGroup(): FormGroup {
+  createLocationsFormGroup(title): FormGroup {
     return this.fb.group({
         name: ['', Validators.required],
         latitude: ['', Validators.required],
         longitude: ['', Validators.required],
+        title: [title]
       }
     );
   }
@@ -272,7 +278,7 @@ export class FerriesHomeComponent implements OnInit {
 
   mapClick(e) {
     console.log('map clicked')
-    console.log(e)
+    console.log(e);
   }
 
   markerClick(infoWindow) {
@@ -355,7 +361,7 @@ export class FerriesHomeComponent implements OnInit {
   locationChanged(e, i) {
 
     // Patching drop down value
-    this.locations.controls[i].patchValue(e.value);
+    this.locations.controls[i].patchValue({name: e.target.value});
 
     this.updateMapLocations();
 
@@ -486,9 +492,18 @@ export class FerriesHomeComponent implements OnInit {
   addLocation() {
     const locationsLen = this.locations.length;
     if (locationsLen < MAX_LOCATION_CHOICES) {
-      this.locations.controls.push(this.createLocationsFormGroup());
+      this.locations.controls.push(this.createLocationsFormGroup('Stop ' + (locationsLen - 1)));
     }
-    console.log(this.orderFerryForm.getRawValue())
+
+    // this.sortLocations();
+
+  }
+
+  sortLocations() {
+    // this.sortedLocations = this.locations.controls.map(object => ({...object}))
+    this.sortedLocations = this.locations.controls;
+    this.sortedLocations.push(...this.sortedLocations.splice(this.sortedLocations.findIndex(v => v.value.title === 'End'), 1))
+    console.log(this.sortedLocations)
   }
 
   removeLocationInput(i) {
@@ -510,8 +525,8 @@ export class FerriesHomeComponent implements OnInit {
     this.orderFerryForm.get('more').patchValue({children: count});
   }
 
-  timeChanged(time) {
-    this.orderFerryForm.patchValue({time});
+  timeChanged(time, input) {
+    this.orderFerryForm.patchValue({input: time});
   }
 
   bikeChanged(e) {
@@ -524,6 +539,7 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   orderFerry() {
+    console.log('aa')
     const formValue = this.orderFerryForm.getRawValue();
     console.log(formValue)
     // // formValue.operatorId = localStorage.getItem('operatorId');
@@ -583,5 +599,14 @@ export class FerriesHomeComponent implements OnInit {
   get locations(): FormArray {
     return this.orderFerryForm.get('locations') as FormArray;
   }
+
+  get endTime(): AbstractControl {
+    return this.orderFerryForm.get('end_time');
+  }
+
+  get startTime(): AbstractControl {
+    return this.orderFerryForm.get('start_time');
+  }
+
 
 }
