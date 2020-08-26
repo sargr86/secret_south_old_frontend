@@ -66,6 +66,7 @@ export class FerriesHomeComponent implements OnInit {
   selectedLocations = [];
   routePrice = {total: 0, single: 0};
   locationSelected = false;
+  routeValid = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
   sortedLocations = [];
@@ -149,7 +150,6 @@ export class FerriesHomeComponent implements OnInit {
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
-
     // this.sortLocations();
   }
 
@@ -196,8 +196,8 @@ export class FerriesHomeComponent implements OnInit {
         this.createLocationsFormGroup('Start'),
         this.createLocationsFormGroup('End')
       ]),
-      start_time: ['00:00'],
-      end_time: ['00:00'],
+      start_time: [''],
+      end_time: [''],
       wayType: [1],
       more: this.createMoreFormGroup(),
       payment: [1],
@@ -362,10 +362,10 @@ export class FerriesHomeComponent implements OnInit {
     this.locations.controls[i].patchValue({name: e.target.value});
 
     this.updateMapLocations();
+    this.locationSelected = true;
 
-    const validRoute = !this.locations.controls.find(c => !c.value.name);
-    if (validRoute) {
-      this.locationSelected = true;
+    this.routeValid = !this.locations.controls.find(c => !c.value.name);
+    if (this.routeValid) {
       this.getRoutePrice();
     }
   }
