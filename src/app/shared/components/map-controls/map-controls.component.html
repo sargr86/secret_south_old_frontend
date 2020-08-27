@@ -3,7 +3,7 @@
     <div class="default-content-container">
 
       <!-- No-routes-found message -->
-      <div class="no-routes" >
+      <div class="no-routes">
         <strong [hidden]="filteredLinesArr.length !==0 || routesListPanelClosed">No routes found</strong>
       </div>
 
@@ -52,7 +52,7 @@
 
   <!-- Map itself-->
   <agm-map [latitude]="mapCenterCoordinates.lat" [longitude]="mapCenterCoordinates.lng"
-           [zoom]="10"
+           [zoom]="mapZoom" [fitBounds]="true" #agmMap
            [fullscreenControl]="true"
            [mapTypeControl]="true" (mapClick)="mapClick($event)"
            [rotateControl]="true" (mapReady)="onMapReady($event)" [agmDrawingManager]="drawing"
@@ -96,7 +96,7 @@
     <!--        </agm-marker>-->
 
     <agm-marker *ngFor="let location of ferryMapLocations;let ind = index" [latitude]="location.latitude"
-                [longitude]="location.longitude"
+                [longitude]="location.longitude" [agmFitBounds]="true"
                 [openInfoWindow]="true" [iconUrl]="location.markerIconUrl"
                 (markerClick)="selectLocationOnMap(location)">
       <!--          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">-->
@@ -104,6 +104,27 @@
       <!--          </agm-info-window>-->
     </agm-marker>
 
+
+    <!-- Lines for non-editable mode-->
+    <ng-container *ngIf="!drawingEnabled">
+
+      <agm-polyline [editable]="false" [strokeColor]="'#8B0000'" [strokeWeight]="4">
+        <agm-polyline-point *ngFor="let data of lines"
+                            [latitude]="data.lat"
+                            [longitude]="data.lng">
+        </agm-polyline-point>
+        <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"
+                           [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
+        </agm-icon-sequence>
+        <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100" [repeat]="'100px'"
+                           [strokeWeight]="1"
+                           [offset]="'100%'" [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">
+        </agm-icon-sequence>
+
+      </agm-polyline>
+    </ng-container>
+
+    <!-- Lines for editable mode-->
     <ng-container *ngIf="linesArr && linesArr.length > 0">
       <agm-polyline #line *ngFor="let line of linesArr" [editable]="false"
                     [strokeColor]="selectedRoute && selectedRoute._id === line._id ? '#8B0000':'#80b446'"

@@ -14,13 +14,15 @@ import {Observable} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../services/common.service';
+import {SubjectService} from '@core/services/subject.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
   constructor(public router: Router,
               public toastr: ToastrService,
-              private common: CommonService
+              private common: CommonService,
+              private subject: SubjectService
   ) {
   }
 
@@ -47,6 +49,7 @@ export class RequestInterceptor implements HttpInterceptor {
           if (err.error.hasOwnProperty('msg')) {
             if (err.status === 444) {
               this.common.showPrice = false;
+              this.subject.setMapLinesData(null);
             }
             this.toastr.error('', err.error.msg);
           } else if (message) {
