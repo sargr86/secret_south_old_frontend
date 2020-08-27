@@ -6,6 +6,7 @@ import {Observable, Subject} from 'rxjs';
 })
 export class SubjectService {
   public mapData = new Subject<any>();
+  public mapLinesData = new Subject<any>();
   public sidebarActions = new Subject<any>();
   public orderTypeData = new Subject<any>();
   public orderData = new Subject<any>();
@@ -21,6 +22,15 @@ export class SubjectService {
   getMapData(): Observable<any> {
     return this.mapData.asObservable();
   }
+
+  setMapLinesData(value) {
+    this.mapLinesData.next(value);
+  }
+
+  getMapLinesData(): Observable<any> {
+    return this.mapLinesData.asObservable();
+  }
+
 
   setSidebarAction(value) {
     this.sidebarActions.next(value);

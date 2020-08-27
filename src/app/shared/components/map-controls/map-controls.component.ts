@@ -16,6 +16,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatPaginator} from '@angular/material/paginator';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import {SaveLocationDialogComponent} from '@core/components/dialogs/save-location-dialog/save-location-dialog.component';
+import {SubjectService} from '@core/services/subject.service';
 
 @Component({
   selector: 'app-map-controls',
@@ -53,12 +54,15 @@ export class MapControlsComponent implements OnInit {
   public pageSize = 5;
   public pageIndex = 0;
 
+  mapZoom = 10;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private ferriesService: FerriesService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private subject: SubjectService
   ) {
   }
 
@@ -68,6 +72,41 @@ export class MapControlsComponent implements OnInit {
       this.getAllRoutes();
     }
     this.strokesColor = this.drawingEnabled ? MAP_GREEN_COLOR : MAP_RED_COLOR;
+
+    // Getting ferry locations data from the ferry order form
+    this.subject.getMapData().subscribe((dt: any) => {
+      if (dt.formToMap) {
+        // Marking selected location on the map
+        this.ferryMapLocations.map(sl => {
+
+          // Retrieve current location object
+          const location = dt.selectedLocations.find(d => d.name === sl.name);
+          sl.markerIconUrl = 'assets/icons/' + (location ? 'red' : 'green') + '_circle_small.png';
+        });
+      }
+    });
+
+    // Getting ferry lines data between selected locations from the ferry order form
+    this.subject.getMapLinesData().subscribe((dt: any) => {
+      this.lines = [];
+      if (dt) {
+        if (dt.geometry_type === 'LineString') {
+          dt.coordinates.map(c => {
+            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+          });
+        } else if (dt.geometry_type === 'Polygon') {
+          Object.values(dt.coordinates[0]).reverse().map((c: any) => {
+            if (c.lat) {
+              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+            }
+
+          });
+        }
+
+      }
+    });
+
+
   }
 
   getAllRoutes() {
@@ -167,6 +206,11 @@ export class MapControlsComponent implements OnInit {
         }
 
         this.locationSelected.emit({selectedLocations: this.selectedLocations});
+        this.subject.setMapData({
+          selectedLocations: this.selectedLocations,
+          currentLocation: location,
+          formToMap: false
+        });
 
       }
     } else {
@@ -243,7 +287,6 @@ export class MapControlsComponent implements OnInit {
 
     }
   }
-
 
   openRouteDetailsDialog(coordinates) {
     this.dialog.open(SaveRouteDialogComponent, {

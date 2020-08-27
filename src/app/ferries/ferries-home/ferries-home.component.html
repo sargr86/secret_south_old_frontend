@@ -58,7 +58,7 @@
           <ng-container [formGroupName]="ind.toString()">
             <div class="location-selector" [id]="getLocationId(ind)">
               <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
-              <select (change)="locationChanged($event, ind)">
+              <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
                 <option selected disabled>{{getPlaceholderText(ind)}}</option>
                 <option *ngFor="let direction of ferryDirections"
                         [value]="direction.name">{{direction.name}}
@@ -193,269 +193,269 @@
 </section>
 
 
-<section class="ferry_page" id="order-info-container" *ngIf="false">
-  <div class="ferry_page_size" *ngIf="auth.loggedIn()">
-    <!--    <div class="ferry_page_left" [hidden]="!showFilters">-->
-    <!--      <app-filters-bar [section]="'ferries'"></app-filters-bar>-->
-    <!--    </div>-->
+<!--<section class="ferry_page" id="order-info-container" *ngIf="false">-->
+<!--  <div class="ferry_page_size" *ngIf="auth.loggedIn()">-->
+<!--    &lt;!&ndash;    <div class="ferry_page_left" [hidden]="!showFilters">&ndash;&gt;-->
+<!--    &lt;!&ndash;      <app-filters-bar [section]="'ferries'"></app-filters-bar>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
 
-    <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">
-      <!--      <div class="filterToggler">-->
-      <!--        <i class="fa fa-filter" (click)="toggleFilters()"></i>-->
-      <!--      </div>-->
-      <div class="infoToggler" *ngIf="selectedFerry">
-        <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>
-      </div>
-      <agm-map [latitude]="mapCenterCoordinates" [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10"
-               [fullscreenControl]="true"
-               [mapTypeControl]="true" (mapClick)="mapClick($event)"
-               [rotateControl]="true" (mapReady)="onMapReady($event)"
-               [styles]="mapStyles">
-        <!--        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"-->
-        <!--                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">-->
-        <!--          <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">-->
+<!--    <div class="mapContainer" *ngIf="ferryPositions && ferryPositions.length > 0">-->
+<!--      &lt;!&ndash;      <div class="filterToggler">&ndash;&gt;-->
+<!--      &lt;!&ndash;        <i class="fa fa-filter" (click)="toggleFilters()"></i>&ndash;&gt;-->
+<!--      &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--      <div class="infoToggler" *ngIf="selectedFerry">-->
+<!--        <i class="fa fa-info-circle" (click)="closeInfoWindow()"></i>-->
+<!--      </div>-->
+<!--      <agm-map [latitude]="mapCenterCoordinates" [latitude]="lat" [longitude]="lng" style="height:600px;" [zoom]="10"-->
+<!--               [fullscreenControl]="true"-->
+<!--               [mapTypeControl]="true" (mapClick)="mapClick($event)"-->
+<!--               [rotateControl]="true" (mapReady)="onMapReady($event)"-->
+<!--               [styles]="mapStyles">-->
+<!--        &lt;!&ndash;        <agm-marker *ngFor="let single of ferryPositions" [latitude]="single.lat" [longitude]="single.lng"&ndash;&gt;-->
+<!--        &lt;!&ndash;                    [openInfoWindow]="true" [iconUrl]="getIcon()" (markerClick)="markerClick(infoWindow)">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <agm-info-window class="infWindow" #infoWindow (infoWindowClose)="closeInfoWindow()">&ndash;&gt;-->
 
-        <!--            <ng-container>-->
-        <!--              <div class="infoContainer">-->
-        <!--                &lt;!&ndash;                                <div class="image">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                    <img *ngIf="single.img" class="infowindowImg"&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                         alt="">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                </div>&ndash;&gt;-->
-        <!--                <div class="info">-->
-        <!--                  <h4>{{single.name}}</h4>-->
-        <!--                  <ul>-->
-        <!--                    <li>-->
-        <!--                      <small>Max: {{single.max_people}} people</small>-->
-        <!--                    </li>-->
-        <!--                    <li>-->
-        <!--                      <small>Min: {{single.min_people}} people</small>-->
-        <!--                    </li>-->
-        <!--                    <li>-->
-        <!--                      &lt;!&ndash;                            <small>Tel: {{single.phone}}</small>&ndash;&gt;-->
-        <!--                    </li>-->
-        <!--                  </ul>-->
+<!--        &lt;!&ndash;            <ng-container>&ndash;&gt;-->
+<!--        &lt;!&ndash;              <div class="infoContainer">&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                <div class="image">&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                    <img *ngIf="single.img" class="infowindowImg"&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                         src="{{host+'uploads/others/ferries/'+single.name+ '/'+single.img}}"&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                         alt="">&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                    <img *ngIf="!single.img" class="noImage" [src]="'assets/images/no_image.png'">&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                &lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                <div class="info">&ndash;&gt;-->
+<!--        &lt;!&ndash;                  <h4>{{single.name}}</h4>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  <ul>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                      <small>Max: {{single.max_people}} people</small>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                      <small>Min: {{single.min_people}} people</small>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                      &lt;!&ndash;                            <small>Tel: {{single.phone}}</small>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  </ul>&ndash;&gt;-->
 
-        <!--                  <div class="actions">-->
-        <!--                    <button mat-raised-button color="primary" (click)="selectFerry(single)">-->
-        <!--                      <span>{{selectAction}}</span>-->
-        <!--                    </button>-->
-        <!--                  </div>-->
-        <!--                </div>-->
+<!--        &lt;!&ndash;                  <div class="actions">&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <button mat-raised-button color="primary" (click)="selectFerry(single)">&ndash;&gt;-->
+<!--        &lt;!&ndash;                      <span>{{selectAction}}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--        &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
 
-        <!--              </div>-->
-        <!--            </ng-container>-->
-        <!--          </agm-info-window>-->
-        <!--        </agm-marker>-->
+<!--        &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+<!--        &lt;!&ndash;          </agm-info-window>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </agm-marker>&ndash;&gt;-->
 
-        <agm-marker *ngFor="let direction of ferryMapDirections;let ind = index" [latitude]="direction.latitude"
-                    [longitude]="direction.longitude"
-                    [openInfoWindow]="true" [iconUrl]="direction.markerIconUrl"
-                    (markerClick)="selectLocation(direction)">
-          <!--          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">-->
-          <!--            <strong>{{direction.name}}</strong>-->
-          <!--          </agm-info-window>-->
-        </agm-marker>
+<!--        <agm-marker *ngFor="let direction of ferryMapDirections;let ind = index" [latitude]="direction.latitude"-->
+<!--                    [longitude]="direction.longitude"-->
+<!--                    [openInfoWindow]="true" [iconUrl]="direction.markerIconUrl"-->
+<!--                    (markerClick)="selectLocation(direction)">-->
+<!--          &lt;!&ndash;          <agm-info-window class="infWindow" #directionInfoWindow (infoWindowClose)="removeLocation(direction)">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <strong>{{direction.name}}</strong>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </agm-info-window>&ndash;&gt;-->
+<!--        </agm-marker>-->
 
-        <agm-polyline [editable]="false" [strokeColor]="'#8B0000'" [strokeWeight]="4"
-                      *ngIf="common.showPrice">
-          <agm-polyline-point *ngFor="let data of lines"
-                              [latitude]="data.lat"
-                              [longitude]="data.lng">
-          </agm-polyline-point>
-          <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"
-                             [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
-          </agm-icon-sequence>
-          <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100" [repeat]="'100px'"
-                             [strokeWeight]="1"
-                             [offset]="'100%'" [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">
-          </agm-icon-sequence>
+<!--        <agm-polyline [editable]="false" [strokeColor]="'#8B0000'" [strokeWeight]="4"-->
+<!--                      *ngIf="common.showPrice">-->
+<!--          <agm-polyline-point *ngFor="let data of lines"-->
+<!--                              [latitude]="data.lat"-->
+<!--                              [longitude]="data.lng">-->
+<!--          </agm-polyline-point>-->
+<!--          <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"-->
+<!--                             [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
+<!--          </agm-icon-sequence>-->
+<!--          <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100" [repeat]="'100px'"-->
+<!--                             [strokeWeight]="1"-->
+<!--                             [offset]="'100%'" [strokeOpacity]="1" [path]="'M 0,0 1,4 -1,4 0,0 z'">-->
+<!--          </agm-icon-sequence>-->
 
-        </agm-polyline>
-
-
-        <!--        <agm-drawing-manager #drawing="agmDrawingManager"-->
-        <!--                             [polygonOptions]="polygonOptions"></agm-drawing-manager>-->
-        <!--&lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;-->
-        <!--&lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;-->
-        <!--          <agm-polyline>-->
-        <!--            <agm-polyline-point *ngFor="let data of paths"-->
-        <!--                                [latitude]="data.lat"-->
-        <!--                                [longitude]="data.lng">-->
-        <!--            </agm-polyline-point>-->
-        <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"-->
-        <!--                               [strokeOpacity]="100" [path]="'M 0,-1 0,1'">-->
-        <!--            </agm-icon-sequence>-->
-        <!--            <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"-->
-        <!--                               [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 2,5 -2,5 0,0 z'">-->
-        <!--            </agm-icon-sequence>-->
-
-        <!--          </agm-polyline>-->
-        <!--        </agm-polygon>-->
-      </agm-map>
-    </div>
-    <div class="ferry-page-right">
-      <form [formGroup]="orderFerryForm" class="order-ferry-form">
-
-        <div class="locations-group" formArrayName="locations">
-
-          <ng-container *ngFor="let c of locations.controls;let ind = index">
-            <ng-container [formGroupName]="ind.toString()">
-              <div class="location-input">
-                <div class="location-icon-container">
-                  <mat-icon matListIcon class="departure-icon">fiber_manual_record</mat-icon>
-                </div>
-                <mat-form-field>
-                  <mat-label>{{getPlaceholderText(ind)}}</mat-label>
-                  <mat-select (selectionChange)="locationChanged($event, ind)" formControlName="name">
-                    <mat-option *ngFor="let direction of ferryDirections"
-                                [value]="direction.name">{{direction.name}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <i *ngIf="ind >= 2"
-                   class="remove-location-icon material-icons"
-                   (click)="removeLocationInput(ind)">cancel</i>
-                <mat-error
-                  *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">
-                  The point is <strong>required</strong></mat-error>
-                <button *ngIf="ind === locations.controls.length -1 && ind >= 1" class="check-route"
-                        (click)="getRoutePrice()">
-                  <mat-icon [matTooltip]="'Check if route exists in price list'">arrow_forward</mat-icon>
-                </button>
-              </div>
-            </ng-container>
-          </ng-container>
-          <div>
-            <a class="add-location" (click)="addLocation()" *ngIf="locations.controls.length < maxLocationsChoices">+
-              Add location</a>
-          </div>
-        </div>
-        <div class="fields-row">
-
-          <div class="way-type">
-            <label for="way-type">
-              <ng-container *ngIf="!oneWayTrip">
-                <div>
-                  <mat-icon>swap_vert</mat-icon>
-                </div>
-                <p>Two Ways</p>
-              </ng-container>
-              <ng-container *ngIf="oneWayTrip">
-                <div>
-                  <mat-icon>arrow_upward</mat-icon>
-                </div>
-                <p>One Way</p>
-              </ng-container>
-            </label>
-
-            <input type="checkbox" id="way-type" formControlName="wayType" [checked]="oneWayTrip"
-                   [hidden]="true" (change)="wayTypeChanged($event)">
-          </div>
-
-          <div class="times">
+<!--        </agm-polyline>-->
 
 
-            <div class="start-time">
-              <!--                <mat-icon>schedule</mat-icon>-->
-              <mat-form-field>
-                <!--                <div>-->
-                <!--                </div>-->
-                <mat-label>Start time</mat-label>
-                <input matInput [ngxTimepicker]="picker1" class="Check_out_inp" [format]="24"
-                       formControlName="time" readonly>
-                <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"
-                ></ngx-material-timepicker>
-                <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
-                <!--                 class="Check_out_inp" >-->
-                <ngx-material-timepicker-toggle [for]="picker1">
-                  <!--                    <mat-icon>access_time</mat-icon>-->
-                </ngx-material-timepicker-toggle>
-                <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-                <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-                <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-                <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-                <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
-              </mat-form-field>
-            </div>
-            <div class="end-time">
-              <!--                <mat-icon>schedule</mat-icon>-->
-              <mat-form-field>
-                <mat-label>End time</mat-label>
-                <input matInput [ngxTimepicker]="picker2" class="Check_out_inp" [format]="24" placeholder="Time"
-                       formControlName="time" readonly>
-                <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"></ngx-material-timepicker>
-                <!--          <input  name="bookingDate" [ngxTimepicker]="timepicker"-->
-                <!--                 class="Check_out_inp" >-->
-                <ngx-material-timepicker-toggle [for]="picker2">
-                  <!--                                    <mat-icon>access_time</mat-icon>-->
-                  <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"-->
-                  <!--                         ngxMaterialTimepickerToggleIcon>-->
-                  <!--                      <path-->
-                  <!--                        d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>-->
-                  <!--                    </svg>-->
-                </ngx-material-timepicker-toggle>
-                <!--          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"-->
-                <!--                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>-->
-                <!--          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;-->
-                <!--          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;-->
-                <!--          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;-->
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
+<!--        &lt;!&ndash;        <agm-drawing-manager #drawing="agmDrawingManager"&ndash;&gt;-->
+<!--        &lt;!&ndash;                             [polygonOptions]="polygonOptions"></agm-drawing-manager>&ndash;&gt;-->
+<!--        &lt;!&ndash;&lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;&lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;          <agm-polyline>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <agm-polyline-point *ngFor="let data of paths"&ndash;&gt;-->
+<!--        &lt;!&ndash;                                [latitude]="data.lat"&ndash;&gt;-->
+<!--        &lt;!&ndash;                                [longitude]="data.lng">&ndash;&gt;-->
+<!--        &lt;!&ndash;            </agm-polyline-point>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <agm-icon-sequence [strokeColor]="'#8B0000'" [repeat]="'10px'" [offset]="0" [strokeWeight]="1.5" [scale]="2"&ndash;&gt;-->
+<!--        &lt;!&ndash;                               [strokeOpacity]="100" [path]="'M 0,-1 0,1'">&ndash;&gt;-->
+<!--        &lt;!&ndash;            </agm-icon-sequence>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <agm-icon-sequence [strokeColor]="'#8B0000'" [fillColor]="'#8B0000'" [fillOpacity]="100"  [repeat]="'100px'"  [strokeWeight]="1"&ndash;&gt;-->
+<!--        &lt;!&ndash;                               [offset]="'100%'"  [strokeOpacity]="1" [path]="'M 0,0 2,5 -2,5 0,0 z'">&ndash;&gt;-->
+<!--        &lt;!&ndash;            </agm-icon-sequence>&ndash;&gt;-->
 
-        <div class="fields-row">
+<!--        &lt;!&ndash;          </agm-polyline>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </agm-polygon>&ndash;&gt;-->
+<!--      </agm-map>-->
+<!--    </div>-->
+<!--    <div class="ferry-page-right">-->
+<!--      <form [formGroup]="orderFerryForm" class="order-ferry-form">-->
 
-          <ng-container formGroupName="more">
+<!--        <div class="locations-group" formArrayName="locations">-->
 
-            <div class="guest-count-container">
-              <div class="adults">
-                <mat-icon>group</mat-icon>
-                <input formControlName="adults" [hidden]="true">
-                <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="adultsCount"
-                                  [buttonsOrientation]="'v'" [placeholder]="'Adults'"
-                                  (valueChange)="adultsCountChanged($event)"></ng-number-picker>
-                <p>Adults count</p>
-              </div>
-              <div class="children">
-                <mat-icon>group</mat-icon>
-                <input formControlName="children" [hidden]="true">
-                <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="childrenCount"
-                                  [buttonsOrientation]="'v'" [placeholder]="'Children'"
-                                  (valueChange)="childrenCountChanged($event)"></ng-number-picker>
-              </div>
-              <p>Children count</p>
-            </div>
-            <div class="bikes-container">
-              <mat-checkbox formControlName="bike" (change)="bikeChanged($event)" [disableRipple]="true">Bike
-              </mat-checkbox>
-            </div>
-          </ng-container>
-          <!--          <mat-icon matListIcon>euro</mat-icon>-->
-          <!--          Cash-->
-          <!--          <mat-slide-toggle>Card</mat-slide-toggle>-->
+<!--          <ng-container *ngFor="let c of locations.controls;let ind = index">-->
+<!--            <ng-container [formGroupName]="ind.toString()">-->
+<!--              <div class="location-input">-->
+<!--                <div class="location-icon-container">-->
+<!--                  <mat-icon matListIcon class="departure-icon">fiber_manual_record</mat-icon>-->
+<!--                </div>-->
+<!--                <mat-form-field>-->
+<!--                  <mat-label>{{getPlaceholderText(ind)}}</mat-label>-->
+<!--                  <mat-select (selectionChange)="locationChanged($event, ind)" formControlName="name">-->
+<!--                    <mat-option *ngFor="let direction of ferryDirections"-->
+<!--                                [value]="direction.name">{{direction.name}}</mat-option>-->
+<!--                  </mat-select>-->
+<!--                </mat-form-field>-->
+<!--                <i *ngIf="ind >= 2"-->
+<!--                   class="remove-location-icon material-icons"-->
+<!--                   (click)="removeLocationInput(ind)">cancel</i>-->
+<!--                <mat-error-->
+<!--                  *ngIf="(c.controls['name'].touched) && c.controls['name'].hasError('required')">-->
+<!--                  The point is <strong>required</strong></mat-error>-->
+<!--                <button *ngIf="ind === locations.controls.length -1 && ind >= 1" class="check-route"-->
+<!--                        (click)="getRoutePrice()">-->
+<!--                  <mat-icon [matTooltip]="'Check if route exists in price list'">arrow_forward</mat-icon>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </ng-container>-->
+<!--          </ng-container>-->
+<!--          <div>-->
+<!--            <a class="add-location" (click)="addLocation()" *ngIf="locations.controls.length < maxLocationsChoices">+-->
+<!--              Add location</a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="fields-row">-->
 
-        </div>
-        <div class="route-price">
-          <ng-container *ngIf="routePrice && common.showPrice">
-            <span>Total Price: </span>
-            <strong class="route-price-value">&euro;{{routePrice.total}}</strong>
-          </ng-container>
-          <span *ngIf="!common.showPrice && locationSelected" class="route-not-supported">We don't have this route in our price list</span>
-        </div>
-        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-        <div class="actions">
-          <button (click)="buy()">BUY</button>
-          <button class="cancel-order-btn" (click)="resetForm()">RESET</button>
-          <button class="order-btn" (click)="orderFerry()">ORDER</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div *ngIf="!auth.loggedIn()">
-    <h1 class="loginMsg">Please log in to view directions on the map</h1>
-  </div>
-</section>
+<!--          <div class="way-type">-->
+<!--            <label for="way-type">-->
+<!--              <ng-container *ngIf="!oneWayTrip">-->
+<!--                <div>-->
+<!--                  <mat-icon>swap_vert</mat-icon>-->
+<!--                </div>-->
+<!--                <p>Two Ways</p>-->
+<!--              </ng-container>-->
+<!--              <ng-container *ngIf="oneWayTrip">-->
+<!--                <div>-->
+<!--                  <mat-icon>arrow_upward</mat-icon>-->
+<!--                </div>-->
+<!--                <p>One Way</p>-->
+<!--              </ng-container>-->
+<!--            </label>-->
+
+<!--            <input type="checkbox" id="way-type" formControlName="wayType" [checked]="oneWayTrip"-->
+<!--                   [hidden]="true" (change)="wayTypeChanged($event)">-->
+<!--          </div>-->
+
+<!--          <div class="times">-->
+
+
+<!--            <div class="start-time">-->
+<!--              &lt;!&ndash;                <mat-icon>schedule</mat-icon>&ndash;&gt;-->
+<!--              <mat-form-field>-->
+<!--                &lt;!&ndash;                <div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <mat-label>Start time</mat-label>-->
+<!--                <input matInput [ngxTimepicker]="picker1" class="Check_out_inp" [format]="24"-->
+<!--                       formControlName="time" readonly>-->
+<!--                <ngx-material-timepicker #picker1 (timeSet)="timeChanged($event)"-->
+<!--                ></ngx-material-timepicker>-->
+<!--                &lt;!&ndash;          <input  name="bookingDate" [ngxTimepicker]="timepicker"&ndash;&gt;-->
+<!--                &lt;!&ndash;                 class="Check_out_inp" >&ndash;&gt;-->
+<!--                <ngx-material-timepicker-toggle [for]="picker1">-->
+<!--                  &lt;!&ndash;                    <mat-icon>access_time</mat-icon>&ndash;&gt;-->
+<!--                </ngx-material-timepicker-toggle>-->
+<!--                &lt;!&ndash;          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;&ndash;&gt;-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
+<!--            <div class="end-time">-->
+<!--              &lt;!&ndash;                <mat-icon>schedule</mat-icon>&ndash;&gt;-->
+<!--              <mat-form-field>-->
+<!--                <mat-label>End time</mat-label>-->
+<!--                <input matInput [ngxTimepicker]="picker2" class="Check_out_inp" [format]="24" placeholder="Time"-->
+<!--                       formControlName="time" readonly>-->
+<!--                <ngx-material-timepicker #picker2 (timeSet)="timeChanged($event)"></ngx-material-timepicker>-->
+<!--                &lt;!&ndash;          <input  name="bookingDate" [ngxTimepicker]="timepicker"&ndash;&gt;-->
+<!--                &lt;!&ndash;                 class="Check_out_inp" >&ndash;&gt;-->
+<!--                <ngx-material-timepicker-toggle [for]="picker2">-->
+<!--                  &lt;!&ndash;                                    <mat-icon>access_time</mat-icon>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px" color="white"&ndash;&gt;-->
+<!--                  &lt;!&ndash;                         ngxMaterialTimepickerToggleIcon>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                      <path&ndash;&gt;-->
+<!--                  &lt;!&ndash;                        d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,16H7.995 C7.445,16,7,15.555,7,15.005v-0.011C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011 C15.555,5,16,5.445,16,5.995V16z"/>&ndash;&gt;-->
+<!--                  &lt;!&ndash;                    </svg>&ndash;&gt;-->
+<!--                </ngx-material-timepicker-toggle>-->
+<!--                &lt;!&ndash;          <ngx-material-timepicker #timepicker (timeChanged)="timeChanged($event)"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                   [ngxMaterialTimepickerTheme]="timepickerTheme"></ngx-material-timepicker>&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker-toggle matSuffix [for]="checkInPicker" class="checkInIcon"></mat-datepicker-toggle>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                <mat-datepicker #checkInPicker startView="year"&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;          &lt;!&ndash;                                [startAt]="getStartDate()"></mat-datepicker>&ndash;&gt;&ndash;&gt;-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="fields-row">-->
+
+<!--          <ng-container formGroupName="more">-->
+
+<!--            <div class="guest-count-container">-->
+<!--              <div class="adults">-->
+<!--                <mat-icon>group</mat-icon>-->
+<!--                <input formControlName="adults" [hidden]="true">-->
+<!--                <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="adultsCount"-->
+<!--                                  [buttonsOrientation]="'v'" [placeholder]="'Adults'"-->
+<!--                                  (valueChange)="adultsCountChanged($event)"></ng-number-picker>-->
+<!--                <p>Adults count</p>-->
+<!--              </div>-->
+<!--              <div class="children">-->
+<!--                <mat-icon>group</mat-icon>-->
+<!--                <input formControlName="children" [hidden]="true">-->
+<!--                <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="childrenCount"-->
+<!--                                  [buttonsOrientation]="'v'" [placeholder]="'Children'"-->
+<!--                                  (valueChange)="childrenCountChanged($event)"></ng-number-picker>-->
+<!--              </div>-->
+<!--              <p>Children count</p>-->
+<!--            </div>-->
+<!--            <div class="bikes-container">-->
+<!--              <mat-checkbox formControlName="bike" (change)="bikeChanged($event)" [disableRipple]="true">Bike-->
+<!--              </mat-checkbox>-->
+<!--            </div>-->
+<!--          </ng-container>-->
+<!--          &lt;!&ndash;          <mat-icon matListIcon>euro</mat-icon>&ndash;&gt;-->
+<!--          &lt;!&ndash;          Cash&ndash;&gt;-->
+<!--          &lt;!&ndash;          <mat-slide-toggle>Card</mat-slide-toggle>&ndash;&gt;-->
+
+<!--        </div>-->
+<!--        <div class="route-price">-->
+<!--          <ng-container *ngIf="routePrice && common.showPrice">-->
+<!--            <span>Total Price: </span>-->
+<!--            <strong class="route-price-value">&euro;{{routePrice.total}}</strong>-->
+<!--          </ng-container>-->
+<!--          <span *ngIf="!common.showPrice && locationSelected" class="route-not-supported">We don't have this route in our price list</span>-->
+<!--        </div>-->
+<!--        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>-->
+<!--        <div class="actions">-->
+<!--          <button (click)="buy()">BUY</button>-->
+<!--          <button class="cancel-order-btn" (click)="resetForm()">RESET</button>-->
+<!--          <button class="order-btn" (click)="orderFerry()">ORDER</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div *ngIf="!auth.loggedIn()">-->
+<!--    <h1 class="loginMsg">Please log in to view directions on the map</h1>-->
+<!--  </div>-->
+<!--</section>-->
 
 <app-chat-window></app-chat-window>

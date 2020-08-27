@@ -25,6 +25,7 @@ import {AgmMap} from '@agm/core';
 import {StripeCardComponent, StripeService} from 'ngx-stripe';
 import {UsersService} from '@core/services/users.service';
 import {MAP_CENTER_COORDINATES} from '@core/constants/map';
+import {Subscription} from 'rxjs';
 
 declare const google: any;
 
@@ -70,6 +71,7 @@ export class FerriesHomeComponent implements OnInit {
   markerIconUrl = 'assets/icons/green_circle_small.png';
   mapCenterCoordinates = MAP_CENTER_COORDINATES;
   sortedLocations = [];
+  subscriptions: Subscription[] = [];
 
   // Stripe
   cardOptions = STRIPE_CARD_OPTIONS;
@@ -151,6 +153,14 @@ export class FerriesHomeComponent implements OnInit {
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
     // this.sortLocations();
+
+    this.subscriptions.push(this.subject.getMapData().subscribe((dt: any) => {
+
+      if (!dt.formToMap) {
+        this.selectedLocations = dt.selectedLocations;
+        this.selectLocation(dt.currentLocation);
+      }
+    }));
   }
 
   onMapReady(map) {
@@ -220,8 +230,8 @@ export class FerriesHomeComponent implements OnInit {
   createLocationsFormGroup(title): FormGroup {
     return this.fb.group({
         name: ['', Validators.required],
-        latitude: ['', Validators.required],
-        longitude: ['', Validators.required],
+        // latitude: ['', Validators.required],
+        // longitude: ['', Validators.required],
         title: [title]
       }
     );
@@ -356,10 +366,10 @@ export class FerriesHomeComponent implements OnInit {
   }
 
 
-  locationChanged(e, i) {
-
+  locationChanged(val, i) {
+    console.log(val, i)
     // Patching drop down value
-    this.locations.controls[i].patchValue({name: e.target.value});
+    this.locations.controls[i].patchValue({name: val});
 
     this.updateMapLocations();
     this.locationSelected = true;
@@ -372,22 +382,24 @@ export class FerriesHomeComponent implements OnInit {
 
   updateMapLocations() {
 
+    console.log(this.ferryMapDirections)
+
     // Saving selected locations
     this.selectedLocations = [];
     this.locations.controls.map(c => {
       if (c.value.name) {
         const location = this.ferryMapDirections.find(fd => fd.name === c.value.name);
         this.selectedLocations.push(location);
+        // this.selectLocation(location, true)
       }
     });
 
-    // Marking selected location on the map
-    this.ferryMapDirections.map(sl => {
+    console.log('update map locations')
+    console.log(this.selectedLocations)
 
-      // Retrieve current location object
-      const location = this.selectedLocations.find(d => d.name === sl.name);
-      sl.markerIconUrl = 'assets/icons/' + (location ? 'red' : 'green') + '_circle_small.png';
-    });
+    this.subject.setMapData({selectedLocations: this.selectedLocations, formToMap: true});
+
+
   }
 
   getRoutePrice() {
@@ -396,22 +408,7 @@ export class FerriesHomeComponent implements OnInit {
     this._ferries.getRoutePrice(selectedLocations).subscribe((dt: any) => {
       this.updatePriceOnCountsChange(dt);
       this.common.showPrice = true;
-      this.lines = [];
-      if (dt) {
-        if (dt.geometry_type === 'LineString') {
-          dt.coordinates.map(c => {
-            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
-          });
-        } else if (dt.geometry_type === 'Polygon') {
-          Object.values(dt.coordinates[0]).reverse().map((c: any) => {
-            if (c.lat) {
-              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
-            }
-
-          });
-        }
-
-      }
+      this.subject.setMapLinesData(dt);
     });
   }
 
@@ -435,7 +432,9 @@ export class FerriesHomeComponent implements OnInit {
 
   selectLocation(location, dropdown = false) {
     console.log(this.selectedLocations)
-    if (!this.selectedLocations.find(sl => sl.name === location.name)) {
+    console.log(location)
+    this.locationSelected = true;
+    if (this.selectedLocations && !this.selectedLocations.find(sl => sl.name === location.name)) {
       this.selectedLocations.push(location);
 
       const selectedLocationsLen = this.selectedLocations.length;
@@ -448,8 +447,10 @@ export class FerriesHomeComponent implements OnInit {
       if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
 
         const firstEmptyControl = this.locations.controls.find(c => !c.value.name);
+        console.log(firstEmptyControl)
+        console.log(this.locations.controls)
         if (firstEmptyControl) {
-          firstEmptyControl.patchValue(location);
+          firstEmptyControl.patchValue({name: location});
         }
 
       }
@@ -462,13 +463,16 @@ export class FerriesHomeComponent implements OnInit {
         }
         // this.lines.push({lat: +location.latitude, lng: +location.longitude});
       }
-    } else {
+    } else if (location) {
+      console.log('found')
+      console.log(location)
       const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
-      location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
+      // location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
       if (correspondingControl) {
         correspondingControl.patchValue({name: ''});
       } else {
         const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+        console.log(firstEmptyControl)
         if (firstEmptyControl) {
           firstEmptyControl.patchValue(location);
         }
@@ -607,5 +611,8 @@ export class FerriesHomeComponent implements OnInit {
     return this.orderFerryForm.get('start_time');
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 
 }
