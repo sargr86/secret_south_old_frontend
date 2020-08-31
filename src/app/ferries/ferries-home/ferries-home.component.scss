@@ -133,6 +133,28 @@ form {
       }
     }
   }
+
+
+  .reset-form {
+    display: flex;
+    /* align-items: flex-end; */
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 40%;
+    justify-content: flex-end;
+
+    .reset-all-btn {
+      background-color: $red;
+      box-shadow: 0 0 6px #00000014;
+      color: white;
+      border: none;
+      font: normal normal bold 15px Roboto;
+      height: 51px;
+      width: 100%;
+    }
+  }
+
+
 }
 
 .right-group {
@@ -146,8 +168,13 @@ form {
     height: 614px;
 
     .locations-row {
-      color: #7BC447;
+
       font: normal normal 300 16px/15px Roboto;
+
+      span {
+        color: #7BC447;
+      }
+
       i {
         color: #707070;
         margin: 0 10px;

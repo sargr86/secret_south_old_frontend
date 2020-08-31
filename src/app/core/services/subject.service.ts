@@ -11,6 +11,7 @@ export class SubjectService {
   public orderTypeData = new Subject<any>();
   public orderData = new Subject<any>();
   public foodDrinkOrderData = new Subject<any>();
+  public ferryOrderPrice = new Subject<any>();
 
   constructor() {
   }
@@ -47,6 +48,15 @@ export class SubjectService {
   getOrderTypeData(): Observable<any> {
     return this.orderTypeData.asObservable();
   }
+
+  setFerryOrderPrice(value) {
+    this.ferryOrderPrice.next(value);
+  }
+
+  getFerryOrderPrice(): Observable<any> {
+    return this.ferryOrderPrice.asObservable();
+  }
+
 
   setFoodDrinkOrderData(value) {
     this.foodDrinkOrderData.next(value);

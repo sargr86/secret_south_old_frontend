@@ -50,6 +50,7 @@ export class RequestInterceptor implements HttpInterceptor {
             if (err.status === 444) {
               this.common.showPrice = false;
               this.subject.setMapLinesData(null);
+              this.subject.setFerryOrderPrice(null);
             }
             this.toastr.error('', err.error.msg);
           } else if (message) {

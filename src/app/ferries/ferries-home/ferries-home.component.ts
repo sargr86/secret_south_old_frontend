@@ -1,31 +1,30 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MainService} from '@core/services/main.service';
 import {ToastrService} from 'ngx-toastr';
 import * as mapStylesData from '../../maps/map_styles2.json';
 import {
-  API_URL,
-  MAX_LOCATION_CHOICES,
-  STRIPE_CARD_OPTIONS,
-  TIMEPICKER_THEME
+  DEFAULT_ADULTS_COUNT, DEFAULT_CHILDREN_COUNT,
+  STRIPE_CARD_OPTIONS
 } from '@core/constants/global';
+
 import {FerriesService} from '@core/services/ferries.service';
 import {Ferry} from '@shared/models/Ferry';
-import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {AuthService} from '@core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
 import {CommonService} from '@core/services/common.service';
 import {SubjectService} from '@core/services/subject.service';
-import {AbstractControl, Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrdersService} from '@core/services/orders.service';
 import moment from 'moment';
 import {WebSocketService} from '@core/services/websocket.service';
-import {HttpParams} from '@angular/common/http';
 import {AgmMap} from '@agm/core';
 import {StripeCardComponent, StripeService} from 'ngx-stripe';
 import {UsersService} from '@core/services/users.service';
-import {MAP_CENTER_COORDINATES} from '@core/constants/map';
+import {DEFAULT_LOCATIONS_CHOICES, MAX_LOCATION_CHOICES} from '@core/constants/map';
 import {Subscription} from 'rxjs';
+import {getFerryLocationsFormGroup} from '@core/constants/ferries_order_form';
+import {CreateFerryOrderFormFieldsService} from '@core/helpers/create-ferry-order-form-fields.service';
 
 declare const google: any;
 
@@ -34,42 +33,29 @@ declare const google: any;
   templateUrl: './ferries-home.component.html',
   styleUrls: ['./ferries-home.component.scss']
 })
-export class FerriesHomeComponent implements OnInit {
+export class FerriesHomeComponent implements OnInit, OnDestroy {
 
-  lat = 51.797999;
-  lng = -8.294371;
-  latlng = [];
-  ferryPositions: any = {lat: 0, lng: 0};
   ferryDirections;
   ferryMapDirections = [];
-  selectedFerryDirections = {startPoint: null, endPoint: null};
   lines = [];
   mapStyles;
-  host = API_URL;
   selectedFerry = null;
   selectAction;
-  showFilters = true;
-  ferryData: Ferry;
-  previous;
-  orderTableCols = ['value', 'title'];
-  orderData;
+
   orderFerryForm: FormGroup;
   chatForm: FormGroup;
-  timepickerTheme = TIMEPICKER_THEME;
-  adultsCount = 2;
-  childrenCount = 2;
+  adultsCount = DEFAULT_ADULTS_COUNT;
+  childrenCount = DEFAULT_CHILDREN_COUNT;
   oneWayTrip = true;
   authUser;
-  selectedStartPoint;
-  selectedEndPoint;
   roomName;
   maxLocationsChoices = MAX_LOCATION_CHOICES;
   selectedLocations = [];
-  routePrice = {total: 0, single: 0};
+  routePrice = {total: 0, single: 0, return: 0};
   locationSelected = false;
   routeValid = false;
+  routeFound = false;
   markerIconUrl = 'assets/icons/green_circle_small.png';
-  mapCenterCoordinates = MAP_CENTER_COORDINATES;
   sortedLocations = [];
   subscriptions: Subscription[] = [];
 
@@ -102,23 +88,6 @@ export class FerriesHomeComponent implements OnInit {
     }],
   };
 
-  galleryOptions: NgxGalleryOptions[] = [
-    {
-      'previewFullscreen': true,
-      'height': '200px',
-      'previewKeyboardNavigation': true,
-      'imageDescription': true,
-      'previewCloseOnEsc': true
-    },
-    {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
-    {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2},
-
-  ];
-
-  previousDatesFilter = (d: Date | null): boolean => {
-    return moment(d).isSameOrAfter(moment(), 'day');
-  };
-
   constructor(
     private main: MainService,
     private toastr: ToastrService,
@@ -132,7 +101,8 @@ export class FerriesHomeComponent implements OnInit {
     private ordersService: OrdersService,
     private webSocketService: WebSocketService,
     private stripeService: StripeService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private getFormFields: CreateFerryOrderFormFieldsService
   ) {
 
     this.getUserTodaysOrders();
@@ -143,7 +113,6 @@ export class FerriesHomeComponent implements OnInit {
     if (token) {
       this.authUser = jwtDecode(token);
     }
-    this.getFerryLocations();
     this.getFerryDirections();
     this.getFerryMapDirections();
     this.initOrderForm();
@@ -152,8 +121,8 @@ export class FerriesHomeComponent implements OnInit {
     this.mapStyles = mapStylesData['default'];
     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
     this.common.dataLoading = false;
-    // this.sortLocations();
 
+    // Getting clicks on ferry port locations from the map controls component
     this.subscriptions.push(this.subject.getMapData().subscribe((dt: any) => {
 
       if (!dt.formToMap) {
@@ -161,32 +130,13 @@ export class FerriesHomeComponent implements OnInit {
         this.selectLocation(dt.currentLocation);
       }
     }));
-  }
 
-  onMapReady(map) {
-    this.map = map;
-    this.mapReady = true;
-
-    // this.initDrawingManager(map);
-  }
-
-  initDrawingManager(map: any) {
-    console.log(google.maps)
-    const options = {
-      drawingControl: true,
-      drawingControlOptions: {
-        drawingModes: ['polygon']
-      },
-      polygonOptions: {
-        draggable: true,
-        editable: true
-      },
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
-    };
-
-
-    const drawingManager = new google.maps.drawing.DrawingManager(options as any);
-    drawingManager.setMap(map);
+    this.subscriptions.push(this.subject.getFerryOrderPrice().subscribe((dt: any) => {
+      if (!dt) {
+        this.routePrice = {total: 0, single: 0, return: 0};
+        this.routeFound = false;
+      }
+    }));
   }
 
   handleSocketEvents() {
@@ -201,22 +151,8 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   initOrderForm() {
-    this.orderFerryForm = this.fb.group({
-      locations: this.fb.array([
-        this.createLocationsFormGroup('Start'),
-        this.createLocationsFormGroup('End')
-      ]),
-      start_time: [''],
-      end_time: [''],
-      wayType: [1],
-      more: this.createMoreFormGroup(),
-      payment: [1],
-      status: ['pending']
-    });
-
+    this.orderFerryForm = this.getFormFields.get();
     this.chatForm = this.fb.group({message: ['', Validators.required]});
-    // this.sortLocations();
-    // this.sortedLocations = this.locations.controls;
   }
 
   // Saving social auth access token to local storage
@@ -225,46 +161,6 @@ export class FerriesHomeComponent implements OnInit {
     if (token) {
       localStorage.setItem('token', token);
     }
-  }
-
-  createLocationsFormGroup(title): FormGroup {
-    return this.fb.group({
-        name: ['', Validators.required],
-        // latitude: ['', Validators.required],
-        // longitude: ['', Validators.required],
-        title: [title]
-      }
-    );
-  }
-
-  createMoreFormGroup(): FormGroup {
-    return this.fb.group({
-        adults: ['', Validators.required],
-        children: ['', [Validators.required]],
-        bike: ['', [Validators.pattern('^[0-9].*$')]],
-      }
-    );
-  }
-
-
-  getFerryLocations() {
-
-    this.main.getFerryLocation().subscribe((r: any) => {
-      if (r.status === 0) {
-        this.toastr.error(r.message);
-      }
-
-      const arr = [];
-      if (r) {
-        r.map((latlngs) => {
-          this.ferryPositions.lat = parseFloat(latlngs.lat);
-          this.ferryPositions.lng = parseFloat(latlngs.lng);
-          arr.push(latlngs);
-        });
-
-        this.ferryPositions = arr;
-      }
-    });
   }
 
   getFerryDirections() {
@@ -282,51 +178,6 @@ export class FerriesHomeComponent implements OnInit {
         this.ferryMapDirections.push(d);
       });
     });
-  }
-
-  mapClick(e) {
-    console.log('map clicked')
-    console.log(e);
-  }
-
-  markerClick(infoWindow) {
-    if (this.previous) {
-      this.previous.close();
-    }
-    this.previous = infoWindow;
-    this.selectedFerry = null;
-    this.selectAction = 'Select';
-  }
-
-  closeInfoWindow() {
-    this.selectedFerry = null;
-    this.selectAction = 'Select';
-  }
-
-  // toggleInfoWindow(ferry) {
-  //     this.selectedFerry = this.selectAction === 'Select' ? ferry : null;
-  //     this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
-  //     this._ferries.getOneFerry({id: ferry.id}).subscribe(d => {
-  //         this.ferryData = d;
-  //     });
-  // }
-
-  getIcon() {
-    return 'assets/icons/ferry.svg';
-  }
-
-
-  selectFerry(ferry) {
-
-    this.selectedFerry = this.selectAction === 'Select' ? ferry : null;
-    this.selectAction = this.selectedFerry ? 'Cancel' : 'Select';
-    this._ferries.getOneFerry({id: ferry.id}).subscribe(d => {
-      this.ferryData = d;
-    });
-  }
-
-  toggleFilters() {
-    this.showFilters = !this.showFilters;
   }
 
   getLabelText(i) {
@@ -367,14 +218,16 @@ export class FerriesHomeComponent implements OnInit {
 
 
   locationChanged(val, i) {
-    console.log(val, i)
+
     // Patching drop down value
     this.locations.controls[i].patchValue({name: val});
 
     this.updateMapLocations();
     this.locationSelected = true;
 
+    this.oneWayTrip = this.startLocation.value.name !== this.endLocation.value.name;
     this.routeValid = !this.locations.controls.find(c => !c.value.name);
+
     if (this.routeValid) {
       this.getRoutePrice();
     }
@@ -382,20 +235,14 @@ export class FerriesHomeComponent implements OnInit {
 
   updateMapLocations() {
 
-    console.log(this.ferryMapDirections)
-
     // Saving selected locations
     this.selectedLocations = [];
     this.locations.controls.map(c => {
       if (c.value.name) {
         const location = this.ferryMapDirections.find(fd => fd.name === c.value.name);
         this.selectedLocations.push(location);
-        // this.selectLocation(location, true)
       }
     });
-
-    console.log('update map locations')
-    console.log(this.selectedLocations)
 
     this.subject.setMapData({selectedLocations: this.selectedLocations, formToMap: true});
 
@@ -403,14 +250,15 @@ export class FerriesHomeComponent implements OnInit {
   }
 
   getRoutePrice() {
-    const selectedLocations = this.orderFerryForm.getRawValue()['locations'];
+    const selectedLocations = this.sortLocations(this.orderFerryForm.getRawValue()['locations']);
 
     this._ferries.getRoutePrice(selectedLocations).subscribe((dt: any) => {
+      this.routeFound = true;
       this.updatePriceOnCountsChange(dt);
-      this.common.showPrice = true;
       this.subject.setMapLinesData(dt);
     });
   }
+
 
   adultsCountChanged(count) {
     this.adultsCount = count;
@@ -426,86 +274,120 @@ export class FerriesHomeComponent implements OnInit {
 
   updatePriceOnCountsChange(dt) {
     if (dt && !isNaN(dt.single)) {
-      this.routePrice = {total: (this.adultsCount + this.childrenCount) * dt.single, single: dt.single};
+      const onePersonPrice = dt.single || dt.return;
+      this.routePrice = {
+        total: (this.adultsCount + this.childrenCount) * onePersonPrice,
+        single: dt.single,
+        return: dt.return
+      };
     }
   }
 
-  selectLocation(location, dropdown = false) {
-    console.log(this.selectedLocations)
-    console.log(location)
+  selectLocation(location) {
+
     this.locationSelected = true;
-    if (this.selectedLocations && !this.selectedLocations.find(sl => sl.name === location.name)) {
-      this.selectedLocations.push(location);
 
-      const selectedLocationsLen = this.selectedLocations.length;
+    const selectedMapLocationsLen = this.selectedLocations.length;
 
-      if (selectedLocationsLen > 2 && selectedLocationsLen <= MAX_LOCATION_CHOICES &&
-        selectedLocationsLen !== this.locations.controls.length) {
+    if (selectedMapLocationsLen <= MAX_LOCATION_CHOICES) {
+
+      // Adding a new dropdown if map locations count is more than default locations choices count (2)
+      if (selectedMapLocationsLen > DEFAULT_LOCATIONS_CHOICES) {
         this.addLocation();
       }
 
-      if (!dropdown && selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+      // Finding first empty dropdown (if exists) and patching the location value to it
+      const firstEmptyControl = this.locations.controls.find(c => !c.value.name);
 
-        const firstEmptyControl = this.locations.controls.find(c => !c.value.name);
-        console.log(firstEmptyControl)
-        console.log(this.locations.controls)
+      if ([1, 2].indexOf(selectedMapLocationsLen) !== -1) {
         if (firstEmptyControl) {
-          firstEmptyControl.patchValue({name: location});
+          firstEmptyControl.patchValue({name: location.name});
         }
-
-      }
-      if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
-        location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
-        // this.updateMapLocations();
-        const validRoute = !this.locations.controls.find(c => !c.value.name);
-        if (validRoute) {
-          this.getRoutePrice();
-        }
-        // this.lines.push({lat: +location.latitude, lng: +location.longitude});
-      }
-    } else if (location) {
-      console.log('found')
-      console.log(location)
-      const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
-      // location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
-      if (correspondingControl) {
-        correspondingControl.patchValue({name: ''});
-      } else {
-        const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
-        console.log(firstEmptyControl)
-        if (firstEmptyControl) {
-          firstEmptyControl.patchValue(location);
-        }
+      } else if ([3, 4].indexOf(selectedMapLocationsLen) !== -1) {
+        this.swapControlsValues(selectedMapLocationsLen === 3 ? 'Stop 1' : 'Stop 2', location);
       }
 
-      this.lines = this.lines.filter(l => {
-        console.log(l.name, location.name)
-        // const dirLat = +location.latitude;
-        // const dirLng = +location.longitude;
-        // return l.lng !== dirLng && l.lat !== dirLat;
-        return !l.name.includes(location.name);
-      });
-      this.getRoutePrice();
+      // Checking if selected route is valid and getting its price
+      const validRoute = !this.locations.controls.find(c => !c.value.name);
+      if (validRoute) {
+        this.getRoutePrice();
+      }
     }
 
   }
+
+  swapControlsValues(swapName, location) {
+    const lastEndControl = this.locations.controls.find(c => c.value.title === 'End');
+    const locationsLen = this.locations.controls.length;
+    const previousEnd = lastEndControl.value.name;
+    const swapControl = this.locations.controls.find(c => c.value.title === swapName);
+    swapControl.patchValue({name: previousEnd, title: swapName, order: locationsLen - 2});
+    lastEndControl.patchValue({name: location.name, order: locationsLen - 1});
+  }
+
+
+  // }
+  //
+  //   if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+  //
+  //     const firstEmptyControl = this.locations.controls.find(c => !c.value.name);
+  //     console.log(firstEmptyControl)
+  //     // console.log(this.locations.controls)
+  //     if (firstEmptyControl) {
+  //       firstEmptyControl.patchValue({name: location});
+  //     }
+  //
+  //   }
+  //   if (selectedLocationsLen <= MAX_LOCATION_CHOICES) {
+  //     location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
+  //     // this.updateMapLocations();
+  //     const validRoute = !this.locations.controls.find(c => !c.value.name);
+  //     if (validRoute) {
+  //       this.getRoutePrice();
+  //     }
+  //     // this.lines.push({lat: +location.latitude, lng: +location.longitude});
+  //   }
+  // } else if (location) {
+  //   console.log('found')
+  //   console.log(location)
+  //   const correspondingControl = this.locations.controls.find(c => c.value.name === location.name);
+  //   // location.markerIconUrl = 'assets/icons/' + (location.markerIconUrl.includes('red') ? 'green' : 'red') + '_circle_small.png';
+  //   if (correspondingControl) {
+  //     correspondingControl.patchValue({name: ''});
+  //   } else {
+  //     const firstEmptyControl = this.locations.controls.find(c => c.value.name === '');
+  //     console.log(firstEmptyControl)
+  //     if (firstEmptyControl) {
+  //       firstEmptyControl.patchValue(location);
+  //     }
+  //   }
+  //
+  //   this.lines = this.lines.filter(l => {
+  //     console.log(l.name, location.name)
+  //     // const dirLat = +location.latitude;
+  //     // const dirLng = +location.longitude;
+  //     // return l.lng !== dirLng && l.lat !== dirLat;
+  //     return !l.name.includes(location.name);
+  //   });
+  //
+  //   this.routeValid = !this.locations.controls.find(c => !c.value.name);
+  //   if (this.routeValid) {
+  //     this.getRoutePrice();
+  //   }
+  // }
 
 
   addLocation() {
     const locationsLen = this.locations.length;
     if (locationsLen < MAX_LOCATION_CHOICES) {
-      this.locations.controls.push(this.createLocationsFormGroup('Stop ' + (locationsLen - 1)));
+      const name = 'Stop ' + (locationsLen - 1);
+      this.locations.controls.push(this.fb.group(getFerryLocationsFormGroup(name, this.locations.length - 1)));
+      this.getLocationCtrlByName('End').patchValue({order: this.locations.length});
     }
-
-    // this.sortLocations();
-
   }
 
-  sortLocations() {
-    // this.sortedLocations = this.locations.controls.map(object => ({...object}))
-    this.sortedLocations = this.locations.controls;
-    this.sortedLocations.push(...this.sortedLocations.splice(this.sortedLocations.findIndex(v => v.value.title === 'End'), 1))
-    console.log(this.sortedLocations)
+  sortLocations(locations) {
+    return locations.sort((a, b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0));
   }
 
   removeLocationInput(i) {
@@ -531,21 +413,18 @@ export class FerriesHomeComponent implements OnInit {
     this.orderFerryForm.patchValue({input: time});
   }
 
-  bikeChanged(e) {
-    this.orderFerryForm.get('more').patchValue({bike: e.checked});
+  wayTypeChanged() {
+    this.oneWayTrip = this.startLocation.value.name !== this.endLocation.value.name;
+    this.orderFerryForm.patchValue({wayType: this.oneWayTrip ? 1 : 2});
   }
 
-
-  wayTypeChanged(e) {
-    this.oneWayTrip = e.value === 1;
-    this.orderFerryForm.patchValue({wayType: e.value});
-  }
 
   orderFerry() {
-    console.log('aa')
     const formValue = this.orderFerryForm.getRawValue();
+    formValue.locations = this.sortLocations(formValue.locations);
+
     console.log(formValue)
-    // // formValue.operatorId = localStorage.getItem('operatorId');
+    // formValue.operatorId = localStorage.getItem('operatorId');
     formValue.client = {
       first_name: this.authUser.first_name,
       last_name: this.authUser.last_name,
@@ -555,14 +434,16 @@ export class FerriesHomeComponent implements OnInit {
       id: this.authUser.id
     };
 
-    // this.webSocketService.emit('createOrder', JSON.stringify(formValue));
+    this.webSocketService.emit('createOrder', JSON.stringify(formValue));
   }
 
   resetForm() {
     this.orderFerryForm.reset();
     this.selectedLocations = [];
     this.lines = [];
+    this.routePrice = {total: 0, single: 0, return: 0};
     this.updateMapLocations();
+    this.initOrderForm();
   }
 
   getUserTodaysOrders() {
@@ -609,6 +490,18 @@ export class FerriesHomeComponent implements OnInit {
 
   get startTime(): AbstractControl {
     return this.orderFerryForm.get('start_time');
+  }
+
+  get startLocation(): AbstractControl {
+    return this.getLocationCtrlByName('Start');
+  }
+
+  get endLocation(): AbstractControl {
+    return this.getLocationCtrlByName('End');
+  }
+
+  getLocationCtrlByName(name) {
+    return this.locations.controls.find(c => c.value.title === name);
   }
 
   ngOnDestroy() {
