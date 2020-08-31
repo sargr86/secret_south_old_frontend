@@ -301,7 +301,11 @@ export const DRIVER_ORDER_TABS = ALL_ORDER_TABS.filter(t => t.name !== 'Pending'
 export const ORDERS_TABLE_COLUMNS = ['full_name', 'guests', 'date', 'time', 'email', 'phone', 'actions'];
 export const ROUTES_PRICES_TABLE_COLUMNS = ['start_point', 'stop_1', 'stop_2', 'end_point', 'has_coordinates_on_map', 'has_price', 'single', 'return', 'total', 'actions'];
 
-export const MAX_LOCATION_CHOICES = 4;
+
 export const MIN_PEOPLE_ON_FERRY = 6;
+export const DEFAULT_ADULTS_COUNT = 2;
+export const DEFAULT_CHILDREN_COUNT = 2;
+
 
 export const RESTAURANT_BOOKING_HOURS = ['6:30', '7:00', '7:30', '8:00'];
+

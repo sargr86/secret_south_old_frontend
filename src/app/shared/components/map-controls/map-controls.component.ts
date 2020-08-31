@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MAX_LOCATION_CHOICES} from '@core/constants/global';
 import {
   MAP_CENTER_COORDINATES,
   MAP_GREEN_COLOR,
   MAP_MARKER_ICON_URL,
   MAP_POLYLINE_OPTIONS,
-  MAP_RED_COLOR
+  MAP_RED_COLOR,
+  MAX_LOCATION_CHOICES
 } from '@core/constants/map';
 import * as mapStylesData from '@app/maps/map_styles2.json';
 import {FerriesService} from '@core/services/ferries.service';
@@ -76,6 +76,10 @@ export class MapControlsComponent implements OnInit {
     // Getting ferry locations data from the ferry order form
     this.subject.getMapData().subscribe((dt: any) => {
       if (dt.formToMap) {
+
+        this.lines = [];
+        this.selectedLocations = [];
+
         // Marking selected location on the map
         this.ferryMapLocations.map(sl => {
 
@@ -173,6 +177,8 @@ export class MapControlsComponent implements OnInit {
     this.ferriesService.getLocations().subscribe((dt: any) => {
       dt.map(d => {
         d.markerIconUrl = this.markerIconUrl;
+        d.latitude = +d.latitude;
+        d.longitude = +d.longitude;
         this.ferryMapLocations.push(d);
       });
     });
@@ -185,11 +191,14 @@ export class MapControlsComponent implements OnInit {
 
 
       const selectedLocationsLen = this.selectedLocations.length;
+
+
       if (selectedLocationsLen < MAX_LOCATION_CHOICES) {
+        const {markerIconUrl, ...l} = location;
 
         // Saving selected locations if not the same location point
         if (!this.selectedLocations.find(loc => loc === location)) {
-          this.selectedLocations.push(location);
+          this.selectedLocations.push(l);
         }
 
         // Marking selected location with red color on the map
@@ -208,15 +217,16 @@ export class MapControlsComponent implements OnInit {
         this.locationSelected.emit({selectedLocations: this.selectedLocations});
         this.subject.setMapData({
           selectedLocations: this.selectedLocations,
-          currentLocation: location,
+          currentLocation: l,
           formToMap: false
         });
 
       }
     } else {
       this.dialog.open(SaveLocationDialogComponent, {
-        data: {...location, ...{edit: true}},
-        width: '500px'
+        data: {
+          ...location, ...{edit: true}
+        }, width: '500px'
       }).afterClosed().subscribe(refresh => {
         this.getFerryMapLocations();
       });
