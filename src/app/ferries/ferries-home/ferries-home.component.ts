@@ -127,7 +127,11 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
 
       if (!dt.formToMap) {
         this.selectedLocations = dt.selectedLocations;
-        this.selectLocation(dt.currentLocation);
+        if (this.selectedLocations.length > 0) {
+          this.selectLocation(dt.currentLocation);
+        } else {
+          this.resetForm();
+        }
       }
     }));
 

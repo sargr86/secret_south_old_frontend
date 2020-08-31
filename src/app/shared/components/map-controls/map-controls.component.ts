@@ -152,6 +152,15 @@ export class MapControlsComponent implements OnInit {
 
   }
 
+  resetRoutes() {
+    this.lines = [];
+    this.selectedLocations = [];
+    this.ferryMapLocations.map(sl => {
+      sl.markerIconUrl = 'assets/icons/green_circle_small.png';
+    });
+    this.subject.setMapData({selectedLocations: [], currentLocation: {}});
+  }
+
   mapClick(e) {
 
     if (this.drawingEnabled) {
