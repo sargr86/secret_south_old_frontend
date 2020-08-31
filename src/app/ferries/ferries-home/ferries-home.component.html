@@ -48,9 +48,15 @@
     <div class="left-group">
 
       <div class="route-type">
-        <mat-radio-button class="one-way" (change)="wayTypeChanged($event)" [value]="1" checked>One-way route
-        </mat-radio-button>
-        <mat-radio-button class="two-way" (change)="wayTypeChanged($event)" [value]="2">Return trip</mat-radio-button>
+        <mat-radio-group formControlName="wayType">
+
+          <mat-radio-button class="one-way" (change)="wayTypeChanged()" [value]="1" [checked]="oneWayTrip">One-way
+            route
+          </mat-radio-button>
+          <mat-radio-button class="two-way" (change)="wayTypeChanged()" [value]="2" [checked]="!oneWayTrip">Return
+            trip
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
 
       <div class="locations-group" formArrayName="locations">
@@ -125,6 +131,11 @@
             <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="childrenCount"
                               [buttonsOrientation]="'v'" [placeholder]="'Children'"
                               (valueChange)="childrenCountChanged($event)"></ng-number-picker>
+
+          </div>
+
+          <div class="reset-form">
+            <button class="reset-all-btn" (click)="resetForm()">Reset all</button>
           </div>
         </div>
       </div>
@@ -132,25 +143,26 @@
     <div class="right-group">
       <div class="summary-box">
         <div class="locations-row">
-          <span [class.red]="!common.showPrice && routeValid">{{locations.controls[0].value?.name}}</span>
-          <ng-container *ngIf="locations.controls[2]?.value?.name">
+          <span [class.red]="!routeFound">{{locations.controls[0].value?.name}}</span>
+
+          <ng-container *ngIf="getLocationCtrlByName('Stop 1')?.value?.name">
             <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
-            <span [class.red]="!common.showPrice">{{locations.controls[2].value.name}}</span>
+            <span [class.red]="!routeFound">{{getLocationCtrlByName('Stop 1').value.name}}</span>
           </ng-container>
-          <ng-container *ngIf="locations.controls[3]?.value?.name">
+          <ng-container *ngIf="getLocationCtrlByName('Stop 2')?.value?.name">
             <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
-            <span [class.red]="!common.showPrice">{{locations.controls[3].value.name}}</span>
+            <span [class.red]="!routeFound">{{getLocationCtrlByName('Stop 2').value.name}}</span>
           </ng-container>
-          <ng-container *ngIf="locations.controls[1].value?.name">
+          <ng-container *ngIf="getLocationCtrlByName('End')?.value?.name">
             <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
-            <span [class.red]="!common.showPrice">{{locations.controls[1].value.name}}</span>
+            <span [class.red]="!routeFound">{{getLocationCtrlByName('End').value.name}}</span>
           </ng-container>
-          <strong *ngIf="!locationSelected" class="red">No location selected</strong>
+          <strong *ngIf="!locationSelected">No location selected</strong>
         </div>
         <div class="time-row">
           <mat-icon>access_time</mat-icon>
-          <span [class.red]="!!!startTime.value">{{startTime.value ? startTime.value : '00:00'}}</span>
-          <span [class.red]="!!!endTime.value">{{ '- ' + (endTime.value ? endTime.value : '00:00')}}</span>
+          <span>{{startTime.value ? startTime.value : '00:00'}}</span>
+          <span>{{ '- ' + (endTime.value ? endTime.value : '00:00')}}</span>
         </div>
         <div class="counts-row">
           <p>

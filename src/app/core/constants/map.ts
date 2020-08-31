@@ -2,6 +2,8 @@ import {PolylineOptions} from '@agm/core';
 
 export const MAP_CENTER_COORDINATES = {lat: 51.797999, lng: -8.294371};
 export const MAP_MARKER_ICON_URL = 'assets/icons/green_circle_small.png';
+export const DEFAULT_LOCATIONS_CHOICES = 2;
+export const MAX_LOCATION_CHOICES = 4;
 
 export const MAP_LINE_SYMBOL = {
   path: 'M 0,-1 0,1', strokeWeight: 1.5, scale: 2, strokeOpacity: 100
