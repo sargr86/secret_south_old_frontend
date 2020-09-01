@@ -50,11 +50,11 @@
       <div class="route-type">
         <mat-radio-group formControlName="wayType">
 
-          <mat-radio-button class="one-way" (change)="wayTypeChanged()" [value]="1" [checked]="oneWayTrip">One-way
-            route
+          <mat-radio-button class="one-way" (change)="wayTypeChanged($event.value)" [value]="1" [checked]="!twoWayTrip">
+            One-way route
           </mat-radio-button>
-          <mat-radio-button class="two-way" (change)="wayTypeChanged()" [value]="2" [checked]="!oneWayTrip">Return
-            trip
+          <mat-radio-button class="two-way" (change)="wayTypeChanged($event.value)" [value]="2" [checked]="twoWayTrip">
+            Return trip
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -70,12 +70,12 @@
                         [value]="direction.name">{{direction.name}}
                 <option>
               </select>
-              <i *ngIf="ind >= 2"
-                 class="remove-location-icon material-icons"
-                 (click)="removeLocationInput(ind)">cancel</i>
-              <mat-error
-                *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
-                The point is <strong>required</strong></mat-error>
+              <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
+                cancel
+              </i>
+              <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
+                The point is <strong>required</strong>
+              </mat-error>
 
             </div>
           </ng-container>
@@ -146,15 +146,15 @@
           <span [class.red]="!routeFound">{{locations.controls[0].value?.name}}</span>
 
           <ng-container *ngIf="getLocationCtrlByName('Stop 1')?.value?.name">
-            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
+            <i class="fa " [ngClass]="twoWayTrip ? 'fa-arrows-alt-h': 'fa-arrow-right'"></i>
             <span [class.red]="!routeFound">{{getLocationCtrlByName('Stop 1').value.name}}</span>
           </ng-container>
           <ng-container *ngIf="getLocationCtrlByName('Stop 2')?.value?.name">
-            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
+            <i class="fa " [ngClass]="twoWayTrip ? 'fa-arrows-alt-h': 'fa-arrow-right'"></i>
             <span [class.red]="!routeFound">{{getLocationCtrlByName('Stop 2').value.name}}</span>
           </ng-container>
           <ng-container *ngIf="getLocationCtrlByName('End')?.value?.name">
-            <i class="fa " [ngClass]="oneWayTrip ? 'fa-arrow-right' : 'fa-arrows-alt-h'"></i>
+            <i class="fa " [ngClass]="twoWayTrip ? 'fa-arrows-alt-h': 'fa-arrow-right'"></i>
             <span [class.red]="!routeFound">{{getLocationCtrlByName('End').value.name}}</span>
           </ng-container>
           <strong *ngIf="!locationSelected">No location selected</strong>

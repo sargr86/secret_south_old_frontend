@@ -46,7 +46,7 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
   chatForm: FormGroup;
   adultsCount = DEFAULT_ADULTS_COUNT;
   childrenCount = DEFAULT_CHILDREN_COUNT;
-  oneWayTrip = true;
+  twoWayTrip = false;
   authUser;
   roomName;
   maxLocationsChoices = MAX_LOCATION_CHOICES;
@@ -134,6 +134,7 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
         }
       }
     }));
+
 
     this.subscriptions.push(this.subject.getFerryOrderPrice().subscribe((dt: any) => {
       if (!dt) {
@@ -229,7 +230,7 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
     this.updateMapLocations();
     this.locationSelected = true;
 
-    this.oneWayTrip = this.startLocation.value.name !== this.endLocation.value.name;
+    this.twoWayTrip = this.startLocation.value.name === this.endLocation.value.name && this.startLocation.value.name;
     this.routeValid = !this.locations.controls.find(c => !c.value.name);
 
     if (this.routeValid) {
@@ -309,12 +310,6 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
         }
       } else if ([3, 4].indexOf(selectedMapLocationsLen) !== -1) {
         this.swapControlsValues(selectedMapLocationsLen === 3 ? 'Stop 1' : 'Stop 2', location);
-      }
-
-      // Checking if selected route is valid and getting its price
-      const validRoute = !this.locations.controls.find(c => !c.value.name);
-      if (validRoute) {
-        this.getRoutePrice();
       }
     }
 
@@ -417,11 +412,24 @@ export class FerriesHomeComponent implements OnInit, OnDestroy {
     this.orderFerryForm.patchValue({input: time});
   }
 
-  wayTypeChanged() {
-    this.oneWayTrip = this.startLocation.value.name !== this.endLocation.value.name;
-    this.orderFerryForm.patchValue({wayType: this.oneWayTrip ? 1 : 2});
+  wayTypeChanged(e) {
+
+    // For empty start & end locations user can switch between one-way and two-way route types
+    if (this.ifStartEndEmpty()) {
+      this.orderFerryForm.patchValue({wayType: e});
+    } else {
+      this.twoWayTrip = this.ifStartEndEqual();
+      this.orderFerryForm.patchValue({wayType: this.twoWayTrip ? 2 : 1});
+    }
   }
 
+  ifStartEndEmpty() {
+    return !this.startLocation.value.name && !this.endLocation.value.name;
+  }
+
+  ifStartEndEqual() {
+    return this.startLocation.value.name === this.endLocation.value.name;
+  }
 
   orderFerry() {
     const formValue = this.orderFerryForm.getRawValue();

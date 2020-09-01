@@ -161,7 +161,7 @@
 
 
     <agm-drawing-manager #drawing="agmDrawingManager" (overlayComplete)="overlayComplete($event)"
-                         [drawingControlOptions]="drawingControlOptions"
+                         [drawingControlOptions]="drawingControlOptions" [drawingControl]="drawingEnabled"
                          [polylineOptions]="polylineOptions"></agm-drawing-manager>
     <!--  &lt;!&ndash;        <agm-polygon [paths]="paths" *ngIf="mapReady" [fillColor]="'transparent'" [strokeColor]="'#8B0000'"&ndash;&gt;-->
     <!--  &lt;!&ndash;                     [strokeWeight]="1.5">&ndash;&gt;-->
