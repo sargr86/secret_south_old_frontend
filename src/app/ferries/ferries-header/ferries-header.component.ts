@@ -89,7 +89,7 @@ export class FerriesHeaderComponent implements OnInit {
 
 
   orderFerryNow() {
-    document.getElementById('order-form').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('map').scrollIntoView({behavior: 'smooth'});
   }
 
   personsCountChanged(e) {
