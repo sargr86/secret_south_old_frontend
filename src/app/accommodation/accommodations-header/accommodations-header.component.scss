@@ -6,9 +6,36 @@
   position: relative !important;
 
   input {
+    background-color: transparent;
+    border: 1px solid $white;
     padding-left: 32px !important;
+
+    height: 44px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff !important;
+    display: block !important;
+  }
+
+  .clear-location {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 19px;
+
+    mat-icon {
+      font-size: 14px;
+    }
   }
 }
+
+//.checkIn, .checkOut, .location {
+//  position: relative !important;
+//
+//  input {
+//    padding-left: 32px !important;
+//  }
+//}
 
 .Check_out_inp {
   width: 180px !important;

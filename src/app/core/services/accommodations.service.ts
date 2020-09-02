@@ -23,6 +23,10 @@ export class AccommodationsService {
     return this.http.get(`${API_URL}accommodations/getOne`, {params: params});
   }
 
+  getByAddress(params) {
+    return this.http.get(`${API_URL}accommodations/get-by-address`, {params});
+  }
+
   getPartners() {
     return this.http.get(`${API_URL}accommodations/get-partners`);
   }
