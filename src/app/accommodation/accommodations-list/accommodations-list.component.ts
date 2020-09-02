@@ -3,6 +3,11 @@ import {MainService} from '@core/services/main.service';
 import {ACCOMMODATIONS_FOLDER} from '@core/constants/global';
 import {Accommodation} from '@shared/models/Accommodation';
 import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CommonService} from '@core/services/common.service';
+import {FoodDrink} from '@shared/models/FoodDrink';
+import {AccommodationsService} from '@core/services/accommodations.service';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-accommodations-list',
@@ -12,21 +17,48 @@ import {Router} from '@angular/router';
 export class AccommodationsListComponent implements OnInit {
 
   accommodationObjects: Accommodation[];
+  accommodationObjectsDropdown: Accommodation[];
   accommodationsFolder = ACCOMMODATIONS_FOLDER;
+  accommodationsForm: FormGroup;
+
+  locationControl = new FormControl();
+  personsCount = 2;
+
+  filteredLocations;
 
   constructor(
     private main: MainService,
-    private router: Router
+    private router: Router,
+    public common: CommonService,
+    private fb: FormBuilder,
+    private accommodationsService: AccommodationsService
   ) {
+    this.common.dataLoading = false;
+
+    this.accommodationsForm = this.fb.group({
+      location: ['', [Validators.required]],
+      guests: [this.personsCount, [Validators.required]],
+      checkin_date: ['', [Validators.required]],
+      checkout_date: ['', [Validators.required]],
+    });
 
   }
 
   ngOnInit() {
-    this.getObjects();
+
+    const accommodationsSearch = JSON.parse(localStorage.getItem('accommodationsSearch'));
+    console.log(accommodationsSearch)
+    if (accommodationsSearch) {
+      this.accommodationsForm.patchValue(accommodationsSearch);
+      this.locationControl.patchValue(accommodationsSearch.location)
+    }
+    this.getObjects(accommodationsSearch);
+    this.getAccommodations();
   }
 
-  getObjects() {
-    this.main.changePlace({type: 'accommodations'}).subscribe((dt: Accommodation[]) => {
+  getObjects(search) {
+
+    this.accommodationsService.getByAddress({address: search.location}).subscribe((dt: Accommodation[]) => {
       this.accommodationObjects = dt;
     });
   }
@@ -37,5 +69,41 @@ export class AccommodationsListComponent implements OnInit {
 
   dateChanged() {
 
+  }
+
+  personsCountChanged(e) {
+
+  }
+
+  locationChanged(e) {
+    this.accommodationsForm.patchValue({location: e});
+  }
+
+  getAccommodations() {
+    this.accommodationsService.get().subscribe((dt: Accommodation[]) => {
+      this.accommodationObjectsDropdown = dt;
+      this.filteredLocations = this.locationControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    });
+  }
+
+  private _filter(value: string): Accommodation[] {
+    const filterValue = value.toLowerCase();
+    const f = this.accommodationObjectsDropdown.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
+
+    // removing duplicates
+    return f.filter((thing, index, self) =>
+      index === self.findIndex((t) => (
+        t.address === thing.address
+      ))
+    );
+  }
+
+  search() {
+    localStorage.setItem('accommodationsSearch', JSON.stringify(this.accommodationsForm.value));
+    this.getObjects(this.accommodationsForm.value);
+    this.getAccommodations();
   }
 }
