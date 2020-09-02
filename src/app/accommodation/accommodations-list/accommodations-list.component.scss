@@ -58,6 +58,7 @@ button {
 }
 
 .accommodations_main_left_top_box input {
+  width: 100%;
   height: 44px;
   border-radius: 4px;
   border: solid 1px #ffffff;
@@ -96,7 +97,7 @@ button {
   background: transparent
 }
 
-.accommodations_main_left_top_box button {
+.accommodations_main_left_top_box .search-btn {
   width: 120px;
   height: 44px;
   border-radius: 24px;
@@ -312,6 +313,12 @@ button {
     position: absolute;
     top: 19px;
   }
+
+  .clear-location {
+    position: absolute;
+    right: 4px;
+    top: 0;
+  }
 }
 
 @media screen and (max-width: 1230px) {
@@ -478,7 +485,7 @@ button {
 
 .address {
   input {
-    padding-left: 5px;
+    padding-left: 22px;
   }
 }
 
@@ -491,7 +498,7 @@ button {
 
   input {
     width: 100%;
-    padding-left: 9px;
+    padding-left: 30px;
   }
 }
 
@@ -500,12 +507,21 @@ button {
 
   mat-icon {
     position: absolute;
-    top: 20px;
+    top: 10px;
   }
 
   select {
     padding-left: 20px;
   }
+}
+
+.accommodations_main_left_top_box input::placeholder:not(.address input::placeholder) {
+  padding-left: 20px;
+  color: #fff;
+}
+
+.address input::placeholder {
+  color: #fff;
 }
 
 @media screen and (max-width: 840px) {

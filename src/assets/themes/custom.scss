@@ -36,6 +36,39 @@ $mat-custom-theme: (
         )
 );
 
+//$mat-custom-theme: (
+//    50 : #e5eaf1,
+//    100 : #bec9dd,
+//    200 : #93a6c7,
+//    300 : #6882b0,
+//    400 : #47679f,
+//    500 : #274c8e,
+//    600 : #234586,
+//    700 : #1d3c7b,
+//    800 : #173371,
+//    900 : #0e245f,
+//    A100 : #94acff,
+//    A200 : #6185ff,
+//    A400 : #2e5eff,
+//    A700 : #144aff,
+//    contrast: (
+//      50 : #000000,
+//      100 : #000000,
+//      200 : #000000,
+//      300 : #ffffff,
+//      400 : #ffffff,
+//      500 : #ffffff,
+//      600 : #ffffff,
+//      700 : #ffffff,
+//      800 : #ffffff,
+//      900 : #ffffff,
+//      A100 : #000000,
+//      A200 : #000000,
+//      A400 : #ffffff,
+//      A700 : #ffffff,
+//    )
+//);
+
 // Define a theme.
 $primary: mat-palette($mat-custom-theme);
 $accent: mat-palette($mat-red, 900);
