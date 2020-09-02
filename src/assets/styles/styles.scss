@@ -30,7 +30,7 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 }
 
 .header_top {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.26);
   padding: 10px;
 }
 
@@ -48,7 +48,7 @@ p {
 }
 
 .logo {
-  background-image: url("assets/images/logo_blue.png");
+  background-image: url("assets/images/logo_blue_4.png");
   width: 89px;
   height: 91px;
   background-size: cover;
@@ -734,7 +734,8 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .selected {
-  color: #08C1C6 !important;
+  //color: #08C1C6 !important;
+  color: #7BC447 !important;
 }
 
 .section {
@@ -1081,7 +1082,8 @@ header:not(.timepicker__header) {
     width: 181px;
     height: 50px;
     border-radius: 4px;
-    background-image: linear-gradient(to right, #0b9194, #08c1c6);
+    //background-image: linear-gradient(to right, #0b9194, #08c1c6);
+    background-color: #7BC447;
     color: #fff;
     font-size: 20px;
     font-weight: 600;
