@@ -17,7 +17,7 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private common: CommonService,
+    public common: CommonService,
     private websocketService: WebSocketService,
     private getTableData: GetTableDataSourcePipe
   ) {
