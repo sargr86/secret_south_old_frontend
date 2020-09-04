@@ -58,7 +58,8 @@ div {
   position: sticky;
   top: 0;
   z-index: 200;
-  background-color: #164547;
+  //background-color: #164547;
+  background-color: #f3f3f3;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -76,12 +77,20 @@ div {
   .homeBtn {
     @include noBgBtn;
     margin: 0 10px;
+
+    mat-icon{
+      color: $preferred_blue!important;
+    }
   }
 
   .logoutBtn {
     display: block;
     float: right !important;
     @include noBgBtn;
+
+    mat-icon{
+      color: $preferred_blue!important;
+    }
   }
 }
 

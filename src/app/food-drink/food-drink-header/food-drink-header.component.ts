@@ -135,7 +135,6 @@ export class FoodDrinkHeaderComponent implements OnInit {
   }
 
   personsCountChanged(e) {
-    console.log(e)
     this.foodDrinkForm.patchValue({guests: e});
   }
 
