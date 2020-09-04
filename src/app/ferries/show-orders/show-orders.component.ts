@@ -25,8 +25,6 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   userPosition;
 
 
-
-
   constructor(
     public common: CommonService,
     private ordersService: OrdersService,

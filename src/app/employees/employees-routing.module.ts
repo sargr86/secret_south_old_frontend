@@ -50,10 +50,6 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard]
   },
   {
-    path: 'orders',
-    loadChildren: '../orders/orders.module#OrdersModule'
-  },
-  {
     path: ':id',
     component: EditProfileComponent,
     resolve: {
