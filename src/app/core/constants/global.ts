@@ -102,6 +102,7 @@ export const DASHBOARD_LINKS = [
     children: [
       {name: 'Add'},
       {name: 'Show'},
+      {name: 'Orders'}
     ]
   },
   {

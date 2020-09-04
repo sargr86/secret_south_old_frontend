@@ -8,6 +8,7 @@ import {AccommodationsListComponent} from './accommodations-list/accommodations-
 import {AccommodationSingleComponent} from './accommodation-single/accommodation-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
+import {ShowOrdersComponent} from '@app/accommodation/show-orders/show-orders.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
     data: {
       title: 'Add accommodation',
     },
+  },
+  {
+    path: 'orders',
+    component: ShowOrdersComponent
   },
   {
     path: ':id', component: SaveAccommodationComponent, data: {

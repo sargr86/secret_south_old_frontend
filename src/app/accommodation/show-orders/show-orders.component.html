@@ -1,0 +1,54 @@
+<!--<div class="tableContainer" *ngIf="dataSource && dataSource.length!==0">-->
+<mat-form-field *ngIf="!common.dataLoading && dataSource">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
+
+<div class="mat-elevation-z8" *ngIf="dataSource.data.length > 0">
+
+  <div class="table_responsive">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container *ngFor="let col of displayedColumns">
+
+        <ng-container matColumnDef="{{col}}" *ngIf="col==='full_name' && col!=='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}} </th>
+          <td mat-cell *matCellDef="let el"> {{el['first_name'] + ' ' + el['last_name']}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="{{col}}" *ngIf="col!=='full_name' &&  col!=='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="{{col}}" *ngIf="col!=='full_name' && col==='actions'">
+          <th mat-header-cell *matHeaderCellDef> {{normalizeColName(col)}}</th>
+          <td mat-cell *matCellDef="let el">
+            <button mat-icon-button (click)="acceptOrder(el)"><mat-icon>check</mat-icon></button>
+            <button mat-icon-button (click)="rejectOrder(el)"><mat-icon>close</mat-icon></button>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+  </div>
+
+
+  <!--    <div class="no_table_items_found">-->
+  <!--      <small *ngIf="(filteredData && filteredData.length ===0) && !common.dataLoading">No items found</small>-->
+  <!--    </div>-->
+  <!--    <mat-spinner *ngIf="common.dataLoading" [diameter]="spinnerDiameter"></mat-spinner>-->
+  <!--    <mat-paginator [pageSizeOptions]="paginationValues"-->
+  <!--                   [hidden]="common.dataLoading || !dataSource"></mat-paginator>-->
+</div>
+
+
+<!--</div>-->
+<!--<small class="no_data" *ngIf="!dataSource || dataSource.length === 0">-->
+<!--  There are no orders here-->
+<!--</small>-->
