@@ -24,11 +24,7 @@ const routes: Routes = [
     resolve: {
       user: UserResolverService
     },
-  },
-  {
-    path: 'orders',
-    loadChildren: '../orders/orders.module#OrdersModule'
-  },
+  }
 ];
 
 @NgModule({

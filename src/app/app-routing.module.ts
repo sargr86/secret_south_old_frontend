@@ -31,10 +31,6 @@ const routes: Routes = [
     loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule),
   },
   {
-    path: 'orders',
-    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-  },
-  {
     path: 'food-drink',
     loadChildren: () => import('./food-drink/food-drink.module').then(m => m.FoodDrinkModule),
   },

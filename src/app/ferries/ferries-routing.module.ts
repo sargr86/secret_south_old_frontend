@@ -8,6 +8,7 @@ import {AuthGuard} from '@core/guards/auth.guard';
 import {ManageAllComponent} from '@app/ferries/manage-all/manage-all.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
+import {ShowOrdersComponent} from '@app/ferries/show-orders/show-orders.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'add',
     component: SaveFerryComponent,
+  },
+  {
+    path: 'orders',
+    component: ShowOrdersComponent
   },
   {
     path: 'manage-routes-prices',

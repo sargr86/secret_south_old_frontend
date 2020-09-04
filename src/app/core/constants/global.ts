@@ -89,12 +89,6 @@ export const DASHBOARD_LINKS = [
     ]
   },
   {
-    name: 'Orders',
-    children: [
-      {name: 'Show'}
-    ]
-  },
-  {
     name: 'Activities',
     children: [
       {name: 'Add'},
