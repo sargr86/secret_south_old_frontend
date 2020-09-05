@@ -16,19 +16,36 @@
     <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
       <mat-icon>menu</mat-icon>
     </button>
-    <p *ngIf="auth.loggedIn()">
-      <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>
-      <!--                My Favorites-->
-    </p>
-    <p (click)="router.navigate(['home/contact-us'])">Contact Us</p>
+    <!--    <p *ngIf="auth.loggedIn()">-->
+    <!--      <i class="far fa-heart" [matTooltip]="'My Favorites'"></i>-->
+    <!--      &lt;!&ndash;                My Favorites&ndash;&gt;-->
+    <!--    </p>-->
+    <!--    <p (click)="router.navigate(['home/contact-us'])">Contact Us</p>-->
     <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
 
-    <p (click)="navigateToDashboard()" class="link"
-       *ngIf="auth.loggedIn()">Dashboard</p>
 
-    <!-- Logout button -->
-    <p (click)="auth.logout()" *ngIf="auth.loggedIn()">
-      Logout
-    </p>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <img src="assets/icons/user_rounded.svg">
+      <!--      <mat-icon>more_vert</mat-icon>-->
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="navigateToDashboard()" *ngIf="auth.loggedIn()" [disableRipple]="true">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+      <button mat-menu-item (click)="auth.logout()" [disableRipple]="true">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
+
+    <!--    <p (click)="navigateToDashboard()" class="link"-->
+    <!--       *ngIf="auth.loggedIn()">Dashboard</p>-->
+
+    <!--    &lt;!&ndash; Logout button &ndash;&gt;-->
+    <!--    <p (click)="auth.logout()" *ngIf="auth.loggedIn()">-->
+    <!--      Logout-->
+    <!--    </p>-->
   </div>
 </div>
