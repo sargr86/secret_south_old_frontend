@@ -1,3 +1,5 @@
+@import 'variables';
+
 .box {
   border: solid 1px #dcdcdc;
   width: 378px;
@@ -41,14 +43,22 @@
     }
 
     button {
-      width: 144px;
-      height: 48px;
-      border-radius: 24px;
-      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-      background-image: linear-gradient(to right, #0b9194, #08c1c6);
+      width: 122px;
+      height: 43px;
       color: #fff;
       font-size: 16px;
+      background-color: $preferred_blue;
       border: none;
+
+
+      //width: 144px;
+      //height: 48px;
+      //border-radius: 24px;
+      //box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+      //background-image: linear-gradient(to right, #0b9194, #08c1c6);
+      //color: #fff;
+      //font-size: 16px;
+      //border: none;
     }
   }
 
@@ -116,11 +126,12 @@ ul {
     font-size: 24px !important;
   }
 }
+
 @media screen and (max-width: 400px) {
-  .box{
+  .box {
     width: 100vw !important;
   }
-  .box button{
+  .box button {
     margin-right: 20px;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import moment from 'moment';
 import {Router} from '@angular/router';
+import {FOOTER_LINKS} from '@core/constants/global';
 
 @Component({
   selector: 'app-footer',
@@ -9,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class FooterComponent implements OnInit {
   currentYear = moment().format('YYYY');
+  footerLinks = FOOTER_LINKS;
   constructor(
     public router: Router
   ) { }
