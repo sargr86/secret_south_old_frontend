@@ -1,93 +1,133 @@
+<!--<footer>-->
+<!--  <div class="footer_top">-->
+<!--    <div class="footer_top_size">-->
+<!--      <p>TAKE ONLY MEMORIES LEAVE ONLY FOOTPRINTS</p>-->
+<!--      <div class="footer_top_size_search">-->
+<!--        <input type="text" name="" value="" placeholder="SUBSCRIBE BY E-MAIL">-->
+<!--        <button type="button" name="button"> ></button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="footer_main">-->
+<!--    <div class="footer_main_top">-->
+<!--      <div class="">-->
+<!--        <img class="logo" src="assets/images/logo_blue_gradient_white_text.png" alt="">-->
+<!--      </div>-->
+<!--      <p>Secret South is a powerful booking platform that lets you choose the direction You want and how to pave-->
+<!--        the best way to Your dream!</p>-->
+<!--    </div>-->
+<!--    <div class="footer_lists">-->
+<!--      <div class="footer_list_box">-->
+<!--        <ul>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>Accommodation</p>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>Flights</p>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>Cars</p>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>Cruises</p>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>Gallery</p>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--            <p>About us</p>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--      <div class="footer_list_box">-->
+<!--        <ul>-->
+<!--          <li>Countries</li>-->
+<!--          <li>Regions</li>-->
+<!--          <li>Cities</li>-->
+<!--          <li> Hotels</li>-->
+<!--          <li>Airports</li>-->
+
+<!--        </ul>-->
+<!--      </div>-->
+<!--      <div class="footer_list_box">-->
+<!--        <ul>-->
+<!--          <li>About</li>-->
+<!--          <li>Careers</li>-->
+<!--          <li>Privacy Policy</li>-->
+<!--          <li>Term of Service</li>-->
+
+<!--        </ul>-->
+<!--      </div>-->
+<!--      <div class="footer_list_box">-->
+<!--        <ul>-->
+<!--          <li class="company-address"><i class="fas fa-home"></i>-->
+<!--            <span>Your company address</span>-->
+<!--          </li>-->
+<!--          <li class="Your_phone_number"><i class="fas fa-phone"></i>-->
+<!--            <span>Your phone number</span>-->
+<!--          </li>-->
+<!--          <li class="Contact_Us" (click)="router.navigate(['home/contact-us'])">Contact Us</li>-->
+
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="footer_bootom">-->
+<!--      <div class="footer_bootom_size">-->
+<!--        <p>Copyright ©{{currentYear}} Secret South™. All rights reserved.</p>-->
+<!--        <div class="footer_bootom_size_imgs">-->
+<!--          <img src="assets/images/soc1.png" alt="">-->
+<!--          <img src="assets/images/soc2.png" alt="">-->
+<!--          <img src="assets/images/soc3.png" alt="">-->
+<!--          <img src="assets/images/soc4.png" alt="">-->
+<!--          <img src="assets/images/soc5.png" alt="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</footer>-->
+
+
 <footer>
-  <div class="footer_top">
-    <div class="footer_top_size">
-      <p>TAKE ONLY MEMORIES LEAVE ONLY FOOTPRINTS</p>
-      <div class="footer_top_size_search">
-        <input type="text" name="" value="" placeholder="SUBSCRIBE BY E-MAIL">
-        <button type="button" name="button"> ></button>
-      </div>
+  <div class="blocks">
+
+    <div class="footer-logo">
+      <img src="assets/images/logo_blue_gradient.png">
+    </div>
+    <div class="block">
+      <ul>
+        <li *ngFor="let link of footerLinks[0]">{{link.name}}</li>
+      </ul>
+    </div>
+    <div class="block">
+      <ul>
+        <li *ngFor="let link of footerLinks[1]">{{link.name}}</li>
+      </ul>
+    </div>
+    <div class="block">
+      <ul>
+        <li *ngFor="let link of footerLinks[2]">{{link.name}}</li>
+      </ul>
+    </div>
+    <div class="contact-details block">
+      <p>
+        <mat-icon>home</mat-icon>
+        <span>Your company address</span>
+      </p>
+      <p>
+        <mat-icon>phone</mat-icon>
+        <span>Your company phone</span>
+      </p>
+
+      <button (click)="router.navigate(['home/contact-us'])" *ngIf="!router.url.includes('contact-us')">Contact us</button>
     </div>
   </div>
-  <div class="footer_main">
-    <div class="footer_main_top">
-      <div class="">
-        <img class="logo" src="assets/images/logo_blue_gradient_white_text.png" alt="">
-      </div>
-      <p>Secret South is a powerful booking platform that lets you choose the direction You want and how to pave
-        the best way to Your dream!</p>
-    </div>
-    <div class="footer_lists">
-      <div class="footer_list_box">
-        <ul>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>Accommodation</p>
-          </li>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>Flights</p>
-          </li>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>Cars</p>
-          </li>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>Cruises</p>
-          </li>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>Gallery</p>
-          </li>
-          <li>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-            <p>About us</p>
-          </li>
-        </ul>
-      </div>
-      <div class="footer_list_box">
-        <ul>
-          <li>Countries</li>
-          <li>Regions</li>
-          <li>Cities</li>
-          <li> Hotels</li>
-          <li>Airports</li>
-
-        </ul>
-      </div>
-      <div class="footer_list_box">
-        <ul>
-          <li>About</li>
-          <li>Careers</li>
-          <li>Privacy Policy</li>
-          <li>Term of Service</li>
-
-        </ul>
-      </div>
-      <div class="footer_list_box">
-        <ul>
-          <li class="company-address"><i class="fas fa-home"></i>
-            <span>Your company address</span>
-          </li>
-          <li class="Your_phone_number"><i class="fas fa-phone"></i>
-            <span>Your phone number</span>
-          </li>
-          <li class="Contact_Us" (click)="router.navigate(['home/contact-us'])">Contact Us</li>
-
-        </ul>
-      </div>
-    </div>
-    <div class="footer_bootom">
-      <div class="footer_bootom_size">
-        <p>Copyright ©{{currentYear}} Secret South™. All rights reserved.</p>
-        <div class="footer_bootom_size_imgs">
-          <img src="assets/images/soc1.png" alt="">
-          <img src="assets/images/soc2.png" alt="">
-          <img src="assets/images/soc3.png" alt="">
-          <img src="assets/images/soc4.png" alt="">
-          <img src="assets/images/soc5.png" alt="">
-        </div>
-      </div>
-    </div>
+  <div class="copyright-info">
+    <small>Copyright ©2020 Secret South™. All rights reserved.</small>
   </div>
 </footer>
