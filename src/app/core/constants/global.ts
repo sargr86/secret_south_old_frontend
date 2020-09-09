@@ -291,6 +291,32 @@ export const ALL_ORDER_TABS = [
   {name: 'Finished', count: 0},
   {name: 'All', count: 0}
 ];
+
+export const FOOTER_LINKS = [
+  [
+    {name: 'Accommodation'},
+    {name: 'Flights'},
+    {name: 'Cars'},
+    {name: 'Cruises'},
+    {name: 'Gallery'},
+    {name: 'About us'}
+  ],
+  [
+    {name: 'Countries'},
+    {name: 'Regions'},
+    {name: 'Cities'},
+    {name: 'Hotels'},
+    {name: 'Gallery'},
+    {name: 'Airports'}
+  ],
+  [
+    {name: 'About'},
+    {name: 'Careers'},
+    {name: 'Privacy Policy'},
+    {name: 'Terms of Service'},
+  ]
+];
+
 export const DRIVER_ORDER_TABS = ALL_ORDER_TABS.filter(t => t.name !== 'Pending');
 
 export const ORDERS_TABLE_COLUMNS = ['full_name', 'guests', 'date', 'time', 'email', 'phone', 'actions'];
