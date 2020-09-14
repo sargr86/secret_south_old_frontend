@@ -3,6 +3,7 @@
 @import './mixins';
 @import 'variables';
 @import "media";
+@import "fonts";
 // regular style toast
 @import '~ngx-toastr/toastr.css';
 
@@ -434,58 +435,82 @@ mat-progress-bar .mat-progress-bar-buffer {
   outline: 1px solid #c0c0c05c;
 }
 
-.guestsCount {
+.guests-count {
 
-  input {
-    border: 1px solid white !important;
-    border-radius: unset !important;
-    background: transparent !important;
-    padding-left: 28px;
-    color: $white;
-    font-weight: bold;
-    height: 42px;
+  //input {
+  //  border: 1px solid white !important;
+  //  border-radius: unset !important;
+  //  background: transparent !important;
+  //  padding-left: 28px;
+  //  color: $white;
+  //  font-weight: bold;
+  //  height: 42px;
+  //}
+
+  input[name="input-spin-val"] {
+    border: none;
+    padding: 0;
+    width: 20px;
+    text-align: center;
   }
 
-  input:focus {
-    color: $white;
+  input[name="input-spin-val"]:hover, input[name="input-spin-val"]:focus {
+    box-shadow: unset !important;
   }
+
+  .guests-count .input-group .input-group-text {
+    background-color: $white;
+    color: #D2D2D2 !important;
+
+  }
+
+  //input:focus {
+  //  color: $white;
+  //}
 
   .input-group {
-    height: 41px;
-    margin-top: -1px;
-
-    .input-group-text {
-      background-color: transparent;
-      color: $white;
-      border-radius: unset;
-    }
-  }
-}
-
-.childrenCount, .adultsCount {
-  input {
-    width: 50px !important;
-    padding-left: 20px !important;
-  }
-
-  input:focus {
-    border: 1px solid silver !important;
-    background: unset !important;
-    outline: none !important;
-    outline-width: 0;
-  }
-
-
-  .input-group {
-    height: 41px;
-    margin-top: -1px;
+    //  height: 41px;
+    //  margin-top: -1px;
+    //
+    margin-bottom: 0 !important;
 
     .input-group-text {
       background-color: transparent;
       border-radius: unset;
+      border: none;
+      padding: 0 !important;
+    }
+
+    .input-group-text:hover {
+      background-color: transparent;
     }
   }
 }
+
+//.childrenCount, .adultsCount {
+//  input {
+//    width: 50px !important;
+//    padding-left: 20px !important;
+//  }
+//
+//  input:focus {
+//    border: 1px solid silver !important;
+//    background: unset !important;
+//    outline: none !important;
+//    outline-width: 0;
+//  }
+//
+//
+//  .input-group {
+//    height: 41px;
+//    margin-top: -1px;
+//
+//    //.input-group-text {
+//    //  background-color: transparent;
+//    //  border-radius: unset;
+//    //}
+//  }
+//}
 
 .order-ferry-form {
   .ngx-material-timepicker-toggle {
@@ -762,26 +787,27 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 // Material calendar styles
 .mat-calendar {
-  background-color: $dark_green;
-  color: $white !important;
-
-  .mat-calendar-table-header {
-    th {
-      color: $white !important;
-    }
-  }
-
-  .mat-calendar-arrow {
-    border-top-color: $white;
-  }
-
+  //  background-color: $preferred_blue;
+  //  color: $white !important;
+  //
+  //  .mat-calendar-table-header {
+  //    th {
+  //      color: $white !important;
+  //    }
+  //  }
+  //
+  //  .mat-calendar-arrow {
+  //    border-top-color: $white;
+  //  }
+  //
   .mat-calendar-body-label, .mat-calendar-body-cell-content, .mat-icon-button {
-    color: $white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
   }
 
-  .mat-calendar-previous-button, .mat-calendar-next-button {
-    color: $white !important;
-  }
+  //
+  //  .mat-calendar-previous-button, .mat-calendar-next-button {
+  //    color: $white !important;
+  //  }
 }
 
 .header_main_box {
@@ -825,7 +851,8 @@ mat-progress-bar .mat-progress-bar-buffer {
   background-image: url('assets/images/no_image_slider.jpg');
   background-position: center center;
   background-size: cover;
-  height: 256px;
+  //height: 256px;
+  height: 244px;
 
 }
 

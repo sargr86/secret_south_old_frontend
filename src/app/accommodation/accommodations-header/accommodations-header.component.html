@@ -1,60 +1,68 @@
 <header>
   <app-header-top [section]="'Accommodations'"></app-header-top>
-  <form [formGroup]="accommodationsForm">
-
-
-    <div class="header_main">
-      <div class="header_main_box">
-        <div class="location">
-          <!--                <i class="fa fa-map-marker-alt"></i>-->
-          <mat-icon>place</mat-icon>
-<!--          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete-->
-<!--                 [options]="countryRestrictedPlaces" formControlName="location"-->
-<!--                 #searchAddress="ngx-places" placeholder="Going to">-->
-          <input type="text" #locationInput
-                 placeholder="Location"
-                 aria-label="Number"
-                 [formControl]="locationControl"
-                 [matAutocomplete]="auto">
-          <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" >
-            <mat-icon
-              (click)="locationInput.value=''">close</mat-icon>
-          </button>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                            (optionSelected)="locationChanged($event.option.value)">
-            <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
-              {{loc.address}}
-            </mat-option>
-          </mat-autocomplete>
-        </div>
-        <div class="checkIn">
-          <input placeholder="Check-in" name="bookingDate" (dateChange)="checkInDateChanged($event)" formControlName="checkin_date"
-                 [matDatepicker]="getPicker(checkInPicker)" [matDatepickerFilter]="previousDatesFilter" class="Check_out_inp">
-          <mat-datepicker-toggle matSuffix [for]="checkInPicker"  class="checkInIcon"></mat-datepicker-toggle>
-          <mat-datepicker #checkInPicker startView="year"
-                          [startAt]="getStartDate()"></mat-datepicker>
-        </div>
-        <div class="checkOut">
-          <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"
-                 [matDatepicker]="getPicker(checkOutPicker)" [matDatepickerFilter]="checkoutDatesFilter" class="Check_out_inp" formControlName="checkout_date">
-          <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
-          <mat-datepicker #checkOutPicker startView="year"
-                          [startAt]="getStartDate()"></mat-datepicker>
-        </div>
-
-        <div class="guests">
-          <mat-icon>person</mat-icon>
-          <input type="hidden" formControlName="guests">
-          <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"
-                            [buttonsOrientation]="'v'"
-                            (valueChange)="personsCountChanged($event)"></ng-number-picker>
-        </div>
-
-        <div class="searchBtn">
-          <button type="button" name="button" (click)="searchAccommodations()">Search</button>
-        </div>
-      </div>
+  <div class="order-form-and-texts">
+    <div id="order-form-container">
+      <app-search-accommodation-form (searchClicked)="router.navigate(['accommodations/list'])"></app-search-accommodation-form>
     </div>
-  </form>
+    <div id="texts-container">
+
+    </div>
+  </div>
+  <!--  <form [formGroup]="accommodationsForm">-->
+
+
+  <!--    <div class="header_main">-->
+  <!--      <div class="header_main_box">-->
+  <!--        <div class="location">-->
+  <!--          &lt;!&ndash;                <i class="fa fa-map-marker-alt"></i>&ndash;&gt;-->
+  <!--          <mat-icon>place</mat-icon>-->
+  <!--&lt;!&ndash;          <input type="text" name="" value="" class="ngx" ngx-google-places-autocomplete&ndash;&gt;-->
+  <!--&lt;!&ndash;                 [options]="countryRestrictedPlaces" formControlName="location"&ndash;&gt;-->
+  <!--&lt;!&ndash;                 #searchAddress="ngx-places" placeholder="Going to">&ndash;&gt;-->
+  <!--          <input type="text" #locationInput-->
+  <!--                 placeholder="Location"-->
+  <!--                 aria-label="Number"-->
+  <!--                 [formControl]="locationControl"-->
+  <!--                 [matAutocomplete]="auto">-->
+  <!--          <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" >-->
+  <!--            <mat-icon-->
+  <!--              (click)="locationInput.value=''">close</mat-icon>-->
+  <!--          </button>-->
+  <!--          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
+  <!--                            (optionSelected)="locationChanged($event.option.value)">-->
+  <!--            <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">-->
+  <!--              {{loc.address}}-->
+  <!--            </mat-option>-->
+  <!--          </mat-autocomplete>-->
+  <!--        </div>-->
+  <!--        <div class="checkIn">-->
+  <!--          <input placeholder="Check-in" name="bookingDate" (dateChange)="checkInDateChanged($event)" formControlName="checkin_date"-->
+  <!--                 [matDatepicker]="getPicker(checkInPicker)" [matDatepickerFilter]="previousDatesFilter" class="Check_out_inp">-->
+  <!--          <mat-datepicker-toggle matSuffix [for]="checkInPicker"  class="checkInIcon"></mat-datepicker-toggle>-->
+  <!--          <mat-datepicker #checkInPicker startView="year"-->
+  <!--                          [startAt]="getStartDate()"></mat-datepicker>-->
+  <!--        </div>-->
+  <!--        <div class="checkOut">-->
+  <!--          <input placeholder="Check-out" name="bookingDate" (dateChange)="dateChanged()"-->
+  <!--                 [matDatepicker]="getPicker(checkOutPicker)" [matDatepickerFilter]="checkoutDatesFilter" class="Check_out_inp" formControlName="checkout_date">-->
+  <!--          <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>-->
+  <!--          <mat-datepicker #checkOutPicker startView="year"-->
+  <!--                          [startAt]="getStartDate()"></mat-datepicker>-->
+  <!--        </div>-->
+
+  <!--        <div class="guests">-->
+  <!--          <mat-icon>person</mat-icon>-->
+  <!--          <input type="hidden" formControlName="guests">-->
+  <!--          <ng-number-picker [(value)]="personsCount" [size]="'small'" class="guestsCount"-->
+  <!--                            [buttonsOrientation]="'v'"-->
+  <!--                            (valueChange)="personsCountChanged($event)"></ng-number-picker>-->
+  <!--        </div>-->
+
+  <!--        <div class="searchBtn">-->
+  <!--          <button type="button" name="button" (click)="searchAccommodations()">Search</button>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </form>-->
   <app-header-bottom></app-header-bottom>
 </header>

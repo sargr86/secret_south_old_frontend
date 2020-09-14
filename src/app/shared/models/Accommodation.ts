@@ -7,4 +7,5 @@ export interface Accommodation {
   lat?: number;
   lng?: number;
   images?: any;
+  img?: any;
 }

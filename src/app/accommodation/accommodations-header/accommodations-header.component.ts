@@ -32,14 +32,8 @@ export class AccommodationsHeaderComponent implements OnInit {
   @Output() toggle = new EventEmitter();
 
   personsCount = 2;
-  accommodationObjects: Accommodation[] = [];
-  locationControl = new FormControl();
-  filteredLocations;
 
 
-  previousDatesFilter = (d: Date | null): boolean => {
-    return moment(d).isSameOrAfter(moment(), 'day');
-  }
 
   checkoutDatesFilter = (d: Date | null): boolean => {
     return moment(d).isAfter(moment(this.checkInDate), 'day');
@@ -71,7 +65,7 @@ export class AccommodationsHeaderComponent implements OnInit {
       type: ['']
     });
 
-    this.getAccommodations();
+
   }
 
 
@@ -84,40 +78,15 @@ export class AccommodationsHeaderComponent implements OnInit {
 
   }
 
-  checkInDateChanged(e) {
-    this.checkInDate = e.value;
-    this.accommodationsForm.patchValue({checkin_date: this.checkInDate});
-  }
 
   dateChanged() {
 
   }
 
-  getAccommodations() {
-    this.accommodationsService.get().subscribe((dt: Accommodation[]) => {
-      this.accommodationObjects = dt;
-      this.filteredLocations = this.locationControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    });
-  }
-
-  private _filter(value: string): Accommodation[] {
-    const filterValue = value.toLowerCase();
-    const f = this.accommodationObjects.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
-
-    // removing duplicates
-    return f.filter((thing, index, self) =>
-      index === self.findIndex((t) => (
-        t.address === thing.address
-      ))
-    );
-  }
 
   searchAccommodations() {
     if (this.accommodationsForm.valid) {
-      localStorage.setItem('accommodationsSearch', JSON.stringify(this.accommodationsForm.value));
+
       this.router.navigate(['accommodations/list']);
     }
   }
