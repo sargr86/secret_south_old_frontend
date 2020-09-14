@@ -1,583 +1,629 @@
 @import 'variables';
 @import 'mixins';
 
-button {
-  border: none !important;
-}
-
-#header {
-  background-color: #164547;
-  padding: 15px 0;
-}
-
-.accommodations {
-  width: 1200px;
+.accommodation {
+  width: 1370px;
   margin: 0 auto;
-}
-
-.Home_Cork {
   display: flex;
-  margin: 30px 0;
+  overflow: hidden;
+
+  #left-side {
+    width: 432px;
+  }
+
+  #right-side {
+
+
+    ul {
+      .search-item {
+        width: 432px;
+        height: 450px;
+        margin: 0 15px 32px;
+        display: inline-block;
+        box-shadow: 0 0 6px #00000029;
+        border-radius: 5px;
+
+        .name {
+          margin-top: 24px;
+          margin-left: 39px;
+          font: normal normal 20px 'Roboto-Bold';
+        }
+
+        .address {
+          margin-top: 8px;
+          margin-left: 39px;
+          font: normal normal 16px 'Roboto-Regular';
+        }
+
+        .view-more {
+          width: 122px;
+          height: 43px;
+          background-color: $preferred_blue;
+          border: none;
+          color: $white;
+          font: normal normal 16px 'Roboto';
+          margin-top: 57px;
+          margin-left: 32px;
+        }
+      }
+    }
+  }
 }
 
-.Home_Cork a, .Home_Cork p {
-  color: #000;
-  font-size: 14px;
-}
-
-.vacation_rentals {
-  font-size: 30px;
-  color: #10191f;
-  margin-bottom: 30px;
-}
-
-.accommodations_main {
-  display: flex;
-  justify-content: space-between;
-}
-
-.accommodations_main_left {
-  width: 380px;
-
-}
-
-.accommodations_main_left_top_box {
-  width: 100%;
-  opacity: 0.85;
-  background-color: #164547;
-  color: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-.Change_Search {
-  font-size: 24px;
-  font-weight: 300;
-  margin-bottom: 15px;
-}
-
-.accommodations_main_left_top_box input {
-  width: 100%;
-  height: 44px;
-  border-radius: 4px;
-  border: solid 1px #ffffff;
-  font-size: 16px;
-  color: #fff;
-  margin: 8px 0;
-  background: transparent
-}
-
-.accommodations_main_left_top_box input::placeholder {
-  padding-left: 20px;
-  color: #fff;
-}
-
-.Cork_inp {
-  width: 100%;
-}
-
-.accommodations_main_left_top_box_inpts {
-  display: flex;
-  justify-content: space-between;
-}
-
-.accommodations_main_left_top_box_inpts input {
-  width: 49%;
-}
-
-.accommodations_main_left_top_box select {
-  height: 44px;
-  width: 100%;
-  border-radius: 4px;
-  border: solid 1px #ffffff;
-  font-size: 16px;
-  color: #fff;
-  margin: 8px 0;
-  background: transparent
-}
-
-.accommodations_main_left_top_box .search-btn {
-  width: 120px;
-  height: 44px;
-  border-radius: 24px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to right, #0b9194, #08c1c6);
-  font-size: 20px;
-  color: #fff;
-}
-
-.accommodations_main_left_top_box_btn {
-  text-align: right;
-  margin-top: 20px;
-}
-
-.accommodations_main_left_top_box_2 {
-  width: 100%;
-  padding: 15px;
-  box-sizing: border-box;
-  border: solid 1px #cecece;
-}
-
-/* accommodations main right */
-
-.accommodations_main_right {
-  width: 800px;
-}
-
-.accommodations_main_right_top {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.accommodations_main_right_top_left, .accommodations_main_right_top_right {
-  display: flex;
-  align-items: center;
-}
-
-.accommodations_main_right_top_left select {
-  width: 300px;
-  height: 48px;
-  border: solid 1px #dcdcdc;
-  font-size: 16px;
-  margin-right: 15px;
-  padding-left: 15px;
-}
-
-.accommodations_main_right_top_left button {
-  width: 176px;
-  height: 48px;
-  background-color: #0b9194;
-  font-size: 16px;
-  color: #ffffff;
-  border-radius: 4px;
-}
-
-.accommodations_main_right_top_right p {
-  margin-left: 15px;
-}
-
-.accommodations_main_right_top_right_view {
-  font-size: 16px;
-  color: #00253c;
-}
-
-.accommodations_main_right_top_right_icon {
-  font-size: 20px;
-}
-
-.accommodations_main_right_top_line {
-  width: 100%;
-  margin-top: 25px;
-  margin-bottom: 8px
-}
-
-.accommodations_main_right_main {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.accommodations_main_right_main_block {
-  width: 393px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  margin: 8px 0;
-}
-
-.accommodations_main_right_main_block_img {
-  width: 100%;
-  position: relative;
-}
-
-.accommodations_main_right_main_block_img_photo {
-  width: 100%;
-  object-fit: cover;
-}
-
-.accommodations_main_right_main_block_img_2 {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  width: 64px;
-  height: 64px;
-}
-
-.accommodations_main_right_main_block_img_2 img {
-  width: 100%;
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.accommodations_main_right_main_block_size {
-  padding: 15px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.ModernApartment {
-  font-size: 20px;
-  font-weight: bold;
-  color: #292b2c;
-  margin-bottom: 10px
-}
-
-.CamdenRoad {
-  font-size: 16px;
-  color: #10191f;
-  margin-bottom: 15px;
-}
-
-.accommodations_main_rating {
-  display: flex;
-  align-items: flex-end;
-}
-
-.accommodations_main_rating_stars {
-  display: flex;
-  margin-right: 8px
-}
-
-.accommodations_main_rating_stars p {
-  color: #fd8c5c;
-  font-size: 16px;
-}
-
-.accommodations_main_rating_num {
-  font-size: 16px;
-  color: #10191f;
-}
-
-.accommodations_main_rating_num span {
-  font-size: 24px;
-  font-weight: bold;
-  color: #10191f;
-}
-
-.Apartment {
-  font-size: 16px;
-  color: #10191f;
-  margin: 15px 0
-}
-
-.accommodations_main_rating_icons {
-  display: flex !important;
-}
+//button {
+//  border: none !important;
+//}
+//
+//#header {
+//  background-color: #164547;
+//  padding: 15px 0;
+//}
+//
 
 //
-.accommodations_main_rating_icons_block {
-  text-align: center !important;
-  margin-right: 20px !important;
-}
-
-
-.accommodations_main_right_main_block_bottom {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #cecece;
-  padding-top: 15px;
-  margin-top: 15px;
-}
-
-.accommodations_main_right_main_block_bottom p {
-  font-size: 16px;
-  color: #10191f;
-}
-
-.accommodations_main_right_main_block_bottom_price {
-  font-size: 30px;
-  color: #10191f;
-}
-
-.accommodations_main_right_main_block_bottom button {
-  font-size: 16px;
-  color: #ffffff;
-  width: 144px;
-  height: 48px;
-  border-radius: 24px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient(to right, #0b9194, #08c1c6);
-}
-
-.filter_burger {
-  display: none;
-}
-
-.address {
-  position: relative;
-
-  mat-icon {
-    position: absolute;
-    top: 19px;
-  }
-
-  .clear-location {
-    position: absolute;
-    right: 4px;
-    top: 0;
-  }
-}
-
-@media screen and (max-width: 1230px) {
-  #header {
-    padding: 15px 0;
-  }
-  .accommodations {
-    width: 95%;
-    margin: 0 auto;
-  }
-  .Home_Cork {
-    margin: 20px 0;
-  }
-  .Home_Cork a, .Home_Cork p {
-    font-size: 14px;
-  }
-  .vacation_rentals {
-    font-size: 25px;
-    margin-bottom: 30px;
-  }
-
-  .accommodations_main_left {
-    width: 300px;
-
-  }
-  .accommodations_main_left_top_box {
-    padding: 15px;
-    margin-bottom: 20px;
-  }
-  .Change_Search {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-  .accommodations_main_left_top_box input {
-    height: 40px;
-    font-size: 16px;
-    margin: 8px 0;
-  }
-
-  .accommodations_main_left_top_box select {
-    height: 40px;
-  }
-  .accommodations_main_left_top_box button {
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
-  }
-  .accommodations_main_left_top_box_btn {
-    margin-top: 15px;
-  }
-  .accommodations_main_left_top_box_2 {
-    padding: 15px;
-  }
-
-
-  /* accommodations main right */
-
-  .accommodations_main_right {
-    width: 74%;
-    min-width: 500px;
-    margin-left: 10px;
-    box-sizing: border-box;
-  }
-
-
-  .accommodations_main_right_top_left select {
-    width: 200px;
-    height: 40px;
-    font-size: 16px;
-    margin-right: 15px;
-    padding-left: 15px;
-  }
-  .accommodations_main_right_top_left button {
-    width: 130px;
-    height: 40px;
-    font-size: 16px;
-  }
-  .accommodations_main_right_top_right p {
-    margin-left: 15px;
-  }
-  .accommodations_main_right_top_right_view {
-    font-size: 16px;
-  }
-  .accommodations_main_right_top_right_icon {
-    font-size: 30px
-  }
-  .accommodations_main_right_top_line {
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: 8px
-  }
-
-  .accommodations_main_right_main_block {
-    width: 250px;
-    margin: 8px 5px;
-  }
-
-  .accommodations_main_right_main_block_img_2 {
-    bottom: 15px;
-    left: 15px;
-    width: 50px;
-    height: 50px;
-  }
-
-  .accommodations_main_right_main_block_size {
-    padding: 15px;
-  }
-  .ModernApartment {
-    font-size: 17px;
-    margin-bottom: 10px
-  }
-  .CamdenRoad {
-    font-size: 15px;
-    margin-bottom: 15px;
-  }
-
-  .accommodations_main_rating_stars {
-    margin-right: 8px
-  }
-  .accommodations_main_rating_stars p {
-    font-size: 15px;
-  }
-  .accommodations_main_rating_num {
-    font-size: 15px;
-  }
-  .accommodations_main_rating_num span {
-    font-size: 20px;
-    font-weight: bold;
-    color: #10191f;
-  }
-  .Apartment {
-    font-size: 15px;
-    margin: 15px 0
-  }
-
-  .accommodations_main_rating_icons_block {
-    margin-right: 8px
-  }
-  .accommodations_main_rating_icons_block_user {
-    font-size: 25px;
-    padding: 5px;
-    margin-bottom: 5px
-  }
-  .accommodations_main_rating_icons_info {
-    font-size: 15px;
-  }
-  .accommodations_main_right_main_block_bottom {
-    padding-top: 15px;
-    margin-top: 15px;
-  }
-  .accommodations_main_right_main_block_bottom p {
-    font-size: 15px;
-  }
-  .accommodations_main_right_main_block_bottom_price {
-    font-size: 25px;
-  }
-  .accommodations_main_right_main_block_bottom button {
-    font-size: 16px;
-    width: 100px;
-    height: 40px;
-  }
-
-}
-
-.address {
-  input {
-    padding-left: 22px;
-  }
-}
-
-.checkIn, .checkOut {
-  position: relative;
-
-  .checkInIcon, .checkOutIcon {
-    top: 15px !important;
-  }
-
-  input {
-    width: 100%;
-    padding-left: 30px;
-  }
-}
-
-.guests {
-  position: relative;
-
-  mat-icon {
-    position: absolute;
-    top: 10px;
-  }
-
-  select {
-    padding-left: 20px;
-  }
-}
-
-.accommodations_main_left_top_box input::placeholder:not(.address input::placeholder) {
-  padding-left: 20px;
-  color: #fff;
-}
-
-.address input::placeholder {
-  color: #fff;
-}
-
-@media screen and (max-width: 840px) {
-  .filter_block_tittle {
-    margin-bottom: 20px
-  }
-  .accommodations_main_right_top_left, .accommodations_main_right_top_right {
-    flex-direction: column;
-  }
-  .accommodations_main_right_top_left button {
-    margin-top: 10px;
-    width: 200px
-  }
-  .accommodations_main_right_top_left select {
-    margin: 0;
-    padding: 0
-  }
-  .accommodations_main_right_top_right_view {
-    display: none;
-  }
-  .accommodations_main_right_top_right p {
-    margin: 0
-  }
-  .accommodations_main_right_top_right_icon_1 {
-    margin-bottom: 20px
-  }
-  .filter_burger {
-    display: block;
-  }
-  .filter_burger p {
-    font-size: 30px;
-  }
-  .accommodations_main_right_top {
-    align-items: flex-start;
-  }
-  .accommodations_main_right {
-    width: 100%;
-    min-width: 300px
-  }
-  .accommodations_main_left {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 558px) {
-  .accommodations_main_right_main {
-    justify-content: center;
-  }
-  .vacation_rentals {
-    font-size: 20px
-  }
-  .accommodations_main_right_top_left select, .accommodations_main_right_top_left button {
-    width: 180px
-  }
-  .accommodations_main_right_main_block {
-    width: 2800px;
-
-  }
-}
+//.Home_Cork {
+//  display: flex;
+//  margin: 30px 0;
+//}
+//
+//.Home_Cork a, .Home_Cork p {
+//  color: #000;
+//  font-size: 14px;
+//}
+//
+//.vacation_rentals {
+//  font-size: 30px;
+//  color: #10191f;
+//  margin-bottom: 30px;
+//}
+//
+//.accommodations_main {
+//  display: flex;
+//  justify-content: space-between;
+//}
+//
+//.accommodations_main_left {
+//  width: 380px;
+//
+//}
+//
+//.accommodations_main_left_top_box {
+//  width: 100%;
+//  opacity: 0.85;
+//  background-color: #164547;
+//  color: #fff;
+//  padding: 15px;
+//  margin-bottom: 20px;
+//  box-sizing: border-box;
+//}
+//
+//.Change_Search {
+//  font-size: 24px;
+//  font-weight: 300;
+//  margin-bottom: 15px;
+//}
+//
+//.accommodations_main_left_top_box input {
+//  width: 100%;
+//  height: 44px;
+//  border-radius: 4px;
+//  border: solid 1px #ffffff;
+//  font-size: 16px;
+//  color: #fff;
+//  margin: 8px 0;
+//  background: transparent
+//}
+//
+//.accommodations_main_left_top_box input::placeholder {
+//  padding-left: 20px;
+//  color: #fff;
+//}
+//
+//.Cork_inp {
+//  width: 100%;
+//}
+//
+//.accommodations_main_left_top_box_inpts {
+//  display: flex;
+//  justify-content: space-between;
+//}
+//
+//.accommodations_main_left_top_box_inpts input {
+//  width: 49%;
+//}
+//
+//.accommodations_main_left_top_box select {
+//  height: 44px;
+//  width: 100%;
+//  border-radius: 4px;
+//  border: solid 1px #ffffff;
+//  font-size: 16px;
+//  color: #fff;
+//  margin: 8px 0;
+//  background: transparent
+//}
+//
+//.accommodations_main_left_top_box .search-btn {
+//  width: 120px;
+//  height: 44px;
+//  border-radius: 24px;
+//  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+//  background-image: linear-gradient(to right, #0b9194, #08c1c6);
+//  font-size: 20px;
+//  color: #fff;
+//}
+//
+//.accommodations_main_left_top_box_btn {
+//  text-align: right;
+//  margin-top: 20px;
+//}
+//
+//.accommodations_main_left_top_box_2 {
+//  width: 100%;
+//  padding: 15px;
+//  box-sizing: border-box;
+//  border: solid 1px #cecece;
+//}
+//
+///* accommodations main right */
+//
+//.accommodations_main_right {
+//  width: 800px;
+//}
+//
+//.accommodations_main_right_top {
+//  width: 100%;
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: center;
+//}
+//
+//.accommodations_main_right_top_left, .accommodations_main_right_top_right {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.accommodations_main_right_top_left select {
+//  width: 300px;
+//  height: 48px;
+//  border: solid 1px #dcdcdc;
+//  font-size: 16px;
+//  margin-right: 15px;
+//  padding-left: 15px;
+//}
+//
+//.accommodations_main_right_top_left button {
+//  width: 176px;
+//  height: 48px;
+//  background-color: #0b9194;
+//  font-size: 16px;
+//  color: #ffffff;
+//  border-radius: 4px;
+//}
+//
+//.accommodations_main_right_top_right p {
+//  margin-left: 15px;
+//}
+//
+//.accommodations_main_right_top_right_view {
+//  font-size: 16px;
+//  color: #00253c;
+//}
+//
+//.accommodations_main_right_top_right_icon {
+//  font-size: 20px;
+//}
+//
+//.accommodations_main_right_top_line {
+//  width: 100%;
+//  margin-top: 25px;
+//  margin-bottom: 8px
+//}
+//
+//.accommodations_main_right_main {
+//  display: flex;
+//  justify-content: space-between;
+//  flex-wrap: wrap;
+//}
+//
+//.accommodations_main_right_main_block {
+//  width: 393px;
+//  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+//  margin: 8px 0;
+//}
+//
+//.accommodations_main_right_main_block_img {
+//  width: 100%;
+//  position: relative;
+//}
+//
+//.accommodations_main_right_main_block_img_photo {
+//  width: 100%;
+//  object-fit: cover;
+//}
+//
+//.accommodations_main_right_main_block_img_2 {
+//  position: absolute;
+//  bottom: 15px;
+//  left: 15px;
+//  width: 64px;
+//  height: 64px;
+//}
+//
+//.accommodations_main_right_main_block_img_2 img {
+//  width: 100%;
+//  border-radius: 50%;
+//  border: 2px solid #fff;
+//}
+//
+//.accommodations_main_right_main_block_size {
+//  padding: 15px;
+//  width: 100%;
+//  box-sizing: border-box;
+//}
+//
+//.ModernApartment {
+//  font-size: 20px;
+//  font-weight: bold;
+//  color: #292b2c;
+//  margin-bottom: 10px
+//}
+//
+//.CamdenRoad {
+//  font-size: 16px;
+//  color: #10191f;
+//  margin-bottom: 15px;
+//}
+//
+//.accommodations_main_rating {
+//  display: flex;
+//  align-items: flex-end;
+//}
+//
+//.accommodations_main_rating_stars {
+//  display: flex;
+//  margin-right: 8px
+//}
+//
+//.accommodations_main_rating_stars p {
+//  color: #fd8c5c;
+//  font-size: 16px;
+//}
+//
+//.accommodations_main_rating_num {
+//  font-size: 16px;
+//  color: #10191f;
+//}
+//
+//.accommodations_main_rating_num span {
+//  font-size: 24px;
+//  font-weight: bold;
+//  color: #10191f;
+//}
+//
+//.Apartment {
+//  font-size: 16px;
+//  color: #10191f;
+//  margin: 15px 0
+//}
+//
+//.accommodations_main_rating_icons {
+//  display: flex !important;
+//}
+//
+////
+//.accommodations_main_rating_icons_block {
+//  text-align: center !important;
+//  margin-right: 20px !important;
+//}
+//
+//
+//.accommodations_main_right_main_block_bottom {
+//  width: 100%;
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: center;
+//  border-top: 1px solid #cecece;
+//  padding-top: 15px;
+//  margin-top: 15px;
+//}
+//
+//.accommodations_main_right_main_block_bottom p {
+//  font-size: 16px;
+//  color: #10191f;
+//}
+//
+//.accommodations_main_right_main_block_bottom_price {
+//  font-size: 30px;
+//  color: #10191f;
+//}
+//
+//.accommodations_main_right_main_block_bottom button {
+//  font-size: 16px;
+//  color: #ffffff;
+//  width: 144px;
+//  height: 48px;
+//  border-radius: 24px;
+//  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+//  background-image: linear-gradient(to right, #0b9194, #08c1c6);
+//}
+//
+//.filter_burger {
+//  display: none;
+//}
+//
+//.address {
+//  position: relative;
+//
+//  mat-icon {
+//    position: absolute;
+//    top: 19px;
+//  }
+//
+//  .clear-location {
+//    position: absolute;
+//    right: 4px;
+//    top: 0;
+//  }
+//}
+//
+//@media screen and (max-width: 1230px) {
+//  #header {
+//    padding: 15px 0;
+//  }
+//  .accommodations {
+//    width: 95%;
+//    margin: 0 auto;
+//  }
+//  .Home_Cork {
+//    margin: 20px 0;
+//  }
+//  .Home_Cork a, .Home_Cork p {
+//    font-size: 14px;
+//  }
+//  .vacation_rentals {
+//    font-size: 25px;
+//    margin-bottom: 30px;
+//  }
+//
+//  .accommodations_main_left {
+//    width: 300px;
+//
+//  }
+//  .accommodations_main_left_top_box {
+//    padding: 15px;
+//    margin-bottom: 20px;
+//  }
+//  .Change_Search {
+//    font-size: 20px;
+//    margin-bottom: 15px;
+//  }
+//  .accommodations_main_left_top_box input {
+//    height: 40px;
+//    font-size: 16px;
+//    margin: 8px 0;
+//  }
+//
+//  .accommodations_main_left_top_box select {
+//    height: 40px;
+//  }
+//  .accommodations_main_left_top_box button {
+//    width: 100px;
+//    height: 40px;
+//    font-size: 18px;
+//  }
+//  .accommodations_main_left_top_box_btn {
+//    margin-top: 15px;
+//  }
+//  .accommodations_main_left_top_box_2 {
+//    padding: 15px;
+//  }
+//
+//
+//  /* accommodations main right */
+//
+//  .accommodations_main_right {
+//    width: 74%;
+//    min-width: 500px;
+//    margin-left: 10px;
+//    box-sizing: border-box;
+//  }
+//
+//
+//  .accommodations_main_right_top_left select {
+//    width: 200px;
+//    height: 40px;
+//    font-size: 16px;
+//    margin-right: 15px;
+//    padding-left: 15px;
+//  }
+//  .accommodations_main_right_top_left button {
+//    width: 130px;
+//    height: 40px;
+//    font-size: 16px;
+//  }
+//  .accommodations_main_right_top_right p {
+//    margin-left: 15px;
+//  }
+//  .accommodations_main_right_top_right_view {
+//    font-size: 16px;
+//  }
+//  .accommodations_main_right_top_right_icon {
+//    font-size: 30px
+//  }
+//  .accommodations_main_right_top_line {
+//    width: 100%;
+//    margin-top: 20px;
+//    margin-bottom: 8px
+//  }
+//
+//  .accommodations_main_right_main_block {
+//    width: 250px;
+//    margin: 8px 5px;
+//  }
+//
+//  .accommodations_main_right_main_block_img_2 {
+//    bottom: 15px;
+//    left: 15px;
+//    width: 50px;
+//    height: 50px;
+//  }
+//
+//  .accommodations_main_right_main_block_size {
+//    padding: 15px;
+//  }
+//  .ModernApartment {
+//    font-size: 17px;
+//    margin-bottom: 10px
+//  }
+//  .CamdenRoad {
+//    font-size: 15px;
+//    margin-bottom: 15px;
+//  }
+//
+//  .accommodations_main_rating_stars {
+//    margin-right: 8px
+//  }
+//  .accommodations_main_rating_stars p {
+//    font-size: 15px;
+//  }
+//  .accommodations_main_rating_num {
+//    font-size: 15px;
+//  }
+//  .accommodations_main_rating_num span {
+//    font-size: 20px;
+//    font-weight: bold;
+//    color: #10191f;
+//  }
+//  .Apartment {
+//    font-size: 15px;
+//    margin: 15px 0
+//  }
+//
+//  .accommodations_main_rating_icons_block {
+//    margin-right: 8px
+//  }
+//  .accommodations_main_rating_icons_block_user {
+//    font-size: 25px;
+//    padding: 5px;
+//    margin-bottom: 5px
+//  }
+//  .accommodations_main_rating_icons_info {
+//    font-size: 15px;
+//  }
+//  .accommodations_main_right_main_block_bottom {
+//    padding-top: 15px;
+//    margin-top: 15px;
+//  }
+//  .accommodations_main_right_main_block_bottom p {
+//    font-size: 15px;
+//  }
+//  .accommodations_main_right_main_block_bottom_price {
+//    font-size: 25px;
+//  }
+//  .accommodations_main_right_main_block_bottom button {
+//    font-size: 16px;
+//    width: 100px;
+//    height: 40px;
+//  }
+//
+//}
+//
+//.address {
+//  input {
+//    padding-left: 22px;
+//  }
+//}
+//
+//.checkIn, .checkOut {
+//  position: relative;
+//
+//  .checkInIcon, .checkOutIcon {
+//    top: 15px !important;
+//  }
+//
+//  input {
+//    width: 100%;
+//    padding-left: 30px;
+//  }
+//}
+//
+//.guests {
+//  position: relative;
+//
+//  mat-icon {
+//    position: absolute;
+//    top: 10px;
+//  }
+//
+//  select {
+//    padding-left: 20px;
+//  }
+//}
+//
+//.accommodations_main_left_top_box input::placeholder:not(.address input::placeholder) {
+//  padding-left: 20px;
+//  color: #fff;
+//}
+//
+//.address input::placeholder {
+//  color: #fff;
+//}
+//
+//@media screen and (max-width: 840px) {
+//  .filter_block_tittle {
+//    margin-bottom: 20px
+//  }
+//  .accommodations_main_right_top_left, .accommodations_main_right_top_right {
+//    flex-direction: column;
+//  }
+//  .accommodations_main_right_top_left button {
+//    margin-top: 10px;
+//    width: 200px
+//  }
+//  .accommodations_main_right_top_left select {
+//    margin: 0;
+//    padding: 0
+//  }
+//  .accommodations_main_right_top_right_view {
+//    display: none;
+//  }
+//  .accommodations_main_right_top_right p {
+//    margin: 0
+//  }
+//  .accommodations_main_right_top_right_icon_1 {
+//    margin-bottom: 20px
+//  }
+//  .filter_burger {
+//    display: block;
+//  }
+//  .filter_burger p {
+//    font-size: 30px;
+//  }
+//  .accommodations_main_right_top {
+//    align-items: flex-start;
+//  }
+//  .accommodations_main_right {
+//    width: 100%;
+//    min-width: 300px
+//  }
+//  .accommodations_main_left {
+//    display: none;
+//  }
+//}
+//
+//@media screen and (max-width: 558px) {
+//  .accommodations_main_right_main {
+//    justify-content: center;
+//  }
+//  .vacation_rentals {
+//    font-size: 20px
+//  }
+//  .accommodations_main_right_top_left select, .accommodations_main_right_top_left button {
+//    width: 180px
+//  }
+//  .accommodations_main_right_main_block {
+//    width: 2800px;
+//
+//  }
+//}

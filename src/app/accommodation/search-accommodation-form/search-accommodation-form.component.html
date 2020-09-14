@@ -1,0 +1,83 @@
+<form [formGroup]="accommodationForm">
+  <div id="address">
+    <mat-icon>place</mat-icon>
+<!--    <input formControlName="location" placeholder="Where are you going?">-->
+
+
+              <input type="text" #locationInput
+                     placeholder="Location"
+                     aria-label="Number"
+                     [formControl]="locationControl"
+                     [matAutocomplete]="auto">
+              <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" >
+                <mat-icon
+                  (click)="clearLocation()">close</mat-icon>
+              </button>
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                                (optionSelected)="locationChanged($event.option.value)">
+                <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
+                  {{loc.address}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+
+  </div>
+
+  <div id="dates">
+    <div id="check-in">
+      <input placeholder="Check-in" (dateChange)="checkInDateChanged($event)" [matDatepickerFilter]="previousDatesFilter"
+             [matDatepicker]="checkInPicker" formControlName="checkin_date">
+      <mat-datepicker-toggle matSuffix [for]="checkInPicker"
+                             class="datepicker-toggle-icon"></mat-datepicker-toggle>
+      <mat-datepicker #checkInPicker startView="year"
+      ></mat-datepicker>
+    </div>
+    <div id="check-out">
+      <input placeholder="Check-out" (dateChange)="dateChanged()" [matDatepickerFilter]="checkoutDatesFilter"
+             [matDatepicker]="checkOutPicker" formControlName="checkout_date">
+      <mat-datepicker-toggle matSuffix [for]="checkOutPicker"
+                             class="datepicker-toggle-icon"></mat-datepicker-toggle>
+      <mat-datepicker #checkOutPicker startView="year"
+      ></mat-datepicker>
+    </div>
+  </div>
+  <div id="counts">
+    <div id="adults">
+      <mat-icon>person</mat-icon>
+      <span>Adults</span>
+      <input type="hidden" formControlName="adults" class="hidden">
+      <div class="picker">
+        <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="guests-count"
+                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          (valueChange)="adultsCountChanged($event)"></ng-number-picker>
+      </div>
+    </div>
+    <div id="children">
+      <mat-icon>person</mat-icon>
+      <span>Children</span>
+      <input type="hidden" formControlName="adults" class="hidden">
+      <div class="picker">
+        <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="guests-count"
+                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          (valueChange)="childrenCountChanged($event)"></ng-number-picker>
+      </div>
+    </div>
+    <div id="rooms">
+      <img src="assets/icons/bed.svg">
+      <span>Rooms</span>
+      <input type="hidden" formControlName="adults" class="hidden">
+      <div class="picker">
+        <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
+                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          (valueChange)="roomsCountChanged($event)"></ng-number-picker>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="search" (click)="search()" type="button">
+      <i class="fa fa-search"></i>
+      <span>Search</span>
+    </button>
+  </div>
+</form>

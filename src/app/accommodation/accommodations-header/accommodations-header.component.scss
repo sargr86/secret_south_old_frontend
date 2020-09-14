@@ -2,31 +2,31 @@
 @import 'mixins';
 
 
-.checkIn, .checkOut, .location {
-  position: relative !important;
-
-  input {
-    background-color: transparent;
-    border: 1px solid $white;
-    padding-left: 32px !important;
-    height: 44px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff !important;
-    display: block !important;
-  }
-
-  .clear-location {
-    position: absolute;
-    right: 0;
-    top: 2px;
-    width: 19px;
-
-    mat-icon {
-      font-size: 14px;
-    }
-  }
-}
+//.checkIn, .checkOut, .location {
+//  position: relative !important;
+//
+//  input {
+//    background-color: transparent;
+//    border: 1px solid $white;
+//    padding-left: 32px !important;
+//    height: 44px;
+//    font-size: 16px;
+//    font-weight: 600;
+//    color: #fff !important;
+//    display: block !important;
+//  }
+//
+//  .clear-location {
+//    position: absolute;
+//    right: 0;
+//    top: 2px;
+//    width: 19px;
+//
+//    mat-icon {
+//      font-size: 14px;
+//    }
+//  }
+//}
 
 //.checkIn, .checkOut, .location {
 //  position: relative !important;
@@ -36,31 +36,39 @@
 //  }
 //}
 
-.Check_out_inp {
-  width: 180px !important;
-}
+//.Check_out_inp {
+//  width: 180px !important;
+//}
 
 
-.logo {
-  background-image: url("assets/images/logo.png");
-  width: 89px;
-  height: 91px;
-  background-size: cover;
-  cursor: pointer;
-}
-
-.guests {
-
-  mat-icon {
-    z-index: 20;
-  }
-}
+//.logo {
+//  background-image: url("assets/images/logo.png");
+//  width: 89px;
+//  height: 91px;
+//  background-size: cover;
+//  cursor: pointer;
+//}
+//
+//.guests {
+//
+//  mat-icon {
+//    z-index: 20;
+//  }
+//}
 
 /* header */
 header {
   background-image: url("assets/images/christopher-jolly-GqbU78bdJFM-unsplash.jpg");
-}
+  background-repeat: no-repeat;
 
+  .order-form-and-texts {
+    width: 1200px;
+    margin: auto;
+    #order-form-container{
+      width:432px;
+    }
+  }
+}
 
 
 /* header end*/

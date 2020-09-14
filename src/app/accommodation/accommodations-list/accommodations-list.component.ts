@@ -37,7 +37,7 @@ export class AccommodationsListComponent implements OnInit {
 
     this.accommodationsForm = this.fb.group({
       location: ['', [Validators.required]],
-      guests: [this.personsCount, [Validators.required]],
+      adults: [this.personsCount, [Validators.required]],
       checkin_date: ['', [Validators.required]],
       checkout_date: ['', [Validators.required]],
     });
@@ -47,10 +47,10 @@ export class AccommodationsListComponent implements OnInit {
   ngOnInit() {
 
     const accommodationsSearch = JSON.parse(localStorage.getItem('accommodationsSearch'));
-    console.log(accommodationsSearch)
+    // console.log(accommodationsSearch)
     if (accommodationsSearch) {
       this.accommodationsForm.patchValue(accommodationsSearch);
-      this.locationControl.patchValue(accommodationsSearch.location)
+      this.locationControl.patchValue(accommodationsSearch.location);
     }
     this.getObjects(accommodationsSearch);
     this.getAccommodations();
@@ -59,6 +59,7 @@ export class AccommodationsListComponent implements OnInit {
   getObjects(search) {
 
     this.accommodationsService.getByAddress({address: search.location}).subscribe((dt: Accommodation[]) => {
+      console.log(dt)
       this.accommodationObjects = dt;
     });
   }
@@ -101,9 +102,10 @@ export class AccommodationsListComponent implements OnInit {
     );
   }
 
-  search() {
-    localStorage.setItem('accommodationsSearch', JSON.stringify(this.accommodationsForm.value));
-    this.getObjects(this.accommodationsForm.value);
+  search(e) {
+    console.log(e)
+    localStorage.setItem('accommodationsSearch', JSON.stringify(e));
+    this.getObjects(e);
     this.getAccommodations();
   }
 }

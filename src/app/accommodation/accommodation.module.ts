@@ -10,6 +10,7 @@ import {AccommodationsHeaderComponent} from './accommodations-header/accommodati
 import {AccommodationsListComponent} from './accommodations-list/accommodations-list.component';
 import {AccommodationSingleComponent} from './accommodation-single/accommodation-single.component';
 import {ShowOrdersComponent} from '@app/accommodation/show-orders/show-orders.component';
+import { SearchAccommodationFormComponent } from './search-accommodation-form/search-accommodation-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {ShowOrdersComponent} from '@app/accommodation/show-orders/show-orders.co
     AccommodationsHeaderComponent,
     AccommodationsListComponent,
     AccommodationSingleComponent,
-    ShowOrdersComponent
+    ShowOrdersComponent,
+    SearchAccommodationFormComponent
   ],
   imports: [
     CommonModule,

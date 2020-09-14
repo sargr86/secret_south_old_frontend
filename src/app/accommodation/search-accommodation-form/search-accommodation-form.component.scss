@@ -1,0 +1,124 @@
+@import "variables";
+
+form {
+  margin-top: 50px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow: 0 0 6px #00000012;
+  }
+
+  .clear-location {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+
+
+  #address {
+    position: relative;
+    width: 432px;
+    height: 51px;
+
+    mat-icon {
+      position: absolute;
+      top: 11px;
+      left: 17px;
+    }
+
+    input {
+      padding-left: 45px;
+    }
+  }
+
+  #dates {
+    display: flex;
+    margin-top: 16px;
+
+    #check-in, #check-out {
+      position: relative;
+      width: 216px;
+      height: 51px;
+
+      .datepicker-toggle-icon {
+        position: absolute;
+        top: 5px;
+        left: 11px;
+      }
+
+      input {
+        padding-left: 45px;
+
+      }
+    }
+  }
+
+  #counts {
+    display: flex;
+    margin-top: 16px;
+    background-color: $white;
+
+    mat-icon {
+      color: #D2D2D2;
+    }
+
+    #adults {
+      width: 142px;
+
+      mat-icon {
+        margin-left: 19px;
+      }
+
+      span {
+        margin-left: 4px;
+      }
+
+      .picker {
+        margin-left: 8px;
+      }
+    }
+
+    #children {
+      width: 151px;
+
+      .picker {
+        margin-left: 25px;
+      }
+    }
+
+    #rooms {
+      width: 141px;
+
+      .picker {
+        margin-left: 29px;
+      }
+    }
+
+    #adults, #children, #rooms {
+      display: flex;
+      align-items: center;
+
+      box-shadow: 0 0 6px #00000012;
+      height: 51px;
+    }
+  }
+
+  .search {
+    width: 432px;
+    height: 51px;
+    margin-top: 15px;
+    border: none;
+    background-color: $preferred_blue;
+    color: $white;
+    font: normal normal 16px 'Roboto';
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}
+
+
+
