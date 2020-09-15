@@ -40,6 +40,7 @@ import {MapControlsComponent} from './components/map-controls/map-controls.compo
 import {AgmDrawingModule} from '@agm/drawing';
 import {NgxStripeModule} from 'ngx-stripe';
 import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
+import {FilterLocationsForDropdownPipe} from './pipes/filter-locations-for-dropdown.pipe';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
     MarkSelectedCoverImagePipe,
     MatOrdersTableComponent,
     MapControlsComponent,
-    GetAuthUserPipe
+    GetAuthUserPipe,
+    FilterLocationsForDropdownPipe
   ],
   imports: [
     CommonModule,
@@ -99,6 +101,7 @@ import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
     GetFileBasenamePipe,
     RedirectUrlGeneratorPipe,
     MarkSelectedCoverImagePipe,
+    FilterLocationsForDropdownPipe,
     GetAuthUserPipe,
     {
       provide: DROPZONE_CONFIG,
@@ -136,7 +139,8 @@ import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
     HeaderTopComponent,
     HeaderBottomComponent,
     GetFileBasenamePipe,
-    MapControlsComponent
+    MapControlsComponent,
+    FilterLocationsForDropdownPipe
   ],
   entryComponents: [
     ConfirmationDialogComponent,

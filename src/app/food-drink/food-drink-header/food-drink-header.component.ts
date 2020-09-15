@@ -13,6 +13,7 @@ import moment from 'moment';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {map, startWith} from 'rxjs/operators';
 import {FoodDrinkService} from '@core/services/food-drink.service';
+import {FilterLocationsForDropdownPipe} from '@shared/pipes/filter-locations-for-dropdown.pipe';
 
 @Component({
   selector: 'app-food-drink-header',
@@ -56,7 +57,8 @@ export class FoodDrinkHeaderComponent implements OnInit {
     private fb: FormBuilder,
     private main: MainService,
     private subject: SubjectService,
-    private foodDrinkService: FoodDrinkService
+    private foodDrinkService: FoodDrinkService,
+    private filterLocations: FilterLocationsForDropdownPipe
   ) {
     this.foodDrinkForm = this.fb.group({
       location: ['', [Validators.required]],
@@ -64,8 +66,6 @@ export class FoodDrinkHeaderComponent implements OnInit {
       date: ['', [Validators.required]],
       time: ['', [Validators.required]]
     });
-
-    console.log(COUNTRY_RESTRICTED_PLACES)
 
   }
 
@@ -76,29 +76,14 @@ export class FoodDrinkHeaderComponent implements OnInit {
       type: ['']
     });
 
-    this.foodDrinkService.getFoodDrink({}).subscribe(dt => {
+    this.foodDrinkService.get({}).subscribe(dt => {
       this.foodDrinkObjects = dt;
-      console.log(this.foodDrinkObjects)
       this.filteredLocations = this.locationControl.valueChanges.pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => this.filterLocations.transform(value, this.foodDrinkObjects))
       );
     });
 
-
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    const f = this.foodDrinkObjects.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
-
-    // removing duplicates
-    const fs = f.filter((thing, index, self) =>
-      index === self.findIndex((t) => (
-        t.address === thing.address
-      ))
-    );
-    return fs;
   }
 
   toggleSidebar() {
@@ -121,17 +106,6 @@ export class FoodDrinkHeaderComponent implements OnInit {
 
   locationChanged(e) {
     this.foodDrinkForm.patchValue({location: e});
-  }
-
-  searchAccommodations() {
-    // this.foodDrinkForm.value['location'] = this.searchAddress.el.nativeElement.value;
-    console.log(this.searchAddress)
-    console.log(this.foodDrinkForm.value)
-    this.isSubmitted = true;
-    if (this.foodDrinkForm.valid) {
-      localStorage.setItem('foodDrinkSearch', JSON.stringify(this.foodDrinkForm.value))
-      this.router.navigate(['food-drink/list']);
-    }
   }
 
   personsCountChanged(e) {

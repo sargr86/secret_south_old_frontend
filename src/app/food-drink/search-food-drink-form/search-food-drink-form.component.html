@@ -1,0 +1,30 @@
+<form [formGroup]="foodDrinkForm">
+  <div id="address">
+    <mat-icon>place</mat-icon>
+    <input type="text" #locationInput
+           placeholder="Where are you going?"
+           aria-label="Number"
+           [formControl]="locationControl"
+           [matAutocomplete]="auto">
+    <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
+      <mat-icon
+        (click)="clearLocation()">close
+      </mat-icon>
+    </button>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                      (optionSelected)="locationChanged($event.option.value)">
+      <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
+        {{loc.address}}
+      </mat-option>
+    </mat-autocomplete>
+
+
+  </div>
+
+  <div>
+    <button class="search" (click)="search()" type="button">
+      <i class="fa fa-search"></i>
+      <span>Search</span>
+    </button>
+  </div>
+</form>

@@ -11,6 +11,7 @@ import { FoodDrinkListComponent } from './food-drink-list/food-drink-list.compon
 import { FoodDrinkSingleComponent } from './food-drink-single/food-drink-single.component';
 import { ShowOrdersComponent } from './show-orders/show-orders.component';
 import { FoodDrinkOrderFormComponent } from './food-drink-order-form/food-drink-order-form.component';
+import { SearchFoodDrinkFormComponent } from './search-food-drink-form/search-food-drink-form.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { FoodDrinkOrderFormComponent } from './food-drink-order-form/food-drink-
         FoodDrinkSingleComponent,
         ShowOrdersComponent,
         FoodDrinkOrderFormComponent,
+        SearchFoodDrinkFormComponent,
     ],
     exports: [
         FoodDrinkHeaderComponent

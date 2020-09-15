@@ -9,7 +9,7 @@
         <div *ngIf="!obj.img" class="no_image"></div>
         <p class="name">{{obj.name}}</p>
         <p class="address">{{obj.address}}</p>
-        <button class="view-more">View more</button>
+        <button class="view-more" (click)="router.navigate(['accommodations/single/'+obj.id])">View more</button>
       </li>
     </ul>
   </section>
