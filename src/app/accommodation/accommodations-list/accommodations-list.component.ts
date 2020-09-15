@@ -59,7 +59,6 @@ export class AccommodationsListComponent implements OnInit {
   getObjects(search) {
 
     this.accommodationsService.getByAddress({address: search.location}).subscribe((dt: Accommodation[]) => {
-      console.log(dt)
       this.accommodationObjects = dt;
     });
   }

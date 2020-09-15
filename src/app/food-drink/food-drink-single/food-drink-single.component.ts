@@ -46,7 +46,7 @@ export class FoodDrinkSingleComponent implements OnInit {
   ngOnInit() {
     const foodDrinkId = this.route.snapshot.params.id;
 
-    this._food_drink.getOneFoodDrink({id: foodDrinkId}).subscribe(dt => {
+    this._food_drink.getOne({id: foodDrinkId}).subscribe(dt => {
       this.foodDrinkProvider = dt;
     });
   }
