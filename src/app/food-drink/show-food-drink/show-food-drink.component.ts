@@ -22,7 +22,7 @@ export class ShowFoodDrinkComponent implements OnInit {
 
     ngOnInit() {
         const company = this.auth.checkRoles('admin') ? '' : this.auth.userData.company.name;
-        this.foodDrinks = this._foodDrink.getFoodDrink({company: company});
+        this.foodDrinks = this._foodDrink.get({company: company});
     }
 
 }

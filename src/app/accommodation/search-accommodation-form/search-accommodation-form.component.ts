@@ -4,6 +4,7 @@ import {Accommodation} from '@shared/models/Accommodation';
 import {map, startWith} from 'rxjs/operators';
 import {AccommodationsService} from '@core/services/accommodations.service';
 import moment from 'moment';
+import {FilterLocationsForDropdownPipe} from '@shared/pipes/filter-locations-for-dropdown.pipe';
 
 @Component({
   selector: 'app-search-accommodation-form',
@@ -36,7 +37,8 @@ export class SearchAccommodationFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accommodationsService: AccommodationsService
+    private accommodationsService: AccommodationsService,
+    private filterLocations: FilterLocationsForDropdownPipe
   ) {
 
   }
@@ -107,23 +109,10 @@ export class SearchAccommodationFormComponent implements OnInit {
       this.accommodationObjects = dt;
       this.filteredLocations = this.locationControl.valueChanges.pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => this.filterLocations.transform(value, dt))
       );
     });
   }
-
-  private _filter(value: string): Accommodation[] {
-    const filterValue = value.toLowerCase();
-    const f = this.accommodationObjects.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
-
-    // removing duplicates
-    return f.filter((thing, index, self) =>
-      index === self.findIndex((t) => (
-        t.address === thing.address
-      ))
-    );
-  }
-
 
   search() {
     // console.log(this.accommodationForm.value)

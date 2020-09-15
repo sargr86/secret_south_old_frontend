@@ -14,6 +14,6 @@ export class OneFoodDrinkResolverService implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot) {
-        return this._foodDrink.getOneFoodDrink({id: route.params.id});
+        return this._foodDrink.getOne({id: route.params.id});
     }
 }

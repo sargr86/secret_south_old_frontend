@@ -33,6 +33,14 @@
 header {
   //background-image: url("assets/images/Restaurant_big.jpg");
   background-image: url("assets/images/resort-4471852_1920.jpg");
+
+  .order-form-and-texts {
+    width: 1200px;
+    margin: auto;
+    #order-form-container{
+      width:432px;
+    }
+  }
 }
 
 .Check_out_inp {

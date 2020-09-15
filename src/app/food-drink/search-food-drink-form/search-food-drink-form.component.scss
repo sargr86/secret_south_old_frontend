@@ -1,0 +1,46 @@
+@import "variables";
+
+form {
+  input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow: 0 0 6px #00000012;
+  }
+
+  .clear-location {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+
+  #address {
+    position: relative;
+    width: 432px;
+    height: 51px;
+
+    mat-icon {
+      position: absolute;
+      top: 11px;
+      left: 17px;
+    }
+
+    input {
+      padding-left: 45px;
+    }
+  }
+
+  .search {
+    width: 432px;
+    height: 51px;
+    margin-top: 15px;
+    border: none;
+    background-color: $preferred_blue;
+    color: $white;
+    font: normal normal 16px 'Roboto';
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}
