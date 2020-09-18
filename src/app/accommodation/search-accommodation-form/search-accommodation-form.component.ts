@@ -16,9 +16,9 @@ export class SearchAccommodationFormComponent implements OnInit {
   @Output() searchClicked = new EventEmitter();
 
   accommodationForm: FormGroup;
-  adultsCount;
-  childrenCount;
-  roomsCount;
+  adultsCount = 2;
+  childrenCount = 2;
+  roomsCount = 2;
 
   accommodationObjects: Accommodation[] = [];
   filteredLocations;
@@ -52,9 +52,9 @@ export class SearchAccommodationFormComponent implements OnInit {
   initForm() {
     this.accommodationForm = this.fb.group({
       location: ['', [Validators.required]],
-      adults: ['', [Validators.required]],
-      children: ['', [Validators.required]],
-      rooms: ['', [Validators.required]],
+      adults: [this.adultsCount, [Validators.required]],
+      children: [this.childrenCount, [Validators.required]],
+      rooms: [this.roomsCount, [Validators.required]],
       checkin_date: ['', [Validators.required]],
       checkout_date: ['', [Validators.required]],
     });
@@ -63,11 +63,11 @@ export class SearchAccommodationFormComponent implements OnInit {
   patchForm() {
     const accommodationsSearch = JSON.parse(localStorage.getItem('accommodationsSearch'));
 
-    this.adultsCount = accommodationsSearch.adults || 2;
-    this.childrenCount = accommodationsSearch.children || 2;
-    this.roomsCount = accommodationsSearch.rooms || 2;
-
     if (accommodationsSearch) {
+      this.adultsCount = accommodationsSearch.adults;
+      this.childrenCount = accommodationsSearch.children;
+      this.roomsCount = accommodationsSearch.rooms;
+
       this.accommodationForm.patchValue(accommodationsSearch);
       this.locationControl.patchValue(accommodationsSearch.location);
     }

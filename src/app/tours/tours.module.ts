@@ -9,6 +9,7 @@ import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.componen
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import { ToursHomeComponent } from './tours-home/tours-home.component';
 import { ToursHeaderComponent } from './tours-header/tours-header.component';
+import { SearchToursFormComponent } from './search-tours-form/search-tours-form.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { ToursHeaderComponent } from './tours-header/tours-header.component';
         ShowTourTypesComponent,
         SaveTourTypeComponent,
         ToursHomeComponent,
-        ToursHeaderComponent
+        ToursHeaderComponent,
+        SearchToursFormComponent
     ],
     imports: [
         CommonModule,

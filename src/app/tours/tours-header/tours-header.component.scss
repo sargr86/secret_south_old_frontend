@@ -1,142 +1,16 @@
 @import 'variables';
 @import 'mixins';
 
-
-.checkIn, .checkOut, .location {
-  position: relative !important;
-
-  mat-icon {
-    color: $white;
-  }
-
-  input {
-    padding-left: 32px !important;
-  }
-}
-
-.location {
-  mat-icon {
-    position: absolute;
-    left: 0;
-    top: 11px;
-  }
-}
-
-
 /* header */
 header {
   background-image: url("assets/images/luca-bravo-O453M2Liufs-unsplash@2x.png");
-}
 
-
-
-
-.Check_out_inp {
-  width: 180px !important;
-}
-
-
-.logo {
-  background-image: url("assets/images/logo.png");
-  width: 89px;
-  height: 91px;
-  background-size: cover;
-  cursor: pointer;
-}
-
-.sidebarToggler {
-  @include noBgBtn;
-  cursor: pointer;
-}
-
-.header_content {
-  background-image: linear-gradient(to bottom, #164547, rgba(22, 69, 71, 0.95) 26%, rgba(22, 69, 71, 0));
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.opacity_bg {
-  display: flex;
-  align-items: center;
-  height: 78%;
-  justify-content: center;
-}
-
-.bg_content input, .bg_content select {
-  height: 44px;
-  border: solid 1px #ffffff;
-}
-
-.bg_content .person {
-  width: 180px;
-}
-
-.location {
-  width: 350px;
-}
-
-.your_type {
-  width: 288px;
-}
-
-.image_list {
-  width: 98%;
-}
-
-.home_1_block .owl-prev {
-  position: absolute !important;
-  left: 0 !important;
-  top: 50% !important;
-  width: 44px;
-  height: 44px;
-  opacity: 0.5;
-  background-color: #164547 !important;
-  display: flex;
-  align-items: center;
-  border-radius: 50%;
-  justify-content: center;
-  transform: translate(-50%, -50%);
-}
-
-.home_1_block .owl-next {
-  position: absolute !important;
-  right: 0 !important;
-  top: 50% !important;
-  width: 44px;
-  height: 44px;
-  opacity: 0.5;
-  background-color: #164547 !important;
-  display: flex;
-  align-items: center;
-  border-radius: 50%;
-  justify-content: center;
-  transform: translate(50%, -50%);
-}
-
-.home_1_block .owl-next span, .home_1_block .owl-prev span {
-  width: 12px;
-  height: 16px;
-  color: #ffffff;
-}
-
-
-.tourTypes {
-  width: 370px;
-}
-
-.guests {
-  position: relative;
-
-  mat-icon {
-    color: $white;
-    position: absolute;
-    top: 9px;
-  }
-
-  mat-icon {
-    z-index: 20;
+  .order-form-and-texts {
+    width: 1200px;
+    margin: auto;
+    #order-form-container{
+      width:432px;
+    }
   }
 }
 
