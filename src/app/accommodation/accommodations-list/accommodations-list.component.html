@@ -5,7 +5,7 @@
   <section id="right-side">
     <ul>
       <li class="search-item" *ngFor="let obj of accommodationObjects">
-        <img *ngIf="obj.img" [src]="accommodationsFolder+ obj.img" alt="">
+        <img *ngIf="obj.img" [src]="getPath(obj, accommodationsFolder)" alt="">
         <div *ngIf="!obj.img" class="no_image"></div>
         <p class="name">{{obj.name}}</p>
         <p class="address">{{obj.address}}</p>

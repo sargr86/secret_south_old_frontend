@@ -1,4 +1,4 @@
-<form [formGroup]="accommodationForm">
+<form [formGroup]="toursForm">
   <div id="address">
     <mat-icon>place</mat-icon>
     <input type="text" #locationInput
@@ -22,21 +22,13 @@
   </div>
 
   <div id="dates">
-    <div id="check-in">
-      <input placeholder="Check-in" (dateChange)="checkInDateChanged($event)"
+    <div id="date">
+      <input placeholder="Choose date" (dateChange)="dateChanged($event)"
              [matDatepickerFilter]="previousDatesFilter"
-             [matDatepicker]="checkInPicker" formControlName="checkin_date">
+             [matDatepicker]="checkInPicker" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="checkInPicker"
                              class="datepicker-toggle-icon"></mat-datepicker-toggle>
       <mat-datepicker #checkInPicker startView="year"
-      ></mat-datepicker>
-    </div>
-    <div id="check-out">
-      <input placeholder="Check-out" (dateChange)="dateChanged()" [matDatepickerFilter]="checkoutDatesFilter"
-             [matDatepicker]="checkOutPicker" formControlName="checkout_date">
-      <mat-datepicker-toggle matSuffix [for]="checkOutPicker"
-                             class="datepicker-toggle-icon"></mat-datepicker-toggle>
-      <mat-datepicker #checkOutPicker startView="year"
       ></mat-datepicker>
     </div>
   </div>
@@ -61,16 +53,10 @@
                           (valueChange)="childrenCountChanged($event)"></ng-number-picker>
       </div>
     </div>
-    <div id="rooms">
-      <img src="assets/icons/bed.svg">
-      <span>Rooms</span>
-      <input type="hidden" formControlName="adults" class="hidden">
-      <div class="picker">
-        <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
-                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
-                          (valueChange)="roomsCountChanged($event)"></ng-number-picker>
-      </div>
-    </div>
+
+  </div>
+  <div id="tour-types">
+
   </div>
   <div>
     <button class="search" (click)="search()" type="button">

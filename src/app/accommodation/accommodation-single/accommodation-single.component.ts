@@ -4,7 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '@core/services/common.service';
 import {NgxGalleryImage} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
-import {SINGLE_PAGE_GALLERY_OPTIONS} from '@core/constants/global';
+import {SINGLE_PAGE_CAROUSEL_OPTIONS, SINGLE_PAGE_GALLERY_OPTIONS} from '@core/constants/global';
+import {OwlOptions} from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-accommodation-single',
@@ -14,6 +15,8 @@ import {SINGLE_PAGE_GALLERY_OPTIONS} from '@core/constants/global';
 export class AccommodationSingleComponent implements OnInit {
   accommodationProvider;
   galleryOptions = SINGLE_PAGE_GALLERY_OPTIONS;
+  carouselOptions = SINGLE_PAGE_CAROUSEL_OPTIONS;
+
 
   constructor(
     private _accommodations: AccommodationsService,
