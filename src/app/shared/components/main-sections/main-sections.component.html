@@ -22,9 +22,8 @@
   <div class="linksContainer">
 
     <ul class="sections">
-
       <li *ngFor="let section of mainSections"
-          (click)="changeSection(section.link)" [class.selected]="selectedSection === section.name">
+          (click)="changeSection(section.link)" [class.selected]="isSelected(selectedSection,section.link)">
         <span class="section">{{section.name}}</span>
 
       </li>

@@ -1357,7 +1357,9 @@ header:not(.timepicker__header) {
 }
 
 .no-images {
+  width: 100%;
   height: 343px;
+  object-fit: cover;
 }
 
 .table-book-form {
@@ -1414,4 +1416,17 @@ agm-map {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 16px;
   }
+}
+
+.accommodation-single-page {
+  .owl-dots {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .owl-carousel .owl-item img {
+    height: 473px !important;
+  }
+
 }

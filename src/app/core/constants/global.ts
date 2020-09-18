@@ -3,6 +3,7 @@ import {environment} from '@env';
 import {Section} from '@shared/models/Section';
 // import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
+import {OwlOptions} from 'ngx-owl-carousel-o';
 
 export const API_URL = environment.apiUrl;
 
@@ -212,11 +213,11 @@ export const DEFAULT_COUNTRY = 'ie';
 
 
 export const MAIN_SECTIONS: Section[] = [
-  {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
-  {name: 'Food/Drink', icon: 'restaurant_menu', link: 'food-drink'},
-  {name: 'Ferries', icon: 'directions_boat', link: 'ferries'},
+  {name: 'Water taxi', icon: 'directions_boat', link: 'ferries'},
   {name: 'Tours', icon: 'beach_access', link: 'tours'},
   {name: 'Activities', icon: 'directions_run', link: 'activities'},
+  {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
+  {name: 'Food/Drink', icon: 'restaurant_menu', link: 'food-drink'},
   // {name: 'Map'}
 ];
 
@@ -279,6 +280,31 @@ export const SINGLE_PAGE_GALLERY_OPTIONS = [
   {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
   {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2}
 ];
+
+export const SINGLE_PAGE_CAROUSEL_OPTIONS: OwlOptions = {
+  loop: true,
+  mouseDrag: false,
+  touchDrag: true,
+  pullDrag: false,
+  dots: true,
+  navSpeed: 700,
+  nav: false,
+  navText: ['<i class=\'fa fa-chevron-left\'></i>', '<i class=\'fa fa-chevron-right\'></i>'],
+  responsive: {
+    0: {
+      items: 1
+    },
+    400: {
+      items: 1
+    },
+    768: {
+      items: 1
+    },
+    1000: {
+      items: 3
+    }
+  },
+};
 
 
 export const ALL_ORDER_TABS = [
