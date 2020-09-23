@@ -21,6 +21,53 @@
 
   </div>
 
+  <div id="date-time">
+    <div id="time">
+      <input placeholder="Time" [ngxTimepicker]="timepicker" formControlName="time">
+      <span class="main-page-error" *ngIf="foodDrinkForm.get('time').hasError('required')">
+                Booking time is required</span>
+      <ngx-material-timepicker-toggle [for]="timepicker">
+        <mat-icon>access_time</mat-icon>
+      </ngx-material-timepicker-toggle>
+
+      <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+    </div>
+
+    <div id="date">
+
+      <input placeholder="Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+             (dateChange)="dateChanged($event)" formControlName="date"
+             [matDatepicker]="checkOutPicker" class="Check_out_inp">
+      <mat-datepicker-toggle matSuffix [for]="checkOutPicker" class="checkInIcon"></mat-datepicker-toggle>
+      <mat-datepicker #checkOutPicker startView="year"></mat-datepicker>
+      <span class="main-page-error" *ngIf="isSubmitted && foodDrinkForm.get('date').hasError('required')">
+                  Booking date is required</span>
+    </div>
+  </div>
+
+  <div id="counts">
+    <div id="adults">
+      <mat-icon>person</mat-icon>
+      <span>Adults</span>
+      <input type="hidden" formControlName="adults" class="hidden">
+      <div class="picker">
+        <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="guests-count"
+                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          (valueChange)="adultsCountChanged($event)"></ng-number-picker>
+      </div>
+    </div>
+    <div id="children">
+      <mat-icon>person</mat-icon>
+      <span>Children</span>
+      <input type="hidden" formControlName="children" class="hidden">
+      <div class="picker">
+        <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="guests-count"
+                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          (valueChange)="childrenCountChanged($event)"></ng-number-picker>
+      </div>
+    </div>
+  </div>
+
   <div>
     <button class="search" (click)="search()" type="button">
       <i class="fa fa-search"></i>

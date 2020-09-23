@@ -423,7 +423,8 @@ mat-progress-bar .mat-progress-bar-buffer {
   top: 8px !important;
 
   svg {
-    fill: white !important;
+    //fill: white !important;
+    margin-left: 16px;
   }
 }
 
@@ -433,6 +434,10 @@ mat-progress-bar .mat-progress-bar-buffer {
 
 .timepicker-dial__item_active {
   outline: 1px solid #c0c0c05c;
+}
+
+.mat-datepicker-toggle-default-icon{
+  fill: silver
 }
 
 .guests-count {

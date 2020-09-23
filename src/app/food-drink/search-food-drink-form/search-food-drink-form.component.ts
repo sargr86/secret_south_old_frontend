@@ -7,6 +7,7 @@ import {FoodDrinkService} from '@core/services/food-drink.service';
 import {FoodDrink} from '@shared/models/FoodDrink';
 import {map, startWith} from 'rxjs/operators';
 import {FilterLocationsForDropdownPipe} from '@shared/pipes/filter-locations-for-dropdown.pipe';
+import moment from 'moment';
 
 @Component({
   selector: 'app-search-food-drink-form',
@@ -16,14 +17,20 @@ import {FilterLocationsForDropdownPipe} from '@shared/pipes/filter-locations-for
 export class SearchFoodDrinkFormComponent implements OnInit {
 
   foodDrinkForm: FormGroup;
-  personsCount = 2;
+  adultsCount = 2;
+  childrenCount = 2;
   locationControl = new FormControl();
   foodDrinkObjects: FoodDrink[] = [];
 
   filteredLocations;
+  isSubmitted = false;
 
 
   @Output() searchClicked = new EventEmitter();
+
+  previousDatesFilter = (d: Date | null): boolean => {
+    return moment(d).isSameOrAfter(moment(), 'day');
+  }
 
   constructor(
     public router: Router,
@@ -44,7 +51,7 @@ export class SearchFoodDrinkFormComponent implements OnInit {
   initForm() {
     this.foodDrinkForm = this.fb.group({
       location: ['', [Validators.required]],
-      guests: [this.personsCount, [Validators.required]],
+      guests: [this.adultsCount, [Validators.required]],
       date: ['', [Validators.required]],
       time: ['', [Validators.required]]
     });
@@ -77,6 +84,10 @@ export class SearchFoodDrinkFormComponent implements OnInit {
 
   locationChanged(e) {
     this.foodDrinkForm.patchValue({location: e});
+  }
+
+  dateChanged(e) {
+
   }
 
   clearLocation() {
