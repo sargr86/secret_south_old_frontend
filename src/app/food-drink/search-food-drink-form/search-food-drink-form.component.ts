@@ -51,7 +51,8 @@ export class SearchFoodDrinkFormComponent implements OnInit {
   initForm() {
     this.foodDrinkForm = this.fb.group({
       location: ['', [Validators.required]],
-      guests: [this.adultsCount, [Validators.required]],
+      adults: [this.adultsCount, [Validators.required]],
+      children: [this.childrenCount, [Validators.required]],
       date: ['', [Validators.required]],
       time: ['', [Validators.required]]
     });
@@ -105,6 +106,7 @@ export class SearchFoodDrinkFormComponent implements OnInit {
   }
 
   search() {
+    console.log(this.foodDrinkForm.value)
     localStorage.setItem('foodDrinkSearch', JSON.stringify(this.foodDrinkForm.value));
     this.searchClicked.emit(this.foodDrinkForm.value);
   }
