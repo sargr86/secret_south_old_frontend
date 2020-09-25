@@ -90,6 +90,15 @@ export class SearchFoodDrinkFormComponent implements OnInit {
 
   }
 
+  adultsCountChanged(e) {
+
+  }
+
+
+  childrenCountChanged(e) {
+
+  }
+
   clearLocation() {
     this.locationControl.patchValue('');
     this.getFoodDrink();
