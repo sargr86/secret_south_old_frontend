@@ -30,6 +30,10 @@ export class ActivitiesHomeComponent implements OnInit {
     });
   }
 
+  getImageName(name) {
+    return name.toLowerCase().replace(/ /g, '_');
+  }
+
   async viewActivitySubType(subtype) {
     // subtype = subtype.toLowerCase().replace(/ /g, '');
     await this.router.navigate([`activities/subtype/${subtype}`]);

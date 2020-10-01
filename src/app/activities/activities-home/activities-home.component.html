@@ -4,7 +4,7 @@
   <div class="activity-type" *ngFor="let type of activityTypes">
     <div class="left-side">
       <div class="image">
-        <img src="assets/images/{{type.name.toLowerCase()}}.png" alt="{{type.name}}">
+        <img src="assets/images/{{getImageName(type.name)}}.png" alt="{{type.name}}">
       </div>
     </div>
     <div class="right-side">
@@ -16,39 +16,4 @@
 
   </div>
 </div>
-
-
-<!--<section class="active_page">-->
-
-<!--  <div class="active_page_size">-->
-<!--    <ng-container *ngFor="let type of activityTypes">-->
-
-<!--      <div class="active_page_block">-->
-<!--        <p class="active_page_block_tittle">{{type.name}}</p>-->
-<!--        <div class="active_page_block_line"></div>-->
-<!--        <div class="active_page_block_box">-->
-<!--          <div class="active_page_block_box_left">-->
-<!--            <p class="active_page_block_box_left_text">{{type.description}}</p>-->
-<!--            &lt;!&ndash;                        <p class="active_page_block_box_left_info">Kayaking Companies(4)</p>&ndash;&gt;-->
-<!--            <div class="active_page_block_box_left_bottom">-->
-<!--              <div class="active_page_block_box_left_bottom_left">-->
-<!--&lt;!&ndash;                <img src="img/mark1.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                <img src="img/mark2.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                <img src="img/mark3.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                <img src="img/mark4.png" alt="">&ndash;&gt;-->
-<!--              </div>-->
-<!--              <button type="button" name="button" (click)="router.navigate(['activities/list'])">View more</button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="active_page_block_box_right">-->
-<!--            <img src="assets/images/{{type.name.toLowerCase()}}.png" alt="">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-
-<!--  </div>-->
-<!--</section>-->
-
-
 
