@@ -3,18 +3,23 @@ import {HttpClient} from '@angular/common/http';
 import {API_URL} from '../constants/global';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ActivityTypesService {
 
-    constructor(
-        private http: HttpClient
-    ) {
-    }
+  constructor(
+    private http: HttpClient
+  ) {
+  }
 
-    remove(params) {
-        return this.http.delete(`${API_URL}activity_types/remove`, {params: params});
-    }
+  remove(params) {
+    return this.http.delete(`${API_URL}activity_types/remove`, {params});
+  }
+
+  getSubtypes(params) {
+    return this.http.get(`${API_URL}activity_types/get-subtypes`, {params});
+  }
+
 
 
 }

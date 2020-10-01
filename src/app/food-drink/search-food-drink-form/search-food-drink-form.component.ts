@@ -63,8 +63,8 @@ export class SearchFoodDrinkFormComponent implements OnInit {
     if (foodDrinkSearch) {
       this.foodDrinkForm.patchValue(foodDrinkSearch);
       this.locationControl.patchValue(foodDrinkSearch.location);
+      this.getObjects(foodDrinkSearch);
     }
-    this.getObjects(foodDrinkSearch);
   }
 
   getObjects(search) {
