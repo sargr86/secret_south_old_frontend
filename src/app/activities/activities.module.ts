@@ -11,6 +11,7 @@ import { ActivitiesHeaderComponent } from './activities-header/activities-header
 import { ActivitiesHomeComponent } from './activities-home/activities-home.component';
 import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
+import { ActivitySubtypesHomeComponent } from './activity-subtypes-home/activity-subtypes-home.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { ActivitiesListComponent } from './activities-list/activities-list.compo
         ActivitiesHeaderComponent,
         ActivitiesHomeComponent,
         ActivitiesSingleComponent,
-        ActivitiesListComponent
+        ActivitiesListComponent,
+        ActivitySubtypesHomeComponent
     ],
     imports: [
         CommonModule,

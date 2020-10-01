@@ -24,7 +24,7 @@
   <div id="date-time">
     <div id="time">
       <input placeholder="Time" [ngxTimepicker]="timepicker" formControlName="time">
-      <span class="main-page-error" *ngIf="foodDrinkForm.get('time').hasError('required')">
+      <span class="main-page-error" *ngIf="isSubmitted && foodDrinkForm.get('time').hasError('required')">
                 Booking time is required</span>
       <ngx-material-timepicker-toggle [for]="timepicker">
         <mat-icon>access_time</mat-icon>

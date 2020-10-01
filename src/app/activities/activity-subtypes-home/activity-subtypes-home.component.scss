@@ -1,0 +1,38 @@
+#activity-subtypes {
+  width: 1500px;
+  margin: auto;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      display: inline-block;
+      width: 432px;
+      margin-top: 20px;
+      margin-right: 32px;
+
+      h3 {
+        font-size: 20px;
+        font-family: "Roboto-Bold";
+      }
+
+      img {
+        width: 432px;
+        height: 244px;
+      }
+
+      .price-value {
+        font-size: 24px;
+        font-family: Roboto;
+        color: #7BC447;
+      }
+
+      p {
+        font: normal normal 300 16px/24px Roboto;
+        color: #707070;
+      }
+    }
+
+  }
+}

@@ -1,0 +1,14 @@
+<app-activities-header></app-activities-header>
+
+<div id="activity-subtypes">
+  <ul *ngIf="activitySubtypes.length > 0">
+    <li *ngFor="let subtype of activitySubtypes">
+      <img src="assets/images/activities-item.png">
+      <h3>{{subtype.name}}</h3>
+      <p>Price <strong class="price-value">&euro;{{subtype.price}}</strong></p>
+      <p>{{subtype.description}}</p>
+    </li>
+  </ul>
+  <span *ngIf="activitySubtypes.length ===0">No subtypes found</span>
+</div>
+
