@@ -10,12 +10,21 @@ import {ActivitiesListComponent} from './activities-list/activities-list.compone
 import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
+import {ActivitySubtypesHomeComponent} from '@app/activities/activity-subtypes-home/activity-subtypes-home.component';
+import {ActivitySubtypeResolverService} from '@core/resolvers/activity-subtype-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     component: ActivitiesHomeComponent,
     canActivate: [AdminPagesGuard]
+  },
+  {
+    path: 'subtype/:id',
+    component: ActivitySubtypesHomeComponent,
+    resolve: {
+      activity_subtypes: ActivitySubtypeResolverService
+    },
   },
   {
     path: 'show',

@@ -17,7 +17,7 @@ export class ActivitiesService {
   }
 
   getOne(params) {
-    return this.http.get(`${API_URL}activities/getOne`, {params: params});
+    return this.http.get(`${API_URL}activities/getOne`, {params});
   }
 
   add(params) {
