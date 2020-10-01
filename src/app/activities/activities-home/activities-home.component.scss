@@ -24,6 +24,15 @@
       margin-right: 16px;
       position: relative;
 
+      h1 {
+        color: #7BC447;
+        font: normal normal bold 20px/24px Roboto;
+      }
+
+      p {
+        color: #707070;
+      }
+
       button {
         position: absolute;
         bottom: 24px;
