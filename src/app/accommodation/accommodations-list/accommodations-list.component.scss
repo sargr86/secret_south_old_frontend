@@ -2,8 +2,8 @@
 @import 'mixins';
 
 .accommodation {
-  width: 1370px;
-  margin: 0 auto;
+  width: 1360px;
+  margin: 248px auto 0;
   display: flex;
   overflow: hidden;
 
@@ -16,10 +16,10 @@
       .search-item {
         width: 432px;
         height: 450px;
-        margin: 0 15px 32px;
         display: inline-block;
         box-shadow: 0 0 6px #00000029;
         border-radius: 5px;
+        margin-left: 32px;
 
         img {
           width: 432px;
@@ -37,17 +37,6 @@
           margin-top: 8px;
           margin-left: 39px;
           font: normal normal 16px 'Roboto-Regular';
-        }
-
-        .view-more {
-          width: 122px;
-          height: 43px;
-          background-color: $preferred_blue;
-          border: none;
-          color: $white;
-          font: normal normal 16px 'Roboto';
-          margin-top: 57px;
-          margin-left: 32px;
         }
       }
     }

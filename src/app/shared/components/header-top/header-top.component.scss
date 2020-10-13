@@ -3,8 +3,8 @@
 
 
 .header_top {
-  width: 1200px;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1360px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -44,8 +44,6 @@
   @include noBgBtn;
   cursor: pointer;
 }
-
-
 
 
 @import "media";

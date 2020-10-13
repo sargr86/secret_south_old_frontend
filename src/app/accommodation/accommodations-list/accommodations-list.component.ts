@@ -53,7 +53,6 @@ export class AccommodationsListComponent implements OnInit {
       this.locationControl.patchValue(accommodationsSearch.location);
     }
     this.getObjects(accommodationsSearch);
-    this.getAccommodations();
   }
 
   getObjects(search) {
@@ -79,33 +78,10 @@ export class AccommodationsListComponent implements OnInit {
     this.accommodationsForm.patchValue({location: e});
   }
 
-  getAccommodations() {
-    this.accommodationsService.get().subscribe((dt: Accommodation[]) => {
-      this.accommodationObjectsDropdown = dt;
-      this.filteredLocations = this.locationControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    });
-  }
-
-  private _filter(value: string): Accommodation[] {
-    const filterValue = value.toLowerCase();
-    const f = this.accommodationObjectsDropdown.filter(option => option.address.toLowerCase().indexOf(filterValue) === 0);
-
-    // removing duplicates
-    return f.filter((thing, index, self) =>
-      index === self.findIndex((t) => (
-        t.address === thing.address
-      ))
-    );
-  }
-
   search(e) {
     console.log(e)
     localStorage.setItem('accommodationsSearch', JSON.stringify(e));
     this.getObjects(e);
-    this.getAccommodations();
   }
 
   getPath(item, folder) {

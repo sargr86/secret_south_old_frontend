@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonService} from '@core/services/common.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -14,7 +14,8 @@ export class ActivitySubtypesHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     public common: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public router: Router
   ) {
     this.common.dataLoading = false;
   }
@@ -23,6 +24,10 @@ export class ActivitySubtypesHomeComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.route.data.subscribe((dt: any) => {
       this.activitySubtypes = dt.activity_subtypes;
     }));
+  }
+
+  async openSubtypePage(id) {
+    await this.router.navigate([`${this.router.url}/subtypes/${id}`]);
   }
 
   ngOnDestroy() {

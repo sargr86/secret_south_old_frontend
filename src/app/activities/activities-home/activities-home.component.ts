@@ -36,7 +36,7 @@ export class ActivitiesHomeComponent implements OnInit {
 
   async viewActivitySubType(subtype) {
     // subtype = subtype.toLowerCase().replace(/ /g, '');
-    await this.router.navigate([`activities/subtype/${subtype}`]);
+    await this.router.navigate([`activities/types/${subtype}`]);
   }
 
 }

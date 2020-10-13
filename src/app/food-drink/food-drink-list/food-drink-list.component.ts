@@ -9,6 +9,8 @@ import {SubjectService} from '@core/services/subject.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FoodDrinkService} from '@core/services/food-drink.service';
 import {ToastrService} from 'ngx-toastr';
+import {Accommodation} from '@shared/models/Accommodation';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-food-drink-list',
@@ -19,15 +21,9 @@ export class FoodDrinkListComponent implements OnInit {
 
   foodDrinkObjects: FoodDrink[];
   foodDrinkForm: FormGroup;
-  countryRestrictedPlaces = COUNTRY_RESTRICTED_PLACES;
   personsCount = 2;
-  timepickerTheme = TIMEPICKER_THEME;
   foodDrinkFolder = FOOD_DRINK_FOLDER;
-  bookingHours = RESTAURANT_BOOKING_HOURS;
   locationControl = new FormControl();
-  filteredLocations;
-
-  isSubmitted = false;
 
   constructor(
     private main: MainService,
@@ -105,7 +101,8 @@ export class FoodDrinkListComponent implements OnInit {
     return folder + '/' + decodeURIComponent(name) + '/' + item.img;
   }
 
-  search() {
-    console.log(this.foodDrinkForm.value)
+  search(e) {
+    localStorage.setItem('accommodationsSearch', JSON.stringify(e));
+    this.getObjects(e);
   }
 }

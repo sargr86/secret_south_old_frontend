@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
 import {ActivityTypesService} from '@core/services/activity-types.service';
+import {ActivatedRouteSnapshot} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActivitySubtypeResolverService {
+export class OneActivitySubtypeResolverService {
 
   constructor(
     private activitiesTypes: ActivityTypesService
@@ -13,6 +13,8 @@ export class ActivitySubtypeResolverService {
   }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.activitiesTypes.getSubtypes({id: route.params.id});
+    return this.activitiesTypes.getOneSubtype({id: route.params.sub_id});
   }
+
+
 }
