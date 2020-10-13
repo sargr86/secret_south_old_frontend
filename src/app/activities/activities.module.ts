@@ -12,6 +12,7 @@ import { ActivitiesHomeComponent } from './activities-home/activities-home.compo
 import {ActivitiesSingleComponent} from './activities-single/activities-single.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { ActivitySubtypesHomeComponent } from './activity-subtypes-home/activity-subtypes-home.component';
+import { ActivitySingleSubtypeComponent } from './activity-single-subtype/activity-single-subtype.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { ActivitySubtypesHomeComponent } from './activity-subtypes-home/activity
         ActivitiesHomeComponent,
         ActivitiesSingleComponent,
         ActivitiesListComponent,
-        ActivitySubtypesHomeComponent
+        ActivitySubtypesHomeComponent,
+        ActivitySingleSubtypeComponent
     ],
     imports: [
         CommonModule,

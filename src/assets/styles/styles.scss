@@ -423,20 +423,25 @@ mat-progress-bar .mat-progress-bar-buffer {
   top: 8px !important;
 
   svg {
-    //fill: white !important;
+    fill: #D2D2D2 !important;
     margin-left: 16px;
   }
 }
 
-.timepicker__header, .clock-face__number span.active {
-  //background-color: #164547 !important;
+.timepicker__header, .clock-face__number span.active, .clock-face__clock-hand {
+  background-color: #084f93 !important;
 }
+
+.timepicker-button {
+  color: #084f93 !important;
+}
+
 
 .timepicker-dial__item_active {
   outline: 1px solid #c0c0c05c;
 }
 
-.mat-datepicker-toggle-default-icon{
+.mat-datepicker-toggle-default-icon {
   fill: silver
 }
 
@@ -1354,7 +1359,8 @@ header:not(.timepicker__header) {
 }
 
 .owl-carousel .owl-item img {
-  height: 250px !important;
+  //height: 250px !important;
+  object-fit: cover !important;
 }
 
 .single-page-gallery {
@@ -1435,3 +1441,15 @@ agm-map {
   }
 
 }
+
+.view-more {
+  width: 122px;
+  height: 43px;
+  background-color: $preferred_blue;
+  border: none;
+  color: $white;
+  font: normal normal 16px 'Roboto';
+  margin-top: 57px;
+  margin-left: 32px;
+}
+

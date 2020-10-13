@@ -20,6 +20,9 @@ export class ActivityTypesService {
     return this.http.get(`${API_URL}activity_types/get-subtypes`, {params});
   }
 
+  getOneSubtype(params) {
+    return this.http.get(`${API_URL}activity_types/get-single-subtype`, {params});
+  }
 
 
 }

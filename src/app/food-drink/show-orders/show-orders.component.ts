@@ -4,6 +4,7 @@ import {ORDERS_TABLE_COLUMNS} from '@core/constants/global';
 import {Subscription} from 'rxjs';
 import {WebSocketService} from '@core/services/websocket.service';
 import {GetTableDataSourcePipe} from '@shared/pipes/get-table-data-source.pipe';
+import {FoodDrinkService} from '@core/services/food-drink.service';
 
 @Component({
   selector: 'app-show-orders',
@@ -19,7 +20,8 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   constructor(
     public common: CommonService,
     private websocketService: WebSocketService,
-    private getTableData: GetTableDataSourcePipe
+    private getTableData: GetTableDataSourcePipe,
+    private foodDrinkService: FoodDrinkService
   ) {
   }
 
@@ -28,6 +30,10 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
     this.websocketService.on('reserve-a-table').subscribe(data => {
       this.dataSource.data.push(data);
       console.log(this.dataSource)
+    });
+
+    this.foodDrinkService.getOrders({}).subscribe(data => {
+      this.dataSource.data = data;
     });
   }
 
@@ -46,11 +52,12 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   }
 
   acceptOrder(order) {
-    this.websocketService.emit('accept-order', order);
+    console.log('accept order!!!')
+    this.websocketService.emit('accept-table-order', order);
   }
 
   rejectOrder(order) {
-    this.websocketService.emit('reject-order', order);
+    this.websocketService.emit('reject-table-order', order);
   }
 
 

@@ -277,7 +277,8 @@ export const SINGLE_PAGE_GALLERY_OPTIONS = [
     'previewCloseOnEsc': true,
   },
   {},
-  {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+  // {'breakpoint': 500, 'width': '300px', 'height': '300px', 'thumbnailsColumns': 3},
+  {'thumbnails': false, 'imageBullets': true},  //'imageArrows': false
   {'breakpoint': 300, 'width': '100%', 'height': '200px', 'thumbnailsColumns': 2}
 ];
 

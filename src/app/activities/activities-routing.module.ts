@@ -12,6 +12,8 @@ import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ActivitySubtypesHomeComponent} from '@app/activities/activity-subtypes-home/activity-subtypes-home.component';
 import {ActivitySubtypeResolverService} from '@core/resolvers/activity-subtype-resolver.service';
+import {ActivitySingleSubtypeComponent} from '@app/activities/activity-single-subtype/activity-single-subtype.component';
+import {OneActivitySubtypeResolverService} from '@core/resolvers/one-activity-subtype-resolver.service';
 
 const routes: Routes = [
   {
@@ -20,11 +22,19 @@ const routes: Routes = [
     canActivate: [AdminPagesGuard]
   },
   {
-    path: 'subtype/:id',
+    path: 'types/:id',
     component: ActivitySubtypesHomeComponent,
     resolve: {
       activity_subtypes: ActivitySubtypeResolverService
-    },
+    }
+  },
+  {
+    path: 'types/:id/subtypes/:sub_id',
+    component: ActivitySingleSubtypeComponent,
+    pathMatch: 'full',
+    resolve: {
+      activity_subtype: OneActivitySubtypeResolverService
+    }
   },
   {
     path: 'show',
