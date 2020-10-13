@@ -34,6 +34,10 @@ export class FoodDrinkService {
     return this.http.get(`${API_URL}food-drink/get-by-address`, {params});
   }
 
+  getOrders(params) {
+    return this.http.get(`${API_URL}food-drink/get-orders`, {params});
+  }
+
   makeCover(params) {
     return this.http.put(`${API_URL}food-drink/make-cover`, params);
   }

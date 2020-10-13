@@ -8,6 +8,7 @@ import {FoodDrink} from '@shared/models/FoodDrink';
 import {map, startWith} from 'rxjs/operators';
 import {FilterLocationsForDropdownPipe} from '@shared/pipes/filter-locations-for-dropdown.pipe';
 import moment from 'moment';
+import {TIMEPICKER_THEME} from '@core/constants/global';
 
 @Component({
   selector: 'app-search-food-drink-form',
@@ -21,6 +22,7 @@ export class SearchFoodDrinkFormComponent implements OnInit {
   childrenCount = 2;
   locationControl = new FormControl();
   foodDrinkObjects: FoodDrink[] = [];
+  timepickerTheme = TIMEPICKER_THEME;
 
   filteredLocations;
   isSubmitted = false;
