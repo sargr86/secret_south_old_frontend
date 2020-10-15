@@ -23,6 +23,6 @@ export class ShowTourTypesComponent implements OnInit {
 
 
     getTourTypes() {
-        this.tourTypes = this._tours.getAllTourType();
+        this.tourTypes = this._tours.getAllTourTypes();
     }
 }

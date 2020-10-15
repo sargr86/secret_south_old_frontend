@@ -131,7 +131,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
      * Gets tour types list
      */
     getToursType() {
-        this._tours.getAllTourType().subscribe((types: any) => {
+        this._tours.getAllTourTypes().subscribe((types: any) => {
             this.tourTypes = types;
             if (types.length === 0) {
                 this.toastr.info('Please add at least one tour type.', 'No tour types', {timeOut: 0});
