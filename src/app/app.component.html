@@ -1,14 +1,16 @@
 <mat-sidenav-container>
-    <mat-sidenav [mode]="getMode(sidenav)" #sidenav
-                 id="sidenav" [opened]="checkDashboardPage()">
-        <app-sidebar (toggle)="closeSidenav(sidenav)"
-        ></app-sidebar>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
-      <mat-spinner [diameter]="30" *ngIf="common.dataLoading"></mat-spinner>
-<!--        <app-header (toggle)="sidenav.toggle()"></app-header>-->
-        <router-outlet></router-outlet>
-        <app-footer *ngIf="!checkDashboardPage() && !router.url.includes('auth')"></app-footer>
-    </mat-sidenav-content>
+  <mat-sidenav [mode]="getMode(sidenav)" #sidenav
+               id="sidenav" [opened]="checkDashboardPage()">
+    <app-sidebar (toggle)="closeSidenav(sidenav)"></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-navbar (toggleSide)="sidenav.toggle()"></app-navbar>
+    <mat-spinner [diameter]="30" *ngIf="common.dataLoading"></mat-spinner>
+    <!--        <app-header (toggle)="sidenav.toggle()"></app-header>-->
+<!--    <div class="non-dashboard-page-container" *ngIf="!checkDashboardPage()">-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </div>-->
+    <router-outlet></router-outlet>
+    <app-footer *ngIf="!checkDashboardPage() && !router.url.includes('auth')"></app-footer>
+  </mat-sidenav-content>
 </mat-sidenav-container>
