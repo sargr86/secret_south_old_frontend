@@ -31,7 +31,7 @@ export class ToursHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._tours.getAllTourType().subscribe(d => {
+    this._tours.getAllTourTypes().subscribe(d => {
       this.tourTypes = d;
     });
   }

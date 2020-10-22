@@ -33,7 +33,7 @@ export class ToursService {
         return this.http.post(`${API_URL}tour_types/add`, data, httpOptions);
     }
 
-    public getAllTourType() {
+    public getAllTourTypes() {
 
         const httpOptions = {
             headers: new HttpHeaders({

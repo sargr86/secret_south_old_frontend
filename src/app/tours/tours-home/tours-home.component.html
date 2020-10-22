@@ -6,133 +6,13 @@
             <p>Most Popular Tours</p>
             <div class="home_1_top_line"></div>
         </div>
-        <div class="home_1_block">
-            <div class="owl-carousel owl-theme" id="owl-one">
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-<!--                        <img src="assets/images/shutterstock-1014644104.png" alt="">-->
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Carrigaline Court Hotel</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-<!--                        <img src="assets/images/shutterstock-1060904396.png" alt="">-->
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Whispering Pines</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-                        <img src="assets/images/img_1.png" alt="">
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Bellevue B&B</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-<!--                        <img src="assets/images/shutterstock-1014644104.png" alt="">-->
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Carrigaline Court Hotel</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-<!--                        <img src="assets/images/shutterstock-1060904396.png" alt="">-->
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Whispering Pines</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="home_1_box image_list">
-                    <div class="home_1_box_img">
-                        <img src="assets/images/img_1.png" alt="">
-                    </div>
-                    <div class="home_1_box_bottom">
-                        <p class="home_1_box_tittle">Bellevue B&B</p>
-                        <div class="home_1_box_bottom_price">
-                            <p>FROM <span>$25</span> </p>
-                            <button type="button" name="button">View more</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <app-carousel-holder [items]="tourTypes" [folder]="toursFolder"
+                           [category]="'tours'" *ngIf="tourTypes"></app-carousel-holder>
         <div class="home_1_top">
             <p>Today's Top Tours</p>
             <div class="home_1_top_line"></div>
         </div>
-        <div class="home_1_block">
-            <div class="home_1_box">
-                <div class="home_1_box_img">
-                    <div class="home_1_box_img_opacity">
-                        <p>SAVE AN EXTRA 15%</p>
-                    </div>
-                    <img src="assets/images/img_1.png" alt="">
-
-                </div>
-                <div class="home_1_box_bottom">
-                    <p class="home_1_box_tittle">Garryvoe Hotel</p>
-                    <div class="home_1_box_bottom_price">
-                        <p>FROM <span>$25</span> </p>
-                        <button type="button" name="button">View more</button>
-                    </div>
-                </div>
-            </div>
-            <div class="home_1_box">
-                <div class="home_1_box_img">
-                    <img src="assets/images/img_1.png" alt="">
-                    <div class="home_1_box_img_opacity">
-                        <p>SAVE AN EXTRA 20%</p>
-                    </div>
-                </div>
-                <div class="home_1_box_bottom">
-                    <p class="home_1_box_tittle">Bayview Hotel</p>
-                    <div class="home_1_box_bottom_price">
-                        <p>FROM <span>$25</span> </p>
-                        <button type="button" name="button">View more</button>
-                    </div>
-                </div>
-            </div>
-            <div class="home_1_box">
-                <div class="home_1_box_img">
-                    <img src="assets/images/img_1.png" alt="">
-                    <div class="home_1_box_img_opacity">
-                        <p>SAVE AN EXTRA 25%</p>
-                    </div>
-                </div>
-                <div class="home_1_box_bottom">
-                    <p class="home_1_box_tittle">The Schooner Bar Ballycotton</p>
-                    <div class="home_1_box_bottom_price">
-                        <p>FROM <span>$25</span> </p>
-                        <button type="button" name="button">View more</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <app-carousel-holder [items]="tourTypes" [folder]="toursFolder"
+                           [category]="'tours'" *ngIf="tourTypes"></app-carousel-holder>
     </div>
 </section>
