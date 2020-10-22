@@ -19,37 +19,37 @@ import {CoreModule} from '@core/core.module';
 
 // Token getter for JWT module
 export function tokenGetter() {
-    return localStorage.getItem('token') || '';
+  return localStorage.getItem('token') || '';
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
-    imports: [
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        CoreModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                whitelistedDomains: ['localhost:3000', '68.183.36.96:80', 'secretsouth.ie', '68.183.36.96'],
-                blacklistedRoutes: ['localhost:3000/auth/', '68.183.36.96:80/auth/', 'secretsouth.ie/auth/', '68.183.36.96/auth/']
-            }
-        }),
-    ],
-    providers: [
-        JwtHelperService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: RequestInterceptor,
-            multi: true
-        },
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CoreModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:3000', '68.183.36.96:80', 'secretsouth.ie', '68.183.36.96'],
+        blacklistedRoutes: ['localhost:3000/auth/', '68.183.36.96:80/auth/', 'secretsouth.ie/auth/', '68.183.36.96/auth/']
+      }
+    }),
+  ],
+  providers: [
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    },
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
