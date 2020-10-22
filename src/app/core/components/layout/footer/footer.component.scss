@@ -7,8 +7,8 @@ footer {
 
   .blocks {
 
-    padding-left: 280px;
-    margin-top: 187px;
+    width: 90%;
+    margin: 178px auto 0;
     height: 360px;
     display: flex;
     align-items: center;
@@ -21,6 +21,7 @@ footer {
 
     .block {
       margin-left: 84px;
+      flex: 1;
       height: 238px;
       font: normal normal normal 20px Roboto;
       color: #707070;
@@ -38,6 +39,7 @@ footer {
 
       mat-icon {
         font-size: 18px;
+        color: #7BC447;
       }
 
       button {
@@ -53,11 +55,22 @@ footer {
     }
   }
 
+  .social-links{
+    margin-top: 32px;
+    display: flex;
+
+    a{
+      margin-right: 8px;
+      font-size: 21px;
+      color: #444444;
+    }
+  }
+
   .copyright-info {
     //width: 274px;
     //height: 14px;
     text-align: center;
-    font: normal normal normal 12px/14px Roboto;
+    font-size: 16px;
     color: #707070;
   }
 }
