@@ -1,9 +1,27 @@
 <header>
   <app-header-top [section]="'Ferries'"></app-header-top>
 
-  <div class="orderNow">
-    <button type="button" class="orderNowBtn" (click)="orderFerryNow()">ORDER NOW</button>
+
+  <div class="headerContent">
+    <img src="assets/images/logo_blue_gradient_white_text.png">
+
+    <div class="text">
+      <p>Where the Ancient East Ends and the wild atlantic way begins lies an undiscovered world of adventure, history and beauty.</p>
+      <span>Take the hassle out of arriving in Cork or departing with a private water taxi to see the sights.</span>
+
+      <ul>
+        <li><span class="material-icons"> check_circle </span>Realtime Bookings</li>
+        <li><span class="material-icons"> check_circle </span>Connect to Local Network</li>
+        <li><span class="material-icons"> check_circle </span>Mobile Ticketing</li>
+        <li><span class="material-icons"> check_circle </span>Create your own Adventure</li>
+      </ul>
+    </div>
+
+    <div class="orderNow">
+      <button type="button" class="orderNowBtn" (click)="orderFerryNow()">Book now</button>
+    </div>
   </div>
+
 
 <!--  <div class="logo"></div>-->
 

@@ -21,13 +21,15 @@ form {
     height: 51px;
 
     mat-icon {
+      color: #707070;
       position: absolute;
-      top: 11px;
+      top: 16px;
       left: 17px;
+      font-size: 22px;
     }
 
     input {
-      padding-left: 45px;
+      padding-left: 52px;
     }
   }
 
@@ -37,8 +39,13 @@ form {
 
     #check-in, #check-out {
       position: relative;
-      width: 216px;
       height: 51px;
+      margin-right: 16px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+
 
       .datepicker-toggle-icon {
         position: absolute;
@@ -47,7 +54,7 @@ form {
       }
 
       input {
-        padding-left: 45px;
+        padding-left: 52px;
 
       }
     }
@@ -56,22 +63,18 @@ form {
   #counts {
     display: flex;
     margin-top: 16px;
-    background-color: $white;
+    
 
     mat-icon {
       color: #D2D2D2;
     }
 
     #adults {
-      width: 142px;
+      flex: 1;
+      margin-right: 16px;
+      background-color: $white;
+ 
 
-      mat-icon {
-        margin-left: 19px;
-      }
-
-      span {
-        margin-left: 4px;
-      }
 
       .picker {
         margin-left: 8px;
@@ -79,30 +82,52 @@ form {
     }
 
     #children {
-      width: 151px;
-
+      background-color: $white;
+      flex: 1;
       .picker {
         margin-left: 25px;
       }
     }
 
-    #rooms {
-      width: 141px;
 
-      .picker {
-        margin-left: 29px;
+
+    #adults, #children {
+      display: flex;
+      align-items: center;
+      box-shadow: 0 0 6px #00000012;
+      height: 51px;
+
+      mat-icon {
+        margin-left: 19px;
+      }
+
+      span {
+        margin-left: 10px;
       }
     }
 
-    #adults, #children, #rooms {
-      display: flex;
-      align-items: center;
+    
+  }
+  #rooms {
+    margin-top: 16px;
+    background-color: $white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 6px #00000012;
+    height: 51px;
+    .picker {
+      margin-left: 29px;
+    }
 
-      box-shadow: 0 0 6px #00000012;
-      height: 51px;
+    img{
+      margin-left: 19px;
+    }
+
+    span{
+      margin-left: 16px;
     }
   }
-
   .search {
     width: 432px;
     height: 51px;

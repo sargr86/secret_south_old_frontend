@@ -60,26 +60,36 @@
       </div>
 
       <div class="locations-group" formArrayName="locations">
-        <ng-container *ngFor="let c of locations.controls;let ind = index">
-          <ng-container [formGroupName]="ind.toString()">
-            <div class="location-selector" [id]="getLocationId(ind)">
-              <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
-              <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
-                <option selected disabled>{{getPlaceholderText(ind)}}</option>
-                <option *ngFor="let direction of ferryDirections"
-                        [value]="direction.name">{{direction.name}}
-                <option>
-              </select>
-              <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
-                cancel
-              </i>
-              <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
-                The point is <strong>required</strong>
-              </mat-error>
 
+        <div class="locations-wrap">
+
+          <ng-container *ngFor="let c of locations.controls;let ind = index">
+            <ng-container [formGroupName]="ind.toString()">
+              <div class="location-selector" [id]="getLocationId(ind)">
+                <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
+                <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
+                  <option selected disabled>{{getPlaceholderText(ind)}}</option>
+                  <option *ngFor="let direction of ferryDirections"
+                          [value]="direction.name">{{direction.name}}
+                  <option>
+                </select>
+                <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
+                  cancel
+                </i>
+                <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
+                  The point is <strong>required</strong>
+                </mat-error>
+  
+              </div>
+            </ng-container>
+  
+            <div class="arrows" *ngIf="ind == 0">
+              <img src="assets/images/arrows.svg">
             </div>
           </ng-container>
-        </ng-container>
+        </div>
+
+
         <div id="add-location-btn">
           <button class="add-location" (click)="addLocation()" *ngIf="locations.controls.length < maxLocationsChoices">+
             Add location
@@ -101,6 +111,9 @@
               </ngx-material-timepicker-toggle>
             </mat-form-field>
           </div>
+
+
+
           <div class="end-time">
 
             <mat-label>End time</mat-label>

@@ -30,6 +30,9 @@ ul {
 
 .linksContainer {
   display: flex;
+  ul.sections{
+    margin: 0;
+  }
 }
 
 .sections {

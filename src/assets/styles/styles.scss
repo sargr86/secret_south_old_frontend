@@ -34,8 +34,11 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
   background: none !important;
 }
 
-.header_top {
+app-header-top{
   background-color: rgba(0, 0, 0, 0.26);
+}
+
+.header_top {
   padding: 10px;
 }
 
@@ -596,7 +599,7 @@ mat-progress-bar .mat-progress-bar-buffer {
           border: none;
           height: 51px;
           padding-left: 40px !important;
-          box-shadow: 0 0 6px #00000014;
+          box-shadow: 0px 0px 6px #00000029;
           outline: none !important;
         }
 
@@ -607,7 +610,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
         .input-group-text {
           border: none;
-          box-shadow: 0 0 6px #00000014;
+          box-shadow: 0px 0px 6px #00000029;
           background: #F2F2F2;
 
           > span {
@@ -627,7 +630,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
     #start-time, #end-time {
       padding-left: 32px !important;
-      box-shadow: 0 0 6px #00000014;
+      box-shadow: 0px 0px 6px #00000029;
       width: 200px;
       height: 51px;
     }
@@ -660,7 +663,7 @@ mat-progress-bar .mat-progress-bar-buffer {
         width: 370px;
         height: 51px;
         background: #7BC447 0 0 no-repeat padding-box;
-        box-shadow: 0 0 6px #00000014;
+        box-shadow: 0px 0px 6px #00000029;
         border: none;
         font: normal normal bold 16px/15px Roboto;
         color: #FFFFFF;
@@ -968,7 +971,6 @@ header:not(.timepicker__header) {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  padding-top: 14px;
   display: flex !important;
   flex-direction: column;
   justify-content: space-between;
