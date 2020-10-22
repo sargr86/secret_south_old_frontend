@@ -1,8 +1,6 @@
 @import "variables";
 
-form {
-  margin-top: 50px;
-
+form { 
   input {
     width: 100%;
     height: 100%;
@@ -23,14 +21,15 @@ form {
     height: 51px;
 
     mat-icon {
+      color: #707070;
       position: absolute;
-      top: 11px;
+      top: 16px;
       left: 17px;
-      color: #D2D2D2;
+      font-size: 22px;
     }
 
     input {
-      padding-left: 45px;
+      padding-left: 52px;
     }
   }
 
@@ -50,7 +49,7 @@ form {
       }
 
       input {
-        padding-left: 45px;
+        padding-left: 52px;
 
       }
     }
@@ -59,43 +58,50 @@ form {
   #counts {
     display: flex;
     margin-top: 16px;
-    background-color: $white;
+    
 
     mat-icon {
       color: #D2D2D2;
     }
 
     #adults {
-      width: 50%;
+      flex: 1;
+      margin-right: 16px;
+      background-color: $white;
+ 
+
+
+      .picker {
+        margin-left: 8px;
+      }
+    }
+
+    #children {
+      background-color: $white;
+      flex: 1;
+      .picker {
+        margin-left: 25px;
+      }
+    }
+
+
+
+    #adults, #children {
+      display: flex;
+      align-items: center;
+      box-shadow: 0 0 6px #00000012;
+      height: 51px;
 
       mat-icon {
         margin-left: 19px;
       }
 
       span {
-        margin-left: 4px;
-      }
-
-      .picker {
-        margin-left: 70px;
+        margin-left: 10px;
       }
     }
 
-    #children {
-      width: 50%;
-
-      .picker {
-        margin-left: 80px;
-      }
-    }
-
-    #adults, #children {
-      display: flex;
-      align-items: center;
-
-      box-shadow: 0 0 6px #00000012;
-      height: 51px;
-    }
+    
   }
 
   .search {

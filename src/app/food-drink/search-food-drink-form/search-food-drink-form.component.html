@@ -6,11 +6,11 @@
            aria-label="Number"
            [formControl]="locationControl"
            [matAutocomplete]="auto">
-    <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" [disableRipple]="true">
+    <!-- <button class="clear-location" matSuffix mat-icon-button aria-label="Clear" [disableRipple]="true">
       <mat-icon
         (click)="clearLocation()">close
       </mat-icon>
-    </button>
+    </button> -->
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                       (optionSelected)="locationChanged($event.option.value)">
       <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">

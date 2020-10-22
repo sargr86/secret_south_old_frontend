@@ -20,14 +20,15 @@ form {
     height: 51px;
 
     mat-icon {
+      color: #707070;
       position: absolute;
-      top: 11px;
+      top: 16px;
       left: 17px;
-      color: #D2D2D2;
+      font-size: 22px;
     }
 
     input {
-      padding-left: 45px;
+      padding-left: 52px;
     }
   }
 
@@ -41,13 +42,21 @@ form {
       height: 51px;
       margin-top: 16px;
 
+      svg{
+        margin: 0;
+      }
+
       input {
-        padding-left: 45px;
+        padding-left: 52px;
       }
     }
 
     #date {
       margin-left: 16px;
+
+      .mat-datepicker-toggle{
+        margin-left: 19px;
+      }
     }
   }
 
@@ -64,13 +73,7 @@ form {
       width: 48%;
       background-color: $white;
 
-      mat-icon {
-        margin-left: 19px;
-      }
 
-      span {
-        margin-left: 4px;
-      }
 
       .picker {
         margin-left: 70px;
@@ -83,7 +86,7 @@ form {
       background-color: $white;
 
       .picker {
-        margin-left: 75px;
+        //margin-left: 75px;
       }
     }
 
@@ -93,6 +96,14 @@ form {
 
       box-shadow: 0 0 6px #00000012;
       height: 51px;
+
+      mat-icon {
+        margin-left: 19px;
+      }
+
+      span {
+        margin-left: 10px;
+      }
     }
   }
 

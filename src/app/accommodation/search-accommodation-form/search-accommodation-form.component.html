@@ -6,11 +6,11 @@
            aria-label="Number"
            [formControl]="locationControl"
            [matAutocomplete]="auto">
-    <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
+    <!-- <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
       <mat-icon
         (click)="clearLocation()">close
       </mat-icon>
-    </button>
+    </button> -->
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                       (optionSelected)="locationChanged($event.option.value)">
       <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
@@ -61,17 +61,17 @@
                           (valueChange)="childrenCountChanged($event)"></ng-number-picker>
       </div>
     </div>
-    <div id="rooms">
-      <img src="assets/icons/bed.svg">
-      <span>Rooms</span>
-      <input type="hidden" formControlName="adults" class="hidden">
-      <div class="picker">
-        <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
-                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
-                          (valueChange)="roomsCountChanged($event)"></ng-number-picker>
-      </div>
-    </div>
   </div>
+      <div id="rooms">
+        <img src="assets/icons/bed.svg">
+        <span>Rooms</span>
+        <input type="hidden" formControlName="adults" class="hidden">
+        <div class="picker">
+          <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
+                            [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                            (valueChange)="roomsCountChanged($event)"></ng-number-picker>
+        </div>
+      </div>
   <div>
     <button class="search" (click)="search()" type="button">
       <i class="fa fa-search"></i>
