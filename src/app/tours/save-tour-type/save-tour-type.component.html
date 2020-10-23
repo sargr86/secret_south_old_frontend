@@ -17,7 +17,7 @@
 
         <!-- Tour type name -->
         <mat-form-field>
-            <input matInput formControlName="tour_name" placeholder="Tour type" required>
+            <input matInput formControlName="name" placeholder="Tour type" required>
             <mat-error *ngIf="nameCtrl.hasError('required')">
                 Tour type name is <strong>required</strong>
             </mat-error>
