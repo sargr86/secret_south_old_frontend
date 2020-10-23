@@ -8,7 +8,7 @@ import {AuthService} from '@core/services/auth.service';
     styleUrls: ['./show-tour-types.component.scss']
 })
 export class ShowTourTypesComponent implements OnInit {
-    displayedColumns: string[] = ['tour_name', 'actions'];
+    displayedColumns: string[] = ['name', 'actions'];
     tourTypes;
 
     constructor(

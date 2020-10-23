@@ -1,7 +1,7 @@
 <form [formGroup]="toursForm">
   <div id="address">
     <mat-icon>place</mat-icon>
-    <input type="text" #locationInput
+    <input type="text" #locationInput (change)="locationChanged($event)"
            placeholder="Where are you going?"
            aria-label="Number"
            [formControl]="locationControl"
@@ -56,7 +56,11 @@
 
   </div>
   <div id="tour-types">
-
+    <select (change)="tourTypesChanged($event)">
+      <option *ngFor="let t of tourTypes" [value]="t.id">
+        {{t.name}}
+      </option>
+    </select>
   </div>
   <div>
     <button class="search" (click)="search()" type="button">

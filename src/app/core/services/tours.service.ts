@@ -72,12 +72,12 @@ export class ToursService {
         return this.http.get(API_URL + 'tours/get', httpOptions);
     }
 
-    insertTours(data) {
+    add(data) {
 
         return this.http.post(`${API_URL}tours/add`, data);
     }
 
-    updateTour(params) {
+    update(params) {
         return this.http.put(`${API_URL}tours/update`, params);
     }
 
