@@ -39,3 +39,14 @@ export const ACCOMMODATION_FIELDS = {
   folder: 'accommodations',
   img: ''
 };
+
+export const TOURS_FIELDS = {
+  name: ['', Validators.required],
+  oldName: [''],
+  lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
+  lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
+  address: ['', Validators.required],
+  tours_type_id: ['', Validators.required],
+  company_id: ['', Validators.required],
+  folder: 'tours',
+};
