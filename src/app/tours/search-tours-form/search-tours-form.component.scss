@@ -33,6 +33,19 @@ form {
     }
   }
 
+  #tour-types {
+    background-color: $white;
+    margin-top: 10px;
+    height: 51px;
+
+    select {
+      height: 100%;
+      border: none;
+      width: 100%;
+      padding-left: 20px;
+    }
+  }
+
   #dates {
     display: flex;
     margin-top: 16px;

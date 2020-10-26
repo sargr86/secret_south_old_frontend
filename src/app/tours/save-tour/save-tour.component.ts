@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {ToursService} from '@core/services/tours.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/global';
+import {EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
 import {patternValidator} from '@core/helpers/pattern-validator';
@@ -13,226 +13,254 @@ import {Subscription} from 'rxjs';
 import {AuthService} from '@core/services/auth.service';
 import {Company} from '@shared/models/Company';
 import {CompaniesService} from '@core/services/companies.service';
+import {TOURS_FIELDS} from '@core/helpers/form-fields-getter';
+import {NgxGalleryOptions} from 'ngx-gallery-9';
+import {SubjectService} from '@core/services/subject.service';
+import {Tour} from '@shared/models/Tour';
+import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 
 @Component({
-    selector: 'app-save-tour',
-    templateUrl: './save-tour.component.html',
-    styleUrls: ['./save-tour.component.scss']
+  selector: 'app-save-tour',
+  templateUrl: './save-tour.component.html',
+  styleUrls: ['./save-tour.component.scss']
 })
 export class SaveTourComponent implements OnInit, OnDestroy {
 
 
-    @ViewChild('searchAddress')
-    public searchElementRef: ElementRef;
+  @ViewChild('searchAddress')
+  public searchElementRef: ElementRef;
 
-    partners: Partner[] = [];
-    tourTypes = [];
-    saveTourForm: FormGroup;
-    uploadImages;
-    tourFields = {
-        'name': ['', Validators.required],
-        'lat': ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
-        'lng': ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
-        'address': ['', Validators.required],
-        'tours_type_id': ['', Validators.required],
-        'partner_id': ['', Validators.required]
-    };
-    editCase = false;
-    spinnerDiameter = SPINNER_DIAMETER;
-    redirectUrl = this.auth.checkRoles('admin') ? 'admin/tours' : 'partners/tours';
+  partners: Partner[] = [];
+  tourTypes = [];
+  saveTourForm: FormGroup;
+  uploadImages;
+  tourFields = TOURS_FIELDS;
+  editCase = false;
+  spinnerDiameter = SPINNER_DIAMETER;
+  redirectUrl = this.auth.checkRoles('admin') ? 'admin/tours' : 'partners/tours';
 
-    dropZoneFile;
-    tourData;
-    imgPath;
+  tourData: Tour;
+  coverPath;
+  coverShown = true;
 
-    options = {types: ['geocode']};
+  options = {types: ['geocode']};
 
-    routeDataSubscription: Subscription;
-    partnersSubscription: Subscription;
+  routeDataSubscription: Subscription;
+  partnersSubscription: Subscription;
 
-    subscriptions: Subscription[] = [];
-    companies: Company[];
+  galleryOptions: NgxGalleryOptions[] = EDIT_FORM_GALLERY_OPTIONS;
 
-    constructor(
-        private _tours: ToursService,
-        private _fb: FormBuilder,
-        public router: Router,
-        private route: ActivatedRoute,
-        // private mapsAPILoader: MapsAPILoader,
-        private toastr: ToastrService,
-        public common: CommonService,
-        private checkFormData: CheckFormDataPipe,
-        public auth: AuthService,
-        private _companies: CompaniesService
-    ) {
+  subscriptions: Subscription[] = [];
+  companies: Company[];
 
-        // this.getPartners();
-        this.getCompanies();
-        this.getToursType();
+  dropZoneFiles = [];
+  dropzoneConfig = {
+    maxFiles: 10
+  };
 
-    }
+  formAction;
 
-    ngOnInit() {
+  constructor(
+    private _tours: ToursService,
+    private _fb: FormBuilder,
+    public router: Router,
+    private route: ActivatedRoute,
+    // private mapsAPILoader: MapsAPILoader,
+    private toastr: ToastrService,
+    public common: CommonService,
+    private checkFormData: CheckFormDataPipe,
+    public auth: AuthService,
+    private _companies: CompaniesService,
+    private subject: SubjectService,
+    private _formMsg: ShowFormMessagePipe,
+    private formData: BuildFormDataPipe
+  ) {
 
-        this.common.dataLoading = true;
-        this.subscriptions.push(this.route.data.subscribe(dt => {
-            if (this.route.snapshot.paramMap.get('id')) {
-                this.tourData = dt['oneTour'];
-                this.tourFields['id'] = '';
-                this.saveTourForm = this._fb.group(this.tourFields);
-                this.saveTourForm.patchValue(this.tourData);
-                this.saveTourForm.controls['address'].disable();
-                this.editCase = true;
-                if (this.tourData['img']) {
-                    this.imgPath = TOURS_FOLDER + this.tourData['img'];
-                }
-            }
-            this.common.dataLoading = false;
-        }));
+    this.getCompanies();
+    this.getToursType();
 
-        if (!this.editCase) {
-            this.saveTourForm = this._fb.group(this.tourFields);
+  }
+
+  ngOnInit() {
+
+    this.common.dataLoading = true;
+    this.subscriptions.push(this.route.data.subscribe(dt => {
+      this.coverShown = !!this.coverPath;
+      this.formAction = this.editCase ? 'update' : 'add';
+      if (this.route.snapshot.paramMap.get('id')) {
+        this.tourData = dt['oneTour'];
+        this.tourFields['id'] = '';
+        this.saveTourForm = this._fb.group(this.tourFields);
+        this.saveTourForm.patchValue(this.tourData);
+        this.saveTourForm.controls['address'].disable();
+        this.editCase = true;
+        if (this.tourData['img']) {
+          console.log(this.tourData)
+          this.coverPath = this.tourData['realFolder'] + '/' + this.tourData['img'];
         }
+      }
+      this.common.dataLoading = false;
+    }));
+
+    if (!this.editCase) {
+      this.saveTourForm = this._fb.group(this.tourFields);
     }
+  }
 
-    /**
-     * Resets address and reloads maps api to allow user to select from drop down again
-     */
-    resetAddress() {
-        this.saveTourForm.patchValue({'address': ''});
-        this.saveTourForm.controls['address'].enable();
-        // this.mapsAPILoader.load().then(() => {
-        //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
-        // });
+  /**
+   * Resets address and reloads maps api to allow user to select from drop down again
+   */
+  resetAddress() {
+    this.saveTourForm.patchValue({'address': ''});
+    this.saveTourForm.controls['address'].enable();
+    // this.mapsAPILoader.load().then(() => {
+    //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['geocode']});
+    // });
+  }
+
+  /**
+   * Gets ferry companies list
+   */
+  getCompanies() {
+    this.subscriptions.push(this._companies.get({name: 'tours'}).subscribe((dt: Company[]) => {
+      this.companies = dt;
+      this.checkFormData.transform('tours', this.tourData, this.companies, this.editCase);
+    }));
+  }
+
+  /**
+   * Gets tour types list
+   */
+  getToursType() {
+    this._tours.getAllTourTypes().subscribe((types: any) => {
+      this.tourTypes = types;
+      if (types.length === 0) {
+        this.toastr.info('Please add at least one tour type.', 'No tour types', {timeOut: 0});
+      }
+    });
+  }
+
+  /**
+   * Gets uploaded file list
+   * @param files files object
+   */
+  // getFiles(files) {
+  //   this.uploadImages = files.item(0);
+  // }
+
+  removeDropzoneImg(e) {
+    this.dropZoneFiles = this.dropZoneFiles.filter(f => e.name !== f.name);
+  }
+
+
+  saveTour(address) {
+    // if (this.foodDrinkForm.valid) {
+    console.log(this.dropZoneFiles)
+    this.common.formProcessing = true;
+    const formData = this.formData.transform({
+      ...this.tourForm.value,
+      address: (<HTMLInputElement>document.querySelector('#searchAddress')).value
+    }, this.dropZoneFiles);
+
+    this.subscriptions.push(this._tours[this.formAction](formData).subscribe(() => {
+      this._formMsg.transform('tours', this.editCase, this.redirectUrl);
+    }));
+
+    // }
+  }
+
+
+  /**
+   * Add or edit a tour
+   * @param searchAddress search full address
+   */
+  // saveTour(searchAddress) {
+  //
+  //   // if (this.saveTourForm.valid) {
+  //
+  //   // if (!this.dropZoneFile && !this.editCase) {
+  //   //     this.toastr.error('Please select an image to upload', 'No files');
+  //   // } else {
+  //   this.common.formProcessing = true;
+  //   const data = this.saveTourForm.value;
+  //   const fd = new FormData();
+  //   fd.append('lat', data.lat);
+  //   fd.append('lng', data.lng);
+  //   fd.append('name', data.name);
+  //   fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
+  //   fd.append('company_id', data.company_id ? data.company_id : '');
+  //   fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
+  //   fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
+  //   if (!this.coverPath) {
+  //
+  //     fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
+  //   }
+  //   fd.append('folder', data.folder);
+  //
+  //   if (this.editCase) {
+  //     fd.append('id', data['id'])
+  //     this._tours.updateTour(fd).subscribe(dt => {
+  //       this.common.formProcessing = false;
+  //       this.router.navigate([this.redirectUrl]);
+  //       this.toastr.success('The tour info has been updated successfully', 'Updated!');
+  //     });
+  //   } else {
+  //     this._tours.insertTours(fd).subscribe((r: any) => {
+  //       this.common.formProcessing = false;
+  //       this.router.navigate([this.redirectUrl]);
+  //       this.toastr.success('The tour info has been added successfully', 'Added!');
+  //     });
+  //   }
+  //   // }
+  //
+  //
+  //   // }
+  //
+  //
+  // }
+
+
+  getFile(e) {
+    this.dropZoneFiles.push(e);
+  }
+
+  removeSavedImg() {
+    this.coverPath = '';
+  }
+
+  toggleSidebar(action) {
+    this.subject.setSidebarAction(action);
+  }
+
+
+  get tourForm() {
+    return this.saveTourForm;
+  }
+
+  get nameCtrl() {
+    return this.tourForm.get('name');
+  }
+
+  get latCtrl() {
+    return this.tourForm.get('lat');
+  }
+
+  get lngCtrl() {
+    return this.tourForm.get('lng');
+  }
+
+  get addressCtrl() {
+    return this.tourForm.get('address');
+  }
+
+  ngOnDestroy() {
+    if (this.routeDataSubscription) {
+      this.routeDataSubscription.unsubscribe();
     }
-
-    /**
-     * Gets ferry companies list
-     */
-    getCompanies() {
-        this.subscriptions.push(this._companies.get({name: 'tours'}).subscribe((dt: Company[]) => {
-            this.companies = dt;
-            this.checkFormData.transform('tours', this.tourData, this.companies, this.editCase);
-        }));
+    if (this.partnersSubscription) {
+      this.partnersSubscription.unsubscribe();
     }
-
-
-    /**
-     * Gets partners list
-     */
-    getPartners() {
-        this.partnersSubscription = this._tours.getPartners().subscribe((r: any) => {
-            this.partners = r;
-            this.checkFormData.transform('tour', this.tourData, this.partners, this.editCase);
-        });
-    }
-
-    /**
-     * Gets tour types list
-     */
-    getToursType() {
-        this._tours.getAllTourTypes().subscribe((types: any) => {
-            this.tourTypes = types;
-            if (types.length === 0) {
-                this.toastr.info('Please add at least one tour type.', 'No tour types', {timeOut: 0});
-            }
-        });
-    }
-
-    /**
-     * Gets uploaded file list
-     * @param files files object
-     */
-    getFiles(files) {
-        this.uploadImages = files.item(0);
-    }
-
-    /**
-     * Add or edit a tour
-     * @param searchAddress search full address
-     */
-    saveTour(searchAddress) {
-
-        // if (this.saveTourForm.valid) {
-
-        // if (!this.dropZoneFile && !this.editCase) {
-        //     this.toastr.error('Please select an image to upload', 'No files');
-        // } else {
-        this.common.formProcessing = true;
-        const data = this.saveTourForm.value;
-        const fd = new FormData();
-        fd.append('lat', data.lat);
-        fd.append('lng', data.lng);
-        fd.append('name', data.name);
-        fd.append('tours_type_id', data.tours_type_id ? data.tours_type_id : '');
-        fd.append('partner_id', data.partner_id ? data.partner_id : '');
-        fd.append('address', searchAddress.el.nativeElement.value.replace(/\r?\n|\r/g, ''));
-        fd.append('upload_image', this.dropZoneFile ? this.dropZoneFile : '');
-        if (!this.imgPath) {
-
-            fd.append('img', this.dropZoneFile ? this.dropZoneFile.name : '');
-        }
-        fd.append('img_path', this.imgPath ? this.imgPath : '');
-
-        if (this.editCase) {
-            fd.append('id', data['id'])
-            this._tours.updateTour(fd).subscribe(dt => {
-                this.common.formProcessing = false;
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The tour info has been updated successfully', 'Updated!');
-            });
-        } else {
-            this._tours.insertTours(fd).subscribe((r: any) => {
-                this.common.formProcessing = false;
-                this.router.navigate([this.redirectUrl]);
-                this.toastr.success('The tour info has been added successfully', 'Added!');
-            });
-        }
-        // }
-
-
-        // }
-
-
-    }
-
-
-    getFile(e) {
-        this.dropZoneFile = e;
-    }
-
-    removeSavedImg() {
-        this.imgPath = '';
-    }
-
-
-    get tourForm() {
-        return this.saveTourForm;
-    }
-
-    get nameCtrl() {
-        return this.tourForm.get('name');
-    }
-
-    get latCtrl() {
-        return this.tourForm.get('lat');
-    }
-
-    get lngCtrl() {
-        return this.tourForm.get('lng');
-    }
-
-    get addressCtrl() {
-        return this.tourForm.get('address');
-    }
-
-    ngOnDestroy() {
-        if (this.routeDataSubscription) {
-            this.routeDataSubscription.unsubscribe();
-        }
-        if (this.partnersSubscription) {
-            this.partnersSubscription.unsubscribe();
-        }
-    }
+  }
 
 }
