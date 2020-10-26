@@ -34,12 +34,23 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
   background: none !important;
 }
 
-app-header-top{
-  background-color: rgba(0, 0, 0, 0.26);
-}
 
 .header_top {
   padding: 10px;
+  background-color: rgba(0, 0, 0, 0.26);
+
+  &.color-black{
+    box-shadow: 0px 0px 6px #00000029;
+    background: transparent;
+
+    *:not(.selected){color: #707070;}
+    .selected {
+      span{
+        color: #7BC447 !important;
+
+        }
+    }
+  }
 }
 
 
@@ -550,8 +561,11 @@ mat-progress-bar .mat-progress-bar-buffer {
       justify-content: space-between;
 
       .start-time, .end-time {
-        width: 200px !important;
-
+        //width: 200px !important;
+        
+        .mat-form-field-infix{
+          width: 100%;
+        }
         mat-label {
           display: block;
           margin-top: 40px;
@@ -577,7 +591,7 @@ mat-progress-bar .mat-progress-bar-buffer {
       .adults-count, .children-count {
 
         position: relative;
-        width: 123px !important;
+        //width: 123px !important;
 
 
         mat-label {
@@ -624,14 +638,14 @@ mat-progress-bar .mat-progress-bar-buffer {
       }
 
       .children-count {
-        margin-left: 20px;
+        margin-left: 32px;
       }
     }
 
     #start-time, #end-time {
       padding-left: 32px !important;
       box-shadow: 0px 0px 6px #00000029;
-      width: 200px;
+      //width: 200px;
       height: 51px;
     }
   }
@@ -1399,7 +1413,7 @@ header:not(.timepicker__header) {
 
 
 agm-map {
-  height: 435px !important;
+  height: 360px !important;
 }
 
 
@@ -1456,3 +1470,20 @@ agm-map {
   margin-left: 32px;
 }
 
+.accommodation-single-page{
+  .right-side{
+    .map-box{
+      margin-top: 32px;
+    }
+  }
+}
+
+.home_1{
+  .owl-theme {
+    .owl-nav{
+      .owl-prev,.owl-next{
+        padding: 5px 11px;
+      }
+    }
+  }
+}
