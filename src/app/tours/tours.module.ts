@@ -10,6 +10,8 @@ import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import { ToursHomeComponent } from './tours-home/tours-home.component';
 import { ToursHeaderComponent } from './tours-header/tours-header.component';
 import { SearchToursFormComponent } from './search-tours-form/search-tours-form.component';
+import { ToursSingleComponent } from './tours-single/tours-single.component';
+import { ToursListComponent } from './tours-list/tours-list.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { SearchToursFormComponent } from './search-tours-form/search-tours-form.
         SaveTourTypeComponent,
         ToursHomeComponent,
         ToursHeaderComponent,
-        SearchToursFormComponent
+        SearchToursFormComponent,
+        ToursSingleComponent,
+        ToursListComponent
     ],
     imports: [
         CommonModule,

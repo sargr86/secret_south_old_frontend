@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'mixins';
+
+.page-container {
+  display: flex;
+  width: 1360px;
+  margin: 100px auto 0;
+
+  .left-side {
+    width: 432px;
+  }
+
+  .right-side {
+    width: 64%;
+    padding-left: 32px;
+  }
+}
