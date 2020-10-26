@@ -2,27 +2,28 @@
 
 .box {
   border: solid 1px #dcdcdc;
-  width: 378px;
+  margin-right: 32px;
   height: unset;
-
+  // box-shadow: 0px 0px 6px #00000029;
+  border-radius: 5px;
 
   .no_image {
     background-image: url('../../../../assets/images/no_image_slider.jpg');
     background-position: center center;
     background-size: cover;
+    border-radius: 5px;
     height: 250px;
-
   }
 
   .info {
-    padding: 20px;
+    padding: 24px 16px 48px 32px;
 
     .name {
       font-size: 24px;
       font-weight: bold;
-      color: #00253c;
-      margin: 0 0 29px 0;
+      color: #414141;
       font-family: "Roboto";
+      margin-right: 12px;
     }
 
 
@@ -30,10 +31,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #0b9194;
-
+      
       p {
-        font-size: 24px;
+        color: #7BC447;
+        font-weight: bold;
+        font-size: 20px;
       }
 
       span {
@@ -42,9 +44,27 @@
 
     }
 
+    .infoTxt{
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span{
+        margin-right: 12px;
+        color: #414141;
+        font-size: 16px;
+      }
+
+      p{
+        font-size: 16px;
+        color: #949494;
+      }
+    }
+
     button {
-      width: 122px;
-      height: 43px;
+      margin-top: 24px;
+      padding: 12px 24px;
       color: #fff;
       font-size: 16px;
       background-color: $preferred_blue;
@@ -65,6 +85,66 @@
 
 }
 
+
+
+.reviews{
+  margin-top: 16px;
+  .stars{
+      letter-spacing: 6px;
+  }
+}
+
+.stars{
+  &.st_0{
+      i{
+          color: #DEDEDE;
+      }
+  }
+
+  &.st_1{
+      i{
+          color: #DEDEDE;
+          &:nth-child(1){
+              color: #ffc357;
+          }
+      }
+  }
+  &.st_2{
+      i{
+          color: #DEDEDE;
+          &:nth-child(1),&:nth-child(2){
+            color: #ffc357;
+          }
+      }
+  }
+  &.st_3{
+      i{
+          color: #DEDEDE;
+          &:nth-child(1),&:nth-child(2),&:nth-child(3){
+            color: #ffc357;
+          }
+      }
+  }
+  &.st_4{
+      i{
+          color: #DEDEDE;
+          &:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(4){
+            color: #ffc357;
+          }
+      }
+  }
+  &.st_5{
+      i{
+        color: #ffc357;
+      }
+  }
+
+  i{
+      font-size: 18px;
+  }
+}
+
+ 
 ul {
   display: flex;
   overflow-x: scroll;
@@ -79,7 +159,7 @@ ul {
   width: 100%;
   height: 28px;
   overflow: hidden;
-  font-size: 22px !important;
+  font-size: 20px !important;
 }
 
 .actual_image {
