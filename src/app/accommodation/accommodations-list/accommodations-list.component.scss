@@ -13,16 +13,23 @@
 
   #right-side {
     ul {
+      margin-left: 32px;
+      display: flex;
+      flex-wrap: wrap;
       .search-item {
-        width: 432px;
+        flex: 0 0 calc(50% - 16px);
         height: 450px;
-        display: inline-block;
         box-shadow: 0 0 6px #00000029;
         border-radius: 5px;
-        margin-left: 32px;
+        margin-right: 32px;
+        margin-bottom: 32px;
+        
+        &:nth-child(2n + 2){
+          margin-right: 0;
+        }
 
         img {
-          width: 432px;
+          width: 100%;
           height: 244px;
           object-fit: cover;
         }

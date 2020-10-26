@@ -9,13 +9,29 @@
           <img *ngIf="item.img" [src]="getPath(item, folder)">
           <div *ngIf="!item.img" class="no_image"></div>
           <div class="info">
-            <span class="name">{{item.name}}</span>
             <div class="priceTxt">
-<!--              <p>FROM <span>$25</span></p>-->
-              <button type="button" name="button"
-                      (click)="router.navigate([category+'/single/'+item.id])">View more
-              </button>
+              <span class="name">{{item.name}}</span>
+              <p>$25</p>
             </div>
+
+            <div class="infoTxt">
+              <span>Ireland, Dublin</span>
+              <p>per night</p>
+            </div>
+
+            <div class="reviews">
+              <div class="stars st_4">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+            </div>
+
+            <button type="button" name="button"
+                    (click)="router.navigate([category+'/single/'+item.id])">View more
+            </button>
           </div>
         </div>
       </ng-template>
