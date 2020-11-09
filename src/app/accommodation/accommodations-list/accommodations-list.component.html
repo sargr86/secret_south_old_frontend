@@ -1,17 +1,28 @@
 <app-header-top [section]="'Accommodations'"></app-header-top>
-<section class="accommodation">
-  <section id="left-side">
-    <app-search-accommodation-form (searchClicked)="search($event)"></app-search-accommodation-form>
-  </section>
-  <section id="right-side">
-    <ul>
-      <li class="search-item" *ngFor="let obj of accommodationObjects">
-        <img *ngIf="obj.img" [src]="getPath(obj, accommodationsFolder)" alt="">
-        <div *ngIf="!obj.img" class="no_image"></div>
-        <p class="name">{{obj.name}}</p>
-        <p class="address">{{obj.address}}</p>
-        <button class="view-more" (click)="router.navigate(['accommodations/single/'+obj.id])">View more</button>
-      </li>
-    </ul>
-  </section>
+<section class="accommodation accommodation-page">
+  <h1>200 vacation rentals in Cork on Jul 20 - Aug 20</h1>
+  <div class="accommodation-inner">
+    <section id="left-side">
+      <app-search-accommodation-form (searchClicked)="search($event)"></app-search-accommodation-form>
+    </section>
+    <section id="right-side">
+      <div class="sort-price">
+        <h2>Sort by Price</h2>
+          <ul>
+            <li class="active">Low to high</li>
+            <li>High to low</li>
+            <li>Choose on map</li>
+          </ul>
+      </div>
+      <ul>
+        <li class="search-item" *ngFor="let obj of accommodationObjects">
+          <img *ngIf="obj.img" [src]="getPath(obj, accommodationsFolder)" alt="">
+          <div *ngIf="!obj.img" class="no_image"></div>
+          <p class="name">{{obj.name}}</p>
+          <p class="address">{{obj.address}}</p>
+          <button class="view-more" (click)="router.navigate(['accommodations/single/'+obj.id])">View more</button>
+        </li>
+      </ul>
+    </section>
+  </div>
 </section>

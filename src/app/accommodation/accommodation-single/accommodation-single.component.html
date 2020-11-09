@@ -25,6 +25,21 @@
     <img src="assets/images/no_image_slider.jpg" class="no-images"
          *ngIf="accommodationProvider && accommodationProvider.images.length ===0">
 
+
+    <div class="gallery-small-images">
+        <div class="item-wrap">
+            <div class="item" style="background-image: url(assets/images/tours_bg2.jpg);"></div>
+            <div class="item" style="background-image: url(assets/images/suite-6_1544175479.png);"></div>
+            <div class="item" style="background-image: url(assets/images/snorkelling_old.png);"></div>
+            <div class="item" style="background-image: url(assets/images/sailing_old.png);"></div>
+        </div>
+    </div>
+
+    <div class="info-text">
+      <h1>Crosshaven House (Upstairs)</h1>
+      <p>Crosshaven House is an elegant eighteenth century country house set in the picturesque village of Crosshaven, overlooking Currabinny Wood and Cork Harbour. It is where the spaciousness and elegance of the Georgian age is combined with the comforts of modern living. The spacious and elegant reception rooms are complimented by the 5 separate suites on the upper floors, offering the height of luxury with a homely and comfortable feel. Catering equally well for wedding parties or families, you will be assured a stay to remember.</p>
+    </div>
+
     <div class="map-box">
       <div id="map-container-google-1" class="z-depth-1-half map-container map-area">
         <agm-map [latitude]="+accommodationProvider.lat" [longitude]="+accommodationProvider.lng" [zoom]="16"

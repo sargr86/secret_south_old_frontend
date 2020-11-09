@@ -81,10 +81,11 @@ form {
     }
 
     #stop-1, #stop-2 {
+      flex: 0 0 100%;
       display: flex;
       align-items: center;
       clear: both;
-      margin-top: 16px;
+      margin-top: 16px !important;
 
       select {
         width: 93%;
@@ -111,9 +112,15 @@ form {
       }
 
       .remove-location-icon {
-        color: #0000005c;
-        font-size: 21px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 51px;
+        width: 56px;
+        color: #d2d2d2;
+        font-size: 26px;
         margin-left: 10px;
+        box-shadow: 0px 0px 6px #00000029;
         cursor: pointer;
       }
     }
@@ -123,7 +130,7 @@ form {
       margin-top: 16px;
 
       .add-location {
-        width: 476px;
+        width: 100%;
         height: 51px;
         background: #084F93 0 0 no-repeat padding-box;
         box-shadow: 0px 0px 6px #00000029;
@@ -240,6 +247,7 @@ form {
  
 .locations-wrap{
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   .location-selector{
     float: none !important;

@@ -24,8 +24,8 @@
     <p class="login" (click)="router.navigate(['auth/login'])" *ngIf="!auth.loggedIn()">Log in</p>
 
 
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <img src="assets/icons/user_rounded.svg" *ngIf="auth.loggedIn()">
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="auth.loggedIn()">
+      <img src="assets/icons/user_rounded.svg">
       <!--      <mat-icon>more_vert</mat-icon>-->
     </button>
     <mat-menu #menu="matMenu">
@@ -48,4 +48,9 @@
     <!--      Logout-->
     <!--    </p>-->
   </div>
+</div>
+
+
+<div class="help-wrap">
+  <img src="assets/images/help-icon.svg">
 </div>
