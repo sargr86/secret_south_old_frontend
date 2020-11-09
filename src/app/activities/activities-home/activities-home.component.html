@@ -3,13 +3,14 @@
 <div id="activity-types">
   <div class="activity-type" *ngFor="let type of activityTypes">
     <div class="left-side">
-      <div class="image">
-        <img src="assets/images/{{getImageName(type.name)}}.png" alt="{{type.name}}">
-      </div>
+      <div class="image" style="background-image: url(assets/images/{{getImageName(type.name)}}.png);"></div>
     </div>
+
     <div class="right-side">
-      <h1>{{type.name}}</h1>
-      <p>{{type.description}}</p>
+      <div class="text">
+        <h1>{{type.name}}</h1>
+        <p>{{type.description}}</p>
+      </div>
 
       <button (click)="viewActivitySubType(type.id)">View more</button>
     </div>

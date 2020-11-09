@@ -47,10 +47,13 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
     .selected {
       span{
         color: #7BC447 !important;
-
-        }
+      }
     }
   }
+}
+
+.input-g{
+  display: flex;
 }
 
 
@@ -166,6 +169,16 @@ table.mat-table {
 
   .item {
     text-transform: capitalize;
+  }
+}
+
+.help-wrap{
+  position: fixed;
+  bottom: 56px;
+  right: 56px;
+  cursor: pointer;
+  img{
+    width: 60px;
   }
 }
 
@@ -562,7 +575,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
       .start-time, .end-time {
         //width: 200px !important;
-        
+
         .mat-form-field-infix{
           width: 100%;
         }
@@ -1470,7 +1483,7 @@ agm-map {
   margin-left: 32px;
 }
 
-.accommodation-single-page{
+.accommodation-single-page, .food-drink-single-page{
   .right-side{
     .map-box{
       margin-top: 32px;
