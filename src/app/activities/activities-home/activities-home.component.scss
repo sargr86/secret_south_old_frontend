@@ -1,48 +1,90 @@
 #activity-types {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   max-width: 1400px;
-  margin: auto;
+  margin: 100px auto 0;
+  padding: 0 16px;
 
   .activity-type {
-    width: 664px;
-    height: 397px;
+    flex: 0 0 calc(50% - 16px);
+    display: flex;
     box-shadow: 0 0 6px #00000017;
-    display: inline-flex;
-    margin: 32px 0 0 32px;
+    margin: 32px 32px 0px 0px;
+
+    &:nth-child(2n + 2){
+      margin-right: 0;
+    }
 
     .left-side {
-
-
-      img {
-        width: 264px;
+      flex: 0 0 260px;
+      .image{
+        width: 100%;
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
 
     .right-side {
-      width: 360px;
-      margin-left: 24px;
-      margin-right: 16px;
-      position: relative;
+      flex: 1;
+      padding: 24px;
+
+      .text{
+        height: 100%;
+        height: calc(100% - 64px);
+        margin-bottom: 16px;
+      }
 
       h1 {
         color: #7BC447;
-        font: normal normal bold 20px/24px Roboto;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       p {
         color: #707070;
+        -webkit-line-clamp: 9;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       button {
-        position: absolute;
-        bottom: 24px;
-        width: 122px;
-        height: 43px;
+        background-color: #084f93;
+        padding: 12px 24px;
         color: #fff;
         font-size: 16px;
-        background-color: #084f93;
         border: none;
-        margin-top: 78px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #activity-types {
+    .activity-type{
+      flex: 0 0 100%;
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #activity-types {
+    margin: 0px auto 0;
+    .activity-type{
+      display: block;
+      .left-side{
+        .image{
+          height: 280px;
+        }
       }
     }
   }
