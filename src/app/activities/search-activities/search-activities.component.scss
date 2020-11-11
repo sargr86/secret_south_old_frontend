@@ -1,0 +1,117 @@
+@import "variables";
+
+form {
+  width: 432px;
+
+  > div {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+input {
+  width: 100%;
+  height: 51px;
+}
+
+
+select {
+  border: 1px solid silver;
+  height: 51px;
+  width: 100%;
+}
+
+#location {
+  position: relative;
+
+  input {
+    border: none;
+  }
+
+  input::placeholder {
+    padding-left: 30px !important;
+  }
+
+  mat-icon {
+    color: #707070;
+    position: absolute;
+    top: 16px;
+    left: 4px;
+    font-size: 22px;
+  }
+}
+
+#adults {
+  flex: 1;
+  margin-right: 16px;
+  background-color: $white;
+
+
+  .picker {
+    margin-left: 24px;
+  }
+}
+
+#children {
+  background-color: $white;
+  flex: 1;
+
+  .picker{
+    margin-left: 10px;
+  }
+}
+
+
+#adults, #children {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 6px #00000012;
+  width: 134px;
+  height: 51px;
+
+  mat-icon {
+    margin-left: 5px;
+  }
+
+  span {
+    margin-left: 2px;
+  }
+
+  input {
+    padding-left: 20px;
+  }
+}
+
+#date {
+  position: relative;
+  width: 134px;
+  margin-right: 15px;
+
+  input {
+    padding-left: 30px;
+  }
+
+  .datepicker-toggle-icon {
+    position: absolute;
+    top: 5px;
+    left: 0;
+  }
+}
+
+#pickers {
+  display: flex;
+}
+
+.search-btn {
+  width: 432px;
+  height: 51px;
+  margin-top: 15px;
+  border: none;
+  background-color: $preferred_blue;
+  color: $white;
+  font: normal normal 16px 'Roboto';
+
+  span {
+    margin-left: 10px;
+  }
+}

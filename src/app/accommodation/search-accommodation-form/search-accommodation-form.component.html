@@ -47,7 +47,7 @@
       <input type="hidden" formControlName="adults" class="hidden">
       <div class="picker">
         <ng-number-picker [(value)]="adultsCount" [size]="'small'" class="guests-count"
-                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          [buttonsOrientation]="'v'" [placeholder]="'Guests'"
                           (valueChange)="adultsCountChanged($event)"></ng-number-picker>
       </div>
     </div>
@@ -57,7 +57,7 @@
       <input type="hidden" formControlName="children" class="hidden">
       <div class="picker">
         <ng-number-picker [(value)]="childrenCount" [size]="'small'" class="guests-count"
-                          [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                          [buttonsOrientation]="'v'" [placeholder]="'Guests'"
                           (valueChange)="childrenCountChanged($event)"></ng-number-picker>
       </div>
     </div>
@@ -68,7 +68,7 @@
         <input type="hidden" formControlName="adults" class="hidden">
         <div class="picker">
           <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
-                            [buttonsOrientation]="'h'" [placeholder]="'Guests'"
+                            [buttonsOrientation]="'v'" [placeholder]="'Guests'"
                             (valueChange)="roomsCountChanged($event)"></ng-number-picker>
         </div>
       </div>
