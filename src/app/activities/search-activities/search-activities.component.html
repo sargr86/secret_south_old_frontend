@@ -1,38 +1,36 @@
-<form [formGroup]="toursForm">
-  <div id="address">
+<form [formGroup]="activitiesForm">
+  <div id="location">
     <mat-icon>place</mat-icon>
-    <input type="text" #locationInput (change)="locationChanged($event)"
-           placeholder="Where are you going?"
-           aria-label="Number"
-           [formControl]="locationControl"
-           [matAutocomplete]="auto">
-    <!-- <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
-      <mat-icon
-        (click)="clearLocation()">close
-      </mat-icon>
-    </button> -->
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                      (optionSelected)="locationChanged($event.option.value)">
-      <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
-        {{loc.address}}
-      </mat-option>
-    </mat-autocomplete>
-
-
+    <input placeholder="Location">
+    <!--    <select id="activities-providers">-->
+    <!--      <option>Location</option>-->
+    <!--    </select>-->
+  </div>
+  <div>
+    <select id="activities-types">
+      <option>Activity types</option>
+    </select>
+  </div>
+  <div>
+    <select id="activities-subtypes">
+      <option>Activities subtypes</option>
+    </select>
   </div>
 
-  <div id="dates">
+  <div id="pickers">
     <div id="date">
-      <input placeholder="Choose date" (dateChange)="dateChanged($event)"
+
+
+      <input placeholder="Date" (dateChange)="dateChanged($event)"
              [matDatepickerFilter]="previousDatesFilter"
              [matDatepicker]="checkInPicker" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="checkInPicker"
                              class="datepicker-toggle-icon"></mat-datepicker-toggle>
       <mat-datepicker #checkInPicker startView="year"
       ></mat-datepicker>
+      <span class="main-page-error" *ngIf="isSubmitted && activitiesForm.get('date').hasError('required')">
+                  Booking date is required</span>
     </div>
-  </div>
-  <div id="counts">
     <div id="adults">
       <mat-icon>person</mat-icon>
       <span>Adults</span>
@@ -53,17 +51,9 @@
                           (valueChange)="childrenCountChanged($event)"></ng-number-picker>
       </div>
     </div>
-
-  </div>
-  <div id="tour-types">
-    <select (change)="tourTypesChanged($event)">
-      <option *ngFor="let t of tourTypes" [value]="t.id">
-        {{t.name}}
-      </option>
-    </select>
   </div>
   <div>
-    <button class="search" (click)="search()" type="button">
+    <button class="search-btn" (click)="search()" type="button">
       <i class="fa fa-search"></i>
       <span>Search</span>
     </button>

@@ -5,6 +5,56 @@ header {
   background-image: url("assets/images/pexels-sam-kolder-2387866@2x.png");
 }
 
+.order-form-and-texts {
+  width: 100%;
+  max-width: 1360px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+
+  #order-form-container {
+    width: 432px;
+  }
+
+
+
+  #texts-container {
+    margin-left: 150px;
+
+    * {
+      color: #ffffff;
+    }
+
+    h1 {
+      font-size: 40px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+
+    }
+
+    ul {
+      margin-top: 16px;
+
+      li {
+        font-size: 16px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 20px;
+          margin-right: 16px;
+          color: #7BC447;
+        }
+      }
+    }
+  }
+}
+
 
 /* header end*/
 
