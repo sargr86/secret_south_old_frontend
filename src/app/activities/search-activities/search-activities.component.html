@@ -1,19 +1,31 @@
 <form [formGroup]="activitiesForm">
   <div id="location">
-    <mat-icon>place</mat-icon>
-    <input placeholder="Location">
+    <mat-icon class="location">place</mat-icon>
+    <input placeholder="Location" formControlName="location"
+           [formControl]="locationControl"
+           [matAutocomplete]="auto">
+    <mat-icon class="remove" (click)="clearLocation()">cancel</mat-icon>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                      (optionSelected)="locationChanged($event.option.value)">
+      <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
+        {{loc.address}}
+      </mat-option>
+    </mat-autocomplete>
+
     <!--    <select id="activities-providers">-->
     <!--      <option>Location</option>-->
     <!--    </select>-->
   </div>
   <div>
-    <select id="activities-types">
+    <select id="activities-types" (change)="typeChanged($event)">
       <option>Activity types</option>
+      <option *ngFor="let type of activityTypes" [value]="type.id">{{type.name}}</option>
     </select>
   </div>
   <div>
     <select id="activities-subtypes">
       <option>Activities subtypes</option>
+      <option *ngFor="let type of activitySubTypes" [value]="type.id">{{type.name}}</option>
     </select>
   </div>
 
