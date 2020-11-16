@@ -562,7 +562,7 @@ mat-progress-bar .mat-progress-bar-buffer {
 
       .start-time, .end-time {
         //width: 200px !important;
-        
+
         .mat-form-field-infix{
           width: 100%;
         }
@@ -1416,6 +1416,11 @@ agm-map {
   height: 360px !important;
 }
 
+.manage-all-container{
+  agm-map {
+    height: 500px !important;
+  }
+}
 
 .route-type {
   .mat-radio-inner-circle, .mat-ripple-element {
