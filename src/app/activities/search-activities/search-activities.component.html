@@ -1,16 +1,10 @@
-<form [formGroup]="accommodationForm">
-  <div id="address">
-    <mat-icon>place</mat-icon>
-    <input type="text" #locationInput
-           placeholder="Where are you going?"
-           aria-label="Number"
+<form [formGroup]="activitiesForm">
+  <div id="location">
+    <mat-icon class="location">place</mat-icon>
+    <input placeholder="Location" formControlName="location"
            [formControl]="locationControl"
            [matAutocomplete]="auto">
-    <!-- <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
-      <mat-icon
-        (click)="clearLocation()">close
-      </mat-icon>
-    </button> -->
+    <mat-icon class="remove" (click)="clearLocation()">cancel</mat-icon>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                       (optionSelected)="locationChanged($event.option.value)">
       <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
@@ -18,29 +12,37 @@
       </mat-option>
     </mat-autocomplete>
 
-
+    <!--    <select id="activities-providers">-->
+    <!--      <option>Location</option>-->
+    <!--    </select>-->
+  </div>
+  <div>
+    <select id="activities-types" (change)="typeChanged($event)">
+      <option>Activity types</option>
+      <option *ngFor="let type of activityTypes" [value]="type.id">{{type.name}}</option>
+    </select>
+  </div>
+  <div>
+    <select id="activities-subtypes">
+      <option>Activities subtypes</option>
+      <option *ngFor="let type of activitySubTypes" [value]="type.id">{{type.name}}</option>
+    </select>
   </div>
 
-  <div id="dates">
-    <div id="check-in">
-      <input placeholder="Check-in" (dateChange)="checkInDateChanged($event)"
+  <div id="pickers">
+    <div id="date">
+
+
+      <input placeholder="Date" (dateChange)="dateChanged($event)"
              [matDatepickerFilter]="previousDatesFilter"
-             [matDatepicker]="checkInPicker" formControlName="checkin_date">
+             [matDatepicker]="checkInPicker" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="checkInPicker"
                              class="datepicker-toggle-icon"></mat-datepicker-toggle>
       <mat-datepicker #checkInPicker startView="year"
       ></mat-datepicker>
+      <span class="main-page-error" *ngIf="isSubmitted && activitiesForm.get('date').hasError('required')">
+                  Booking date is required</span>
     </div>
-    <div id="check-out">
-      <input placeholder="Check-out" (dateChange)="dateChanged()" [matDatepickerFilter]="checkoutDatesFilter"
-             [matDatepicker]="checkOutPicker" formControlName="checkout_date">
-      <mat-datepicker-toggle matSuffix [for]="checkOutPicker"
-                             class="datepicker-toggle-icon"></mat-datepicker-toggle>
-      <mat-datepicker #checkOutPicker startView="year"
-      ></mat-datepicker>
-    </div>
-  </div>
-  <div id="counts">
     <div id="adults">
       <mat-icon>person</mat-icon>
       <span>Adults</span>
@@ -62,18 +64,8 @@
       </div>
     </div>
   </div>
-      <div id="rooms">
-        <img src="assets/icons/bed.svg">
-        <span>Rooms</span>
-        <input type="hidden" formControlName="adults" class="hidden">
-        <div class="picker">
-          <ng-number-picker [(value)]="roomsCount" [size]="'small'" class="guests-count"
-                            [buttonsOrientation]="'v'" [placeholder]="'Guests'"
-                            (valueChange)="roomsCountChanged($event)"></ng-number-picker>
-        </div>
-      </div>
   <div>
-    <button class="search" (click)="search()" type="button">
+    <button class="search-btn" (click)="search()" type="button">
       <i class="fa fa-search"></i>
       <span>Search</span>
     </button>

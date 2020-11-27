@@ -63,7 +63,7 @@ form {
   #counts {
     display: flex;
     margin-top: 16px;
-    
+
 
     mat-icon {
       color: #D2D2D2;
@@ -73,15 +73,11 @@ form {
       flex: 1;
       margin-right: 16px;
       background-color: $white;
- 
+
 
 
       .picker {
-        margin-left: 8px;
-
-        .input-group{
-          
-        }
+        margin-left: 70px;
       }
     }
 
@@ -89,7 +85,7 @@ form {
       background-color: $white;
       flex: 1;
       .picker {
-        margin-left: 25px;
+        margin-left: 56px;
       }
     }
 
@@ -110,7 +106,7 @@ form {
       }
     }
 
-    
+
   }
   #rooms {
     margin-top: 16px;
