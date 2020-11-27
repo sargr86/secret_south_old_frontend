@@ -6,28 +6,43 @@ footer {
   padding-bottom: 20px;
 
   .blocks {
-
     width: 90%;
-    margin: 178px auto 0;
-    height: 360px;
+    margin: 72px auto 0;
+    padding: 56px 0 46px;
     display: flex;
-    align-items: center;
 
     .footer-logo {
+      display: flex;
+      align-items: center;
       img {
-        width: 172px;
+        max-width: 172px;
+        min-width: 90px;
+        width: 100%;
       }
     }
 
     .block {
       margin-left: 84px;
       flex: 1;
-      height: 238px;
       font: normal normal normal 20px Roboto;
       color: #707070;
 
       li {
         margin-bottom: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover{
+          color: #82c644;
+        }
+
+        a{
+          color: #707070;
+          text-decoration: none;
+          &:hover{
+            color: #82c644;
+          }
+        }
       }
 
     }
