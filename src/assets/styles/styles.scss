@@ -47,7 +47,8 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
     .selected {
       span{
         color: #7BC447 !important;
-      }
+
+        }
     }
   }
 }
@@ -123,9 +124,9 @@ table.mat-table {
   @include matTable;
 }
 
-// .formTitle {
-//   @include formTitle;
-// }
+.formTitle {
+  @include formTitle;
+}
 
 .terminalTitle {
   color: $dark_gray;
@@ -171,7 +172,6 @@ table.mat-table {
     text-transform: capitalize;
   }
 }
- 
 
 .underConstruction {
   color: $yellow;
@@ -196,11 +196,13 @@ mat-label {
 }
 
 .formTitle {
-  margin: 24px;
-  font-size: 32px;
-  font-weight: bold;
-  color: #414141;
- 
+  color: $dark_gray;
+  text-align: center;
+  margin: 20px;
+
+  span {
+    margin-left: 10px;
+  }
 }
 
 
@@ -1184,16 +1186,20 @@ header:not(.timepicker__header) {
 
   /* Button used to open the chat form - fixed at the bottom of the page */
   .open-button {
-    position: fixed;
-    bottom: 32px;
-    right: 40px;
-    padding: 0;
-    background-color: transparent;
+    background-color: #122223;
+    opacity: 0.5;
+    color: white;
+    padding: 16px 20px;
     border: none;
     cursor: pointer;
-    img{
-      width: 64px;
-    }
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+
   }
 
   /* The popup chat - hidden by default */
@@ -1413,6 +1419,11 @@ agm-map {
   height: 360px !important;
 }
 
+.manage-all-container{
+  agm-map {
+    height: 500px !important;
+  }
+}
 
 .route-type {
   .mat-radio-inner-circle, .mat-ripple-element {
@@ -1467,7 +1478,7 @@ agm-map {
   margin-left: 32px;
 }
 
-.accommodation-single-page, .food-drink-single-page{
+.accommodation-single-page{
   .right-side{
     .map-box{
       margin-top: 32px;
@@ -1508,4 +1519,3 @@ agm-map {
       }
     }
   }
-}
