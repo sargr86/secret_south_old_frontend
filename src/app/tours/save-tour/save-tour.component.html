@@ -7,14 +7,70 @@
     <!-- Current form title -->
     <h4 class="formTitle">
       <ng-container *ngIf="!editCase">
-        <mat-icon class="title_sign">add_box</mat-icon>
-        <span>Add a new tour</span>
+        <!-- <mat-icon class="title_sign">add_box</mat-icon> -->
+        <span>Add a new Tour routes</span>
       </ng-container>
       <ng-container *ngIf="editCase">
         <mat-icon>edit</mat-icon>
         <span>Edit tour details</span>
       </ng-container>
     </h4>
+
+
+    <div class="input-wrap">
+      <div class="input">
+        <input type="text" placeholder="Tour Type" value="">
+      </div>
+
+      <div class="select">
+        <select name="" id="">
+          <option value="">Aghada</option>
+          <option value="">option</option>
+          <option value="">option</option>
+        </select>
+      </div>
+
+      <button class="btn add-rout">+ Add Rout</button>
+
+      <div class="row">
+        <div class="input">
+          <input type="text" placeholder="Start Date" value="">
+        </div>
+
+        <div class="input">
+          <input type="text" placeholder="End Date" value="">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <input type="text" placeholder="Start time" value="">
+        </div>
+
+        <div class="input">
+          <input type="text" placeholder="End time" value="">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <input type="text" placeholder="Total count" value="">
+        </div>
+
+        <div class="input">
+          <input type="text" placeholder="Price" value="">
+        </div>
+      </div>
+
+
+
+      
+    </div>
+
+
+
+
+
 
     <!-- Name field -->
     <mat-form-field>
@@ -25,7 +81,7 @@
     </mat-form-field>
 
     <!-- Latitude field -->
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput placeholder="Latitude" formControlName="lat" required>
       <mat-error *ngIf="latCtrl.hasError('required')">
         Latitude is <strong>required</strong>
@@ -33,10 +89,10 @@
       <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
         Latitude is <strong>invalid</strong>
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- Longitude field -->
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput placeholder="Longitude" formControlName="lng" required>
       <mat-error *ngIf="lngCtrl.hasError('required')">
         Longitude is <strong>required</strong>
@@ -44,12 +100,12 @@
       <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
         Longitude is <strong>invalid</strong>
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- Tour address field -->
-    <div class="addressContainer">
+    <!-- <div class="addressContainer">
       <mat-form-field>
-        <!--            <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>-->
+                   <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
         <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address"
                placeholder="Address" id="searchAddress"
                [options]='options' #searchAddress="ngx-places" required/>
@@ -60,7 +116,7 @@
       <button (click)="resetAddress()" class="resetAddress">
         <mat-icon>replay</mat-icon>
       </button>
-    </div>
+    </div>-->
 
     <!-- Tours type field -->
     <mat-form-field>

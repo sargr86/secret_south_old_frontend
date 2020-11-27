@@ -2,25 +2,24 @@
     <div class="treeContainer">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
             <!-- This is the tree node template for leaf nodes -->
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <mat-tree-node *matTreeNodeDef="let node" (click)="navigate(node)" matTreeNodePadding>
                 <!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
                 <!--                <button mat-icon-button disabled></button>-->
 
                 <button class="treeNode">
-                    <i class="menu-icon fa {{getIcon(node)}}"></i>
-                    <span (click)="navigate(node)" class="node">{{node.name}}</span>
+<!--                    <i class="menu-icon fa {{getIcon(node)}}"></i>-->
+                    <span  class="node">{{node.name}}</span>
                 </button>
             </mat-tree-node>
             <!-- This is the tree node template for expandable nodes -->
-            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                <button mat-icon-button matTreeNodeToggle
-                        [attr.aria-label]="'toggle ' + node.name">
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                    </mat-icon>
-                </button>
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle>
 
-                <span matTreeNodeToggle>{{node.name}}</span>
+              <span >{{node.name}}</span>
+              <button mat-icon-button [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
+                </mat-icon>
+              </button>
             </mat-tree-node>
         </mat-tree>
 

@@ -7,12 +7,12 @@
       <div class="logo" (click)="router.navigate(['/'])"></div>
     </div>
 
-    <!-- Nav bar section links -->
-    <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
   </div>
-
+  
   <!-- Right-side links-->
   <div class="header_top_right">
+    <!-- Nav bar section links -->
+    <app-main-sections [selectedSection]="selectedSection" *ngIf="!responsiveMode"></app-main-sections>
     <button class="sidebarToggler" (click)="toggleSidebar()" *ngIf="responsiveMode">
       <mat-icon>menu</mat-icon>
     </button>
@@ -50,7 +50,4 @@
   </div>
 </div>
 
-
-<div class="help-wrap">
-  <img src="assets/images/help-icon.svg">
-</div>
+ 

@@ -123,9 +123,9 @@ table.mat-table {
   @include matTable;
 }
 
-.formTitle {
-  @include formTitle;
-}
+// .formTitle {
+//   @include formTitle;
+// }
 
 .terminalTitle {
   color: $dark_gray;
@@ -171,16 +171,7 @@ table.mat-table {
     text-transform: capitalize;
   }
 }
-
-.help-wrap{
-  position: fixed;
-  bottom: 56px;
-  right: 56px;
-  cursor: pointer;
-  img{
-    width: 60px;
-  }
-}
+ 
 
 .underConstruction {
   color: $yellow;
@@ -205,13 +196,11 @@ mat-label {
 }
 
 .formTitle {
-  color: $dark_gray;
-  text-align: center;
-  margin: 20px;
-
-  span {
-    margin-left: 10px;
-  }
+  margin: 24px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #414141;
+ 
 }
 
 
@@ -1046,7 +1035,6 @@ header:not(.timepicker__header) {
         background: transparent;
         color: #fff !important;
         padding-left: 25px;
-
         option {
           background-color: #164547;
           padding: 10px 0
@@ -1196,20 +1184,16 @@ header:not(.timepicker__header) {
 
   /* Button used to open the chat form - fixed at the bottom of the page */
   .open-button {
-    background-color: #122223;
-    opacity: 0.5;
-    color: white;
-    padding: 16px 20px;
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    padding: 0;
+    background-color: transparent;
     border: none;
     cursor: pointer;
-    position: fixed;
-    bottom: 23px;
-    right: 28px;
-    width: 280px;
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: 600;
-
+    img{
+      width: 64px;
+    }
   }
 
   /* The popup chat - hidden by default */
@@ -1496,6 +1480,31 @@ agm-map {
     .owl-nav{
       .owl-prev,.owl-next{
         padding: 5px 11px;
+      }
+    }
+  }
+}
+
+.picker{
+  width: 100%;
+  height: 100%;
+  .input-group{
+    height: 100%;
+    input{
+      height: 100%;
+    }
+
+    .input-group-text{
+      span{
+        flex: 1;
+        width: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f2f2f2;
+        &:hover{
+          background: #dce6f0;
+        }
       }
     }
   }
