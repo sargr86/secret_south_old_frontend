@@ -1,7 +1,7 @@
 <div class="chat-window-container">
 
   <button class="open-button" (click)="openForm()" *ngIf="auth.loggedIn()">
-    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0">Support</span>
+    <span [matBadge]="newMessages.length.toString()" [matBadgeHidden]="newMessages.length ===0"><img src="assets/images/help-icon.svg"></span>
   </button>
 
 

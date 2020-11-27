@@ -1,7 +1,8 @@
 .allFerryContent {
-  width: 71%;
-  margin: 0 auto;
-  display: block;
+  padding: 0 24px;
+  // width: 71%;
+  // margin: 0 auto;
+  // display: block;
   //float: right;
   //margin-right: 9%;
 }
@@ -20,18 +21,45 @@
 }
 
 .tableContainer{
+  .mat-elevation-z8{
+    box-shadow: initial;
+  }
 
-}
+  .editBtn{
+    color: #084F93;
+    margin-right: 16px;
+  }
 
-.table_responsive {
-  overflow-x: auto;
-
-  table {
-    td {
-      padding: 0 24px;
+  .removeBtn{
+    color: #DB0000;
+  }
+  
+  .table_responsive {
+    overflow-x: auto;
+  
+    table {
+      th,td {
+        padding: 16px 24px;
+        font-size: 16px;
+        color: #414141;
+        border: 0;
+      }
+  
+      th{
+        background: #F6F6F6;
+      }
+  
+      tr{
+        &:nth-child(2n+2){
+          background: #084F9326
+        }
+      }
     }
   }
 }
+
+
+
 
 @media screen and (max-width: 880px) {
   .allFerryContent {
@@ -41,12 +69,12 @@
     //margin-right: 3%;
   }
 }
-@media(max-width: 767px){
-  .allFerryContent {
-    width: 100%;
-    display: block;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 0;
-  }
+ @media(max-width: 767px){
+//   .allFerryContent {
+//     width: 100%;
+//     display: block;
+//     padding-left: 20px;
+//     padding-right: 20px;
+//     margin: 0;
+//   }
 }
