@@ -129,7 +129,8 @@ export const DASHBOARD_LINKS = [
       {name: 'Add'},
       {name: 'Show'},
       {name: 'Add types'},
-      {name: 'Show types'}
+      {name: 'Show types'},
+      {name: 'Orders'}
     ]
   },
   {

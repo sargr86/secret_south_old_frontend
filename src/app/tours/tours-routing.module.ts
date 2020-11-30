@@ -10,6 +10,7 @@ import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ToursListComponent} from '@app/tours/tours-list/tours-list.component';
 import {ToursSingleComponent} from '@app/tours/tours-single/tours-single.component';
+import {ShowOrdersComponent} from '@app/tours/show-orders/show-orders.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,9 @@ const routes: Routes = [
     path: 'show', component: ShowToursComponent, data: {
       title: 'All tours',
     },
+  },
+  {
+    path: 'orders', component: ShowOrdersComponent
   },
   {
     path: 'add', component: SaveTourComponent, data: {
