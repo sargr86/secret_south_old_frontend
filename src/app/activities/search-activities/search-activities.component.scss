@@ -26,7 +26,7 @@ select {
 
   input {
     border: none;
-    padding-left: 28px;
+    padding-left: 56px;
   }
 
   input::placeholder {
@@ -37,7 +37,7 @@ select {
     color: #707070;
     position: absolute;
     top: 16px;
-    left: 4px;
+    left: 17px;
     font-size: 22px;
   }
 
@@ -56,9 +56,9 @@ select {
   background-color: $white;
 
 
-  .picker {
-    margin-left: 24px;
-  }
+  // .picker {
+  //   margin-left: 24px;
+  // }
 }
 
 #children {
