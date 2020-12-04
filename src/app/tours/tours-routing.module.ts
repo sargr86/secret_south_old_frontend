@@ -11,6 +11,7 @@ import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ToursListComponent} from '@app/tours/tours-list/tours-list.component';
 import {ToursSingleComponent} from '@app/tours/tours-single/tours-single.component';
 import {ShowOrdersComponent} from '@app/tours/show-orders/show-orders.component';
+import {SaveToursFormComponent} from '@app/tours/save-tours-form/save-tours-form.component';
 
 const routes: Routes = [
   {
@@ -34,8 +35,13 @@ const routes: Routes = [
   {
     path: 'orders', component: ShowOrdersComponent
   },
+  // {
+  //   path: 'add', component: SaveTourComponent, data: {
+  //     title: 'Add a new tour',
+  //   },
+  // },
   {
-    path: 'add', component: SaveTourComponent, data: {
+    path: 'add', component: SaveToursFormComponent, data: {
       title: 'Add a new tour',
     },
   },

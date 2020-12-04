@@ -13,6 +13,7 @@ import { SearchToursFormComponent } from './search-tours-form/search-tours-form.
 import { ToursSingleComponent } from './tours-single/tours-single.component';
 import { ToursListComponent } from './tours-list/tours-list.component';
 import { ShowOrdersComponent } from './show-orders/show-orders.component';
+import { SaveToursFormComponent } from './save-tours-form/save-tours-form.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ShowOrdersComponent } from './show-orders/show-orders.component';
         SearchToursFormComponent,
         ToursSingleComponent,
         ToursListComponent,
-        ShowOrdersComponent
+        ShowOrdersComponent,
+        SaveToursFormComponent
     ],
     imports: [
         CommonModule,
