@@ -1524,15 +1524,22 @@ agm-map {
 }
 
 #save-tour-form {
-  .people-count input[name="input-spin-val"] {
-    background-color: #f9f9f9 !important;
+  .people-count {
+    input[name="input-spin-val"] {
+      background-color: #f9f9f9 !important;
+      padding: 12px 23px;
+      font-size: 16px;
+      color: #707070;
+      text-align: left;
+      border: 0.5px solid transparent;
+      border-radius: 0;
+      &:focus {
+        border: 0.5px solid #7BC447;
+      }
+    }
   }
-
   .ngx-material-timepicker-toggle svg {
     margin-left: 0 !important;
   }
-
-  input::placeholder {
-    padding-left: 20px !important;
-  }
+ 
 }
