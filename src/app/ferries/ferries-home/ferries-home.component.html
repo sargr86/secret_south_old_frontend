@@ -62,7 +62,7 @@
       <div class="locations-group" formArrayName="locations">
 
         <div class="locations-wrap">
-
+          {{locations.controls}}
           <ng-container *ngFor="let c of locations.controls;let ind = index">
             <ng-container [formGroupName]="ind.toString()">
               <div class="location-selector" [id]="getLocationId(ind)">
@@ -80,10 +80,10 @@
                 <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
                   The point is <strong>required</strong>
                 </mat-error>
-  
+
               </div>
             </ng-container>
-  
+
             <div class="arrows" *ngIf="ind == 0">
               <img src="assets/images/arrows.svg">
             </div>
@@ -112,7 +112,6 @@
               </ngx-material-timepicker-toggle>
             </mat-form-field>
           </div>
-
 
 
           <div class="end-time">
