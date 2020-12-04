@@ -43,10 +43,14 @@ export const ACCOMMODATION_FIELDS = {
 export const TOURS_FIELDS = {
   name: ['', Validators.required],
   oldName: [''],
-  lat: ['', [Validators.required, patternValidator(LATITUDE_PATTERN)]],
-  lng: ['', [Validators.required, patternValidator(LONGITUDE_PATTERN)]],
-  address: ['', Validators.required],
   tours_type_id: ['', Validators.required],
   company_id: ['', Validators.required],
+  start_date: ['', Validators.required],
+  start_time: ['', Validators.required],
+  end_time: ['', Validators.required],
+  end_date: ['', Validators.required],
+  participants_max_count: ['', Validators.required],
+  price: ['', Validators.required],
   folder: 'tours',
+  locations: [[], Validators.required],
 };

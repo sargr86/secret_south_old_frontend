@@ -1,13 +1,11 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
 <div class="formContainer" id="save-tour-form">
+  <form [formGroup]="toursForm">
 
-  <form [formGroup]="saveTourForm" class="saveTourForm"
-        *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">
 
     <!-- Current form title -->
     <h4 class="formTitle">
       <ng-container *ngIf="!editCase">
-        <!-- <mat-icon class="title_sign">add_box</mat-icon> -->
         <span>Add a new Tour routes</span>
       </ng-container>
       <ng-container *ngIf="editCase">
@@ -22,59 +20,42 @@
       <!-- Tours type field -->
       <div class="select">
         <select formControlName="tours_type_id">
-          <option disabled selected>Tour Types</option>
+          <option disabled selected [value]="''">Tour Types</option>
           <option *ngFor="let t of tourTypes" [value]="t['id']">
             {{t.name}}
           </option>
         </select>
       </div>
 
-      <ng-container *ngIf="locationsCtrls.controls">
-
-
-        <div class="locations-group" formArrayName="locations">
-          {{locationsCtrls.controls}}
-          <!--        {{saveTourForm.get('locations').controls}}-->
-          <div class="locations-wrap">
-
-            <ng-container *ngFor="let c of saveTourForm.get('locations').controls;let ind = index">
-              <ng-container [formGroupName]="ind.toString()">
-                <div class="location-selector select" [id]="getLocationId(ind)">
-                  <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
-                  <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
-                    <option selected disabled>{{getPlaceholderText(ind)}}</option>
-                    <!--                  <option *ngFor="let direction of ferryDirections"-->
-                    <!--                          [value]="direction.name">{{direction.name}}-->
-                    <!--                  <option>-->
-                  </select>
-                  <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
-                    clear
-                  </i>
-
-                  <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
-                    The point is <strong>required</strong>
-                  </mat-error>
-
-                </div>
-              </ng-container>
-
-              <div class="arrows" *ngIf="ind == 0">
-                <img src="assets/images/arrows.svg">
+      <!-- Location fields group-->
+      <div class="locations-group locations-wrap" formArrayName="locations">
+        <ng-container *ngFor="let c of locations.controls;let ind = index">
+          <ng-container [formGroupName]="ind.toString()">
+            <!--          <mat-label class="from-to-label">{{getLabelText(ind)}}</mat-label>-->
+            <div class="location-selector" [id]="getLocationId(ind)">
+              <div class="select">
+                <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
+                  <option selected disabled [value]="''">{{getPlaceholderText(ind)}}</option>
+                  <option *ngFor="let location of locationsList"
+                          [value]="location.name">{{location.name}}
+                  <option>
+                </select>
               </div>
-            </ng-container>
-          </div>
-
-
-          <div id="add-location-btn">
-            <button class="add-location" (click)="addLocation()"
-                    *ngIf="locationsCtrls.controls && locationsCtrls.controls.length < maxLocationsChoices">+
-              Add location
-            </button>
-          </div>
+              <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
+                clear
+              </i>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div id="add-location-btn">
+          <button class="add-location" (click)="addLocation()"
+                  *ngIf="locations.controls && locations.controls.length < maxLocationsChoices">+
+            Add location
+          </button>
         </div>
+      </div>
 
-        <!--      <button class="btn add-rout">+ Add Route</button>-->
-      </ng-container>
+
       <div class="row">
         <div class="input">
           <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
@@ -98,7 +79,7 @@
           <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
                  [ngxMaterialTimepickerTheme]="timepickerTheme"
                  formControlName="start_time">
-          <span class="main-page-error" *ngIf="isSubmitted && saveTourForm.get('start_time').hasError('required')">
+          <span class="main-page-error" *ngIf="isSubmitted && toursForm.get('start_time').hasError('required')">
                 Start time is required</span>
           <ngx-material-timepicker-toggle [for]="start_timepicker">
             <mat-icon>access_time</mat-icon>
@@ -110,7 +91,7 @@
         <div class="input">
           <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
                  formControlName="end_time">
-          <span class="main-page-error" *ngIf="isSubmitted && saveTourForm.get('end_time').hasError('required')">
+          <span class="main-page-error" *ngIf="isSubmitted && toursForm.get('end_time').hasError('required')">
                 End time is required</span>
           <ngx-material-timepicker-toggle [for]="end_timepicker">
             <mat-icon>access_time</mat-icon>
@@ -123,7 +104,7 @@
       <div class="row">
         <div class="input people-count">
           <input type="hidden" formControlName="participants_max_count" class="hidden">
-          <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
+          <ng-number-picker [(value)]="maxParticipantsCount" [size]="'small'" class="guests-count"
                             [buttonsOrientation]="'v'" [placeholder]="'Total count'"
                             (valueChange)="peopleCountChanged($event)"></ng-number-picker>
         </div>
@@ -156,7 +137,7 @@
             {{c.name}}
           </option>
         </select>
-        <mat-error *ngIf="isSubmitted && saveTourForm.get('company_id').hasError('required')">
+        <mat-error *ngIf="isSubmitted && toursForm.get('company_id').hasError('required')">
           Partner company is <strong>required</strong>
         </mat-error>
       </div>
@@ -174,7 +155,7 @@
       <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTour()">
+      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTourDetails()">
         Save Tour
       </button>
     </div>
@@ -198,11 +179,4 @@
   </ng-container>
 
 
-  <!--  <div class="dropzoneContainer"-->
-  <!--       *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">-->
-  <!--    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg" [alt]="tourData.name">-->
-  <!--    <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
-  <!--    <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)" class="multiple"-->
-  <!--              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>-->
-  <!--  </div>-->
 </div>
