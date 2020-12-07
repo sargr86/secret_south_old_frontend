@@ -37,7 +37,7 @@
                 <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
                   <option selected disabled [value]="''">{{getPlaceholderText(ind)}}</option>
                   <option *ngFor="let location of locationsList"
-                          [value]="location.name">{{location.name}}
+                          [value]="location.id">{{location.name}}
                   <option>
                 </select>
               </div>
@@ -131,7 +131,7 @@
     <!-- Partner company field -->
     <div class="input-wrap">
       <div class="select">
-        <select>
+        <select formControlName="company_id">
           <option disabled selected>Company</option>
           <option *ngFor="let c of companies" [value]="c.id">
             {{c.name}}

@@ -46,7 +46,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'tour/:id', component: SaveTourComponent, data: {
+    path: 'tour/:id', component: SaveToursFormComponent, data: {
       title: 'Edit a tour info',
     },
     resolve: {
