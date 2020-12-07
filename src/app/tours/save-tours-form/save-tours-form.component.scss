@@ -1,6 +1,12 @@
 @import 'variables';
 @import 'mixins';
 
+#save-tour-form{
+ 
+}
+
+ 
+  
 form {
   max-width: 600px;
   width: 100%;
@@ -10,6 +16,7 @@ form {
   .formTitle {
     margin: 0;
   }
+
 
   .addressContainer {
     display: flex;
@@ -86,6 +93,29 @@ form {
 
     .row {
       margin: 0;
+      &.input-icons{
+        .input{
+          padding-left: 16px;
+        }
+        input{
+          width: calc(100% + 16px);
+          margin-left: -16px;
+          padding-left: 48px;
+        }
+      }
+      &.time-icons{
+        .input{
+          padding-left: 12px;
+        }
+        input{
+          width: calc(100% + 12px);
+          margin-left: -12px;
+          padding-left: 48px;
+        }
+      }
+      .checkInIcon, .checkOutIcon, .dateIcon {
+        left: 16px !important;
+      }
 
       .input {
         flex: 1;
