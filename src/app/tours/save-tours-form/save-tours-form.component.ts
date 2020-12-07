@@ -109,7 +109,7 @@ export class SaveToursFormComponent implements OnInit {
         this.tourFields['id'] = '';
         this.toursForm = this.fb.group(this.tourFields);
         this.toursForm.patchValue(this.tourData);
-        this.toursForm.controls['address'].disable();
+        // this.toursForm.controls['address'].disable();
         this.editCase = true;
         if (this.tourData['img']) {
           console.log(this.tourData)
@@ -153,7 +153,7 @@ export class SaveToursFormComponent implements OnInit {
   }
 
   locationChanged(value, i) {
-    this.locations.controls[i].patchValue({name: value});
+    this.locations.controls[i].patchValue({id: value});
   }
 
   getTourTypes() {
@@ -204,6 +204,7 @@ export class SaveToursFormComponent implements OnInit {
     return this.fb.group({
       name: ['', Validators.required],
       title: [title],
+      id: [''],
       order: [order]
     });
   }
@@ -216,7 +217,10 @@ export class SaveToursFormComponent implements OnInit {
   }
 
   saveTourDetails() {
-    console.log(this.toursForm.getRawValue())
+    this.toursService.add(this.toursForm.getRawValue()).subscribe(dt => {
+
+    });
+    // console.log(this.toursForm.getRawValue())
   }
 
   getFile(e) {
