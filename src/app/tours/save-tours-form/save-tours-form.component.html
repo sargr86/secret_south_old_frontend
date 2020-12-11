@@ -25,6 +25,7 @@
             {{t.name}}
           </option>
         </select>
+        <mat-error *ngIf="isSubmitted && toursTypes.hasError('required')">Please select a tour type</mat-error>
       </div>
 
       <!-- Location fields group-->
@@ -59,18 +60,24 @@
       <div class="row input-icons">
         <div class="input">
           <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
-                 (dateChange)="dateChanged($event)" formControlName="start_date"
+                 (dateChange)="dateChanged($event, 'start')" formControlName="start_date"
                  [matDatepicker]="startPicker" class="Check_out_inp">
           <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
           <mat-datepicker #startPicker startView="year"></mat-datepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('start_date').hasError('required')">
+            Start time is required
+          </mat-error>
         </div>
 
         <div class="input">
-          <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
-                 (dateChange)="dateChanged($event)" formControlName="end_date"
+          <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="checkoutDatesFilter"
+                 (dateChange)="dateChanged($event, 'end')" formControlName="end_date"
                  [matDatepicker]="endPicker" class="Check_out_inp">
           <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
           <mat-datepicker #endPicker startView="year"></mat-datepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('end_date').hasError('required')">
+            Start time is required
+          </mat-error>
         </div>
       </div>
 
@@ -79,25 +86,29 @@
           <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
                  [ngxMaterialTimepickerTheme]="timepickerTheme"
                  formControlName="start_time">
-          <span class="main-page-error" *ngIf="isSubmitted && toursForm.get('start_time').hasError('required')">
-                Start time is required</span>
+
           <ngx-material-timepicker-toggle [for]="start_timepicker">
             <mat-icon>access_time</mat-icon>
           </ngx-material-timepicker-toggle>
 
           <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
+
+          <mat-error *ngIf="isSubmitted && toursForm.get('start_time').hasError('required')">
+            Start time is required
+          </mat-error>
         </div>
 
         <div class="input">
           <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
                  formControlName="end_time">
-          <span class="main-page-error" *ngIf="isSubmitted && toursForm.get('end_time').hasError('required')">
-                End time is required</span>
           <ngx-material-timepicker-toggle [for]="end_timepicker">
             <mat-icon>access_time</mat-icon>
           </ngx-material-timepicker-toggle>
 
           <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('end_time').hasError('required')">
+            End time is required
+          </mat-error>
         </div>
       </div>
 
@@ -111,6 +122,9 @@
 
         <div class="input">
           <input type="text" placeholder="Price" value="" formControlName="price">
+          <mat-error *ngIf="isSubmitted && toursForm.get('price').hasError('required')">
+            Price is required
+          </mat-error>
         </div>
       </div>
 
@@ -124,21 +138,21 @@
         <input placeholder="Name" formControlName="name" required>
       </div>
       <mat-error *ngIf="isSubmitted && nameCtrl.hasError('required')">
-        Tour name is <strong>required</strong>
+        Tour name is required
       </mat-error>
     </div>
 
     <!-- Partner company field -->
     <div class="input-wrap">
-      <div class="select">
+        <div class="select">
         <select formControlName="company_id">
-          <option disabled selected>Company</option>
+          <option disabled selected [value]="''">Company</option>
           <option *ngFor="let c of companies" [value]="c.id">
             {{c.name}}
           </option>
         </select>
         <mat-error *ngIf="isSubmitted && toursForm.get('company_id').hasError('required')">
-          Partner company is <strong>required</strong>
+          Partner company is required
         </mat-error>
       </div>
     </div>
@@ -173,10 +187,11 @@
               *ngIf="!coverShown"></dropzone>
   </div>
 
+</div>
+<div class="gallery-container">
+
   <ng-container *ngIf="tourData">
     <ngx-gallery [options]="galleryOptions" [images]="tourData.images" class="editFormGallery"
                  (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
   </ng-container>
-
-
 </div>

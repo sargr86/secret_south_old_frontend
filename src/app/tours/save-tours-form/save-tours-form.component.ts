@@ -16,6 +16,7 @@ import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {SubjectService} from '@core/services/subject.service';
 import {CompaniesService} from '@core/services/companies.service';
 import {CheckFormDataPipe} from '@shared/pipes/check-form-data.pipe';
+import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
 
 @Component({
   selector: 'app-save-tours-form',
@@ -54,8 +55,14 @@ export class SaveToursFormComponent implements OnInit {
 
   maxParticipantsCount = 10;
 
+  startDate;
+
   previousDatesFilter = (d: Date | null): boolean => {
     return moment(d).isSameOrAfter(moment(), 'day');
+  }
+
+  checkoutDatesFilter = (d: Date | null): boolean => {
+    return moment(d).isAfter(moment(this.startDate), 'day');
   }
 
   constructor(
@@ -69,7 +76,8 @@ export class SaveToursFormComponent implements OnInit {
     public auth: AuthService,
     private subject: SubjectService,
     public router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formData: BuildFormDataPipe,
   ) {
 
     this.common.dataLoading = false;
@@ -89,6 +97,7 @@ export class SaveToursFormComponent implements OnInit {
       end_date: ['', Validators.required],
       participants_max_count: [this.maxParticipantsCount, Validators.required],
       price: ['', Validators.required],
+      img: [''],
       folder: 'tours'
     };
 
@@ -106,9 +115,20 @@ export class SaveToursFormComponent implements OnInit {
       this.formAction = this.editCase ? 'update' : 'add';
       if (this.route.snapshot.paramMap.get('id')) {
         this.tourData = dt['oneTour'];
+        this.startDate = this.tourData.start_date;
         this.tourFields['id'] = '';
         this.toursForm = this.fb.group(this.tourFields);
         this.toursForm.patchValue(this.tourData);
+        this.maxParticipantsCount = +this.tourData.participants_max_count;
+        this.tourData.tour_locations.map((l, index) => {
+          const c = this.toursForm.controls.locations as any;
+          if (this.tourData.tour_locations.length > c.length) {
+            this.addLocation();
+          }
+          c.controls[index].patchValue({id: l.id});
+          c.controls[index].patchValue({name: l.id});
+        });
+        console.log(this.toursForm.getRawValue())
         // this.toursForm.controls['address'].disable();
         this.editCase = true;
         if (this.tourData['img']) {
@@ -123,6 +143,11 @@ export class SaveToursFormComponent implements OnInit {
     if (!this.editCase) {
       this.toursForm = this.fb.group(this.tourFields);
     }
+  }
+
+  locationChanged(value, i) {
+    this.locations.controls[i].patchValue({id: value});
+    console.log(this.toursForm.getRawValue())
   }
 
   getLocations() {
@@ -152,9 +177,6 @@ export class SaveToursFormComponent implements OnInit {
     }
   }
 
-  locationChanged(value, i) {
-    this.locations.controls[i].patchValue({id: value});
-  }
 
   getTourTypes() {
     this.toursService.getAllTourTypes().subscribe((types: any) => {
@@ -209,7 +231,11 @@ export class SaveToursFormComponent implements OnInit {
     });
   }
 
-  dateChanged(e) {
+  dateChanged(e, which) {
+    if (which === 'start') {
+      // console.log(e)
+      this.startDate = e.value;
+    }
   }
 
   peopleCountChanged(e) {
@@ -217,14 +243,52 @@ export class SaveToursFormComponent implements OnInit {
   }
 
   saveTourDetails() {
-    this.toursService.add(this.toursForm.getRawValue()).subscribe(dt => {
+    const formData = new FormData();
+    const formValues = this.toursForm.getRawValue();
 
-    });
+    this.isSubmitted = true;
+    console.log(formValues)
+
+    if (this.toursForm.valid) {
+
+
+      for (const field of Object.keys(formValues)) {
+
+        let val = formValues[field] ? formValues[field] : '';
+
+
+        if (field === 'locations') {
+          val = JSON.stringify(val);
+        }
+        formData.append(field, val);
+      }
+
+
+      formData.forEach((value, key) => {
+        console.log(key + ' ' + value)
+      });
+
+      this.dropZoneFiles.map(file => {
+        formData.append('upload_images', file, file ? file.name : '');
+      });
+
+      if (this.editCase) {
+        this.toursService.update(formData).subscribe(dt => {
+          this.router.navigate(['admin/tours/show']);
+        });
+      } else {
+        this.toursService.add(formData).subscribe(dt => {
+          this.router.navigate(['admin/tours/show']);
+        });
+      }
+    }
+
     // console.log(this.toursForm.getRawValue())
   }
 
   getFile(e) {
-
+    console.log(e)
+    this.dropZoneFiles.push(e);
   }
 
   toggleSidebar(action) {
@@ -233,6 +297,10 @@ export class SaveToursFormComponent implements OnInit {
 
   get locations(): FormArray {
     return this.toursForm.get('locations') as FormArray;
+  }
+
+  get toursTypes() {
+    return this.toursForm.get('tours_type_id');
   }
 
   get nameCtrl() {
