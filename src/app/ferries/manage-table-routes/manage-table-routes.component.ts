@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-manage-table-routes',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageTableRoutesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public common: CommonService
+  ) {
+    common.dataLoading = false;
+  }
 
   ngOnInit(): void {
   }
