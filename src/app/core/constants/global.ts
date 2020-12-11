@@ -111,6 +111,8 @@ export const DASHBOARD_LINKS = [
     children: [
       {name: 'Add'},
       {name: 'Manage routes prices'},
+      {name: 'Table Routes'},
+      {name: 'Map Routes'},
       {name: 'Show'},
       {name: 'Orders'}
     ]

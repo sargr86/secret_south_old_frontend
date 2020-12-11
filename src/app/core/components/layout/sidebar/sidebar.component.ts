@@ -6,7 +6,7 @@ import {AuthService} from '@core/services/auth.service';
 import {PartnerService} from '@core/services/partner.service';
 import {ActivatedRoute, Data, NavigationEnd, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MainService} from '../../../services/main.service';
+import {MainService} from '@core/services/main.service';
 import {SubjectService} from '@core/services/subject.service';
 import {filter} from 'rxjs/operators';
 import {Section} from '@shared/models/Section';
@@ -76,7 +76,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _partner: PartnerService,
-    public _auth: AuthService,
+    public auth: AuthService,
     private cdr: ChangeDetectorRef,
     private _fb: FormBuilder,
     public router: Router,
@@ -105,12 +105,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   getSidebarDataSrc() {
-    this.adminRole = this._auth.checkRoles('admin', this.userData);
+    this.adminRole = this.auth.checkRoles('admin', this.userData);
 
-    if (!this.adminRole && this._auth.userData) {
-      const currentPartnerType = this._auth.userData.partner_type ? this._auth.userData.partner_type.name : '';
-      const employeeRole = this._auth.checkRoles('employee');
-      const customerRole = this._auth.checkRoles('customer');
+    if (!this.adminRole && this.auth.userData) {
+      const currentPartnerType = this.auth.userData.partner_type ? this.auth.userData.partner_type.name : '';
+      const employeeRole = this.auth.checkRoles('employee');
+      const customerRole = this.auth.checkRoles('customer');
 
 
       // Generating partner links based on current partner type
@@ -181,7 +181,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     const url = parentNode.replace(/\//g, '-') + '/' + (childNode === 'show' ? 'show' : childNode);
 
     // Getting redirect url part matching current user role
-    const currentRole = this._auth.userData.role.name_en.toLowerCase();
+    const currentRole = this.auth.userData.role.name_en.toLowerCase();
     const userType = USER_TYPES.find(d => d.role === currentRole);
 
 
