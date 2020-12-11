@@ -58,6 +58,7 @@ export class RoutesPricesTableComponent implements OnInit {
   }
 
   generateTableList(dt) {
+    console.log('called')
     if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
       const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
