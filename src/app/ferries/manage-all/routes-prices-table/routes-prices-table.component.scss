@@ -1,10 +1,5 @@
 @import 'variables';
 
-.table-container {
-  width: 100%;
-  margin: auto;
-  position: relative;
-}
 
 .min-people-count-hint {
   text-align: right;
@@ -48,6 +43,25 @@
         color: $green;
         margin-left: 5px;
       }
+    }
+  }
+}
+
+table {
+  th {
+    background: #F6F6F6;
+  }
+
+  th,td {
+    padding: 16px 24px;
+    font-size: 16px;
+    color: #414141;
+    border: 0;
+  }
+
+  tr{
+    &:nth-child(2n+2){
+      background: #084F9326
     }
   }
 }
