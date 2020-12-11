@@ -10,7 +10,7 @@ import {FerriesHeaderComponent} from './ferries-header/ferries-header.component'
 import {ChatModule} from '@app/chat/chat.module';
 import {ManageAllComponent} from './manage-all/manage-all.component';
 import {ImportFromFileComponent} from './manage-all/import-from-file/import-from-file.component';
-import {RoutesPricesTableComponent} from './manage-all/routes-prices-table/routes-prices-table.component';
+import {RoutesPricesTableComponent} from './manage-table-routes/routes-prices-table/routes-prices-table.component';
 import {ShowOrdersComponent} from '@app/ferries/show-orders/show-orders.component';
 import { ManageMapRoutesComponent } from './manage-map-routes/manage-map-routes.component';
 import { ManageTableRoutesComponent } from './manage-table-routes/manage-table-routes.component';
