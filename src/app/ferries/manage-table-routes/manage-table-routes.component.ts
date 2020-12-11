@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonService} from '@core/services/common.service';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {RoutesPricesTableComponent} from '@app/ferries/manage-table-routes/routes-prices-table/routes-prices-table.component';
 
 @Component({
   selector: 'app-manage-table-routes',
@@ -9,6 +10,8 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./manage-table-routes.component.scss']
 })
 export class ManageTableRoutesComponent implements OnInit {
+
+  @ViewChild(RoutesPricesTableComponent) tableComponent: RoutesPricesTableComponent;
 
   constructor(
     public common: CommonService,
@@ -25,7 +28,7 @@ export class ManageTableRoutesComponent implements OnInit {
       data: {map: false, coordinates: []},
       width: '700px'
     }).afterClosed().subscribe((dt: any) => {
-      this.generateTableList(dt);
+      this.tableComponent.generateTableList(dt);
     });
   }
 
