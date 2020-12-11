@@ -1,35 +1,50 @@
 <ng-container *ngIf="checkIfAuthDashboardPage()">
-    <div class="treeContainer">
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && _auth.loggedIn()">
-            <!-- This is the tree node template for leaf nodes -->
-            <mat-tree-node *matTreeNodeDef="let node" (click)="navigate(node)" matTreeNodePadding>
-                <!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
-                <!--                <button mat-icon-button disabled></button>-->
 
-                <button class="treeNode">
-<!--                    <i class="menu-icon fa {{getIcon(node)}}"></i>-->
-                    <span  class="node">{{node.name}}</span>
-                </button>
-            </mat-tree-node>
-            <!-- This is the tree node template for expandable nodes -->
-            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle>
 
-              <span >{{node.name}}</span>
-              <button mat-icon-button [attr.aria-label]="'toggle ' + node.name">
-                <mat-icon class="mat-icon-rtl-mirror">
-                  {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
-                </mat-icon>
-              </button>
-            </mat-tree-node>
-        </mat-tree>
+  <div class="treeContainer">
+    <!-- Logout button -->
+    <div class="actions">
 
+      <!-- Home page redirect button -->
+      <button *ngIf="router.url!=='/'" (click)="router.navigate(['/'])">
+        <mat-icon>home</mat-icon>
+      </button>
+
+
+      <button (click)="auth.logout()" matTooltip="Logout" *ngIf="auth.loggedIn()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
     </div>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="dashboardLinks && auth.loggedIn()">
+      <!-- This is the tree node template for leaf nodes -->
+      <mat-tree-node *matTreeNodeDef="let node" (click)="navigate(node)" matTreeNodePadding>
+        <!--                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
+        <!--                <button mat-icon-button disabled></button>-->
+
+        <button class="treeNode">
+          <!--                    <i class="menu-icon fa {{getIcon(node)}}"></i>-->
+          <span class="node">{{node.name}}</span>
+        </button>
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle>
+
+        <span>{{node.name}}</span>
+        <button mat-icon-button [attr.aria-label]="'toggle ' + node.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
+          </mat-icon>
+        </button>
+      </mat-tree-node>
+    </mat-tree>
+
+  </div>
 </ng-container>
 
 
 <ng-container *ngIf="!checkIfAuthDashboardPage()">
-    <app-main-sections (toggleSidebarEmit)="toggle.emit()"
-                       (changeSectionEmit)="changeSection($event)"></app-main-sections>
+  <app-main-sections (toggleSidebarEmit)="toggle.emit()"
+                     (changeSectionEmit)="changeSection($event)"></app-main-sections>
 </ng-container>
 
 

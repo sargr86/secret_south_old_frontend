@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CommonService} from '@core/services/common.service';
 
 @Component({
   selector: 'app-manage-map-routes',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageMapRoutesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public common: CommonService) {
+    common.dataLoading = false;
+  }
 
   ngOnInit(): void {
   }
