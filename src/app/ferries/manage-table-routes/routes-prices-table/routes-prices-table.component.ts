@@ -61,12 +61,13 @@ export class RoutesPricesTableComponent implements OnInit {
     console.log('called')
     if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
-      const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
-      this.routesWithNoPriceLen = routesOnly.length;
-      const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
-      this.routesWithPricesLen = routesWithPrices.length;
-      const routesOnTheMap = dt.filter(d => d.coordinates && d.coordinates.length !== 0);
-      this.routesOnMap = routesOnTheMap.length;
+      console.log(this.dataSource)
+      // const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
+      // this.routesWithNoPriceLen = routesOnly.length;
+      // const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
+      // this.routesWithPricesLen = routesWithPrices.length;
+      // const routesOnTheMap = dt.filter(d => d.coordinates && d.coordinates.length !== 0);
+      // this.routesOnMap = routesOnTheMap.length;
       this.dataSource.paginator = this.paginator;
     }
   }
@@ -106,6 +107,7 @@ export class RoutesPricesTableComponent implements OnInit {
 
 
   editRoutePrices(row) {
+    console.log(row)
     this.dialog.open(SaveRouteDialogComponent, {
       data: {route: row, map: false},
       width: '800px'

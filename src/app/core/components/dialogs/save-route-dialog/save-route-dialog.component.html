@@ -38,21 +38,21 @@
           </mat-error>
 
 
-          <ng-container *ngIf="!fromMap && routeData && routeData.coordinates.length === 0">
+<!--          <ng-container *ngIf="!fromMap && routeData && routeData.coordinates.length === 0">-->
 
-            <mat-form-field>
-              <mat-select formControlName="coordinates" placeholder="Use coordinates of..."
-                          (selectionChange)="useRouteCoordinates($event)">
-                <mat-option>None</mat-option>
-                <mat-option *ngFor="let route of suggestedRoutes" [value]="route.coordinates">
-                  {{route.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-error *ngIf="coordinates.hasError('required')">
-              Please assign coordinates <strong>coordinates</strong>
-            </mat-error>
-          </ng-container>
+<!--            <mat-form-field>-->
+<!--              <mat-select formControlName="coordinates" placeholder="Use coordinates of..."-->
+<!--                          (selectionChange)="useRouteCoordinates($event)">-->
+<!--                <mat-option>None</mat-option>-->
+<!--                <mat-option *ngFor="let route of suggestedRoutes" [value]="route.coordinates">-->
+<!--                  {{route.name}}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--            <mat-error *ngIf="coordinates.hasError('required')">-->
+<!--              Please assign coordinates <strong>coordinates</strong>-->
+<!--            </mat-error>-->
+<!--          </ng-container>-->
 
           <div class="route-info">
             <div *ngIf="routeName" class="route-name">

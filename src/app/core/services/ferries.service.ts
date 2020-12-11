@@ -85,7 +85,7 @@ export class FerriesService {
   }
 
   getAllRoutesPrices() {
-    return this.http.get(`${API_URL}ferries/get-all-routes-prices`);
+    return this.http.get(`${API_URL}ferries/get-directions-pricing`);
   }
 
   saveRoutePrice(params) {
