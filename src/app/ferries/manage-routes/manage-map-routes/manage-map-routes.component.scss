@@ -1,0 +1,41 @@
+.routes-page-container {
+  margin-left: 24px;
+
+  .titles-container {
+    margin-top: 32px;
+
+    h1 {
+      font-size: 32px;
+      font-family: "Roboto-Bold";
+      color: #414141;
+    }
+
+    p {
+      margin-top: 24px;
+      color: #414141;
+      font-family: 'Roboto';
+      font-size: 16px;
+    }
+  }
+
+  .map-routes-container {
+    display: flex;
+
+    .map-container {
+      width: 516px;
+    }
+
+    .routes-list-container{
+      margin-left: 24px;
+      .route{
+        cursor: pointer;
+        height: 51px;
+        span{
+          color: #414141;
+          font-size: 16px;
+          font-family: 'Roboto';
+        }
+      }
+    }
+  }
+}

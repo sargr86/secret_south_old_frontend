@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {SubjectService} from '@core/services/subject.service';
 
 @Component({
   selector: 'app-routes-prices-table',
@@ -29,7 +30,8 @@ export class RoutesPricesTableComponent implements OnInit {
     private ferriesService: FerriesService,
     public common: CommonService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private subject: SubjectService
   ) {
   }
 
@@ -62,13 +64,8 @@ export class RoutesPricesTableComponent implements OnInit {
     if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
       console.log(this.dataSource)
-      // const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
-      // this.routesWithNoPriceLen = routesOnly.length;
-      // const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
-      // this.routesWithPricesLen = routesWithPrices.length;
-      // const routesOnTheMap = dt.filter(d => d.coordinates && d.coordinates.length !== 0);
-      // this.routesOnMap = routesOnTheMap.length;
       this.dataSource.paginator = this.paginator;
+      this.subject.setFerryRoutesData(dt);
     }
   }
 
