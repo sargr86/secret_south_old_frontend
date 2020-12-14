@@ -57,6 +57,7 @@ export class MapControlsComponent implements OnInit {
   mapZoom = 10;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Output('routesListReady') routesListReady = new EventEmitter();
 
   constructor(
     private ferriesService: FerriesService,
@@ -124,6 +125,7 @@ export class MapControlsComponent implements OnInit {
           this.linesArr.push(dt);
         });
 
+        this.routesListReady.emit(data);
       }
       if (this.filteredLinesArr.length === 1) {
         --this.pageIndex;

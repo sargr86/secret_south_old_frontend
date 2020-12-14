@@ -29,8 +29,6 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
   ngOnChanges(change) {
     this.importMethod = change.importMethod.currentValue;
     this.pricesOnly = this.importMethod === 'xls';
-    this.dropzoneConfig = this.getDropzoneConfig();
-    this.dropzoneMsg = this.getDropzoneMsg();
   }
 
   onFileAdded(e) {
@@ -92,13 +90,5 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
     reader.readAsBinaryString(file);
   }
 
-
-  getDropzoneConfig() {
-    return this.pricesOnly ? FERRY_PRICES_FILE_DROPZONE_CONFIG : FERRY_ROUTES_FILE_DROPZONE_CONFIG;
-  }
-
-  getDropzoneMsg() {
-    return `Drag & drop ${this.pricesOnly ? 'prices' : 'routes'} file here`;
-  }
 
 }

@@ -1,63 +1,63 @@
 <div id="map">
-  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">
+<!--  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">-->
 
-    <ng-container *ngIf="drawingEnabled">
+<!--    <ng-container *ngIf="drawingEnabled">-->
 
 
-      <div class="default-content-container">
+<!--      <div class="default-content-container">-->
 
-        <!-- No-routes-found message -->
-        <div class="no-routes">
-          <strong [hidden]="filteredLinesArr.length !==0 || routesListPanelClosed">No routes found</strong>
-        </div>
+<!--        &lt;!&ndash; No-routes-found message &ndash;&gt;-->
+<!--        <div class="no-routes">-->
+<!--          <strong [hidden]="filteredLinesArr.length !==0 || routesListPanelClosed">No routes found</strong>-->
+<!--        </div>-->
 
-        <!-- Collapse routes list panel -->
-        <div class="collapse-button">
-          <button mat-icon-button color="accent" (click)="toggleRoutesListPanel()">
-            <mat-icon>{{routesListPanelClosed ? 'arrow_forward' : 'arrow_backward'}}</mat-icon>
-          </button>
-        </div>
-      </div>
+<!--        &lt;!&ndash; Collapse routes list panel &ndash;&gt;-->
+<!--        <div class="collapse-button">-->
+<!--          <button mat-icon-button color="accent" (click)="toggleRoutesListPanel()">-->
+<!--            <mat-icon>{{routesListPanelClosed ? 'arrow_forward' : 'arrow_backward'}}</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <!-- Routes list -->
-      <mat-list *ngIf="filteredLinesArr.length > 0 && drawingEnabled">
-        <ng-container *ngFor="let line of filteredLinesArr">
-          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">
-            <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
+<!--      &lt;!&ndash; Routes list &ndash;&gt;-->
+<!--      <mat-list *ngIf="filteredLinesArr.length > 0 && drawingEnabled">-->
+<!--        <ng-container *ngFor="let line of filteredLinesArr">-->
+<!--          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">-->
+<!--            <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>-->
 
-            <!-- Route name -->
-            <span matLine (click)="selectRoute(line)">{{line.name}}</span>
+<!--            &lt;!&ndash; Route name &ndash;&gt;-->
+<!--            <span matLine (click)="selectRoute(line)">{{line.name}}</span>-->
 
-            <!-- Map coordinates indicator and remove-route-line button -->
-            <ng-container *ngIf="line.coordinates.length > 0">
-              <mat-icon class="route-coordinates-exist"
-                        [matTooltip]="'Has line coordinates on the map'">directions
-              </mat-icon>
-              <mat-icon (click)="removeRouteLine(line)" class="remove-route"
-                        [matTooltip]="'Removes only route line'">
-                clear
-              </mat-icon>
-            </ng-container>
-          </mat-list-item>
-        </ng-container>
+<!--            &lt;!&ndash; Map coordinates indicator and remove-route-line button &ndash;&gt;-->
+<!--            <ng-container *ngIf="line.coordinates.length > 0">-->
+<!--              <mat-icon class="route-coordinates-exist"-->
+<!--                        [matTooltip]="'Has line coordinates on the map'">directions-->
+<!--              </mat-icon>-->
+<!--              <mat-icon (click)="removeRouteLine(line)" class="remove-route"-->
+<!--                        [matTooltip]="'Removes only route line'">-->
+<!--                clear-->
+<!--              </mat-icon>-->
+<!--            </ng-container>-->
+<!--          </mat-list-item>-->
+<!--        </ng-container>-->
 
-        <!-- Routes list paginator -->
-        <div>
-          <mat-paginator *ngIf="filteredLinesArr.length > 0 && !routesListPanelClosed" (page)="handle($event)"
-                         #paginator
-                         [length]="linesArr.length" [pageIndex]="pageIndex"
-                         [pageSize]="pageSize" [hidePageSize]="true"
-                         [pageSizeOptions]="[2,5,10,25,100]">
-          </mat-paginator>
-        </div>
-      </mat-list>
+<!--        &lt;!&ndash; Routes list paginator &ndash;&gt;-->
+<!--        <div>-->
+<!--          <mat-paginator *ngIf="filteredLinesArr.length > 0 && !routesListPanelClosed" (page)="handle($event)"-->
+<!--                         #paginator-->
+<!--                         [length]="linesArr.length" [pageIndex]="pageIndex"-->
+<!--                         [pageSize]="pageSize" [hidePageSize]="true"-->
+<!--                         [pageSizeOptions]="[2,5,10,25,100]">-->
+<!--          </mat-paginator>-->
+<!--        </div>-->
+<!--      </mat-list>-->
 
-    </ng-container>
+<!--    </ng-container>-->
 
-    <ng-container *ngIf="!drawingEnabled">
-      <button mat-raised-button color="accent" (click)="resetRoutes()">Reset routes</button>
-    </ng-container>
-  </div>
+<!--    <ng-container *ngIf="!drawingEnabled">-->
+<!--      <button mat-raised-button color="accent" (click)="resetRoutes()">Reset routes</button>-->
+<!--    </ng-container>-->
+<!--  </div>-->
 
   <!-- Map itself-->
   <agm-map [latitude]="mapCenterCoordinates.lat" [longitude]="mapCenterCoordinates.lng"

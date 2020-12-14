@@ -10,7 +10,7 @@ import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ShowOrdersComponent} from '@app/ferries/show-orders/show-orders.component';
 import {ManageTableRoutesComponent} from '@app/ferries/manage-table-routes/manage-table-routes.component';
-import {ManageMapRoutesComponent} from '@app/ferries/manage-map-routes/manage-map-routes.component';
+import {ManageMapRoutesComponent} from '@app/ferries/manage-routes/manage-map-routes/manage-map-routes.component';
 
 const routes: Routes = [
   {
