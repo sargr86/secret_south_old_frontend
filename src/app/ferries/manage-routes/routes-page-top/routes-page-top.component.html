@@ -1,0 +1,33 @@
+<div class="top">
+  <h1>Routes</h1>
+
+
+  <div class="right">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <span>+ Import routes</span>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>XLS</button>
+      <button mat-menu-item>JSON</button>
+    </mat-menu>
+    <button mat-button id="add-route" (click)="addNewRouteWithoutMap()">
+      <span>+ Add route</span>
+    </button>
+  </div>
+</div>
+
+<div class="statistics">
+  <div id="routes-with-coordinates">
+    <h1 class="number">{{routesOnMap}}</h1>
+    <p class="description">Routes with coordinates</p>
+  </div>
+  <div id="routes-with-no-price">
+    <h1 class="number">{{routesWithNoPriceLen}}</h1>
+    <p class="description">Routes with no price</p>
+  </div>
+  <div id="routes-with-assigned-price">
+    <h1 class="number">{{routesWithPricesLen}}</h1>
+    <p class="description">Routes with assigned price</p>
+  </div>
+</div>
