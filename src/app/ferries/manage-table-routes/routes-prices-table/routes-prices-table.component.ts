@@ -75,7 +75,7 @@ export class RoutesPricesTableComponent implements OnInit {
   removeRoutePrice(row) {
     this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.ferriesService.removeRoutePrice({id: row._id}).subscribe(() => {
+        this.ferriesService.removeRoutePrice({id: row.id}).subscribe(() => {
           this.toastr.success('The route info has been removed successfully from the map');
           this.getAllRoutesPrices();
         });

@@ -1,3 +1,11 @@
+<div class="table-top-row">
+  <p class="min-people-count-hint">Minimum people count for all kinds of routes: 6</p>
+  <button id="reset-routes" (click)="removeAllRoutesPrices()">
+    <mat-icon>clear</mat-icon>
+    <span>Reset routes</span>
+  </button>
+</div>
+
 <div class="table_responsive">
   <table mat-table [dataSource]="dataSource" matSort>
 
