@@ -23,26 +23,33 @@
   padding: 20px;;
 }
 
-
 .table-top-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 
-  .total-values {
+  .min-people-count-hint {
+    color: #7BC447;
+    font-family: 'Roboto-Bold';
+    margin: 24px;
+  }
+
+  #reset-routes {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    height: 51px;
+    padding: 16px 24px;
+    background: $red;
+    color: $white;
+    font: normal normal bold 16px/15px Roboto;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: none;
 
-    ul {
-      .no-price-routes-count {
-        color: $red;
-        margin-left: 5px;
-      }
-
-      .priced-routes-count {
-        color: $green;
-        margin-left: 5px;
-      }
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      margin-right: 3px;
     }
   }
 }
@@ -52,14 +59,14 @@ table {
     background: #F6F6F6;
   }
 
-  th,td {
+  th, td {
     font-size: 16px;
     color: #414141;
     border: 0;
   }
 
-  tr{
-    &:nth-child(2n+2){
+  tr {
+    &:nth-child(2n+2) {
       background: #084F9326
     }
   }

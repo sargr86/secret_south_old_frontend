@@ -1,10 +1,26 @@
 @import "variables";
+@import "mixins";
 
 .routes-page-container {
   margin-right: 23px;
   margin-left: 24px;
   max-width: 1610px;
   width: 100%;
+
+  button {
+    height: 51px;
+    padding: 16px 24px;
+    background: #7BC447;
+    color: $white;
+    font: normal normal bold 16px/15px Roboto;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: none;
+
+    span {
+      width: 109px;
+    }
+  }
 
 
   .top {
@@ -19,19 +35,6 @@
       color: #414141;
     }
 
-    button {
-      height: 51px;
-      padding: 16px 24px;
-      background: #7BC447;
-      color: $white;
-      font: normal normal bold 16px/15px Roboto;
-      text-transform: uppercase;
-      border-radius: 0;
-
-      span {
-        width: 109px;
-      }
-    }
 
     #add-route {
       margin-left: 24px;
@@ -60,11 +63,7 @@
     }
   }
 
-  .min-people-count-hint {
-    color: #7BC447;
-    font-family: 'Roboto-Bold';
-    margin:24px;
-  }
+
 
   .table-container {
     width: 100%;

@@ -25,11 +25,11 @@ export function preventDuplicateLocations(start: string, stop_1: string, stop_2:
       const values = Object.values(points);
       const ownIndex = values.indexOf(val);
       const lastOccurIndex = values.lastIndexOf(val);
-      console.log(lastOccurIndex)
+      // console.log(lastOccurIndex)
         if (val !== '' && ownIndex !== lastOccurIndex) {
 
         const controlName = Object.keys(points)[lastOccurIndex];
-      console.log(points)
+      // console.log(points)
 // console.log(Object.keys(points))
 
         if (controlName === 'end_point' && (stop1.value !== '' || stop2.value !== '' || (stop1.value !== '' && stop2.value !== '')) && points.start_point === points.end_point) {
