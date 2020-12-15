@@ -1,5 +1,5 @@
 .routes-page-container {
-  margin-left: 24px;
+  margin: 24px;
 
   .titles-container {
     margin-top: 32px;
@@ -20,16 +20,23 @@
 
   .map-routes-container {
     display: flex;
-
+    flex-wrap: wrap;
+    margin-top: 24px;
     .map-container {
-      width: 516px;
+      flex: 1;
     }
 
     .routes-list-container{
       margin-left: 24px;
+      flex: 1;
       .route{
+        padding: 12px 20px;
         cursor: pointer;
-        height: 51px;
+
+        &:nth-child(2n+2){
+          background: #084F9326;
+        }
+
         span{
           color: #414141;
           font-size: 16px;
