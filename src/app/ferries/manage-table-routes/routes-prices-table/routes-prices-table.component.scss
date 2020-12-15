@@ -26,11 +26,11 @@
 .table-top-row {
   display: flex;
   justify-content: space-between;
-
+  align-items: center;
   .min-people-count-hint {
     color: #7BC447;
     font-family: 'Roboto-Bold';
-    margin: 24px;
+    //margin: 24px;
   }
 
   #reset-routes {
