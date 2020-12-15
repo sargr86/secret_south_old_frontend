@@ -8,8 +8,10 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>XLS</button>
-      <button mat-menu-item>JSON</button>
+      <button mat-menu-item (click)="openFileDialog('xls')">XLS</button>
+      <button mat-menu-item (click)="openFileDialog('json')">JSON</button>
+      <input type="file" id="import-file" [hidden]="true" (change)="fileSelected($event.target?.files[0])">
+      <app-import-from-file></app-import-from-file>
     </mat-menu>
     <button mat-button id="add-route" (click)="addNewRouteWithoutMap()">
       <span>+ Add route</span>
