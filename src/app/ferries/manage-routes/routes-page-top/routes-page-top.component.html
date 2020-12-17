@@ -3,15 +3,20 @@
 
 
   <div class="right">
-    <button mat-button [matMenuTriggerFor]="menu">
+    <div id="importing-message" *ngIf="fileImporting">
+      <mat-spinner [diameter]="15"></mat-spinner>
+      <p>Importing</p>
+    </div>
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!fileImporting">
       <span>+ Import routes</span>
     </button>
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="openFileDialog('xls')">XLS</button>
       <button mat-menu-item (click)="openFileDialog('json')">JSON</button>
-      <input type="file" id="import-file" [hidden]="true" (change)="fileSelected($event.target?.files[0])">
-      <app-import-from-file></app-import-from-file>
+      <input type="file" id="import-file" [hidden]="true" #fileInput
+             (change)="fileSelected($event.target?.files[0],fileInput)">
+      <app-import-from-file (fileImported)="fileImportFinished($event)"></app-import-from-file>
     </mat-menu>
     <button mat-button id="add-route" (click)="addNewRouteWithoutMap()">
       <span>+ Add route</span>

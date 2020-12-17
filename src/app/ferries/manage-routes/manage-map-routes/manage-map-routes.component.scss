@@ -1,3 +1,4 @@
+@import "variables";
 .routes-page-container {
   margin: 24px;
 
@@ -29,6 +30,11 @@
     .routes-list-container{
       margin-left: 24px;
       flex: 1;
+
+      .selected span{
+        color: $red!important;
+      }
+
       .route{
         padding: 12px 20px;
         cursor: pointer;

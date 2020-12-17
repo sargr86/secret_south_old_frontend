@@ -18,11 +18,12 @@ import {SubjectService} from '@core/services/subject.service';
 export class RoutesPricesTableComponent implements OnInit {
 
   dataSource;
-  routesWithNoPriceLen;
-  routesWithPricesLen;
-  routesOnMap;
   displayedColumns = ROUTES_PRICES_TABLE_COLUMNS;
   paginationValues = [10, 25, 100];
+
+
+  dataLoading = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -84,7 +85,9 @@ export class RoutesPricesTableComponent implements OnInit {
   removeAllRoutesPrices() {
     this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
       if (confirmed) {
+        this.dataLoading = true;
         this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
+          this.dataLoading = false;
           this.toastr.success('All routes and their info have been removed successfully from the map');
           this.getAllRoutesPrices();
         });
