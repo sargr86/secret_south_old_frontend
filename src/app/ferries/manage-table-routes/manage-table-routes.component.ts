@@ -26,4 +26,8 @@ export class ManageTableRoutesComponent implements OnInit {
     this.tableComponent.generateTableList(e);
   }
 
+  fileImported(e) {
+    this.tableComponent.generateTableList(e);
+  }
+
 }

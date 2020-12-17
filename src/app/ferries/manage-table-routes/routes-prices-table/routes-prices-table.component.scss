@@ -27,10 +27,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   .min-people-count-hint {
     color: #7BC447;
     font-family: 'Roboto-Bold';
     //margin: 24px;
+  }
+
+  #resetting-message {
+    display: flex;
+    align-items: center;
+    p{
+      margin-left: 5px;
+    }
   }
 
   #reset-routes {

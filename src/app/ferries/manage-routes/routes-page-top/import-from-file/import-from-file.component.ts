@@ -39,9 +39,9 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
     fileReader.onload = async () => {
       // console.log(typeof fileReader['result'])
       console.log('importing')
-      this.ferriesService.importRoutesFile(JSON.parse(fileReader['result'] as any)).subscribe(() => {
+      this.ferriesService.importRoutesFile(JSON.parse(fileReader['result'] as any)).subscribe((dt) => {
         this.toastr.success('Ferries routes data imported successfully');
-        this.fileImported.emit();
+        this.fileImported.emit(dt);
       });
     };
     fileReader.onerror = (error) => {

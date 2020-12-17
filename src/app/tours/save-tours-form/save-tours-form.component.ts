@@ -145,6 +145,15 @@ export class SaveToursFormComponent implements OnInit {
     }
   }
 
+  getLocationsFormGroup(title, order) {
+    return this.fb.group({
+      name: ['', Validators.required],
+      title: [title],
+      id: [''],
+      order: [order]
+    });
+  }
+
   locationChanged(value, i) {
     this.locations.controls[i].patchValue({id: value});
     console.log(this.toursForm.getRawValue())
@@ -222,14 +231,7 @@ export class SaveToursFormComponent implements OnInit {
     return this.locations.controls.find(c => c.value.title === name);
   }
 
-  getLocationsFormGroup(title, order) {
-    return this.fb.group({
-      name: ['', Validators.required],
-      title: [title],
-      id: [''],
-      order: [order]
-    });
-  }
+
 
   dateChanged(e, which) {
     if (which === 'start') {
