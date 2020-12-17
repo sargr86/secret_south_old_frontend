@@ -14,10 +14,13 @@ import {ImportFromFileComponent} from '@app/ferries/manage-routes/routes-page-to
 })
 export class RoutesPageTopComponent implements OnInit {
   @Output('newRoute') newRoute = new EventEmitter();
+  @Output('fileImported') fileImported = new EventEmitter();
   routesWithNoPriceLen = 0;
   routesWithPricesLen = 0;
   routesOnMap = 0;
   routesOnly;
+  fileImporting = false;
+
   @ViewChild(ImportFromFileComponent) fileImport: ImportFromFileComponent;
 
   constructor(
@@ -55,12 +58,22 @@ export class RoutesPageTopComponent implements OnInit {
     input.click();
   }
 
-  fileSelected(file) {
+  fileSelected(file, fileInput) {
+    this.fileImporting = true;
     if (this.routesOnly) {
       this.fileImport.importXMLFile(file);
+      console.log(fileInput)
+      fileInput.value = '';
     } else {
       this.fileImport.importJSONFile(file);
+      console.log(fileInput)
+      fileInput.value = '';
     }
+  }
+
+  fileImportFinished(e) {
+    this.fileImporting = false;
+    this.fileImported.emit(e);
   }
 
 

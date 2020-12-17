@@ -56,6 +56,10 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
   }
 }
 
+.agm-map-container-inner {
+  height: 512px !important;
+}
+
 .input-g {
   display: flex;
 }
@@ -1541,5 +1545,5 @@ agm-map {
   .ngx-material-timepicker-toggle svg {
     margin-left: 0 !important;
   }
- 
+
 }

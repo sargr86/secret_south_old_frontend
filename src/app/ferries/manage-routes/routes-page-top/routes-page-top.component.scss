@@ -32,6 +32,18 @@
   #add-route {
     margin-left: 24px;
   }
+
+  .right {
+    display: flex;
+
+    #importing-message {
+      display: flex;
+      align-items: center;
+      p{
+        margin-left: 5px;
+      }
+    }
+  }
 }
 
 .statistics {
