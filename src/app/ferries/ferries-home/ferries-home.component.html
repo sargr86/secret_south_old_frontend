@@ -62,7 +62,6 @@
       <div class="locations-group" formArrayName="locations">
 
         <div class="locations-wrap">
-          {{locations.controls}}
           <ng-container *ngFor="let c of locations.controls;let ind = index">
             <ng-container [formGroupName]="ind.toString()">
               <div class="location-selector" [id]="getLocationId(ind)">

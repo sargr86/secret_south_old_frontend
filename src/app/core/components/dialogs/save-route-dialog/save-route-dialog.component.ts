@@ -54,7 +54,7 @@ export class SaveRouteDialogComponent implements OnInit {
       map: this.fromMap,
       single: ['0', patternValidator(NUMBERS_ONLY_PATTERN)],
       return: ['0', patternValidator(NUMBERS_ONLY_PATTERN)],
-      total: new FormControl({value: ''}, Validators.required),
+      total: [0, Validators.required]
     }, {validators: preventDuplicateLocations('start_point', 'stop_1', 'stop_2', 'end_point')});
 
 
@@ -62,7 +62,7 @@ export class SaveRouteDialogComponent implements OnInit {
     if (this.routeData) {
       this.totalPrice = this.routeData.total;
       this.routeName = this.routeData.name;
-      this.saveRouteForm.addControl('id', new FormControl('', Validators.required));
+      this.saveRouteForm.addControl('_id', new FormControl('', Validators.required));
       this.saveRouteForm.patchValue(this.routeData);
       console.log(this.routeData)
       console.log(this.saveRouteForm.value)
@@ -104,18 +104,13 @@ export class SaveRouteDialogComponent implements OnInit {
     console.log(this.saveRouteForm.valid)
     if (this.saveRouteForm.valid) {
       this.common.formProcessing = true;
-      if (this.edit) {
-        this.ferriesService.updateRoutePrice(this.saveRouteForm.value).subscribe(dt => {
-          this.common.formProcessing = false;
-          this.dialog.close(dt);
-        });
-      } else {
+      console.log(this.edit)
 
-        this.ferriesService.saveRoutePrice(this.saveRouteForm.value).subscribe(dt => {
-          this.common.formProcessing = false;
-          this.dialog.close(dt);
-        });
-      }
+      this.ferriesService.saveRoutePrice(this.saveRouteForm.value).subscribe(dt => {
+        this.common.formProcessing = false;
+        this.dialog.close(dt);
+      });
+
     }
   }
 
