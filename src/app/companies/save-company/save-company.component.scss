@@ -1,5 +1,66 @@
 .companyForm {
-  max-width: 600px;
-  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  width: 100%;
   margin: 0 auto;
+
+  .left-wrap{
+    flex: 1;
+  }
+
+  .right-wrap{
+    flex: 0 0 246px;
+    margin-left: 24px;
+  }
+
+  .input-wrap {
+    margin-top: 24px;
+  
+    .input {
+      margin-bottom: 16px;
+  
+      input , textarea{
+        width: 100%;
+        background: #f9f9f9;
+        padding: 12px 23px;
+        font-size: 16px;
+        color: #707070;
+        border: 0.5px solid transparent;
+  
+        &:focus {
+          border: 0.5px solid #7BC447;
+        }
+      }
+    }
+  
+    .select {
+      padding-right: 12px;
+      margin-bottom: 16px;
+  
+      select {
+        width: 100%;
+        padding: 12px 16px;
+        background: #f9f9f9;
+        font-size: 16px;
+        color: #707070;
+        border: 0.5px solid transparent;
+  
+        &:focus {
+          border: 0.5px solid #7BC447;
+        }
+      }
+    }
+  
+  }
+  .saveBtn{
+      float: left;
+      background: #7bc447;
+      border-radius: 0;
+      box-shadow: initial;
+      padding: 4px 16px;
+      font-size: 16px;
+      font-weight: bold;
+  }
 }
+

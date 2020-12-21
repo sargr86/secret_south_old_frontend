@@ -3,29 +3,76 @@
 <div class="companyForm">
 
     <!-- Current form title -->
-    <app-form-title [item]="'company'" [editCase]="editCase"></app-form-title>
+    <div class="left-wrap">
+    
+        <app-form-title [item]="'company'" [editCase]="editCase"></app-form-title>
+    
+        <form [formGroup]="companyForm">
+            <div class="input-wrap ">
+                <div class="input">
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="select">
+                    <select name="" id="">
+                        <option value="">Gender</option>
+                        <option value="">option</option>
+                        <option value="">option</option>
+                    </select>
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Email">
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Phone Number">
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Company Name">
+                </div>
+                <div class="select">
+                    <select name="" id="">
+                        <option value="">Type</option>
+                        <option value="">option</option>
+                        <option value="">option</option>
+                    </select>
+                </div>
+                <div class="input">
+                    <textarea name="" id="" cols="30" rows="6" placeholder="Description"></textarea>
+                </div>
+            </div>
+    
 
-    <form [formGroup]="companyForm">
 
-        <!-- Company name field -->
-        <mat-form-field>
-            <input matInput placeholder="Company name" formControlName="name" required>
-        </mat-form-field>
+            <!-- Company name field -->
 
-        <!-- Company type field -->
-        <mat-form-field>
+            <!-- <mat-form-field>
+                <input matInput placeholder="Company name" formControlName="name" required>
+            </mat-form-field> -->
 
-            <mat-select placeholder="Type" formControlName="type_id" required>
-                <mat-option>Please select</mat-option>
-                <mat-option [value]="t['id']" *ngFor="let t of companyTypes">{{t['name']}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <!-- Company type field -->
 
-        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
-        <button mat-raised-button color="primary" (click)="saveCompany()">
-            Save
-        </button>
-    </form>
+
+            <!-- <mat-form-field>
+                <mat-select placeholder="Type" formControlName="type_id" required>
+                    <mat-option>Please select</mat-option>
+                    <mat-option [value]="t['id']" *ngFor="let t of companyTypes">{{t['name']}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+    
+
+
+            <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" class="saveBtn" (click)="saveCompany()">
+                Save
+            </button>
+        </form>
+    </div>
+
+    <div class="right-wrap">
+        Add photo
+    </div>
 </div>
