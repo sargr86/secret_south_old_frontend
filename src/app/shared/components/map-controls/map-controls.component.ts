@@ -343,8 +343,8 @@ export class MapControlsComponent implements OnInit {
       this.selectedRoute = null;
     } else {
       this.selectedRoute = route;
-      console.log(this.linesArr)
-      console.log(route)
+      // console.log(this.linesArr)
+      // console.log(route)
       this.ferryMapLocations.map(location => {
         if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
           location.markerIconUrl = 'assets/icons/red_circle_small.png';
