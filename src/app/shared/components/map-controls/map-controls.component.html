@@ -23,7 +23,7 @@
       <mat-list *ngIf="filteredLinesArr.length > 0 && drawingEnabled">
 <!--        {{filteredLinesArr|json}}-->
         <ng-container *ngFor="let line of filteredLinesArr">
-          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.id === line.id">
+          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute._id === line._id">
             <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
 
             <!-- Route name -->
@@ -139,7 +139,7 @@
     <!-- Lines for editable mode-->
     <ng-container *ngIf="linesArr && linesArr.length > 0">
       <agm-polyline #line *ngFor="let line of linesArr" [editable]="false"
-                    [strokeColor]="selectedRoute && selectedRoute.id === line.id ? '#8B0000':'#80b446'"
+                    [strokeColor]="selectedRoute && selectedRoute._id === line._id ? '#8B0000':'#80b446'"
                     [strokeWeight]="1">
         <agm-polyline-point *ngFor="let point of line.coordinates"
                             [latitude]="point.lat"
@@ -148,7 +148,7 @@
         </agm-polyline-point>
 
 
-        <agm-icon-sequence *ngIf="!selectedRoute || selectedRoute.id !== line.id" [strokeColor]="'#80b446'"
+        <agm-icon-sequence *ngIf="!selectedRoute || selectedRoute._id !== line._id" [strokeColor]="'#80b446'"
                            [repeat]="'8px'" [offset]="'0'" [strokeWeight]="1" [scale]="2"
                            [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
         </agm-icon-sequence>
