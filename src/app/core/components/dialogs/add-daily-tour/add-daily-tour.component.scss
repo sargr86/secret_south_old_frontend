@@ -1,0 +1,126 @@
+.add-order-popup{
+    padding: 0 66px 40px 66px;
+    width: 560px;
+    h2{
+        text-transform: uppercase;
+        color: #707070;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .order-info{
+
+        margin-top: 32px;
+        li{list-style: none;}
+
+        .locations-row{
+             ul{
+                 display: flex;
+                 margin: 0;
+                 li{
+                    display: flex;
+                    align-items: center;
+                    margin-right: 8px;
+                    font-size: 24px;
+                    color: #7BC447;
+                    &::after {
+                        content: "\f30b";
+                        margin-left: 8px;
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        color: #707070;
+                        font-size: 14px;
+                        margin-top: 6px;
+                        display: block;
+                    }
+
+                    &:last-child{
+                        &::after {
+                            content: "";
+                        }
+                    }
+                 }
+             }
+        }
+
+        .counts-row-price{
+            margin-top: 16px;
+            display: flex;
+            ul{
+                margin: 0;
+                li{
+                    margin-top: 4px;
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 16px;
+                    color:#707070;
+
+                    span{
+                        font-weight: bold;
+                        margin-left: 24px;
+                    }
+                }
+            }
+        }
+
+    }
+    .form-wrap{
+        margin-top: 24px;
+        .input-wrap{
+            margin-top: 16px;
+            display: flex;
+            .input{
+                display: flex;
+                margin-right: 16px;
+                &:last-child{
+                    margin-right: 0;
+                }
+                input{
+                    width: 100%;
+                    padding: 14px 24px;
+                    background: #F2F2F2;
+                    font-size: 16px;
+                    border: 0;
+                }
+            }
+        }
+
+        .btn{
+            margin-top: 24px;
+            padding: 12px 24px;
+            color: #fff;
+            font-size: 16px;
+            background-color: #7BC447;
+            border: none;
+            border-radius: 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+
+    .input-group-append{
+        .input-group-text{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0;
+            border: 0;
+            cursor: pointer;
+            span{
+                flex: 1;
+                width: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #dce6f0;
+                transition: 0.3s;
+                &:hover{
+                    background: #7BC447;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
