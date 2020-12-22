@@ -13,6 +13,7 @@ import {ChangePricesDialogComponent} from './components/dialogs/change-prices-di
 import {ConfirmationDialogComponent} from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {SaveLocationDialogComponent} from './components/dialogs/save-location-dialog/save-location-dialog.component';
+import { AddDailyTourComponent } from './components/dialogs/add-daily-tour/add-daily-tour.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {SaveLocationDialogComponent} from './components/dialogs/save-location-di
     ChangePricesDialogComponent,
     ConfirmationDialogComponent,
     SaveLocationDialogComponent,
+    AddDailyTourComponent,
   ],
   imports: [
     CommonModule,
