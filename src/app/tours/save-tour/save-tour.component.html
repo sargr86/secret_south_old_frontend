@@ -122,7 +122,7 @@
 
       <div class="row">
         <div class="input people-count">
-          <input type="hidden" formControlName="participants_max_count" class="hidden">
+          <input type="hidden" formControlName="max_participants_count" class="hidden">
           <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
                             [buttonsOrientation]="'v'" [placeholder]="'Total count'"
                             (valueChange)="peopleCountChanged($event)"></ng-number-picker>

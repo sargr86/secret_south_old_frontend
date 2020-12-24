@@ -443,13 +443,67 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 // Ngx Material time picker
-.ngx-material-timepicker-toggle {
+.ngx-material-timepicker-toggle, ngx-material-timepicker-toggle {
   position: absolute !important;
   top: 8px !important;
 
   svg {
     fill: #D2D2D2 !important;
     margin-left: 16px;
+  }
+}
+
+.cdk-overlay-container {
+  z-index: 500 !important;
+}
+
+.daily-tour-form {
+  ngx-material-timepicker-toggle {
+    position: absolute !important;
+    top: 0 !important;
+    left: -18px !important;
+  }
+
+  input[name="input-spin-val"] {
+    padding: 26px 14px !important;
+    background: #F2F2F2;
+    font-size: 16px;
+    border: 0;
+  }
+
+  .input-group-append {
+    .input-group-text {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 0;
+      border: 0;
+      cursor: pointer;
+
+      span {
+        flex: 1;
+        width: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dce6f0;
+        transition: 0.3s;
+
+        &:hover {
+          background: #7BC447;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+#save-tour-form {
+  ngx-material-timepicker-toggle {
+    position: absolute !important;
+    top: 0 !important;
+    left: 8px !important;
   }
 }
 
@@ -1537,11 +1591,13 @@ agm-map {
       text-align: left;
       border: 0.5px solid transparent;
       border-radius: 0;
+
       &:focus {
         border: 0.5px solid #7BC447;
       }
     }
   }
+
   .ngx-material-timepicker-toggle svg {
     margin-left: 0 !important;
   }

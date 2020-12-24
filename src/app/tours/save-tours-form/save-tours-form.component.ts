@@ -95,7 +95,7 @@ export class SaveToursFormComponent implements OnInit {
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
       end_date: ['', Validators.required],
-      participants_max_count: [this.maxParticipantsCount, Validators.required],
+      max_participants_count: [this.maxParticipantsCount, Validators.required],
       price: ['', Validators.required],
       img: [''],
       folder: 'tours'
@@ -119,7 +119,7 @@ export class SaveToursFormComponent implements OnInit {
         this.tourFields['id'] = '';
         this.toursForm = this.fb.group(this.tourFields);
         this.toursForm.patchValue(this.tourData);
-        this.maxParticipantsCount = +this.tourData.participants_max_count;
+        this.maxParticipantsCount = +this.tourData.max_participants_count;
         this.tourData.tour_locations.map((l, index) => {
           const c = this.toursForm.controls.locations as any;
           if (this.tourData.tour_locations.length > c.length) {
@@ -241,7 +241,7 @@ export class SaveToursFormComponent implements OnInit {
   }
 
   peopleCountChanged(e) {
-    this.toursForm.patchValue({participants_max_count: e});
+    this.toursForm.patchValue({max_participants_count: e});
   }
 
   saveTourDetails() {
