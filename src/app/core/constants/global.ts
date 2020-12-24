@@ -24,7 +24,7 @@ export const FERRIES_TABLE_COLUMNS = ['name', 'max_people', 'min_people', 'compa
 export const FOOD_DRINK_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
 export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
 export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
-export const TOURS_TABLE_COLUMNS = ['tours_type', 'routes', 'company',  'price', 'actions'];
+export const TOURS_TABLE_COLUMNS = ['tours_type', 'name', 'company',  'price', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'actions'];
 export const EMPLOYEES_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'company', 'actions'];
 export const CUSTOMERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email'];
@@ -132,6 +132,7 @@ export const DASHBOARD_LINKS = [
       {name: 'Show'},
       {name: 'Add types'},
       {name: 'Show types'},
+      {name: 'Daily'},
       {name: 'Orders'}
     ]
   },
@@ -142,22 +143,22 @@ export const DASHBOARD_LINKS = [
       {name: 'Show'},
     ]
   },
-  {
-    name: 'Contacts',
-    children: [
-      {name: 'Requests'},
-      {name: 'Invitations'}
-    ]
-  },
-  {
-    name: 'Partners',
-    children: [
-      {name: 'Invite'},
-      {name: 'Show'},
-      // {name: 'Add types'},
-      // {name: 'Show types'}
-    ]
-  },
+  // {
+  //   name: 'Contacts',
+  //   children: [
+  //     {name: 'Requests'},
+  //     {name: 'Invitations'}
+  //   ]
+  // },
+  // {
+  //   name: 'Partners',
+  //   children: [
+  //     {name: 'Invite'},
+  //     {name: 'Show'},
+  //     // {name: 'Add types'},
+  //     // {name: 'Show types'}
+  //   ]
+  // },
   {
     name: 'Employees',
     children: [
@@ -167,18 +168,18 @@ export const DASHBOARD_LINKS = [
       // {name: 'Show types'}
     ]
   },
-  {
-    name: 'Customers',
-    children: [
-      {name: 'Show'}
-    ]
-  },
-  {
-    name: 'Jobs',
-    children: [
-      {name: 'Show'}
-    ]
-  }
+  // {
+  //   name: 'Customers',
+  //   children: [
+  //     {name: 'Show'}
+  //   ]
+  // },
+  // {
+  //   name: 'Jobs',
+  //   children: [
+  //     {name: 'Show'}
+  //   ]
+  // }
 ];
 
 // Drop zone config

@@ -49,7 +49,7 @@ export const TOURS_FIELDS = {
   start_time: ['', Validators.required],
   end_time: ['', Validators.required],
   end_date: ['', Validators.required],
-  participants_max_count: ['', Validators.required],
+  max_participants_count: ['', Validators.required],
   price: ['', Validators.required],
   folder: 'tours',
   locations: [[], Validators.required],

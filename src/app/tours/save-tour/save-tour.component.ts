@@ -103,7 +103,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
       end_date: ['', Validators.required],
-      participants_max_count: ['', Validators.required],
+      max_participants_count: ['', Validators.required],
       price: ['', Validators.required],
       folder: 'tours'
     });
@@ -297,7 +297,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
 
   peopleCountChanged(e) {
     console.log(e)
-    this.saveTourForm.patchValue({participants_max_count: e});
+    this.saveTourForm.patchValue({max_participants_count: e});
   }
 
   locationChanged(val, i) {
