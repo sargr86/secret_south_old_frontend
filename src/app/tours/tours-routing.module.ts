@@ -12,6 +12,7 @@ import {ToursListComponent} from '@app/tours/tours-list/tours-list.component';
 import {ToursSingleComponent} from '@app/tours/tours-single/tours-single.component';
 import {ShowOrdersComponent} from '@app/tours/show-orders/show-orders.component';
 import {SaveToursFormComponent} from '@app/tours/save-tours-form/save-tours-form.component';
+import {ShowDailyToursComponent} from '@app/tours/show-daily-tours/show-daily-tours.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
     path: 'show', component: ShowToursComponent, data: {
       title: 'All tours',
     },
+  },
+  {
+    path: 'daily',
+    component: ShowDailyToursComponent
   },
   {
     path: 'orders', component: ShowOrdersComponent

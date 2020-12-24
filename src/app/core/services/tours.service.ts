@@ -4,92 +4,96 @@ import * as Base from "../../config.js";
 import {API_URL} from '../constants/global';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ToursService {
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    public getAllpartner() {
+  public getAllpartner() {
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+      })
+    };
 
-        return this.http.get(`${API_URL}partners/get`);
-    }
+    return this.http.get(`${API_URL}partners/get`);
+  }
 
-    public insertToursType(data) {
+  public insertToursType(data) {
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+      })
+    };
 
-        return this.http.post(`${API_URL}tour_types/add`, data, httpOptions);
-    }
+    return this.http.post(`${API_URL}tour_types/add`, data, httpOptions);
+  }
 
-    public getAllTourTypes() {
+  public getAllTourTypes() {
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+      })
+    };
 
-        return this.http.get(`${API_URL}tour_types/get`, httpOptions);
-    }
-
-
-    updateToursType(params) {
-        return this.http.put(`${API_URL}tour_types/update`, params);
-    }
-
-    removeToursType(params) {
-        return this.http.post(`${API_URL}tour_types/remove`, params);
-    }
-
-    getOneTourType(params) {
-        return this.http.get(`${API_URL}tour_types/getOne`, {params: params});
-    }
+    return this.http.get(`${API_URL}tour_types/get`, httpOptions);
+  }
 
 
-    //// TOURS
+  updateToursType(params) {
+    return this.http.put(`${API_URL}tour_types/update`, params);
+  }
+
+  removeToursType(params) {
+    return this.http.post(`${API_URL}tour_types/remove`, params);
+  }
+
+  getOneTourType(params) {
+    return this.http.get(`${API_URL}tour_types/getOne`, {params: params});
+  }
 
 
-    public getAllTours() {
+  //// TOURS
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'content-type': 'application/json',
-            })
-        };
 
-        return this.http.get(API_URL + 'tours/get', httpOptions);
-    }
+  public getAllTours() {
 
-    add(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+      })
+    };
 
-        return this.http.post(`${API_URL}tours/add`, data);
-    }
+    return this.http.get(API_URL + 'tours/get', httpOptions);
+  }
 
-    update(params) {
-        return this.http.put(`${API_URL}tours/update`, params);
-    }
+  add(data) {
 
-    remove(params) {
-        return this.http.delete(`${API_URL}tours/remove`, {params: params});
-    }
+    return this.http.post(`${API_URL}tours/add`, data);
+  }
 
-    getOneTour(params) {
-        return this.http.get(`${API_URL}tours/getOne`, {params: params});
-    }
+  update(params) {
+    return this.http.put(`${API_URL}tours/update`, params);
+  }
 
-    getPartners() {
-        return this.http.get(API_URL + 'tours/get-partners');
-    }
+  remove(params) {
+    return this.http.delete(`${API_URL}tours/remove`, {params: params});
+  }
+
+  getOneTour(params) {
+    return this.http.get(`${API_URL}tours/getOne`, {params});
+  }
+
+  getPartners() {
+    return this.http.get(API_URL + 'tours/get-partners');
+  }
+
+  getDailies(params) {
+    return this.http.get(API_URL + 'tours/get-dailies', {params});
+  }
 }

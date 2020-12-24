@@ -11,5 +11,5 @@ export interface Tour {
   images?: any;
   tour_locations?: any[];
   start_date?: string;
-  participants_max_count?: string;
+  max_participants_count?: string;
 }
