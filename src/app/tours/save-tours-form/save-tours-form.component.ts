@@ -119,10 +119,11 @@ export class SaveToursFormComponent implements OnInit {
         this.startDate = this.tourData.start_date;
         this.tourFields['id'] = '';
         this.toursForm = this.fb.group(this.tourFields);
-        this.toursForm.patchValue(this.tourData);
+        this.toursForm.patchValue({...this.tourData, oldName: this.tourData.name});
         const tourDailyData = this.tourData.tours_dailies[0];
         this.toursForm.patchValue(tourDailyData as any);
         this.maxParticipantsCount = +this.tourData.max_participants_count;
+        console.log(this.toursForm.getRawValue())
         this.tourData.tour_locations.map((l, index) => {
           const c = this.toursForm.controls.locations as any;
           if (this.tourData.tour_locations.length > c.length) {
@@ -257,35 +258,35 @@ export class SaveToursFormComponent implements OnInit {
     // if (this.toursForm.valid) {
 
 
-      for (const field of Object.keys(formValues)) {
+    for (const field of Object.keys(formValues)) {
 
-        let val = formValues[field] ? formValues[field] : '';
+      let val = formValues[field] ? formValues[field] : '';
 
 
-        if (field === 'locations') {
-          val = JSON.stringify(val);
-        }
-        formData.append(field, val);
+      if (field === 'locations') {
+        val = JSON.stringify(val);
       }
+      formData.append(field, val);
+    }
 
 
-      formData.forEach((value, key) => {
-        // console.log(key + ' ' + value)
+    formData.forEach((value, key) => {
+      // console.log(key + ' ' + value)
+    });
+
+    this.dropZoneFiles.map(file => {
+      formData.append('upload_images', file, file ? file.name : '');
+    });
+
+    if (this.editCase) {
+      this.toursService.update(formData).subscribe(dt => {
+        this.router.navigate(['admin/tours/show']);
       });
-
-      this.dropZoneFiles.map(file => {
-        formData.append('upload_images', file, file ? file.name : '');
+    } else {
+      this.toursService.add(formData).subscribe(dt => {
+        this.router.navigate(['admin/tours/show']);
       });
-
-      if (this.editCase) {
-        this.toursService.update(formData).subscribe(dt => {
-          this.router.navigate(['admin/tours/show']);
-        });
-      } else {
-        this.toursService.add(formData).subscribe(dt => {
-          this.router.navigate(['admin/tours/show']);
-        });
-      }
+    }
     // }
 
     // console.log(this.toursForm.getRawValue())
