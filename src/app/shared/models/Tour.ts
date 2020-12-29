@@ -12,4 +12,5 @@ export interface Tour {
   tour_locations?: any[];
   start_date?: string;
   max_participants_count?: string;
+  tours_dailies?: string;
 }
