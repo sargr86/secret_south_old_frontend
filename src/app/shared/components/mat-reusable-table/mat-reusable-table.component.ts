@@ -147,7 +147,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(dialogRef.afterClosed().subscribe(
       result => {
         if (result) {
-          this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id}), true);
+          this.getData(this[`_${this.item.replace(/-/g, '_')}`].remove({id: row.id, name: row.name}), true);
         }
       }
     ));
