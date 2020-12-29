@@ -176,6 +176,7 @@ export class SaveAccommodationComponent implements OnInit, OnDestroy, AfterViewI
    * @param dt route data
    */
   editFormPreparations(dt): void {
+    console.log(dt)
     this.formFields['id'] = '';
     this.setFormFields();
     this.addressCtrl.disable();

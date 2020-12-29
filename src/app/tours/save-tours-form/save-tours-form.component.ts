@@ -62,7 +62,7 @@ export class SaveToursFormComponent implements OnInit {
   }
 
   checkoutDatesFilter = (d: Date | null): boolean => {
-    return moment(d).isAfter(moment(this.startDate), 'day');
+    return moment(d).isSameOrAfter(moment(this.startDate), 'day');
   }
 
   constructor(
@@ -115,10 +115,13 @@ export class SaveToursFormComponent implements OnInit {
       this.formAction = this.editCase ? 'update' : 'add';
       if (this.route.snapshot.paramMap.get('id')) {
         this.tourData = dt['oneTour'];
+        console.log(this.tourData)
         this.startDate = this.tourData.start_date;
         this.tourFields['id'] = '';
         this.toursForm = this.fb.group(this.tourFields);
         this.toursForm.patchValue(this.tourData);
+        const tourDailyData = this.tourData.tours_dailies[0];
+        this.toursForm.patchValue(tourDailyData as any);
         this.maxParticipantsCount = +this.tourData.max_participants_count;
         this.tourData.tour_locations.map((l, index) => {
           const c = this.toursForm.controls.locations as any;
@@ -147,7 +150,7 @@ export class SaveToursFormComponent implements OnInit {
 
   getLocationsFormGroup(title, order) {
     return this.fb.group({
-      name: ['', Validators.required],
+      name: [''],
       title: [title],
       id: [''],
       order: [order]
@@ -232,7 +235,6 @@ export class SaveToursFormComponent implements OnInit {
   }
 
 
-
   dateChanged(e, which) {
     if (which === 'start') {
       // console.log(e)
@@ -249,9 +251,10 @@ export class SaveToursFormComponent implements OnInit {
     const formValues = this.toursForm.getRawValue();
 
     this.isSubmitted = true;
-    console.log(formValues)
+    console.log(this.toursForm.getRawValue())
+    console.log(this.toursForm.value)
 
-    if (this.toursForm.valid) {
+    // if (this.toursForm.valid) {
 
 
       for (const field of Object.keys(formValues)) {
@@ -267,7 +270,7 @@ export class SaveToursFormComponent implements OnInit {
 
 
       formData.forEach((value, key) => {
-        console.log(key + ' ' + value)
+        // console.log(key + ' ' + value)
       });
 
       this.dropZoneFiles.map(file => {
@@ -283,7 +286,7 @@ export class SaveToursFormComponent implements OnInit {
           this.router.navigate(['admin/tours/show']);
         });
       }
-    }
+    // }
 
     // console.log(this.toursForm.getRawValue())
   }
