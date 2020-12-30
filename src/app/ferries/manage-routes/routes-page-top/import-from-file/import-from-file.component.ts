@@ -78,7 +78,7 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
       }, {});
       this.ferriesService.importPricesFile(jsonData).subscribe(dt => {
         this.toastr.success('Ferries prices data imported successfully');
-        this.fileImported.emit();
+        this.fileImported.emit(dt);
       });
     };
     reader.readAsBinaryString(file);
