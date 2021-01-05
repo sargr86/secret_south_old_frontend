@@ -54,7 +54,8 @@ export class ToursService {
   }
 
   getOneTourType(params) {
-    return this.http.get(`${API_URL}tour_types/getOne`, {params: params});
+    console.log('OK')
+    return this.http.get(`${API_URL}tour_types/get-one`, {params: params});
   }
 
 
@@ -86,7 +87,7 @@ export class ToursService {
   }
 
   getOneTour(params) {
-    return this.http.get(`${API_URL}tours/getOne`, {params});
+    return this.http.get(`${API_URL}tours/get-one`, {params});
   }
 
   getPartners() {
