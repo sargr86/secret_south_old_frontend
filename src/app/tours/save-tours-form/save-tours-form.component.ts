@@ -121,7 +121,10 @@ export class SaveToursFormComponent implements OnInit {
         this.toursForm = this.fb.group(this.tourFields);
         this.toursForm.patchValue({...this.tourData, oldName: this.tourData.name});
         const tourDailyData = this.tourData.tours_dailies[0];
-        this.toursForm.patchValue(tourDailyData as any);
+        if (tourDailyData) {
+          console.log(tourDailyData)
+          this.toursForm.patchValue(tourDailyData as any);
+        }
         this.maxParticipantsCount = +this.tourData.max_participants_count;
         console.log(this.toursForm.getRawValue())
         this.tourData.tour_locations.map((l, index) => {
