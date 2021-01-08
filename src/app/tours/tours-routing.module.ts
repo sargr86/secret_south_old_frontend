@@ -11,6 +11,8 @@ import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ToursListComponent} from '@app/tours/tours-list/tours-list.component';
 import {ToursSingleComponent} from '@app/tours/tours-single/tours-single.component';
 import {ShowOrdersComponent} from '@app/tours/show-orders/show-orders.component';
+import {SaveToursFormComponent} from '@app/tours/save-tours-form/save-tours-form.component';
+import {ShowDailyToursComponent} from '@app/tours/show-daily-tours/show-daily-tours.component';
 
 const routes: Routes = [
   {
@@ -32,15 +34,24 @@ const routes: Routes = [
     },
   },
   {
-    path: 'orders', component: ShowOrdersComponent
+    path: 'daily',
+    component: ShowDailyToursComponent
   },
   {
-    path: 'add', component: SaveTourComponent, data: {
+    path: 'orders', component: ShowOrdersComponent
+  },
+  // {
+  //   path: 'add', component: SaveTourComponent, data: {
+  //     title: 'Add a new tour',
+  //   },
+  // },
+  {
+    path: 'add', component: SaveToursFormComponent, data: {
       title: 'Add a new tour',
     },
   },
   {
-    path: 'tour/:id', component: SaveTourComponent, data: {
+    path: 'tour/:id', component: SaveToursFormComponent, data: {
       title: 'Edit a tour info',
     },
     resolve: {

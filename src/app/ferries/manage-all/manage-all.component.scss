@@ -1,9 +1,9 @@
 .manage-all-container {
   display: flex;
-  margin-left: 50px;
+  margin: 24px;
 
   .left-section {
-    width: 20%;
+    flex: 0.4;
     padding-top: 30px;
 
     .import-section {
@@ -32,7 +32,7 @@
   }
 
   .right-section {
-    width: 70%;
-    margin-left: 50px;
+    flex: 1;
+    margin-left: 24px;
   }
 }

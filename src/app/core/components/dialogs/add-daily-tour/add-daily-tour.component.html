@@ -1,0 +1,96 @@
+<div class="add-order-popup">
+    <h2>Add a tour for a date</h2>
+
+    <div class="tour-info">
+        <div class="locations-row">
+          <ul>
+            <li *ngFor="let location of tour.tour.tour_locations;let i = index">
+              <span class="name">{{location.name}}</span>
+              <span>{{(i === tour.tour.tour_locations.length - 1 ? '' : '&#8594;')}}</span>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="form-wrap">
+        <form action="" [formGroup]="dailyTourForm" class="daily-tour-form">
+            <div class="input-wrap">
+                <div class="input">
+                  <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                         (dateChange)="dateChanged($event)" formControlName="start_date"
+                         [matDatepicker]="startPicker" class="Check_out_inp">
+                  <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker startView="year"></mat-datepicker>
+                </div>
+                <div class="input">
+                  <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                         (dateChange)="dateChanged($event)" formControlName="end_date"
+                         [matDatepicker]="endPicker" class="Check_out_inp">
+                  <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
+                  <mat-datepicker #endPicker startView="year"></mat-datepicker>
+                </div>
+            </div>
+            <div class="input-wrap">
+              <div class="input">
+                <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
+                       [ngxMaterialTimepickerTheme]="timepickerTheme"
+                       formControlName="start_time">
+                <span class="main-page-error" *ngIf="isSubmitted && dailyTourForm.get('start_time').hasError('required')">
+                Start time is required</span>
+                <ngx-material-timepicker-toggle [for]="start_timepicker">
+                  <mat-icon>access_time</mat-icon>
+                </ngx-material-timepicker-toggle>
+
+                <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
+              </div>
+
+              <div class="input">
+                <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
+                       formControlName="end_time">
+                <span class="main-page-error" *ngIf="isSubmitted && dailyTourForm.get('end_time').hasError('required')">
+                End time is required</span>
+                <ngx-material-timepicker-toggle [for]="end_timepicker">
+                  <mat-icon>access_time</mat-icon>
+                </ngx-material-timepicker-toggle>
+
+                <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
+              </div>
+            </div>
+            <div class="input-wrap">
+                <div class="input">
+                    <input type="text" placeholder="Price">
+                </div>
+              <div class="input people-count">
+                <input type="hidden" formControlName="max_participants_count" class="hidden">
+                <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
+                                  [buttonsOrientation]="'v'" [placeholder]="'Total count'"
+                                  (valueChange)="peopleCountChanged($event)"></ng-number-picker>
+              </div>
+            </div>
+<!--            <div class="input-wrap">-->
+<!--                <div class="input">-->
+<!--                    <input type="text" placeholder="Adult count">-->
+
+<!--                    <div class="input-group-append">-->
+<!--                        <span class="input-group-text">-->
+<!--                            <span>+</span>-->
+<!--                            <span>-</span>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="input">-->
+<!--                    <input type="text" placeholder="Children count">-->
+
+<!--                    <div class="input-group-append">-->
+<!--                        <span class="input-group-text">-->
+<!--                            <span>+</span>-->
+<!--                            <span>-</span>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <button class="btn">save as a copy</button>
+        </form>
+    </div>
+</div>

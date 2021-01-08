@@ -1,0 +1,54 @@
+@import "variables";
+.routes-page-container {
+  margin: 24px;
+
+  .titles-container {
+    margin-top: 32px;
+
+    h1 {
+      font-size: 32px;
+      font-family: "Roboto-Bold";
+      color: #414141;
+    }
+
+    p {
+      margin-top: 24px;
+      color: #414141;
+      font-family: 'Roboto';
+      font-size: 16px;
+    }
+  }
+
+  .map-routes-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    .map-container {
+      flex: 1;
+    }
+
+    .routes-list-container{
+      margin-left: 24px;
+      flex: 1;
+
+      .selected span{
+        color: $red!important;
+      }
+
+      .route{
+        padding: 12px 20px;
+        cursor: pointer;
+
+        &:nth-child(2n+2){
+          background: #084F9326;
+        }
+
+        span{
+          color: #414141;
+          font-size: 16px;
+          font-family: 'Roboto';
+        }
+      }
+    }
+  }
+}

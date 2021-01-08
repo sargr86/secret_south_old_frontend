@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ToursService} from '@core/services/tours.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER, TOURS_FOLDER} from '@core/constants/global';
+import {EDIT_FORM_GALLERY_OPTIONS, SPINNER_DIAMETER, TIMEPICKER_THEME, TOURS_FOLDER} from '@core/constants/global';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '@core/services/common.service';
 import {patternValidator} from '@core/helpers/pattern-validator';
@@ -19,6 +19,9 @@ import {SubjectService} from '@core/services/subject.service';
 import {Tour} from '@shared/models/Tour';
 import {ShowFormMessagePipe} from '@shared/pipes/show-form-message.pipe';
 import {BuildFormDataPipe} from '@shared/pipes/build-form-data.pipe';
+import moment from 'moment';
+import {MAX_LOCATION_CHOICES} from '@core/constants/map';
+import {getFerryLocationsFormGroup} from '@core/constants/ferries_order_form';
 
 @Component({
   selector: 'app-save-tour',
@@ -60,6 +63,15 @@ export class SaveTourComponent implements OnInit, OnDestroy {
   };
 
   formAction;
+  timepickerTheme = TIMEPICKER_THEME;
+  isSubmitted = false;
+  peopleCount = 2;
+  maxLocationsChoices = 5;
+
+  previousDatesFilter = (d: Date | null): boolean => {
+    return moment(d).isSameOrAfter(moment(), 'day');
+  }
+
 
   constructor(
     private _tours: ToursService,
@@ -74,8 +86,28 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     private _companies: CompaniesService,
     private subject: SubjectService,
     private _formMsg: ShowFormMessagePipe,
-    private formData: BuildFormDataPipe
+    private formData: BuildFormDataPipe,
+    private fb: FormBuilder
   ) {
+
+    this.saveTourForm = this.fb.group({
+      name: ['', Validators.required],
+      oldName: [''],
+      locations: this.fb.array([
+        this.fb.group(this.getFields('Start')),
+        this.fb.group(this.getFields('End'))
+      ]),
+      tours_type_id: ['', Validators.required],
+      company_id: ['', Validators.required],
+      start_date: ['', Validators.required],
+      start_time: ['', Validators.required],
+      end_time: ['', Validators.required],
+      end_date: ['', Validators.required],
+      max_participants_count: ['', Validators.required],
+      price: ['', Validators.required],
+      folder: 'tours'
+    });
+
 
     this.getCompanies();
     this.getToursType();
@@ -83,6 +115,9 @@ export class SaveTourComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+
+    console.log(this.saveTourForm.value)
 
     this.common.dataLoading = true;
     this.subscriptions.push(this.route.data.subscribe(dt => {
@@ -99,6 +134,7 @@ export class SaveTourComponent implements OnInit, OnDestroy {
           console.log(this.tourData)
           this.coverPath = this.tourData['realFolder'] + '/' + this.tourData['img'];
         }
+
       }
       this.common.dataLoading = false;
     }));
@@ -106,6 +142,13 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     if (!this.editCase) {
       this.saveTourForm = this._fb.group(this.tourFields);
     }
+  }
+
+  getFields(title) {
+    return {
+      name: ['', Validators.required],
+      title: [title]
+    };
   }
 
   /**
@@ -141,6 +184,15 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     });
   }
 
+  addLocation() {
+    const locationsLen = this.locationsCtrls.length;
+    if (locationsLen < MAX_LOCATION_CHOICES) {
+      const name = 'Stop ' + (locationsLen - 1);
+      // this.locationsCtrls.controls.push(this.fb.group(getFerryLocationsFormGroup(name, this.locationsCtrls.length - 1)));
+      // this.getLocationCtrlByName('End').patchValue({order: this.locationsCtrls.length});
+    }
+  }
+
   /**
    * Gets uploaded file list
    * @param files files object
@@ -153,19 +205,26 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     this.dropZoneFiles = this.dropZoneFiles.filter(f => e.name !== f.name);
   }
 
+  removeLocationInput(i) {
+    this.locationsCtrls.removeAt(i);
+    // this.updateMapLocations();
+    // this.getRoutePrice();
+  }
 
-  saveTour(address) {
+
+  saveTour() {
     // if (this.foodDrinkForm.valid) {
     console.log(this.dropZoneFiles)
-    this.common.formProcessing = true;
-    const formData = this.formData.transform({
-      ...this.tourForm.value,
-      address: (<HTMLInputElement>document.querySelector('#searchAddress')).value
-    }, this.dropZoneFiles);
-
-    this.subscriptions.push(this._tours[this.formAction](formData).subscribe(() => {
-      this._formMsg.transform('tours', this.editCase, this.redirectUrl);
-    }));
+    console.log(this.tourForm.value)
+    // this.common.formProcessing = true;
+    // const formData = this.formData.transform({
+    //   ...this.tourForm.value,
+    //   address: (<HTMLInputElement>document.querySelector('#searchAddress')).value
+    // }, this.dropZoneFiles);
+    //
+    // this.subscriptions.push(this._tours[this.formAction](formData).subscribe(() => {
+    //   this._formMsg.transform('tours', this.editCase, this.redirectUrl);
+    // }));
 
     // }
   }
@@ -233,6 +292,57 @@ export class SaveTourComponent implements OnInit, OnDestroy {
     this.subject.setSidebarAction(action);
   }
 
+  dateChanged(e) {
+  }
+
+  peopleCountChanged(e) {
+    console.log(e)
+    this.saveTourForm.patchValue({max_participants_count: e});
+  }
+
+  locationChanged(val, i) {
+
+    // Patching drop down value
+    this.locationsCtrls.controls[i].patchValue({name: val});
+
+  }
+
+  getLocationId(i) {
+    const id = 'start-point';
+    const locationsLen = this.locationsCtrls.length;
+    if (i === 0) {
+      return id;
+    } else if (i === 1) {
+      return 'end-point';
+    } else if (locationsLen === 3) {
+      return 'stop-1';
+    } else if (locationsLen === 4) {
+      return i === 2 ? 'stop-1' : 'stop-2';
+    }
+  }
+
+  getPlaceholderText(i) {
+    const text = 'Departure port';
+    const locationsLen = this.locationsCtrls.length;
+    if (i === 0) {
+      return text;
+    } else if (i === 1) {
+      return 'Arrival port';
+    } else if (locationsLen === 3) {
+      return 'Stop 1';
+    } else if (locationsLen === 4) {
+      return i === 2 ? 'Stop 1' : 'Stop 2';
+    }
+  }
+
+  getLabelText(i) {
+    if (i === 0) {
+      return 'From';
+    } else if (i === 1) {
+      return 'To';
+    }
+  }
+
 
   get tourForm() {
     return this.saveTourForm;
@@ -241,6 +351,11 @@ export class SaveTourComponent implements OnInit, OnDestroy {
   get nameCtrl() {
     return this.tourForm.get('name');
   }
+
+  get locationsCtrls(): FormArray {
+    return this.saveTourForm.get('locations') as FormArray;
+  }
+
 
   get latCtrl() {
     return this.tourForm.get('lat');

@@ -57,6 +57,7 @@ export class MapControlsComponent implements OnInit {
   mapZoom = 10;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Output('routesListReady') routesListReady = new EventEmitter();
 
   constructor(
     private ferriesService: FerriesService,
@@ -67,10 +68,15 @@ export class MapControlsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // Gets only locations (dots on map)
     this.getFerryMapLocations();
+
+    // Gets routes between locations(lines between dots)
     if (this.drawingEnabled) {
       this.getAllRoutes();
     }
+
     this.strokesColor = this.drawingEnabled ? MAP_GREEN_COLOR : MAP_RED_COLOR;
 
     // Getting ferry locations data from the ferry order form
@@ -113,6 +119,7 @@ export class MapControlsComponent implements OnInit {
 
   }
 
+  // Gets routes (lines between dotes)
   getAllRoutes() {
     this.linesArr = [];
     this.ferriesService.getAllRoutesPrices().subscribe((data: any) => {
@@ -124,6 +131,9 @@ export class MapControlsComponent implements OnInit {
           this.linesArr.push(dt);
         });
 
+
+
+        this.routesListReady.emit(data);
       }
       if (this.filteredLinesArr.length === 1) {
         --this.pageIndex;
@@ -137,12 +147,14 @@ export class MapControlsComponent implements OnInit {
     });
   }
 
+  // Handles floating panel routes pagination
   handle(e) {
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
     this.filterRoutes();
   }
 
+  // Filters routes for floating panel
   filterRoutes() {
     this.filteredLinesArr = this.linesArr.slice(this.pageIndex * this.pageSize,
       this.pageIndex * this.pageSize + this.pageSize);
@@ -181,6 +193,7 @@ export class MapControlsComponent implements OnInit {
   }
 
 
+  // Gets only locations on the map
   getFerryMapLocations() {
     this.ferryMapLocations = [];
     this.ferriesService.getLocations().subscribe((dt: any) => {
@@ -242,9 +255,7 @@ export class MapControlsComponent implements OnInit {
     }
   }
 
-  get selectedRouteValid() {
-    return this.selectedLocations.length > 1;
-  }
+
 
   getRouteLines() {
 
@@ -327,10 +338,13 @@ export class MapControlsComponent implements OnInit {
   }
 
   selectRoute(route) {
+
     if (route === this.selectedRoute) {
       this.selectedRoute = null;
     } else {
       this.selectedRoute = route;
+      // console.log(this.linesArr)
+      // console.log(route)
       this.ferryMapLocations.map(location => {
         if ([route.start_point, route.end_point, route.stop_1, route.stop_2].includes(location.name)) {
           location.markerIconUrl = 'assets/icons/red_circle_small.png';
@@ -376,6 +390,10 @@ export class MapControlsComponent implements OnInit {
     this.ferryMapLocations.map(location => {
       location.markerIconUrl = MAP_MARKER_ICON_URL;
     });
+  }
+
+  get selectedRouteValid() {
+    return this.selectedLocations.length > 1;
   }
 
 
