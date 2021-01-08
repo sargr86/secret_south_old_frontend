@@ -1,0 +1,82 @@
+@import 'variables';
+
+
+.min-people-count-hint {
+  text-align: right;
+
+  mat-hint {
+    color: $red;
+    font-size: 12px;
+  }
+
+}
+
+.remove-all-container {
+  position: absolute;
+  bottom: 27px;
+  left: 20px;
+}
+
+.no-routes-price {
+  color: $red;
+  text-align: center;
+  padding: 20px;;
+}
+
+.table-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .min-people-count-hint {
+    color: #7BC447;
+    font-family: 'Roboto-Bold';
+    //margin: 24px;
+  }
+
+  #resetting-message {
+    display: flex;
+    align-items: center;
+    p{
+      margin-left: 5px;
+    }
+  }
+
+  #reset-routes {
+    display: flex;
+    align-items: center;
+    height: 51px;
+    padding: 16px 24px;
+    background: $red;
+    color: $white;
+    font: normal normal bold 16px/15px Roboto;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: none;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      margin-right: 3px;
+    }
+  }
+}
+
+table {
+  th {
+    background: #F6F6F6;
+  }
+
+  th, td {
+    font-size: 16px;
+    color: #414141;
+    border: 0;
+  }
+
+  tr {
+    &:nth-child(2n+2) {
+      background: #084F9326
+    }
+  }
+}

@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveRouteDialogComponent} from '@core/components/dialogs/save-route-dialog/save-route-dialog.component';
 import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialog/confirmation-dialog.component';
+import {SubjectService} from '@core/services/subject.service';
 
 @Component({
   selector: 'app-routes-prices-table',
@@ -17,11 +18,12 @@ import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialo
 export class RoutesPricesTableComponent implements OnInit {
 
   dataSource;
-  routesWithNoPriceLen;
-  routesWithPricesLen;
-  routesOnMap;
   displayedColumns = ROUTES_PRICES_TABLE_COLUMNS;
   paginationValues = [10, 25, 100];
+
+
+  dataLoading = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -29,7 +31,8 @@ export class RoutesPricesTableComponent implements OnInit {
     private ferriesService: FerriesService,
     public common: CommonService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private subject: SubjectService
   ) {
   }
 
@@ -58,22 +61,19 @@ export class RoutesPricesTableComponent implements OnInit {
   }
 
   generateTableList(dt) {
+    console.log('called')
     if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
-      const routesOnly = dt.filter(d => !d.hasOwnProperty('single') && !d.hasOwnProperty('return'));
-      this.routesWithNoPriceLen = routesOnly.length;
-      const routesWithPrices = dt.filter(d => d.hasOwnProperty('single') || d.hasOwnProperty('return'));
-      this.routesWithPricesLen = routesWithPrices.length;
-      const routesOnTheMap = dt.filter(d => d.coordinates && d.coordinates.length !== 0);
-      this.routesOnMap = routesOnTheMap.length;
+      console.log(this.dataSource)
       this.dataSource.paginator = this.paginator;
+      this.subject.setFerryRoutesData(dt);
     }
   }
 
   removeRoutePrice(row) {
     this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.ferriesService.removeRoutePrice({id: row._id}).subscribe(() => {
+        this.ferriesService.removeRoutePrice({_id: row._id}).subscribe(() => {
           this.toastr.success('The route info has been removed successfully from the map');
           this.getAllRoutesPrices();
         });
@@ -85,7 +85,9 @@ export class RoutesPricesTableComponent implements OnInit {
   removeAllRoutesPrices() {
     this.dialog.open(ConfirmationDialogComponent, {}).afterClosed().subscribe(confirmed => {
       if (confirmed) {
+        this.dataLoading = true;
         this.ferriesService.removeAllRoutesPrices({}).subscribe(() => {
+          this.dataLoading = false;
           this.toastr.success('All routes and their info have been removed successfully from the map');
           this.getAllRoutesPrices();
         });
@@ -105,6 +107,7 @@ export class RoutesPricesTableComponent implements OnInit {
 
 
   editRoutePrices(row) {
+    console.log(row)
     this.dialog.open(SaveRouteDialogComponent, {
       data: {route: row, map: false},
       width: '800px'

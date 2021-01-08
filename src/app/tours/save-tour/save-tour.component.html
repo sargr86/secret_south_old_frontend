@@ -1,5 +1,5 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
-<div class="formContainer">
+<div class="formContainer" id="save-tour-form">
 
   <form [formGroup]="saveTourForm" class="saveTourForm"
         *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">
@@ -8,7 +8,7 @@
     <h4 class="formTitle">
       <ng-container *ngIf="!editCase">
         <!-- <mat-icon class="title_sign">add_box</mat-icon> -->
-        <span>Add a new Tour routes</span>
+        <span>Add a new Tour routes44</span>
       </ng-container>
       <ng-container *ngIf="editCase">
         <mat-icon>edit</mat-icon>
@@ -18,131 +18,149 @@
 
 
     <div class="input-wrap">
-      <div class="input">
-        <input type="text" placeholder="Tour Type" value="">
-      </div>
 
+      <!-- Tours type field -->
       <div class="select">
-        <select name="" id="">
-          <option value="">Aghada</option>
-          <option value="">option</option>
-          <option value="">option</option>
+        <select formControlName="tours_type_id">
+          <option disabled selected>Tour Types</option>
+          <option *ngFor="let t of tourTypes" [value]="t['id']">
+            {{t.name}}
+          </option>
         </select>
       </div>
 
-      <button class="btn add-rout">+ Add Rout</button>
+      <ng-container *ngIf="locationsCtrls.controls">
 
+
+        <div class="locations-group" formArrayName="locations">
+          {{locationsCtrls.controls}}
+          <!--        {{saveTourForm.get('locations').controls}}-->
+          <div class="locations-wrap">
+
+            <ng-container *ngFor="let c of saveTourForm.get('locations').controls;let ind = index">
+              <ng-container [formGroupName]="ind.toString()">
+                <div class="location-selector select" [id]="getLocationId(ind)">
+                  <mat-label class="from-to-label" *ngIf="ind < 2">{{getLabelText(ind)}}</mat-label>
+                  <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
+                    <option selected disabled>{{getPlaceholderText(ind)}}</option>
+                    <!--                  <option *ngFor="let direction of ferryDirections"-->
+                    <!--                          [value]="direction.name">{{direction.name}}-->
+                    <!--                  <option>-->
+                  </select>
+                  <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
+                    clear
+                  </i>
+
+                  <mat-error *ngIf="(c['name']?.touched) && c['name']?.hasError('required')">
+                    The point is <strong>required</strong>
+                  </mat-error>
+
+                </div>
+              </ng-container>
+
+              <div class="arrows" *ngIf="ind == 0">
+                <img src="assets/images/arrows.svg">
+              </div>
+            </ng-container>
+          </div>
+
+
+          <div id="add-location-btn">
+            <button class="add-location" (click)="addLocation()"
+                    *ngIf="locationsCtrls.controls && locationsCtrls.controls.length < maxLocationsChoices">+
+              Add location
+            </button>
+          </div>
+        </div>
+
+        <!--      <button class="btn add-rout">+ Add Route</button>-->
+      </ng-container>
       <div class="row">
         <div class="input">
-          <input type="text" placeholder="Start Date" value="">
+          <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                 (dateChange)="dateChanged($event)" formControlName="start_date"
+                 [matDatepicker]="startPicker" class="Check_out_inp">
+          <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker startView="year"></mat-datepicker>
         </div>
 
         <div class="input">
-          <input type="text" placeholder="End Date" value="">
+          <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                 (dateChange)="dateChanged($event)" formControlName="end_date"
+                 [matDatepicker]="endPicker" class="Check_out_inp">
+          <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker startView="year"></mat-datepicker>
         </div>
       </div>
 
       <div class="row">
         <div class="input">
-          <input type="text" placeholder="Start time" value="">
+          <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
+                 [ngxMaterialTimepickerTheme]="timepickerTheme"
+                 formControlName="start_time">
+          <span class="main-page-error" *ngIf="isSubmitted && saveTourForm.get('start_time').hasError('required')">
+                Start time is required</span>
+          <ngx-material-timepicker-toggle [for]="start_timepicker">
+            <mat-icon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+
+          <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
         </div>
 
         <div class="input">
-          <input type="text" placeholder="End time" value="">
+          <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
+                 formControlName="end_time">
+          <span class="main-page-error" *ngIf="isSubmitted && saveTourForm.get('end_time').hasError('required')">
+                End time is required</span>
+          <ngx-material-timepicker-toggle [for]="end_timepicker">
+            <mat-icon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+
+          <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
         </div>
       </div>
 
       <div class="row">
-        <div class="input">
-          <input type="text" placeholder="Total count" value="">
+        <div class="input people-count">
+          <input type="hidden" formControlName="max_participants_count" class="hidden">
+          <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
+                            [buttonsOrientation]="'v'" [placeholder]="'Total count'"
+                            (valueChange)="peopleCountChanged($event)"></ng-number-picker>
         </div>
 
         <div class="input">
-          <input type="text" placeholder="Price" value="">
+          <input type="text" placeholder="Price" value="" formControlName="price">
         </div>
       </div>
 
 
-
-      
     </div>
 
 
-
-
-
-
     <!-- Name field -->
-    <mat-form-field>
-      <input matInput placeholder="Name" formControlName="name" required>
-      <mat-error *ngIf="nameCtrl.hasError('required')">
+    <div class="input-wrap">
+      <div class="input">
+        <input placeholder="Name" formControlName="name" required>
+      </div>
+      <mat-error *ngIf="isSubmitted && nameCtrl.hasError('required')">
         Tour name is <strong>required</strong>
       </mat-error>
-    </mat-form-field>
+    </div>
 
-    <!-- Latitude field -->
-    <!-- <mat-form-field>
-      <input matInput placeholder="Latitude" formControlName="lat" required>
-      <mat-error *ngIf="latCtrl.hasError('required')">
-        Latitude is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="latCtrl.hasError('patternInvalid')">
-        Latitude is <strong>invalid</strong>
-      </mat-error>
-    </mat-form-field> -->
-
-    <!-- Longitude field -->
-    <!-- <mat-form-field>
-      <input matInput placeholder="Longitude" formControlName="lng" required>
-      <mat-error *ngIf="lngCtrl.hasError('required')">
-        Longitude is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="lngCtrl.hasError('patternInvalid')">
-        Longitude is <strong>invalid</strong>
-      </mat-error>
-    </mat-form-field> -->
-
-    <!-- Tour address field -->
-    <!-- <div class="addressContainer">
-      <mat-form-field>
-                   <textarea matInput formControlName="address" placeholder="Address" #searchAddress required></textarea>
-        <input matInput class="ngx" ngx-google-places-autocomplete formControlName="address"
-               placeholder="Address" id="searchAddress"
-               [options]='options' #searchAddress="ngx-places" required/>
-        <mat-error *ngIf="addressCtrl.hasError('required')">
-          Tour address is <strong>required</strong>
+    <!-- Partner company field -->
+    <div class="input-wrap">
+      <div class="select">
+        <select>
+          <option disabled selected>Company</option>
+          <option *ngFor="let c of companies" [value]="c.id">
+            {{c.name}}
+          </option>
+        </select>
+        <mat-error *ngIf="isSubmitted && saveTourForm.get('company_id').hasError('required')">
+          Partner company is <strong>required</strong>
         </mat-error>
-      </mat-form-field>
-      <button (click)="resetAddress()" class="resetAddress">
-        <mat-icon>replay</mat-icon>
-      </button>
-    </div>-->
-
-    <!-- Tours type field -->
-    <mat-form-field>
-      <mat-select placeholder="Tours Type" formControlName="tours_type_id" required>
-        <mat-option>Please choose</mat-option>
-        <mat-option *ngFor="let t of tourTypes" [value]="t['id']">
-          {{t['name']}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="saveTourForm.get('tours_type_id').hasError('required')">
-        Tour type is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Partner field -->
-    <mat-form-field>
-      <mat-select placeholder="Company" formControlName="company_id" required>
-        <mat-option>Please choose</mat-option>
-        <mat-option *ngFor="let c of companies" [value]="c.id">
-          {{c.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="saveTourForm.get('company_id').hasError('required')">
-        Partner company is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
     <!-- Image field -->
     <div class="fileContainer" [hidden]="true">
@@ -156,14 +174,15 @@
       <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTour(searchAddress)">
+      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTour()">
         Save Tour
       </button>
     </div>
   </form>
 
   <!-- Drop zone -->
-  <div class="dropzoneContainer" *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">
+  <div class="dropzoneContainer"
+       *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">
     <div class="savedImgContainer" *ngIf="coverPath && coverShown">
       <img [src]="coverPath" class="savedImg">
     </div>
@@ -179,12 +198,11 @@
   </ng-container>
 
 
-
-<!--  <div class="dropzoneContainer"-->
-<!--       *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">-->
-<!--    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg" [alt]="tourData.name">-->
-<!--    <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
-<!--    <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)" class="multiple"-->
-<!--              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>-->
-<!--  </div>-->
+  <!--  <div class="dropzoneContainer"-->
+  <!--       *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">-->
+  <!--    <img *ngIf="tourData && imgPath" [src]="imgPath" class="savedImg" [alt]="tourData.name">-->
+  <!--    <button class="removeSavedImg" (click)="removeSavedImg()">Remove</button>-->
+  <!--    <dropzone [message]="'Click or drag images here to upload'" (addedFile)="getFile($event)" class="multiple"-->
+  <!--              *ngIf="!editCase||(editCase && !imgPath)"></dropzone>-->
+  <!--  </div>-->
 </div>

@@ -1,0 +1,196 @@
+<mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
+<div class="formContainer" id="save-tour-form">
+  <form [formGroup]="toursForm">
+
+    <!-- Current form title -->
+    <h4 class="formTitle">
+      <ng-container *ngIf="!editCase">
+        <span>Add a new Tour routes</span>
+      </ng-container>
+      <ng-container *ngIf="editCase">
+        <mat-icon>edit</mat-icon>
+        <span>Edit tour details</span>
+      </ng-container>
+    </h4>
+
+
+    <div class="input-wrap">
+
+      <!-- Tours type field -->
+      <div class="select">
+        <select formControlName="tours_type_id">
+          <option disabled selected [value]="''">Tour Types</option>
+          <option *ngFor="let t of tourTypes" [value]="t['id']">
+            {{t.name}}
+          </option>
+        </select>
+        <mat-error *ngIf="isSubmitted && toursTypes.hasError('required')">Please select a tour type</mat-error>
+      </div>
+
+      <!-- Location fields group-->
+      <div class="locations-group locations-wrap" formArrayName="locations">
+        <ng-container *ngFor="let c of locations.controls;let ind = index">
+          <ng-container [formGroupName]="ind.toString()">
+            <!--          <mat-label class="from-to-label">{{getLabelText(ind)}}</mat-label>-->
+            <div class="location-selector" [id]="getLocationId(ind)">
+              <div class="select">
+                <select (change)="locationChanged($event.target.value, ind)" formControlName="name">
+                  <option selected disabled [value]="''">{{getPlaceholderText(ind)}}</option>
+                  <option *ngFor="let location of locationsList"
+                          [value]="location.id">{{location.name}}
+                  <option>
+                </select>
+              </div>
+              <i *ngIf="ind >= 2" class="remove-location-icon material-icons" (click)="removeLocationInput(ind)">
+                clear
+              </i>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div id="add-location-btn">
+          <button class="add-location" (click)="addLocation()"
+                  *ngIf="locations.controls && locations.controls.length < maxLocationsChoices">+
+            Add location
+          </button>
+        </div>
+      </div>
+
+
+      <div class="row input-icons">
+        <div class="input">
+          <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                 (dateChange)="dateChanged($event, 'start')" formControlName="start_date"
+                 [matDatepicker]="startPicker" class="Check_out_inp">
+          <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker startView="year"></mat-datepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('start_date').hasError('required')">
+            Start time is required
+          </mat-error>
+        </div>
+
+        <div class="input">
+          <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="checkoutDatesFilter"
+                 (dateChange)="dateChanged($event, 'end')" formControlName="end_date"
+                 [matDatepicker]="endPicker" class="Check_out_inp">
+          <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker startView="year"></mat-datepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('end_date').hasError('required')">
+            Start time is required
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row time-icons">
+        <div class="input">
+          <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
+                 [ngxMaterialTimepickerTheme]="timepickerTheme"
+                 formControlName="start_time">
+
+          <ngx-material-timepicker-toggle [for]="start_timepicker">
+            <mat-icon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+
+          <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
+
+          <mat-error *ngIf="isSubmitted && toursForm.get('start_time').hasError('required')">
+            Start time is required
+          </mat-error>
+        </div>
+
+        <div class="input">
+          <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
+                 formControlName="end_time">
+          <ngx-material-timepicker-toggle [for]="end_timepicker">
+            <mat-icon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+
+          <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
+          <mat-error *ngIf="isSubmitted && toursForm.get('end_time').hasError('required')">
+            End time is required
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input people-count picker">
+          <input type="hidden" formControlName="max_participants_count" class="hidden">
+          <ng-number-picker [(value)]="maxParticipantsCount" [size]="'small'" class="guests-count"
+                            [buttonsOrientation]="'v'" [placeholder]="'Total count'"
+                            (valueChange)="peopleCountChanged($event)"></ng-number-picker>
+        </div>
+
+        <div class="input">
+          <input type="text" placeholder="Price" value="" formControlName="price">
+          <mat-error *ngIf="isSubmitted && toursForm.get('price').hasError('required')">
+            Price is required
+          </mat-error>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <!-- Name field -->
+    <div class="input-wrap">
+      <div class="input">
+        <input placeholder="Name" formControlName="name" required>
+      </div>
+      <mat-error *ngIf="isSubmitted && nameCtrl.hasError('required')">
+        Tour name is required
+      </mat-error>
+    </div>
+
+    <!-- Partner company field -->
+    <div class="input-wrap">
+        <div class="select">
+        <select formControlName="company_id">
+          <option disabled selected [value]="''">Company</option>
+          <option *ngFor="let c of companies" [value]="c.id">
+            {{c.name}}
+          </option>
+        </select>
+        <mat-error *ngIf="isSubmitted && toursForm.get('company_id').hasError('required')">
+          Partner company is required
+        </mat-error>
+      </div>
+    </div>
+
+    <!-- Image field -->
+    <div class="fileContainer" [hidden]="true">
+      <input type="file" *ngIf="!editCase" (change)="getFile($event.target['files'])" required>
+      <mat-spinner [diameter]="spinnerDiameter" [hidden]="!common.formProcessing"></mat-spinner>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+      <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
+      <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTourDetails()">
+        Save Tour
+      </button>
+    </div>
+  </form>
+
+  <!-- Drop zone -->
+  <div class="dropzoneContainer"
+       *ngIf="!common.dataLoading && companies && companies.length > 0 && tourTypes.length > 0">
+    <div class="savedImgContainer" *ngIf="coverPath && coverShown">
+      <img [src]="coverPath" class="savedImg">
+    </div>
+
+    <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropzoneConfig"
+              (addedFile)="getFile($event)" (removedFile)="removeDropzoneImg($event)"
+              *ngIf="!coverShown"></dropzone>
+  </div>
+
+</div>
+<div class="gallery-container">
+
+  <ng-container *ngIf="tourData">
+    <ngx-gallery [options]="galleryOptions" [images]="tourData.images" class="editFormGallery"
+                 (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
+  </ng-container>
+</div>
