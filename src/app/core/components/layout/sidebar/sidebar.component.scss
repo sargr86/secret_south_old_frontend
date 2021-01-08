@@ -1,6 +1,16 @@
-@import '../../assets/styles/variables';
-@import '../../assets/styles/mixins';
+@import 'variables';
+@import 'mixins';
 
+.actions {
+  display: flex;
+  justify-content: center;
+
+  button {
+    background: none;
+    border: none;
+    color: $white;
+  }
+}
 
 .mat-tree {
   //background-color: #1f7679;
@@ -10,13 +20,13 @@
 
   .mat-tree-node {
     justify-content: space-between;
-    padding: 0 16px 0 24px!important;
+    padding: 0 16px 0 24px !important;
     color: $white;
     font-weight: bold;
     transition: all 0.3s ease;
     cursor: pointer;
 
-    &.active, &:hover{
+    &.active, &:hover {
       background: #013F7A;
     }
   }

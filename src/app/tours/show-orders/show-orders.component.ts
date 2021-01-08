@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ToursService} from '@core/services/tours.service';
+import {CommonService} from '@core/services/common.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-show-orders',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowOrdersComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }

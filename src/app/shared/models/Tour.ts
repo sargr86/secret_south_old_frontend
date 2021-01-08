@@ -9,4 +9,8 @@ export interface Tour {
   type_name?: string;
   type?: string;
   images?: any;
+  tour_locations?: any[];
+  start_date?: string;
+  max_participants_count?: string;
+  tours_dailies?: string;
 }

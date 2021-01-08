@@ -1,0 +1,11 @@
+<div class="routes-page-container">
+
+  <div id="routes-page-top">
+    <app-routes-page-top (newRoute)="addNewRouteWithoutMap($event)" (fileImported)="fileImported($event)"></app-routes-page-top>
+  </div>
+
+
+  <div class="table-container">
+    <app-routes-prices-table></app-routes-prices-table>
+  </div>
+</div>

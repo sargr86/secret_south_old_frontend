@@ -1,0 +1,127 @@
+.daily-tours {
+  padding: 32px 24px;
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .scheduled-tours {
+      margin-left: 300px;
+    }
+  }
+
+  h1 {
+    color: #414141;
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .filter {
+    font-size: 16px;
+    color: #636363;
+  }
+
+
+  .tours-wrap {
+    display: flex;
+    flex-wrap: wrap;
+
+    .item {
+      flex: 0 0 calc(33.3% - 16px);
+      margin: 24px 24px 0px 0;
+      padding: 24px 16px;
+      box-shadow: 0px 0px 6px #00000029;
+
+      &:nth-child(3n+3) {
+        margin-right: 0;
+      }
+
+      .date-time {
+        .date, .time {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #707070;
+          font-size: 16px;
+
+          &.time {
+            margin-top: 8px;
+          }
+
+          .edit {
+            margin: 0;
+            cursor: pointer;
+          }
+
+          > span {
+            display: flex;
+            align-items: center;
+          }
+
+          .material-icons {
+            margin-right: 8px;
+            font-size: 21px;
+          }
+        }
+      }
+
+      .locations-row {
+        margin-top: 34px;
+
+        ul {
+          display: flex;
+          margin: 0;
+
+          li {
+            display: flex;
+            align-items: center;
+            margin-right: 4px;
+            font-size: 16px;
+
+            .name {
+              color: #7BC447;
+            }
+
+            &:last-child {
+              &::after {
+                content: "";
+              }
+            }
+          }
+        }
+      }
+
+      .counts-row-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        ul {
+          li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            color: #707070;
+
+            p {
+              margin-left: 38px;
+              color: #959595;
+              font-weight: bold;
+
+              span {
+                color: #084F93;
+              }
+            }
+          }
+        }
+
+        .price {
+          font-size: 32px;
+          color: #084F93;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FERRY_PRICES_FILE_DROPZONE_CONFIG, FERRY_ROUTES_FILE_DROPZONE_CONFIG} from '@core/constants/global';
 import {FerriesService} from '@core/services/ferries.service';
 import {ToastrService} from 'ngx-toastr';
@@ -12,6 +12,7 @@ import * as XLSX from 'xlsx';
 export class ImportFromFileComponent implements OnInit, OnChanges {
 
   @Input('importMethod') importMethod;
+  @Output('fileImported') fileImported = new EventEmitter();
   pricesOnly;
   dropzoneConfig;
   dropzoneMsg;
@@ -29,26 +30,18 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
   ngOnChanges(change) {
     this.importMethod = change.importMethod.currentValue;
     this.pricesOnly = this.importMethod === 'xls';
-    this.dropzoneConfig = this.getDropzoneConfig();
-    this.dropzoneMsg = this.getDropzoneMsg();
   }
 
-  onFileAdded(e) {
-      if (this.pricesOnly) {
-        this.importPricesOnly(e);
-      } else {
-        this.importRoutesPrices(e);
-      }
-  }
 
-  importRoutesPrices(e) {
+  importJSONFile(file) {
     const fileReader = new FileReader();
-    fileReader.readAsText(e, 'UTF-8');
+    fileReader.readAsText(file, 'UTF-8');
     fileReader.onload = async () => {
-      console.log(typeof fileReader['result'])
-      this.ferriesService.importRoutesFile(JSON.parse(fileReader['result'] as any)).subscribe(() => {
+      // console.log(typeof fileReader['result'])
+      console.log('importing')
+      this.ferriesService.importRoutesFile(JSON.parse(fileReader['result'] as any)).subscribe((dt) => {
         this.toastr.success('Ferries routes data imported successfully');
-        // this.routesUpdated.emit();
+        this.fileImported.emit(dt);
       });
     };
     fileReader.onerror = (error) => {
@@ -58,11 +51,10 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
   }
 
 
-  importPricesOnly(ev) {
+  importXMLFile(file) {
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
-    const file = ev;
     reader.onload = (event) => {
       const data = reader.result;
       workBook = XLSX.read(data, {type: 'binary'});
@@ -86,19 +78,11 @@ export class ImportFromFileComponent implements OnInit, OnChanges {
       }, {});
       this.ferriesService.importPricesFile(jsonData).subscribe(dt => {
         this.toastr.success('Ferries prices data imported successfully');
-        // this.pricesUpdated.emit();
+        this.fileImported.emit(dt);
       });
     };
     reader.readAsBinaryString(file);
   }
 
-
-  getDropzoneConfig() {
-    return this.pricesOnly ? FERRY_PRICES_FILE_DROPZONE_CONFIG : FERRY_ROUTES_FILE_DROPZONE_CONFIG;
-  }
-
-  getDropzoneMsg() {
-    return `Drag & drop ${this.pricesOnly ? 'prices' : 'routes'} file here`;
-  }
 
 }

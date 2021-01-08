@@ -1,97 +1,142 @@
 <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.dataLoading"></mat-spinner>
-<form [formGroup]="invitationForm" class="invitationForm">
 
-    <!-- Current form title -->
-    <h4 class="formTitle">
-        <ng-container>
-            <mat-icon class="title_sign">mail</mat-icon>
-            <span>Invite a new {{userType}} </span>
-        </ng-container>
-    </h4>
+<div class="employeesForm">
 
-    <!-- First name field -->
-    <mat-form-field>
-        <input matInput formControlName="first_name" placeholder="First name" required>
-        <mat-error *ngIf="firstNameCtrl.hasError('required')">
-            First name is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Last name field -->
-    <mat-form-field>
-        <input matInput formControlName="last_name" placeholder="Last name" required>
-        <mat-error *ngIf="lastNameCtrl.hasError('required')">
-            Last name is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Gender field -->
-    <div class="genderContainer">
-        <mat-radio-group name="gender" formControlName="gender">
-            <mat-radio-button [value]="'male'">Male</mat-radio-button>
-            <mat-radio-button [value]="'female'">Female</mat-radio-button>
-        </mat-radio-group>
-    </div>
-
-    <!-- E-mail field -->
-    <mat-form-field>
-        <input matInput formControlName="email" placeholder="E-mail" required>
-        <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
-        <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
-    </mat-form-field>
+    <form [formGroup]="invitationForm" class="invitationForm">
+    
+        <!-- Current form title -->
+        <h4 class="formTitle">
+            <ng-container>
+                <mat-icon class="title_sign">mail</mat-icon>
+                <span>Invite a new {{userType}} </span>
+            </ng-container>
+        </h4>
 
 
-    <!-- Field type -->
-    <!--    <mat-form-field>-->
-    <!--        <mat-select formControlName="field_type" placeholder="Business" required-->
-    <!--                    (selectionChange)="changeBusinessType($event)">-->
-    <!--            <mat-option>Please choose</mat-option>-->
-    <!--            <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">-->
-    <!--                {{p['name']}}-->
-    <!--            </mat-option>-->
-    <!--        </mat-select>-->
-    <!--        <mat-error [hidden]="!fieldType.hasError('required')">Business type is <strong>required</strong></mat-error>-->
-    <!--    </mat-form-field>-->
 
-    <ng-select [items]="partnerTypes" (change)="changeBusinessType($event)"
-               bindLabel="name" bindValue="id" formControlName="field_type" placeholder="Business *">
+        <div class="input-wrap ">
+            <div class="input">
+                <input type="text" placeholder="First Name">
+            </div>
+            <div class="input">
+                <input type="text" placeholder="Last Name">
+            </div>
+            <div class="select">
+                <select name="" id="">
+                    <option value="">Gender</option>
+                    <option value="">option</option>
+                    <option value="">option</option>
+                </select>
+            </div>
+            <div class="input">
+                <input type="text" placeholder="Email">
+            </div>
+            <div class="input">
+                <input type="text" placeholder="Phone Number">
+            </div>
+            <div class="input">
+                <input type="text" placeholder="Company Name">
+            </div>
+            <div class="select">
+                <select name="" id="">
+                    <option value="">Type</option>
+                    <option value="">option</option>
+                    <option value="">option</option>
+                </select>
+            </div>
+            <div class="input">
+                <textarea name="" id="" cols="30" rows="6" placeholder="Description"></textarea>
+            </div>
+        </div>
 
-    </ng-select>
 
-    <!-- Company drop down field for admin-->
-    <ng-container *ngIf="auth.checkRoles('admin')">
+        
 
-        <ng-select [items]="companies"
-                   bindLabel="name" bindValue="id" formControlName="company_id" placeholder="Company *">
+    
+        <!-- First name field -->
+        <mat-form-field>
+            <input matInput formControlName="first_name" placeholder="First name" required>
+            <mat-error *ngIf="firstNameCtrl.hasError('required')">
+                First name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Last name field -->
+        <mat-form-field>
+            <input matInput formControlName="last_name" placeholder="Last name" required>
+            <mat-error *ngIf="lastNameCtrl.hasError('required')">
+                Last name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Gender field -->
+        <div class="genderContainer">
+            <mat-radio-group name="gender" formControlName="gender">
+                <mat-radio-button [value]="'male'">Male</mat-radio-button>
+                <mat-radio-button [value]="'female'">Female</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    
+        <!-- E-mail field -->
+        <mat-form-field>
+            <input matInput formControlName="email" placeholder="E-mail" required>
+            <mat-error [hidden]="!emailCtrl.hasError('required')"> E-mail is <strong>required</strong></mat-error>
+            <mat-error [hidden]="!emailCtrl.hasError('patternInvalid')"> E-mail is <strong>invalid</strong></mat-error>
+        </mat-form-field>
+    
+    
+        <!-- Field type -->
+        <!--    <mat-form-field>-->
+        <!--        <mat-select formControlName="field_type" placeholder="Business" required-->
+        <!--                    (selectionChange)="changeBusinessType($event)">-->
+        <!--            <mat-option>Please choose</mat-option>-->
+        <!--            <mat-option *ngFor="let p of partnerTypes" [value]="p['id']">-->
+        <!--                {{p['name']}}-->
+        <!--            </mat-option>-->
+        <!--        </mat-select>-->
+        <!--        <mat-error [hidden]="!fieldType.hasError('required')">Business type is <strong>required</strong></mat-error>-->
+        <!--    </mat-form-field>-->
+    
+        <ng-select [items]="partnerTypes" (change)="changeBusinessType($event)"
+                   bindLabel="name" bindValue="id" formControlName="field_type" placeholder="Business *">
+    
         </ng-select>
-
-
-        <!--        <mat-form-field>-->
-        <!--            <mat-select formControlName="company_id" placeholder="Company" required>-->
-        <!--                <mat-option>Please choose</mat-option>-->
-        <!--                <mat-option *ngFor="let c of companies" [value]="c['id']">-->
-        <!--                    {{c['name']}}-->
-        <!--                </mat-option>-->
-        <!--            </mat-select>-->
-        <!--        </mat-form-field>-->
-    </ng-container>
-
-    <!-- Company name required error -->
-<!--    <ng-container *ngIf="auth.checkRoles('admin')">-->
-<!--        <mat-error [hidden]="!companyCtrl.hasError('required') && companyCtrl.touched">Company is-->
-<!--            <strong>required</strong></mat-error>-->
-<!--    </ng-container>-->
-
-    <!-- Company hidden field for partners -->
-    <ng-container *ngIf="auth.checkRoles('partner')">
-        <input type="hidden" formControlName="company_id">
-    </ng-container>
-
-    <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-    <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button mat-raised-button color="primary" (click)="invite()">
-        Invite
-    </button>
-</form>
+    
+        <!-- Company drop down field for admin-->
+        <ng-container *ngIf="auth.checkRoles('admin')">
+    
+            <ng-select [items]="companies"
+                       bindLabel="name" bindValue="id" formControlName="company_id" placeholder="Company *">
+            </ng-select>
+    
+    
+            <!--        <mat-form-field>-->
+            <!--            <mat-select formControlName="company_id" placeholder="Company" required>-->
+            <!--                <mat-option>Please choose</mat-option>-->
+            <!--                <mat-option *ngFor="let c of companies" [value]="c['id']">-->
+            <!--                    {{c['name']}}-->
+            <!--                </mat-option>-->
+            <!--            </mat-select>-->
+            <!--        </mat-form-field>-->
+        </ng-container>
+    
+        <!-- Company name required error -->
+    <!--    <ng-container *ngIf="auth.checkRoles('admin')">-->
+    <!--        <mat-error [hidden]="!companyCtrl.hasError('required') && companyCtrl.touched">Company is-->
+    <!--            <strong>required</strong></mat-error>-->
+    <!--    </ng-container>-->
+    
+        <!-- Company hidden field for partners -->
+        <ng-container *ngIf="auth.checkRoles('partner')">
+            <input type="hidden" formControlName="company_id">
+        </ng-container>
+    
+        <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
+        <button type="button" class="backBtn" (click)="router.navigate([redirectUrl])">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" class="saveBtn" (click)="invite()">
+            Invite
+        </button>
+    </form>
+</div>

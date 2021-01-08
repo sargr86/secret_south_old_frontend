@@ -1,5 +1,5 @@
 <div id="map">
-  <div id="routes-floating-panel" [class.closed]="routesListPanelClosed">
+  <div [hidden]="true" id="routes-floating-panel" [class.closed]="routesListPanelClosed">
 
     <ng-container *ngIf="drawingEnabled">
 
@@ -21,12 +21,15 @@
 
       <!-- Routes list -->
       <mat-list *ngIf="filteredLinesArr.length > 0 && drawingEnabled">
+<!--        {{filteredLinesArr|json}}-->
         <ng-container *ngFor="let line of filteredLinesArr">
-          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute.name === line.name">
+          <mat-list-item [class.selectedRoute]="selectedRoute && selectedRoute._id === line._id">
             <i matListIcon class="fa fa-arrow-circle-right route-icon"></i>
 
             <!-- Route name -->
-            <span matLine (click)="selectRoute(line)">{{line.name}}</span>
+            <span matLine (click)="selectRoute(line)">
+              {{line.start_point + '->' + line.stop_1 + line.stop_2 + line.end_point}}
+            </span>
 
             <!-- Map coordinates indicator and remove-route-line button -->
             <ng-container *ngIf="line.coordinates.length > 0">
@@ -140,7 +143,8 @@
                     [strokeWeight]="1">
         <agm-polyline-point *ngFor="let point of line.coordinates"
                             [latitude]="point.lat"
-                            [longitude]="point.lng">
+                            [longitude]="point.lng"
+        >
         </agm-polyline-point>
 
 
