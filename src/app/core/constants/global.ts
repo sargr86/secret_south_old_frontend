@@ -217,7 +217,7 @@ export const DEFAULT_COUNTRY = 'ie';
 
 
 export const MAIN_SECTIONS: Section[] = [
-  {name: 'Water taxi', icon: 'directions_boat', link: 'ferries'},
+  {name: 'Water taxi2', icon: 'directions_boat', link: 'ferries'},
   {name: 'Tours', icon: 'beach_access', link: 'tours'},
   {name: 'Activities', icon: 'directions_run', link: 'activities'},
   {name: 'Accommodations', icon: 'local_hotel', link: 'accommodations'},
