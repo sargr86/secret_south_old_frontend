@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://secretsouth.ie/',
+  apiUrl: 'https://secretsouth.ie/',
   production: true
 };
