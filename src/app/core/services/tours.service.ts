@@ -83,7 +83,17 @@ export class ToursService {
   }
 
   remove(params) {
-    return this.http.delete(`${API_URL}tours/remove`, {params: params});
+    return this.http.delete(`${API_URL}tours/remove`, {params});
+  }
+
+  removeImage(params) {
+    return this.http.delete(`${API_URL}tours/remove-image`, {params});
+  }
+
+  makeCover(params) {
+
+    return this.http.put(`${API_URL}tours/make-cover`, params);
+
   }
 
   getOneTour(params) {
