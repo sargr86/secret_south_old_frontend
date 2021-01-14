@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {ToursRoutingModule} from './tours-routing.module';
 import {ShowToursComponent} from './show-tours/show-tours.component';
 import {SharedModule} from '@shared/shared.module';
-import {SaveTourComponent} from './save-tour/save-tour.component';
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
 import { ToursHomeComponent } from './tours-home/tours-home.component';
@@ -13,13 +12,12 @@ import { SearchToursFormComponent } from './search-tours-form/search-tours-form.
 import { ToursSingleComponent } from './tours-single/tours-single.component';
 import { ToursListComponent } from './tours-list/tours-list.component';
 import { ShowOrdersComponent } from './show-orders/show-orders.component';
-import { SaveToursFormComponent } from './save-tours-form/save-tours-form.component';
 import { ShowDailyToursComponent } from './show-daily-tours/show-daily-tours.component';
+import { SaveTourFormComponent } from './save-tour-form/save-tour-form.component';
 
 @NgModule({
     declarations: [
         ShowToursComponent,
-        SaveTourComponent,
         ShowTourTypesComponent,
         SaveTourTypeComponent,
         ToursHomeComponent,
@@ -28,8 +26,8 @@ import { ShowDailyToursComponent } from './show-daily-tours/show-daily-tours.com
         ToursSingleComponent,
         ToursListComponent,
         ShowOrdersComponent,
-        SaveToursFormComponent,
-        ShowDailyToursComponent
+        ShowDailyToursComponent,
+        SaveTourFormComponent
     ],
     imports: [
         CommonModule,
@@ -38,7 +36,6 @@ import { ShowDailyToursComponent } from './show-daily-tours/show-daily-tours.com
     ],
     exports: [
         ShowToursComponent,
-        SaveTourComponent,
         ShowTourTypesComponent,
         SaveTourTypeComponent,
         ToursHeaderComponent

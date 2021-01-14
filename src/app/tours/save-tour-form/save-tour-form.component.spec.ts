@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SaveToursFormComponent } from './save-tours-form.component';
+import { SaveTourFormComponent } from './save-tour-form.component';
 
-describe('SaveToursFormComponent', () => {
-  let component: SaveToursFormComponent;
-  let fixture: ComponentFixture<SaveToursFormComponent>;
+describe('SaveTourFormComponent', () => {
+  let component: SaveTourFormComponent;
+  let fixture: ComponentFixture<SaveTourFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SaveToursFormComponent ]
+      declarations: [ SaveTourFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SaveToursFormComponent);
+    fixture = TestBed.createComponent(SaveTourFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

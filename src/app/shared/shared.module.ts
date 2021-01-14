@@ -41,6 +41,8 @@ import {AgmDrawingModule} from '@agm/drawing';
 import {NgxStripeModule} from 'ngx-stripe';
 import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
 import {FilterLocationsForDropdownPipe} from './pipes/filter-locations-for-dropdown.pipe';
+import {GetTourFormFieldsPipe} from './pipes/get-tour-form-fields.pipe';
+import { FilterEndCheckoutDatesPipe } from './pipes/filter-end-checkout-dates.pipe';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import {FilterLocationsForDropdownPipe} from './pipes/filter-locations-for-dropd
     MatOrdersTableComponent,
     MapControlsComponent,
     GetAuthUserPipe,
-    FilterLocationsForDropdownPipe
+    FilterLocationsForDropdownPipe,
+    GetTourFormFieldsPipe,
+    FilterEndCheckoutDatesPipe
   ],
   imports: [
     CommonModule,
@@ -102,6 +106,8 @@ import {FilterLocationsForDropdownPipe} from './pipes/filter-locations-for-dropd
     RedirectUrlGeneratorPipe,
     MarkSelectedCoverImagePipe,
     FilterLocationsForDropdownPipe,
+    GetTourFormFieldsPipe,
+    FilterEndCheckoutDatesPipe,
     GetAuthUserPipe,
     {
       provide: DROPZONE_CONFIG,

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ShowToursComponent} from './show-tours/show-tours.component';
-import {SaveTourComponent} from './save-tour/save-tour.component';
 import {OneTourResolverService} from '@core/resolvers/one-tour-resolver.service';
 import {ShowTourTypesComponent} from './show-tour-types/show-tour-types.component';
 import {SaveTourTypeComponent} from './save-tour-type/save-tour-type.component';
@@ -11,8 +10,8 @@ import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ToursListComponent} from '@app/tours/tours-list/tours-list.component';
 import {ToursSingleComponent} from '@app/tours/tours-single/tours-single.component';
 import {ShowOrdersComponent} from '@app/tours/show-orders/show-orders.component';
-import {SaveToursFormComponent} from '@app/tours/save-tours-form/save-tours-form.component';
 import {ShowDailyToursComponent} from '@app/tours/show-daily-tours/show-daily-tours.component';
+import {SaveTourFormComponent} from '@app/tours/save-tour-form/save-tour-form.component';
 
 const routes: Routes = [
   {
@@ -40,22 +39,17 @@ const routes: Routes = [
   {
     path: 'orders', component: ShowOrdersComponent
   },
-  // {
-  //   path: 'add', component: SaveTourComponent, data: {
-  //     title: 'Add a new tour',
-  //   },
-  // },
   {
-    path: 'add', component: SaveToursFormComponent, data: {
+    path: 'add', component: SaveTourFormComponent, data: {
       title: 'Add a new tour',
     },
   },
   {
-    path: 'tour/:id', component: SaveToursFormComponent, data: {
+    path: 'tour/:id', component: SaveTourFormComponent, data: {
       title: 'Edit a tour info',
     },
     resolve: {
-      oneTour: OneTourResolverService
+      tour: OneTourResolverService
     },
     canActivate: [
       NumericIdGuard
