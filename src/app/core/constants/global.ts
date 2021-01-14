@@ -4,6 +4,8 @@ import {Section} from '@shared/models/Section';
 // import {NgxMaterialTimepickerTheme} from 'ngx-material-timepicker';
 import {NgxGalleryOptions} from 'ngx-gallery-9';
 import {OwlOptions} from 'ngx-owl-carousel-o';
+import moment from 'moment';
+import {Validators} from '@angular/forms';
 
 export const API_URL = environment.apiUrl;
 
@@ -24,7 +26,7 @@ export const FERRIES_TABLE_COLUMNS = ['name', 'max_people', 'min_people', 'compa
 export const FOOD_DRINK_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
 export const ACCOMMODATIONS_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
 export const ACTIVITIES_TABLE_COLUMNS = ['name', 'address', 'company', 'actions'];
-export const TOURS_TABLE_COLUMNS = ['tours_type', 'name', 'company',  'price', 'actions'];
+export const TOURS_TABLE_COLUMNS = ['tours_type', 'name', 'company', 'price', 'actions'];
 export const PARTNERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'actions'];
 export const EMPLOYEES_TABLE_COLUMNS = ['first_name', 'last_name', 'email', 'partner_type', 'company', 'actions'];
 export const CUSTOMERS_TABLE_COLUMNS = ['first_name', 'last_name', 'email'];
@@ -210,6 +212,14 @@ export const FERRY_PRICES_FILE_DROPZONE_CONFIG: DropzoneConfigInterface = {
   addRemoveLinks: true
 };
 
+export const TOURS_DROPZONE_CONFIG = {
+  maxFiles: 10
+};
+
+export const PREVIOUS_DATES_FILTER = (d: Date | null): boolean => {
+  return moment(d).isSameOrAfter(moment(), 'day');
+}
+
 
 // ngx-phone-number countries
 export const ALLOWED_COUNTRIES = ['ie', 'in', 'ca', 'us', 'am', 'gb'];
@@ -360,4 +370,15 @@ export const DEFAULT_CHILDREN_COUNT = 2;
 
 
 export const RESTAURANT_BOOKING_HOURS = ['6:30', '7:00', '7:30', '8:00'];
+
+export const DEFAULT_TOUR_MAX_PARTICIPANTS_COUNT = 10;
+export const MAX_LOCATION_CHOICES = 4;
+
+export const LOCATION_CONTROLS = [
+  {id: 'start-point', title: 'Start point'},
+  {id: 'end-point', title: 'End point'},
+  {id: 'stop-1', title: 'Stop 1'},
+  {id: 'stop-2', title: 'Stop 2'}
+];
+
 

@@ -184,6 +184,12 @@ form {
     margin-bottom: 0 !important;
   }
 
+  mat-hint {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+  }
+
 
 }
 
@@ -214,6 +220,10 @@ form {
     min-width: 390px;
   }
 
+}
+
+.remove-location-icon {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1024px) {

@@ -4,6 +4,7 @@ import {CommonService} from '@core/services/common.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AddDailyTourComponent} from '@core/components/dialogs/add-daily-tour/add-daily-tour.component';
 import moment from 'moment';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-show-daily-tours',
@@ -23,6 +24,7 @@ export class ShowDailyToursComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filterDate = formatDate(new Date(), 'dd/MM/yyyy', 'en');
     this.getDailies({scheduled: 0});
     this.common.dataLoading = false;
   }

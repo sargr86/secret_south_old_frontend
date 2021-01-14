@@ -13,4 +13,6 @@ export interface Tour {
   start_date?: string;
   max_participants_count?: string;
   tours_dailies?: string;
+  img?: string;
+  realFolder?: string;
 }
