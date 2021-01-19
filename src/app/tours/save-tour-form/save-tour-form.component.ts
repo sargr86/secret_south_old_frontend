@@ -102,12 +102,13 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
     this.getLocations();
     this.getTourTypes();
     this.getCompanies();
-    this.handleEditCase();
+
   }
 
   getLocations() {
     this.subscriptions.push(this.locationsService.get().subscribe(dt => {
       this.locationsList = dt;
+      this.handleEditCase();
     }));
   }
 
@@ -146,6 +147,8 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
           c.controls[index].patchValue({id: l.id, name: l.id, order: index});
         });
 
+        this.generateTourName();
+
         this.coverPath = this.tourData.img ? this.tourData.realFolder + '/' + this.tourData.img : null;
         this.coverShown = !!this.coverPath;
 
@@ -179,6 +182,7 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
 
   locationChanged(value, i) {
     this.locations.controls[i].patchValue({id: value});
+    this.generateTourName();
   }
 
   getLocationCtrlByName(name: string) {
@@ -187,6 +191,15 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
 
   peopleCountChanged(e: number) {
     this.toursForm.patchValue({max_participants_count: e});
+  }
+
+  generateTourName() {
+    let name = '';
+
+    this.locations.controls.map((c, index) => {
+      name += this.locationsList.find(l => l.id === +c.value.id)?.name + (index === this.locations.controls.length - 1 ? '' : '-');
+    });
+    this.toursForm.patchValue({name});
   }
 
   saveTourDetails() {
@@ -254,8 +267,9 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
     this.coverShown = true;
     if (cover) {
       this.coverPath = cover.big;
-      const p = this.coverPath.split('/').pop();
-      this.toursService.makeCover({img: p, id: this.tourData.id}).subscribe(dt => {
+      const imgFileName = this.coverPath.split('/').pop();
+      this.toursService.makeCover({img: imgFileName, id: this.tourData.id}).subscribe(dt => {
+        this.toursForm.patchValue({img: imgFileName})
         this.toastr.success('The selected image was set as cover successfully');
       });
     }
