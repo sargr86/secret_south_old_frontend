@@ -5,6 +5,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddDailyTourComponent} from '@core/components/dialogs/add-daily-tour/add-daily-tour.component';
 import moment from 'moment';
 import {formatDate} from '@angular/common';
+import {CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-show-daily-tours',
@@ -15,6 +17,9 @@ export class ShowDailyToursComponent implements OnInit {
 
   tours;
   filterDate = null;
+  viewDate: Date = new Date();
+  view: CalendarView = CalendarView.Week;
+  refresh: Subject<any> = new Subject();
 
   constructor(
     private toursService: ToursService,
@@ -40,8 +45,8 @@ export class ShowDailyToursComponent implements OnInit {
   }
 
   getDailies(filter) {
-    console.log(filter)
     this.toursService.getDailies(filter).subscribe(dt => {
+    console.log(dt)
       this.tours = dt;
     });
   }
@@ -50,6 +55,30 @@ export class ShowDailyToursComponent implements OnInit {
     this.dialog.open(AddDailyTourComponent, {data: {tour}}).afterClosed().subscribe(dt => {
 
     });
+  }
+
+  eventClicked(e) {
+    // console.log('Event clicked', e);
+    // console.log(this.tours[0].meta)
+    const foundTour = this.tours.find(t => t.meta.id === e.meta.id);
+    // console.log(foundTour)
+    this.dialog.open(AddDailyTourComponent, {data: {tour: foundTour}}).afterClosed().subscribe(dt => {
+
+    });
+  }
+
+
+  tourDatesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.toursService.updateTourDates({
+      start_date: newStart,
+      end_date: newEnd,
+      id: event.meta.id
+    }).subscribe(dt => {
+
+    });
+    this.refresh.next();
   }
 
 }

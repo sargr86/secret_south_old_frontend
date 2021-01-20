@@ -15,6 +15,7 @@ export class AddDailyTourComponent implements OnInit {
   timepickerTheme = TIMEPICKER_THEME;
   peopleCount = 2;
   tour;
+  editCase = false;
 
   previousDatesFilter = (d: Date | null): boolean => {
     return moment(d).isSameOrAfter(moment(), 'day');
@@ -26,6 +27,10 @@ export class AddDailyTourComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.tour = data.tour;
+    console.log(this.tour)
+    this.editCase = !!this.tour;
+
+
   }
 
   ngOnInit(): void {
@@ -34,8 +39,14 @@ export class AddDailyTourComponent implements OnInit {
       start_time: [''],
       end_date: [''],
       end_time: [''],
-      max_participants_count: [0]
+      max_participants_count: [0],
+      price: ['']
     });
+
+    if (this.editCase) {
+      this.peopleCount = this.tour.meta.max_participants_count;
+      this.dailyTourForm.patchValue(this.tour.meta);
+    }
   }
 
   dateChanged(e) {

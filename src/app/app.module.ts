@@ -16,6 +16,15 @@ import {RequestInterceptor} from '@core/helpers/http.interceptor';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {JwtModule} from '@auth0/angular-jwt';
 import {CoreModule} from '@core/core.module';
+import { CalendarModule } from 'angular-calendar';
+
+import {DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 // Token getter for JWT module
 export function tokenGetter() {
@@ -40,6 +49,7 @@ export function tokenGetter() {
         blacklistedRoutes: ['localhost:3000/auth/', '68.183.36.96:80/auth/', 'secretsouth.ie/auth/', '68.183.36.96/auth/']
       }
     }),
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
   providers: [
     JwtHelperService,

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import * as Base from "../../config.js";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {API_URL} from '../constants/global';
+import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -91,9 +92,7 @@ export class ToursService {
   }
 
   makeCover(params) {
-
     return this.http.put(`${API_URL}tours/make-cover`, params);
-
   }
 
   getOneTour(params) {
@@ -105,6 +104,31 @@ export class ToursService {
   }
 
   getDailies(params) {
-    return this.http.get(API_URL + 'tours/get-dailies', {params});
+    return this.http.get(API_URL + 'tours/get-dailies', {params}).pipe(
+      map((results: any[]) => {
+        console.log(results)
+        console.log(results[0].start_date + ' ' + results[0].start_time)
+        return results.map((tour) => {
+          return {
+            title: tour.tour.name,
+            start: new Date(tour.start_date + ' ' + tour.start_time),
+            end: new Date(tour.end_date + ' ' + tour.end_time),
+            color: 'red',
+            allDay: true,
+            meta: tour,
+            draggable: true,
+            resizable: {
+              beforeStart: true, // this allows you to configure the sides the event is resizable from
+              afterEnd: true,
+            }
+          };
+        });
+      })
+    );
+  }
+
+  updateTourDates(params) {
+    console.log('OK')
+    return this.http.put(`${API_URL}tours/update-dates`, params);
   }
 }
