@@ -6,6 +6,7 @@
 @import "fonts";
 // regular style toast
 @import '~ngx-toastr/toastr.css';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 
 $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
@@ -1603,3 +1604,18 @@ agm-map {
   }
 
 }
+
+// Angular calendar
+.cal-time-events {
+  display: none !important;
+}
+
+.cal-today {
+  background-color: $green !important;
+  opacity: 50% !important;
+}
+
+.cal-event-title {
+  font-size: 14px !important;
+}
+

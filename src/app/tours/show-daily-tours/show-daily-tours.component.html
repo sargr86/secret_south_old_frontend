@@ -1,68 +1,79 @@
 <div class="daily-tours">
   <h1>Daily tours</h1>
 
-  <div class="top-row">
+<!--  <div class="top-row">-->
 
-    <p class="filter">
-      Filter by Date
-    </p>
-    <div class="input">
-      <input placeholder="Start Date" [hidden]="true" name="bookingDate"
-             (dateChange)="dateFilterChanged($event)" [matDatepicker]="dateFilter" class="Check_out_inp">
-      <mat-datepicker-toggle matSuffix [for]="dateFilter"></mat-datepicker-toggle>
-      <mat-datepicker #dateFilter startView="year"></mat-datepicker>
-      <span>{{filterDate}}</span>
-    </div>
-    <div class="scheduled-tours">
-      <span>Scheduled tours</span>
-      <mat-slide-toggle (change)="toggleScheduled($event)"></mat-slide-toggle>
-    </div>
-    <div>
+<!--    <p class="filter">-->
+<!--      Filter by Date-->
+<!--    </p>-->
+<!--    <div class="input">-->
+<!--      <input placeholder="Start Date" [hidden]="true" name="bookingDate"-->
+<!--             (dateChange)="dateFilterChanged($event)" [matDatepicker]="dateFilter" class="Check_out_inp">-->
+<!--      <mat-datepicker-toggle matSuffix [for]="dateFilter"></mat-datepicker-toggle>-->
+<!--      <mat-datepicker #dateFilter startView="year"></mat-datepicker>-->
+<!--      <span>{{filterDate}}</span>-->
+<!--    </div>-->
+<!--    <div class="scheduled-tours">-->
+<!--      <span>Scheduled tours</span>-->
+<!--      <mat-slide-toggle (change)="toggleScheduled($event)"></mat-slide-toggle>-->
+<!--    </div>-->
+<!--    <div>-->
 
-    </div>
-  </div>
+<!--    </div>-->
+<!--  </div>-->
 
-  <div class="tours-wrap">
-    <div class="item" *ngFor="let tour of tours">
-      <div class="date-time">
-        <div class="date">
-          <span>
-              <span class="material-icons">date_range</span>
-            {{tour.start_date | date: 'dd/MM/yyyy'}} - {{tour.end_date| date: 'dd/MM/yyyy'}}
-           </span>
-          <div class="edit">
-            <span class="material-icons">edit</span>
-            <p>
-              <mat-icon (click)="openAddDaily(tour)">content_copy</mat-icon>
-            </p>
-          </div>
+<!--  <div class="tours-wrap">-->
+<!--    <div class="item" *ngFor="let tour of tours">-->
+<!--      <div class="date-time">-->
+<!--        <div class="date">-->
+<!--          <span>-->
+<!--              <span class="material-icons">date_range</span>-->
+<!--            {{tour.start_date | date: 'dd/MM/yyyy'}} - {{tour.end_date| date: 'dd/MM/yyyy'}}-->
+<!--           </span>-->
+<!--          <div class="edit">-->
+<!--            <span class="material-icons">edit</span>-->
+<!--            <p>-->
+<!--              <mat-icon (click)="openAddDaily(tour)">content_copy</mat-icon>-->
+<!--            </p>-->
+<!--          </div>-->
 
-        </div>
+<!--        </div>-->
 
-        <div class="time">
-          <span>
-            <span class="material-icons">query_builder</span>
-            {{tour.start_time}}
-          </span>
-        </div>
-      </div>
+<!--        <div class="time">-->
+<!--          <span>-->
+<!--            <span class="material-icons">query_builder</span>-->
+<!--            {{tour.start_time}}-->
+<!--          </span>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="locations-row">
-        <ul>
-          <li *ngFor="let location of tour.tour.tour_locations;let i = index">
-            <span class="name">{{location.name}}</span>
-            <span>{{(i === tour.tour.tour_locations.length - 1 ? '' : '&#8594;')}}</span>
-          </li>
-        </ul>
-      </div>
+<!--      <div class="locations-row">-->
+<!--        <ul>-->
+<!--          <li *ngFor="let location of tour.tour.tour_locations;let i = index">-->
+<!--            <span class="name">{{location.name}}</span>-->
+<!--            <span>{{(i === tour.tour.tour_locations.length - 1 ? '' : '&#8594;')}}</span>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
 
-      <div class="counts-row-price">
-        <ul>
-          <li>Adults count <p><span>03/</span>06</p></li>
-          <li>Children count <p><span>06/</span>12</p></li>
-        </ul>
-        <div class="price">€{{tour.price}}</div>
-      </div>
-    </div>
-  </div>
+<!--      <div class="counts-row-price">-->
+<!--        <ul>-->
+<!--          <li>Adults count <p><span>03/</span>06</p></li>-->
+<!--          <li>Children count <p><span>06/</span>12</p></li>-->
+<!--        </ul>-->
+<!--        <div class="price">€{{tour.price}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>
+
+
+<mwl-calendar-week-view *ngIf="tours"
+                        [weekStartsOn]="1"
+                        [events]="tours"
+                        [refresh]="refresh"
+                        (eventClicked)="eventClicked($event.event)"
+                        (eventTimesChanged)="tourDatesChanged($event)"
+>
+</mwl-calendar-week-view>
+<!--<ng-template #hours></ng-template>-->
