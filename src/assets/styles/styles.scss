@@ -1610,6 +1610,13 @@ agm-map {
   display: none !important;
 }
 
+.cal-week-view .cal-event {
+  background-color: #084f93;
+  border-color: unset !important;
+  border-radius: 20px !important;
+  color: $white;
+}
+
 .cal-today {
   background-color: $green !important;
   opacity: 50% !important;

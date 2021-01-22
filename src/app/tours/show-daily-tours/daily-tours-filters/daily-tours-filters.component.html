@@ -1,0 +1,92 @@
+<div id="filters-actions-row">
+  <div class="daily-tours">
+    <h1>Daily tours</h1>
+    <button (click)="openAddDaily()" id="add-daily-tour-btn">
+      + Add daily tour
+    </button>
+  </div>
+</div>
+<div id="filters">
+  <form>
+    <div id="filter-by-name">
+      <span>Filter by tour name</span>
+      <mat-form-field>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Search..." (click)="focusTourFilterInput(trigger)"
+               matInput (focus)="focusTourFilterInput(trigger)"
+               [formControl]="myControl"
+               #trigger="matAutocompleteTrigger"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption
+                          (optionSelected)="getFilter($event.option.value)"
+                          [displayWith]="displayProp">
+          <mat-option *ngFor="let tour of filteredTours | async" [value]="tour">
+            {{tour.name}}
+          </mat-option>
+        </mat-autocomplete>
+        <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelection()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+
+<div id="calendar-filters">
+  <div class="left-group">
+    <div class="view-type">
+      <button
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+      >
+        Month
+      </button>
+      <button
+
+        (click)="setView(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week"
+      >
+        Week
+      </button>
+      <button
+
+        (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
+      >
+        Day
+      </button>
+    </div>
+
+
+  </div>
+
+  <div class="right-group">
+
+    <div id="todays-date">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+
+
+    <button mwlCalendarPreviousView
+         [view]="view"
+         [(viewDate)]="viewDate"
+         (viewDateChange)="changeViewDate()"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mwlCalendarToday [(viewDate)]="viewDate" class="today">
+      Today
+    </button>
+    <button
+      mwlCalendarNextView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="changeViewDate()"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+
+  </div>
+</div>
