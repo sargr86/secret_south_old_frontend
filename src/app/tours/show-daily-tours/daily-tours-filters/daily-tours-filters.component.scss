@@ -1,0 +1,84 @@
+@import 'variables';
+@import "mixins";
+
+#filters-actions-row {
+  display: flex;
+  padding-top: 20px;
+
+  .daily-tours {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    #add-daily-tour-btn {
+      background-color: $green;
+      color: $white;
+      height: 51px;
+      padding: 16px 24px;
+      font: normal normal bold 16px/15px Roboto;
+      text-transform: uppercase;
+      border-radius: 0;
+      border: none
+    }
+  }
+
+
+}
+
+#filters {
+  margin-left: 20px;
+  max-width: 500px;
+  width: 100%;
+
+  #filter-by-name {
+    width: 75%;
+    display: flex;
+    align-items: center;
+
+    mat-form-field {
+      margin-left: 20px !important;
+    }
+  }
+}
+
+#calendar-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  .left-group {
+    .view-type {
+      button {
+        width: 78px;
+        height: 43px;
+        background: #F9F9F9 0 0 no-repeat padding-box;
+        box-shadow: 0 0 6px #00000014;
+        text-transform: uppercase;
+        border: none;
+        font: normal normal normal 16px/15px Roboto;
+        color: #414141;
+      }
+
+      .active {
+        background-color: $green;
+      }
+    }
+  }
+
+  .right-group {
+    display: flex;
+
+    #todays-date {
+      color: #084F93;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+    }
+
+    .today {
+      background: unset;
+    }
+  }
+}

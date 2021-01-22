@@ -106,8 +106,8 @@ export class ToursService {
   getDailies(params) {
     return this.http.get(API_URL + 'tours/get-dailies', {params}).pipe(
       map((results: any[]) => {
-        console.log(results)
-        console.log(results[0].start_date + ' ' + results[0].start_time)
+        // console.log(results)
+        // console.log(results[0].start_date + ' ' + results[0].start_time)
         return results.map((tour) => {
           return {
             title: tour.tour.name,

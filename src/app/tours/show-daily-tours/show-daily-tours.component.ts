@@ -6,7 +6,10 @@ import {AddDailyTourComponent} from '@core/components/dialogs/add-daily-tour/add
 import moment from 'moment';
 import {formatDate} from '@angular/common';
 import {CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
+import {SaveDailyTourDialogComponent} from '@core/components/dialogs/save-daily-tour-dialog/save-daily-tour-dialog.component';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-show-daily-tours',
@@ -15,11 +18,15 @@ import {Subject} from 'rxjs';
 })
 export class ShowDailyToursComponent implements OnInit {
 
-  tours;
+  tours = [];
+
   filterDate = null;
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Week;
+  activeDayIsOpen = true;
   refresh: Subject<any> = new Subject();
+
+  CalendarView = CalendarView;
 
   constructor(
     private toursService: ToursService,
@@ -34,6 +41,7 @@ export class ShowDailyToursComponent implements OnInit {
     this.common.dataLoading = false;
   }
 
+
   dateFilterChanged(e) {
     this.filterDate = moment(e.value).format('DD/MM/yyyy');
     this.getDailies({date: new Date(e.value)});
@@ -46,13 +54,12 @@ export class ShowDailyToursComponent implements OnInit {
 
   getDailies(filter) {
     this.toursService.getDailies(filter).subscribe(dt => {
-    console.log(dt)
       this.tours = dt;
     });
   }
 
-  openAddDaily(tour) {
-    this.dialog.open(AddDailyTourComponent, {data: {tour}}).afterClosed().subscribe(dt => {
+  openAddDaily(tour = null) {
+    this.dialog.open(SaveDailyTourDialogComponent, {data: {...tour, edit: false}}).afterClosed().subscribe(dt => {
 
     });
   }
@@ -62,9 +69,24 @@ export class ShowDailyToursComponent implements OnInit {
     // console.log(this.tours[0].meta)
     const foundTour = this.tours.find(t => t.meta.id === e.meta.id);
     // console.log(foundTour)
-    this.dialog.open(AddDailyTourComponent, {data: {tour: foundTour}}).afterClosed().subscribe(dt => {
+    this.dialog.open(SaveDailyTourDialogComponent, {
+      data: {
+        tour: foundTour,
+        edit: true
+      }
+    }).afterClosed().subscribe(dt => {
 
     });
+  }
+
+  dayClicked(e) {
+
+  }
+
+
+
+  changeViewDate() {
+
   }
 
 
