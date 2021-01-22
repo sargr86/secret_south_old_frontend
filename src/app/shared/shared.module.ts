@@ -42,7 +42,8 @@ import {NgxStripeModule} from 'ngx-stripe';
 import {GetAuthUserPipe} from './pipes/get-auth-user.pipe';
 import {FilterLocationsForDropdownPipe} from './pipes/filter-locations-for-dropdown.pipe';
 import {GetTourFormFieldsPipe} from './pipes/get-tour-form-fields.pipe';
-import { FilterEndCheckoutDatesPipe } from './pipes/filter-end-checkout-dates.pipe';
+import {FilterEndCheckoutDatesPipe} from './pipes/filter-end-checkout-dates.pipe';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { FilterEndCheckoutDatesPipe } from './pipes/filter-end-checkout-dates.pi
     AgmDirectionModule,
     AgmDrawingModule,
     Ng5SliderModule,
-    ProgressBarModule
+    ProgressBarModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     GetTableDataSourcePipe,
