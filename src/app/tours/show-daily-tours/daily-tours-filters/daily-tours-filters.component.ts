@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ToursService} from '@core/services/tours.service';
 import {CalendarView} from 'angular-calendar';
+import moment from 'moment';
 
 @Component({
   selector: 'app-daily-tours-filters',
@@ -15,9 +16,10 @@ export class DailyToursFiltersComponent implements OnInit {
   myControl = new FormControl();
   tours = [];
   filtersForm: FormGroup;
+  nameFilter = '';
 
   filterDate = null;
-  viewDate: Date = new Date();
+  viewDate = moment().format('YYYY-MM-DD');
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
 
@@ -34,7 +36,7 @@ export class DailyToursFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDailies({});
+    this.getAllTours();
     this.filteredTours = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -43,10 +45,11 @@ export class DailyToursFiltersComponent implements OnInit {
           return this._filter(value);
         })
       );
+    this.filterAction.emit({name: this.nameFilter, date: this.viewDate, view: this.view});
   }
 
 
-  getDailies(filter) {
+  getAllTours() {
     this.toursService.getAllTours().subscribe((dt: any) => {
       this.tours = dt;
     });
@@ -58,8 +61,8 @@ export class DailyToursFiltersComponent implements OnInit {
   }
 
   getFilter(e) {
-    console.log('get filter')
-    this.filterAction.emit({name: e.name});
+    this.nameFilter = e.name;
+    this.filterAction.emit({name: this.nameFilter, date: moment(this.viewDate).format('YYYY-MM-DD'), view: this.view});
   }
 
   displayProp(tour) {
@@ -72,7 +75,7 @@ export class DailyToursFiltersComponent implements OnInit {
 
   clearSelection() {
     this.myControl.patchValue('');
-    this.filterAction.emit({name: ''});
+    this.filterAction.emit({name: '', date: moment(this.viewDate).format('YYYY-MM-DD'), view: this.view});
     this.focusTourFilterInput(this.trigger);
   }
 
@@ -83,9 +86,18 @@ export class DailyToursFiltersComponent implements OnInit {
 
   setView(view: CalendarView) {
     this.view = view;
+    this.filterAction.emit({
+      name: this.nameFilter,
+      date: moment(this.viewDate).format('YYYY-MM-DD'),
+      view: this.view
+    });
   }
 
-  changeViewDate() {
-
+  changeViewDate(e) {
+    this.filterAction.emit({
+      date: moment(this.viewDate).format('YYYY-MM-DD'),
+      view: this.view,
+      name: this.nameFilter
+    });
   }
 }

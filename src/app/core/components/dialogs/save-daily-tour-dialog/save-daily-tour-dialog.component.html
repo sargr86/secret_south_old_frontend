@@ -1,5 +1,6 @@
 <div class="daily-tour-popup">
-  <h2>Add a tour for a date</h2>
+  <h2 *ngIf="!editCase">Add a tour for a date</h2>
+  <h2 *ngIf="editCase">Edit tour details</h2>
   <h3 class="route-name">{{tour?.title}}</h3>
   <div class="tour-info">
     <div class="locations-row">
@@ -17,63 +18,99 @@
     <form [formGroup]="dailyTourForm" class="daily-tour-form">
       <div class="input-wrap" *ngIf="!editCase">
         <div class="select tour-names">
-          <select (change)="tourChanged($event)">
+          <select (change)="tourChanged($event)" formControlName="tour_id">
             <option [value]="''" disabled selected>Select tour</option>
             <option *ngFor="let tour of toursList" [value]="tour.id">{{tour.name}}</option>
           </select>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('tour_id').hasError('required')">
+            Tour name is required
+          </mat-error>
         </div>
       </div>
       <div class="input-wrap">
-        <div class="input">
-          <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
-                 (dateChange)="dateChanged($event)" formControlName="start_date"
-                 [matDatepicker]="startPicker" class="Check_out_inp">
-          <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
-          <mat-datepicker #startPicker startView="year"></mat-datepicker>
+
+        <div class="input-container">
+          <div class="input">
+            <input placeholder="Start Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                   (dateChange)="dateChanged($event)" formControlName="start_date"
+                   [matDatepicker]="startPicker" class="Check_out_inp">
+            <mat-datepicker-toggle matSuffix [for]="startPicker" class="checkInIcon"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker startView="year"></mat-datepicker>
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('start_date').hasError('required')">
+            Start date is required
+          </mat-error>
         </div>
-        <div class="input">
-          <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
-                 (dateChange)="dateChanged($event)" formControlName="end_date"
-                 [matDatepicker]="endPicker" class="Check_out_inp">
-          <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
-          <mat-datepicker #endPicker startView="year"></mat-datepicker>
+
+        <div class="input-container">
+          <div class="input">
+            <input placeholder="End Date" name="bookingDate" [matDatepickerFilter]="previousDatesFilter"
+                   (dateChange)="dateChanged($event)" formControlName="end_date"
+                   [matDatepicker]="endPicker" class="Check_out_inp">
+            <mat-datepicker-toggle matSuffix [for]="endPicker" class="checkInIcon"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker startView="year"></mat-datepicker>
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('end_date').hasError('required')">
+            End date is required
+          </mat-error>
         </div>
       </div>
       <div class="input-wrap">
-        <div class="input">
-          <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
-                 [ngxMaterialTimepickerTheme]="timepickerTheme"
-                 formControlName="start_time">
-          <span class="main-page-error" *ngIf="isSubmitted && dailyTourForm.get('start_time').hasError('required')">
-                Start time is required</span>
-          <ngx-material-timepicker-toggle [for]="start_timepicker">
-            <mat-icon>access_time</mat-icon>
-          </ngx-material-timepicker-toggle>
+        <div class="input-container">
+          <div class="input">
+            <input placeholder="Start time" [ngxTimepicker]="start_timepicker"
+                   [ngxMaterialTimepickerTheme]="timepickerTheme"
+                   formControlName="start_time">
 
-          <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
+            <ngx-material-timepicker-toggle [for]="start_timepicker">
+              <mat-icon>access_time</mat-icon>
+            </ngx-material-timepicker-toggle>
+
+            <ngx-material-timepicker #start_timepicker></ngx-material-timepicker>
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('start_time').hasError('required')">
+            Start time is required
+          </mat-error>
         </div>
 
-        <div class="input">
-          <input placeholder="End time" [ngxTimepicker]="end_timepicker" [ngxMaterialTimepickerTheme]="timepickerTheme"
-                 formControlName="end_time">
-          <span class="main-page-error" *ngIf="isSubmitted && dailyTourForm.get('end_time').hasError('required')">
-                End time is required</span>
-          <ngx-material-timepicker-toggle [for]="end_timepicker">
-            <mat-icon>access_time</mat-icon>
-          </ngx-material-timepicker-toggle>
+        <div class="input-container">
+          <div class="input">
+            <input placeholder="End time" [ngxTimepicker]="end_timepicker"
+                   [ngxMaterialTimepickerTheme]="timepickerTheme"
+                   formControlName="end_time">
 
-          <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
+            <ngx-material-timepicker-toggle [for]="end_timepicker">
+              <mat-icon>access_time</mat-icon>
+            </ngx-material-timepicker-toggle>
+
+            <ngx-material-timepicker #end_timepicker></ngx-material-timepicker>
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('end_time').hasError('required')">
+            End time is required
+          </mat-error>
         </div>
+
       </div>
       <div class="input-wrap">
-        <div class="input">
-          <input type="text" placeholder="Price" formControlName="price">
+        <div class="input-container">
+          <div class="input">
+            <input type="text" placeholder="Price" formControlName="price">
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('price').hasError('required')">
+            Price is required
+          </mat-error>
         </div>
-        <div class="input people-count">
-          <input type="hidden" formControlName="max_participants_count" class="hidden">
-          <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
-                            [buttonsOrientation]="'v'" [placeholder]="'Total count'"
-                            (valueChange)="peopleCountChanged($event)"></ng-number-picker>
+
+        <div class="input-container">
+          <div class="input people-count">
+            <input type="hidden" formControlName="max_participants_count" class="hidden">
+            <ng-number-picker [(value)]="peopleCount" [size]="'small'" class="guests-count"
+                              [buttonsOrientation]="'v'" [placeholder]="'Total count'"
+                              (valueChange)="peopleCountChanged($event)"></ng-number-picker>
+          </div>
+          <mat-error *ngIf="isSubmitted && dailyTourForm.get('max_participants_count').hasError('required')">
+            People count is required
+          </mat-error>
         </div>
       </div>
       <!--            <div class="input-wrap">-->
@@ -99,7 +136,10 @@
       <!--                </div>-->
       <!--            </div>-->
 
-      <button class="btn" (click)="save()">Save</button>
+      <div class="actions">
+        <button class="btn" (click)="save()">Save</button>
+        <button class="btn remove-daily-tour" *ngIf="editCase" (click)="remove()">Remove</button>
+      </div>
     </form>
   </div>
 </div>

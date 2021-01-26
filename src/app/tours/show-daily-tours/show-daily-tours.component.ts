@@ -25,6 +25,7 @@ export class ShowDailyToursComponent implements OnInit {
   view: CalendarView = CalendarView.Week;
   activeDayIsOpen = true;
   refresh: Subject<any> = new Subject();
+  filter;
 
   CalendarView = CalendarView;
 
@@ -48,19 +49,21 @@ export class ShowDailyToursComponent implements OnInit {
   }
 
   toggleScheduled(e) {
-    console.log(e.checked)
     this.getDailies({scheduled: e.checked ? 1 : 0});
   }
 
   getDailies(filter) {
+    this.filter = filter;
     this.toursService.getDailies(filter).subscribe(dt => {
       this.tours = dt;
+      this.viewDate = filter?.date;
+      this.view = filter?.view;
     });
   }
 
   openAddDaily(tour = null) {
     this.dialog.open(SaveDailyTourDialogComponent, {data: {...tour, edit: false}}).afterClosed().subscribe(dt => {
-
+      this.getDailies(this.filter);
     });
   }
 
@@ -75,14 +78,13 @@ export class ShowDailyToursComponent implements OnInit {
         edit: true
       }
     }).afterClosed().subscribe(dt => {
-
+      this.getDailies(this.filter);
     });
   }
 
   dayClicked(e) {
 
   }
-
 
 
   changeViewDate() {
