@@ -128,7 +128,20 @@ export class ToursService {
   }
 
   updateTourDates(params) {
-    console.log('OK')
     return this.http.put(`${API_URL}tours/update-dates`, params);
   }
+
+  addDailyTour(params) {
+    return this.http.post(`${API_URL}tours/add-daily`, params);
+  }
+
+  updateDailyTour(params) {
+    return this.http.put(`${API_URL}tours/update-daily`, params);
+  }
+
+  removeDailyTour(params) {
+    return this.http.delete(`${API_URL}tours/remove-daily`, {params});
+  }
+
+
 }
