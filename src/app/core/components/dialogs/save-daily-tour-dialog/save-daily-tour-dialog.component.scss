@@ -1,3 +1,5 @@
+@import "variables";
+
 .daily-tour-popup {
   padding: 0 66px 40px 66px;
   width: 560px;
@@ -81,7 +83,7 @@
         position: relative;
 
         &:last-child {
-          margin-right: 0;
+          //margin-right: 0;
         }
 
         input {
@@ -126,6 +128,15 @@
       border-radius: 0;
       text-transform: uppercase;
       font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+
+      .remove-daily-tour {
+        background-color: $red;
+      }
     }
   }
 
