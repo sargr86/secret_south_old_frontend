@@ -1,9 +1,12 @@
 @import 'variables';
 @import 'mixins';
+@import 'variables';
+@import 'mixins';
 
 .page-container {
   display: flex;
-  width: 1360px;
+  max-width: 1360px;
+  width: 100%;
   margin: 100px auto 0;
 
   .left-side {
@@ -17,55 +20,111 @@
 }
 
 
-@import 'variables';
-@import 'mixins';
+.tours {
+  width: 1360px;
+  margin: 100px auto 0;
+  display: flex;
+  // overflow: hidden;
 
+  &.tours-page {
+    display: block;
 
-header {
-  background-image: url("assets/images/sara-dubler-Koei_7yYtIo-unsplash.png");
-  background-repeat: no-repeat;
-
-  .order-form-and-texts {
-    width: 100%;
-    max-width: 1360px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    #order-form-container{
-      width:432px;
+    > h1 {
+      font-size: 40px;
+      color: #414141;
+      font-weight: bold;
     }
 
-    #texts-container{
-      margin-left: 150px;
-      *{color: #ffffff;}
+    .accommodation-inner {
+      margin-top: 24px;
+      display: flex;
+    }
+  }
 
-      h1{
-        font-size: 40px;
-        text-transform: uppercase;
-        margin-bottom: 16px;
-      }
+  #left-side {
+    width: 432px;
+  }
 
-      p{
+  #right-side {
+    width: 100%;
+
+    .sort-price {
+      margin-left: 32px;
+      margin-bottom: 48px;
+
+      h2 {
         font-size: 16px;
-
+        font-weight: bold;
+        color: #414141;
       }
 
-      ul{
-          margin-top: 16px;
-        li{
-            font-size: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            span{
-                font-size: 20px;
-                margin-right: 16px;
-                color: #7BC447;
-            }
+      ul {
+        margin: 16px 0 0;
+
+        li {
+          border: 1px solid #184F91;
+          font-size: 16px;
+          border-radius: 5px;
+          color: #949494;
+          padding: 12px 24px;
+          margin-right: 32px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &.active, &:hover {
+            background: #184F91;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    ul {
+      margin-left: 32px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .search-item {
+        flex: 0 0 calc(50% - 16px);
+        height: 450px;
+        box-shadow: 0 0 6px #00000029;
+        border-radius: 5px;
+        margin-right: 32px;
+        margin-bottom: 32px;
+
+        &:nth-child(2n + 2) {
+          margin-right: 0;
+        }
+
+        img {
+          width: 100%;
+          height: 244px;
+          object-fit: cover;
+        }
+
+        .name {
+          margin-top: 24px;
+          margin-left: 39px;
+          font: normal normal 20px 'Roboto-Bold';
+        }
+
+        .address {
+          margin-top: 8px;
+          margin-left: 39px;
+          font: normal normal 16px 'Roboto-Regular';
         }
       }
     }
   }
 }
 
-@import "media";
+
+@import 'variables';
+@import 'mixins';
+
+
+
