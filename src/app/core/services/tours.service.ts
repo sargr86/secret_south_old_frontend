@@ -143,5 +143,9 @@ export class ToursService {
     return this.http.delete(`${API_URL}tours/remove-daily`, {params});
   }
 
+  searchInDailyTours(params) {
+    return this.http.get(`${API_URL}tours/search-daily`, {params});
+  }
+
 
 }

@@ -15,13 +15,14 @@ import {CommonService} from '@core/services/common.service';
 export class SearchToursFormComponent implements OnInit {
   toursForm: FormGroup;
 
-  filteredLocations;
-  locationControl = new FormControl();
+  filteredTours;
+  tourControl = new FormControl();
 
   adultsCount = 2;
   childrenCount = 2;
 
   tourTypes;
+  tours = [];
 
   previousDatesFilter = (d: Date | null): boolean => {
     return moment(d).isSameOrAfter(moment(), 'day');
@@ -40,12 +41,22 @@ export class SearchToursFormComponent implements OnInit {
     this.common.dataLoading = false;
     this.initForm();
     this.patchForm();
-    this.getTours();
+    this.getTourTypes();
+    this.getAllTours();
+
+    this.filteredTours = this.tourControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(value => {
+          return this._filter(value);
+        })
+      );
   }
 
   initForm() {
     this.toursForm = this.fb.group({
-      location: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       adults: [this.adultsCount, [Validators.required]],
       children: [this.childrenCount, [Validators.required]],
       rooms: ['', [Validators.required]],
@@ -55,14 +66,14 @@ export class SearchToursFormComponent implements OnInit {
   }
 
   patchForm() {
-    const accommodationsSearch = JSON.parse(localStorage.getItem('toursSearch'));
+    const toursSearch = JSON.parse(localStorage.getItem('toursSearch'));
 
 
-    if (accommodationsSearch) {
-      this.adultsCount = accommodationsSearch.adults;
-      this.childrenCount = accommodationsSearch.children;
-      this.toursForm.patchValue(accommodationsSearch);
-      this.locationControl.patchValue(accommodationsSearch.location);
+    if (toursSearch) {
+      this.adultsCount = toursSearch.adults;
+      this.childrenCount = toursSearch.children;
+      this.toursForm.patchValue(toursSearch);
+      this.tourControl.patchValue(toursSearch.name);
     }
   }
 
@@ -80,29 +91,44 @@ export class SearchToursFormComponent implements OnInit {
 
 
   locationChanged(e) {
-    this.toursForm.patchValue({location: e});
+    console.log(e)
+    this.toursForm.patchValue({name: e});
   }
 
-  clearLocation() {
-    this.locationControl.patchValue('');
-    this.getTours();
+  focusTourInput(trigger) {
+    trigger._onChange('');
+    trigger.openPanel();
   }
 
-  getTours() {
+  clearSelection() {
+    this.tourControl.patchValue('');
+    this.getTourTypes();
+  }
+
+  getTourTypes() {
     this.toursService.getAllTourTypes().subscribe((dt: any) => {
       this.tourTypes = dt;
-
     });
   }
 
-  getTourLocations() {
-    // this.filteredLocations = this.locationControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this.filterLocations.transform(value, dt))
-    // );
+  getAllTours() {
+    this.toursService.getAllTours().subscribe((dt: any) => {
+      this.tours = dt;
+    });
   }
 
+
+  private _filter(value: string): string[] {
+    const filterValue = value?.toLowerCase();
+    return this.tours.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  // displayProp(tour) {
+  //   return tour?.name;
+  // }
+
   search() {
+    localStorage.setItem('toursSearch', JSON.stringify(this.toursForm.value));
     this.router.navigate(['tours/list']);
     console.log(this.toursForm.value)
   }

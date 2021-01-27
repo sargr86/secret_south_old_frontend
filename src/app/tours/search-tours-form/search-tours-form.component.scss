@@ -8,10 +8,13 @@ form {
     box-shadow: 0 0 6px #00000012;
   }
 
-  .clear-location {
+  .clear-selection {
     position: absolute;
     right: 10px;
-    top: 5px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
   }
 
 
@@ -20,7 +23,7 @@ form {
     width: 432px;
     height: 51px;
 
-    mat-icon {
+    .location-icon {
       color: #707070;
       position: absolute;
       top: 16px;
@@ -83,7 +86,6 @@ form {
       background-color: $white;
 
 
-
       // .picker {
       //   margin-left: 70px;
       // }
@@ -96,7 +98,6 @@ form {
       //   margin-left: 61px;
       // }
     }
-
 
 
     #adults, #children {
