@@ -93,7 +93,7 @@ export class DailyToursFiltersComponent implements OnInit {
     });
   }
 
-  changeViewDate(e) {
+  changeViewDate() {
     this.filterAction.emit({
       date: moment(this.viewDate).format('YYYY-MM-DD'),
       view: this.view,
