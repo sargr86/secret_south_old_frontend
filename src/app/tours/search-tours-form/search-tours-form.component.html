@@ -1,23 +1,21 @@
 <form [formGroup]="toursForm">
   <div id="address">
-    <mat-icon>place</mat-icon>
+
+    <mat-icon class="location-icon">place</mat-icon>
     <input type="text" #locationInput (change)="locationChanged($event)"
            placeholder="Where are you going?"
-           aria-label="Number"
-           [formControl]="locationControl"
+           (focus)="focusTourInput(trigger)"
+           (click)="focusTourInput(trigger)"
+           [formControl]="tourControl"
+           #trigger="matAutocompleteTrigger"
            [matAutocomplete]="auto">
-    <!-- <button class="clear-location" matSuffix mat-icon-button aria-label="Clear">
-      <mat-icon
-        (click)="clearLocation()">close
-      </mat-icon>
-    </button> -->
+    <mat-icon class="clear-selection" (click)="clearSelection()">close</mat-icon>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                       (optionSelected)="locationChanged($event.option.value)">
-      <mat-option *ngFor="let loc of filteredLocations | async" [value]="loc.address">
-        {{loc.address}}
+      <mat-option *ngFor="let tour of filteredTours | async" [value]="tour.name">
+        {{tour.name}}
       </mat-option>
     </mat-autocomplete>
-
 
   </div>
 

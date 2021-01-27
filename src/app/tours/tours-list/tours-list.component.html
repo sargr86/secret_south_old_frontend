@@ -1,9 +1,28 @@
 <app-header-top [section]="'Food/Drink'"></app-header-top>
-<div class="page-container food-drink-single-page">
+<section class="tours tours-page">
+  <div class="page-container">
 
-  <div class="left-side">
-    <app-search-tours-form></app-search-tours-form>
+    <div id="left-side">
+      <app-search-tours-form></app-search-tours-form>
+    </div>
+    <div id="right-side">
+      <div class="sort-price">
+        <h2>Sort by Price</h2>
+        <ul>
+          <li class="active">Low to high</li>
+          <li>High to low</li>
+          <li>Choose on map</li>
+        </ul>
+      </div>
+      <ul>
+        <li class="search-item" *ngFor="let tour of tours">
+          <img *ngIf="tour.tour.img" [src]="getPath(tour.tour, toursFolder)" alt="">
+          <div *ngIf="!tour.tour.img" class="no_image"></div>
+          <p class="name">{{tour.tour.name}}</p>
+          <p class="address">{{tour.tour.company.name}}</p>
+          <button class="view-more" (click)="router.navigate(['tours/single/'+tour.tour.id])">View more</button>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="right-side">
-  </div>
-</div>
+</section>
