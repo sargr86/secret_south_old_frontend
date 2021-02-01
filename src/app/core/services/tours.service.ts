@@ -55,7 +55,7 @@ export class ToursService {
   }
 
   getOneTourType(params) {
-    console.log('OK')
+    console.log('OK');
     return this.http.get(`${API_URL}tour_types/get-one`, {params: params});
   }
 
@@ -104,27 +104,54 @@ export class ToursService {
   }
 
   getDailies(params) {
-    return this.http.get(API_URL + 'tours/get-dailies', {params}).pipe(
-      map((results: any[]) => {
-        // console.log(results)
-        // console.log(results[0].start_date + ' ' + results[0].start_time)
-        return results.map((tour) => {
-          return {
-            title: tour.tour.name,
-            start: new Date(tour.start_date + ' ' + tour.start_time),
-            end: new Date(tour.end_date + ' ' + tour.end_time),
-            color: 'red',
-            allDay: true,
-            meta: tour,
-            draggable: true,
-            resizable: {
-              beforeStart: true, // this allows you to configure the sides the event is resizable from
-              afterEnd: true,
-            }
-          };
-        });
-      })
-    );
+    console.log(params)
+    if (params.calendar) {
+      return this.http.get(API_URL + 'tours/get-dailies', {params}).pipe(
+        map((results: any[]) => {
+          // console.log(results)
+          // console.log(results[0].start_date + ' ' + results[0].start_time)
+          return results.map((tour) => {
+            return {
+              title: tour.tour.name,
+              start: new Date(tour.start_date + ' ' + tour.start_time),
+              end: new Date(tour.end_date + ' ' + tour.end_time),
+              color: 'red',
+              allDay: true,
+              meta: tour,
+              draggable: true,
+              resizable: {
+                beforeStart: true, // this allows you to configure the sides the event is resizable from
+                afterEnd: true,
+              }
+            };
+          });
+        })
+      );
+    } else {
+      return this.http.get(API_URL + 'tours/get-dailies', {params}).pipe(
+        map((results: any[]) => {
+          // console.log(results)
+          // console.log(results[0].start_date + ' ' + results[0].start_time)
+          return results.map((tour) => {
+            return {
+              name: tour.tour.name,
+              title: tour.tour.name,
+              img: tour.tour.img,
+              start: new Date(tour.start_date + ' ' + tour.start_time),
+              end: new Date(tour.end_date + ' ' + tour.end_time),
+              color: 'red',
+              allDay: true,
+              meta: tour,
+              draggable: true,
+              resizable: {
+                beforeStart: true, // this allows you to configure the sides the event is resizable from
+                afterEnd: true,
+              }
+            };
+          });
+        })
+      );
+    }
   }
 
   updateTourDates(params) {

@@ -1,16 +1,16 @@
 <app-tours-header [hidden]="router.url !== '/tours'"></app-tours-header>
 
 <section class="home_1">
-    <div class="home_1_size">
-        <div class="home_1_top">
-            <p>Most Popular Tours</p>
-        </div>
-      <app-carousel-holder [items]="tourTypes" [folder]="toursFolder"
-                           [category]="'tours'" *ngIf="tourTypes"></app-carousel-holder>
-        <div class="home_1_top">
-            <p>Today's Top Tours</p>
-        </div>
-      <app-carousel-holder [items]="tourTypes" [folder]="toursFolder"
-                           [category]="'tours'" *ngIf="tourTypes"></app-carousel-holder>
+  <div class="home_1_size">
+    <div class="home_1_top">
+      <p>Most Popular Tours</p>
     </div>
+    <app-carousel-holder [items]="popularTours" [folder]="toursFolder"
+                         [category]="'tours'" *ngIf="popularTours"></app-carousel-holder>
+    <div class="home_1_top">
+      <p>Today's Top Tours</p>
+    </div>
+    <app-carousel-holder [items]="todaysTours" [folder]="toursFolder"
+                         [category]="'tours'" *ngIf="todaysTours"></app-carousel-holder>
+  </div>
 </section>

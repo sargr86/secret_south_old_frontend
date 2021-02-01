@@ -13,6 +13,8 @@ import {TOURS_FOLDER} from '@core/constants/global';
 export class ToursHomeComponent implements OnInit {
   tourTypes;
   toursFolder = TOURS_FOLDER;
+  popularTours;
+  todaysTours;
 
   constructor(
     public router: Router,
@@ -23,12 +25,27 @@ export class ToursHomeComponent implements OnInit {
 
   ngOnInit() {
     this.common.dataLoading = false;
-    this.getTourTypes();
+    // this.getTourTypes();
+    this.getPopularTours();
+    this.getTodaysTours();
   }
 
   getTourTypes() {
     this.toursService.getAllTourTypes().subscribe((dt) => {
       this.tourTypes = dt;
+    });
+  }
+
+  getPopularTours() {
+    this.toursService.getDailies({calendar: false, today: true}).subscribe(dt => {
+      this.popularTours = dt;
+    });
+  }
+
+  getTodaysTours() {
+    this.toursService.getDailies({calendar: false}).subscribe(dt => {
+      console.log(dt)
+      this.todaysTours = dt;
     });
   }
 
