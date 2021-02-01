@@ -62,11 +62,9 @@ export class RoutesPageTopComponent implements OnInit {
     this.fileImporting = true;
     if (this.routesOnly) {
       this.fileImport.importXMLFile(file);
-      console.log(fileInput)
       fileInput.value = '';
     } else {
       this.fileImport.importJSONFile(file);
-      console.log(fileInput)
       fileInput.value = '';
     }
   }

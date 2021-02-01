@@ -3,14 +3,14 @@
   <div class="page-container">
 
     <div id="left-side">
-      <app-search-tours-form></app-search-tours-form>
+      <app-search-tours-form (search)="searchInDailyTours()"></app-search-tours-form>
     </div>
     <div id="right-side">
       <div class="sort-price">
         <h2>Sort by Price</h2>
         <ul>
-          <li class="active">Low to high</li>
-          <li>High to low</li>
+          <li [class.active]="selectedOrder==='asc'" (click)="sortByPrice('asc')">Low to high</li>
+          <li [class.active]="selectedOrder==='desc'" (click)="sortByPrice('desc')">High to low</li>
           <li>Choose on map</li>
         </ul>
       </div>
@@ -18,11 +18,21 @@
         <li class="search-item" *ngFor="let tour of tours">
           <img *ngIf="tour.tour.img" [src]="getPath(tour.tour, toursFolder)" alt="">
           <div *ngIf="!tour.tour.img" class="no_image"></div>
-          <p class="name">{{tour.tour.name}}</p>
-          <p class="address">{{tour.tour.company.name}}</p>
+          <div class="details">
+
+            <div class="left">
+              <p class="name">{{tour.tour.name}}</p>
+              <p class="address">{{tour.tour.company.name}}</p>
+            </div>
+            <div class="right">
+              <p class="price">&euro;{{tour.price}}</p>
+            </div>
+          </div>
           <button class="view-more" (click)="router.navigate(['tours/single/'+tour.tour.id])">View more</button>
         </li>
       </ul>
+
+      <app-map-controls></app-map-controls>
     </div>
   </div>
 </section>
