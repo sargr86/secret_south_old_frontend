@@ -36,7 +36,6 @@ export class ManageMapRoutesComponent implements OnInit {
   getRoutes(dt) {
     this.routes = dt;
     this.filterRoutes();
-    this.subject.setFerryRoutesData(dt);
   }
 
   handle(e) {
@@ -52,8 +51,12 @@ export class ManageMapRoutesComponent implements OnInit {
 
   selectRoute(r) {
     this.selectedRoute = r;
-
     this.mapComponent.selectRoute(r);
+  }
+
+  fileImported(e) {
+    this.getRoutes(e);
+    this.mapComponent.getAllRoutes();
   }
 
 }

@@ -61,10 +61,8 @@ export class RoutesPricesTableComponent implements OnInit {
   }
 
   generateTableList(dt) {
-    console.log('called')
     if (dt) {
       this.dataSource = this.dataSrc.transform(dt);
-      console.log(this.dataSource)
       this.dataSource.paginator = this.paginator;
       this.subject.setFerryRoutesData(dt);
     }
