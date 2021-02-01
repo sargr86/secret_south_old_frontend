@@ -8,14 +8,21 @@
   // box-shadow: 0px 0px 6px #00000029;
   border-radius: 5px;
 
-  .box-sale{
+  .box-sale {
     position: absolute;
-    left: 0; 
+    left: 0;
     top: 24px;
     padding: 8px 32px 8px 16px;
     background: #FF6329;
     font-size: 20px;
     color: #ffffff;
+  }
+
+  .image {
+    //background-position: center center;
+    object-fit: cover;
+    border-radius: 5px;
+    height: 250px;
   }
 
   .no_image {
@@ -42,7 +49,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
+
       p {
         color: #7BC447;
         font-weight: bold;
@@ -55,19 +62,19 @@
 
     }
 
-    .infoTxt{
+    .infoTxt {
       margin-top: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      span{
+      span {
         margin-right: 12px;
         color: #414141;
         font-size: 16px;
       }
 
-      p{
+      p {
         font-size: 16px;
         color: #949494;
       }
@@ -97,65 +104,73 @@
 }
 
 
-
-.reviews{
+.reviews {
   margin-top: 16px;
-  .stars{
-      letter-spacing: 6px;
+
+  .stars {
+    letter-spacing: 6px;
   }
 }
 
-.stars{
-  &.st_0{
-      i{
-          color: #DEDEDE;
-      }
+.stars {
+  &.st_0 {
+    i {
+      color: #DEDEDE;
+    }
   }
 
-  &.st_1{
-      i{
-          color: #DEDEDE;
-          &:nth-child(1){
-              color: #ffc357;
-          }
-      }
-  }
-  &.st_2{
-      i{
-          color: #DEDEDE;
-          &:nth-child(1),&:nth-child(2){
-            color: #ffc357;
-          }
-      }
-  }
-  &.st_3{
-      i{
-          color: #DEDEDE;
-          &:nth-child(1),&:nth-child(2),&:nth-child(3){
-            color: #ffc357;
-          }
-      }
-  }
-  &.st_4{
-      i{
-          color: #DEDEDE;
-          &:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(4){
-            color: #ffc357;
-          }
-      }
-  }
-  &.st_5{
-      i{
+  &.st_1 {
+    i {
+      color: #DEDEDE;
+
+      &:nth-child(1) {
         color: #ffc357;
       }
+    }
   }
 
-  i{
-      font-size: 18px;
+  &.st_2 {
+    i {
+      color: #DEDEDE;
+
+      &:nth-child(1), &:nth-child(2) {
+        color: #ffc357;
+      }
+    }
+  }
+
+  &.st_3 {
+    i {
+      color: #DEDEDE;
+
+      &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+        color: #ffc357;
+      }
+    }
+  }
+
+  &.st_4 {
+    i {
+      color: #DEDEDE;
+
+      &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+        color: #ffc357;
+      }
+    }
+  }
+
+  &.st_5 {
+    i {
+      color: #ffc357;
+    }
+  }
+
+  i {
+    font-size: 18px;
   }
 }
 
- 
+
 ul {
   display: flex;
   overflow-x: scroll;

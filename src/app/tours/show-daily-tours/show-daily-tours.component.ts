@@ -38,23 +38,23 @@ export class ShowDailyToursComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterDate = formatDate(new Date(), 'dd/MM/yyyy', 'en');
-    this.getDailies({scheduled: 0});
+    this.getDailies({scheduled: 0, calendar: true});
     this.common.dataLoading = false;
   }
 
 
   dateFilterChanged(e) {
     this.filterDate = moment(e.value).format('DD/MM/yyyy');
-    this.getDailies({date: new Date(e.value)});
+    this.getDailies({date: new Date(e.value), calendar: true});
   }
 
   toggleScheduled(e) {
-    this.getDailies({scheduled: e.checked ? 1 : 0});
+    this.getDailies({scheduled: e.checked ? 1 : 0, calendar: true});
   }
 
   getDailies(filter) {
     this.filter = filter;
-    this.toursService.getDailies(filter).subscribe(dt => {
+    this.toursService.getDailies({...filter, calendar: true}).subscribe((dt: any) => {
       this.tours = dt;
       this.viewDate = filter?.date;
       this.view = filter?.view;
@@ -63,7 +63,7 @@ export class ShowDailyToursComponent implements OnInit {
 
   openAddDaily(tour = null) {
     this.dialog.open(SaveDailyTourDialogComponent, {data: {...tour, edit: false}}).afterClosed().subscribe(dt => {
-      this.getDailies(this.filter);
+      this.getDailies({...this.filter, calendar: true});
     });
   }
 
@@ -78,7 +78,7 @@ export class ShowDailyToursComponent implements OnInit {
         edit: true
       }
     }).afterClosed().subscribe(dt => {
-      this.getDailies(this.filter);
+      this.getDailies({...this.filter, calendar: true});
     });
   }
 

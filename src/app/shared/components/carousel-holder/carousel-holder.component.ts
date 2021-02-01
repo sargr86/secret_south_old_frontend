@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
 import IsResponsive from '@core/helpers/is-responsive';
 import {Router} from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-carousel-holder',
@@ -11,7 +12,8 @@ import {Router} from '@angular/router';
 export class CarouselHolderComponent implements OnInit {
 
   constructor(
-    public router: Router
+    public router: Router,
+    public sanitizer: DomSanitizer
   ) {
   }
 
@@ -20,9 +22,9 @@ export class CarouselHolderComponent implements OnInit {
   @Input() category;
   responsiveMode;
   customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: true,
+    loop: false,
+    // margin: 10,
+    nav: true,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
@@ -31,17 +33,13 @@ export class CarouselHolderComponent implements OnInit {
       0: {
         items: 1
       },
-      400: {
-        items: 1
+      767: {
+        items: 3
       },
-      768: {
-        items: 1
-      },
-      1000: {
+      1200: {
         items: 3
       }
-    },
-    nav: true
+    }
   };
 
   ngOnInit() {
