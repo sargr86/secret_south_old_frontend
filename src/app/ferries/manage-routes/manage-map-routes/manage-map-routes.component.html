@@ -1,7 +1,7 @@
 <div class="routes-page-container">
 
   <div id="routes-page-top">
-    <app-routes-page-top (newRoute)="addNewRouteWithoutMap($event)"></app-routes-page-top>
+    <app-routes-page-top (newRoute)="addNewRouteWithoutMap($event)" (fileImported)="fileImported($event)"></app-routes-page-top>
   </div>
 
   <div class="titles-container">

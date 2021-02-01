@@ -1,7 +1,5 @@
 @import 'variables';
 @import 'mixins';
-@import 'variables';
-@import 'mixins';
 
 .page-container {
   display: flex;
@@ -75,7 +73,7 @@
             margin-right: 0;
           }
 
-          &.active, &:hover {
+          &.active {
             background: #184F91;
             color: #ffffff;
           }
@@ -89,6 +87,7 @@
       flex-wrap: wrap;
 
       .search-item {
+        //display: flex;
         flex: 0 0 calc(50% - 16px);
         height: 450px;
         box-shadow: 0 0 6px #00000029;
@@ -117,14 +116,31 @@
           margin-left: 39px;
           font: normal normal 16px 'Roboto-Regular';
         }
+
+        .details {
+          display: flex;
+
+          .left {
+            width: 80%;
+          }
+
+          .right {
+            width: 20%;
+            text-align: right;
+
+            .price {
+              font-size: 20px;
+              color: $green;
+              font-family: 'Roboto-Bold';
+              margin-top: 24px;
+              margin-right: 16px;
+            }
+          }
+        }
       }
     }
   }
 }
-
-
-@import 'variables';
-@import 'mixins';
 
 
 

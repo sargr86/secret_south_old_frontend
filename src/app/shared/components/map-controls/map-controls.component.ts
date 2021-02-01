@@ -81,6 +81,7 @@ export class MapControlsComponent implements OnInit {
 
     // Getting ferry locations data from the ferry order form
     this.subject.getMapData().subscribe((dt: any) => {
+      console.log(dt)
       if (dt.formToMap) {
 
         this.lines = [];
@@ -90,7 +91,7 @@ export class MapControlsComponent implements OnInit {
         this.ferryMapLocations.map(sl => {
 
           // Retrieve current location object
-          const location = dt.selectedLocations.find(d => d.name === sl.name);
+          const location = dt?.selectedLocations?.find(d => d.name === sl.name);
           sl.markerIconUrl = 'assets/icons/' + (location ? 'red' : 'green') + '_circle_small.png';
         });
       }
@@ -99,19 +100,25 @@ export class MapControlsComponent implements OnInit {
     // Getting ferry lines data between selected locations from the ferry order form
     this.subject.getMapLinesData().subscribe((dt: any) => {
       this.lines = [];
+      console.log(dt)
       if (dt) {
-        if (dt.geometry_type === 'LineString') {
-          dt.coordinates.map(c => {
-            this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+        // if (dt.geometry_type === 'LineString') {
+        dt.map(d => {
+          d.coordinates.map(c => {
+            this.lines.push({name: d.name, lat: +c.lat, lng: +c.lng});
           });
-        } else if (dt.geometry_type === 'Polygon') {
-          Object.values(dt.coordinates[0]).reverse().map((c: any) => {
-            if (c.lat) {
-              this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
-            }
+        });
+        // } else if (dt.geometry_type === 'Polygon') {
+        //   Object.values(dt.coordinates[0]).reverse().map((c: any) => {
+        //     if (c.lat) {
+        //       this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng});
+        //     }
+        //
+        //   });
+        // }
 
-          });
-        }
+        console.log(this.lines)
+        console.log(this.linesArr)
 
       }
     });
@@ -130,7 +137,6 @@ export class MapControlsComponent implements OnInit {
           dt.strokeColor = MAP_GREEN_COLOR;
           this.linesArr.push(dt);
         });
-
 
 
         this.routesListReady.emit(data);
@@ -256,7 +262,6 @@ export class MapControlsComponent implements OnInit {
   }
 
 
-
   getRouteLines() {
 
     this.ferriesService.getRoutePrice(this.selectedLocations).subscribe((dt: any) => {
@@ -343,6 +348,7 @@ export class MapControlsComponent implements OnInit {
       this.selectedRoute = null;
     } else {
       this.selectedRoute = route;
+      // console.log(route)
       // console.log(this.linesArr)
       // console.log(route)
       this.ferryMapLocations.map(location => {

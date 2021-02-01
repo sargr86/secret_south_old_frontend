@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import moment from 'moment';
 import {ToursService} from '@core/services/tours.service';
@@ -23,6 +23,8 @@ export class SearchToursFormComponent implements OnInit {
 
   tourTypes;
   tours = [];
+
+  @Output('search') searchEvent = new EventEmitter();
 
   previousDatesFilter = (d: Date | null): boolean => {
     return moment(d).isSameOrAfter(moment(), 'day');
@@ -129,7 +131,11 @@ export class SearchToursFormComponent implements OnInit {
 
   search() {
     localStorage.setItem('toursSearch', JSON.stringify(this.toursForm.value));
-    this.router.navigate(['tours/list']);
+    if (this.router.url.includes('list')) {
+      this.searchEvent.emit(this.toursForm.value);
+    } else {
+      this.router.navigate(['tours/list']);
+    }
     console.log(this.toursForm.value)
   }
 

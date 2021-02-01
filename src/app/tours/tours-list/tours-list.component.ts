@@ -11,6 +11,8 @@ import {TOURS_FOLDER} from '@core/constants/global';
 export class ToursListComponent implements OnInit {
   tours = [];
   toursFolder = TOURS_FOLDER;
+  toursSearch;
+  selectedOrder = 'asc';
 
   constructor(
     private toursService: ToursService,
@@ -23,9 +25,12 @@ export class ToursListComponent implements OnInit {
   }
 
   searchInDailyTours() {
-    const toursSearch = JSON.parse(localStorage.getItem('toursSearch'));
-    if (toursSearch) {
-      this.toursService.searchInDailyTours({search: toursSearch.name, date: toursSearch.date}).subscribe((dt: any) => {
+    this.toursSearch = JSON.parse(localStorage.getItem('toursSearch'));
+    if (this.toursSearch) {
+      this.toursService.searchInDailyTours({
+        search: this.toursSearch.name,
+        date: this.toursSearch.date
+      }).subscribe((dt: any) => {
         this.tours = dt;
       });
     }
@@ -36,4 +41,14 @@ export class ToursListComponent implements OnInit {
     return folder + '/' + decodeURIComponent(name) + '/' + item.img;
   }
 
+  sortByPrice(order) {
+    this.selectedOrder = order;
+    this.toursService.searchInDailyTours({
+      search: this.toursSearch.name,
+      date: this.toursSearch.date,
+      order
+    }).subscribe((dt: any) => {
+      this.tours = dt;
+    });
+  }
 }
