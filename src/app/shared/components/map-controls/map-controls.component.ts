@@ -81,7 +81,6 @@ export class MapControlsComponent implements OnInit {
 
     // Getting ferry locations data from the ferry order form
     this.subject.getMapData().subscribe((dt: any) => {
-      console.log(dt)
       if (dt.formToMap) {
 
         this.lines = [];
@@ -100,7 +99,6 @@ export class MapControlsComponent implements OnInit {
     // Getting ferry lines data between selected locations from the ferry order form
     this.subject.getMapLinesData().subscribe((dt: any) => {
       this.lines = [];
-      console.log(dt)
       if (dt) {
         // if (dt.geometry_type === 'LineString') {
         dt.map(d => {
@@ -117,8 +115,8 @@ export class MapControlsComponent implements OnInit {
         //   });
         // }
 
-        console.log(this.lines)
-        console.log(this.linesArr)
+        // console.log(this.lines)
+        // console.log(this.linesArr)
 
       }
     });
