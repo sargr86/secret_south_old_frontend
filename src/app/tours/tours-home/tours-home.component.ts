@@ -37,13 +37,13 @@ export class ToursHomeComponent implements OnInit {
   }
 
   getPopularTours() {
-    this.toursService.getDailies({calendar: false, today: true}).subscribe(dt => {
+    this.toursService.getDailies({calendar: false}).subscribe(dt => {
       this.popularTours = dt;
     });
   }
 
   getTodaysTours() {
-    this.toursService.getDailies({calendar: false}).subscribe(dt => {
+    this.toursService.getDailies({calendar: false, today: true}).subscribe(dt => {
       console.log(dt)
       this.todaysTours = dt;
     });

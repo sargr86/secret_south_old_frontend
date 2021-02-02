@@ -6,13 +6,13 @@
       <ng-template carouselSlide>
         <div class="box">
           <div class="box-sale">Sale 15%</div>
-                    <img *ngIf="item.img" class="image" [src]="getPath(item, folder)">
-<!--          <div *ngIf="item.img" class="image" [style.background-image]="getPath(item, folder)"></div>-->
+          <img *ngIf="item.img" class="image" [src]="getPath(item, folder)">
+          <!--          <div *ngIf="item.img" class="image" [style.background-image]="getPath(item, folder)"></div>-->
           <div *ngIf="!item.img" class="no_image"></div>
           <div class="info">
             <div class="priceTxt">
               <span class="name">{{item.name}}</span>
-              <p>$25</p>
+              <p>&euro;{{item.price}}</p>
             </div>
 
             <div class="infoTxt">
