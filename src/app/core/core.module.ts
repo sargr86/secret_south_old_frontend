@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from '@core/components/layout/header/header.component';
 import {FooterComponent} from '@core/components/layout/footer/footer.component';
 import {NavbarComponent} from '@core/components/layout/navbar/navbar.component';
-import {SidebarComponent} from '@core/components/layout/sidebar/sidebar.component';
+import {LeftSidebarComponent} from '@core/components/layout/left-sidebar/left-sidebar.component';
 import {SharedModule} from '@shared/shared.module';
 import {NotFoundComponent} from '@core/components/not-found/not-found.component';
 import {DriverAssignmentDialogComponent} from './components/dialogs/driver-assignment-dialog/driver-assignment-dialog.component';
@@ -21,7 +21,7 @@ import { SaveDailyTourDialogComponent } from './components/dialogs/save-daily-to
   declarations: [
     NavbarComponent,
     HeaderComponent,
-    SidebarComponent,
+    LeftSidebarComponent,
     FooterComponent,
     NotFoundComponent,
     DriverAssignmentDialogComponent,
@@ -31,6 +31,7 @@ import { SaveDailyTourDialogComponent } from './components/dialogs/save-daily-to
     SaveLocationDialogComponent,
     AddDailyTourComponent,
     SaveDailyTourDialogComponent,
+    LeftSidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +44,7 @@ import { SaveDailyTourDialogComponent } from './components/dialogs/save-daily-to
   exports: [
     NavbarComponent,
     HeaderComponent,
-    SidebarComponent,
+    LeftSidebarComponent,
     FooterComponent,
   ],
   entryComponents: [

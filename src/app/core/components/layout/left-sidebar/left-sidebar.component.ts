@@ -33,11 +33,11 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: 'app-left-sidebar',
+  templateUrl: './left-sidebar.component.html',
+  styleUrls: ['./left-sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class LeftSidebarComponent implements OnInit, AfterViewInit {
   adminRole: boolean;
   dashboardLinks;
   mainSections: Section[] = MAIN_SECTIONS;
