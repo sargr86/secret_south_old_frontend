@@ -5,7 +5,6 @@ import {SaveFerryComponent} from './save-ferry/save-ferry.component';
 import {OneFerryResolverService} from '@core/resolvers/one-ferry-resolver.service';
 import {FerriesHomeComponent} from './ferries-home/ferries-home.component';
 import {AuthGuard} from '@core/guards/auth.guard';
-import {ManageAllComponent} from '@app/ferries/manage-all/manage-all.component';
 import {NumericIdGuard} from '@core/guards/numeric-id.guard';
 import {AdminPagesGuard} from '@core/guards/admin-pages.guard';
 import {ShowOrdersComponent} from '@app/ferries/show-orders/show-orders.component';
@@ -38,10 +37,6 @@ const routes: Routes = [
   {
     path: 'orders',
     component: ShowOrdersComponent
-  },
-  {
-    path: 'manage-routes-prices',
-    component: ManageAllComponent
   },
   {
     path: ':id',
