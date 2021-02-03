@@ -150,7 +150,13 @@ export class SaveTourFormComponent implements OnInit, OnDestroy, AfterViewInit {
         this.toursForm = this.fb.group(this.tourFields);
 
         this.toursForm.patchValue({...this.tourData, oldName: this.tourData.name});
-        // this.toursForm.patchValue(this.tourData?.tours_dailies?.[0] as any);
+        const firstDailyTour = this.tourData?.tours_dailies?.[0] as any;
+        this.toursForm.patchValue({
+          start_date: firstDailyTour.start_date,
+          start_time: firstDailyTour.start_time,
+          end_date: firstDailyTour.end_date,
+          end_time: firstDailyTour.end_time,
+        });
 
 
         this.coverPath = this.tourData.img ? this.tourData.realFolder + '/' + this.tourData.img : null;
@@ -283,6 +289,7 @@ export class SaveTourFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.coverPath = '';
     this.toursForm.patchValue({'img': ''});
     this.coverShown = false;
+    this.markCover.transform(this.coverPath, this.elRef);
   }
 
   toggleSidebar(action) {

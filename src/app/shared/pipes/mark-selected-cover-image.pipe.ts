@@ -13,10 +13,8 @@ export class MarkSelectedCoverImagePipe implements PipeTransform {
   }
 
   transform(imgPath: any, elRef?: any): any {
+    const thumbs = elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
     if (elRef && imgPath) {
-
-
-      const thumbs = elRef.nativeElement.getElementsByClassName('ngx-gallery-thumbnail');
 
       // Getting selected cover image star
       for (let i = 0; i < thumbs.length; i++) {
@@ -27,6 +25,8 @@ export class MarkSelectedCoverImagePipe implements PipeTransform {
           star.classList.add('selected');
         }
       }
+    } else {
+      document.querySelector('.ngx-gallery-icon-content.selected').classList.remove('selected');
     }
   }
 
