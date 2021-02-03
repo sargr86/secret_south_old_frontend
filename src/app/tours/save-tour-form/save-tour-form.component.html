@@ -167,17 +167,21 @@
     <!-- Action buttons -->
     <div class="actions">
       <mat-spinner [diameter]="spinnerDiameter" *ngIf="common.formProcessing"></mat-spinner>
-      <button type="button" class="backBtn" (click)="router.navigate([backUrl])">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <button mat-raised-button color="primary" class="saveBtn" (click)="saveTourDetails()">
-        Save Tour
-      </button>
+      <div class="left-group">
+        <button type="button" class="backBtn" (click)="router.navigate([backUrl])">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" class="saveBtn" (click)="saveTourDetails()">
+          Save Tour
+        </button>
+      </div>
 
-      <div class="coverToggler" *ngIf="!!coverPath">
-        <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
-          <small>Show cover</small>
-        </mat-slide-toggle>
+      <div class="right-group">
+        <div class="cover-toggler" *ngIf="!!coverPath">
+          <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
+            <small>Show cover</small>
+          </mat-slide-toggle>
+        </div>
       </div>
     </div>
   </form>
@@ -203,7 +207,7 @@
 </div>
 <div class="gallery-container">
 
-  <ng-container >
+  <ng-container>
     <ngx-gallery [options]="galleryOptions" [images]="tourData.images|| []" class="editFormGallery"
                  (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
   </ng-container>
