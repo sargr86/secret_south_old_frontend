@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {
   CONFIRM_DIALOG_SETTINGS,
@@ -28,13 +28,14 @@ import {ConfirmationDialogComponent} from '@shared/components/confirmation-dialo
 import CheckIfCoverImageWhenRemoving from '@core/helpers/check-if-cover-image-when-removing';
 import {MatDialog} from '@angular/material/dialog';
 import SetImageAsCover from '@core/helpers/set-image-as-cover';
+import {MarkSelectedCoverImagePipe} from '@shared/pipes/mark-selected-cover-image.pipe';
 
 @Component({
   selector: 'app-save-tour-form',
   templateUrl: './save-tour-form.component.html',
   styleUrls: ['./save-tour-form.component.scss']
 })
-export class SaveTourFormComponent implements OnInit, OnDestroy {
+export class SaveTourFormComponent implements OnInit, OnDestroy, AfterViewInit {
   tourFields: Tour = this.getTourFormFields.transform();
   toursForm: FormGroup = this.fb.group(this.tourFields);
 
@@ -78,7 +79,9 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
     private getTourFormFields: GetTourFormFieldsPipe,
     public router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private markCover: MarkSelectedCoverImagePipe,
+    private elRef: ElementRef,
   ) {
     this.common.dataLoading = false;
     this.galleryOptions[0].thumbnailActions = [
@@ -102,13 +105,22 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
     this.getLocations();
     this.getTourTypes();
     this.getCompanies();
-
+    this.handleEditCase();
   }
 
   getLocations() {
     this.subscriptions.push(this.locationsService.get().subscribe(dt => {
       this.locationsList = dt;
-      this.handleEditCase();
+      if (this.tourData) {
+        this.tourData.tour_locations.map((l, index) => {
+          const c = this.toursForm.controls.locations as any;
+          if (this.tourData.tour_locations.length > c.length) {
+            this.addLocationControl();
+          }
+          c.controls[index].patchValue({id: l.id, name: l.id, order: index});
+        });
+        this.generateTourName();
+      }
     }));
   }
 
@@ -138,16 +150,8 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
         this.toursForm = this.fb.group(this.tourFields);
 
         this.toursForm.patchValue({...this.tourData, oldName: this.tourData.name});
-        this.toursForm.patchValue(this.tourData?.tours_dailies?.[0] as any);
-        this.tourData.tour_locations.map((l, index) => {
-          const c = this.toursForm.controls.locations as any;
-          if (this.tourData.tour_locations.length > c.length) {
-            this.addLocationControl();
-          }
-          c.controls[index].patchValue({id: l.id, name: l.id, order: index});
-        });
+        // this.toursForm.patchValue(this.tourData?.tours_dailies?.[0] as any);
 
-        this.generateTourName();
 
         this.coverPath = this.tourData.img ? this.tourData.realFolder + '/' + this.tourData.img : null;
         this.coverShown = !!this.coverPath;
@@ -269,10 +273,16 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
       this.coverPath = cover.big;
       const imgFileName = this.coverPath.split('/').pop();
       this.toursService.makeCover({img: imgFileName, id: this.tourData.id}).subscribe(dt => {
-        this.toursForm.patchValue({img: imgFileName})
+        this.toursForm.patchValue({img: imgFileName});
         this.toastr.success('The selected image was set as cover successfully');
       });
     }
+  }
+
+  removeSavedImg(): void {
+    this.coverPath = '';
+    this.toursForm.patchValue({'img': ''});
+    this.coverShown = false;
   }
 
   toggleSidebar(action) {
@@ -298,6 +308,11 @@ export class SaveTourFormComponent implements OnInit, OnDestroy {
   get endDateCtrl(): AbstractControl {
     return this.toursForm.get('end_date');
   }
+
+  ngAfterViewInit() {
+    this.markCover.transform(this.coverPath, this.elRef);
+  }
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
