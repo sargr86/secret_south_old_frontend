@@ -13,7 +13,6 @@ export class MarkSelectedCoverImagePipe implements PipeTransform {
   }
 
   transform(imgPath: any, elRef?: any): any {
-
     if (elRef && imgPath) {
 
 

@@ -173,14 +173,26 @@
       <button mat-raised-button color="primary" class="saveBtn" (click)="saveTourDetails()">
         Save Tour
       </button>
+
+      <div class="coverToggler" *ngIf="!!coverPath">
+        <mat-slide-toggle (change)="coverShown = !coverShown" [checked]="coverShown" color="primary">
+          <small>Show cover</small>
+        </mat-slide-toggle>
+      </div>
     </div>
   </form>
 
   <!-- Drop zone -->
   <div class="dropzoneContainer"
        *ngIf="!common.dataLoading && companies?.length > 0 && tourTypes?.length > 0">
-    <div class="savedImgContainer" *ngIf="coverPath && coverShown">
-      <img [src]="coverPath" class="savedImg">
+    <div class="saved-img-container" *ngIf="coverPath && coverShown">
+      <img [src]="coverPath" class="saved-img">
+      <div class="reset-cover-container">
+        <button class="reset-cover" mat-raised-button (click)="removeSavedImg()">
+          <mat-icon>delete</mat-icon>
+          <span>Reset cover</span>
+        </button>
+      </div>
     </div>
 
     <dropzone class="multiple" [message]="'Click or drag images here to upload'" [config]="dropZoneConfig"
@@ -191,8 +203,8 @@
 </div>
 <div class="gallery-container">
 
-  <ng-container>
-    <ngx-gallery [options]="galleryOptions" [images]="tourData?.images|| []" class="editFormGallery"
+  <ng-container >
+    <ngx-gallery [options]="galleryOptions" [images]="tourData.images|| []" class="editFormGallery"
                  (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
   </ng-container>
 </div>

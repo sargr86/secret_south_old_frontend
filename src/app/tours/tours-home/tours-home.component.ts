@@ -44,7 +44,6 @@ export class ToursHomeComponent implements OnInit {
 
   getTodaysTours() {
     this.toursService.getDailies({calendar: false, today: true}).subscribe(dt => {
-      console.log(dt)
       this.todaysTours = dt;
     });
   }

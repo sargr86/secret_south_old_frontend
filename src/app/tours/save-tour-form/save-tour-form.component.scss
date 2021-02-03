@@ -2,7 +2,29 @@
 @import 'mixins';
 
 #save-tour-form {
+  .reset-cover-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 
+    .reset-cover {
+      background-color: $red;
+      color: $white;
+      border-radius: 0;
+      box-shadow: initial;
+      padding: 4px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        font-size: 16px;
+        margin-top: 5px;
+      }
+    }
+  }
 }
 
 
@@ -157,7 +179,7 @@ form {
   }
 }
 
-.savedImg {
+.saved-img {
   width: 400px;
 }
 
