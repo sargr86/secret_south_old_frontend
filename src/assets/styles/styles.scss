@@ -1010,7 +1010,8 @@ mat-progress-bar .mat-progress-bar-buffer {
 }
 
 .coverStar {
-  color: $dark_green !important;
+  color: $green!important;
+  //color: $dark_green !important;
 }
 
 // Slide toggler styles
@@ -1029,7 +1030,7 @@ mat-progress-bar .mat-progress-bar-buffer {
   margin-top: 50px;
 }
 
-.savedImgContainer {
+.saved-img-container {
   height: 450px;
   margin-top: 15px;
 
