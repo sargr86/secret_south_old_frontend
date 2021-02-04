@@ -47,7 +47,7 @@ export class MatReusableTableComponent implements OnInit, OnDestroy {
     private _ferries: FerriesService,
     private _contacts: ContactsService,
     private _partners: PartnerService,
-    private _tour: ToursService,
+    private _tours: ToursService,
     private _tour_type: TourTypeService,
     private _food_drink: FoodDrinkService,
     private _accommodations: AccommodationsService,

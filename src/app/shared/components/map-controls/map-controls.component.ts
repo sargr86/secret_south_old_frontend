@@ -261,13 +261,14 @@ export class MapControlsComponent implements OnInit {
 
 
   getRouteLines() {
-
+console.log('get route lines')
     this.ferriesService.getRoutePrice(this.selectedLocations).subscribe((dt: any) => {
       this.linesArr = [];
       this.filteredLinesArr = [];
       this.lines = [];
       if (dt) {
-        dt.coordinates.map(c => {
+        console.log(dt)
+        dt?.[0].coordinates.map(c => {
           this.lines.push({name: dt.name, lat: +c.lat, lng: +c.lng, strokeColor: MAP_GREEN_COLOR});
         });
       }
