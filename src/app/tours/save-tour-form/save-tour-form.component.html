@@ -207,7 +207,7 @@
 </div>
 <div class="gallery-container">
 
-  <ng-container>
+  <ng-container *ngIf="editCase">
     <ngx-gallery [options]="galleryOptions" [images]="tourData.images|| []" class="editFormGallery"
                  (previewOpen)="toggleSidebar('hide')" (previewClose)="toggleSidebar('show')"></ngx-gallery>
   </ng-container>
