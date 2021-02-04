@@ -317,7 +317,9 @@ export class SaveTourFormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.markCover.transform(this.coverPath, this.elRef);
+    if (this.editCase) {
+      this.markCover.transform(this.coverPath, this.elRef);
+    }
   }
 
 
