@@ -22,11 +22,11 @@ export class MarkSelectedCoverImagePipe implements PipeTransform {
         const realUrl = this.basename.transform(url.slice(4, -1).replace(/"/g, ''));
         if (this.basename.transform(imgPath) === decodeURIComponent(realUrl)) {
           const star = thumbs[i].querySelector('.ngx-gallery-icon-content');
-          star.classList.add('selected');
+          star?.classList.add('selected');
         }
       }
     } else {
-      document.querySelector('.ngx-gallery-icon-content.selected').classList.remove('selected');
+      document.querySelector('.ngx-gallery-icon-content.selected')?.classList.remove('selected');
     }
   }
 
