@@ -32,6 +32,7 @@ export class ToursListComponent implements OnInit {
         date: this.toursSearch.date
       }).subscribe((dt: any) => {
         this.tours = dt;
+        console.log(this.tours)
       });
     }
   }
