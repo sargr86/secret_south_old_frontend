@@ -54,7 +54,7 @@
     "node-sass": "^4.14.1",
     "rxjs": "^6.5.5",
     "socket.io-client": "^2.3.0",
-    "xlsx": "^0.15.6",
+    "xlsx": "^0.17.0",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
